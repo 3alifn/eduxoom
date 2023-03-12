@@ -1,0 +1,107 @@
+<%- include("../component/header") %> 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+
+    <%-include('../component/app') %> 
+
+
+</head>
+<style>
+    .row .card-body{
+    background-color: #F5F4F8 !important;
+
+    color: #754FFE ;
+}
+</style>
+<body class=" container">
+
+    <hr>
+
+    
+    <% if( typeof msg!=typeof alifn && msg.length>0) {%>
+
+        <%-include("../component/toast_live") %> 
+   
+           <% } else { %>
+             <%=null %> 
+             <% } %> 
+  
+   <!-- section 1............ -->
+   <div id="section1">
+    <div class="row">
+     <div class="col-lg-3 col-md-2 col-sm-1"></div>
+     <div class="col-lg-5 col-md-8 col-sm-10">
+      
+
+         <form action="/admin/login" class="form container" method="post">
+ 
+            <center>
+                <h5>Admin Login</h5>
+            </center>
+
+             <div class="input-group">
+
+                <span class=" input-group-text"> <img width="30px" src="/icon/icons8-mail-48.png" alt=""> </span>
+                <input type="text" placeholder="Enter Username" name="hashUsername" class="form-self form-control" required><p></p>
+ 
+            </div>
+
+           <div class="input-group">
+
+
+                <span class=" input-group-text"> <img width="30px" src="/icon/icons8-sign-in-form-password-48.png" alt=""> </span>
+                <input id="password" type="password" placeholder="********" name="hashPassword"  value="" class="form-control" required>
+                <span id="eye-hide" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye-slash"></i></span>
+                <span style="display: none;" id="eye-show" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye"></i></span>
+    
+
+            </div>
+
+             <p></p>
+ 
+             <center>
+                 <button class=" btn-self w-50">Login</button>
+             </center> <hr>
+         
+            
+         </form>
+         <p></p>
+         
+      
+     </div>
+     <div class="col-lg4 col-md-2 col-sm-1"></div>
+ 
+    </div>
+     </div>
+
+
+
+<script>
+$('#eye-hide').click(()=>{
+    $('#password').attr('type', "text")
+    $('#eye-hide').css({'display': 'none'})
+    $('#eye-show').css({'display': 'block'})
+})
+
+$('#eye-show').click(()=>{
+    $('#password').attr('type', "password")
+    $('#eye-hide').css({'display': 'block'})
+    $('#eye-show').css({'display': 'none'})
+})
+
+
+
+
+</script>
+
+      
+
+</body>
+</html>

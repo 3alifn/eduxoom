@@ -1,0 +1,84 @@
+<%- include("../component/header") %> 
+<%- include("../component/navbar") %> 
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title> Image Content</title>
+  
+
+</head>
+
+<body>
+
+    <div class="row">
+
+        <div class="col">
+
+            <center>
+
+                <h5 class="container text-center w-50 alert alert-secondary">Photos gallery </h5>
+
+            </center>
+    <p></p>
+
+ 
+    <div class="row" id="listDataPrint">
+        
+
+     
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+
+<script>
+
+setTimeout(() => {
+  $(".imaage-scope").removeClass("spinner-border")
+}, 1000);
+
+    
+function loadContentData(){
+        
+        $.ajax({
+            method: "post",
+            url: "/pu/gallery/image/get",
+            data: {},
+            dataType: "JSON",
+            success: function (info) {
+    
+                $("#listDataPrint").html(info.listData)
+                
+                setTimeout(() => {
+                    $(".image-scope").removeClass("spinner-border")
+                }, 3000);
+            }
+        });
+    
+    }
+
+    loadContentData()
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>

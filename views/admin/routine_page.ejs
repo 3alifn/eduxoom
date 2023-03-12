@@ -1,0 +1,701 @@
+<%- include("../component/header") %> 
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Routine</title>
+
+<%- include("../component/app") %> 
+
+</head>
+
+<body>
+
+  <style>
+
+    @media only screen and (max-width: 600px){
+      
+     
+    }
+    
+    
+    
+    .Container{
+          /* height: 150px;
+          width: 250px; */
+          overflow-y: auto;
+          border-radius: 5px;
+          margin: 0 auto;
+        }
+        
+        .Content{
+          width: 300px;
+          color: white;
+          text-align: center;
+        }
+        
+        .Flipped, .Flipped .Content{
+          transform: rotateX(180deg);
+        }
+        
+        /* Designing for scroll-bar */
+        ::-webkit-scrollbar {
+          width: 5px;
+        }
+      
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: gainsboro;
+          border-radius: 5px;
+        }
+      
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: rgb(140, 49, 49);
+          border-radius: 5px;
+        }
+      
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #691a1a;
+        }
+    
+    
+    
+    </style>
+</head>
+<body>
+
+  <div class="row">
+
+    <%-include("./admin_panel") %> 
+
+    <div class="col">
+
+
+      
+    <%- include("../component/modal_danger") %>
+    <%- include("../component/toast_alive") %>
+    <%- include("../component/toast_popup") %>
+
+      
+<center>
+    <legend class=" alert bg-light shadow">Class Routine</legend>
+</center>
+<p></p>
+
+        <p></p>
+        <center> <button id="expand" class="w-50 btn-self "><i id="addnew"  class="fa-solid fa-circle-plus fa-beat"></i> <i id="addicon"></i> </button>
+        </center>
+       <div> 
+
+        <p></p>
+        
+<form id="form" class="ps-3 shadow w-50 m-auto bg-light"  method="post">
+
+                <div > 
+
+            <select  class="form-dev" name="className" id="selectClass" required>
+ 
+                     <option  disabled value="">Select Class</option>
+                     <option value="Six">Six</option>
+                     <option value="Seven">Seven</option>
+                     <option value="Eight">Eight</option>
+                     <option value="Nine">Nine</option>
+                     <option selected value="Ten">Ten</option>
+                 </select> <p></p>
+             </div>
+
+ 
+             <div > 
+             <select  class=" form-dev" name="section" id="selectSection" required>
+                <option selected disabled value="">Select Section</option>
+
+                 <option value="A">A</option>
+                 <option value="B">B</option>
+                 <option value="C">C</option>
+                 
+             </select>
+         </div><p></p>
+
+
+
+         
+
+
+     <div id="" > 
+      <select title="Select Teachers" class=" form-dev" name="teacherName" id="dynamicTeacher" required>
+         <option selected disabled value="">Select Teacher</option>
+         
+      
+         
+      </select>
+
+
+ 
+  </div><p></p>
+  
+
+  
+  <div > 
+    <select class=" form-dev" name="periodTable" id="" required>
+       <option selected disabled value="">Select Period Table</option>
+
+        <option value="১ম$%&১০ঃ১৫ - ১১ঃ০৫">১ম - ১০ঃ১৫ - ১১ঃ০৫</option>
+        <option value="২য়$%&১১ঃ০৫ - ১১ঃ৫০">২য় - ১১ঃ০৫ - ১১ঃ৫০</option>
+        <option value="৩য়$%&১১ঃ৫০ - ১২ঃ৩৫">৩য় - ১১ঃ৫০ - ১২ঃ৩৫</option>
+        <option value="৪র্থ$%&১২ঃ৩৫ - ১ঃ২০">৪র্থ - ১২ঃ৩৫ - ১ঃ২০</option>
+        <option value="৫ম$%&২ঃ০০ - ২ঃ৪০">৫ম - ২ঃ০০ - ২ঃ৪০</option>
+        <option value="৬ষ্ট$%&২ঃ৪০ - ৩ঃ২০">৬ষ্ট - ২ঃ৪০ - ৩ঃ২০</option>
+        <option value="৭ম$%&৩ঃ২০ - ৪ঃ১০">৭ম - ৩ঃ২০ - ৪ঃ১০</option>
+       
+    </select>
+</div><p></p>
+
+
+ 
+         <div id="" > 
+         <select title="Select Subject" class=" form-dev" name="subject" id="dynamicSubject" required>
+            <option selected disabled value="">Select Subject</option>
+         
+            
+         </select>
+
+              
+        <!-- <input list="dynamicSubject" class=" form-dev" name="subject" placeholder="Subject name." value=""  value="" id="" required>
+
+        <datalist id="dynamicSubject"  required>
+
+
+
+       </datalist> -->
+
+     </div><p></p>
+
+ 
+
+     <div > 
+        <select class=" form-dev" name="day" id="" required>
+           <option selected disabled value="">Select Day</option>
+
+            <option value="ররিবার">ররিবার</option>
+            <option value="সোমবার">সোমবার</option>
+            <option value="মঙ্গলবার">মঙ্গলবার</option>
+            <option value="বুধবার">বুধবার</option>
+            <option value="বৃহস্পতিবার">বৃহস্পতিবার</option>
+           
+        </select>
+    </div><p></p>
+    
+
+ 
+ <center>
+     <button id="onsubmit" class="btn-self  w-50" >Save<span id="loading" class=""></span></button>
+ </center>
+ <p></p>
+
+ </form>
+
+
+
+   
+<div class="row">
+        
+  <div class="col-6 m-auto">
+
+     <form id="classBaseForm" action="/admin/routine/page" method="get">
+      <select name="classBase" id="classBase" class="w-100 form-self">
+
+        <option value="" selected>Select Class</option>
+
+        <optgroup label="Class Six">
+         <option value="Six-A">Six - A</option>
+          <option value="Six-B">Six - B</option>
+          <option value="Six-C">Six - C</option>
+         </optgroup>
+
+
+                      
+         <optgroup label="Class Seven">
+          <option value="Seven-A">Seven - A</option>
+          <option value="Seven-B">Seven - B</option>
+          <option value="Seven-C">Seven - C</option>
+         </optgroup>
+         
+
+
+         <optgroup label="Class Eight">
+          <option value="Eight-A">Eight - A</option>
+          <option value="Eight-B">Eight - B</option>
+          <option value="Eight-C">Eight - C</option>
+         </optgroup>
+
+          
+
+                  
+           <optgroup label="Class Nine">
+            <option value="Nine-A">Nine - A</option>
+            <option value="Nine-B">Nine - B</option>
+            <option value="Nine-C">Nine - C</option>
+           </optgroup>
+     
+            <optgroup label="Class Ten">
+               <option value="Ten-A">Ten - A</option>
+               
+               <option value="Ten-B">Ten - B</option>
+               <option value="Ten-C">Ten - C</option>
+              </optgroup>
+      
+
+          
+       
+       </select>
+     </form>
+
+  </div>
+  </div>
+
+
+
+<p></p>
+
+
+<div class="row" id="listDataId">
+
+  <div class="col-11 Container Flipped m-auto overflow-scroll responseTable d-flex" id="routineTable" >
+    
+    
+
+    <ul class="list-group Content"  style="width: max-content; display: inline-block">
+      <li class="list-group-item text-center text-light shadow bg-secondary">
+        ররিবার
+      </li>
+        
+     
+    
+        <% for(let i=0; i<infoSun.length; i++) {%> 
+
+
+        <li class="list-group-item border-dark">
+         
+          <center>
+
+            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoSun[i].class%>-<%=infoSun[i].section%> - <%=infoSun[i].period_table%>  </span>
+         
+            <span class="badge bg-light text-danger">  <%=infoSun[i].subject%> - <%=infoSun[i].period_time%>   </span> 
+            <br> 
+            <span class="badge bg-light text-primary ">
+              <img width="50px" height="40px" src="/image/teacher/<%=infoSun[i].teacher_avatar%>" alt="">
+              <br> <br>
+              <%=infoSun[i].teacher_name%> 
+             </span>
+             <span class="badge bg-light text-danger"> <button data-id="<%=infoSun[i].ID%>" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
+
+          </center>
+
+
+        </li>
+  
+          <br>
+
+
+          
+          <% } %> 
+
+       
+      </li>
+    </ul>
+    
+
+
+
+    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
+      <li class="list-group-item text-center text-light shadow bg-secondary">
+        সোমবার
+      </li>
+        
+        <% for(let i=0; i<infoMon.length; i++) {%> 
+
+        <li class="list-group-item border-dark">
+         
+        <center>
+
+            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoMon[i].class%>-<%=infoMon[i].section%> - <%=infoMon[i].period_table%>  </span>
+         
+            <span class="badge bg-light text-danger">  <%=infoMon[i].subject%> - <%=infoMon[i].period_time%>   </span> 
+            <br> 
+            <span class="badge bg-light text-primary ">
+              <img width="50px" height="40px" src="/image/teacher/<%=infoMon[i].teacher_avatar%>" alt="">
+              <br> <br>
+              <%=infoMon[i].teacher_name%> 
+             </span>
+             <span class="badge bg-light text-danger"> <button data-id="<%=infoMon[i].ID%>" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
+          </center>
+
+        </li>
+     <br>
+
+          <% } %> 
+
+
+
+    </ul>
+
+
+
+    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
+      <li class="list-group-item text-center text-light shadow bg-secondary">
+        মঙ্গলবার
+      </li>
+        
+        <% for(let i=0; i<infoTue.length; i++) {%> 
+
+        <li class="list-group-item border-dark">
+         
+          <center>
+
+            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoTue[i].class%>-<%=infoTue[i].section%> - <%=infoTue[i].period_table%>  </span>
+         
+            <span class="badge bg-light text-danger">  <%=infoTue[i].subject%> - <%=infoTue[i].period_time%>   </span> 
+            <br> 
+            <span class="badge bg-light text-primary ">
+              <img width="50px" height="40px" src="/image/teacher/<%=infoTue[i].teacher_avatar%>" alt="">
+              <br> <br>
+              <%=infoTue[i].teacher_name%> 
+             </span>
+             <span class="badge bg-light text-danger"> <button data-id="<%=infoTue[i].ID%>" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
+
+          </center>
+
+        </li>
+      <br>
+
+
+          <% } %> 
+
+
+      
+    </ul>
+
+
+
+
+
+
+    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
+      <li class="list-group-item text-center text-light shadow bg-secondary">
+        বুধবার
+      </li>
+
+        <% for(let i=0; i<infoWed.length; i++) {%> 
+
+        <li class="list-group-item border-dark">
+         
+          <center>
+
+            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoWed[i].class%>-<%=infoWed[i].section%> - <%=infoWed[i].period_table%>  </span>
+         
+            <span class="badge bg-light text-danger">  <%=infoWed[i].subject%> - <%=infoWed[i].period_time%>   </span> 
+            <br> 
+            <span class="badge bg-light text-primary ">
+              <img width="50px" height="40px" src="/image/teacher/<%=infoWed[i].teacher_avatar%>" alt="">
+              <br> <br>
+              <%=infoWed[i].teacher_name%> 
+             </span>
+             <span class="badge bg-light text-danger"> <button data-id="<%=infoWed[i].ID%>" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
+
+          </center>
+        </li>
+
+     <br>
+
+
+          <% } %> 
+    </ul>
+
+
+
+
+
+
+    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
+      <li class="list-group-item text-center text-light shadow bg-secondary">
+        বৃহস্পতিবার
+      </li>
+        
+        <% for(let i=0; i<infoThu.length; i++) {%> 
+
+        <li class="list-group-item border-dark">
+          <center>
+
+            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoThu[i].class%>-<%=infoThu[i].section%> - <%=infoThu[i].period_table%>  </span>
+         
+            <span class="badge bg-light text-danger">  <%=infoThu[i].subject%> - <%=infoThu[i].period_time%>   </span> 
+            <br> 
+            <span class="badge bg-light text-primary ">
+              <img width="50px" height="40px" src="/image/teacher/<%=infoThu[i].teacher_avatar%>" alt="">
+              <br> <br>
+              <%=infoThu[i].teacher_name%> 
+             </span>
+
+             <span class="badge bg-light text-danger"> <button data-id="<%=infoThu[i].ID%>" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
+
+          </center>
+        </li>
+<br>
+
+
+          <% } %> 
+    </ul>
+
+
+
+
+
+
+    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
+      <li class="list-group-item text-center text-light shadow bg-secondary">
+        শুক্রবার
+      </li>
+
+        <% for(let i=0; i<infoSun.length; i++) {%> 
+
+        <li class="list-group-item border-danger">
+         
+         
+          <strong class=' text-dark bg-light'>বন্ধ &#128274</strong>
+
+          <center>
+
+            <span class="badge bg-light text-secondary" style="display: block;"> </span>
+         
+            <span class="badge bg-light text-danger">   </span> 
+            <br> 
+            <span class="badge bg-light text-danger ">
+      
+
+             <h1><i style="height: 40px; width: 50px;" class="fas  fa-school-lock"></i> </h1>
+             </span>
+          </center>
+        </li>
+    <br>
+        
+
+          <% } %> 
+    </ul>
+
+
+
+
+
+    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
+      <li class="list-group-item text-center text-light shadow bg-secondary">
+        শনিবার
+      </li>
+        
+        <% for(let i=0; i<infoSun.length; i++) {%> 
+
+        <li class="list-group-item border-danger">
+         
+         
+       
+          <strong class=' text-dark bg-light'>বন্ধ &#128274</strong>
+
+          <center>
+
+            <span class="badge bg-light text-secondary" style="display: block;"> </span>
+         
+            <span class="badge bg-light text-danger">   </span> 
+            <br> 
+            <span class="badge bg-light text-danger ">
+      
+
+             <h1><i style="height: 40px; width: 50px;" class="fas  fa-school-lock"></i> </h1>
+             </span>
+          </center>
+        </li>
+    <br>
+
+          <% } %> 
+    </ul>
+
+
+
+
+  </div>
+ 
+</div>
+
+
+
+<p></p>
+
+
+    </div>
+
+
+  </div>
+
+
+<script>
+
+
+$("#classBase").on("change", ()=>{
+  
+  $("#classBaseForm").submit()
+
+})
+
+      
+
+$("#selectSection").on("click", ()=>{
+
+    let className= $("#selectClass").val()
+    let sectionName= $("#selectSection").val()
+    
+    $.ajax({
+        method: "POST",
+        url: "/admin/dynamic/subject",
+        data: {className, sectionName},
+        dataType: "JSON",
+        success: function (info) {
+
+            $("#dynamicSubject").html(info.html);
+            $("#PTlist").html(info.PTlist);
+
+           
+            
+        }
+    });
+
+})
+
+
+
+
+
+
+function dynamicTeacher(){
+
+$.ajax({
+method: "POST",
+url: "/admin/dynamic/teacher",
+data: {},
+dataType: "JSON",
+success: function (info) {
+
+    $("#dynamicTeacher").html(info.html);
+
+
+   
+    
+}
+});
+
+}
+
+dynamicTeacher()
+
+
+
+$("#form").hide()
+$("#close").click(()=>{
+    $("#form").hide()
+})
+
+
+$("#expand").click(()=>{
+    $("#form").toggle()
+   
+    $("#addicon").toggleClass('fa-solid fa-caret-up')
+    $("#addnew").toggle('fa-solid fa-caret-down')
+
+})
+
+
+
+
+$("#form").on("submit", (e)=>{
+e.preventDefault()
+
+$.ajax({
+    type: "post",
+    url: "/admin/routine/post",
+    data: $("#form").serialize(),
+    dataType: "JSON",
+    beforeSend: function(){
+          $("#onsubmit").addClass("disabled")
+    },
+    success: function (info) {
+        $("#onsubmit").removeClass("disabled")
+        $("#msg").text(info.msg).addClass(info.alert)
+
+      
+        toast_alive()
+
+
+    }
+});
+})
+
+
+
+$(document).on("click", ".delDef", (e)=>{
+
+let dataID= e.currentTarget.attributes[0].value;
+
+   $("#confirmed").on("click", ()=>{
+    $.ajax({
+        type: "post",
+        url: "/admin/routine/delete",
+        data: {dataID},
+        dataType: "JSON",
+        success: function (info) {
+
+            $("#msg").text('Data Deleted!').addClass('text-success')
+           
+            toast_alive()
+            
+
+        }
+    });
+
+   })
+
+
+})
+
+
+
+
+
+
+
+function printRoutine(){
+    
+    $("#listDataId").show()
+
+var prtContent = document.getElementById("listDataId");
+var WinPrint = window.open('', '', 'left=0,top=0,width=384,height=900,toolbar=0,scrollbars=0,status=0');
+WinPrint.document.write('<html><head>');
+WinPrint.document.write('<link rel="stylesheet" href="/app/bootstrap.css">');
+WinPrint.document.write('<link rel="stylesheet" href="/app/jquery.js">');
+WinPrint.document.write('</head><body onload="print();close();">');
+WinPrint.document.write(prtContent.innerHTML);
+WinPrint.document.write('</body></html>');
+WinPrint.document.close();
+WinPrint.focus();
+
+
+}
+
+
+
+
+
+</script>
+
+</body>
+</html>

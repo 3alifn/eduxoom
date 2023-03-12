@@ -1,0 +1,117 @@
+<%- include("../component/header") %> 
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title> Manage Content</title>
+  
+    <%- include("../component/app") %> 
+
+</head>
+
+<body>
+
+    <div class="row">
+        <%-include("./admin_panel") %> 
+
+        <div class="col">
+
+            <center>
+
+                <h5 class="container text-center w-50 alert alert-secondary">Manage Content <button id="" type="button" class="btn link-secondary" onclick="location.replace('/admin/content/page')">Back</button></h5>
+
+            </center>
+    <p></p>
+
+    <%-include("../component/toast_alive") %> 
+    <%-include("../component/modal_danger") %> 
+
+
+
+ <form action="" id="deleteDataForm" method="post">
+ 
+    <input class="btn btn-danger" id="" type="submit" value="Delete">
+ 
+    <div class="row" id="listDataPrint">
+        
+
+     
+
+
+            </div>
+
+        </div>
+    </div>
+
+ </form>
+
+</div>
+</div>
+
+
+<script>
+
+    
+function loadContentData(){
+        
+        $.ajax({
+            method: "post",
+            url: "/admin/content/image",
+            data: {},
+            dataType: "JSON",
+            success: function (info) {
+    
+                $("#listDataPrint").html(info.listData)
+                
+            }
+        });
+    
+    }
+
+    loadContentData()
+    
+    
+    
+    
+    
+$("#deleteDataForm").on("submit", (e)=>{
+     
+        e.preventDefault()
+    
+    $("#modal").click();
+    
+    $("#confirmed").on("click", ()=>{
+        $.ajax({
+        type: "post",
+        url: "/admin/content/data/delete",
+        data: $("#deleteDataForm").serialize(),
+        dataType: "JSON",
+        success: function (info) {
+            
+            $("#msg").text(info.msg)
+            $("#msg").addClass(info.alert)
+            toast_alive();
+            loadContentData();
+      
+    
+        }
+    });
+    })
+    
+    })
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>

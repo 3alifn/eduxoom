@@ -1,0 +1,370 @@
+<%- include("../component/header") %> 
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title> Manage Content</title>
+  
+    <%- include("../component/app") %> 
+
+</head>
+
+<body>
+
+    <div class="row">
+        <%-include("./admin_panel") %> 
+
+        <div class="col">
+
+            <center>
+
+                <h5 class="container text-center w-50 alert alert-secondary">Manage Content</h5>
+
+            </center>
+    <p></p>
+
+    <%-include("../component/toast_alive") %> 
+    <%-include("../component/modal_danger") %> 
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn " data-toggle="modal" data-target="#modelVideo">ADD Video</button>
+<button type="button" class="btn " data-toggle="modal" data-target="#modelImage">ADD Image</button>
+
+
+
+<hr>
+
+
+ <center>
+    <button id="imageContent" type="button" class="btn " >Image Content</button>
+    <button id="videoContent" type="button" class="btn " >Video Content</button>
+ </center>
+
+
+
+ <!-- Button trigger modal -->
+
+ <!-- Modal -->
+ <div class="modal fade" id="modelVideo" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Video</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                
+
+                <form id="contentVideoForm"  method="post">
+
+
+                    <input type="text" class=" form-self" name="itemTitle" placeholder="Item Title" id="" required> <p></p>
+
+                    <input type="text" class=" form-self  " name="itemLink[]" placeholder="youtube embed link" id="" required> 
+                    <span type="button"  class="addItem input-group-text btn "><i class="fa-sharp fa-solid fa-plus"></i></span>
+
+                    <center>
+                        <input id="submitVideo" class=" w-50 btn btn-primary" type="submit" value="ADD">
+                    </center>
+  <p></p>
+
+
+                    
+
+                </form>
+
+            </div>
+        
+        </div>
+    </div>
+ </div>
+
+
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="modelImage" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+            
+                <p class="card-text">Image Size upto 5mb.</p>
+
+
+                <form id="contentImageForm"  method="post">
+
+
+  
+                    <input type="text" class=" form-self" name="itemTitle" placeholder="Item Title" id="" required> <p></p>
+                    <input type="file" class=" form-self" name="itemLink[]" multiple id="" required> <p></p>
+
+                    
+
+                    <center>
+                        <input id="submitImg" class=" w-50 btn btn-primary" type="submit" value="ADD">
+                    </center>
+
+
+
+
+                    
+
+                </form>
+
+            </div>
+        
+        </div>
+    </div>
+ </div>
+
+
+
+
+
+
+
+
+ <form  id="deleteDataForm" method="post">
+ 
+ 
+    <div class="row">
+        <div class="col-6 m-auto">
+            <input class="btn btn-danger" id="" type="submit" value="Delete">
+            <ul class="list-group" id="listDataPrint">
+               
+            </ul>
+        </div>
+    </div>
+
+ </form>
+
+</div>
+</div>
+
+
+<script>
+
+
+
+$(document).on("click", ".addItem", (e) => {
+
+$("#contentVideoForm").append(`
+<div id="" class="row "  >
+<div   class="col-11  m-auto shadow  bg-light ">
+
+
+<input type="text" class=" form-self" name="itemLink[]" placeholder="youtube embed link" id="">
+
+<span type="button"  class="addItem input-group-text btn "><i class="fa-sharp fa-solid fa-plus"></i></span>
+<span type="button"  class="removeItemE input-group-text btn "><i class="fa-sharp fa-solid fa-xmark"></i></span>
+
+
+
+</div>
+</div>
+`)
+
+})
+
+
+
+
+
+$(document).on("click", ".removeItemE", (e)=>{
+    let thisItem= e.currentTarget.previousSibling.parentElement
+    
+    $(thisItem).remove()
+ 
+    
+})
+
+
+
+
+    
+function loadContentData(){
+        
+        $.ajax({
+            method: "post",
+            url: "/admin/content/get",
+            data: {},
+            dataType: "JSON",
+            success: function (info) {
+    
+                $("#listDataPrint").html(info.listData)
+               
+
+                
+            }
+        });
+
+        
+    
+    }
+
+    loadContentData()
+
+
+
+
+
+
+
+
+
+
+$("#contentVideoForm").on('submit', (event)=>{
+      event.preventDefault()
+
+        $.ajax({
+            method: "post",
+            url: "/admin/content/video/post",
+            data: $("#contentVideoForm").serialize(),
+            dataType: "JSON",
+            beforeSend: function(){
+      $("#submitVideo").addClass("btn disabled")
+            },
+            success: function (info) {
+    
+                $("#msg").text(info.msg)
+                $("#msg").addClass(info.alert)
+                toast_alive()
+                $("#submitVideo").removeClass("disabled")
+                loadContentData()
+
+    
+            }
+        });
+    
+    })
+    
+
+$("#contentImageForm").on('submit', (event)=>{
+      event.preventDefault()
+      let formdata = new FormData($("form")[1])
+
+        $.ajax({
+            method: "post",
+            url: "/admin/content/image/post",
+            data: formdata,
+             mimeType: "multipart/form-data",
+              cache: false,
+              processData: false,
+              contentType: false,
+               dataType: "JSON",
+
+            beforeSend: function(){
+    //   $("#submitImg").addClass("btn disabled")
+            },
+            success: function (info) {
+    
+                $("#msg").text(info.msg)
+                $("#msg").addClass(info.alert)
+                toast_alive()
+                $("#submitImg").removeClass("disabled")
+                loadContentData()
+
+    
+            }
+        });
+    
+    })
+    
+
+
+
+
+    
+    
+    
+    
+$("#imageContent").on("click", ()=>{
+        let itemType= "image"
+    
+        $.ajax({
+            method: "post",
+            url: "/admin/content/get",
+            data: {itemType},
+            dataType: "JSON",
+            success: function (info) {
+    
+                $("#listDataPrint").html(info.listData)
+                
+            }
+        });
+    })
+    
+    
+
+    
+$("#videoContent").on("click", ()=>{
+        let itemType= "video"
+    
+        $.ajax({
+            method: "post",
+            url: "/admin/content/get",
+            data: {itemType},
+            dataType: "JSON",
+            success: function (info) {
+    
+                $("#listDataPrint").html(info.listData)
+                
+            }
+        });
+    })
+    
+    
+    
+    
+    
+    
+    
+$("#deleteDataForm").on("submit", (e)=>{
+        e.preventDefault()
+    
+    $("#modal").click();
+    
+    $("#confirmed").on("click", ()=>{
+        $.ajax({
+        type: "post",
+        url: "/admin/content/delete",
+        data: $("#deleteDataForm").serialize(),
+        dataType: "JSON",
+        success: function (info) {
+            
+            $("#msg").text(info.msg)
+            $("#msg").addClass(info.alert)
+            toast_alive();
+            loadContentData();
+      
+    
+        }
+    });
+    })
+    
+    })
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>

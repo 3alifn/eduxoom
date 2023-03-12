@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+
+</head>
+
+<style>
+
+#navbar span
+{
+    color: white !important;
+ 
+
+}
+
+#navbar button:hover
+{
+ border-bottom: 2px solid black;   
+ 
+}
+#navbar a:hover
+{
+    color: #754FFE !important;
+    background: #F5F4F8 !important;
+    
+
+
+}
+
+.responseiveImg{
+  max-height: 550px !important;
+}
+  
+
+</style>
+<body>
+
+
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    
+
+  <div class="carousel-inner" id="contentID">
+
+    <div class="carousel-item active ">
+      <img class="d-block card-img "  src="/image/school/default.png" alt="404">
+
+      </div>
+
+
+    
+  </div>
+    
+    <button class="carousel-control-prev d-none d-md-block" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+
+  
+
+</body>
+<script>
+
+
+
+ 
+
+$("#openNav").on("click", ()=>{
+    
+    $("#navbar").toggleClass("d-none")
+    
+    })
+
+
+
+  function displayLoad(){
+
+    $.ajax({
+      type: "get",
+      url: "/pu/carousel/get",
+      data: {},
+      dataType: "JSON",
+      beforeSend: function(){
+
+        // $("#contentIDLoader").addClass("spinner-border")
+
+      },
+      success: function (info) {
+
+        $("#contentID").html(info.listData)
+        
+      }
+    });
+
+  }
+
+  displayLoad()
+
+
+</script>
+</html>

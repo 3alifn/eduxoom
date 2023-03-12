@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+         
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <link rel="stylesheet" href="/bootstrap.css">
+        <link rel="stylesheet" href="/custom.css">
+        <script src="/jquery.js"></script>
+
+
+   </head>
+
+<style>
+
+#sidebar 
+{
+    background-color: #18113C !important;
+    color: white ;
+}
+
+#sidebar a
+
+{
+    color: white;
+}
+</style>
+<body>
+
+     
+        
+            <!-- sitebar -->
+<center>
+    <div>
+        <button id="sidebarToggle" class="w-50 btn text-light d-block d-md-none" style="background-color: #18113C;">&#9776;</button>
+    
+    </div>
+</center>
+            <div class="row">                    
+    
+                            <div id="sidebar" class="col-12 text-center text-md-start m-auto col-md-2 m-md-0 d-none d-md-block" style=" border-right: 1px solid black" >
+                       
+    
+                            <p class="text-secondary m-2">A D M I N - P A N E L</p>
+                            <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-dashboard"></i> Dashboard</a>
+                            <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-book-open"></i> Manage Routine</a>
+                            <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-address-book"></i>  Manage Admission</a>
+                            <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-book"></i>  Manage Library</a>
+                            <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-pen-square"></i>  Manage Result</a>
+                            <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-pen-ruler"></i>  Exam Control</a>
+                            <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-hand-point-right"></i>  Manage Notice</a>
+                            <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-money-bill-transfer"></i>  Manage Fees</a>
+                            <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-box"></i>  Complain Box</a>
+                            <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid  fa-book-open-reader"></i>  Application Letter</a>
+                     
+                         </div>
+               
+
+                         <div class="col bg-dark">
+                          
+                            
+
+                         </div>
+
+                         
+
+                    </div>
+
+
+
+
+
+            
+        
+            <script>
+     
+                
+                $("#sidebarToggle").on("click", ()=>{    
+                    $("#sidebar").toggleClass("d-none")
+                        
+                })
+                
+                
+             </script>      
+        </body>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <%-include("./appdef") %> 
+
+    <title>Boalmari George Academy</title>
+    <link rel="icon" type="image/x-icon" href="/image/app/logo.png">
+
+
+</head>
+
+<style>
+
+:root{
+    --blue: #18113C
+}
+
+
+#header{
+    background: #171039;
+    /* color: white; */
+    /* padding: 10px; */
+}
+
+
+
+
+#user-icon, #bell-icon{
+    border: 1px solid white;
+    border-radius: 50%;
+    color: rgb(173, 22, 22);
+    background: white;
+  
+}
+
+
+
+
+
+.menu-card{
+    color: black;
+    border-radius: 15px;
+  
+    font-weight: bold;
+    box-shadow: 1px 1px 20px gray;
+
+}
+
+.menu-card a{
+    color: black;
+}
+
+.menu-card a:hover{
+    color: #754FFE;
+    background: #F5F4F8;
+}
+
+
+
+/* #headerIcon{
+    color: #754FFE;
+    float: right;
+    font-size: 25px;
+}  */
+
+
+</style>
+
+<body  style=" margin: 0px; padding: 0px; overflow-x: hidden;">
+
+      
+    <header id="header">
+
+<div class="row m-0 p-0 ">
+  
+
+ <div class="col-8 col-md-10  ">
+    
+        <a class="text-decoration-none " href="/">
+ 
+            <img  src="/image/app/logo.png" width="50px" class="" alt=""> 
+
+            <marquee class="d-inline-block d-md-none" style="height: 20px; width: 150px" behavior="scroll" direction="right">
+                <span class="text-light" >Boalmari George Academy</span>
+            </marquee>
+            <span class="text-light d-none d-md-inline-block" >Boalmari George Academy</span>
+
+
+
+
+            
+        </a>
+
+    </div>
+
+
+
+    <div class=" col-4 col-md-2 d-flex" >
+
+
+     <!-- ........................ -->
+    
+        <div class="dropdown open menu-card" >
+            <span class="btn badge bg-light" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i class="fa-solid fa-user p-2" id="user-icon"></i>
+    
+        </span>
+            <div   class="dropdown-menu  mt-2 me-5" aria-labelledby="triggerId" id="listData">
+                
+         
+        </div>
+    
+    
+    
+     
+    
+    </div>
+    
+        <!-- ................... -->
+
+
+    <div class="dropdown open menu-card">
+        <span class="btn badge bg-light" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fa-solid fa-bell p-2" id="bell-icon"></i> 
+
+    </span>
+        <div class="dropdown-menu  mt-2 " style=" margin-right: 100px;" aria-labelledby="triggerId">
+            <a href="#" class="fw-bold dropdown-item fw-bold">you haven't msg</a> 
+        </div>
+    </div>
+    
+    
+    
+    </div>
+</div>
+  
+
+
+
+
+</header>       
+
+<script>
+
+
+function loadHeaderList(params) {
+    
+    $.ajax({
+        method: "get",
+        url: "/au/content/header/list",
+        data: {},
+        dataType: "JSON",
+        success: function (info) {
+
+            $("#listData").html(info.listData)
+            
+        }
+    });
+
+}
+
+loadHeaderList()
+
+
+</script>
+            
+        </body>
+
+
+</html>
+    
+
+
+
+

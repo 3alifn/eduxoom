@@ -1,0 +1,294 @@
+<%- include("../component/header") %> 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account info</title>
+
+
+
+</head>
+<style>
+ 
+
+.col-md-9{
+    display:none ;
+}  
+
+#link a:hover{
+    background-color: rgb(199, 176, 247);
+    color: rgb(194, 194, 194);
+   
+
+}
+#link a:hover i{
+    background-color: rgb(199, 176, 247);
+    color: blueviolet;
+ 
+}
+
+
+.bg-active{
+  background-color: rgb(199, 176, 247);
+    color: blueviolet;
+ 
+}
+</style>
+
+
+<body>
+
+
+<br>
+
+
+<% if( typeof msg!=typeof alifn && msg.length>0) {%>
+
+  <%-include("../component/toast_live") %> 
+
+     <% } else { %>
+       <%=null %> 
+       <% } %> 
+
+
+       <%-include("../component/modal_danger") %> 
+
+       <%-include("../component/toast_alive") %> 
+
+
+<div class="row mt-2">
+
+                <button id="menuButton" class=" btn w-100 bg-dark text-light d-block d-md-none">&#9776;</button>
+                
+                <div class="col-md-3 ml-20 d-none d-md-block" id="menuItems">
+                    <div class="card" id="link">
+                        <div class="card-body">
+                        <div class="card-title text-muted">ACCOUNT SETTINGS</div>
+                                
+                                    <a id="personalInfo" class="nav-link text-dark " href="#personalInfo"><i class="fa-sharp fa-solid fa-gear m-2"></i>Personal info</a>
+                                    <a id="security" class="nav-link text-dark" href="#security"><i class="fa-sharp fa-solid fa-user m-2"></i>Security</a>
+                                    <a  class="nav-link text-dark" href="/au/singout"><i class="fa-solid fa-power-off m-2"></i></i>Sign Out</a>
+                                    
+                                  
+                                   
+                             
+                        </div>
+                    </div>
+</div>
+
+
+
+
+  <div id="personalInfos"  class="col-md-9">
+
+
+    
+
+<div class="col-md-6">
+
+    <div class="card p-2">
+      <div class="card-body">
+          <h4 class="card-title">Profile Details</h4>
+          
+          <p class="card-text">You have full control to manage your account setting.</p>
+    </div>
+
+  
+          <div>
+            <input type="file" name="avatar" id="file" style="display: none;">
+            <img id="" width="50px" class="rounded " src="/image/admin/male_avatar.png" alt="">
+          </div>
+      
+
+       <h4 class="text-dark mt-3"><%-info[0].hash_name %> </h4>
+       <p class="text-dark mt-3"><%-info[0].hash_username %> </p>
+   <p class="text-muted">PNG or JPG and max file size 2mb.</p>
+
+  </div>
+
+</div>
+
+
+<form action="/admin/info/update" method="post">
+
+<div class="row">
+
+
+
+<div class="col-md-6 col-10 m-auto m-md-0 shadow">
+
+
+<label  for="name">Name</label>
+<input class="form-dev " type="text" value="<%=info[0].hash_name%>" name="hash_name"  id="name" placeholder="Enter Name" required>
+<p></p>
+
+<center>
+    <button class=" btn-dev w-50">Save Change</button>
+    </center>
+         </div>
+
+
+         </div>
+       
+
+<p></p>
+
+
+
+</div>
+
+
+</form>
+                
+
+
+             
+
+<div id="securitys"  class="col-md-9">
+
+    
+    <div class="row">
+                     
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Security </h4>
+                <p class="card-text text-muted">Edit your account settings your password here.</p>
+            
+                <hr>
+            <p></p>
+            <form action="/admin/email/update" method="post">
+                <h4 class="card-title">Email address</h4>
+                <p class="card-text">Your current email address is <a class="nav-item " style="text-decoration:none; color: rgb(82, 187, 129);" href="#"><%=info[0].hash_username%> </a></p>
+             <p></p>
+                <label for="email">New email address </label>
+                <input class="form-dev " type="email" name="hash_username"  id="newemail" placeholder="<%=info[0].hash_username%>" required>
+                <p></p>
+                <button id="emailUpdate" style="color:rgb(255, 255, 255) ; background-color: blueviolet;" class="btn btn-outline-light">Update</button>
+              <p></p>
+                <hr>
+              <p></p>
+             
+            </form>
+
+              <form id="passwordUpdateForm" action="/admin/password/update" method="post">
+
+              
+                <h4 class="card-title">Change Password</h4>
+                <p class="card-text text-muted">We will email you a confirmation when changing your password,so please expect that email after submitting.</p>
+             <p></p>
+                <label for="password">Current Password</label>
+                <input class="form-dev " type="password" name="pastPassword"   id="current password" placeholder="current password" required>
+
+          
+              <p></p>
+              <label for="newpassword">New Password</label>
+              <input class="form-dev " type="password" name="hash_password" id="newemail" placeholder="new password" required>
+         
+       <p></p>
+              
+
+                <button  style="color:rgb(255, 255, 255) ; background-color: blueviolet;" class="btn btn-outline-light">Save Change</button>
+            <p></p>
+
+         </div>
+</form>
+
+                </div>
+        </div>
+      
+          </div>
+
+
+
+
+</div>
+
+>
+
+
+                
+<!-- end mainDiv -->
+</div>
+   
+
+<script>
+
+$('#menuButton').on('click', ()=>{
+
+     
+$('#menuButton').html('&#9650;')
+
+
+
+
+})
+
+
+$("#emailUpdate").on("click", (e)=>{
+
+let updatebtn=  e.currentTarget;
+
+setTimeout(() => {
+ 
+ $(updatebtn).addClass("disabled")
+
+}, 2000);
+
+})
+
+
+
+
+
+$(document).on("click", ".nav-link", (e)=>{
+  let navLink= e.currentTarget;
+  $(".nav-link").removeClass("bg-active")
+  $(navLink).addClass("bg-active")
+})
+
+
+  
+
+
+
+$("#file").on("change", ()=>{
+  $("#formFile").submit()
+
+})
+
+
+
+
+$("#personalInfos").show()
+
+    $("#menuButton").click(()=>{
+        $("#menuItems").toggleClass("d-none")
+                        
+        })
+        
+        
+        $("#personalInfos").show()
+        $("#personalInfo").click(()=>{
+            $(".col-md-9").hide()
+                $("#personalInfos").show()
+                
+          
+        })
+
+        
+        $("#security").click(()=>{
+            $(".col-md-9").hide()
+                $("#securitys").show()
+            })
+  
+
+        
+    </script>
+    
+</body>
+</html>

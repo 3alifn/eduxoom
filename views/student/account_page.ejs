@@ -1,0 +1,297 @@
+<%- include("../component/header") %> 
+<%- include("../component/navbar") %> 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Account info</title>
+</head>
+<style>
+ 
+.bg-active {
+    background-color: rgb(199, 176, 247);
+    color: rgb(194, 194, 194);
+   
+}
+
+
+.col-md-9{
+    display:none ;
+}  
+
+#link a:hover{
+    background-color: rgb(199, 176, 247);
+    color: rgb(194, 194, 194);
+   
+
+}
+#link a:hover i{
+    background-color: rgb(199, 176, 247);
+    color: blueviolet;
+ 
+}
+</style>
+
+
+<body>
+    <!-- header area start -->
+<%-include("../component/modal_danger") %> 
+<br>
+
+<% if( typeof msg!=typeof alifn && msg.length>0) {%>
+
+  <%-include("../component/toast_live") %> 
+
+     <% } else { %>
+       <%=null %> 
+       <% } %> 
+        <p></p>
+
+
+    <!-- header area end -->
+    <section id="delete">
+   
+       <div class="container">
+            <div class="row">
+
+                <button id="menuButton" class=" btn w-100 bg-dark text-light d-block d-md-none">&#9776;</button>
+
+                <div class="col-md-3 ml-20 d-none d-md-block" id="menuItems">
+                    <div class="card" id="link">
+                        <div class="card-body">
+                        <div class="card-title text-muted">ACCOUNT SETTINGS</div>
+                                
+                                    <a id="personalInfo" class="nav-link text-dark " href="#personalInfo"><i class="fa-sharp fa-solid fa-gear m-2"></i>Personal info</a>
+                                    <a id="security" class="nav-link text-dark" href="#security"><i class="fa-sharp fa-solid fa-user m-2"></i>Security</a>
+                                    <a id="privacySetting"  class="nav-link text-dark" href="#profilePrivacy"><i class="fa-solid fa-lock m-2"></i>Privacy Settings</a>
+                                    <a id="closeAccount"  class="nav-link text-dark" href="#closeAccount"><i class="fa-solid fa-trash m-2"></i>Close Account</a>
+                                    <a id="socialLink"  class="nav-link text-dark" href="#socialLink"><i class="fa-solid fa-link m-2"></i>Social Link</a>
+
+                                    <a  class="nav-link text-dark" href="/au/singout"><i class="fa-solid fa-power-off m-2"></i></i>Sign Out</a>
+                                    
+                                  
+                                   
+                             
+                        </div>
+                    </div>
+                </div>
+
+
+
+                
+<div id="personalInfos"  class="col-md-9">
+
+ <%-include("../component/toast_live") %> 
+
+ <%-include("./personal_info") %> 
+
+  </div>
+
+
+<div id="securitys"  class="col-md-9">
+  <%-include("./security_info") %> 
+
+</div>
+
+
+
+
+
+<div id="privacySettings"  class="col-md-9">
+  <%-include("./privecy_info") %> 
+</div>
+                
+
+
+
+<div id="socialLinks"  class="col-md-9">
+  <%-include("./social_link") %> 
+</div>
+                
+
+
+<div id="closeAccounts"  class="col-md-9 ">
+
+<%-include("./close_account") %> 
+
+
+</div>
+
+
+                
+<!-- end mainDiv -->
+            </div>
+       </div>
+    </section>
+
+
+
+<script>
+
+$('#eye-hide').click(()=>{
+    $('#password').attr('type', "text")
+    $('#eye-hide').css({'display': 'none'})
+    $('#eye-show').css({'display': 'block'})
+})
+
+
+$('#eye-show').click(()=>{
+    $('#password').attr('type', "password")
+    $('#eye-hide').css({'display': 'block'})
+    $('#eye-show').css({'display': 'none'})
+})
+
+$(document).on("click", ".nav-link", (e)=>{
+  let navLink= e.currentTarget;
+  $(".nav-link").removeClass("bg-active")
+  $(navLink).addClass("bg-active")
+})
+
+
+
+
+ $(document).on("click", ".defClose",()=>{
+    $("#modal").click()
+  })
+
+
+
+  $(document).on("click", ".defClose", (e)=>{
+
+let dataID= e.currentTarget.attributes[0].value;
+
+
+   $("#confirmed").on("click", ()=>{
+    $.ajax({
+        type: "post",
+        url: "/student/close/account",
+        data: {dataID},
+        dataType: "JSON",
+        success: function (info) {
+           window.location.replace("/au/singin/page")
+            
+        }
+    });
+
+   })
+
+
+})
+
+
+  
+$("#file").on("change", ()=>{
+  $("#formFile").submit()
+
+})
+
+
+$("#formFile").submit(function(e){
+
+        e.preventDefault();
+
+    var formdata = new FormData(this);
+
+        $.ajax({
+            url: "/student/avatar/upload",
+            type: "POST",
+            data: formdata,
+            mimeTypes:"multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            beforeSend: function(){
+              $("#fileEdit").hide()
+             $("#avatar").addClass("spinner-grow")
+
+            },
+
+            success: function(info){
+
+              $("#msg").html(info.msg)
+                toast()
+                setTimeout(() => {
+                  window.location.reload()
+                }, 3000);
+            },
+
+         });
+
+         
+ 
+      })
+      
+    
+     
+      
+
+
+
+
+
+
+
+
+
+
+
+
+// past event........................
+
+$("#personalInfos").show()
+
+    $("#menuButton").click(()=>{
+        $("#menuItems").toggleClass("d-none")
+                        
+        })
+        
+        
+        $("#personalInfos").show()
+        $("#personalInfo").click(()=>{
+            $(".col-md-9").hide()
+                $("#personalInfos").show()
+                
+          
+        })
+
+        
+        $("#security").click(()=>{
+            $(".col-md-9").hide()
+                $("#securitys").show()
+            })
+     
+
+        
+        $("#privacySetting").click(()=>{
+          
+            $(".col-md-9").hide()
+                $("#privacySettings").show()
+            })
+       
+
+        
+        $("#socialLink").click(()=>{
+      
+            $(".col-md-9").hide()
+                $("#socialLinks").show()
+           
+        })  
+        
+        
+        $("#closeAccount").click(()=>{
+      
+            $(".col-md-9").hide()
+                $("#closeAccounts").show()
+           
+        })
+
+        
+    </script>
+    
+</body>
+</html>

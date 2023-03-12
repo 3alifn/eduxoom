@@ -1,0 +1,173 @@
+
+  
+
+<%-include("./app") %> 
+
+
+<style>
+
+#navbar span
+{
+    color: white !important;
+ 
+
+}
+
+#navbar button:hover
+{
+ border-bottom: 2px solid black;   
+ border: 1px solid black;
+ 
+}
+#navbar a:hover
+{
+    color: #754FFE !important;
+    background: #F5F4F8 !important;
+    border-bottom: 1px solid #754FFE; 
+    opacity: .8;  
+
+}
+</style>
+<body  style=" margin: 0px; padding: 0px; overflow: hidden;">
+
+
+
+    <div class=" bg-transparent " >
+        <button id="opennavbar" class=" btn text-light d-block d-md-none position-absolute" style="background-color: #18113C; z-index: 1;">&#9776;</button>
+    
+      </div>
+  
+ <div id="navbar" style="margin: 0px; padding: 0;" class="row d-none d-md-block">
+    <nav class=" pt-1 position-relative" style=" background-color: #291e5dd7;" id="nav" >
+             
+        <ul class=" nav ">
+
+    
+        <div class="col-12 col-md-1">
+            <li class="nav-item" >
+         
+    
+                <div class="dropdown">
+                  <button type="button" class="btn w-100  dropdown-toggle" data-toggle="dropdown">
+                    <span class=" text-warning"> Academic</span>
+                </button>
+                <div class="dropdown-menu menu-card col-12 text-center text-md-start">
+                    <a  class="dropdown-item  example" href="/pu/all/teacher">Teachers</a>
+                    <a class="dropdown-item  example" href="/pu/student/page">Students</a>
+                    <a class="dropdown-item  example" href="/pu/routine/page">Class Routine</a>
+                    <a class="dropdown-item  example" href="/pu/admission/step1">Admission Form</a>
+                    <a class="dropdown-item  example" href="/pu/rank/class/page">Students Rank</a>
+                    <a class="dropdown-item  example" href="/pu/result/page">Exam Result</a>
+    
+                    <a class="dropdown-item  example" href="/pu/notice/page">Notice</a>
+
+                  </div>
+                </div>
+                
+              </li>
+        </div>
+
+
+          <div class="col-12 col-md-1">
+
+          <li class="nav-item" >
+            <div class="dropdown">
+              <button  type="button" class="btn w-100  dropdown-toggle" data-toggle="dropdown">
+                <span class=" text-warning">Join/Sing in </span>
+            </button>
+            <div class="dropdown-menu menu-card col-12 text-center text-md-start">
+                <a class="dropdown-item  example" href="/pu/join/student">Join Student</a>
+                <a class="dropdown-item  example" href="/pu/join/parent">Join Parent</a>
+                <a class="dropdown-item  example" href="/au/singin/page">Sing in</a>
+         
+              </div>
+            </div>
+            
+          </li>
+    
+         </div>
+          
+    
+         <div class="col-12 col-md-1">
+
+          <li class="nav-item" >
+    
+            <div class="dropdown">
+              <button type="button" class="btn w-100 dropdown-toggle" data-toggle="dropdown">
+                <span class=" text-warning"> Gallery </span>
+            </button>
+            <div class="dropdown-menu menu-card col-12 text-center text-md-start">
+                <a class="dropdown-item  example" href="/pu/gallery/photos">Photos</a>
+                <a class="dropdown-item  example" href="/pu/gallery/video">Video</a>
+             
+              </div>
+            </div>
+            
+            
+          </li>
+    
+    </div>
+    
+
+    <div class="col-12 col-md-1">
+
+          <li class="nav-item" >
+            <div class="dropdown">
+              <button type="button" class="btn w-100 dropdown-toggle" data-toggle="dropdown">
+                <span class=" text-warning">About us</span>
+            </button>
+            <div class="dropdown-menu menu-card col-12 text-center text-md-start">
+                <a class="dropdown-item  example disabled"  href="#">Send Message</a>
+                <a class="dropdown-item  example disabled"  href="#">Contact Us</a>
+                <a class="dropdown-item  example disabled" href="#">Live Chat</a>
+                <a class="dropdown-item  example disabled" href="#">Comming Soon!</a>
+            
+              </div>
+            </div>
+            
+            
+          </li>
+    </div>
+    
+
+    <div class="col-12 col-md-1">
+
+          <li class="nav-item" >
+            <div class="dropdown">
+              <button type="button" class="btn w-100 dropdown-toggle" data-toggle="dropdown">
+                <span class=" text-warning">Team</span>
+            </button>
+            <div class="dropdown-menu menu-card col-12 text-center text-md-start">
+                <a class="dropdown-item  example" href="/pu/about/us/team">Team our</a>
+                <a class="dropdown-item  example disabled" href="#">Contact us</a>
+     
+                <a class="dropdown-item  example disabled" href="#">Comming Soon!</a>
+    
+            
+              </div>
+            </div>
+            
+            
+          </li>
+    </div>
+        </ul>
+    
+    </nav>
+ </div>
+  
+
+
+
+</body>
+<script>
+
+
+  
+$("#opennavbar").on("click", ()=>{
+    
+    
+    $("#navbar").toggleClass("d-none")
+   
+    
+    })
+</script>

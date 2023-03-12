@@ -1,0 +1,388 @@
+<%- include("../component/header") %> 
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title> Manage Subject</title>
+  
+    <%- include("../component/app") %> 
+
+
+    <style>
+    .chosen-container-active{
+     width: 300px !important;
+   }
+   
+   .search-field{
+     width: 300px !important;
+   }
+   
+   ul.chosen-choices{
+     width: 300px !important;
+   } 
+   
+   .chosen-container{
+     width: 300px !important;
+   }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="row">
+        <%-include("./admin_panel") %> 
+
+        <div class="col">
+
+
+            
+    <center>
+        <legend class="containe alert alert-dark">Manage Subject</legend>
+    </center>
+
+    <p></p>
+
+    <%-include("../component/toast_alive") %> 
+    <%-include("../component/modal_danger") %> 
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn " data-toggle="modal" data-target="#modelId_form">
+<span title="ADD" class=" input-group-text"><img width="30px" src="/icon/file/icons8-add-file-48.png" alt=""></span>
+
+</button>
+
+
+    <span title="Refresh" class=" btn" onclick="window.location.reload()"><img width="30px" src="/icon/file/icons8-refresh-64.png" alt=""></span>
+
+    <center>
+        <div class="btn-group bg-secondary ">
+            <a href="/admin/subject/page?className=Six" class=" btn btn-default "><span class=" badge bg-light text-danger">Six</span></a>
+            <a href="/admin/subject/page?className=Seven" class=" btn btn-default "><span class=" badge bg-light text-danger">Seven</span></a>
+            <a href="/admin/subject/page?className=Eight" class=" btn btn-default "><span class=" badge bg-light text-danger">Eight</span></a>
+            <a href="/admin/subject/page?className=Nine" class=" btn btn-default "><span class=" badge bg-light text-danger">Nine</span></a>
+            <a href="/admin/subject/page?className=Ten" class=" btn btn-default "><span class=" badge bg-light text-danger">Ten</span></a>
+       
+          </div>
+    </center>
+    <center>
+        <div class="btn-group bg-secondary ">
+            <button data-id="- A" class="sectionDef btn btn-default "><span class=" badge bg-light text-danger">A</span></button>
+            <button data-id="- B"  class="sectionDef btn btn-default "><span class=" badge bg-light text-danger">B</span></button>
+            <button data-id="- C" class="sectionDef btn btn-default "><span class=" badge bg-light text-danger">C</span></button>
+            <button data-id="- ALL" class="sectionDef btn btn-default "><span class=" badge bg-light text-danger">All</span></button>
+       
+          </div>
+    </center>
+
+<!-- Modal -->
+<div class="modal fade" id="modelId_form" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                        <h5 class="modal-title">Subject List</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+               
+                    
+<form id="formSubject" method="post">
+
+    <div id="" class="row mt-2">
+
+
+        <div class="col-11  m-auto bg-light shadow">
+
+            <select class="m-1 form-dev" name="className" id="" required>
+                <option  disabled value="">Select Class</option>
+
+                <option selected value="Six">Six</option>
+                <option value="Seven">Seven</option>
+                <option value="Eight">Eight</option>
+                <option value="Nine">Nine</option>
+                <option  value="Ten">Ten</option>
+            </select>
+
+            <select class="m-1 form-dev" name="sectionName" id="" required>
+                <option  disabled value="">Select Section</option>
+
+                <option selected value="ALL">All</option>
+                <option  value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+
+            </select>
+
+
+            <select title="Select Teachers" class=" m-1 form-dev" name="teacherName" id="dynamicTeacher" disabled>
+                <option selected disabled value="">Select Teacher</option>
+                
+             
+                
+             </select>
+
+            <div class="input-group">
+                <input class="m-1 form-control " type="text" name="subjectName[]" value=""
+                    placeholder="Subject Name:" id="" required> 
+
+                <span type="button" class="addItem input-group-text btn "><i
+                        class="fa-sharp fa-solid fa-plus"></i></span>
+              
+            </div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+        <div class="row"> 
+            <div class="col-4 col-md-2 m-auto">
+                <button id="onsubmit" type="submit" class="mt-2 btn-dev fw-bold rounded w-100">save</button>
+            </div>
+        </div>
+   
+
+</form>
+
+
+
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div id="list" class="row container">
+   
+   <%  for (const i in info) { %> 
+  
+     <div class="col-11 col-md-6 mt-2 m-auto">
+     
+
+
+        <ul class="list-group list-unstyled">
+            <li class="list-group-item-secondary">
+                
+                <strong class="  badge bg-light text-dark"><%=info[i].subject%></strong>
+                <span class="badge bg-light text-dark"><%=info[i].class%> - <%=info[i].section%></span>
+
+            </li>
+
+        <li class=" list-group-item-secondary">
+
+            <form id="" action="/admin/subject/select/teacher" method="post">   
+
+                <input type="hidden" name="subjectName" value="<%=info[i].subject%>" required>
+                <input type="hidden" name="className" value="<%=info[i].class%>" required>
+                <input type="hidden" name="sectionName" value="<%=info[i].section%>" required>
+                <input type="hidden" name="ID" value="<%=info[i].ID%>" required>
+    
+           <select data-placeholder="Select Teacher"  class="chosen-select form-self" name="teacherPdsid" required>
+                   
+         
+          <!-- <option value="" selected disabled>Select Teacher</option> -->
+
+          <option selected value="<%=info[0].teacher_pdsid%>"><%=info[0].teacher_name%>-<%=info[0].teacher_pdsid%></option>
+
+                                <% for(let x=0; x<infoTeacher.length; x++) {%>
+
+                        <option value="<%=infoTeacher[x].pds_id%>"><%=infoTeacher[x].name+"-"+infoTeacher[x].pds_id %></option>
+                        
+                        
+                        <% } %>  
+               
+             
+
+                </select>  <input class=" " type="submit" value="save">
+
+
+            </form>
+            
+            <p></p>
+
+           
+            <span data-id="<%=info[i].ID%>" class=" del_def btn " title="Delete"> <i class=" fa fa-trash"></i></span>
+</li>
+        
+        </ul>
+  
+    </div>
+<% } %> 
+</div>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+<script>
+
+
+
+function dynamicTeacher(){
+
+    $.ajax({
+    method: "POST",
+    url: "/admin/dynamic/teacher",
+    data: {},
+    dataType: "JSON",
+    success: function (info) {
+
+        $("#dynamicTeacher").html(info.html);
+    
+
+       
+        
+    }
+});
+
+}
+
+dynamicTeacher()
+
+
+
+
+
+$(document).ready(function(){
+  $(".sectionDef").click(function(e) {
+    let btn=  e.currentTarget;
+    $(".sectionDef").removeClass("btn-light")
+var value= e.currentTarget.attributes[0].value;
+$(btn).addClass("btn-light")
+    
+    $(".list-group").filter(function() {
+       
+      $(this).toggle($(this).text().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+
+
+
+
+$(document).on("click", ".addItem", (e) => {
+
+$("#formSubject").append(`
+<div id="" class="row "  >
+<div   class="col-11  m-auto shadow  bg-light ">
+
+
+
+<div class="input-group">
+<input class="m-1 form-control " type="text" name="subjectName[]" value="" placeholder="Subject Name:" id="" required> 
+
+<span type="button"  class="addItem input-group-text btn "><i class="fa-sharp fa-solid fa-plus"></i></span>
+<span type="button"  class="removeItemE input-group-text btn "><i class="fa-sharp fa-solid fa-xmark"></i></span>
+</div>
+
+
+
+</div>
+</div>
+`)
+
+})
+
+
+
+$(document).on("click", ".removeItemE", (e)=>{
+    let thisItem= e.currentTarget.previousSibling.parentElement
+    
+    $(thisItem).remove()
+ 
+    
+})
+
+
+
+
+$(document).on("click", ".del_def", (e)=>{
+let ID= e.currentTarget.attributes[0].value;
+
+$("#modal").click();
+
+$("#confirmed").on("click", ()=>{
+    $.ajax({
+    type: "post",
+    url: "/admin/subject/delete",
+    data: {ID},
+    dataType: "JSON",
+    success: function (info) {
+        
+        $("#msg").text(info.msg)
+
+        window.location.reload()
+
+    }
+});
+})
+
+})
+
+
+
+
+$("#formSubject").on('submit', (e)=>{
+    e.preventDefault();
+
+    $.ajax({
+        method: "post",
+        url: "/admin/subject/post",
+        data: $("#formSubject").serialize(),
+        dataType: "JSON",
+
+        beforeSend: function(){
+            $("#onsubmit").addClass('disabled')
+         
+        },
+
+        success: function (info) {
+            $("#onsubmit").removeClass('disabled')
+        
+            $("#msg").text(info.msg).addClass(info.alert)
+            toast_alive()
+            
+        }
+    });
+
+})
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

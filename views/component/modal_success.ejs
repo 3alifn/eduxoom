@@ -1,0 +1,44 @@
+   <!-- Button trigger modal -->
+   <button type="button" id="modalAccept" class="btn btn-primary d-none" data-toggle="modal" data-target="#modelIdAccept">
+    Trigger!
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modelIdAccept" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Confirmation! <i class="fa-solid fa-envelope fa-bounce" style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;"></i>
+                  </h5>
+                      <button id="btn-closeAccept" type="button" class="close btn btn-close" data-dismiss="modal" aria-label="Close">
+                         
+                      </button>
+              </div>
+              <div class="modal-body fw-bold alert-success" id="successMsgText">
+                  you want to accept this!
+              </div>
+              <div class="modal-footer">
+                  <button type="reset" id="resetAccept" class=" border-1 border-bottom-0 border-danger btn" data-dismiss="modal">No</button>
+                  <button type="button" id="confirmedAccept" data-dismiss="modal" class=" border-1 border-bottom-0 border-primary btn">Accept</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+<script>
+
+     $(document).on("click", ".accept",()=>{
+    $("#modalAccept").click()
+  })
+
+  $(document).on("click", "#resetAccept",()=>{
+    window.location.reload()
+  })
+
+  $(document).on("click", "#btn-closeAccept",(e)=>{
+    window.location.reload()
+    
+  })
+    
+
+</script>

@@ -1,0 +1,107 @@
+<%- include("../component/header") %> 
+<%- include("../component/navbar") %> 
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Students</title>
+
+
+</head>
+<style>
+    #studentID a, #studentID{
+        text-decoration: none;
+        color:black !important;
+    }
+
+</style>
+<body>
+
+  <%- include("../component/profile_info") %> 
+
+
+
+<div class=" w-50 mt-2 m-auto">
+    <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+
+</div>
+    <div id="studentID" class="row">
+   
+ <% for(let i= 0; i<info.length; i++) {%>
+
+    
+    <div  class="col-10 col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+        <!-- <a href="#"> -->
+          <div class="card ">
+              <img class="card-img-to m-auto" width="100px" src="/image/student/<%=info[i].avatar%>" alt="404">
+              <div class="card-body">
+                  <h5 class="card-title"> <%=info[i].name%> </h5>
+                  <h6 class="card-title">Class Roll (<%=info[i].roll%>) </h6>
+                  <button data-id="<%=info[i].ID%>" title="See more..." class="defInfo btn btn-sm"><i class=" fa fa-file-text"></i></button>
+              </div>
+        <!-- </a> -->
+          </div>
+      </div>
+
+    <% } %>  
+
+        <!-- end div -->
+    </div>
+    
+
+
+
+    <%-include("../component/profile_info") %> 
+
+<script>
+    $(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $(".card").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+
+
+
+$(document).on("click", ".defInfo", (e)=>{
+  let ID= e.currentTarget.attributes[0].value;
+  $.ajax({
+  type: "post",
+  url: "/privet/info/student",
+  data: {ID},
+  dataType: "JSON",
+  beforeSend: function(){
+         $("#profileInfo").html(`<center>
+  <h1>
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i> 
+  </h1>
+</center>`)
+
+  },
+  success: function (info) {
+    
+    setTimeout(() => {
+      $("#profileInfo").html(info.html)
+     $("#avatarpng").attr("src", `/image/student/${info.avatar}`)
+  
+    }, 1000);
+     $("#profileTrigger").click()
+  }
+});
+})
+
+
+
+</script>
+</body>
+
+</html>

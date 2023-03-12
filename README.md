@@ -1,2 +1,2 @@
-# schoolapp
+# myschool
 a school management software

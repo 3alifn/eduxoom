@@ -1,0 +1,53 @@
+   <!-- Button trigger modal -->
+   <button type="button" id="modal" class="btn btn-primary d-none" data-toggle="modal" data-target="#modelId">
+    Trigger!
+  </button>
+  
+  <!-- Modal -->
+  <div  class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Confirmation!  <i class="fa-solid fa-triangle-exclamation fa-fade"></i></h5>
+                      <button id="btn-close" type="button" class="close btn btn-close" data-dismiss="modal" aria-label="Close">
+                         
+                      </button>
+              </div>
+              <div class="modal-body fw-bold alert-danger" id="dangerMsgText">
+                  want to remove forever!
+                  are you sure? 
+              </div>
+              <div class="modal-footer">
+                  <button type="reset" id="reset" class="border-danger border-bottom-0  border-1 btn" data-dismiss="modal">No</button>
+                  <button type="button" id="confirmed" data-dismiss="modal" class="border-1 border-bottom-0 border-primary btn">Yes</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+<script>
+
+     $(document).on("click", ".def",()=>{
+    $("#modal").click()
+  })
+
+
+
+  $(document).on("click", "#reset",()=>{
+    window.location.reload()
+  })
+
+  $(document).on("click", "#btn-close",(e)=>{
+    window.location.reload()
+    
+  })
+    
+    
+  $(document).on("click", ".reject",()=>{
+    $("#modal").click()
+  }) 
+  $(document).on("click", ".delDef",()=>{
+    $("#modal").click()
+  })
+
+</script>

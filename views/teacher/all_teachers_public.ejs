@@ -1,0 +1,92 @@
+<%- include("../component/header") %> 
+<%- include("../component/navbar") %> 
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Teacher</title>
+</head>
+<style>
+    #teacherID a, #teacherID{
+        text-decoration: none;
+        color:black !important;
+    }
+
+    #teacherID .card:hover{
+       height: max-content !important;
+       
+    }
+</style>
+<body>
+
+    <div id="teacherID" class="row">
+
+     
+
+ <% for(let i= 0; i<info.length; i++) {%>
+
+     
+    
+    <div  class="col-10 col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+      
+          <div class="card ">
+              <img class="card-img-to m-auto" width="100px" src="/image/teacher/<%=info[i].avatar%>" alt="">
+              <div class="card-body">
+                  <h5 class="card-title"><%=info[i].name%> </h5>
+                  <h6 class="card-text"><%=info[i].description%></h6> 
+                  <h6 class="card-text">Index No: <%=info[i].index_number%></h6>
+                  <button data-id="<%=info[i].ID%>" class="defInfo btn btn-sm"><i class=" fa fa-file-text"></i></button>
+
+              </div>
+       
+          </div>
+      </div>
+
+    <% } %>  
+
+        <!-- end div -->
+    </div>
+    
+
+
+    <%-include("../component/profile_info") %> 
+
+
+<script>
+    
+$(document).on("click", ".defInfo", (e)=>{
+  let dataID= e.currentTarget.attributes[0].value;
+  $.ajax({
+  type: "post",
+  url: "/pu/info/teacher",
+  data: {dataID},
+  dataType: "JSON",
+  beforeSend: function(){
+         $("#profileInfo").html(`<center>
+  <h1>
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i> 
+  </h1>
+</center>`)
+
+  },
+  success: function (info) {
+    console.log(info.avatar);
+    setTimeout(() => {
+      $("#profileInfo").html(info.html)
+     $("#avatarpng").attr("src", `/image/teacher/${info.avatar}`)
+  
+    }, 1000);
+     $("#profileTrigger").click()
+  }
+});
+})
+
+
+
+
+
+</script>
+</body>
+</html>

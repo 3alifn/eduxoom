@@ -1,0 +1,360 @@
+<%- include("../component/header") %> 
+<%- include("../component/navbar") %> 
+
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+
+   </head>
+<style>
+      .contentDiv a
+        {
+            text-decoration: none;
+           
+            
+        }
+        .contentDiv .card-body{
+            background-color: #F5F4F8 !important;
+        
+            color: #754FFE ;
+        }
+        
+            
+        .contentDiv .card-body:hover{
+            background-color: #281e5d !important;
+            /* background: #F5F4F8 !important; */
+            color: white;
+            transform: scale(1.1);
+            transition: background-color, transform 1s;
+         
+        }
+</style>
+<body>
+
+     
+
+
+
+  <div class="row">     
+    
+    
+                        <%- include("./teacher_panel") %> 
+               
+
+
+                        <div class="col">
+
+        
+        
+                            <div  class="row mt-3 contentDiv">
+                            
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                  <a href="/teacher/dashboard">
+                                    <div class="card shadow-sm">
+                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                        <div class="card-body text-center">
+                                            <h4 class="card-title">Dashboard</h4>
+                                            <h5 class="card-text fw-bold"> <i class=" fa-solid fa-dashboard"></i></h5>
+                                        </div>
+                                    </div>
+                                  </a>
+                            
+                                </div>  
+                                
+                                
+                            
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                   <a href="/teacher/account">
+                                    <div class="card shadow-sm">
+                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                        <div class="card-body text-center">
+                                            <h4 class="card-title">Account</h4>
+                                            <h5 class="card-text fw-bold"><i class=" fa-solid fa-user"></i></h5>
+                                        </div>
+                                    </div>
+                                   </a>
+                            
+                                </div>           
+                                
+                                
+                
+                
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                    <a href="/pu/notice/page">
+                                        <div class="card text-center">
+                                            <!-- <img class="card-img-top" src="holder.js/100px180/" alt=""> -->
+                                            <div class="card-body">
+                                                <h4 class="card-title">Notice</h4>
+                                                <h5 class="card-text fw-bold">&#128226;</h5>
+                            
+                                            </div>
+                                          </div>
+                                    </a>
+                            
+                                </div>                
+                            
+                
+                
+                
+                            
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                  <a href="/teacher/attendance/form">
+                                    <div class="card shadow-sm">
+                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                        <div class="card-body text-center">
+                                            <h4 class="card-title">Attendance Sheet</h4>
+                                            <h5 class="card-text fw-bold">&#9997; </h5>
+                                        </div>
+                                    </div>
+                                  </a>
+                            
+                                </div>    
+                                
+                                
+                
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                  <a href="/teacher/daily/mark/page">
+                                    <div class="card shadow-sm">
+                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                        <div class="card-body text-center">
+                                            <h4 class="card-title">Daily Marks </h4>
+                                            <h5 class="card-text fw-bold">  &#9998;</h5>
+                                        </div>
+                                    </div>
+                                  </a>
+                            
+                                </div>     
+                                            
+                
+                                
+                
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                  <a href="/teacher/pic/page">
+                                    <div class="card shadow-sm">
+                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                        <div class="card-body text-center">
+                                            <h4 class="card-title">PIC Marks </h4>
+                                            <h5 class="card-text fw-bold">  &#128221;</h5>
+                                        </div>
+                                    </div>
+                                  </a>
+                            
+                                </div>     
+                                
+                
+                           
+                
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                  <a href="/teacher/pis/page">
+                                    <div class="card shadow-sm">
+                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                        <div class="card-body text-center">
+                                            <h4 class="card-title">PIS Marks </h4>
+                                            <h5 class="card-text fw-bold"> &#128221;</h5>
+                                        </div>
+                                    </div>
+                                  </a>
+                            
+                                </div>     
+                                
+                
+                           
+                
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                  <a href="/teacher/pic/report/page">
+                                    <div class="card shadow-sm">
+                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                        <div class="card-body text-center">
+                                            <h4 class="card-title">PIC Reports </h4>
+                                            <h5 class="card-text fw-bold"> <i class=" fa-solid fa-pie-chart"></i></h5>
+                                        </div>
+                                    </div>
+                                  </a>
+                            
+                                </div>     
+                                
+                
+                
+                           
+                
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                  <a href="/teacher/pis/report/page">
+                                    <div class="card shadow-sm">
+                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                        <div class="card-body text-center">
+                                            <h4 class="card-title">PIS Reports </h4>
+                                            <h5 class="card-text fw-bold"> <i class=" fa-solid fa-pie-chart"></i></h5>
+                                        </div>
+                                    </div>
+                                  </a>
+                            
+                                </div>     
+                                
+                
+                
+                
+                
+                
+                
+                
+                                
+                            
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                    <a href="/privet/attendance/report/page">
+                                        <div class="card shadow-sm">
+                                            <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                            <div class="card-body text-center">
+                                                <h4 class="card-title">Attendance Reports</h4>
+                                                <h5 class="card-text fw-bold">6 <i class="fa-solid fa-calendar"></i></h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                            
+                                </div>        
+                            
+                                 
+                            
+                                  
+                            <!-- end mainDiv -->
+                            </div>
+                            
+                        
+                        
+                        
+                    <div  class="row mt-3 contentDiv">
+                            
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                  <a href="/privet/routine/page">
+                                    <div class="card shadow-sm">
+                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                        <div class="card-body text-center">
+                                            <h4 class="card-title">Routine</h4>
+                                            <h5 class="card-text fw-bold"> &#128214;</h5>
+                                        </div>
+                                    </div>
+                                  </a>
+                            
+                                </div>  
+                
+                
+                
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                    <a href="/pu/rank/class/page">
+                                      <div class="card shadow-sm">
+                                          <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                          <div class="card-body text-center">
+                                              <h4 class="card-title">Ranks</h4>
+                                              <h5 class="card-text fw-bold"> <i class="  fa fa-ranking-star"></i></h5>
+                                          </div>
+                                      </div>
+                                    </a>
+                              
+                                  </div>  
+                
+                
+                
+                                  
+                
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                    <a href="/pu/result/page">
+                                      <div class="card shadow-sm">
+                                          <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                          <div class="card-body text-center">
+                                              <h4 class="card-title">Results</h4>
+                                              <h5 class="card-text fw-bold"> <i class=" fa-solid fa-pie-chart"></i></h5>
+                                          </div>
+                                      </div>
+                                    </a>
+                              
+                                  </div>  
+                
+                
+                                  
+                        
+                                   
+                            
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                    <a href="/pu/all/teacher">
+                                        <div class="card shadow-sm">
+                                            <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                                            <div class="card-body text-center">
+                                                <h4 class="card-title">Teachers</h4>
+                                                <h5 class="card-text fw-bold"> <i class=" fa fa-people-group"></i></h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                            
+                                </div>        
+                            
+                                         
+                                
+                            
+                                <div class="col-md-4 col-10 m-auto ">
+                            
+                                    <a href="/pu/student/page">
+                                        <div class="card text-center">
+                                            <!-- <img class="card-img-top" src="holder.js/100px180/" alt=""> -->
+                                            <div class="card-body">
+                                                <h4 class="card-title">Students</h4>
+                                                <h5 class="card-text fw-bold"><i class=" fa fa-people-line"></i></h5>
+                            
+                                            </div>
+                                          </div>
+                                    </a>
+                            
+                                </div>    
+                                
+                                
+                
+                            
+                                  
+                            <!-- end mainDiv -->
+                            </div>
+                        
+                
+                            
+                                  
+                            <!-- end mainDiv -->
+                            </div>
+                    
+                    
+                    
+                    
+                
+                
+                        </div>
+                         
+
+   </div>
+
+
+
+                
+
+            
+
+   <script>
+
+
+    
+ 
+    </script> 
+        </body>

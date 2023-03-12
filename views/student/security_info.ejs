@@ -1,0 +1,74 @@
+                    
+               <div class="row">
+
+                <div class="col-11 col-md-6">
+                  <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Security </h4>
+                        <p class="card-text text-muted">Edit your account settings your password here.</p>
+                    
+                        <hr>
+                    <p></p>
+                    
+                    <form action="/student/email/update/page" method="post">
+                    <h4 class="card-title">Email address</h4>
+                    <p class="card-text">Your current email address is <a class="nav-item " style="text-decoration:none; color: rgb(82, 187, 129);" href="#"><%=info[0].email%>"</a></p>
+                 <p></p>
+                    <label for="email">New email address </label>
+                    <div class="input-group">
+                      <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-mail-48.png" alt=""></span>
+                      <input class="form-self  form-control" type="email" name="username"  id="newemail" placeholder="<%=info[0].email%>" required>
+          
+                     </div>                    <p></p>
+                    <button style="color:rgb(255, 255, 255) ; background-color: blueviolet;" class="btn btn-outline-light">Update</button>
+                  <p></p>
+                        <hr>
+                      <p></p>
+                    </form>
+         <form id="passwordUpdateForm" action="/student/password/update" method="post">
+                    <p></p>
+
+              
+                    <h4 class="card-title">Change Password</h4>
+                    <p class="card-text text-muted">We will email you a confirmation when changing your password,so please expect that email after submitting.</p>
+                 <p></p>
+                    <label for="password">Current Password</label>
+    
+                    <div class="input-group">
+    
+    
+                      <span class=" input-group-text"> <img width="30px" src="/icon/icons8-sign-in-form-password-48.png" alt=""> </span>
+                      <input id="password" type="password" placeholder="********" name="pastPassword"  value="" class="form-control" required>
+                      <span id="eye-hide" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye-slash"></i></span>
+                      <span style="display: none;" id="eye-show" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye"></i></span>
+          
+      
+                  </div>
+              
+                  <p></p>
+                  <label for="newpassword">New Password</label>
+                  <div class="input-group">
+    
+    
+                    <span class=" input-group-text"> <img width="30px" src="/icon/icons8-sign-in-form-password-48.png" alt=""> </span>
+                    <input id="password2" type="password" placeholder="********" name="password"  value="" class="form-control" required>
+                    <span id="eye-hide2" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye-slash"></i></span>
+                    <span style="display: none;" id="eye-show2" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye"></i></span>
+        
+    
+                </div>
+           <p></p>
+                 
+
+                    <button  style="color:rgb(255, 255, 255) ; background-color: blueviolet;" class="btn btn-outline-light">Save Password</button>
+                    
+
+                        <p>Can't remember password? <a href="/au/forgot/password" style="color:blueviolet ;"> Reset password</a></p>
+
+</form>
+
+                    </div>
+                </div>
+                </div>
+
+               </div>

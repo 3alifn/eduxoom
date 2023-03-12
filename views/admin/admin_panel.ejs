@@ -1,0 +1,64 @@
+
+
+
+ <div>
+    <button id="sidebarToggle" class=" btn text-light  float-end float-md-start bg-success">&#9776;</button>
+
+</div>
+
+    <div id="sidebar" class="col-12 text-center text-md-start m-auto col-md-3 m-md-0 " style=" border-right: 1px solid black; height: 500px; overflow-y: scroll; position: absolute; z-index: 1;" >
+                       
+     <button id="sidebarCloseBtn" class="btn btn-close bg-light float-end"></button>
+        <p class="text-secondary m-2">A D M I N - P A N E L</p>
+        <a href="/admin/dashboard" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-dashboard"></i> Dashboard</a> <p></p>
+        <a href="/admin/account" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-user"></i> Account</a> <p></p>
+
+        <a href="/admin/carousel/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-file-image-o"></i> Manage Carousel</a> <p></p>
+        <a href="/admin/content/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-file-image-o"></i> Manage Content</a> <p></p>
+
+        <a href="/admin/parent/page" class="nav-link" id="sitebar-menu "><i class="fa-solid fa-users"></i> Manage Parent</a> <p></p>
+        <a href="/admin/teacher/page" class="nav-link" id="sitebar-menu "><i class="fa-solid fa-users"></i> Manage Teacher</a> <p></p>
+        <a href="/admin/student/copy/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-graduation-cap"></i> Student Request!</a> <p></p>
+        <a href="/admin/student/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-graduation-cap"></i> Manage Student</a> <p></p>
+        <a href="/admin/subject/page?className=Six" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-book"></i> Manage Subject</a> <p></p>
+        <a href="/admin/routine/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-book-open"></i>  Manage Routine</a> <p></p>
+        <a href="/admin/library/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-book"></i>  Manage Library</a> <p></p>
+        <a href="/admin/result/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-pie-chart"></i>  Manage Result</a> <p></p>
+        <a href="/admin/admission/report/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-hand-point-right"></i>  Admission Report</a> <p></p>
+        <a href="/admin/application/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-book"></i>  Application Report</a> <p></p>
+        <a href="/admin/notice/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-bell"></i>  Manage Notice</a> <p></p>
+        <a href="/admin/result/rank/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-bar-chart"></i>  Result Rank</a> <p></p>
+        <a href="#" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-money"></i>  Manage Fees</a> <p></p>
+
+        <p class="text-secondary m-2">A C A D E M I C</p>
+        <a href="/privet/attendance/report/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-calendar-o"></i> Attendance Report</a> <p></p>
+        <a href="/privet/routine/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-solid fa-book-open"></i> Class Routine</a> <p></p>
+        
+        <a href="/pu/all/teacher" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-users"></i> Teacher List</a> <p></p>
+        <a href="/pu/student/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-graduation-cap"></i> Student List</a> <p></p>
+        <a href="/pu/notice/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-bell"></i> Notice Board</a> <p></p>
+        <a href="/pu/rank/class/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-bar-chart"></i> Student Rank</a> <p></p>
+        <a href="/pu/result/page" class="nav-link" id="sitebar-menu"><i class="fa-solid fa-pie-chart"></i> Student Result</a> <p></p>
+       
+
+
+     </div>
+
+
+     <script>
+
+$("#sidebar").hide()
+       
+$("#sidebarToggle").on("click", ()=>{    
+$("#sidebar").slideDown()
+                        
+ })
+ 
+ $("#sidebarCloseBtn").on("click", ()=>{    
+$("#sidebar").slideUp()
+                        
+ })
+                
+
+
+     </script>

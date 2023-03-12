@@ -1,0 +1,56 @@
+
+
+ <div>
+    <button id="sidebarToggle" class=" btn text-light  float-end float-md-start bg-success">&#9776;</button>
+
+</div>
+
+    <div id="sidebar" class="col-12 text-center text-md-start m-auto col-md-3 m-md-0 " style=" border-right: 1px solid black; height: 500px; overflow-y: scroll; position: absolute; z-index: 1;" >
+        <button id="sidebarCloseBtn" class="btn btn-close bg-light float-end"></button>
+          
+        <p class="text-secondary m-2">T E A C H E R - P A N E L</p>
+        <a href="/teacher/dashboard" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-dashboard"></i> Dashboard</a> 
+        <a href="/teacher/account" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-user"></i> Account</a> 
+        <a href="/teacher/attendance/form" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-pencil-square-o"></i> Attendance Sheet</a>
+     
+        <a href="/teacher/daily/mark/page" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-pencil"></i> Daily Mark</a> 
+         <a href="/teacher/pic/page" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-pencil"></i> PIC Mark</a> 
+         <a href="/teacher/pic/report/page" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-pie-chart"></i> PIC Report</a> 
+       
+         <a href="/teacher/pis/page" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-pencil"></i> PIS Mark</a>
+         <a href="/teacher/pis/report/page" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-pie-chart"></i> PIS Report</a>
+       
+    
+        
+        <p class="text-secondary m-2">A C A D E M I C</p>
+
+        <a href="/privet/attendance/report/page" class="nav-link  p-2" id="sitebar-menu"><i class="fa-solid fa-calendar-o"></i> Attendance Report</a>
+        <a href="/privet/routine/page" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-solid fa-book-open"></i> Class Routine</a>
+        
+        <a href="/pu/all/teacher" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-users"></i> Teacher List</a>
+        <a href="/pu/student/page" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-graduation-cap"></i> Student List</a>
+        <a href="/pu/notice/page" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-bell"></i> Notice Board</a>
+        <a href="/pu/rank/class/page" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-bar-chart"></i> Student Rank</a>
+        <a href="/pu/result/page" class="nav-link p-2" id="sitebar-menu"><i class="fa-solid fa-pie-chart"></i> Student Result</a>
+       
+
+     </div>
+
+
+     <script>
+
+       
+$("#sidebarToggle").on("click", ()=>{    
+$("#sidebar").slideDown()
+                        
+ })
+ 
+ $("#sidebarCloseBtn").on("click", ()=>{    
+$("#sidebar").slideUp()
+                        
+ })
+ 
+ $("#sidebar").hide()
+
+
+     </script>

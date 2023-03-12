@@ -1,0 +1,521 @@
+const express = require("express")
+const app = express()
+
+
+const { sqlmap } = require("../server")
+
+
+exports.public_rank_class_page= (req, res)=>{
+
+  sqlmap.query(`SELECT * FROM student_rank WHERE class='Ten' GROUP BY poient DESC`, (errTen, infoTen)=>{
+
+    if(errTen) console.log(errTen.sqlMessage);
+
+    sqlmap.query(`SELECT * FROM student_rank WHERE class='Nine' GROUP BY poient DESC`, (errNine, infoNine)=>{
+
+      if(errNine) console.log(errNine.sqlMessage);
+  
+      sqlmap.query(`SELECT * FROM student_rank WHERE class='Eight' GROUP BY poient DESC`, (errEight, infoEight)=>{
+
+        if(errEight) console.log(errEight.sqlMessage);
+    
+        sqlmap.query(`SELECT * FROM student_rank WHERE class='Seven' GROUP BY poient DESC`, (errSeven, infoSeven)=>{
+
+          if(errSeven) console.log(errSeven.sqlMessage);
+      
+          
+        sqlmap.query(`SELECT * FROM student_rank WHERE class='Six' GROUP BY poient DESC`, (errSix, infoSix)=>{
+
+         
+          if(errSix) console.log(errSix.sqlMessage);
+      
+          if(infoSix.length==0 && infoSeven.length==0 && infoEight.length==0 && infoNine.length==0 && infoTen.length==0){
+
+            res.send("<center><h2>র‍্যাংক পব্দতি এখনো করা চালু হয়নি!</h2></center>")
+
+          }
+    
+          else res.render("rank/rank_class_page_public", {infoSix, infoSeven, infoEight, infoNine, infoTen})
+      
+         
+        })
+    
+    
+      
+        })
+  
+  
+    
+      })
+
+
+  
+    })
+
+  })
+
+}
+
+
+
+
+
+exports.public_rank_page= (req, res)=>{
+  let className=  req.query.className;
+  app.locals.className= className
+ 
+ sqlmap.query(`SELECT * FROM student_rank WHERE class="${className}" AND section="A" GROUP BY poient DESC `, (errA, infoA)=>{
+  if(errA) console.log(errA.sqlMessage);
+
+
+  sqlmap.query(`SELECT * FROM student_rank WHERE class="${className}" AND section="B" GROUP BY poient DESC `, (errB, infoB)=>{
+    if(errB) console.log(errB.sqlMessage);
+  
+
+    sqlmap.query(`SELECT * FROM student_rank WHERE class="${className}" AND section="C" GROUP BY poient DESC `, (errC, infoC)=>{
+      if(errC) console.log(errC.sqlMessage);
+
+      
+    
+      res.render("rank/rank_page_public", {infoA, infoB, infoC, className: app.locals.className})
+    
+     })
+    
+  
+   })
+
+
+ })
+
+}
+
+
+
+
+
+
+
+exports.teacher_rank_mark_page= (req, res)=>{
+  // let yearName= new Date().getFullYear()
+
+  
+     let sql= `SELECT * FROM students  WHERE class="Six" ORDER BY roll`
+     sqlmap.query(sql, (err, info)=>{
+       if(err) console.log(err.sqlMessage);
+       else res.render("rank/daily_mark_page_teacher", {info})
+     }) 
+  
+   
+   
+   }
+
+
+
+
+
+exports.teacher_rank_mark_page_class_base= (req, res)=>{
+  // let yearName= new Date().getFullYear()
+
+    let sql= `SELECT * FROM students  WHERE class="${req.body.className}"  ORDER BY roll`
+    sqlmap.query(sql, (err, info)=>{
+
+    if(err) console.log(err.sqlMessage);
+
+    else 
+    {
+        let html= '';
+
+  
+        for (const i in info) {
+          html+= 
+          ` <ul class="list-group mt-2" id="list">
+          <li class="list-group-item list-group-item-primary">
+              <img src="/image/student/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
+       
+              <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
+              <span class=" badge bg-light text-dark">${info[i].name}</span>
+
+              <span class=" badge bg-light text-muted">${info[i].roll} </span>
+      <hr> <span class=" btn btn-default">Behavior</span> <br>
+              <div class=" btn-group btn-group-sm ">
+              <button data-id="weak_B" data-id2="${info[i].ID}" id="weak" class="def  btn-lg btn-outline-danger bg-light text-danger ">&#x2730;</button>
+
+              <button data-id="good_B" data-id2="${info[i].ID}" id="good" class="def   btn-lg btn-outline-primary bg-light text-primary">&#x2730;&#x2730;</button>
+              <button data-id="excellent_B" data-id2="${info[i].ID}" id="excellent" class="def  btn-lg btn-outline-success bg-light text-success ">&#x2730;&#x2730;&#x2730;</button>
+
+         </div>
+
+         <hr>  <span class=" btn btn-default">Uniform</span> <br>
+         <div class=" btn-group btn-group-sm ">
+             
+             <button data-id="weak_U" data-id2="${info[i].ID}" id="weak" class="def  btn-lg btn-outline-danger bg-light  text-danger ">&#10026;</button>
+             <button data-id="good_U" data-id2="${info[i].ID}" id="good" class="def  btn-lg btn-outline-primary bg-light text-primary">&#10026;&#10026;</button>
+              <button data-id="excellent_U" data-id2="${info[i].ID}" id="excellent" class="def  btn-lg btn-outline-success bg-light text-success ">&#10026;&#10026;&#10026;</button>
+         </div>
+ 
+
+         <hr> <span class=" btn btn-default">Study</span> <br>
+         <div class=" btn-group btn-group-sm ">
+          
+             <button data-id="weak_S" data-id2="${info[i].ID}" id="weak" class="def  btn-lg btn-outline-danger bg-light text-danger ">&#10030;</button>
+
+              <button data-id="good_S" data-id2="${info[i].ID}" id="good" class="def   btn-lg btn-outline-primary bg-light text-primary">&#10030;&#10030;</button>
+              <button data-id="excellent_S" data-id2="${info[i].ID}" id="excellent" class="def  btn-lg btn-outline-success bg-light text-success ">&#10030;&#10030;&#10030;</button>
+
+              </div>
+           </li>
+         
+       
+      </ul>`
+        }
+
+        res.send({html: html})
+    }
+
+   })
+
+
+
+   
+   
+   }
+
+
+
+
+
+
+exports.teacher_rank_mark_post= (req, res)=>{
+
+  let defaultNumber= 1;
+  let teacher_id= req.session.userid;
+  
+  let findDate = new Date().toLocaleDateString();
+
+
+    let today= new Date().toLocaleDateString();
+    let {ID, mark} = req.body;
+
+
+    if(mark=='good_B' || mark=='weak_B' || mark=='excellent_B')
+    {
+        var markColumnName= 'behavior';
+        
+    }
+
+    else if(mark=='good_U' || mark=='weak_U' || mark=='excellent_U')
+    {
+        var markColumnName= 'uniform';
+    }
+
+    
+
+    else if(mark=='good_S' || mark=='weak_S' || mark=='excellent_S')
+    {
+        var markColumnName= 'study';
+    }
+    else var markColumnName= null;
+
+
+
+   sqlmap.query(`SELECT * FROM student_rank WHERE student_uuid=${ID} AND today="${today}" AND teacher_id=${teacher_id} AND ${markColumnName}=1 `, (err0, info0)=>{
+    if(err0) console.log(err0.sqlMessage);
+    if(info0.length==0)
+    {
+
+      sqlmap.query(`SELECT * FROM students WHERE ID=${ID}`, (err, info)=>{
+            
+        if(err) console.log(err.sqlMessage);
+  
+        sqlmap.query(`INSERT INTO student_rank (
+          find_date, 
+          teacher_id, 
+          today, 
+          student_uuid,
+           student_id,
+            roll, 
+            name, 
+            class, 
+            section,
+             avatar, 
+             ${markColumnName}
+        )
+      VALUES
+        ("${findDate}",
+          ${teacher_id},
+          "${today}",
+          ${ID},
+          ${info[0].student_id},
+          ${info[0].roll},
+          "${info[0].name}",
+          "${info[0].class}",
+          "${info[0].section}",
+          "${info[0].avatar}",
+          ${defaultNumber}
+        )` , (errInsert, next)=>{
+          
+          if(errInsert) console.log(errInsert);
+
+            sqlmap.query(`SELECT poient, at_date FROM student_rank WHERE student_id= ${info[0].student_id} ORDER BY poient DESC`, (err3, info3)=>{
+              if(err3) console.log(err3.sqlMessage);
+       
+              else 
+              {
+                sqlmap.query(`UPDATE student_rank SET poient=${ info[0].poient==undefined? 1 : parseFloat(info3[0].poient)+parseFloat(mark=='good_U'||mark=='good_S'||mark=='good_U'?1.555: mark=='excellent_U'||mark=='excellent_B'||mark=='excellent_S'? 2.555 : 0.555)} WHERE student_id=${info[0].student_id}`, (err4, info4)=>{
+    
+                  if(err4) console.log(err4.sqlMessage);
+        
+                  else res.send({msg: "Mark Updated...", alert: "dark"})
+        
+                })
+    
+              }
+    
+            })
+    
+      
+        })
+    
+      })
+    
+    }
+  
+    else res.send({msg: "Today Locked! for you!", alert: "danger"})
+   })
+  
+  
+  }
+
+
+
+
+
+
+
+exports.teacher_rank_mark_post_attendance = (req, res) => {
+
+    let Year = new Date().getFullYear()
+    let Month = new Date().toDateString().substring(4, 7)
+    let Day = new Date().toDateString().substring(0, 4) + new Date().getDate()
+    let today= new Date().toLocaleDateString();
+    let findDate= new Date().toLocaleDateString();
+
+    sqlmap.query(`SELECT * FROM attendance WHERE find_date="${findDate}"`, (err, info) => {
+
+      if (err) console.log(err.sqlMessage)
+  
+  
+        for (let i = 0; i < info.length; i++) {
+       
+          sqlmap.query(`SELECT * FROM student_rank WHERE student_id=${info[i].student_id} AND find_date='${findDate}'`, (errCheck, infoCheck)=>{
+            if(errCheck) console.log(errCheck.sqlMessage);
+            // console.log(infoCheck.length);
+
+            if(infoCheck.length==0){
+
+              
+          sqlmap.query( `INSERT INTO student_rank (find_date ,today, name,  student_uuid, student_id, roll, class, section, avatar, present) VALUES ( "${findDate}", "${today}",  "${info[i].name}", "${info[i].student_uuid}", "${info[i].student_id}", "${info[i].roll}", "${info[i].class}",  "${info[i].section}", "${info[i].avatar}", 1)`, (err2, info2)=>{
+
+            if(err2) console.log(err2.sqlMessage + "fooooooooo");
+    
+                 
+              sqlmap.query(`SELECT poient FROM student_rank WHERE student_id=${info[i].student_id} ORDER BY poient DESC LIMIT 1`, (err3, info3)=>{
+                if(err3) console.log(err3.sqlMessage);
+      
+                  sqlmap.query(`UPDATE student_rank SET poient=${parseFloat(info3[0].poient)+parseFloat(3.333)} WHERE student_id=${info[i].student_id}`, (err4, info4)=>{
+      
+                    if(err4) console.log(err4.sqlMessage);
+          
+                  
+                  
+          
+                  })
+      
+            
+      
+              })
+  
+          })
+
+            }
+
+          })
+
+  
+    
+        }
+    
+        res.send({msg: "Attendance finished with student_rank mark!", alert: "success"})
+  
+  
+  })
+  }
+  
+  
+  
+
+
+
+
+exports.public_rank_get= (req, res)=>{
+ let className=  req.body.className;
+
+//  let yearName= new Date().getFullYear()
+
+     let sql= `SELECT * FROM student_rank WHERE class='${className}' GROUP BY student_id ORDER BY poient DESC`
+     sqlmap.query(sql, (err, info)=>{
+
+    
+
+       if(err) console.log(err.sqlMessage);
+
+       else
+       {
+
+        sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE class='${className}' GROUP BY student_id ORDER BY poient DESC`, (errS, infoS)=>{
+            if(errS) console.log(errS.sqlMessage);
+
+
+            else 
+            {
+
+                let html= "";
+
+                for (const i in info) {
+        
+                    html+= 
+                    /*html*/
+                    `
+                       
+                    <ul class="list-group  mt-2 list" id="list">
+                        
+                        <li class="list-group-item list-group-item-primary ">
+                   
+                          <span class="badge bg-primary">Rank: ${parseInt(i)+parseInt(1)}</span>  
+                          <img src="/image/student/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
+                     
+                            <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
+                            <span class=" badge bg-light text-dark">${info[i].name} (${info[i].roll})</span>
+
+                    <hr>
+        
+                    <span class=" badge bg-light text-danger">Behavior (${infoS[i].behavior})</span>
+                    <span class=" badge bg-light text-secondary"> Uniform (${infoS[i].uniform}) </span>
+                    <span class=" badge bg-light text-success">Study (${infoS[i].study}) </span>
+                    <span class=" badge bg-light text-info">Present (${infoS[i].present}) </span>
+                    <span class=" badge bg-light text-primary">Ratting (${info[i].poient}) </span>
+        
+        
+                            <div class=" btn-group btn-group-sm">
+                            
+                            </div>
+                    
+                         </li>
+                       
+                     
+                    </ul>
+        
+                    `
+                 
+                }
+        
+                res.send({html: html})
+                
+            }
+
+        })
+
+      
+
+       }
+
+
+
+     }) 
+  
+
+   
+   }
+
+
+
+
+
+
+
+
+
+exports.public_rank_get_class_base= (req, res)=>{
+
+    let sql= `SELECT * FROM student_rank WHERE class="${req.body.className}" GROUP BY student_id ORDER BY poient DESC`
+    sqlmap.query(sql, (err, info)=>{
+
+
+      if(err) console.log(err.sqlMessage);
+
+      else
+      {
+
+       sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE class="${req.body.className}" GROUP BY student_id ORDER BY poient DESC`, (errS, infoS)=>{
+           if(errS) console.log(errS.sqlMessage);
+
+
+           else 
+           {
+
+               let html= "";
+
+               for (const i in info) {
+       
+                   html+= 
+                   /*html*/
+                   `
+                      
+                   <ul class="list-group  mt-2 list" id="list">
+                       
+                       <li class="list-group-item list-group-item-primary ">
+                  
+                         <span class="badge bg-primary">Rank: ${parseInt(i)+parseInt(1)}</span>  
+                         <img src="/image/student/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
+                    
+                           <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
+                           <span class=" badge bg-light text-muted">${info[i].name} (${info[i].roll}) </span>
+                   <hr>
+       
+                   <span class=" badge bg-light text-danger">Behavior (${infoS[i].behavior})</span>
+                   <span class=" badge bg-light text-secondary"> Uniform (${infoS[i].uniform}) </span>
+                   <span class=" badge bg-light text-success">Study (${infoS[i].study}) </span>
+                   <span class=" badge bg-light text-info">Present (${infoS[i].present}) </span>
+                   <span class=" badge bg-light text-primary">Ratting (${info[i].poient}) </span>
+       
+       
+                           <div class=" btn-group btn-group-sm">
+                           
+                           </div>
+                   
+                        </li>
+                      
+                    
+                   </ul>
+       
+                   `
+                
+               }
+       
+               res.send({html: html})
+               
+           }
+
+       })
+
+     
+
+      }
+
+
+
+    }) 
+ 
+
+  
+  }

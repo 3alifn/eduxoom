@@ -1,0 +1,483 @@
+<%- include("../component/header") %> 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Student</title>
+    <%-include('../component/app') %> 
+
+</head>
+
+<body class=" container">
+
+  <% if( typeof msg!=typeof alifn && msg.length>0) {%>
+
+    <%-include("../component/toast_live") %> 
+
+       <% } else { %>
+         <%=null %> 
+         <% } %> 
+
+
+         <% if(step=="step1") {%>
+  
+
+<div class="row">
+
+  <div class="col-11 col-md-6 m-auto ">
+    
+  <form id="form1" action="/pu/join/student/sendmail" novalidate class="form needs-validation" method="post">
+    <center>
+      <img src="/image/school/user.png" height="70px" alt=""> <br>
+      <strong>Student Information</strong>
+    </center>    
+    <center><span class="text-muted">Already Joined! <a class=" fw-bold" href="/au/singin/page">Sing in</a></span></center>
+<p></p>
+    <div class=" input-group">
+
+      
+     <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-checked-identification-documents-48.png" alt=""></span>
+      <input id="student_id" pattern="^[0-9]*$" type="tel" placeholder="Student Id." name="student_id"  class="form-self form-control " required>
+    
+      <div  class="valid-feedback"></div>
+      <div id="" class="invalid-feedback">Enter a valid student id</div>
+     
+    </div>
+
+
+    <p></p>
+
+    <div class=" input-group">
+
+    <span class=" input-group-text"><img width="30px" src="/icon/icons8-mail-48.png" alt=""></span>
+    
+      
+ <input pattern="^([A-Za-z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([A-Za-z0-9\-]+\.)+))([A-Za-z]{2,4}|[0-9]{1,3})(\]?)$" id="email" type="email" placeholder="student@mail.com" name="email" class="form-self form-control" required>
+
+ <div  class="valid-feedback"></div>
+ <div id="" class="invalid-feedback">Enter a valid email</div>
+
+</div>
+
+  <p></p>
+  
+  <center>
+    <button id="btn1" class="w-50  btn-self">Continue</button>
+  </center>
+  <p></p>
+
+    </form>
+
+    <% }   else if(step=="step2") {%>
+
+<hr>
+
+
+
+   <div class="row">
+
+    <div class="col-md-6 col-11 m-auto">
+      <form id="form2" action="/pu/join/student/verifycode" class="form" novalidate method="post">
+
+        <center>
+          <img src="/image/school/user.png" height="70px" alt=""> <p></p>
+          
+          
+  
+          <strong class=" alert alert-success">verification code sent!</strong>
+  
+        </center>  
+  <p></p>
+  
+  
+  
+  <div class=" input-group">
+  
+    <span class=" input-group-text"><img width="30px" src="/icon/icons8-authentication-48.png" alt=""></span>
+  
+  
+    <input pattern="^[0-9]*$" type="text" placeholder=" verification code" name="verifyCode" class="form-self form-control" required>
+    <div  class="valid-feedback"></div>
+    <div id="" class="invalid-feedback">Enter a valid code</div>
+   
+  </div>
+  
+  
+        <p></p>
+  
+        <center>
+          <button class="w-50 btn-self">Verify</button>
+        </center>
+        <p></p>
+  
+      </form>
+    </div>
+
+   </div>
+    
+    <% } else if(step=="step3") {%>
+   
+        <div class="row">
+
+          <div class="col-md-6 col-11 m-auto">
+            <form id="form3" method="post"  action="/pu/join/student" novalidate  class="needs-validation form">
+            
+              <center>
+                <img src="/image/school/user.png" height="70px" alt=""> <br>
+                <strong>Student Information</strong>
+              </center>  
+      <p></p>
+  
+  
+       
+              <div class=" input-group">
+  
+                <span class=" input-group-text"><img width="30px" src="/icon/education/icons8-classroom-48.png" alt=""></span>
+  
+  
+        <select name="classBase" id="classBase" class=" form-select" required>
+  
+          <option value="" disabled selected>Your class</option>
+  
+          <optgroup label="Class Ten">
+             <option value="Ten-A">Ten - A</option>
+             
+             <option value="Ten-B">Ten - B</option>
+             <option value="Ten-C">Ten - C</option>
+            </optgroup>
+           
+            <optgroup label="Class Nine">
+             <option value="Nine-A">Nine - A</option>
+             <option value="Nine-B">Nine - B</option>
+             <option value="Nine-C">Nine - C</option>
+            </optgroup>
+           
+           
+            
+            <optgroup label="Class Eight">
+             <option value="Eight-A">Eight - A</option>
+             <option value="Eight-B">Eight - B</option>
+             <option value="Eight-C">Eight - C</option>
+            </optgroup>
+           
+           
+           
+            
+            <optgroup label="Class Seven">
+             <option value="Seven-A">Seven - A</option>
+             <option value="Seven-B">Seven - B</option>
+             <option value="Seven-C">Seven - C</option>
+            </optgroup>
+            
+           
+           
+           
+            
+            <optgroup label="Class Six">
+             <option value="Six-A">Six - A</option>
+             <option value="Six-B">Six - B</option>
+             <option value="Six-C">Six - C</option>
+            </optgroup>
+            
+         
+         </select>
+  
+  
+  
+  
+  
+  
+      </div>     
+      <p></p>
+    
+  
+  
+    <p></p>
+  
+  
+  
+              <div class=" input-group">
+  
+                <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-student-male-48.png" alt=""></span>
+              
+              
+                <input pattern="^[A-Za-z .-_]*$" type="text" placeholder="Enter Name" name="name"  class="form-self form-control" required>
+              
+                <div  class="valid-feedback"></div>
+                <div id="" class="invalid-feedback">Enter a valid name</div>
+               
+  
+              </div>
+  
+  
+    <p></p>
+             
+  
+  
+  
+  <p></p>
+   
+  <div class=" input-group">
+      
+    <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-family-48.png" alt=""></span>
+    <input pattern="^[A-Za-z .-_]*$" type="text"class="form-self form-control" name="fatherName" id="" placeholder=" father name" required>
+    <div  class="valid-feedback"></div>
+    <div id="" class="invalid-feedback">Enter a valid name</div>
+   
+  </div>
+  
+  <p></p>
+  
+  <div class=" input-group">
+  
+    <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-family-48.png" alt=""></span>
+    <input pattern="^[A-Za-z .-_]*$" type="text"class="form-self form-control"  name="motherName" id=""placeholder=" mother name" required>
+    <div  class="valid-feedback"></div>
+    <div id="" class="invalid-feedback">Enter a valid name</div>
+   
+  </div>
+    
+    
+       
+  <div>
+    <label for="male"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="male" value="Male" checked name="gender" > Male </span> </label> 
+    <label for="female">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="Female" id="female"  name="gender" > Female </span> </label>
+  </div>
+    <p></p>
+  
+    <div class=" input-group">
+              
+      <span class=" input-group-text"> <img width="30px" src="/icon/user/icons8-praying-man-48.png" alt=""></span>
+      <select class=" form-self form-select" name="religion" id="" required>
+        <option disabled selected value="">Select Religion</option>
+        <option value="Islam">Islam</option>
+        <option value="Hinduism">Hinduism</option>
+        <option value="Christianity">Christianity</option>
+        <option value="Buddhism">Buddhism</option>
+        <option value="Others">Others</option>
+  
+      </select>
+   </div>
+  
+   <p></p>
+    
+  
+  
+    <div class=" input-group">
+  
+      <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-contact-48.png" alt=""></span>
+    
+    
+      <input pattern="^01[0-9]*$" maxlength="11" type="tel" placeholder="01XXXXXXXX" name="telephone"  class="form-self form-control" required>  
+      <div  class="valid-feedback"></div>
+      <div id="" class="invalid-feedback">Enter contact number</div>
+    
+    </div>
+  
+      <p></p>
+  
+  
+      
+      
+      <div class=" input-group">
+  
+        <span class=" input-group-text"> <img width="30px" src="/icon/user/icons8-home-address-48.png" alt=""></span>
+        <input type="text" class="form-self form-control" name="address" id="" placeholder="address" required>
+        <div  class="valid-feedback"></div>
+        <div id="" class="invalid-feedback">Required address</div>
+        </div>
+  
+  
+  <p></p>
+    
+      <div class=" input-group">
+        <span class=" input-group-text"><i class="fa-sharp fa-solid fa-lock"></i></span>
+        <input  pattern="^[A-Za-z0-9!@#$%&*]*$" minlength="6" maxlength="20" id="password" type="password" placeholder="Enter password" name="password" value="" class="form-control" required>
+        <span id="eye-hide" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye-slash"></i></span>
+        <span style="display: none;" id="eye-show" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye"></i></span>
+  
+        <div  class="valid-feedback"></div>
+        <div id="" class="invalid-feedback">Enter minimum 6 letter, maximum 20 letter & case ([A-Za-z0-9!@#$%&*]) </div>
+  
+    </div>
+  
+  
+      <p></p>
+  
+  
+  
+    
+   
+      <div class=" input-group">
+  
+        <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-blood-48.png" alt=""></span>
+      
+        <select name="bloodGroup" class="form-self form-select" id="">
+          <option selected disabled value="">Your blood group</option>
+          <optgroup label="Positive"> 
+          
+            <option  value="A+ve">A+ve</option>
+            <option value="B+ve">B+ve</option>
+            <option selected value="O+ve">O+ve</option>
+            <option value="AB+ve">AB+ve</option>
+    
+            </optgroup> 
+            
+            <optgroup label="Negative"> 
+            <option  value="A-ve">A-ve</option>
+            <option value="B-ve">B-ve</option>
+            <option value="O-ve">O-ve</option>
+            <option value="AB-ve">AB-ve</option>
+    
+            </optgroup>
+    
+       
+        </select>
+      </div>
+    
+      <p></p>
+    
+  
+  
+      <div class=" input-group">
+  
+        <span class=" input-group-text">Birth Date</span>
+      
+  
+                <input type="date" name="birthDate"  value="2009-09-09" class="form-self form-control" required>
+              
+              </div>
+  
+  
+      <p></p> 
+    
+    
+              <center>
+                <button class="w-50 btn-self">Join</button>
+              </center>
+      
+            </form>
+          </div>
+
+         
+        </div>
+        <p></p>
+  
+  
+        <% } else {%>
+          <%=null %> 
+          <% } %>   
+  </div>
+
+</div>
+
+     <script>
+
+
+
+function defform1(){
+  const forms = document.querySelectorAll('#form1')
+
+
+Array.from(forms).forEach(form => {
+
+  form.addEventListener('submit', event => {
+
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+
+    }
+
+
+
+    form.classList.add('was-validated')
+  })
+})
+}
+
+defform1()
+
+
+function defform2(){
+  
+  const forms = document.querySelectorAll('#form2')
+
+
+  Array.from(forms).forEach(form => {
+
+    form.addEventListener('submit', event => {
+ 
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+
+      }
+
+
+
+      form.classList.add('was-validated')
+    })
+  })
+}
+
+defform2()
+
+function defform3() { 
+  
+
+
+  const forms = document.querySelectorAll('#form3')
+
+
+  Array.from(forms).forEach(form => {
+
+    form.addEventListener('submit', event => {
+ 
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+
+      }
+
+
+
+      form.classList.add('was-validated')
+    })
+  })
+ }
+
+ defform3()
+
+
+
+
+      $("#form1").on("submit", ()=>{
+
+        $("#btn1").addClass("disabled")
+
+      })
+
+
+    $('#eye-hide').click(()=>{
+    $('#password').attr('type', "text")
+    $('#eye-hide').css({'display': 'none'})
+    $('#eye-show').css({'display': 'block'})
+})
+
+
+$('#eye-show').click(()=>{
+    $('#password').attr('type', "password")
+    $('#eye-hide').css({'display': 'block'})
+    $('#eye-show').css({'display': 'none'})
+})
+
+
+     </script>
+
+</body>
+</html>

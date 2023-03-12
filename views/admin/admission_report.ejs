@@ -1,0 +1,227 @@
+
+<%- include("../component/header") %> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Report</title>
+    <%- include("../component/app") %> 
+
+
+
+    <style>
+      #infoAdmission a, #infoAdmission{
+          text-decoration: none;
+          color:black !important;
+      }
+  
+      #infoAdmission .card:hover{
+         height: max-content !important;
+         
+      }
+  </style>
+  
+</head>
+<body class=" container m-0 ">
+
+  <div class="row">
+
+    <%-include("./admin_panel") %> 
+
+    <div class="col">
+
+
+      
+  <%- include("../component/modal_success") %> 
+  <%- include("../component/modal_danger") %> 
+  <%- include("../component/toast_alive") %> 
+ 
+
+
+  <div class=" w-50 mt-2 m-auto">
+    <input  class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="date" name=""  id="findDate">
+    <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+
+</div>
+  <div id="infoAdmission" class="row">
+
+    <% for(let i= 0; i<info.length; i++) {%>
+
+     
+       
+       <div  class="col-10 col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+         
+             <div class="card ">
+                 <img class="card-img-to m-auto" width="100px" src="/image/student/<%=info[i].avatar==undefined?'male_avatar.png':info[i].avatar%>" alt="404">
+                 <div class="card-body">
+                     <h5 class="card-title"><%=info[i].name%> </h5>
+                     <h6 class="card-text">Last Education: <%=info[i].last_education%></h6> 
+                     <h6 class="card-text">Passing Year: <%=info[i].passing_year%></h6>
+                     <code class="card-text">Admission Date: <%=info[i].at_date.toLocaleString('en-ZA').substring(0,10)%></code>
+                     
+                     <button data-id="<%=info[i].ID%>" class="defInfo btn btn-sm" title="Information" ><i class=" fa fa-file-text"></i></button>
+                     <button data-id="<%=info[i].email%>" class="accept btn btn-sm" title="Accept" ><i class=" fa fa-check"></i></button>
+                     <button data-id="<%=info[i].ID%>" class="reject btn btn-sm" title="Reject" ><i class=" fa fa-close"></i></button>
+   
+                 </div>
+          
+             </div>
+         </div>
+   
+       <% } %>  
+   
+           <!-- end div -->
+       </div>
+       
+   
+   
+   <%-include("../component/profile_info") %> 
+
+
+   
+
+    </div>
+
+  </div>
+
+
+
+
+
+</body>
+
+
+<script>
+
+
+ $("#form").hide()
+
+
+ 
+ $(document).ready(function(){
+  $("#findDate").change(function(e) {
+    let findDate= $("#findDate").val().replaceAll("-", "/");
+    console.log(findDate);
+    var value = findDate
+    $(".card").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+ $(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $(".card").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+
+ $(document).on("click", ".defInfo", (e)=>{
+  let dataID= e.currentTarget.attributes[0].value;
+  $.ajax({
+  type: "post",
+  url: "/admin/admission/report/info",
+  data: {dataID},
+  dataType: "JSON",
+  beforeSend: function(){
+
+
+  },
+  success: function (info) {
+    setTimeout(() => {
+      $("#profileInfo").html(info.html)
+     $("#avatarpng").attr("src", `/image/admission/${info.avatar}`)
+  
+    }, 1000);
+     $("#profileTrigger").click()
+  }
+});
+})
+
+
+
+
+
+
+
+$(".btn-close").on("click", ()=>{
+    $("#form").fadeOut()
+    $("body").addClass("bg-light")
+ })
+
+
+
+ $(document).on("click", ".accept", (e)=>{
+
+let email= e.currentTarget.attributes[0].value;
+
+$("#confirmedAccept").on("click", ()=>{
+$.ajax({
+ type: "post",
+ url: "/admin/admission/accept",
+ data: {email},
+ dataType: "JSON",
+ beforeSend: function(){
+
+ },
+ success: function (info) {
+   
+  $("#msg").text(info.msg).addClass(info.alert)
+  toast_alive()
+  
+ }
+
+});  
+})
+
+
+})
+
+
+
+
+$(document).on("click", ".reject", (e)=>{
+
+let dataID= e.currentTarget.attributes[0].value;
+
+
+
+ $("#confirmed").on("click", ()=>{
+  $.ajax({
+ type: "post",
+ url: "/admin/admission/reject",
+ data: {dataID},
+ dataType: "JSON",
+ beforeSend: function(){
+
+ },
+ success: function (info) {
+   
+  $("#msg").html(info.msg)
+  window.location.reload()
+ }
+
+}); 
+ })
+ })
+
+ 
+
+
+</script>
+
+</html>

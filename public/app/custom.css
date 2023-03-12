@@ -1,0 +1,83 @@
+.form-self
+{
+
+ padding: 14px !important;
+ width: 98% ;
+ outline: none !important;
+
+ 
+ 
+}
+
+.form-self:focus
+{
+     box-shadow: 0 4px 8px 0 rgba(71, 86, 202, 0.2), 0 6px 20px 0 #281e5d !important;
+      outline: 1px solid #281e5d !important;
+      border: none !important;
+      transition: all 1s !important;
+
+      
+}
+
+.btn-self
+{
+ color: white;
+ background-color: #872166;
+ padding: 10px;
+ border: none;
+ border-radius: 5px;
+ width: 90px;
+}
+.btn-self:hover
+{
+ background-color: #281e5d;
+}
+
+
+.btn-dev 
+{
+    background-color: blueviolet !important;
+    padding: 5px !important;
+    color: white;
+    border: none;
+
+}
+
+.btn-dev:hover 
+{
+    background-color: rgb(86, 14, 154) !important;
+    padding: 5px !important;
+    color: white;
+    border: none;
+}
+
+
+
+  .form-dev{
+
+     outline-color: slateblue !important;
+     width: 98%;
+     padding: 5px;
+
+  }
+
+  #thead
+  {
+      background-color:  #281e5d !important;
+      color: white !important;
+  }
+
+
+
+  
+#sidebar 
+{
+    background-color: #18113C !important;
+    color: white ;
+}
+
+#sidebar a
+
+{
+    color: white;
+}

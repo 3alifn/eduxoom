@@ -1,0 +1,276 @@
+
+
+
+<%-include("../component/header") %> 
+<%-include("../component/navbar") %> 
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIC Report</title>
+    <%-include("../component/appdef") %> 
+
+</head>
+<body>
+ <p></p>
+
+    <center>
+     <h5> PIC Report</h5>
+    </center>
+
+
+    <!-- Button trigger modal -->
+    <button id="openModal" style="display:none ;" type="button" class="btn" data-toggle="modal" data-target="#modelId">
+      Launch
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-header">
+                            <h5 class="modal-title">PIC Mark Report</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                       
+
+                        <center>
+
+                            <ul class="list-group" id="listDataHeading"> 
+                    
+                                <li class="list-group-item">
+                                     <span class=" badge bg-light text-dark"><img width="30px" src="/image/student/${info[0].avatar}" alt="404"></span>
+                                     <span class=" badge bg-light text-primary">${info[0].student_id}</span>
+                                     <span class=" badge bg-light text-dark">${info[0].name}</span> 
+                                     <span class=" badge bg-light text-dark">${info[0].class} - {info[0].section}  </span> 
+                                   
+                                </li> 
+                           </ul>
+ <p></p>
+                                     
+<ul class="list-group">
+    
+    <div class="btn-group"> 
+       <div class=" w-50 text-center" id="listDataPI"> 
+          
+          </div>
+          
+          <div class=" w-50 text-center" id="listDataBI"> 
+          
+          </div>
+    </div>
+   
+       
+      
+   </ul>
+              
+                         </center>
+
+
+                    </div>
+                </div>
+           \
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $('#exampleModal').on('show.bs.modal', event => {
+            var button = $(event.relatedTarget);
+            var modal = $(this);
+            // Use above variables to manipulate the DOM
+            
+        });
+    </script>
+    
+
+
+    <div class="row">
+
+        <%-include("../component/toast_alive") %> 
+        <%-include("../teacher/teacher_panel") %> 
+
+
+        <div class=""  >
+
+
+            <div class="col-6 m-auto">
+                <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="Example: 140044" id="search">
+            
+            </div>
+        
+         <p></p>
+        <div class="col-10 col-md-6 m-auto">
+           
+            <select name="className" id="className" class="w-100 form-self">
+
+                <option value="" selected>শ্রেণী নির্বাচন করুন</option>
+        
+                <optgroup label="ষষ্ঠ শ্রেণী">
+                  <option value="Six-A">ষষ্ঠ - ক</option>
+                  <option value="Six-B">ষষ্ঠ - খ</option>
+                  <option value="Six-C">ষষ্ঠ - গ</option>
+                 </optgroup>
+        
+        
+                              
+                 <optgroup label="সপ্তম শ্রেণী">
+                  <option value="Seven-A">সপ্তম - ক</option>
+                  <option value="Seven-B">সপ্তম - খ</option>
+                  <option value="Seven-C">সপ্তম - গ</option>
+                 </optgroup>
+                 
+        
+        
+                 <optgroup label="অষ্টম শ্রেণী">
+                  <option value="Eight-A">অষ্টম - ক</option>
+                  <option value="Eight-B">অষ্টম - খ</option>
+                  <option value="Eight-C">অষ্টম - গ</option>
+                 </optgroup>
+        
+                  
+        
+                          
+                   <optgroup label="নবম শ্রেণী">
+                    <option value="Nine-A">নবম - ক</option>
+                    <option value="Nine-B">নবম - খ</option>
+                    <option value="Nine-C">নবম - গ</option>
+                   </optgroup>
+             
+                    <optgroup label="দশম শ্রেণী">
+                       <option value="Ten-A">দশম - ক</option>
+                       
+                       <option value="Ten-B">দশম - খ</option>
+                       <option value="Ten-C">দশম - গ</option>
+                      </optgroup>
+              
+        
+                  
+               
+               </select>
+            
+            
+            
+            
+                    <select class=" form-self " name="subjectName" id="subjectName">
+            
+                    </select>  
+           
+        </div>
+
+      <div class="col-9 col-md-6 m-auto">
+        <ul class="list-group" id="listDataId"> 
+
+   
+        </ul>
+      </div>
+
+
+        </div>
+
+    </div>
+
+                 
+                  
+ 
+
+ 
+    
+</body>
+
+<script>
+
+$(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $("ul li").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+$('#subjectName').on('click', ()=>{
+    let ArrayData= $('#className').val().split('-');
+    let className=  ArrayData[0];
+    let sectionName= ArrayData[1];
+    let subjectName= $('#subjectName').val()
+    $.ajax({
+        method: "post",
+        url: "/teacher/pic/report/page",
+        data: {className, sectionName, subjectName},
+        dataType: "JSON",
+        success: function (info) {
+
+            $('#listDataId').html(info.listData)
+            
+        }
+    });
+})
+
+
+
+
+
+$(document).on('click', '.infoDef', (e)=>{
+   let student_id=  e.currentTarget.attributes[0].value;
+   let ArrayData= $('#className').val().split('-');
+    let className=  ArrayData[0];
+    let sectionName= ArrayData[1];
+    let subjectName= $('#subjectName').val()
+
+    $.ajax({
+        method: "post",
+        url: "/teacher/pic/report/get",
+        data: {student_id, className, sectionName, subjectName},
+        dataType: "JSON",
+        success: function (info) {
+
+            $('#listDataHeading').html(info.listData)
+            $('#listDataPI').html(info.listPI)
+            $('#listDataBI').html(info.listBI)
+            $("#openModal").click()
+            
+        }
+    });
+})
+
+
+
+
+
+
+
+$('#className').on('click', ()=>{
+    let ArrayData= $('#className').val().split('-');
+    let className=  ArrayData[0];
+    let sectionName= ArrayData[1];
+    $.ajax({
+        method: "post",
+        url: "/teacher/pic/subject/get",
+        data: {className, sectionName},
+        dataType: "JSON",
+        success: function (info) {
+
+            $('#subjectName').html(info.listData)
+            studentGetData()
+            
+        }
+    });
+})
+
+
+
+
+
+</script>
+
+
+</html>

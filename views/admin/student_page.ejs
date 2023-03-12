@@ -1,0 +1,759 @@
+<%- include("../component/header") %> 
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+
+    <%- include("../component/app") %> 
+
+
+
+</head>
+
+<body class=" container">
+
+
+    <div class="row">
+        <%-include("./admin_panel") %> 
+
+
+        <div class="col">
+
+
+            
+    <%- include("../component/toast_alive") %>
+    <%- include("../component/modal_danger") %>
+
+    <%- include("../component/profile_info") %> 
+
+
+    
+        <p></p>
+
+
+
+
+
+        
+<!-- Button trigger modal -->
+<div class="row">
+    <div class="col mt-5 ms-5">
+      <button title="ADD" type="button" class="btn " data-toggle="modal" data-target="#modelId_form"> 
+        <img width="30px" src="/icon/file/icons8-add-list-48.png" alt="">
+    </button>
+    </div>
+  </div>
+  
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modelId_form" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Student Entry</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+              </div>
+              <div class="modal-body">
+              
+            
+  <div class="row">
+    <div class="col-10 m-auto">
+        <form id="studentForm" method="post" class="" novalidate>
+            <center>
+              
+                <label>
+                    <img id="getImg" src="" width="200px" height="100px" alt="Tap & Select IMG" style="cursor: pointer;"> 
+                    <input  style="display: none" type="file" name="avatar" id="fileItem">
+                </label>
+                <br> <br>
+              <strong>Student Information</strong>
+            </center>     
+
+
+<p></p>
+           
+
+            <div class=" input-group"> 
+                <span class=" input-group-text"><i class=" fa-solid fa-people-line"></i></span>
+
+                <select name="className" id="" class=" form-control" >
+
+                  <option value="" selected>শ্রেণী নির্বাচন করুন</option>
+          
+                  <optgroup label="ষষ্ঠ শ্রেণী">
+                    <option value="Six-A">ষষ্ঠ - ক</option>
+                    <option value="Six-B">ষষ্ঠ - খ</option>
+                    <option value="Six-C">ষষ্ঠ - গ</option>
+                   </optgroup>
+          
+          
+                                
+                   <optgroup label="সপ্তম শ্রেণী">
+                    <option value="Seven-A">সপ্তম - ক</option>
+                    <option value="Seven-B">সপ্তম - খ</option>
+                    <option value="Seven-C">সপ্তম - গ</option>
+                   </optgroup>
+                   
+          
+          
+                   <optgroup label="অষ্টম শ্রেণী">
+                    <option value="Eight-A">অষ্টম - ক</option>
+                    <option value="Eight-B">অষ্টম - খ</option>
+                    <option value="Eight-C">অষ্টম - গ</option>
+                   </optgroup>
+          
+                    
+          
+                            
+                     <optgroup label="নবম শ্রেণী">
+                      <option value="Nine-A">নবম - ক</option>
+                      <option value="Nine-B">নবম - খ</option>
+                      <option value="Nine-C">নবম - গ</option>
+                     </optgroup>
+               
+                      <optgroup label="দশম শ্রেণী">
+                         <option value="Ten-A">দশম - ক</option>
+                         
+                         <option value="Ten-B">দশম - খ</option>
+                         <option value="Ten-C">দশম - গ</option>
+                        </optgroup>
+                
+          
+                    
+                 
+                 </select>
+
+                 <div  class="valid-feedback"></div>
+                 <div id="" class="invalid-feedback">Select Class & Section</div>
+           
+
+                 </div>
+
+ <p></p>
+          
+            <div class=" input-group"> 
+                <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
+                <input patternoff="^[0-9]*$" type="tel" placeholder="Student ID" name="student_id" value="" class="form-control" disabled required>
+
+                <div  class="valid-feedback"></div>
+                <div id="" class="invalid-feedback">Enter a valid student id</div>
+          
+            </div>
+        
+
+            <p></p>
+
+
+        <div class=" input-group"> 
+            <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
+            <input patternoff="^[0-9]*$" type="tel" placeholder="Student Roll" name="roll" value="" class="form-control" required> 
+
+                
+      <div  class="valid-feedback"></div>
+      <div id="" class="invalid-feedback">Enter a valid roll</div>
+
+        </div>
+
+        <p></p>
+
+        <div class=" input-group"> 
+            <span class=" input-group-text"><i class=" fa fa-user"></i></span>
+            <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Student Name" name="name" value="" class="form-control" required>
+
+            <div  class="valid-feedback"></div>
+            <div id="" class="invalid-feedback">Enter a valid name</div>
+           
+        </div>
+
+        <p></p>
+
+        
+        <div>
+          <label for="male2"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="male2" value="Male" checked name="gender" > Male </span> </label> 
+          <label for="female2">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="Female" id="female2"  name="gender" > Female </span> </label>
+        </div>
+
+        <p></p>
+
+        
+
+        <div class=" input-group"> 
+            <span class=" input-group-text"><i class=" fa fa-male"></i></span>
+            <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Father Name" name="fname" value="" class="form-control" required>
+
+            <div  class="valid-feedback"></div>
+            <div id="" class="invalid-feedback">Enter a valid name</div>
+
+        </div>
+
+        <p></p>
+
+
+        <div class=" input-group"> 
+            <span class=" input-group-text"><i class=" fa fa-female"></i></span>
+            <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Mother Name" name="mname" value="" class="form-control" required>
+
+            <div  class="valid-feedback"></div>
+            <div id="" class="invalid-feedback">Enter a valid name</div>
+
+        </div>
+
+        <p></p>
+
+
+
+        <div class=" input-group"> 
+            <span class=" input-group-text"><i class="fa-sharp fa-solid fa-at"></i></span>
+            <input disabled type="email" placeholder="enter email" name="email" value="student@gmail.com" class="form-control" required> 
+        </div>
+        
+        
+        <p></p>
+
+
+          
+    <div class=" input-group">
+  
+      <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-contact-48.png" alt=""></span>
+    
+    
+      <input patternoff="^01[0-9]*$" maxlength="11" type="tel" placeholder="01XXXXXXXX" name="telephone"  class="form-self form-control" >  
+      <div  class="valid-feedback"></div>
+      <div id="" class="invalid-feedback">Enter contact number</div>
+    
+    </div>
+  
+      <p></p>
+  
+
+        
+        <div class=" input-group"> 
+            <span class=" input-group-text"><i class="fa-sharp fa-solid fa-location-dot"></i></span>
+            <input type="text" placeholder="Gunbaha, Boalmari-Faridpur" name="address" value="" class="form-control" required> 
+
+            <div  class="valid-feedback"></div>
+            <div id="" class="invalid-feedback">Required address</div>
+      
+        </div>
+
+        <p></p>
+
+
+
+        <div class="input-group">
+            <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-praying-man-48.png" alt=""></span>
+          <select class="form-self form-select" name="religion" id="" required>
+          
+            <option disabled selected value="">Select Religion</option>
+            <option value="Islam">Islam</option>
+            <option value="Hinduism">Hinduism</option>
+            <option value="Christianity">Christianity</option>
+            <option value="Buddhism">Buddhism</option>
+        <option value="Others">Others</option>
+      </select>
+          
+      <div  class="valid-feedback"></div>
+      <div id="" class="invalid-feedback">Select Religion</div>
+     
+          
+          </div>
+
+          <p></p>
+
+        
+     <div class="input-group">
+
+        <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-blood-48.png" alt=""></span>
+
+      <select name="bloodGroup" class="form-select" id="" >
+        <option selected disabled value="">Select Blood Group</option>
+
+        <optgroup label="Positive"> 
+      
+          <option  value="A+ve">A+ve</option>
+          <option value="B+ve">B+ve</option>
+          <option value="O+ve">O+ve</option>
+          <option value="AB+ve">AB+ve</option>
+      
+          </optgroup> 
+          
+          <optgroup label="Negative"> 
+          <option  value="A-ve">A-ve</option>
+          <option value="B-ve">B-ve</option>
+          <option value="O-ve">O-ve</option>
+          <option value="AB-ve">AB-ve</option>
+      
+          </optgroup>
+      
+      
+      </select>
+     </div>
+          
+
+     <p></p>
+
+
+          <div class=" input-group">
+            <span class=" input-group-text"><i class="fa-sharp fa-solid fa-lock"></i></span>
+            <input id="password" type="password" placeholder="temp password" name="password" value="password" class="form-control" required>
+            <span id="eye-hide" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye-slash"></i></span>
+            <span style="display: none;" id="eye-show" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye"></i></span>
+
+
+        </div>
+
+        <p></p>
+
+          
+        <div class=" input-group"> 
+            <span class=" input-group-text"><i class="fa-sharp fa-solid fa-birthday-cake"></i></span>
+            <input type="date"  name="birthDate"  value="2009-09-09" class=" form-control" required>
+        </div>
+
+        
+        <p></p>
+
+        
+        <center>
+          <button id="submitbtn" class=" btn bg-secondary text-light fw-bold w-50 btn-dev rounded">Join</button>
+        </center>
+
+        
+
+        <p></p>
+        </form>
+    </div>
+</div>
+    
+              </div>
+        
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+  <div style="display: none;" class="row ">
+    <div class="col mt-5 ms-5">
+      <button id="modelId_update_form_btn" title="ADD" type="button" class="btn " data-toggle="modal" data-target="#modelId_update_form"> 
+        Demo
+    </button>
+    </div>
+  </div>
+  
+
+
+
+  
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modelId_update_form" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Student Update Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <form id="studentUpdateForm" method="post" class="" >
+
+            <div id="studentUpdateFormData" class="modal-body">
+            
+              
+
+  
+            </div>
+      </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="row">
+    <div class=" w-50 mt-2 m-auto">
+        <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="Example: 140044" id="search">
+    
+    </div>
+
+
+    <div class="row">
+        
+    <div class="col-6 m-auto">
+      <select name="classBase" id="classBase" class="w-100 form-self" >
+
+        <option value="" selected>শ্রেণী নির্বাচন করুন</option>
+
+        <optgroup label="ষষ্ঠ শ্রেণী">
+          <option value="Six-A">ষষ্ঠ - ক</option>
+          <option value="Six-B">ষষ্ঠ - খ</option>
+          <option value="Six-C">ষষ্ঠ - গ</option>
+         </optgroup>
+
+
+                      
+         <optgroup label="সপ্তম শ্রেণী">
+          <option value="Seven-A">সপ্তম - ক</option>
+          <option value="Seven-B">সপ্তম - খ</option>
+          <option value="Seven-C">সপ্তম - গ</option>
+         </optgroup>
+         
+
+
+         <optgroup label="অষ্টম শ্রেণী">
+          <option value="Eight-A">অষ্টম - ক</option>
+          <option value="Eight-B">অষ্টম - খ</option>
+          <option value="Eight-C">অষ্টম - গ</option>
+         </optgroup>
+
+          
+
+                  
+           <optgroup label="নবম শ্রেণী">
+            <option value="Nine-A">নবম - ক</option>
+            <option value="Nine-B">নবম - খ</option>
+            <option value="Nine-C">নবম - গ</option>
+           </optgroup>
+     
+            <optgroup label="দশম শ্রেণী">
+               <option value="Ten-A">দশম - ক</option>
+               
+               <option value="Ten-B">দশম - খ</option>
+               <option value="Ten-C">দশম - গ</option>
+              </optgroup>
+      
+
+          
+       
+       </select>
+
+    </div>
+    </div>
+  
+
+</div>
+
+<form action="" method="post" id="dataForm">
+    <center>
+        <button type="button" class=" rounded" >
+            <span class=" badge btn-danger " id="selectAll">Select All</span>
+        </button> 
+
+        <button type="submit" class=" rounded " >
+            <span  class=" badge btn-danger " data-toggle="modal"  data-target="#modelId">Delete</span>
+        </button> 
+    </center>
+<table class="table  table-hover container" id="table" >
+    <thead class="" id="thead">
+        <tr>
+            
+  
+            <th class=" text-light">Class Roll</th>
+            <th class=" text-light">Name</th>
+            <th class=" text-light">Avatar</th>
+            <th class=" text-light">Remove</th>
+            <th class=" text-light">Edit</th>
+            <th></th>
+        
+    
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+
+
+</table>
+</form>
+
+
+
+    
+    
+    
+
+</body>
+
+<script>
+
+
+
+function defform(){
+  
+  const forms = document.querySelectorAll('#studentForm')
+
+
+  Array.from(forms).forEach(form => {
+
+    form.addEventListener('submit', event => {
+ 
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+
+      }
+
+      else {
+        event.preventDefault()
+
+        todoStudent()
+    
+      }
+
+
+
+      form.classList.add('was-validated')
+    })
+  })
+}
+
+defform()
+
+
+
+
+
+
+$(document).on("click", ".editDef", (e)=>{
+  let ID= e.currentTarget.attributes[0].value;
+  $.ajax({
+  type: "post",
+  url: "/admin/student/update/form",
+  data: {ID},
+  dataType: "JSON",
+  beforeSend: function(){
+
+
+  },
+  success: function (info) {
+     
+    $("#studentUpdateFormData").html(info.listData)
+    $("#modelId_update_form_btn").click()
+
+}
+})
+
+})
+
+
+
+
+$(document).on("click", ".defInfo", (e)=>{
+  let ID= e.currentTarget.attributes[0].value;
+  $.ajax({
+  type: "post",
+  url: "/privet/info/student",
+  data: {ID},
+  dataType: "JSON",
+  beforeSend: function(){
+
+
+  },
+  success: function (info) {
+    
+    setTimeout(() => {
+      $("#profileInfo").html(info.html)
+     $("#avatarpng").attr("src", `/image/student/${info.avatar}`)
+  
+    }, 1000);
+     $("#profileTrigger").click()
+  }
+});
+})
+
+    
+
+// $("#studentForm").on("submit", (e)=>{
+function todoStudent(){
+//   e.preventDefault()
+  var formdata = new FormData($('form')[0]);
+  $.ajax({
+    method: "post",
+    url: "/admin/student/join",
+    data: formdata, 
+    mimeTypes:"multipart/form-data",
+    contentType: false,
+    cache: false,
+    processData: false,   
+    dataType: "JSON",
+    beforeSend: function(){
+      $("#submitbtn").addClass("disabled")
+    },
+    success: function (info) {
+      $("#msg").addClass(info.alert).text(info.msg)
+      toast_alive()
+      $("#submitbtn").removeClass("disabled")
+      loadDisplay()
+    }
+  });
+
+// })
+    }
+
+
+
+
+
+$("#studentUpdateForm").on("submit", (e)=>{
+  e.preventDefault()
+  var formdata = new FormData($('form')[1]);
+  $.ajax({
+    method: "post",
+    url: "/admin/student/update/post",
+    data: formdata, 
+    mimeTypes:"multipart/form-data",
+    contentType: false,
+    cache: false,
+    processData: false,   
+    dataType: "JSON",
+    beforeSend: function(){
+      $("#submitupdatebtn").addClass("disabled")
+    },
+    success: function (info) {
+      $("#msg").addClass(info.alert).text(info.msg)
+      toast_alive()
+      $("#submitupdatebtn").removeClass("disabled")
+      loadDisplay()
+    }
+  });
+
+})
+
+
+
+
+$('#eye-hide').click(()=>{
+    $('#password').attr('type', "text")
+    $('#eye-hide').css({'display': 'none'})
+    $('#eye-show').css({'display': 'block'})
+})
+
+
+$('#eye-show').click(()=>{
+    $('#password').attr('type', "password")
+    $('#eye-hide').css({'display': 'block'})
+    $('#eye-show').css({'display': 'none'})
+})
+
+
+$("#selectAll").on("click", ()=>{
+    if($("#selectAll").children().text()=="Select All") $("#selectAll").children().text("Unselect")
+    else $("#selectAll").children().text("Select All")
+
+    $("input[type=checkbox]").click()
+})
+
+
+
+
+$(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $("tbody tr").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+
+
+$("#dataForm").on("submit", (e)=>{
+
+
+    e.preventDefault();
+
+     
+  $("#confirmed").click(()=>{
+
+    $.ajax({
+        method: "post",
+        url: "/admin/student/delete",
+        data: $("#dataForm").serialize(),
+        dataType: "JSON",
+        success: function (info) {
+
+            // $("#classBase").click()
+     $("#msg").addClass(info.alert).text(info.msg)
+
+loadDisplay()
+        
+
+toast_alive()
+            
+        }
+    });
+
+ 
+})
+
+   
+
+})
+
+
+
+
+
+$("#classBase").on("click", ()=>{
+    let value= $("#classBase").val().split("-");
+    let className= value[0];
+    let sectionName= value[1];
+
+    $.ajax({
+        type: "post",
+        url: "/admin/student/get/class/base",
+        data: {className, sectionName},
+        dataType: "JSON",
+        success: function (info) {
+            
+            $("tbody").html(info.list)
+
+        }
+    });
+})
+
+
+function loadDisplay(){
+    let value= $("#classBase").val().split("-");
+    let className= value[0];
+    let sectionName= value[1];
+
+    $.ajax({
+        type: "post",
+        url: "/admin/student/get",
+        data: {className, sectionName},
+        dataType: "JSON",
+        success: function (info) {
+            
+            $("tbody").html(info.list)
+
+        }
+    });
+}
+
+loadDisplay()
+
+
+
+
+
+</script>
+
+</html>
