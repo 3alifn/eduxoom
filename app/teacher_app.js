@@ -1,7 +1,5 @@
 const express = require("express");
 const app = express()
-const {sqlmap, nodemailer, flash, multer}= require("../server");
-
 
 
 const multer_location= multer.diskStorage({
