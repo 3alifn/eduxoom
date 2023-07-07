@@ -1,0 +1,178 @@
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Application</title>
+    <link rel="shortcut icon" href="/image/default/logo.png" type="image/x-icon">
+
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/user-header-nav.html") %> 
+    <%- include("../component/student-offcanvas-nav.html") %> 
+  
+    <div class="row">
+
+        <%-include("../component/toast-ajax.html") %>
+        
+        <div class="col">
+
+            <div class=" w-50 mt-2 m-auto">
+                <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+            
+            </div>
+            
+            <center>
+                <button id="formToggle" class="w-50 btn-self p-1 m-2 dropdown-toggle ">Application <i id="toggle-split" class=""></i></button>
+            </center>
+            
+            <div id="formDiv" class="row mt-4">
+            
+            <form id="form" method="post">
+                <div class="col-10 col-md-6 m-auto shadow rounded-1 p-2">
+            
+                    <span class=" btn btn-close float-end"></span>
+                    <center>
+                        <code class=" shadow alert alert-dark">Student Application</code>
+                    </center>
+            <hr>
+            
+                    <label for="">বিষয় লিখুন</label> <p></p>
+                    <input class=" form-dev" type="text" name="subject" placeholder="Enter Subject" value="" id="" required>
+                    <p></p>
+            
+            
+                    <label for="">বিস্তারিত লিখুন</label> <p></p>
+                    <textarea placeholder="Comment" required class=" form-dev" name="comment" id="" cols="60" rows="5" ></textarea>
+                    <p></p>
+            
+            
+            
+                    <label for=""> পিডিএফ ফাইল অথবা ছবি  নির্বাচন করুন</label> <p></p>
+                    <input required class=" form-dev" type="file" name="attachment"  id="">
+                    <p></p>
+             
+                    <center>
+                        <button id="submit" class=" w-50 btn-self"> জমা দিন </button>
+                    </center>
+                </div>
+            </form>
+            </div>
+            
+            
+            <p></p>
+            
+            <div  class="row">
+                <div class="col-9 col-md-6 m-auto " id="applicationList">
+                    
+                   
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+    
+    <%- include("../component/footer-nav.html") %> 
+
+
+
+<script>
+
+    
+$(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $(".list-group").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+$("#formDiv").addClass("d-block")
+
+$("#formToggle").on("click", ()=>{
+    $("#formToggle").toggleClass("dropdown-toggle")
+    $("#toggle-split").addClass("fa fa-caret-up")
+    $("#formDiv").toggleClass("d-none")
+})
+
+
+$(".btn-close").on("click", ()=>{
+    $("#formDiv").addClass("d-none")
+})
+
+
+
+
+
+
+
+$("#submit").on("click", (event)=>{
+
+event.preventDefault();
+let formdata = new FormData($("form")[0])
+
+    $.ajax({
+
+method: "post",
+url: "/student/application/post",
+data: formdata,
+mimeType: "multipart/form-data",
+cache: false,
+processData: false,
+contentType: false,
+success: function (info) {
+
+
+        $('.toast-msg').text('Application Sent...')
+        $('.toast').addClass('show')
+        $('.alert-type').addClass('alert alert-success')
+
+
+
+ loadData()
+}
+});
+
+})
+
+
+
+
+
+function loadData()
+{
+
+   
+    $.ajax({
+    method: "post",
+    url: "/student/application/get",
+    data: {},
+    dataType: "JSON",
+    success: function (info) {
+        
+        $("#applicationList").html(`${info.html}`)
+    }
+});
+
+}
+
+loadData()
+
+
+
+
+</script>
+
+</body>
+</html>

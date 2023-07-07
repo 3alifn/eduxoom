@@ -1,0 +1,269 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student settings</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+>
+
+
+
+<body onload="pageLoadingTop()">
+
+<%- include("../component/admin-header-nav.html") %> 
+<%- include("../component/admin-menu-nav.html") %> 
+
+
+<div id="main-content" class="p-2 mt-5">
+
+
+        <div class="col">
+
+            <%-include("../component/modal-trigger.html") %> 
+      
+    <%-include("../component/toast-ajax.html") %> 
+    <%- include("../component/modal-person.html") %> 
+
+
+    
+        <p></p>
+
+
+
+<div class="row">
+    <div class=" col-10 col-md-6 mt-2 m-auto">
+        <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="Example: 140044" id="search">
+    
+</div>
+
+
+    <div class="row">
+        
+    <div class="col-10 col-md-6 m-auto">
+
+        <select name="classBase" id="classBase" class="w-100 form-self">
+
+     
+            <optgroup label="Class Ten">
+               <option value="Ten-A">Ten - A</option>
+               
+               <option value="Ten-B">Ten - B</option>
+               <option value="Ten-C">Ten - C</option>
+              </optgroup>
+             
+              <optgroup label="Class Nine">
+               <option value="Nine-A">Nine - A</option>
+               <option value="Nine-B">Nine - B</option>
+               <option value="Nine-C">Nine - C</option>
+              </optgroup>
+             
+             
+              
+              <optgroup label="Class Eight">
+               <option value="Eight-A">Eight - A</option>
+               <option value="Eight-B">Eight - B</option>
+               <option value="Eight-C">Eight - C</option>
+              </optgroup>
+             
+             
+             
+              
+              <optgroup label="Class Seven">
+               <option value="Seven-A">Seven - A</option>
+               <option value="Seven-B">Seven - B</option>
+               <option value="Seven-C">Seven - C</option>
+              </optgroup>
+              
+             
+             
+             
+              
+              <optgroup label="Class Six">
+               <option value="Six-A">Six - A</option>
+               <option value="Six-B">Six - B</option>
+               <option value="Six-C">Six - C</option>
+              </optgroup>
+              
+           
+           </select>
+
+    </div>
+    </div>
+  
+
+
+
+
+<table class="table  table-hover container" id="table" >
+    <thead class="" id="thead">
+        <tr>
+            
+            <th class=" text-dark">Name</th>
+            <th class=" text-dark">Avatar</th>
+            <th class=" text-dark">Child ID</th>
+
+            <th title="Delete">Delete</th>
+            <th></th>
+        
+    
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+
+
+</table>
+
+
+
+    
+    
+    
+
+</body>
+
+<script>
+
+
+
+$(document).on("click", ".modal-person-trigger", (e)=>{
+  let ID= e.currentTarget.attributes[0].value;
+  $.ajax({
+  type: "post",
+  url: "/admin/parent/profile",
+  data: {ID},
+  dataType: "JSON",
+  beforeSend: function(){
+    $(".modal-person-body").html(`<div class="card" aria-hidden="true">
+  <div class="card-body">
+    <h5 class="card-title placeholder-glow">
+      <span class="placeholder col-6"></span>
+    </h5>
+    <p class="card-text placeholder-glow">
+      <span class="placeholder col-7"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-6"></span>
+      <span class="placeholder col-8"></span>
+    </p>
+    <a class="btn btn-primary disabled placeholder col-6"></a>
+  </div> 
+</div>`)
+  
+     $(".modal-person-btn").click()
+  },
+
+  success: function (info) {
+    
+      $(".modal-person-body").html(info.html)
+     $(".modal-person-avatar").attr("src", `/image/parent/${info.avatar}`)
+  
+     $(".modal-person-btn").click()
+  }
+});
+})
+
+
+$(document).on("click", ".defDelete", (e)=>{
+
+    let ID= e.currentTarget.attributes[0].value;
+    $('.modal-trigger-trigger').click()
+$('.modal-trigger-body').text('are you want to delete?').addClass('alert alert-danger fw-bolder')
+
+
+$(".modal-trigger-ok").click(()=>{
+
+$.ajax({
+    method: "post",
+    url: "/admin/parent/delete",
+    data: {ID},
+    dataType: "JSON",
+    success: function (info) {
+
+
+$(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
+
+$('.toast').addClass('show')
+
+loadDisplay()
+    
+
+        
+    }
+});
+
+
+})
+ 
+})
+
+
+
+
+$(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $("tbody tr").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+
+
+
+$("#classBase").on("click", ()=>{
+    let value= $("#classBase").val().split("-");
+    let className= value[0];
+    let sectionName= value[1];
+
+    $.ajax({
+        type: "post",
+        url: "/admin/parent/get",
+        data: {className, sectionName},
+        dataType: "JSON",
+        success: function (info) {
+            
+            $("tbody").html(info.listData)
+
+        }
+    });
+})
+
+
+function loadDisplay(){
+    let value= $("#classBase").val().split("-");
+    let className= value[0];
+    let sectionName= value[1];
+
+    $.ajax({
+        type: "post",
+        url: "/admin/parent/get",
+        data: {className, sectionName},
+        dataType: "JSON",
+        success: function (info) {
+            
+            $("tbody").html(info.listData)
+
+        }
+    });
+}
+
+loadDisplay()
+
+
+
+
+
+</script>
+
+</html>

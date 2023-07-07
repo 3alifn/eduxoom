@@ -1,0 +1,120 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application settings</title>
+  
+    <%- include("../component/metadata.html") %> 
+
+  </head>
+>
+
+
+
+<body onload="pageLoadingTop()">
+
+ <%- include("../component/admin-header-nav.html") %> 
+ <%- include("../component/admin-menu-nav.html") %> 
+
+
+ <div id="main-content" class="p-2 mt-5">
+
+
+    <div class="col">
+
+      <% if( typeof msg!=typeof alifn && msg.length>0) {%>
+
+        <%-include("../component/toast-ejs") %> 
+   
+           <% } else { %>
+             <%=null %> 
+             <% } %> 
+
+    
+
+    
+    <p></p>
+    
+<div class=" w-50 mt-2 m-auto">
+    <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="date" name="" id="findDate">
+    <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+
+</div>
+    
+    <div  class="row">
+        <div class="col-9 col-md-6 m-auto " id="applicationList">
+            
+           
+        </div>
+    </div>
+
+    </div>
+
+  </div>
+    
+    
+
+
+
+<script>
+
+
+ 
+$(document).ready(function(){
+  $("#findDate").change(function(e) {
+    let findDate= $("#findDate").val().replaceAll("-", "/");
+
+    var value = findDate
+    $(".list-group").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+
+$(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $(".list-group").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+
+function loadData()
+{
+
+   
+    $.ajax({
+    method: "post",
+    url: "/admin/application/get",
+    data: {},
+    dataType: "JSON",
+    success: function (info) {
+        
+        $("#applicationList").html(`${info.html}`)
+    }
+});
+
+}
+
+loadData()
+
+
+
+
+</script>
+
+</body>
+</html>

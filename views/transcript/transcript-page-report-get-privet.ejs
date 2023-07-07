@@ -1,0 +1,288 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIC Report</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<body onload="pageLoadingTop()" >
+  <%- include("../component/user-header-nav.html") %> 
+  <%- include("../component/offcanvas-nav.html") %> 
+
+ <p></p>
+
+<div class="row" id="printResult">
+  
+  <center>
+    <img src="/image/default/logo.png" width="50px" alt=""> <br>
+    <b> Boalmari George Academy</b> <br>
+    <button class="btn btn-light" onclick="printResult()">Print Transcript</button>
+
+   </center>
+   <% const infoChapterHalf= ['PI-1','PI-2','PI-3','PI-4','PI-5','PI-6']%>
+   <% const infoChapterFull= ['PI-7','PI-8','PI-9','PI-10','PI-11','PI-12']%>
+
+
+
+<div class="row" style="width: 100%; overflow-x: auto;">
+
+
+   <div class="col-md-10 m-auto ">
+ <center><caption><b>BI Perfomance</b></caption></center>
+   <table class=" table table-bordered table-hover">
+ 
+       <thead  class=" text-center">
+ 
+           <th>Student</th>
+        
+           <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
+            <th><small style="font-size: smaller;"><%=infoCatagory[index].catagory_name%></small></th>
+ 
+           <% } %>
+ 
+       </thead>
+ 
+ 
+ 
+       <tbody class="text-center">
+ 
+            <tr>
+ 
+           <td><img width="40px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
+               <b><%=infoStudent[0].student_id%></b> <br> <b><%=infoStudent[0].name%></b>
+           </td>
+ 
+           <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
+               <td> 
+                   <div class="form-check checkout_<%=infoStudent[0].student_id%><%=infoCatagory[index].catagory_code%> p-0 m-0 fs-1">
+               
+                                                           
+                   </div>
+           
+                   
+                  </td>
+           <% } %>
+  
+ </tr>
+       </tbody>
+ 
+ 
+   </table>
+ 
+ 
+   </div>
+</div>
+ 
+
+
+
+<div  class="row">
+
+ 
+<div class="row" style="width: 100%; overflow-x: auto;">
+ <div class="col-auto m-auto" id="mainApp">
+
+ <center><caption><b>Transcript 01</b></caption></center>
+   <table class=" table table-bordered">
+  <thead class="text-center"> 
+   <tr>
+     <th>Subject</th>
+
+  <% for( let index = 0; index <infoChapterHalf.length; index++ ) { %>
+                   <th><%=infoChapterHalf[index]%></th>
+   
+                 
+       <% } %>
+     
+
+     </tr>
+  </thead>
+
+ <tbody class="text-center tbody_half">
+
+<% for( let i = 0; i < infoSubject.length; i++ ) { %>
+<tr>
+
+<td>
+  <small style="font-size: smaller; font-weight: bold;"><%=infoSubject[i].subject%></small>
+</td>
+
+<% for( let index = 0; index <infoChapterHalf.length; index++ ) { %>
+   <td > 
+
+       <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapterHalf[index]%> fs-1 p-0 m-0">
+                   
+                                    
+      
+          
+          </div>
+
+       
+      </td>
+<% } %>
+
+</tr>
+<% } %>
+</tbody>
+
+
+ 
+ </table>
+
+
+
+ 
+
+
+ </div>
+</div> 
+
+</div> 
+   
+
+<div class="row">
+
+<div class="row" style="width: 100%; overflow-x: auto;">
+ <div class="col-auto m-auto" id="mainApp">
+
+   <center><caption><b>Transcript 02</b></caption></center>
+
+   <table class=" table table-bordered">
+  <thead class="text-center"> 
+   <tr>
+     <th>Subject</th>
+
+  <% for( let index = 0; index <infoChapterFull.length; index++ ) { %>
+                   <th><%=infoChapterFull[index]%></th>
+   
+                 
+       <% } %>
+     
+
+     </tr>
+  </thead>
+
+ <tbody class="text-center tbody_full">
+
+<% for( let i = 0; i < infoSubject.length; i++ ) { %>
+<tr>
+
+<td>
+  <small style="font-size: smaller; font-weight: bold;"><%=infoSubject[i].subject%></small>
+</td>
+
+<% for( let index = 0; index <infoChapterFull.length; index++ ) { %>
+   <td > 
+
+       <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapterFull[index]%> fs-1 p-0 m-0">
+                   
+                                           
+          
+          </div>
+
+       
+      </td>
+<% } %>
+
+</tr>
+<% } %>
+</tbody>
+
+
+ 
+ </table>
+
+
+
+ 
+
+
+ </div>
+</div> 
+
+</div> 
+
+</div>
+
+
+
+
+
+
+</body>
+
+<script>
+
+
+function printResult(){
+    
+
+    var prtContent = document.getElementById("printResult");
+    var WinPrint = window.open('', '', 'left=0,top=0,width=384,height=900,toolbar=0,scrollbars=0,status=0');
+    WinPrint.document.write('<html><head>');
+    WinPrint.document.write('<link rel="stylesheet" href="/app/bootstrap.min.css">');
+    WinPrint.document.write('<link rel="stylesheet" href="/app/jquery.min.js">');
+    WinPrint.document.write('</head><body onload="print();close();">');
+    WinPrint.document.write(prtContent.innerHTML);
+    WinPrint.document.write('</body></html>');
+    WinPrint.document.close();
+    WinPrint.focus();
+    
+    
+    }
+    
+
+function student_checkout_class() {
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+ const student_id= '<%=student_id%>'
+    $.ajax({
+        method: "post",
+        url: "/privet/transcript/report-get-checkout",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        success: function (response) {
+         
+            for (const key in response.info_checkout) {
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].pi==1?'&#9726;':response.info_checkout[key].pi==2?'&#9673;':'&#9650;');
+            }
+
+        }
+    });
+    
+}
+
+student_checkout_class()
+  
+
+
+function bi_checkout_class() {
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+ const student_id= '<%=student_id%>'
+    $.ajax({
+        method: "post",
+        url: "/privet/bi/transcript-report-checkout",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        success: function (response) {
+            for (const key in response.info_checkout) { 
+
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].bi_point==1?'&#9726;':response.info_checkout[key].bi_point==2?'&#9673;':response.info_checkout[key].bi_point==3?'&#9650;':'');
+            }
+        }
+    });
+    
+}
+
+bi_checkout_class()
+
+ 
+
+</script>
+
+
+</html>

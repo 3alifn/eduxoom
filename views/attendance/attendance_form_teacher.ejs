@@ -1,0 +1,64 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Sheet</title>
+
+    <%- include("../component/metadata.html") %> 
+
+</head>
+
+<body onload="pageLoadingTop()">
+    <%- include("../component/user-header-nav.html") %> 
+    <%- include("../component/teacher-offcanvas-nav.html") %> 
+
+
+    <div class="row">
+
+        <div class="col-10 col-md-6 m-auto">
+
+            <center>
+
+                <form action="/teacher/attendance/page" class="form" method="post">
+        
+                    <center>
+                        <legend class=" alert bg-body ">
+                            উপস্থিতি ফর্ম
+                        </legend>
+                    </center>
+        
+                    
+                <select name="className" id="" class="text-center form-self" required>
+                    <option selected value="">শ্রেণী নির্বাচন করুন</option>
+                    <option value="Six">ষষ্ঠ</option>
+                    <option value="Seven">সপ্তম</option>
+                    <option value="Eight">অষ্টম</option>
+                    <option value="Nine">নবম</option>
+                    <option  value="Ten">দশম</option>
+                </select>
+                <p></p>
+                <select  class="text-center form-self" name="sectionName" id="" required>
+                    <option selected value="">শাখা নির্বাচন করুন</option>
+                    <option value="A">ক</option>
+                   <option value="B">খ</option>
+                   <option value="C">গ</option>
+                </select>
+                <p></p>
+                <button class=" btn-self w-50">শুরু করুন
+                </button>
+                </form>
+        
+            <p></p>
+        
+
+        </div>
+
+    </div>
+
+
+</body>
+</html>

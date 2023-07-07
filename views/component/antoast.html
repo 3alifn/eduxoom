@@ -1,0 +1,98 @@
+<style>
+    
+.antoast{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    display: none;
+    z-index: 1020;
+  
+  }
+  
+  .antoast-box{
+    min-width: 300px;
+    max-height: max-content;
+    border-radius: 10px;
+    background-color: #ffff;
+    text-overflow:clip;
+    word-break: break-all;
+    letter-spacing: 0px;
+  } 
+  
+  .antoast-overlay{
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    background-color: rgba(33, 37, 41, 0.5);
+    width: 100%;
+    height: 100%;
+    display: none;
+  
+  }
+
+  .antoast-confirmed-permit:focus{
+    background-color:rgba(121, 121, 119, 0.14);
+  }
+    .antoast-no-permit:focus{
+    background-color: rgba(121, 121, 119, 0.14);
+  }
+  
+</style>
+
+
+<div class="row">
+    <div class="col-auto">
+   <div class="antoast-overlay"></div>
+
+<div class="row antoast">
+  <div class="border  shadow d-flex flex-column antoast-box">
+    <span class="btn btn-close antoast-close align-self-end p-2"></span>
+    <strong> delete permanently! are you sure? </strong>
+    <p class=" align-self-center">
+   <button class="btn btn-link text-decoration-none antoast-no-permit">No</button> |
+   <button class="btn btn-link text-decoration-none antoast-confirmed-permit">Confirmed</button>
+    </p>
+
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<script>
+
+$('.antoast-sm-open').on('click', ()=>{
+  $('.antoast-sm-area').html(`
+  <button class="btn antoast-sm-confirmed btn-primary btn-sm border float-end">Confirmed<i class=" bi bi-check"></i></button>
+`)
+})
+
+
+    $('.antoast-overlay').on('click', (event)=>{
+    $('.antoast-overlay').hide()
+    $('.antoast').hide()
+  })
+  
+
+  $('.antoast-close').on('click', (event)=>{
+    $('.antoast-overlay').hide()
+    $('.antoast').hide()
+  })  
+
+  $('.antoast-no-permit').on('click', (event)=>{
+    $('.antoast-overlay').fadeOut('slow')
+    $('.antoast').fadeOut('slow')
+  })  
+  
+  $('.antoast-confirmed-permit').on('click', (event)=>{
+    $('.antoast-overlay').fadeOut('slow')
+    $('.antoast').fadeOut('slow')
+  })
+
+  $('.antoast-open').on('click', ()=>{
+    $('.antoast-overlay').show()
+    $('.antoast').show()
+  })
+</script>

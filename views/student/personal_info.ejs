@@ -1,0 +1,345 @@
+
+
+<div class="card">
+    <div class="card-body shadow">
+        <h4 class="card-title">Profile Details</h4>
+        
+        <p class="card-text">You have full control to manage your account setting.</p>
+        <div class="row">
+
+            <div class="col-6">
+
+                <form id="formFile"  method="post" enctype="multipart/form-data">
+                  <label>
+                    <div>
+                      <input type="file" name="avatar" id="file" style="display: none;">
+                      <img id="avatar" width="200px" class="rounded bg-demo-img-color " src="/image/student/<%=info[0].avatar%>" alt="">
+                      <center> <span id="fileEdit" class="btn  "><img width="30px" src="/icon/file/icons8-add-image-48.png" alt=""></span></center>
+                    </div>
+                  </label>
+                 </form>
+                 <h4 class="text-dark mt-3"><%-info[0].name %> <img width="30px" src="/icon/toolkit/icons8-verified-account-48.png" alt=""> </h4>
+                 <p class="text-dark mt-3"><%-info[0].email %> </p>
+             <p class="text-muted">PNG or JPG and max file size 2mb.</p>
+
+            </div>
+         
+
+        
+            <div class="col-6" id="parentGet" style="height: 200px !important; overflow-y: scroll;">
+
+
+            </div>
+            <code>Parent List</code>
+
+
+          
+
+            <div class=" input-group">
+            
+              <span class=" input-group-text"> <img width="30px" src="/icon/user/icons8-guardian-48.png" alt=""></span>
+
+              <select name="parentList" id="parentList">
+                
+                <option selected disabled value="">Parent ID: N/A</option>
+
+              </select>
+              <span id="parentListBtn" class="btn btn-danger text-light  input-group-text"> Save & Changes </span>
+              </div>
+
+    
+        </div>
+        </div>
+        </div>
+        <hr>
+        
+<form action="/student/info/update" id="profileUpdateForm" method="post">
+
+        <div class="card-body">
+           
+<center>
+  <h4 class="card-title">Personal Details</h4>
+  <p class="card-text text-muted">Edit your personal Information and address.</p>
+  <p></p>
+</center>
+
+           <div class="row ">
+
+  <div class="col-11 col-md-8 d-md-flex m-auto">
+  
+                  <div class="input-group">
+                    <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-student-male-48.png" alt=""></span>
+                  <input class="form-self form-control" disabled type="text" value="<%=info[0].name%>" name="name"  id="name" placeholder="Enter Name" required>
+              </div>
+                    <p></p>
+
+                    
+                    <div>
+                      <label for="male"> <span class="btn btn-light shadow"><input disabled class="form-check-input " type="radio" id="male" value="Male" <%=info[0].gender=='Male' || info[0].gender=='male' ? 'checked': 'no'%>  name="gender" > Male </span> </label> 
+                      <label for="female">  <span class="btn btn-light shadow"><input disabled class="form-check-input " type="radio" value="Female" id="female" <%=info[0].gender=='Female' || info[0].gender=='female'? 'checked': 'no'%>  name="gender" > Female </span> </label>
+                    </div>
+
+</div>
+
+<p></p>
+
+<div class="col-11 col-md-8 d-md-flex m-auto">
+
+     
+<div class="input-group">
+  <span class=" input-group-text "><img width="30px" src="/icon/education/icons8-classroom-48.png" alt=""></span>
+  <select class="form-self form-select" name="className" id="">
+  <option selected disabled value="<%=info[0].class%>-<%=info[0].section%>"><%=info[0].class%> - <%=info[0].section%></option>
+
+  </select>                                      
+  
+  </div>
+  
+  <p></p>  
+
+
+
+
+</div>
+
+
+<p></p>
+
+   
+<div class="col-11 col-md-8 d-md-flex m-auto">
+
+<div class="input-group">
+  <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-id-card-48.png" alt=""></span>
+  <input disabled readonly type="number"class="form-self form-control " value="<%=info[0].student_id%>" name="student_id" id="" placeholder="Enter Student Id" required>
+
+ </div>
+                    <p></p>
+
+                                        
+<div class="input-group">
+  <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-id-card-48.png" alt=""></span>
+  <input disabled readonly type="number"class="form-self form-control" value="<%=info[0].roll%>" name="roll" id="" placeholder="Roll No." required>
+
+ </div>
+
+</div>
+
+
+
+<p></p>
+
+
+
+
+<div class="col-11 col-md-8 d-md-flex m-auto">
+
+<div class="input-group">
+  <span class=" input-group-text ">Father</span>
+<input type="text"class="form-self form-control" value="<%=info[0].father_name%>" name="father_name" id="" placeholder="Father Name" required>
+</div>
+<p></p>
+
+
+<div class="input-group">
+  <span class=" input-group-text ">Mother</span>
+<input type="text"class="form-self form-control" value="<%=info[0].mother_name%>" name="mother_name" id="" placeholder="Mother Name" required>
+
+</div>
+
+
+
+
+</div>
+
+
+
+<p></p>
+
+
+<div class="col-11 col-md-8 d-md-flex m-auto">
+
+<div class="input-group">
+  <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-contact-48.png" alt=""></span>
+
+<input class="form-self form-control" type="tel" value="<%=info[0].telephone%>" name="telephone"  id="" placeholder="Contact No" required>
+
+</div>
+
+
+    <p></p>  
+
+
+           
+<div class="input-group">
+  <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-home-address-48.png" alt=""></span>
+<input type="text"class="form-self form-control" value="<%=info[0].address%>" name="address" id="" placeholder="Address Line" required>
+
+</div>
+
+
+
+</div>
+
+<p></p>
+
+<div class="col-11 col-md-8 d-md-flex m-auto">
+
+<div class="input-group">
+  <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-birthday-48.png" alt=""></span>
+<input type="date"class="form-self form-control" value="<%=info[0].birth_date%>" name="birthDate" id=""  required>
+
+   </div>
+<p></p>
+
+
+
+<div class="input-group">
+<span class=" input-group-text "><img width="30px" src="/icon/user/icons8-blood-48.png" alt=""></span>
+<select name="bloodGroup" class="form-self form-select" id="">
+
+  <optgroup label="Positive"> 
+
+    <option selected value="A+ve">A+ve</option>
+    <option value="B+ve">B+ve</option>
+    <option value="O+ve">O+ve</option>
+    <option value="AB+ve">AB+ve</option>
+
+    </optgroup> 
+    
+    <optgroup label="Negative"> 
+    <option selected value="A-ve">A-ve</option>
+    <option value="B-ve">B-ve</option>
+    <option value="O-ve">O-ve</option>
+    <option value="AB-ve">AB-ve</option>
+
+    </optgroup>
+
+    <option selected value="<%=info[0].blood_group%>"><%=info[0].blood_group%></option>
+
+</select>
+
+</div>
+
+
+</div>
+
+
+<p></p>
+
+
+<div class="col-11 col-md-8 d-md-flex m-auto">
+
+<div class="input-group">
+  <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-praying-man-48.png" alt=""></span>
+<select class="form-self form-select" name="religion" id="">
+
+  <option value="Islam">Islam</option>
+  <option value="Hinduism">Hinduism</option>
+  <option value="Christianity">Christianity</option>
+  <option value="Buddhism">Buddhism</option>
+<option selected value="<%=info[0].religion%>"><%=info[0].religion%></option>
+</select>
+
+
+</div>
+<p></p>
+
+
+
+<div class="input-group">
+<span class=" input-group-text "><img width="30px" src="/icon/user/icons8-drawing-48.png" alt=""></span>
+<select class="form-self form-select" name="hobbies" id="">
+
+  <option value="Cricket">Cricket</option>
+  <option value="Football">Football</option>
+
+  <option value="Playing">Playing</option>
+  <option value="Studies">Studies</option>
+  <option value="Swimming">Swimming</option>
+  <option selected value="<%=info[0].hobbies%>"><%=info[0].hobbies%></option>
+</select>
+
+</div>
+
+
+</div>
+          
+
+            <p></p>
+            
+            <center><button id="profileUpdateBtn" class="rounded btn-dev w-50">Save Changes</button></center>
+      
+          </form>
+
+
+
+    </div>
+</div>
+
+<hr>
+
+<script>
+
+   
+
+ 
+
+function parentGet(){
+  $.ajax({
+    method: "post",
+    url: "/student/parent/get",
+    data: {},
+    dataType: "JSON",
+    success: function (info) {
+      $('#parentGet').html(info.listData)
+    }
+  });
+}
+
+parentGet()
+
+
+
+function parentLoader(){
+  $.ajax({
+    method: "post",
+    url: "/student/parent/list",
+    data: {},
+    dataType: "JSON",
+    success: function (info) {
+      $('#parentList').html(info.listData)
+    }
+  });
+}
+
+parentLoader()
+
+
+
+
+
+
+$('#parentListBtn').on('click', ()=>{
+  let parentEmail= $('#parentList').val();
+  $.ajax({
+    method: "post",
+    url: "/student/parent/set",
+    data: {parentEmail},
+    dataType: "JSON",
+    beforeSend: function(){
+      $('#parentListBtn').addClass('disabled')
+    },
+    success: function (info) {
+      $('#msg').text(info.msg).addClass(info.alert)
+      parentGet()
+      $('#parentListBtn').removeClass('disabled')
+
+    }
+  });
+})
+
+
+
+
+
+</script>

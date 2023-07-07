@@ -1,0 +1,239 @@
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Report</title>
+
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<body onload="pageLoadingTop()">
+    <%- include("../component/header-nav.html") %> 
+<%- include("../component/menu-nav.html") %> 
+<%- include("../component/offcanvas-nav.html") %> 
+
+ 
+<div class="row "  >
+
+    <div class="col-9 col-md-6 m-auto bg-light">
+    
+        <ul class="list-group mt-2">
+            <li class="list-group-item list-group-item-secondary">
+                <span onclick="window.history.back()" class="float-end btn badge bg-primary">back</span>
+
+                <img src="/image/student/<%=info[0].avatar%>" height="30px" class=" rounded" width="40px" alt="">
+                <span class=" badge bg-light text-dark"><%=info[0].class%> - <%=info[0].section%></span>
+                <span class=" badge bg-light text-dark"><%=info[0].name%> (<%=info[0].roll%>)</span>
+
+                <span class=" badge bg-light text-dark"><%=info[0].month%> - <%=info[0].year%></span>
+        <hr>
+        
+        <span class=" badge bg-light text-success">Total Present (<%=infoP[0].present%>)</span>
+        <span class=" badge bg-light text-danger">Total Absent (<%=infoA[0].absent%>)</span>
+
+        <hr>
+
+    <!-- <% var CurrentMonth= ['Fri 11', 'Sat 12'] %>  -->
+
+ <% for(let i=0; i < 31; i++) {%>
+
+    <span id="<%=[i+1]%>" class="  badge bg-secondary btn disabled text-light "><%=[i+1]%> </span>
+
+
+    
+    <% } %>         
+       
+    
+<hr>
+
+
+    
+
+<table class="table table-responsive table-bordered border-dark ">
+    <thead class=" fw-bold" id="thead">
+        <tr>
+            <td class="   ">Sun</td>
+            <td class="   ">Mon</td>
+            <td class="  ">Tue</td>
+            <td class="   ">Wed</td>
+            <td class="   ">Thu</td>
+            <td class="  ">Fri</td>
+            <td class="  ">Sat</td>
+        </tr>
+    </thead>
+    <tbody id="listCal" class=" ">
+    
+
+        
+      
+    </tbody>
+</table>
+
+</li>
+           
+         
+</ul>
+    </div>
+
+</div>
+
+
+
+<%- include("../component/footer-nav.html") %> 
+
+
+
+</body>
+
+
+<script>
+
+
+
+
+
+
+
+
+
+let student_id= "<%=info[0].student_id%>"
+let year= "<%=info[0].year%>"
+let month= "<%=info[0].month%>"
+
+
+function load(){
+
+    var present= []
+    var absent= []
+   var Sun= []
+   var Mon= []
+   var Tue= []
+   var Wed= []
+   var Thu= []
+   var Fri= []
+   var Sat= []
+
+    $.ajax({
+    type: "get",
+    url: "/privet/attendance/report/history/month",
+    data: {student_id, year, month},
+    dataType: "JSON",
+    success: function (info) {
+
+
+   for (let i = 0; i < info.infoS.length; i++) {
+
+    
+
+    if(info.infoS[i].day.toString().substring(0, 3)=="Sun"){
+        Sun.push(info.infoS[i].day.toString().substring(3))
+    }
+
+
+    if(info.infoS[i].day.toString().substring(0, 3)=="Mon"){
+        Mon.push(info.infoS[i].day.toString().substring(3))
+    }
+
+
+
+    if(info.infoS[i].day.toString().substring(0, 3)=="Tue"){
+        Tue.push(info.infoS[i].day.toString().substring(3))
+    }
+
+
+    if(info.infoS[i].day.toString().substring(0, 3)=="Wed"){
+        Wed.push(info.infoS[i].day.toString().substring(3))
+    }
+
+
+    
+    if(info.infoS[i].day.toString().substring(0, 3)=="Thu"){
+        Thu.push(info.infoS[i].day.toString().substring(3))
+    }
+    
+    if(info.infoS[i].day.toString().substring(0, 3)=="Fri"){
+        Fri.push(info.infoS[i].day.toString().substring(3))
+    }
+
+
+    if(info.infoS[i].day.toString().substring(0, 3)=="Sat"){
+        Sat.push(info.infoS[i].day.toString().substring(3))
+    }
+    
+   }
+
+
+       for (let i = 0; i < info.infoP.length; i++) {
+        present.push(info.infoP[i].day.toString().substring(4))
+      
+       }
+
+       for (let i = 0; i < info.infoA.length; i++) {
+        absent.push(info.infoA[i].day.toString().substring(4))
+      
+       }
+
+    
+
+
+
+var listCal= "";
+for (let i = 0; i < 5; i++) {
+   
+    listCal+= `  <tr>    
+            <td class="${Sun[i]==undefined? "":Sun[i]}">${Sun[i]==undefined? '': Sun[i]} </td>        
+            <td class="${Mon[i]==undefined? "":Mon[i]}">${Mon[i]==undefined? '': Mon[i]} </td>        
+            <td class="${Tue[i]==undefined? "":Tue[i]}">${Tue[i]==undefined? '': Tue[i]} </td>        
+            <td class="${Wed[i]==undefined? "":Wed[i]}">${Wed[i]==undefined? '': Wed[i]} </td>        
+            <td class="${Thu[i]==undefined? "":Thu[i]}">${Thu[i]==undefined? '': Thu[i]} </td>        
+            <td class=""><span class='badge text-dark bg-light'>close &#128274</span> </td>        
+            <td class=""><span class='badge text-dark bg-light'>close &#128274</span> </td>      
+            <td class="${Sat[i]==undefined? "":Sat [i]}">${Sat[i]==undefined? '': Sat[i]} </td>        
+  
+       
+               
+        </tr> `
+
+    
+}
+
+
+$("#listCal").html(listCal)
+
+
+
+for (let i = 0; i < info.infoP.length; i++) {
+   
+   $(`#${present[i]}`).addClass("bg-light text-dark").removeClass("disabled").append( '&#9989;')
+   $(`.${present[i]}`).addClass("text-success fw-bold shadow").append( '&#9989;')
+}
+
+
+for (let i = 0; i < info.infoA.length; i++) {
+  
+    $(`#${absent[i]}`).addClass("bg-light text-dark").removeClass("disabled").append( '&#9940;')
+    $(`.${absent[i]}`).addClass("text-danger fw-bold shadow").append( '&#9940;')
+
+}
+
+
+
+        
+    }
+});
+
+}
+
+
+load()
+
+</script>
+
+</body>
+
+
+
+</html>

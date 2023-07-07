@@ -1,0 +1,174 @@
+
+<style>
+
+
+
+.ss_dib ,  .ss_image{
+	display: inline-block !important;
+}
+.ss_ulsearch{
+	margin-top: -40px !important;
+}
+#select_style_text{
+	width: 300px !important;
+}
+#select_style_ul{
+	overflow: none !important;
+	height: auto !important;
+	width: auto !important;
+}
+	/** default and google theme **/
+.select-style{position:relative;}
+.ss_dib{display:inline-block;vertical-align:top;}
+.ss_button{margin:0;vertical-align:top;color:#595959;border: 1px solid #cbcbcb;border-radius:3px;width:250px;cursor:pointer;text-decoration:none;background:none;padding:10px;overflow:hidden;clear:both;display:inline-block;vertical-align:top;font-size:12px;font-weight:bold;word-break:break-all;}
+.ss_text{white-space:normal;text-overflow:ellipsis;text-indent:0;white-space:nowrap;overflow:hidden;}
+.ss_image{position:absolute;width:7px;height:11px;
+	background:url('/image/selectstyle/google.png') no-repeat;}
+.ss_ul{list-style:none;padding:8px 0; margin:0; margin-top:-35px;position:absolute;background:#fff;border:1px solid #ccc;-moz-box-shadow:0 1px 5px 1px rgba(0,0,0,0.1);-webkit-box-shadow:0 1px 5px 1px rgba(0,0,0,0.1);box-shadow:0 1px 5px 1px rgba(0,0,0,0.1); border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;
+	 display:none;overflow:auto;z-index:100;}
+.ss_ulsearch{margin:0; margin-top:-35px;position:absolute;background:#fff;border:1px solid #ccc;-moz-box-shadow:0 1px 5px 1px rgba(0,0,0,0.1);-webkit-box-shadow:0 1px 5px 1px rgba(0,0,0,0.1);box-shadow:0 1px 5px 1px rgba(0,0,0,0.1); border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;overflow:auto;z-index:100;display:none;}
+.ss_ulsearch .ss_ul{display:block;position:relative;margin-top:0;border:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none; border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+.ss_ulsearch .search{border-bottom:1px solid #ccc;padding:0;}
+.ss_ulsearch .search input{background:inherit;border:none;height:100%;padding:10px 15px;outline:none;font-size:14px;width:calc(100% - 30px);width:-webkit-calc(100% - 30px);width:-moz-calc(100% - 30px);width:-o-calc(100% - 30px);
+	background:url('/image/selectstyle/ful_grid_img.png') no-repeat;background-position: top 8px right 6px;}
+.ss_ulsearch .search input:focus{outline:none;}
+.ss_ulsearch .nosearch{text-align:center;font-size:12px;padding-bottom:10px;background:#fff;}
+.ss_ul li{padding:10px 15px;cursor:pointer;border:none;text-align:left;color:#595959;transition-duration:.3s;-moz-transition-duration:.3s;-webkit-transition-duration:.3s;-o-transition-duration:.3s;font-size:14px;}
+.ss_ul li:hover{border:none;background:#eee;}
+.ss_ul li .ssli_text{vertical-align:top;display:inline-block;}
+.ss_ul li .ssli_image{display:inline-block;width:16px;height:16px;margin-right:10px;margin-top:-1px;vertical-align:top;}
+.ss_ul li .ssli_image img{width:16px;height:16px;}
+
+.ss_ul::-webkit-scrollbar {width:10px !important;}
+.ss_ul::-webkit-scrollbar:horizontal{height:10px !important;}
+.ss_ul::-webkit-scrollbar-track {border-left:1px solid #D3D3D3;background:#F5F5F5 !important;}
+.ss_ul::-webkit-scrollbar-thumb {background:#C4C4C4 !important;}
+
+</style>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<script>
+	jQuery(document).ready(function($) {
+		$('.select-style').selectstyle({
+			width  : 400,
+			height : 300,
+			theme  : 'light',
+			onchange : function(val){}
+		});
+	});
+	</script>
+	
+
+<script>
+	
+/****************************************************************
+* Selector plug that made select tag in to custome select style *
+*****************************************************************/
+(function($){
+	$.fn.selectstyle = function(option){
+		var defaults = {
+			width  : 250,
+			height : 300,
+			theme  : 'light'
+		},
+		setting = $.extend({}, defaults, option);
+		this.each(function(){
+			var $this = $(this),
+				parent = $(this).parent(),
+				html = '',
+				html_op = '',
+				search = $this.attr('data-search'),
+				name = $this.attr('name'),
+				style = $this.attr('style'),
+				placeholder = $this.attr('placeholder'),
+				id = $this.attr('id');
+			setting.width = (parseInt($this.attr('width') == null ? $this.width() : $this.attr('width') ) + 10 )+'px';
+			setting.theme = $this.attr('theme') != null ? $this.attr('theme') : setting.theme;
+
+			$this.find('option').each(function (e) {
+				var $this_a = $(this),
+					val = $this_a.val(),
+					image = $this_a.attr('data-image'),
+					text = $this_a.html();
+				if(val == null){
+					val = text;
+				}
+				html_op += '<li data-title="'+text+'" value="'+val+'"';
+				if($this_a.attr('font-family') != null){
+					html_op += ' style="font-family'+$this_a.attr('font-family')+'"';
+				}
+				html_op += '>';
+				if(image != null){
+					html_op += '<div class="ssli_image"><img src="'+image+'"></div>';
+				}
+				html_op += '<div class="ssli_text">'+text+'</div></li>';
+			});
+			$this.hide();
+
+			html = 
+			'<div class="selectstyle ss_dib '+setting.theme+'" style="width:'+parseInt(setting.width)+'px;">'+
+				'<div id="select_style" class="ss_button" style="width:'+parseInt(setting.width)+'px;'+style+'">'+
+					'<div class="ss_dib ss_text" id="select_style_text" style="margin-right:15px;width:'+(parseInt(setting.width) - 20)+'px;position:relative;">'+placeholder+'</div>'+
+					'<div class="ss_dib ss_image"></div>'+
+				'</div>';
+			if(search == "true"){
+				html += '<ul id="select_style_ul" sid="'+id+'" class="ss_ulsearch" style="max-height:'+setting.height+'px;width:'+(parseInt(setting.width) + 20)+'px;"><div class="search" id="ss_search"><input type="text" placeholder="Search"></div><ul style="max-height:'+(parseInt(setting.height) - 53)+'px;width:'+(parseInt(setting.width) + 20)+'px;" class="ss_ul">'+html_op+'</ul></ul>';
+			}
+			else{
+				html += '<ul id="select_style_ul" sid="'+id+'" style="max-height:'+setting.height+'px;width:'+(parseInt(setting.width) + 20)+'px;" class="ss_ul">'+html_op+'</ul>';
+			}
+			
+			html += '</div>';
+			$(html).insertAfter($this);
+			
+		});
+
+		$("body").delegate( "div#ss_search input", "keyup", function(e) {
+			var val = $(this).val(), flag=false;
+			$('#nosearch').remove();
+			$(this).parent().parent().find('li').each(function(index, el) {
+				if($(el).text().indexOf(val) > -1){
+					$(el).show();
+					flag=true;
+				}
+				else{
+					$(el).hide();
+				}
+			});
+			if (!flag) {$(this).parent().parent().append('<div class="nosearch" id="nosearch">Nothing Found</div>')};
+		});
+		$("body").delegate( "div#select_style", "click", function(e) {
+			$('ul#select_style_ul').hide();
+			var ul = $(this).parent('div').find('ul#select_style_ul');
+			ul.show();
+			var height = ul.height();
+			var offset = $(this).offset();
+			if(offset.top+height > $(window).height()){
+				ul.css({
+					marginTop: -(((offset.top+height) - $(window).height()) + 100)
+				});
+			}
+		});
+		$("body").delegate("ul#select_style_ul li", "click", function(e) {
+			var txt = $(this).data('title'),
+				vl = $(this).attr('value'),
+				sid = $(this).parent('ul').attr('sid');
+			$(this).parents('ul#select_style_ul').hide();
+			$(this).parents('ul#select_style_ul').parent('div').find('div#select_style_text').html(txt);
+			$('#'+sid).children('option').filter(function(){return $(this).val()==vl}).prop('selected',true).change();
+		});
+		$(document).delegate("body", "click", function(e) {
+			var clickedOn=$(e.target);
+			if(!clickedOn.parents().andSelf().is('ul#select_style_ul, div#select_style')){
+				$('ul#select_style_ul').fadeOut(400);
+				$('div#ss_search').children('input').val('').trigger('keyup');
+			}
+		});
+	}
+})(jQuery);
+
+</script>
+
+

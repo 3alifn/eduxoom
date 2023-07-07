@@ -1,0 +1,113 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Photos settings</title>
+    <%- include("../component/metadata.html") %> 
+
+
+</head>
+
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/admin-header-nav.html") %> 
+    <%- include("../component/admin-menu-nav.html") %> 
+  
+  
+    <div id="main-content" class="p-2 mt-5">
+        <div class="col">
+
+    <%-include("../component/modal-danger.html") %> 
+    <%-include("../component/modal-success.html") %> 
+
+    <%-include("../component/toast-ajax.html") %> 
+
+
+
+ <form action="" id="deleteDataForm" method="post">
+ 
+    <input class="btn btn-danger" id="" type="submit" value="Delete">
+ 
+    <div class="row" id="listDataPrint">
+        
+
+     
+
+
+            </div>
+
+        </div>
+    </div>
+
+ </form>
+
+</div>
+</div>
+
+
+<script>
+
+    
+function loadContentData(){
+        
+        $.ajax({
+            method: "post",
+            url: "/admin/content/image",
+            data: {},
+            dataType: "JSON",
+            success: function (info) {
+    
+                $("#listDataPrint").html(info.listData)
+                
+            }
+        });
+    
+    }
+
+    loadContentData()
+    
+    
+    
+    
+    
+$("#deleteDataForm").on("submit", (e)=>{
+     
+        e.preventDefault()
+    
+    $("#modal").click();
+    
+    $("#confirmed").on("click", ()=>{
+        $.ajax({
+        type: "post",
+        url: "/admin/content/data/delete",
+        data: $("#deleteDataForm").serialize(),
+        dataType: "JSON",
+        success: function (info) {
+            
+            $("#msg").text(info.msg)
+            $("#msg").addClass(info.alert)
+            toast_alive();
+            loadContentData();
+      
+    
+        }
+    });
+    })
+    
+    })
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>

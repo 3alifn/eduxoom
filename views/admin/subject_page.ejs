@@ -1,0 +1,338 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Subject settings</title>
+  
+
+
+<%- include("../component/metadata.html") %> 
+
+</head>
+
+
+<style>
+    .chosen-container-active{
+     width: 300px !important;
+   }
+   
+   .search-field{
+     width: 300px !important;
+   }
+   
+   ul.chosen-choices{
+     width: 300px !important;
+   } 
+   
+   .chosen-container{
+     width: 300px !important;
+   }
+    </style>
+
+
+<body onload="pageLoadingTop()">
+
+<%- include("../component/admin-header-nav.html") %> 
+<%- include("../component/admin-menu-nav.html") %> 
+
+
+<div id="main-content" class="p-2 mt-5">
+
+
+
+        <div class="col">
+
+
+            
+    <center>
+        <legend class="containe alert alert-dark">Manage Subject</legend>
+    </center>
+
+    <p></p>
+
+      
+    <%-include("../component/modal-trigger.html") %> 
+
+    <%-include("../component/toast-ajax.html") %> 
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn " data-toggle="modal" data-target="#modelId_form">
+<span title="ADD" class=" input-group-text"><img width="30px" src="/icon/file/icons8-add-file-48.png" alt=""></span>
+
+</button>
+
+
+    <span title="Refresh" class=" btn" onclick="window.location.reload()"><img width="30px" src="/icon/file/icons8-refresh-64.png" alt=""></span>
+
+    <center>
+        <div class="btn-group bg-secondary ">
+            <a href="/admin/subject/page?className=Six" class=" btn btn-default "><span class=" badge bg-light text-danger">Six</span></a>
+            <a href="/admin/subject/page?className=Seven" class=" btn btn-default "><span class=" badge bg-light text-danger">Seven</span></a>
+            <a href="/admin/subject/page?className=Eight" class=" btn btn-default "><span class=" badge bg-light text-danger">Eight</span></a>
+            <a href="/admin/subject/page?className=Nine" class=" btn btn-default "><span class=" badge bg-light text-danger">Nine</span></a>
+            <a href="/admin/subject/page?className=Ten" class=" btn btn-default "><span class=" badge bg-light text-danger">Ten</span></a>
+       
+          </div>
+    </center>
+
+<!-- Modal -->
+<div class="modal fade" id="modelId_form" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                        <h5 class="modal-title">Subject List</h5>
+                            <button type="button" class="close close-post" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+               
+                    
+<form id="formSubject" method="post">
+
+    <div id="" class="row mt-2">
+
+
+        <div class="col-11  m-auto bg-light shadow">
+
+            <select class="m-1 form-dev" name="className" id="" required>
+                <option  disabled value="">Select Class</option>
+
+                <option selected value="Six">Six</option>
+                <option value="Seven">Seven</option>
+                <option value="Eight">Eight</option>
+                <option value="Nine">Nine</option>
+                <option  value="Ten">Ten</option>
+            </select>
+
+
+
+            <select title="Select Teachers" class=" m-1 form-dev" name="teacherName" id="dynamicTeacher" disabled>
+                <option selected disabled value="">Select Teacher</option>
+                
+             
+                
+             </select>
+
+            <div class="input-group">
+                <input class="m-1 form-control " type="text" name="subjectName[]" value=""
+                    placeholder="Subject Name:" id="" required> 
+
+                <span type="button" class="addItem input-group-text btn "><i
+                        class="fa-sharp fa-solid fa-plus"></i></span>
+              
+            </div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+        <div class="row"> 
+            <div class="col-4 col-md-2 m-auto">
+                <button id="onsubmit" type="submit" class="mt-2 btn-dev fw-bold rounded w-100">save</button>
+            </div>
+        </div>
+   
+
+</form>
+
+
+
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div id="list" class="row container">
+   
+   <%  for (const i in info) { %> 
+  
+     <div class="col-11 col-md-6 mt-2 border">
+     
+
+
+        <ul class="list-group list-unstyled">
+            <li class="list-group-item-secondary">
+                
+                <strong class="  badge bg-light text-dark"><%=info[i].subject%></strong>
+                <span class="badge bg-light text-dark"><%=info[i].class%></span> <p></p>
+                <span data-id="<%=info[i].ID%>" class=" del_def btn " title="Delete"> <i class=" fa fa-trash"></i></span>
+
+            </li>
+        
+        </ul>
+  
+    </div>
+<% } %> 
+</div>
+
+        </div>
+
+    </div>
+
+
+<script>
+
+
+
+function dynamicTeacher(){
+
+    $.ajax({
+    method: "POST",
+    url: "/admin/dynamic/teacher",
+    data: {},
+    dataType: "JSON",
+    success: function (info) {
+
+        $("#dynamicTeacher").html(info.html);
+    
+
+       
+        
+    }
+});
+
+}
+
+// dynamicTeacher()
+
+
+$(document).ready(function(){
+  $(".sectionDef").click(function(e) {
+    let btn=  e.currentTarget;
+    $(".sectionDef").removeClass("btn-light")
+var value= e.currentTarget.attributes[0].value;
+$(btn).addClass("btn-light")
+    
+    $(".list-group").filter(function() {
+       
+      $(this).toggle($(this).text().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+
+$(document).on("click", ".addItem", (e) => {
+
+$("#formSubject").append(`
+<div id="" class="row "  >
+<div   class="col-11  m-auto shadow  bg-light ">
+
+
+
+<div class="input-group">
+<input class="m-1 form-control " type="text" name="subjectName[]" value="" placeholder="Subject Name:" id="" required> 
+
+<span type="button"  class="addItem input-group-text btn "><i class="fa-sharp fa-solid fa-plus"></i></span>
+<span type="button"  class="removeItemE input-group-text btn "><i class="fa-sharp fa-solid fa-xmark"></i></span>
+</div>
+
+
+
+</div>
+</div>
+`)
+
+})
+
+
+
+$(document).on("click", ".removeItemE", (e)=>{
+    let thisItem= e.currentTarget.previousSibling.parentElement
+    
+    $(thisItem).remove()
+ 
+    
+})
+
+
+
+$(document).on("click", ".del_def", (e)=>{
+let ID= e.currentTarget.attributes[0].value;
+
+$('.modal-trigger-trigger').click()
+$('.modal-trigger-body').text('are you want to delete?').addClass('alert alert-danger fw-bolder')
+
+$(".modal-trigger-ok").on("click", ()=>{
+    $.ajax({
+    type: "post",
+    url: "/admin/subject/delete",
+    data: {ID},
+    dataType: "JSON",
+    success: function (info) {
+
+$(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
+
+$('.toast').addClass('show')
+
+        window.location.reload()
+
+    }
+});
+})
+
+})
+
+
+
+
+$("#formSubject").on('submit', (e)=>{
+    e.preventDefault();
+
+    $.ajax({
+        method: "post",
+        url: "/admin/subject/post",
+        data: $("#formSubject").serialize(),
+        dataType: "JSON",
+
+        beforeSend: function(){
+            $("#onsubmit").addClass('disabled')
+         
+        },
+
+        success: function (info) {
+$("#onsubmit").removeClass('disabled')
+        
+$(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
+
+$('.toast').addClass('show')
+$('.close-post').click()
+
+        
+            
+        }
+    });
+
+})
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

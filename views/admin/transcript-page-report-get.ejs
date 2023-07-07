@@ -1,0 +1,285 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIC Report</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<body onload="pageLoadingTop()">
+
+  <%- include("../component/admin-header-nav.html") %> 
+  <%- include("../component/admin-menu-nav.html") %> 
+  
+  <%-include("../component/modal-danger.html") %> 
+  <%-include("../component/modal-success.html") %> 
+  
+  <%-include("../component/toast-ajax.html") %> > 
+
+  <div id="main-content" class="p-2 mt-5 row">
+
+    
+    <center>
+      <h5> Transcript Result</h5>
+     </center>
+
+   <center>
+      <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"  class="  btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a> 
+      <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a> 
+      <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a> 
+
+</center>
+
+
+
+    <% const infoChapter= ['PI-1','PI-2','PI-3','PI-4','PI-5',
+    'PI-6','PI-7','PI-8','PI-9','PI-10','PI-11','PI-12'
+ ]%>
+
+<p></p>
+
+
+
+<div class="row" style="width: 100%; overflow-x: auto;">
+
+
+  <div class="col-md-10 m-auto ">
+<center><caption><b>BI Perfomance</b></caption></center>
+  <table class=" table table-bordered table-hover">
+
+      <thead  class=" text-center">
+
+          <th>Student</th>
+          <% const catagory= ['Catagory1', 'Catagory2', 'Catagory3', 'Catagory4', 'Catagory5'] %>
+
+          <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
+            <th><small style="font-size: smaller;"><%=infoCatagory[index].catagory_name%></small></th>
+
+          <% } %>
+
+      </thead>
+
+
+
+      <tbody class="text-center">
+
+           <tr>
+
+          <td><img width="40px" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
+              <b><%=infoStudent[0].student_id%></b> <br> <b><%=infoStudent[0].name%></b>
+          </td>
+
+          <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
+              <td > 
+                  <div class="form-check checkout_<%=infoStudent[0].student_id%><%=infoCatagory[index].catagory_code%> fs-1 p-0 m-0">
+              
+                                                          
+                  </div>
+          
+                  
+                 </td>
+          <% } %>
+ 
+</tr>
+      </tbody>
+
+
+  </table>
+
+
+  </div>
+</div>
+
+
+
+<div id="btnSection">
+  <center> <input class="student_id" type="hidden" value="<%=student_id%>" name="">
+   <button  class="btn droppedResult btn-danger">অনউত্তীর্ণ</button> 
+   <button  class="btn passedResult btn-success">উত্তীর্ণ</button> 
+   <a href="/admin/transcript/report-get/<%=className%>/<%=sectionName%>/auto?student_offset=<%=offsetPlus%>" class="btn <%=btnstatus%> btn-primary">পর্রবতী</a> 
+
+  </center>
+</div>
+
+
+
+  
+<div class="row" style="width: 100%; overflow-x: auto;">
+  <div class="col-auto m-auto" id="mainApp">
+
+  <center><caption><b>Transcript report</b></caption></center>
+    <table class=" table table-bordered">
+   <thead class="text-center"> 
+    <tr>
+      <th>Subject</th>
+
+   <% for( let index = 0; index <infoChapter.length; index++ ) { %>
+                    <th><%=infoChapter[index]%></th>
+    
+                  
+        <% } %>
+      
+
+      </tr>
+   </thead>
+
+  <tbody class="text-center">
+
+<% for( let i = 0; i < infoSubject.length; i++ ) { %>
+ <tr>
+
+<td>
+  <small style="font-size: smaller; font-weight: bold;"><%=infoSubject[i].subject%></small>
+</td>
+
+<% for( let index = 0; index <infoChapter.length; index++ ) { %>
+    <td > 
+
+        <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> fs-1 p-0 m-0">
+                    
+                                     
+       
+           
+           </div>
+
+        
+       </td>
+<% } %>
+
+</tr>
+<% } %>
+</tbody>
+
+
+  
+  </table>
+
+  </div>
+</div> 
+
+</div> 
+    
+
+</body>
+
+<script>
+
+
+function student_checkout_class() {
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+ const student_id= '<%=student_id%>'
+    $.ajax({
+        method: "post",
+        url: "/admin/transcript/report-get-checkout",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        success: function (response) {
+         
+            for (const key in response.info_checkout) {
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].pi==1?'&#9726;':response.info_checkout[key].pi==2?'&#9673;':'&#9650;');
+            }
+        }
+    });
+    
+}
+
+student_checkout_class()
+
+function bi_checkout_class() {
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+ const student_id= '<%=student_id%>'
+    $.ajax({
+        method: "post",
+        url: "/privet/bi/transcript-report-checkout",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        success: function (response) {
+            for (const key in response.info_checkout) {
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].bi_point==1?'&#9726;':response.info_checkout[key].bi_point==2?'&#9673;':response.info_checkout[key].bi_point==3?'&#9650;':'');
+
+
+            }
+        }
+    });
+    
+}
+
+bi_checkout_class()
+
+
+
+$(document).on('click', '.passedResult', ()=>{
+    const className=  `<%=className%>`;
+    const sectionName= `<%=sectionName%>`;
+    const student_id= $('.student_id').val()
+    $.ajax({
+        method: "post",
+        url: "/admin/transcript/final-card-passed-result",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        beforeSend: function(){
+ $('.droppedResult').addClass('disabled')
+
+$('.passedResult').addClass('disabled')
+
+
+$('.toast-msg').html(`<img src="/image/default/loading-load.gif" width="100px" class=" bg-dark" alt="">
+        <span>Processing...</span>`)
+        $('.toast').addClass('show');
+
+        },
+        success: function (info) {
+
+      
+         $('.toast-btn').click()
+            
+        }
+    });
+})
+
+
+
+
+
+$(document).on('click', '.droppedResult', ()=>{
+    const className=  `<%=className%>`;
+    const sectionName= `<%=sectionName%>`;
+    const student_id= $('.student_id').val()
+    $.ajax({
+        method: "post",
+        url: "/admin/transcript/final-card-drop-result",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        beforeSend: function(){
+$('.passedResult').addClass('disabled')
+$('.droppedResult').addClass('disabled')
+
+$('.toast-msg').html(`<img src="/image/default/loading-load.gif" width="100px" class=" bg-dark" alt="">
+        <span>Processing...</span>`)
+        $('.toast').addClass('show');
+
+        },
+        success: function (info) {
+
+      
+         $('.toast-btn').click()
+        }
+    });
+})
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</html>

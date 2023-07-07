@@ -1,0 +1,69 @@
+<div class="" id="menu-list-item-height" style="width:100%;  position: absolute !important; top:66px; z-index: 1030;">
+    <div id="menu-list-item" class="row collapse  justify-content-center bg-light border-bottom">
+   
+           <div  class="col-6 col-md-2">
+               <ul class="menu-list-item" style="list-style: none;"> Academic
+                   <li ><a class=" page-link" href="/pu/admission/step1">Admission</a></li>
+                   <li ><a class=" page-link" href="/pu/all/teacher">Teachers</a></li>
+                   <li> <a class=" page-link" href="/pu/student/page">Students</a></li>
+                   <li ><a class=" page-link" href="/pu/routine/page">Class routine</a></li>
+                   <li ><a class=" page-link" href="/pu/rank/class/page">Student rank</a></li>
+                   <li ><a class=" page-link" href="/pu/notice/page">Notice</a></li>
+               </ul>
+           </div>
+   
+   
+           <div class="col-6 col-md-2">
+               <ul class="menu-list-item"  style="list-style: none;"> Organization
+                   <li ><a class=" page-link" href="#">About us</a></li>
+                   <li ><a class=" page-link" href="#">Contact us</a></li>
+                   <li ><a class=" page-link" href="#">Faq</a></li>
+                   <li ><a class=" page-link" href="#">Terms o use</a></li>
+                   <li ><a class=" page-link" href="#">Privacy policy</a></li>
+                   <li ><a class=" page-link" href="/pu/team-saanvi">Team</a></li>
+                </ul>
+           </div>
+   
+      
+       
+           <div class="col-6 col-md-2">
+               <ul class="menu-list-item user-nav-item-menu"  style="list-style: none;"> User 
+                   <li ><a class=" page-link" href="/pu/join/parent">Join parent</a></li>
+                   <li ><a class=" page-link" href="/au/singin/page">Sing in</a></li>
+               
+               </ul>
+           </div>   
+       
+   
+            
+           <div class="col-6 col-md-2 ">
+               <ul class="menu-list-item"  style="list-style: none;"> Gallery
+                   <li ><a class=" page-link" href="/pu/gallery/photos">Photos</a></li>
+                   <li ><a class=" page-link" href="/pu/gallery/video">Videos</a></li>
+                 
+               </ul>
+           </div>
+   
+           
+       </div>
+   
+   
+    
+    </div>
+
+    <script>
+
+function user_nav(){
+    $.ajax({
+    method: "get",
+    url: "/au/user/nav-item-menu",
+    data: {},
+    dataType: "JSON",
+    success: function (response) {
+        $('.user-nav-item-menu').html(response.listData)
+    }
+});
+} user_nav()
+
+    </script>
+

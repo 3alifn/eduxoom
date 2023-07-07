@@ -1,0 +1,258 @@
+<html lang="en">
+
+<%- include("../component/metadata.html") %> 
+<link rel="stylesheet" href="/app/about-us-team-saanvi.css">
+<link rel="stylesheet" href="/app/contact-us-team-saanvi.css">
+
+
+<title>About us</title>
+
+<style>
+  
+.team-img{
+    background-image:url(/image/team/team.jpg);
+     background-position: center;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      height: 400px;
+      width: 100%;
+      border-radius: 10px;
+    
+  }
+  .team-img:hover{
+    transition: all 1s;
+    transform: scale(1.1);
+  }
+  .team-title{
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+color: white;
+  }
+
+
+</style>
+
+<body onload="pageLoadingTop()">
+ 
+<%- include("../component/header-nav.html") %> 
+<%- include("../component/menu-nav.html") %> 
+<%- include("../component/offcanvas-nav.html") %> 
+<%- include("../component/toast-ajax.html") %> 
+<%- include("../component/app-loading.html") %> 
+<%- include("../component/antoast-msg.html") %> 
+
+
+
+  <div class="row mt-5">
+
+    <div style="height: 400px; overflow: hidden;" class="col-12 rounded-5 m-auto border team-div"  >
+      <div class="team-img bg-dark-overlay-2">
+        <h1 class="team-title">About us <br>
+        <a class="text-light" href="/"><center class="bi bi-house"></center></a>
+        </h1>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="row ms-2 mt-5">
+    <div class="col-auto">
+   <h5 >Our story</h5>
+  
+   <p class="p-2" style="word-spacing: 1px;">
+  
+   ২০১৮ সালে প্রথম একটি উচ্চ বিদ্যালয়ের রেজাল্ট ম্যানেজমেন্ট সফটওয়্যার তৈরীর প্রস্তাব আসে। তখন আমি একা ছিলাম। 
+   তাদের চাহিদা মত শুরু হয় আমার সফটওয়্যার তৈরীর কাজ। প্রায় ৩ মাস পরিশ্রমের পর তৈরী হয় সফটওয়্যার, কিন্তু বাস্তবে যখন 
+   সফটওয়্যারটি পরিচালনা হয় তখন একের পর এক বাধা সৃষ্টি হয়! একটা সময় নিজেকে থেমে যেতে হয়, কারন আমি একা!
+   অনূভব করি, নিজের একটা টীমের প্রয়োজন! যেই ভাবনা সেই কাজ, তৈরী হয় আমি সহ ৫ সদস্যের টীম। ২০১৯ - এ আমি সৌমিত্র সাহা ও (তানভির আকাশ, সেতু, দোলা ও মৃত্যঞ্জয়)
+   । ২০২২ - এ জুন আমার টীমে যুক্ত হয় আরোও একজন প্রোগ্রামার (আলিফ নয়ন) যার হাত ধরে আবার আমরা শুরু করি স্কুল ম্যানেজমেন্ট সিস্টেম সফটওয়্যার। শুরু হতে থাকে দিনের পর দিন প্রোগ্রাম!
+   ২০২৩ - এ জুন প্রকাশিত হয় স্কুল ম্যানেজমেন্ট সিস্টেম সফটওয়্যার (SAANVI S1)
+  
+  <hr>
+   <q>আমরা থাকতে চাই ভবিষ্যত প্রযুক্তির সাথে! আসতে চাই কিছু ছোট্ট সমস্যার সমাধানে! পৃথিবীতে কিছুই পরিপূর্ণ নয় তাই আমরা এবং আমাদের কাজ ও পরিপূর্ণ নয়।</q>
+   </p>
+  
+    </div>
+  </div>
+
+
+
+<!-- team avatar section  -->
+<h5 class=" mt-5  container">Our team</h5>
+<div class="row g-4">
+  <!-- Team item-->
+  <div class="col-sm-6 col-lg-3">
+    <div class="text-center">
+      <!-- Avatar img -->
+      <div class="avatar avatar-xxxl mb-2">
+        <img  class="avatar-img bg-demo-img-color rounded-circle" src="/image/team/ceo.jpg" alt="avatar">
+      </div>
+      <h6>Soumitra Saha</h6>
+      <p class="m-0">Chief Exicutive Officer</p>
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link px-2 fs-5" target="_blank"  href="https://www.facebook.com/soumitrasahatanin"><i class=" bi bi-facebook"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-2 fs-5" href="#"><i class="bi bi-linkedin"></i></a>
+        </li>
+    
+      </ul>
+    </div>
+  </div>
+  <!-- Team item-->
+  <div class="col-sm-6 col-lg-3">
+    <div class="text-center">
+      <!-- Avatar img -->
+      <div class="avatar avatar-xxxl mb-2">
+        <img class="avatar-img bg-demo-img-color rounded-circle" src="/image/team/alifn.jpg" alt="avatar">
+      </div>
+      <h6>Alif Nayon</h6>
+      <p class="m-0">Programmer (CTO)</p>
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link px-2 fs-5" target="_blank"  href="https://www.facebook.com/alifn30"><i class="bi bi-facebook"></i></a>
+        </li>   
+         <li class="nav-item">
+          <a class="nav-link px-2 fs-5" target="_blank"  href="https://www.linkedin.com/in/alifn-nayon-472821265/"><i class="bi bi-linkedin"></i></a>
+        </li>   
+        <li class="nav-item">
+          <a class="nav-link px-2 fs-5" target="_blank"  href="https://github.com/3alifn"><i class="bi bi-github"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Team item-->
+  <div class="col-sm-6 col-lg-3">
+    <div class="text-center">
+      <!-- Avatar img -->
+      <div class="avatar avatar-xxxl mb-2">
+        <img class="avatar-img bg-demo-img-color rounded-circle" target="_blank"  src="/image/team/tanvir-01.jpg" alt="avatar">
+      </div>
+      <h6>Tanvir Islam</h6>
+      <p class="m-0">Cheaf Finalcial</p>
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link px-2 fs-5" target="_blank"  href="https://www.facebook.com/tanvir.islam.52459"><i class="bi bi-facebook"></i></a>
+        </li>
+     
+      </ul>
+    </div>
+  </div>
+  <!-- Team item-->
+  <div class="col-sm-6 col-lg-3">
+    <div class="text-center">
+      <!-- Avatar img -->
+      <div class="avatar avatar-xxxl mb-2">
+        <img class="avatar-img bg-demo-img-color rounded-circle" src="/image/team/ratul.jpg" alt="avatar">
+      </div>
+      <h6>Ratul Mia</h6>
+      <p class="m-0">Join Designer</p>
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link px-2 fs-5" target="_blank" href="https://www.facebook.com/ratul.mia.1865"><i class="bi bi-facebook"></i></a>
+        </li>
+     
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- contact section -->
+<main class="page-wrapper">
+
+  <!-- Page content -->
+  <section class="bg-size-cover bg-position-bottom-center bg-repeat-0 py-5" style="background-image: url(assets/img/contacts/bg.svg);">
+    <div class="container  pb-lg-4 pb-xl-5">
+
+      <div class="row pt-md-2 pt-lg-5 pb-2 pb-md-4">
+        <div class="col-xxl-4 col-xl-5 col-lg-6 pt-3 mt-3">
+          <h1 class="h3 mb-2">Want to work with us?</h1>
+          <h2 class="display-1 text-gradient-primary pb-sm-2 pb-md-3 mb-3">Let's talk!</h2>
+          <div class="nav d-block lead pt-lg-5">
+            <a href="#" class="nav-link  text-decoration-none fw-normal  p-0"> <i class="bi-envelope-fill p-2"></i> 
+          seawebit@gmail.com</a>
+            <div class="text-nav mt-1"><i class="bi bi-telephone-fill p-2"></i>+8801743452910</div>
+            <div class="mt-1 fs-5"><i class="bi bi-geo-alt-fill p-2">
+              
+            </i> Kazi Harun Shopping Complex 1<sup>st</sup> Floor <br>
+               <span class="ms-5">Boalmari, Faridpur - Bangladesh</span>
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-6 offset-xl-1 offset-xxl-2 pt-3 pt-md-4 pt-lg-3 mt-3">
+          <form class="team-saanvi-form was-validated" method="post">
+            <div class="row g-4">
+              <div class="col-sm-6">
+                <label for="fn" class="form-label fs-base">Full name</label>
+                <input placeholder="Mr. bean" type="text" class="form-control form-control-lg" name="fullname" id="fn" required="">
+                <div class="invalid-feedback">Please enter your full name!</div>
+              </div>
+              <div class="col-sm-6">
+                <label for="email" class="form-label fs-base">Email</label>
+                <input name="email" placeholder="Example@mail.com" type="email" class="form-control form-control-lg" id="email" required="">
+                <div class="invalid-feedback">Please enter a valid email address!</div>
+              </div>
+              <div class="col-12 pb-2">
+                <label for="message" class="form-label fs-base">Message</label>
+                <textarea placeholder="what's on your mind." class="form-control form-control-lg" id="message" name="message" rows="3" required=""></textarea>
+                <div class="invalid-feedback">Please enter message!</div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-lg btn-primary contactus w-100 w-sm-auto">Contact Us</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<hr>
+
+<%- include("../component/footer-nav.html") %> 
+<script>
+
+
+
+  $(".team-saanvi-form").on('submit', (event)=>{
+   event.preventDefault();
+   
+   $.ajax({
+      method: "post",
+      url: "/pu/team-saanvi/contact-us",
+      data: $(".team-saanvi-form").serialize(),
+      dataType: "JSON",
+      beforeSend: function(){
+     $('.contactus').addClass('disabled')
+          appLoadingOpen()
+      },
+      success: function (response) {
+        console.log(response);
+        $('.contactus').removeClass('disabled')
+        appLoadingClose()
+        antoastMsgOpen('alert-success', response.msg)
+
+      }
+    });
+  })
+
+ 
+
+  </script>
+
+</body>
+
+
+
+</html>

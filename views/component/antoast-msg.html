@@ -1,0 +1,41 @@
+
+<style>
+
+.antoast-msg{
+    height: max-content;
+    width: 300px;
+    text-align: center;
+    /* background-color:white; */
+    padding: 5px;
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%);
+    border-radius: 5px;
+    z-index: 1030;
+    transition: all 1s;
+    
+  }
+  
+
+</style>
+
+<div class="antoast-msg shadow p-1 alert" style="display: none;">
+  <strong>Message!</strong>  <span class="btn btn-close antoast-msg-close float-end"></span>
+  <p class="fw-bold antoast-msg-line"></p>
+  </div>
+
+  <script>
+   function antoastMsgOpen(color, msg){
+    $('.antoast-msg').fadeIn();
+    $('.antoast-msg').addClass('alert '+color);
+    $('.antoast-msg-line').text(msg);
+   } 
+    function antoastMsgClose(){
+    $('.antoast-msg').fadeOut('slow')
+   }
+   $('.antoast-msg-close').on('click', ()=>{
+    $('.antoast-msg').fadeOut('slow')
+
+   })
+  </script>

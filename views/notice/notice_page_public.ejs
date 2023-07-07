@@ -1,0 +1,97 @@
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice Board</title>
+
+    <%- include("../component/metadata.html") %> 
+
+</head>
+
+<body onload="pageLoadingTop()"">
+
+  <%- include("../component/header-nav.html") %> 
+<%- include("../component/menu-nav.html") %> 
+<%- include("../component/offcanvas-nav.html") %> 
+
+
+    <center>
+        <legend class=" alert container bg-light shadow">নোটিশ তালিকা</legend>
+      
+        <input type="date" name="" id="findDate">
+    
+        <input class=" ms-5" type="search" name="" placeholder="search..." id="search">
+    
+    </center>
+
+
+   
+    <table class=" table table-hover ">
+        <thead  id="thead">
+            <th>তারিখ</th>
+            <th>শিরোনাম</th>
+            <th> মন্তব্য </th>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+    </table>
+
+
+    <%- include("../component/footer-nav.html") %> 
+
+
+<script>
+
+$(document).ready(function(){
+  $("#findDate").change(function(e) {
+    let findDate= $("#findDate").val().replaceAll("-", "/");
+
+    var value = findDate
+    $("tbody tr").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+$(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $("tbody tr").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+$(document).ready(function () {
+
+            $.ajax({
+                type: "post",
+                url: "/pu/notice/get",
+                data: {},
+                dataType: "JSON",
+                success: function (info) {
+                    $("tbody").html(info.html)
+                }
+            });
+
+
+        })
+
+
+    </script>
+
+</body>
+
+</html>

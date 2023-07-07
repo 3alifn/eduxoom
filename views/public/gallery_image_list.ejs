@@ -1,0 +1,111 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galley</title>
+
+<%- include("../component/metadata.html") %>
+
+
+</head>
+
+    
+<style>
+    html,* { font-family: 'Inter'; box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #fafafa; line-height:1.6;}
+  
+  .container img { width: 200px; height: 150px; float: left;  }
+  
+  .img-btn:hover{
+    cursor: pointer;
+  }
+  
+  </style>
+
+<body onload="pageLoadingTop()">
+    
+
+          
+<%- include("../component/header-nav.html") %>
+<%- include("../component/menu-nav.html") %>
+<%- include("../component/offcanvas-nav.html") %>
+  
+<center>
+
+  <h5 class="container text-center w-100 alert alert-secondary">Photos gallery </h5>
+
+</center>
+  
+            <div id="listDataPrint" class="row d-inline-flex">
+              
+  
+             
+              
+            </div>
+  
+  
+      
+      
+      <!-- Button trigger modal -->
+  
+      
+   <!-- Modal -->
+  <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
+      
+      <img  id="modal-img" class="bg-demo-img-color" height="250px" width="100%" src="" alt="loading...">
+      
+    </div>
+  </div>
+      
+  <button  id="modal-btn" type="button" class="btn d-none btn-lg" data-toggle="modal" data-target="#modelId">
+  </button>
+
+
+
+<%- include("../component/footer-nav.html") %>
+
+  
+  </body>
+  
+  
+  <script>
+  
+  function loadContentData(){
+          
+          $.ajax({
+              method: "post",
+              url: "/pu/gallery/image/list",
+              data: {},
+              dataType: "JSON",
+              success: function (info) {
+                  $("#listDataPrint").html(info.imgsource)
+                    
+              }
+          });
+      
+      }
+  
+  loadContentData()
+
+         
+      $(document).on('click', '.img-btn', (event)=>{
+        const data= event.currentTarget.attributes[2].value;
+        
+        $("#modal-img").attr('src', data)
+      
+        $("#modal-img").addClass('overlay-img')
+        $("#modal-btn").click()
+      
+      })
+      
+    
+  
+  
+  
+      
+  </script>
+      
+
+</html>

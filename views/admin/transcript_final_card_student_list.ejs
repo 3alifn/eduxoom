@@ -1,0 +1,88 @@
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> FInal Transcript</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+
+
+<body onload="pageLoadingTop()">
+
+<%- include("../component/admin-header-nav.html") %> 
+<%- include("../component/admin-menu-nav.html") %> 
+
+
+<div id="main-content" class="p-2 mt-5">
+
+      
+        <%-include("../component/modal-danger.html") %> 
+        <%-include("../component/modal-success.html") %> 
+  
+        <%-include("../component/toast-ajax.html") %> 
+
+    </div>
+<p></p>
+<p></p>
+        <div id="" class="col-12 col-md-10 m-auto">
+            <center>
+                <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"  class="  btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a> 
+                <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a> 
+                <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a> 
+    
+      </center>
+      <hr>
+
+ <div class="col-11 m-auto">
+    
+        <table class=" table table-hover table-bordered table-dark">
+            <thead>
+                <th>Student ID</th>
+                <th>Roll</th>
+                <th>Name</th>
+                <th>Avatar</th>
+                <th>Status</th>
+         
+            </thead>
+    
+            <tbody id="tbodySection">
+    
+            <% for( let key = 0; key < infoStudent.length; key++ ) { %>
+                <tr>
+                    <td><%= infoStudent[key].student_id %></td>
+                    <td><%= infoStudent[key].roll %></td>
+                    <td><%= infoStudent[key].name %></td>
+                    <td><%= infoStudent[key].avatar %></td>
+                    <td><%= infoStudent[key].at_status %></td>
+                 
+                
+                </tr>
+            <% } %>  
+             
+    
+            </tbody>
+    
+        </table>
+            
+            
+            
+        </div>
+
+    </div>
+
+                 
+ 
+    
+</body>
+
+<script>
+
+
+</script>
+
+
+</html>

@@ -1,0 +1,137 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIS Report</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<body onload="pageLoadingTop()">
+  <%- include("../component/user-header-nav.html") %> 
+  <%- include("../component/offcanvas-nav.html") %> 
+
+ <p></p>
+
+    <center>
+     <h5> PIS Result Card</h5>
+    </center>
+
+
+    <div class="row">
+      <div class="col-10 col-md-6 mt-2 m-auto">
+         <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+                 
+   </div>
+   <script>
+   
+   $(document).ready(function(){
+     $("#search").keyup(function() {
+       var value = $(this).val().toLowerCase();
+       $("tbody tr").filter(function() {
+          
+         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        
+       });
+     });
+   });
+   </script>
+  
+<div class="row" style="width: 100%; overflow-x: auto;">
+  <div class="col-auto m-auto" id="mainApp">
+
+    <table class=" table table-bordered">
+   <thead class="text-center"> 
+    <tr>
+      <th>Subject</th>
+      <% const infoChapter=  ['PI-1','PI-2','PI-3','PI-4','PI-5',
+      'PI-6','PI-7','PI-8','PI-9','PI-10','PI-11','PI-12'
+   ]%>
+
+   <% for( let index = 0; index <infoChapter.length; index++ ) { %>
+                    <th><%=infoChapter[index]%></th>
+    
+                  
+        <% } %>
+      
+
+      </tr>
+   </thead>
+
+  <tbody class="text-center">
+
+<% for( let i = 0; i < infoSubject.length; i++ ) { %>
+ <tr>
+
+<td>
+    <b><%=infoSubject[i].subject%></b>
+</td>
+
+<% for( let index = 0; index <infoChapter.length; index++ ) { %>
+    <td > 
+      <i><%=infoChapter[index]%></i> <br>
+
+        <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> m-0 p-0 form-switch d-flex btn ">
+                    
+                                     
+                    <span class="p-2 fs-5  border-end checked_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%>bg-danger">&#9726; <input value="1"   class="form-check-input m-0 p-2" type="radio" name="<%=infoSubject[i].subject%><%=infoChapter[index]%>" id=""> </span>
+                    <span class="p-2 fs-5 border-end checked_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%>bg-warning">&#9673; <input value="2"  class="form-check-input m-0 p-2" type="radio" name="<%=infoSubject[i].subject%><%=infoChapter[index]%>" id=""> </span>
+                    <span class="p-2 fs-5 checked_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%>bg-success">&#9650; <input value="3" class="form-check-input m-0 p-2" type="radio" name="<%=infoSubject[i].subject%><%=infoChapter[index]%>" id=""> </span>
+       
+           
+           </div>
+
+        
+       </td>
+<% } %>
+
+</tr>
+<% } %>
+</tbody>
+
+
+  
+  </table>
+
+
+
+  
+
+
+  </div>
+</div> 
+
+</div> 
+    
+
+</body>
+
+<script>
+
+  function student_checkout_class() {
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+ const student_id= '<%=student_id%>'
+    $.ajax({
+        method: "post",
+        url: "/privet/pis/report-get-checkout",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        success: function (response) {
+         
+            for (const key in response.info_checkout) {
+                $('.checkout_'+response.info_checkout[key].checkout).addClass('disabled').addClass(response.info_checkout[key].bg_color)
+                $('.checked_'+response.info_checkout[key].checkout+response.info_checkout[key].bg_color+' input').attr('checked', true).addClass('bg-dark');
+            }
+        }
+    });
+    
+}
+
+student_checkout_class()
+  
+</script>
+
+
+</html>

@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Sheet</title>
+    <link href="/app/custom.css" rel="stylesheet">
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/user-header-nav.html") %> 
+    <%- include("../component/teacher-offcanvas-nav.html") %> 
+
+
+   
+ <div class="row">
+ 
+  <div class=" col">
+    
+    <%-include("../component/toast-ajax.html") %> 
+
+    
+    <div class=" container shadow ">
+        <center><h6 class=" font-monospace">Attandance Sheet</h6></center>
+
+        <% if(info.length>0 ) {%>
+
+            <center ><h6 class="font-monospace nav-link"> Date: <%=new Date().toString().substring(0, 15) %> </h6></center>
+
+            <center>
+                <h6 class="font-monospace nav-link ">Class: <%=info[0].class%> & Section: <%=info[0].section %></h6>
+            </center>
+
+            <% } else {%>
+
+                <center><h6>Class : <%=null%>     Section : <%=null%> </h6></center>
+                
+                <% } %>   
+
+                </div>
+
+
+             <div class="row">
+                <div class="col-11 col-md-6 m-auto ">
+
+                    <button id="finishRank" type="button" class=" btn-secondary float-end">Finish</button>
+
+                    <table id="table" class="  table table-hover" >
+                        <thead class=" bg-danger text-light" id="">
+                            <th>Student</th>
+                            <th class="">Status</th>
+                     
+                       
+          
+                           
+                        </thead>
+            
+                        <tbody class=" text-uppercase table-dark" >
+                         
+                            <% for(let i=0; i<info.length; i++) {%>
+                                <tr id="tr">
+                                    
+                                    <td >
+                                    <img width="50px" src="/image/student/<%=info[i].avatar%>" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="404">
+<br>
+                                    <span class=" badge bg-light text-dark"><%= info[i].roll %> - <%= info[i].name%></span>
+                                    
+                                </td>
+                                    
+                                 
+                                        <td id="" class=" align-bottom">
+            
+            
+                                            <button style="display: none;" class=" btn-info float-end " id="<%=info[i].ID%>bx"><%=info[i].at_status%></button>
+            
+                                                <button id="<%=info[i].ID%>a" data-id="<%=info[i].class%>&<%=info[i].section%>&<%=info[i].name%>&<%=info[i].student_id %>&<%=info[i].roll%>&Absent&<%=info[i].ID%>&<%=info[i].avatar%>" class="def p-2 badge btn-light text-dark shadow  <%=info[i].ID%>b">Absent</button>
+                                                <button id="<%=info[i].ID%>b" data-id="<%=info[i].class%>&<%=info[i].section%>&<%=info[i].name%>&<%=info[i].student_id %>&<%=info[i].roll%>&Present&<%=info[i].ID%>&<%=info[i].avatar%>" class="def p-2 badge text-light btn-secondary shadow <%=info[i].ID%>a" style="background-color: indigo;">Present</button>
+                                            
+                                             <!-- <span class=" badge bg-dark"> -->
+                                                <% if( [i]>=info_sub.length){ %>
+
+                                                    <span class="badge bg-secondary <%=info[i].ID%>ab <%=info[i].ID%>bb"> N/A </button> 
+    
+                                              
+    
+                                            <%  } else { %>
+    
+    
+    
+                                                 
+                                                <% if(info_sub[i].at_status=="Present"){ %>
+    
+    
+                                                    <span class=" bg-success float-end p-0   <%=info[i].ID%>ab <%=info[i].ID%>bb"> <%= info[i].roll ==info_sub[i].roll  ? info_sub[i].at_status: "it's not for this;"+" it's for Roll No. " + info_sub[i].roll  %></span> 
+            
+            
+                                                    <%  } else {%>
+            
+            
+                                                        
+                                                        <span class=" bg-danger p-0 float-end text-dark <%=info[i].ID%>ab <%=info[i].ID%>bb">  <%= info[i].roll ==info_sub[i].roll  ? info_sub[i].at_status: "it's not for this"+ " it's for Roll No. " + info_sub[i].roll  %></span> 
+                                                       
+            
+                                                   <% } %>                       
+    
+    
+                                           <% } %> 
+                                             <!-- </span> -->
+            
+                                       </td>
+
+                                       
+                                </tr>
+                                
+                            <% } %> 
+            
+                         
+            
+                        </tbody>
+                    </table>
+                </div>
+             </div>
+
+                </div>
+     <center>
+        <span id="log"></span>
+     </center>
+
+  </div>
+
+ </div>
+
+
+
+
+    <script>
+
+$("#finishRank").on("click", ()=>{
+    
+ $.ajax({
+    method: "post",
+    url: "/teacher/rank/mark/post/attendance",
+    data: {},
+    beforeSend: function(){
+   $("#finishRank").addClass("disabled")
+    },
+    dataType: "JSON",
+    success: function (info) {
+        $("#msg").text(info.msg).addClass(info.alert)
+        toast_alive()
+        // $("#finishRank").removeClass("disabled")
+    }
+ });
+
+})
+
+
+
+     
+     $(document).on("click", ".def", function(){
+
+
+       let dataID= event.target.id
+        let text= $(this).attr("data-id")
+
+        let dataAttr= $(this)
+
+        let data= text.split("&")
+
+        let className= data[0]
+        let sectionName= data[1]
+        let studentName= data[2]
+        let student_id= data[3]
+        let roll= data[4]
+        let status= data[5]
+        let ID= data[6]
+        let avatar= data[7]
+
+        $.ajax({
+        method: "post",
+        url: "/teacher/attendance/post",
+        dataType: "JSON",
+        data: {className, sectionName, studentName, student_id, roll, status, ID, avatar},
+        // beforeSend: function(){
+
+        // },
+        success: function (data){
+            $(`#${dataID}`).html( data.msg+"&#9745").addClass("disabled")
+
+            
+
+             $(`.${dataID}`).html("re-try").removeClass("disabled")
+
+             if(data.msg=="Present"){
+                $(`.${dataID}b`).text(data.msg).removeClass("bg-danger")
+                $(`.${dataID}b`).text(data.msg).addClass("bg-success")
+             } else {
+
+                $(`.${dataID}b`).text(data.msg).removeClass("bg-success")
+                $(`.${dataID}b`).text(data.msg).addClass("bg-danger")
+             }
+           
+         
+        }
+
+     })
+
+     })
+     
+
+
+    </script>
+</body>
+</html>

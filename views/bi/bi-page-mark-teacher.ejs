@@ -1,0 +1,204 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BI mark system</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<style>
+    thead th, tbody td{
+    border-right: 1px solid black;
+    }
+    
+
+  thead th{ 
+    position:sticky; top: -1px;background: white; z-index: 1020;
+  }
+
+</style>
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/user-header-nav.html") %> 
+    <%- include("../component/teacher-offcanvas-nav.html") %> 
+    <%- include("../component/toast-ajax.html") %> 
+    <%- include("../component/modal-person.html") %> 
+
+<!-- heading section -->
+ <div class="row">  
+    <div class="col-11 col-md-6 mt-2 m-auto">
+        <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+    
+    </div>
+        
+    <center>
+        <span class="bg-light badge fs-5 text-dark"><%=className%> - <%=sectionName%></span>
+    </center>
+
+</div>
+
+<!-- table section -->
+ 
+<div  style="width: 100%; overflow-x: scroll;">
+  <div class="row" >
+
+    <div  class="col-12 m-auto ">
+
+    <table class=" table  table-hover">
+
+        <thead class="table-success">
+
+           <tr>
+            <th>Student</th>
+
+            <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
+                <th><small style="font-size: smaller;"><%=infoCatagory[index].catagory_name%></small></th>
+
+            <% } %>
+           </tr>
+
+        </thead>
+
+
+
+        <tbody class="text-center">
+
+            <% for( let i = 0; i < infoStudent.length; i++ ) { %>
+             <tr>
+           
+
+            <td><img width="40px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[i].avatar%>" alt="">
+                <b><%=infoStudent[i].student_id%></b> <br> <b><%=infoStudent[i].name%></b>
+            </td>
+
+            <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
+                <td > 
+                    
+                    <small class="badge bg-light text-dark"><%=infoStudent[i].name%></small> 
+                    <div class="form-check checkout_<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%> m-0 p-0 form-switch d-flex btn ">
+                
+                                 
+                             <span class="p-2 fs-5  border-end checked_<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%>bg-danger">&#9726; <input value="1" data-id="<%=infoStudent[i].student_id%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>" data-catagory="<%=infoCatagory[index].catagory_code%>"  data-checkout="<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%>" data-roll="<%=infoStudent[i].roll%>"  class="form-check-input check01 m-0 p-2" type="radio" name="<%=infoStudent[i].student_id%>N<%=index%>" id=""> </span>
+                             <span class="p-2 fs-5 border-end checked_<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%>bg-warning">&#9673; <input value="2" data-id="<%=infoStudent[i].student_id%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>" data-catagory="<%=infoCatagory[index].catagory_code%>"  data-checkout="<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%>" data-roll="<%=infoStudent[i].roll%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_id%>N<%=index%>" id=""> </span>
+                             <span class="p-2 fs-5 checked_<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%>bg-success">&#9650; <input value="3" data-id="<%=infoStudent[i].student_id%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>" data-catagory="<%=infoCatagory[index].catagory_code%>"  data-checkout="<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%>" data-roll="<%=infoStudent[i].roll%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_id%>N<%=index%>" id=""> </span>
+                
+                    
+                    </div>
+            
+                    
+                   </td>
+            <% } %>
+   
+</tr>
+            <% } %>
+        </tbody>
+
+
+    </table>
+
+
+    </div>
+
+
+  </div>
+</div>
+ 
+
+<!-- pagination section -->
+      <div class="row">
+        <div class="col-11 m-auto" style="position:relative; overflow-x: scroll;">
+
+            <nav aria-label="...">
+                <ul class="pagination">
+                  <li class="page-item <%=prevbtnstatus%>">
+                    <a class="page-link" href="/teacher/bi/page-mark-get/<%=parseInt(page)-parseInt(1)%>/<%=className%>/<%=sectionName%>">Previous</a>
+                  </li>
+
+                  <% for( let index = 1; index <=Math.ceil(pagination); index++ ) { %>
+
+                    <li class="page-item"><a class="page-link <%=page==index?'active':''%>" href="/teacher/bi/page-mark-get/<%=index%>/<%=className%>/<%=sectionName%>"><%=index%></a></li>
+       
+                  <% } %>
+
+                  <li class="page-item">
+                    <a class="page-link <%=nextbtnstatus%> <%=pagination<=1?'disabled':''%>" href="/teacher/bi/page-mark-get/<%=parseInt(page)+parseInt(1)%>/<%=className%>/<%=sectionName%>">Next</a>
+                  </li>
+                </ul>
+              </nav>
+
+        </div>
+      </div>
+
+      
+
+</body>
+<script>
+
+    
+$(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $("tbody tr").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+function checkout_class() {
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+    $.ajax({
+        method: "post",
+        url: "/teacher/bi/mark-checkout",
+        data: {className, sectionName},
+        dataType: "JSON",
+        success: function (response) {
+            for (const key in response.info_checkout) {
+                $('.checkout_'+response.info_checkout[key].checkout).addClass('disabled').addClass(response.info_checkout[key].bg_color)
+                $('.checked_'+response.info_checkout[key].checkout+response.info_checkout[key].bg_color+' input').attr('checked', true).addClass('bg-dark');
+            }
+        }
+    });
+    
+}
+
+checkout_class()
+
+$(document).on('click', '.form-check-input', (event)=>{
+const className= '<%=className%>'
+const sectionName= '<%=sectionName%>'
+   const bi= event.currentTarget.attributes[0].value;
+   const student_id= event.currentTarget.attributes[1].value;
+   const name= event.currentTarget.attributes[2].value;
+   const avatar= event.currentTarget.attributes[3].value;
+   const catagory= event.currentTarget.attributes[4].value;
+   const checkout= event.currentTarget.attributes[5].value;
+   const roll= event.currentTarget.attributes[6].value;
+   const bg_color= bi==1?'bg-danger':bi==2?'bg-warning':'bg-success';
+$.ajax({
+    method: "post",
+    url: "/teacher/bi/mark-post",
+    data: { className, sectionName, bi, student_id, roll, name, avatar, catagory, checkout, bg_color},
+    beforeSend: ()=>{
+          
+    },
+    dataType: "JSON",
+    success: function (response) {
+       
+      if(response.msg=='success'){
+    
+        $('.checkout_'+checkout).addClass('disabled').addClass(bg_color);
+
+   }
+    }
+});
+
+
+
+})
+
+</script>
+</html>
