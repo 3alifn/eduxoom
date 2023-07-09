@@ -109,15 +109,13 @@
 
     <div id="step2" class=" container row">
         <input class=" m-auto col-6"  type="search" name="myInput" id="myInput" style="outline: none;" placeholder="Search">
-
+<p></p>
         <form action="" method="post" id="dataForm">
             <center>
-                <button type="button" class=" rounded" >
-                    <span class=" badge text-dark btn-danger " id="selectAll">Select All</span>
-                </button> 
+         
         
                 <button type="submit" class=" rounded " >
-                    <span  class=" badge text-dark btn-danger " data-toggle="modal"  data-target="#modelId">Delete</span>
+                    <span  class="btn btn-sm btn-light " data-toggle="modal"  data-target="#modelId">Delete</span>
                 </button> 
             </center>
 
@@ -125,7 +123,7 @@
         <table class=" table table-hover">
             <thead class="" id="thead">
                 <tr>
-                    <th>Name</th>
+                    <th>Name <input type="checkbox" name="" class="check-mark" id=""></th>
                     <th>Author</th>
                     <th>Copy</th>
                     <th>Class</th>
@@ -135,7 +133,7 @@
                     </tr>
             </thead>
 
-            <tbody>
+            <tbody class="check-mark-area">
 
                
             </tbody>
@@ -156,17 +154,13 @@
 </div>
 
 
+<%- include("../component/antoast.html") %> 
 
 </body>
+
 <script>
 
 
-$("#selectAll").on("click", ()=>{
-    if($("#selectAll").children().text()=="Select All") $("#selectAll").children().text("Unselect")
-    else $("#selectAll").children().text("Select All")
-
-    $("input[type=checkbox]").click()
-})
 
 
 $(document).ready(function(){
@@ -198,10 +192,11 @@ url: "/admin/library/get",
 data: {},
 dataType: "JSON",
 beforeSend: function(){
+    app_loading_pull()
 },
  
 success: function(info){
-  
+  app_loading_pop()
 
     $("tbody").html(info.html)
 
@@ -228,15 +223,17 @@ $("#form").on("submit", (events)=>{
     processData: false,
     dataType: "JSON",
     beforeSend: function(){
+  app_loading_pull()
+
     },
      
     success: function(info){
         $("#step1").hide()
-
+        antoast_msg_pull('alert-success', 'adding success...')
+        antoast_msg_pop(1000)
+        app_loading_pop()
         loadDisplay()
-      $('.toast-msg').text('adding successfully!').addClass('alert alert-success fw-bolder')
-      $('.toast').addClass('show')
-    
+       
     }
    
 }) 
@@ -262,13 +259,15 @@ $.ajax({
     url: "/admin/library/delete",
     data: $("#dataForm").serialize(),
     dataType: "JSON",
+    beforeSend: function(){
+   app_loading_pull()
+    },
     success: function (info) {
 
-
+        antoast_msg_pull('alert-success', 'deleted...')
+        antoast_msg_pop(1000)
+        app_loading_pop()
         loadDisplay()
-      $('.toast-msg').text('deleted successfully!').addClass('alert alert-danger fw-bolder')
-      $('.toast').addClass('show')
-
         
     }
 });

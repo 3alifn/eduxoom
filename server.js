@@ -81,7 +81,7 @@ const sessionStore= new mysqlStore({
 sqlmap.connect((err, res) => {
 
   if (err) console.log("Server not running")
-  else console.log("saanvi-system code by alifn...")
+  else console.log("saanvi-api code by 3alifn...")
 })
 
 

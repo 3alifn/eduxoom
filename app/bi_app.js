@@ -36,8 +36,13 @@ exports.admin_bi_catagory_get= (req, res)=>{
         for (let index = 0; index < info.length; index++) {
 
             tbody_data+=`<tr>
-            <td><input value="${info[index].catagory_name}" disabled class="catagory_class${info[index].ID} inputbox w-100" type="text" placeholder="catagory name"  id=""></td>
-            <td class="update_${info[index].ID}"><button data-id="${info[index].ID}" class="btn edit-btn">Edit</button><button data-id="${info[index].ID}" class="btn delete-btn">Delete</button></td>
+            <td> 
+            <textarea  class="inputbox-${info[index].ID} inputbox" placeholder="catagory name" disabled cols='40' rows='5'>${info[index].catagory_name}</textarea>
+            </td>
+            <td class="update_${info[index].ID} antoast-sm-area-${info[index].ID}"> 
+             <button data-id="${info[index].ID}" onclick='antoast_sm_pull_edit(${info[index].ID})' class="btn edit-btn"><i class='bi bi-pen-fill'></i></button>
+             <button data-id="${info[index].ID}" onclick='antoast_sm_pull(${info[index].ID})'  class="btn "><i class='bi bi-trash-fill'></i></button>
+         </td>
 
         </tr>`
 
@@ -64,10 +69,12 @@ exports.admin_bi_catagory_update_post= (req, res)=>{
 
 exports.admin_bi_catagory_delete= (req, res)=>{
 const {catagory_id}= req.body;
+
 sqlmap.query(`DELETE FROM bi_catagory WHERE ID=${catagory_id}`, (err, done)=>{
     if(err) console.log(err.sqlMessage);
     else res.send({msg: 'successfully!'})
 })
+
 
 }
 

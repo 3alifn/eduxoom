@@ -79,7 +79,9 @@ exports.admin_library_get= (req, res)=>{
     for (let i = 0; i < info.length; i++) {
         
         html+= ` <tr>
-        <td> <span class="badge bg-light text-danger">${info[i].book_name}</span> </td>
+        <td> <span class="badge bg-light text-danger">${info[i].book_name}</span>
+        <input type="checkbox" name="ID[]" id="" value="${info[i].ID}">
+         </td>
         <td><span class="badge bg-light text-primary">${info[i].book_author}</span></td>
         <td><span class="badge bg-light text-dark">${info[i].book_copy}</span></td>
         <td><span class="badge bg-light text-dark">${info[i].class_name} - ${info[i].section_name}</span></td>
@@ -87,7 +89,6 @@ exports.admin_library_get= (req, res)=>{
      
         <td> <span class="badge bg-light text-primary">${info[i].at_date.toString().substring(0, 15)}</span></td>
         <td><a class="btn" title="Edit" href="/admin/library/update/page?id=${info[i].ID}"><i class="fa-solid fa-pen"></i></a>
-        <td><input type="checkbox" name="ID[]" id="" value="${info[i].ID}"></td>
         </td>
         
         </tr>`

@@ -34,9 +34,10 @@
      <div class="row"  id="">
          
     
-        <div class=" col-10 col-md-6 m-auto btn-group" > 
+        <div class=" col-12 col-md-11 m-auto btn-group" > 
                 
-            <input class=" form-dev"  type="text"  value="" name="catagory_name[]" id="" placeholder="Catagory name" required>
+            <textarea  class="form-self" placeholder="catagory name" name="catagory_name[]" cols='40' rows='5' required></textarea>
+
             <span class=" btn addItem">ADD</span>
             </div>
     
@@ -85,9 +86,10 @@
 
  </div>
 
-
-
 </body>
+
+<%-include("../component/antoast.html") %> 
+
 
 <script>
 
@@ -113,17 +115,14 @@ $(document).on("click", ".addItem", (e) => {
  
  $("#catagoryAppend").append(` 
 
- <div class=" col-10 col-md-6 m-auto btn-group" > 
+ <div class=" col-12 col-md-11 m-auto btn-group" > 
                 
-        <input class=" form-dev"  type="text"  value="" name="catagory_name[]" id="" placeholder="Catagory name" required>
+    <textarea  class="form-self" placeholder="catagory name" name="catagory_name[]" cols='40' rows='5' required></textarea>
          <button type="button" class="btn btn-light addItem" title="ADD" ><i class="bi bi-plus-circle-fill text-primary"></i></button>
           <button type="button" class="btn btn-light removeItem" title="Remove" ><i class="bi bi-x-circle-fill text-danger"></i></button>
 
 </div>
-        
-                
-        </div>
-
+    
     
  
  `)
@@ -139,59 +138,47 @@ $(document).on("click", ".addItem", (e) => {
 }) 
 
 
-     
-
-$(document).on('click', '.edit-btn', (event)=>{
-   const catagory_id= event.currentTarget.attributes[0].value;
-   $('.catagory_class'+catagory_id).attr('disabled', false);
-   $('.update_'+catagory_id).html(`<button data-id="${catagory_id}" class="btn update-btn">Update</button>`)
-
-})
-
-$(document).on('click', '.update-btn', (event)=>{
-    const catagory_id=event.currentTarget.attributes[0].value;
-   const catagory_name=  $('.catagory_class'+catagory_id).val();
-
+ function antoast_sm_confirmed_edit(catagory_id){
+   const catagory_name=  $('.inputbox-'+catagory_id).val();
    $.ajax({
     method: "post",
     url: "/admin/bi/catagory-update-post",
     data: {catagory_id, catagory_name},
     dataType: "JSON",
+    beforeSend: function (){
+     app_loading_pull()
+    },
     success: function (response) {
-        
+        app_loading_pop()
+        antoast_msg_pull('alert-success', 'updated....')
         init_get_data()
     }
    });
-
-})
-
+ }
 
 
 
-$(document).on('click', '.delete-btn', (event)=>{
-    const catagory_id=event.currentTarget.attributes[0].value;
-$('.modal-trigger-body').text('are you want to delete!?').addClass('alert alert-danger fw-bold')
-$('.modal-trigger-trigger').click()
-$('.modal-trigger-ok').click(()=>{
+
+function antoast_sm_confirmed(catagory_id){
     $.ajax({
     method: "post",
     url: "/admin/bi/catagory-delete",
     data: {catagory_id},
     dataType: "JSON",
+    beforeSend: function (){
+        app_loading_pull()
+    },
     success: function (response) {
         
-        init_get_data()
+antoast_msg_pull('alert-success', 'delete from bi catagory')
+antoast_msg_pop(3000)
+app_loading_pop()
+init_get_data()
     }
    });
-})
-
-$('.modal-trigger-cancel').click(()=>{
-    init_get_data()
-})
-
-})
 
 
+}
 
 
 
@@ -206,18 +193,15 @@ $.ajax({
     beforeSend: ()=>{
 
         $(".onsubmit").addClass("disabled")
-
-    $('.toast-msg').html(`<img src="/image/default/loading-load.gif" width="100px" class=" bg-dark" alt="">
-    <span>processing!</span>`)
-    $('.toast').addClass('show');
- 
+       app_loading_pull()
 },
 success: function (response) {
     $(".onsubmit").removeClass("disabled")
-    init_get_data()
-    setTimeout(() => {
-        $('.toast-btn').click()
-    }, 100);
+antoast_msg_pull('alert-success', 'added bi catagory')
+antoast_msg_pop(3000)
+app_loading_pop()
+init_get_data()
+
 }
 });
 })

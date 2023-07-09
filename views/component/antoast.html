@@ -1,98 +1,293 @@
-<style>
+<div>
+
+
+
+  <!-- app loading start..... -->
+  <style>
+    .antoast-spin {
+      position: fixed;
+      margin: 0 auto;
+      width: 60px;
+      height: 50px;
+      text-align: center;
+      font-size: 10px;
+      top: 50%;
+      left: 50%;
+      z-index: 99999;
+      -webkit-transform: translateY(-50%) translateX(-50%);
+      
+      > div {
+        height: 100%;
+        width: 8px;
+        display: inline-block;
+        float: left;
+        margin-left: 2px;
+        -webkit-animation: loading-delay 2s infinite ease-in-out;
+        animation: loading-delay 2s infinite ease-in-out;
+      }
+      
+      .antoast-spin-bar1{
+        background-color: #754fa0 ;
+        -webkit-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+      }
+      .antoast-spin-bar2{
+        background-color: #09b7bf;
+        -webkit-animation-delay: -0.7s;
+        animation-delay: -0.7s;
+      }
+      .antoast-spin-bar3{
+        background-color: #90d36b;
+        -webkit-animation-delay: -0.6s;
+        animation-delay: -0.6s;
+      }
+      .antoast-spin-bar4{
+        background-color: #f2d40d;
+        -webkit-animation-delay: -0.5s;
+        animation-delay: -0.5s;
+      }
+      .antoast-spin-bar5{
+        background-color: #fcb12b;
+        -webkit-animation-delay: -0.4s;
+        animation-delay: -0.4s;
+      }
+      .antoast-spin-bar6{
+        background-color: #ed1b72;
+        -webkit-animation-delay: -0.3s;
+        animation-delay: -0.3s;
+      }
+    }
     
-.antoast{
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    
+    @-webkit-keyframes loading-delay {
+      0%, 40%, 100% { -webkit-transform: scaleY(0.05) }  
+      20% { -webkit-transform: scaleY(1.0) }
+    }
+    
+    @keyframes loading-delay {
+      0%, 40%, 100% { 
+        transform: scaleY(0.05);
+        -webkit-transform: scaleY(0.05);
+      }  20% { 
+        transform: scaleY(1.0);
+        -webkit-transform: scaleY(1.0);
+      }
+    }
+    
+  </style>
   
-    display: none;
-    z-index: 1020;
-  
-  }
-  
-  .antoast-box{
-    min-width: 300px;
-    max-height: max-content;
-    border-radius: 10px;
-    background-color: #ffff;
-    text-overflow:clip;
-    word-break: break-all;
-    letter-spacing: 0px;
-  } 
-  
-  .antoast-overlay{
-    position: absolute;
-    z-index: 1;
-    top: 0px;
-    background-color: rgba(33, 37, 41, 0.5);
-    width: 100%;
-    height: 100%;
-    display: none;
-  
-  }
-
-  .antoast-confirmed-permit:focus{
-    background-color:rgba(121, 121, 119, 0.14);
-  }
-    .antoast-no-permit:focus{
-    background-color: rgba(121, 121, 119, 0.14);
-  }
-  
-</style>
-
-
-<div class="row">
-    <div class="col-auto">
-   <div class="antoast-overlay"></div>
-
-<div class="row antoast">
-  <div class="border  shadow d-flex flex-column antoast-box">
-    <span class="btn btn-close antoast-close align-self-end p-2"></span>
-    <strong> delete permanently! are you sure? </strong>
-    <p class=" align-self-center">
-   <button class="btn btn-link text-decoration-none antoast-no-permit">No</button> |
-   <button class="btn btn-link text-decoration-none antoast-confirmed-permit">Confirmed</button>
-    </p>
-
-  </div>
-</div>
+  <div class="antoast-spin" style="display: none;">
+      <div class="antoast-spin-bar1"></div>
+      <div class="antoast-spin-bar2"></div>
+      <div class="antoast-spin-bar3"></div>
+      <div class="antoast-spin-bar4"></div>
+      <div class="antoast-spin-bar5"></div>
+      <div class="antoast-spin-bar6"></div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  
+  <script>
+  
+  
+  function antoast_spin_pull(){
+    $('.antoast-spin').fadeIn()
+  }
+  function antoast_spin_pop(){
+    $('.antoast-spin').fadeOut('slow')
+  }
+  
+  function app_loading_pull(){
+    $('.antoast-spin').fadeIn()
+  }
+  function app_loading_pop(){
+    $('.antoast-spin').fadeOut('slow')
+  }
+  
+  
+  </script>
+  <!-- app loading end..... -->
+  
+  <!-- antoast-msg start.... -->
+  
+  <style>
+  
+    .antoast-msg{
+        height: max-content;
+        width: 300px;
+        text-align: center;
+        /* background-color:white; */
+        padding: 5px;
+        position: fixed;
+        bottom: 0px;
+        left: 50%;
+        transform: translate(-50%);
+        border-radius: 5px;
+        z-index: 1030;
+        transition: all 1s;
+        
+      }
+      
+    
+    </style>
+    
+    <div class="antoast-msg shadow p-1 alert" style="display: none;">
+      <strong>Message!</strong>  <span onclick="antoast_msg_pop()" class="btn btn-close antoast-msg-pop float-end"></span>
+      <p class="fw-bold antoast-msg-line"></p>
+      </div>
+    
 
-<script>
-
-$('.antoast-sm-open').on('click', ()=>{
-  $('.antoast-sm-area').html(`
-  <button class="btn antoast-sm-confirmed btn-primary btn-sm border float-end">Confirmed<i class=" bi bi-check"></i></button>
-`)
-})
-
-
-    $('.antoast-overlay').on('click', (event)=>{
-    $('.antoast-overlay').hide()
-    $('.antoast').hide()
-  })
+      <script>
+  
+    
+       function antoast_msg_pull(color, msg){
+        $('.antoast-msg').fadeIn();
+        $('.antoast-msg').addClass('alert '+color);
+        $('.antoast-msg-line').text(msg);
+       } 
+        function antoast_msg_pop(time){
+          if(time) var timeout= time; else var  timeout= 'slow'
+        $('.antoast-msg').fadeOut(timeout)
+       }
+    
+  // antoast-sm js code.....
+  
+      function antoast_sm_pull(id){
+        $(`.antoast-sm-area-${id}`).html(`
+        <button data-id='${id}' onclick="antoast_sm_confirmed(${id})" class="btn antoast-sm-confirmed-${id} btn-light btn-sm border float-end">Confirmed<i class=" bi bi-check"></i></button>
+        <button data-id='${id}' onclick="antoast_sm_cancelled(${id})" class="btn antoast-sm-cancelled-${id} btn-light btn-sm border float-end">Cancelled<i class=" bi bi-x"></i></button>
+      `)
+  
+    }
+  
+    function antoast_sm_cancelled(id){
+      $(`.antoast-sm-area-${id}`).html(`
+      <button  data-id="${id}" onclick='antoast_sm_pull_edit(${id})' class="btn "><i class='bi bi-pen-fill'></i></button>
+      <button  data-id="${id}" onclick='antoast_sm_pull(${id})' class="btn "><i class='bi bi-trash-fill'></i></button>
+      `)
+    }
   
 
-  $('.antoast-close').on('click', (event)=>{
-    $('.antoast-overlay').hide()
-    $('.antoast').hide()
-  })  
-
-  $('.antoast-no-permit').on('click', (event)=>{
-    $('.antoast-overlay').fadeOut('slow')
-    $('.antoast').fadeOut('slow')
-  })  
+    function antoast_sm_pull_edit(id){
+      $('.inputbox-'+id).removeAttr('disabled')
+        $(`.antoast-sm-area-${id}`).html(`
+        <button data-id='${id}' onclick="antoast_sm_confirmed_edit(${id})" class="btn  btn-light btn-sm border float-end">Update<i class=" bi bi-check"></i></button>
+        <button data-id='${id}' onclick="antoast_sm_cancelled_edit(${id})" class="btn btn-light btn-sm border float-end">Cancelled<i class=" bi bi-x"></i></button>
+      `)
   
-  $('.antoast-confirmed-permit').on('click', (event)=>{
-    $('.antoast-overlay').fadeOut('slow')
-    $('.antoast').fadeOut('slow')
-  })
+    }
 
-  $('.antoast-open').on('click', ()=>{
+    function antoast_sm_cancelled_edit(id){
+      $('.inputbox-'+id).attr('disabled', true)
+      $(`.antoast-sm-area-${id}`).html(`
+      <button  data-id="${id}" onclick='antoast_sm_pull_edit(${id})' class="btn "><i class='bi bi-pen-fill'></i></button>
+      <button  data-id="${id}" onclick='antoast_sm_pull(${id})' class="btn "><i class='bi bi-trash-fill'></i></button>
+      `)
+    }
+  
+  
+      </script>
+  <!-- antoast-msg end.... -->
+  
+  
+  <!-- antoast start.... -->
+  
+    <style>
+      
+      .antoast{
+          position: fixed;
+          top: 45%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        
+          display: none;
+          z-index: 1020;
+        
+        }
+        
+        .antoast-box{
+          min-width: 300px;
+          max-height: max-content;
+          border-radius: 10px;
+          background-color: #ffff;
+          text-overflow:clip;
+          word-break: break-all;
+          letter-spacing: 0px;
+        } 
+        
+        .antoast-overlay{
+          position: absolute;
+          z-index: 1;
+          top: 0px;
+          background-color: rgba(225, 231, 237, 0.41);
+          width: 100%;
+          height: 100%;
+          display: none;
+        
+        }
+      
+        .antoast-confirmed-permit:focus{
+          background-color:rgba(121, 121, 119, 0.14);
+        }
+          .antoast-no-permit:focus{
+          background-color: rgba(121, 121, 119, 0.14);
+        }
+        
+      </style>
+      
+      
+      <div class="row">
+          <div class="col-auto">
+         <div onclick="antoast_pop()" class="antoast-overlay"></div>
+      
+      <div class="row antoast">
+        <div class="border  shadow d-flex flex-column antoast-box">
+          <span onclick="antoast_pop()" class="btn btn-close antoast-pop align-self-end p-2"></span>
+          <strong> delete permanently! are you sure? </strong>
+          <p class=" align-self-center">
+         <button class="btn btn-link text-decoration-none" onclick="antoast_pop()">No</button> |
+         <button class="btn btn-link text-decoration-none antoast-confirmed-permit">Confirmed</button>
+          </p>
+      
+        </div>
+      </div>
+          </div>
+        </div>
+  
+      <script>
+  
+  
+   function antoast_pull(id){
     $('.antoast-overlay').show()
-    $('.antoast').show()
-  })
-</script>
+     $('.antoast').show()
+     antoast_pushid(id)
+   }
+  
+   function antoast_pushid(id){
+     $('.antoast-confirmed-permit').on('click', ()=>{
+      $('.antoast-overlay').fadeOut('slow')
+          $('.antoast').fadeOut('slow')
+        antoast_confirmed(id)
+  
+     })
+          
+  
+    }
+  
+  
+   function antoast_pop(){
+    $('.antoast-overlay').hide()
+    $('.antoast').hide()
+   }
+      
+     
+        
+$(".check-mark").click(function(){
+    $('.check-mark-area input:checkbox').not(this).prop('checked', this.checked);
+});
+
+  
+      </script>
+  <!-- antoast end.... -->
+  
+  
+    </div>

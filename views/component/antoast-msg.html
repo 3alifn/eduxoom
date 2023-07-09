@@ -34,6 +34,18 @@
     function antoastMsgClose(){
     $('.antoast-msg').fadeOut('slow')
    }
+
+
+   function antoast_msg_open(color, msg){
+    $('.antoast-msg').fadeIn();
+    $('.antoast-msg').addClass('alert '+color);
+    $('.antoast-msg-line').text(msg);
+   } 
+    function antoast_msg_close(time){
+      if(time) var timeout= time; else var  timeout= 'slow'
+    $('.antoast-msg').fadeOut(timeout)
+   }
+
    $('.antoast-msg-close').on('click', ()=>{
     $('.antoast-msg').fadeOut('slow')
 
