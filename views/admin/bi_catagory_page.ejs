@@ -38,7 +38,7 @@
                 
             <textarea  class="form-self" placeholder="catagory name" name="catagory_name[]" cols='40' rows='5' required></textarea>
 
-            <span class=" btn addItem">ADD</span>
+            <span class=" btn addItem"><i class="bi bi-plus-circle-fill"></i></span>
             </div>
     
             
@@ -56,7 +56,7 @@
            <p></p>
             
             <div class=" col-6 col-md-2 m-auto">
-            <button  class="btn btn-secondary badge onsubmit w-100">Save</button>
+            <button  class="btn btn-sm btn-secondary onsubmit w-100">Save</button>
             </div>
             <p></p>
    
@@ -88,7 +88,7 @@
 
 </body>
 
-<%-include("../component/antoast.html") %> 
+<%-include("../component/___node.html") %> 
 
 
 <script>
@@ -101,9 +101,14 @@ function init_get_data(){
         url: "/admin/bi/catagory-get",
         data: {},
         dataType: "JSON",
+        beforeSend: function(){
+   _spin_pull();
+        },
         success: function (response) {
             
             $('.tbody-data').html(response.tbody_data);
+            _spin_pop();
+
         }
     });
 
@@ -138,19 +143,19 @@ $(document).on("click", ".addItem", (e) => {
 }) 
 
 
- function antoast_sm_confirmed_edit(catagory_id){
-   const catagory_name=  $('.inputbox-'+catagory_id).val();
+ function _penbox_sm_push(catagory_id){
+   const catagory_name=  $('._inputbox-'+catagory_id).val();
    $.ajax({
     method: "post",
     url: "/admin/bi/catagory-update-post",
     data: {catagory_id, catagory_name},
     dataType: "JSON",
     beforeSend: function (){
-     app_loading_pull()
+     _spin_pull()
     },
     success: function (response) {
-        app_loading_pop()
-        antoast_msg_pull('alert-success', 'updated....')
+        _spin_pop()
+        _msg_pull('alert-success', 'updated....')
         init_get_data()
     }
    });
@@ -159,20 +164,19 @@ $(document).on("click", ".addItem", (e) => {
 
 
 
-function antoast_sm_confirmed(catagory_id){
+function _delbox_sm_push(catagory_id){
     $.ajax({
     method: "post",
     url: "/admin/bi/catagory-delete",
     data: {catagory_id},
     dataType: "JSON",
     beforeSend: function (){
-        app_loading_pull()
+        _spin_pull()
     },
     success: function (response) {
         
-antoast_msg_pull('alert-success', 'delete from bi catagory')
-antoast_msg_pop(3000)
-app_loading_pop()
+_msg_pull('alert-success', 'delete from bi catagory')
+_spin_pop()
 init_get_data()
     }
    });
@@ -193,13 +197,12 @@ $.ajax({
     beforeSend: ()=>{
 
         $(".onsubmit").addClass("disabled")
-       app_loading_pull()
+       _spin_pull()
 },
 success: function (response) {
     $(".onsubmit").removeClass("disabled")
-antoast_msg_pull('alert-success', 'added bi catagory')
-antoast_msg_pop(3000)
-app_loading_pop()
+_msg_pull('alert-success', 'added bi catagory')
+_spin_pop()
 init_get_data()
 
 }

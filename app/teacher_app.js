@@ -177,7 +177,7 @@ exports.admin_teacher_get= (req, res)=>{
               for (let i in info) {
               list+= `    <div class="col-11 border col-md-4 mt-3 m-auto m-md-0 mt-md-3 ">
               <span class=" alert-dark ms-3">
-              <span data-id="${info[i].ID}" title="Delete" class="btn del_def "> <i class=" fa fa-trash"></i></span>
+              <span data-id="${info[i].ID}" onclick='_delbox_pull(${info[i].ID})' title="Delete" class="btn del_def "> <i class=" fa fa-trash"></i></span>
               <span data-id="${info[i].ID}" title="Edit" class="btn edit_def "> <i class=" fa fa-edit"></i></span>
      
               </span>

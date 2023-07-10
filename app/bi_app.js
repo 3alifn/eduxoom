@@ -37,11 +37,17 @@ exports.admin_bi_catagory_get= (req, res)=>{
 
             tbody_data+=`<tr>
             <td> 
-            <textarea  class="inputbox-${info[index].ID} inputbox" placeholder="catagory name" disabled cols='40' rows='5'>${info[index].catagory_name}</textarea>
+            <textarea  class="_inputbox-${info[index].ID}" placeholder="catagory name" disabled cols='40' rows='5'>${info[index].catagory_name}</textarea>
             </td>
-            <td class="update_${info[index].ID} antoast-sm-area-${info[index].ID}"> 
-             <button data-id="${info[index].ID}" onclick='antoast_sm_pull_edit(${info[index].ID})' class="btn edit-btn"><i class='bi bi-pen-fill'></i></button>
-             <button data-id="${info[index].ID}" onclick='antoast_sm_pull(${info[index].ID})'  class="btn "><i class='bi bi-trash-fill'></i></button>
+            <td> 
+            <span  class="_penbox-sm-area-${info[index].ID}">
+            <button data-id="${info[index].ID}" onclick='_penbox_sm_pull(${info[index].ID})' class="btn edit-btn"><i class='bi bi-pen-fill'></i></button>
+            </span>   
+
+             <span class='_delbox-sm-area-${info[index].ID}'>
+             <button data-id="${info[index].ID}" onclick='_delbox_sm_pull(${info[index].ID})'  class="btn "><i class='bi bi-trash-fill'></i></button>
+   
+            </span>
          </td>
 
         </tr>`

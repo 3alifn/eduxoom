@@ -281,6 +281,7 @@
   </div>
 
 </div>
+<%- include("../component/___node.html") %> 
 
 <script>
 
@@ -335,10 +336,13 @@ function displayLoad(){
     url: "/admin/teacher/get",
     data: {},
     dataType: "JSON",
+    beforeSend: function(){
+    _spin_pull()
+    },
     success: function (info) {
       
       $("#list").html(info.list)
-   
+     _spin_pop()
 
     }
   });
@@ -348,7 +352,6 @@ function displayLoad(){
 displayLoad()
 
 
-// $("#teacherForm").on("submit", (e)=>{
   function todoTeacher(e){
   e.preventDefault()
 
@@ -364,49 +367,42 @@ displayLoad()
     dataType: "JSON",
     beforeSend: function(){
       $("#submitbtn").addClass("disabled")
+    _spin_pull()
+
     },
     success: function (info) {
-$(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
+        _spin_pop()
+        _msg_pull('alert-success', 'added....')
+        displayLoad()
 
-$('.toast').addClass('show')
-
-  displayLoad()
-  $("#submitbtn").removeClass("disabled")
-  $('.close-post').click()
     }
   });
 
 }
 
-// })
 
 
 
-$(document).on("click", ".del_def", (e)=>{
- let ID=  e.currentTarget.attributes[0].value;
 
- $('.modal-trigger-trigger').click()
-$('.modal-trigger-body').text('are you want to delete?').addClass('alert alert-danger fw-bolder')
-
-
- $(".modal-trigger-ok").on("click", ()=>{
+ function _delbox_push(ID){
   $.ajax({
   method: "post",
   url: "/admin/teacher/delete",
   data: {ID},
   dataType: "JSON",
+  beforeSend: function(){
+    _spin_pull()
+
+  },
   success: function (info) {
-$(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
-
-$('.toast').addClass('show')
-
-    displayLoad()
+        _spin_pop()
+        _msg_pull('alert-success', 'deleted....')
+        displayLoad()
     
   }
  });
- })
+ }
 
-})
 
 
 
@@ -422,12 +418,16 @@ $(document).on("click", ".edit_def", (e)=>{
   url: "/admin/teacher/update/page",
   data: {ID},
   dataType: "JSON",
+  beforeSend: function(){
+
+  },
   success: function (info) {
 
   $("#editForm").html(info.list)
     
     $("#editFormBtn").click()
   }
+
  });
 
 
@@ -445,12 +445,14 @@ $(document).on("submit", "#editTeacherList", (e)=>{
   url: "/admin/teacher/update",
   data: $("#editTeacherList").serialize(),
   dataType: "JSON",
-  success: function (info) {
-  $(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
+  beforeSend: function(){
+    _spin_pull()
 
-$('.toast').addClass('show')
-$('.close-edit').click()
-    displayLoad()
+  },
+  success: function (info) {
+         _spin_pop()
+        _msg_pull('alert-success', 'updated....')
+        displayLoad()
   }
  });
 
@@ -459,9 +461,7 @@ $('.close-edit').click()
 
 
 
-
 </script>
-<%- include("../component/antoast.html") %> 
 
 </body>
 </html>

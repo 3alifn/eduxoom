@@ -1,0 +1,319 @@
+<div>
+  
+  <script>
+
+    _readme = ()=>{
+        _spin_pull(), _spin_pop() // use for spining...
+    _msg_pull(color, msg), _msg_pop() //use for alert mesg...
+    _editbox_pull(id), _editbox__pop(), _editbox__push(...arg) // use for edit modal...
+    _delbox_pull(id), _delbox_pop(), _delbox_push(id) //use for before delete push..
+    _penbox_sm_pull(id), _penbox_sm_pop(), _penbox_sm_push(id) // use for mini delete push..
+    _delbox_sm_pull(id), delbox_sm_pop(), _delbox_sm_push(id) // use for mini delete push..
+    
+    }
+    
+    
+    </script>
+    
+        <!-- _spin start..... -->
+        <style>
+          ._spin {
+            position: fixed;
+            margin: 0 auto;
+            width: 60px;
+            height: 50px;
+            text-align: center;
+            font-size: 10px;
+            top: 50%;
+            left: 50%;
+            z-index: 99999;
+            -webkit-transform: translateY(-50%) translateX(-50%);
+            
+            > div {
+              height: 100%;
+              width: 8px;
+              display: inline-block;
+              float: left;
+              margin-left: 2px;
+              -webkit-animation: loading-delay 2s infinite ease-in-out;
+              animation: loading-delay 2s infinite ease-in-out;
+            }
+            
+            ._spin-bar1{
+              background-color: #754fa0 ;
+              -webkit-animation-delay: -0.8s;
+              animation-delay: -0.8s;
+            }
+            ._spin-bar2{
+              background-color: #09b7bf;
+              -webkit-animation-delay: -0.7s;
+              animation-delay: -0.7s;
+            }
+            ._spin-bar3{
+              background-color: #90d36b;
+              -webkit-animation-delay: -0.6s;
+              animation-delay: -0.6s;
+            }
+            ._spin-bar4{
+              background-color: #f2d40d;
+              -webkit-animation-delay: -0.5s;
+              animation-delay: -0.5s;
+            }
+            ._spin-bar5{
+              background-color: #fcb12b;
+              -webkit-animation-delay: -0.4s;
+              animation-delay: -0.4s;
+            }
+            ._spin-bar6{
+              background-color: #ed1b72;
+              -webkit-animation-delay: -0.3s;
+              animation-delay: -0.3s;
+            }
+          }
+          
+          
+          @-webkit-keyframes loading-delay {
+            0%, 40%, 100% { -webkit-transform: scaleY(0.05) }  
+            20% { -webkit-transform: scaleY(1.0) }
+          }
+          
+          @keyframes loading-delay {
+            0%, 40%, 100% { 
+              transform: scaleY(0.05);
+              -webkit-transform: scaleY(0.05);
+            }  20% { 
+              transform: scaleY(1.0);
+              -webkit-transform: scaleY(1.0);
+            }
+          }
+          
+        </style>
+        
+        <div class="_spin" style="display: none;">
+            <div class="_spin-bar1"></div>
+            <div class="_spin-bar2"></div>
+            <div class="_spin-bar3"></div>
+            <div class="_spin-bar4"></div>
+            <div class="_spin-bar5"></div>
+            <div class="_spin-bar6"></div>
+          </div>
+        
+        <script>
+        
+        function _spin_pull(){
+          $('._spin').fadeIn()
+        }
+        function _spin_pop(){
+          $('._spin').fadeOut('slow')
+        }
+        
+  
+        
+        </script>
+        <!-- __spin end..... -->
+        
+
+        <!-- __msg start.... -->
+        
+        <style>
+        
+          ._msg{
+              height: max-content;
+              width: 300px;
+              text-align: center;
+              /* background-color:white; */
+              padding: 5px;
+              position: fixed;
+              bottom: 0px;
+              left: 50%;
+              transform: translate(-50%);
+              border-radius: 5px;
+              z-index: 1030;
+              transition: all 1s;
+              
+            }
+            
+          
+          </style>
+          
+          <div class="_msg shadow p-1 alert" style="display: none;">
+            <strong>Message!</strong>  <span onclick="_msg_pop()" class="btn btn-close _msg-pop float-end"></span>
+            <p class="fw-bold _msg-line"></p>
+            </div>
+          
+    
+      
+            <script>
+          
+             function _msg_pull(color, msg){
+              $('._msg').fadeIn();
+              $('._msg').addClass('alert '+color);
+              $('._msg-line').text(msg);
+              setTimeout(() => {
+              $('._msg').fadeOut('slow')
+                
+              }, 3000);
+             } 
+              function _msg_pop(time){
+                if(time) var timeout= time; else var  timeout= 'slow'
+              $('._msg').fadeOut(timeout)
+             }
+          
+        // _delbox-sm js code.....
+
+            function _penbox_sm_pull(id){
+              $('._inputbox-'+id).attr('disabled', false)
+              
+              $(`._penbox-sm-area-${id}`).html(` 
+              <button data-id='${id}' onclick="_penbox_sm_pop(${id})" class="btn  btn-light btn-sm border">Cancalled<i class=" bi bi-x"></i></button>
+              <button data-id='${id}' onclick="_penbox_sm_push(${id})" class="btn  btn-light btn-sm border">Confirmed<i class=" bi bi-check"></i></button>
+           `)
+           $(`._delbox-sm-area-${id}`).hide()
+        
+          }
+
+          
+      
+          function _penbox_sm_pop(id){
+            $('._inputbox-'+id).attr('disabled', false)
+            $(`._penbox-sm-area-${id}`).html(`
+            <button  data-id="${id}" onclick='_penbox_sm_pull(${id})' class="btn "><i class='bi bi-pen-fill'></i></button>
+            `)
+            $(`._delbox-sm-area-${id}`).show()
+
+          }  
+          
+          
+          function _delbox_sm_pull(id){
+          
+              $(`._delbox-sm-area-${id}`).html(`
+              <button data-id='${id}' onclick="_delbox_sm_pop(${id})" class="btn  btn-light btn-sm border">Cancalled<i class=" bi bi-x"></i></button>
+              <button data-id='${id}' onclick="_delbox_sm_push(${id})" class="btn  btn-light btn-sm border">Confirmed<i class=" bi bi-check"></i></button>
+
+            `)
+            $(`._penbox-sm-area-${id}`).hide()
+
+        
+          }
+
+          
+      
+          function _delbox_sm_remove(id){
+            $(`._delbox-sm-area-${id}`).parent().remove()
+          }
+
+
+            function _delbox_sm_pop(id){
+            $(`._delbox-sm-area-${id}`).html(`
+            <button  data-id="${id}" onclick='_delbox_sm_pull(${id})' class="btn "><i class='bi bi-trash-fill'></i></button>
+            `)
+            $(`._penbox-sm-area-${id}`).show()
+
+          }
+
+        
+            </script>
+        <!-- _msg end.... -->
+        
+        
+        <!-- _delbox start.... -->
+        
+          <style>
+            
+            ._delbox{
+                position: fixed;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+              
+                display: none;
+                z-index: 1020;
+              
+              }
+              
+              ._delbox-box{
+                min-width: 300px;
+                max-height: max-content;
+                border-radius: 10px;
+                background-color: #ffff;
+                text-overflow:clip;
+                word-break: break-all;
+                letter-spacing: 0px;
+              } 
+              
+              ._delbox-overlay{
+                position: fixed;
+                z-index: 1020;
+                top: 0px;
+                background-color: rgba(225, 231, 237, 0.41);
+                width: 100%;
+                height: 100%;
+                display: none;
+              
+              }
+            
+              ._delbox-push-permit:focus{
+                background-color:rgba(121, 121, 119, 0.14);
+              }
+                ._delbox-no-permit:focus{
+                background-color: rgba(121, 121, 119, 0.14);
+              }
+              
+            </style>
+            
+            
+            <div class="row">
+                <div class="col-auto">
+               <div onclick="_delbox_pop()" class="_delbox-overlay"></div>
+            
+            <div class="row _delbox">
+              <div class="border  shadow d-flex flex-column _delbox-box">
+                <span onclick="_delbox_pop()" class="btn btn-close _delbox-pop align-self-end p-2"></span>
+                <strong> delete permanently! are you sure? </strong>
+                <p class=" align-self-center">
+               <button class="btn btn-link text-decoration-none" onclick="_delbox_pop()">No</button> |
+               <button class="btn btn-link text-decoration-none _delbox-push-permit">Cinfirmed</button>
+                </p>
+            
+              </div>
+            </div>
+                </div>
+              </div>
+        
+            <script>
+
+         function _delbox_pull(id){
+          $('._delbox-overlay').show()
+           $('._delbox').show()
+           _delbox_pushid(id)
+         }
+        
+         function _delbox_pushid(id){
+           $('._delbox-push-permit').on('click', ()=>{
+            $('._delbox-overlay').fadeOut('slow')
+                $('._delbox').fadeOut('slow')
+              _delbox_push(id)
+        
+           })
+                
+        
+          }
+        
+        
+         function _delbox_pop(){
+          $('._delbox-overlay').hide()
+          $('._delbox').hide()
+         }
+            
+           
+              
+      $(".check-mark").click(function(){
+          $('.check-mark-area input:checkbox').not(this).prop('checked', this.checked);
+      });
+      
+        
+            </script>
+        <!-- _delbox end.... -->
+        
+        
+</div>
