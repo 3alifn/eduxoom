@@ -8,7 +8,17 @@
     <%- include("../component/metadata.html") %> 
 
 </head>
-<body onload="pageLoadingTop()">
+<style>
+  table>thead {
+    vertical-align:baseline !important;
+}
+  tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 3 !important;
+}
+</style>
+<body onload='pageLoadingTop()'>
 
   <%- include("../component/admin-header-nav.html") %> 
   <%- include("../component/admin-menu-nav.html") %> 
@@ -20,11 +30,24 @@
 
   <div id="main-content" class="p-2 mt-5 row">
 
+    <div id="printResult">
+
+      
     
     <center>
-      <h5> Transcript Result</h5>
-     </center>
+      <img src="/image/default/logo.png" width="50px" alt=""> <br>
+      <h6> Transcript Result</h6>
 
+      <b> Boalmari George Academy</b> <br>
+      <button class="btn btn-light printResultBtn" onclick="printResult()">Print Transcript</button>
+  
+      
+      <img width="60px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
+      
+       <strong><%=infoStudent[0].student_id%> - <%=infoStudent[0].name%></strong>
+  
+     </center>
+<hr>
    <center>
       <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"  class="  btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a> 
       <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a> 
@@ -42,17 +65,14 @@
 
 
 
-<div class="row" style="width: 100%; overflow-x: auto;">
+<div class="row mainApp" style="width: 100%; overflow-x: auto;">
 
 
-  <div class="col-md-10 m-auto ">
+  <div class="col-auto m-auto ">
 <center><caption><b>BI Perfomance</b></caption></center>
-  <table class=" table table-bordered table-hover">
+  <table class=" table table-bordered">
 
-      <thead  class=" text-center">
-
-          <th>Student</th>
-          <% const catagory= ['Catagory1', 'Catagory2', 'Catagory3', 'Catagory4', 'Catagory5'] %>
+      <thead  class="">
 
           <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
             <th><small style="font-size: smaller;"><%=infoCatagory[index].catagory_name%></small></th>
@@ -63,13 +83,9 @@
 
 
 
-      <tbody class="text-center">
+      <tbody class="">
 
            <tr>
-
-          <td><img width="40px" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
-              <b><%=infoStudent[0].student_id%></b> <br> <b><%=infoStudent[0].name%></b>
-          </td>
 
           <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
               <td > 
@@ -94,7 +110,7 @@
 
 
 
-<div id="btnSection">
+<div id="btnSection mb-2">
   <center> <input class="student_id" type="hidden" value="<%=student_id%>" name="">
    <button  class="btn droppedResult btn-danger">অনউত্তীর্ণ</button> 
    <button  class="btn passedResult btn-success">উত্তীর্ণ</button> 
@@ -109,9 +125,9 @@
 <div class="row" style="width: 100%; overflow-x: auto;">
   <div class="col-auto m-auto" id="mainApp">
 
-  <center><caption><b>Transcript report</b></caption></center>
-    <table class=" table table-bordered">
-   <thead class="text-center"> 
+  <center><caption clas><b>Transcript report</b></caption></center>
+    <table class=" table table-bordered mt-2">
+   <thead class=""> 
     <tr>
       <th>Subject</th>
 
@@ -125,7 +141,7 @@
       </tr>
    </thead>
 
-  <tbody class="text-center">
+  <tbody class="">
 
 <% for( let i = 0; i < infoSubject.length; i++ ) { %>
  <tr>
@@ -159,6 +175,8 @@
   </div>
 </div> 
 
+    </div>
+
 </div> 
     
 <%- include("../component/___node.html") %> 
@@ -167,6 +185,36 @@
 
 <script>
 
+
+  function printResult(todo){
+  $('.printResultBtn').addClass('disabled')
+   $('.mainApp').css('overflow-x', 'visible');
+
+   setTimeout(() => {
+    printResultWorking(true)
+   }, 3000);
+}
+
+function printResultWorking(){
+    
+
+    var prtContent = document.getElementById("printResult");
+    var WinPrint = window.open('', '', 'left=0,top=0,width=384,height=900,toolbar=0,scrollbars=0,status=0');
+    WinPrint.document.write('<html><head>');
+    WinPrint.document.write('<link rel="stylesheet" href="/app/bootstrap.min.css">');
+    WinPrint.document.write('<link rel="stylesheet" href="/app/jquery.min.js">');
+    WinPrint.document.write('</head><body onload="print();close();">');
+    WinPrint.document.write(prtContent.innerHTML);
+    WinPrint.document.write('</body></html>');
+    WinPrint.document.close();
+    WinPrint.focus();
+    
+    $('.printResultBtn').removeClass('disabled')
+    $('.mainApp').css('overflow-x', 'auto');
+
+    
+    }
+    
 
 function student_checkout_class() {
  const className= '<%=className%>'

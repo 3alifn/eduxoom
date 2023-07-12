@@ -1,0 +1,14 @@
+
+
+host_name=localhost
+user_name=seawebit_alifn
+database_name=seawebit_saanvi
+user_password=admin_alifn
+listen_port=
+
+email_service= gmail
+email_host= mail.saanvi.info.bd
+email_port= 465
+email_team_saanvi= seawebit@gmail.com
+email_address= saanvi@saanvi.seaweb.com
+email_password= admin@saanviapi.com

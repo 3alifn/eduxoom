@@ -10,6 +10,7 @@ const bodyParser = require("body-parser")
 const { render } = require("ejs")
 const puppeteer= require('puppeteer');
 const {randomBytes, createHmac}= require("crypto")
+const ejs = require('ejs')
 
 const multer= require("multer")
 const nodemailer= require("nodemailer")
@@ -92,6 +93,6 @@ app.listen(process.env.listen_port)
 
 module.exports= {
     app, mysql, session, cookieParser, flash, bodyParser, sqlmap, multer, nodemailer, dotenv, cors, xlsx, sharp
-    , randomBytes, createHmac, puppeteer,
+    , randomBytes, createHmac, puppeteer, fs, path, ejs,
 }
 

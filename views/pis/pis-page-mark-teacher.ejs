@@ -32,7 +32,6 @@
 
     <div class="row m-2" style="width: 100%; overflow-x: auto;">
         <%- include("../component/toast-ajax.html") %> 
-        <%- include("../component/antoast-msg.html") %> 
         <%- include("../component/modal-danger.html") %> 
         <%- include("../component/modal-success.html") %> 
         <%- include("../component/modal-person.html") %> 
@@ -188,12 +187,12 @@ $.ajax({
    if(response.msg=='success'){
     
     $('.checkout_'+checkout).addClass('disabled').addClass(bg_color);
-    antoastMsgClose();
+    _msg_pull();
 
 
    } else {
     
-    antoastMsgOpen('alert-danger', response.msg);
+    _msg_pull('alert-danger', response.msg);
    }
   
     }

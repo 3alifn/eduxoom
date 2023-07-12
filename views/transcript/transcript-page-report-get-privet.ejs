@@ -8,6 +8,16 @@
     <%- include("../component/metadata.html") %> 
 
 </head>
+<style>
+  table>thead {
+    vertical-align:baseline !important;
+}
+  tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 3 !important;
+}
+</style>
 <body onload="pageLoadingTop()" >
   <%- include("../component/user-header-nav.html") %> 
   <%- include("../component/offcanvas-nav.html") %> 
@@ -19,25 +29,31 @@
   <center>
     <img src="/image/default/logo.png" width="50px" alt=""> <br>
     <b> Boalmari George Academy</b> <br>
-    <button class="btn btn-light" onclick="printResult()">Print Transcript</button>
+    <button class="btn btn-light printResultBtn" onclick="printResult()">Print Transcript</button>
+
+    
+    <img width="60px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
+    
+     <strong><%=infoStudent[0].student_id%> - <%=infoStudent[0].name%></strong>
 
    </center>
+   <hr>
    <% const infoChapterHalf= ['PI-1','PI-2','PI-3','PI-4','PI-5','PI-6']%>
    <% const infoChapterFull= ['PI-7','PI-8','PI-9','PI-10','PI-11','PI-12']%>
 
 
+   
 
-<div class="row" style="width: 100%; overflow-x: auto;">
+
+<div class="row mainApp" style="width: 100%; overflow-x: auto;">
 
 
-   <div class="col-md-10 m-auto ">
+   <div class="col-auto m-auto ">
  <center><caption><b>BI Perfomance</b></caption></center>
-   <table class=" table table-bordered table-hover">
+   <table class=" table table-sm table-bordered table-hover">
  
-       <thead  class=" text-center">
- 
-           <th>Student</th>
-        
+       <thead  class=" ">
+         
            <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
             <th><small style="font-size: smaller;"><%=infoCatagory[index].catagory_name%></small></th>
  
@@ -47,13 +63,9 @@
  
  
  
-       <tbody class="text-center">
+       <tbody class="">
  
             <tr>
- 
-           <td><img width="40px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
-               <b><%=infoStudent[0].student_id%></b> <br> <b><%=infoStudent[0].name%></b>
-           </td>
  
            <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
                <td> 
@@ -77,17 +89,15 @@
 </div>
  
 
-
-
 <div  class="row">
 
  
-<div class="row" style="width: 100%; overflow-x: auto;">
- <div class="col-auto m-auto" id="mainApp">
+<div class="row mainApp" style="width: 100%; overflow-x: auto;">
+ <div class="col-12 m-auto">
 
  <center><caption><b>Transcript 01</b></caption></center>
-   <table class=" table table-bordered">
-  <thead class="text-center"> 
+   <table class=" table  table-bordered">
+  <thead class=""> 
    <tr>
      <th>Subject</th>
 
@@ -101,7 +111,7 @@
      </tr>
   </thead>
 
- <tbody class="text-center tbody_half">
+ <tbody class=" tbody_half">
 
 <% for( let i = 0; i < infoSubject.length; i++ ) { %>
 <tr>
@@ -145,13 +155,13 @@
 
 <div class="row">
 
-<div class="row" style="width: 100%; overflow-x: auto;">
- <div class="col-auto m-auto" id="mainApp">
+<div class="row mainApp" style="width: 100%; overflow-x: auto;">
+ <div class="col-12 m-auto ">
 
    <center><caption><b>Transcript 02</b></caption></center>
 
    <table class=" table table-bordered">
-  <thead class="text-center"> 
+  <thead class=""> 
    <tr>
      <th>Subject</th>
 
@@ -165,7 +175,7 @@
      </tr>
   </thead>
 
- <tbody class="text-center tbody_full">
+ <tbody class=" tbody_full">
 
 <% for( let i = 0; i < infoSubject.length; i++ ) { %>
 <tr>
@@ -217,8 +227,16 @@
 
 <script>
 
+function printResult(todo){
+  $('.printResultBtn').addClass('disabled')
+   $('.mainApp').css('overflow-x', 'visible');
 
-function printResult(){
+   setTimeout(() => {
+    printResultWorking(true)
+   }, 3000);
+}
+
+function printResultWorking(){
     
 
     var prtContent = document.getElementById("printResult");
@@ -232,6 +250,9 @@ function printResult(){
     WinPrint.document.close();
     WinPrint.focus();
     
+    $('.printResultBtn').removeClass('disabled')
+    $('.mainApp').css('overflow-x', 'auto');
+
     
     }
     

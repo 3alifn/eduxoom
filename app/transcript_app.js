@@ -1,7 +1,10 @@
 
 const express = require("express")
 const app = express()
-const { sqlmap } = require("../server")
+const { sqlmap , puppeteer, fs} = require("../server")
+
+
+
 
 // privet transcript router.....
 exports.privet_transcript_report_student_get= ( req , res)=>{

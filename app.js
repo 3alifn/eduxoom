@@ -1,5 +1,5 @@
 
-const { app, mysql, xlsx ,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac } = require("./server")
+const { app, mysql, xlsx ,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs } = require("./server")
 app.locals.data = require('./app/admission_app');
 
 const express= require("express")
@@ -12,8 +12,7 @@ const parent = require("./route/parent_route")
 const  authentication= require("./route/auhentication_route");
 const { home_page } = require("./app/home_app");
 const admin = require("./route/admin_route");
-
-
+const pdf = require("./pdf");
 
 app.get("/", home_page)
 app.use("/pu", public)
@@ -23,18 +22,6 @@ app.use("/student", student)
 app.use("/teacher", teacher)
 app.use("/parent", parent)
 app.use("/au", authentication)
-
-
-
-app.use((req, res, next)=>{
-
-    res.sendFile(__dirname+'/views/public/404.html')
-
-  // throw new Error("This url was not found!")
-
-})
-
-
 
 
 app.use((err, req, res, next)=>{
@@ -65,3 +52,10 @@ app.use((err, req, res, next)=>{
 })
 
 
+app.use((req, res, next)=>{
+
+  res.sendFile(__dirname+'/views/public/404.html')
+
+// throw new Error("This url was not found!")
+
+})
