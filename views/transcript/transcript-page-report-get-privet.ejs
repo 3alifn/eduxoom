@@ -34,7 +34,7 @@
     
     <img width="60px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
     
-     <strong><%=infoStudent[0].student_id%> - <%=infoStudent[0].name%></strong>
+     <small><%=infoStudent[0].student_id%> - <%=infoStudent[0].name%></small>
 
    </center>
    <hr>
@@ -212,7 +212,6 @@
 
 <%- include("../component/___node.html") %> 
 
-
 </body>
 
 <script src= "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
@@ -222,16 +221,19 @@
 
 
 function printResult(todo){
-
+ 
   $('.printResultBtn').addClass('disabled')
    $('.mainApp').css('overflow-x', 'visible');
-
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+ const student_id= '<%=student_id%>'
+ _spin_pull()
    setTimeout(() => {
  var element = document.getElementById('printResult');
 
     var opt = {
          margin: 1,
-         filename: 'pdfcreated.pdf',
+         filename: `Transcript-${className}-${sectionName}-${-student_id}.pdf`,
          html2canvas: {
             scale: 2
          },
@@ -242,33 +244,15 @@ function printResult(todo){
          }
       };
          html2pdf().set(opt).from(element).save();
+        _spin_pop()
+   _msg_pull('alert-success', 'Download Successfully...', false)
 
-// html2pdf(element);
-// printResultWorking(true)
 
-   }, 1000);
+   }, 3000);
+
+   
 }
 
-function printResultWorking(){
-    
-
-    var prtContent = document.getElementById("printResult");
-    var WinPrint = window.open('', '', 'left=0,top=0,width=384,height=900,toolbar=0,scrollbars=0,status=0');
-    WinPrint.document.write('<html><head>');
-    WinPrint.document.write('<link rel="stylesheet" href="/app/bootstrap.min.css">');
-    WinPrint.document.write('<link rel="stylesheet" href="/app/jquery.min.js">');
-    WinPrint.document.write('</head><body onload="print();close();">');
-    WinPrint.document.write(prtContent.innerHTML);
-    WinPrint.document.write('</body></html>');
-    WinPrint.document.close();
-    WinPrint.focus();
-    WinPrint.print();
-    $('.printResultBtn').removeClass('disabled')
-    $('.mainApp').css('overflow-x', 'auto');
-
-    
-    }
-    
 
 function student_checkout_class() {
  const className= '<%=className%>'

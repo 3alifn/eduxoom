@@ -1,2 +1,3 @@
-# saanvi s1
-a school management software
+# SAANVI S1
+
+### School management software

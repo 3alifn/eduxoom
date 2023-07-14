@@ -36,7 +36,6 @@
     
     <center>
       <img src="/image/default/logo.png" width="50px" alt=""> <br>
-      <h6> Transcript Result</h6>
 
       <b> Boalmari George Academy</b> <br>
       <button class="btn btn-light printResultBtn" onclick="printResult()">Print Transcript</button>
@@ -44,16 +43,19 @@
       
       <img width="60px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
       
-       <strong><%=infoStudent[0].student_id%> - <%=infoStudent[0].name%></strong>
+       <small><%=infoStudent[0].student_id%> - <%=infoStudent[0].name%></small>
   
      </center>
 <hr>
-   <center>
-      <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"  class="  btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a> 
-      <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a> 
-      <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a> 
+
+<div class="btn-section-top">
+  <center>
+    <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"  class="  btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a> 
+    <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a> 
+    <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a> 
 
 </center>
+</div>
 
 
 
@@ -110,7 +112,7 @@
 
 
 
-<div id="btnSection mb-2">
+<div id="btnSection" class="mb-1 btn-section-bottom">
   <center> <input class="student_id" type="hidden" value="<%=student_id%>" name="">
    <button  class="btn droppedResult btn-danger">অনউত্তীর্ণ</button> 
    <button  class="btn passedResult btn-success">উত্তীর্ণ</button> 
@@ -188,55 +190,46 @@
 
 <script>
 
+  function printResult(todo){
+ $('.printResultBtn').addClass('disabled');
+  $('.mainApp').css('overflow-x', 'visible');
+  $('.btn-section-top').hide();
+  $('.btn-section-bottom').hide();
 
+const className= '<%=className%>'
+const sectionName= '<%=sectionName%>'
+const student_id= '<%=student_id%>'
+_spin_pull()
+  setTimeout(() => {
+var element = document.getElementById('printResult');
 
-function printResult(todo){
+   var opt = {
+        margin: 1,
+        filename: `Transcript-${className}-${sectionName}-${-student_id}.pdf`,
+        html2canvas: {
+           scale: 2
+        },
+        jsPDF: {
+           unit: 'in',
+           format: 'tabloid',
+           orientation: 'portrait'
+        }
+     };
+        html2pdf().set(opt).from(element).save();
+       _spin_pop()
+  _msg_pull('alert-success', 'Download Successfully...', false)
+ 
+  setTimeout(() => {
+  $('.btn-section-top').show()
+  $('.btn-section-bottom').show()
+  }, 1000);
 
-  $('.printResultBtn').addClass('disabled')
-   $('.mainApp').css('overflow-x', 'visible');
+  }, 3000);
 
-   setTimeout(() => {
- var element = document.getElementById('printResult');
-
-    var opt = {
-         margin: 1,
-         filename: 'pdfcreated.pdf',
-         html2canvas: {
-            scale: 2
-         },
-         jsPDF: {
-            unit: 'in',
-            format: 'tabloid',
-            orientation: 'portrait'
-         }
-      };
-         html2pdf().set(opt).from(element).save();
-
-// printResultWorking(true)
-
-   }, 1000);
+  
 }
 
-function printResultWorking(){
-    
 
-    var prtContent = document.getElementById("printResult");
-    var WinPrint = window.open('', '', 'left=0,top=0,width=384,height=900,toolbar=0,scrollbars=0,status=0');
-    WinPrint.document.write('<html><head>');
-    WinPrint.document.write('<link rel="stylesheet" href="/app/bootstrap.min.css">');
-    WinPrint.document.write('<link rel="stylesheet" href="/app/jquery.min.js">');
-    WinPrint.document.write('</head><body onload="print();close();">');
-    WinPrint.document.write(prtContent.innerHTML);
-    WinPrint.document.write('</body></html>');
-    WinPrint.document.close();
-    WinPrint.focus();
-    
-    $('.printResultBtn').removeClass('disabled')
-    $('.mainApp').css('overflow-x', 'auto');
-
-    
-    }
-    
 
 function student_checkout_class() {
  const className= '<%=className%>'
