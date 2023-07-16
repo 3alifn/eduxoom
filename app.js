@@ -12,7 +12,6 @@ const parent = require("./route/parent_route")
 const  authentication= require("./route/auhentication_route");
 const { home_page } = require("./app/home_app");
 const admin = require("./route/admin_route");
-const pdf = require("./pdf");
 
 app.get("/", home_page)
 app.use("/pu", public)

@@ -135,7 +135,7 @@ exports.admin_transcript_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
 
   sqlmap.query(`SELECT student_id, name, avatar FROM transcript_report WHERE class='${className}' AND section='${sectionName}'
-  AND at_status='incomplete' GROUP BY student_id  ORDER BY ID DESC`
+  GROUP BY student_id  ORDER BY ID DESC`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
       const infoStudent= infoStudentData;
@@ -156,8 +156,8 @@ exports.admin_transcript_report_get= ( req , res)=>{
   var {className, sectionName, student_id}= req.params; 
   const {student_offset}= req.query; const init_student= student_id;
   if(student_offset==undefined) var offset= 0; if(student_id=='auto') var offset= student_offset;  
-  if(student_id=='auto')   var findStudent= `SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' AND at_status='incomplete' GROUP BY student_id  ORDER BY ID DESC LIMIT 1 OFFSET ${offset}`
-  else  var findStudent= `SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND at_status='incomplete'`
+  if(student_id=='auto')   var findStudent= `SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}'  GROUP BY student_id  ORDER BY ID DESC LIMIT 1 OFFSET ${offset}`
+  else  var findStudent= `SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`
   sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
 sqlmap.query(`SELECT * FROM subject WHERE class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{

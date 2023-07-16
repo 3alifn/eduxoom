@@ -1,6 +1,5 @@
 
 const express= require("express");
-const { teacher_attendance_page, teacher_attendance_post } = require("../app/attendance_app");
 const { teacher_pic_subject_get,  teacher_pic_page_mark_get, teacher_pic_mark_post, teacher_pic_mark_checkout } = require("../app/pic_app");
 const {  teacher_pis_subject_get,  teacher_pis_page_mark_get, teacher_pis_mark_post, teacher_pis_mark_checkout } = require("../app/pis_app");
 const { teacher_rank_mark_post, teacher_rank_mark_page_class_base, teacher_rank_mark_page, teacher_rank_mark_post_attendance } = require("../app/rank_app");
@@ -97,17 +96,6 @@ teacher.post("/rank/post", teacher_rank_mark_post)
 teacher.post("/rank/mark/post/attendance", teacher_rank_mark_post_attendance)
 
 
-
-
-
-
-// attendance router........
-teacher.get("/attendance/form", (req, res)=>{
-
-res.render("attendance/attendance_form_teacher")
-})
-teacher.post("/attendance/page", teacher_attendance_page)
-teacher.post("/attendance/post", teacher_attendance_post)
 
 
 

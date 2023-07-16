@@ -5,11 +5,10 @@ const express= require("express")
 const admin_app = require("../app/admin_app")
 const { admin_admission_page, admin_admission_accept, admin_admission_reject, admin_admission_info } = require("../app/admission_app")
 const { admin_application_get, admin_application_replay, admin_application_download } = require("../app/appllication_app")
-const { admin_content_post, admin_content_get, admin_content_delete, admin_content_list_data, admin_content_list_data_delete, admin_content_image, admin_content_video, admin_content_data_delete, admin_content_image_post, admin_content_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete } = require("../app/content")
+const { admin_content_post, admin_content_get, admin_content_delete, admin_content_list_data, admin_content_list_data_delete, admin_content_image, admin_content_video, admin_content_data_delete, admin_content_image_post, admin_content_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete } = require("../app/content_app")
 const { admin_library_update, admin_library_update_page, admin_library_delete, admin_library_get, admin_library_post, upload_library_image } = require("../app/library_app")
 const { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_delete, admin_notice_download } = require("../app/notice_app")
 const { admin_parent_get, admin_parent_delete, admin_parent_profile } = require("../app/parent_app")
-const { admin_result_get, admin_result_post, admin_result_get_class_base, uploadResult, admin_result_import, admin_result_export, admin_result_delete, admin_result_rank_post, admin_result_rank_list, dynamic_roll_list, dynamic_subject_list, admin_dynamic_student_get } = require("../app/result_app")
 const { admin_routine_post, admin_routine_delete, admin_subject_dynamic_get, admin_teacher_dynamic_get, admin_ptlist_dynamic_get, admin_routine_page, admin_routine_get } = require("../app/routine_app")
 const { admin_student_import, admin_student_get, admin_student_get_class_base, admin_student_delete, multer_upload_student, admin_student_join, admin_student_copy_get, admin_student_copy_post, admin_student_copy_delete, admin_student_copy_profile, admin_student_update_post, admin_student_update_form, admin_student_join_quick, admin_student_import_quick } = require("../app/student_app")
 const { admin_subject_list, admin_subject_select_teacher, admin_subject_set_time, admin_subject_delete, admin_subject_post } = require("../app/subject_app")
@@ -228,44 +227,6 @@ admin.post("/subject/post", admin_subject_post)
 admin.post("/subject/delete", admin_subject_delete)
 admin.post("/subject/set/time", admin_subject_set_time)
 admin.post("/subject/select/teacher", admin_subject_select_teacher)
-
-
-
-
-
-
-
-
-// // result router.........
-
-admin.get("/result/page", (req, res)=>{
-  
-res.render("admin/result_page")
-
-})
-admin.post("/result/get", admin_result_get)
-admin.post("/result/post", admin_result_post)
-admin.post("/result/get/class/base", admin_result_get_class_base)
-admin.post("/result/import", uploadResult.single("xlsxImport"), admin_result_import)
-admin.post("/result/export", admin_result_export)
-
-
-admin.post("/result/delete", admin_result_delete)
-admin.post("/result/rank/post", admin_result_rank_post)
-admin.get("/result/rank/page", (req, res)=>{
-
-  
-res.render("admin/result_rank_page")
-
-})
-
-admin.post("/result/rank/page", admin_result_rank_list)
-
-admin.post("/dynamic/student/get", admin_dynamic_student_get)
-admin.post("/dynamic/subject/get", dynamic_subject_list)
-
-
-
 
 
 // // admission router.......

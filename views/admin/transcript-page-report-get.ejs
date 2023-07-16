@@ -22,11 +22,7 @@
 
   <%- include("../component/admin-header-nav.html") %> 
   <%- include("../component/admin-menu-nav.html") %> 
-  
-  <%-include("../component/modal-danger.html") %> 
-  <%-include("../component/modal-success.html") %> 
-  
-  <%-include("../component/toast-ajax.html") %> > 
+
 
   <div id="main-content" class="p-2 mt-5 row">
 
@@ -77,7 +73,7 @@
       <thead  class="">
 
           <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
-            <th><small style="font-size: smaller;"><%=infoCatagory[index].catagory_name%></small></th>
+            <th><small style="font-size: smaller;">BI-<%=index+1%></small></th>
 
           <% } %>
 
