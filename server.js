@@ -8,7 +8,6 @@ const mysqlStore= require("express-mysql-session") (session)
 const flash= require("connect-flash")
 const bodyParser = require("body-parser")
 const { render } = require("ejs")
-const puppeteer= require('puppeteer');
 const {randomBytes, createHmac}= require("crypto")
 const ejs = require('ejs')
 
@@ -82,7 +81,7 @@ const sessionStore= new mysqlStore({
 sqlmap.connect((err, res) => {
 
   if (err) console.log("Server not running")
-  else console.log("saanvi-api code by 3alifn...")
+  else console.log("saanvi-abc code by 3alifn...")
 })
 
 
@@ -93,6 +92,6 @@ app.listen(process.env.listen_port)
 
 module.exports= {
     app, mysql, session, cookieParser, flash, bodyParser, sqlmap, multer, nodemailer, dotenv, cors, xlsx, sharp
-    , randomBytes, createHmac, puppeteer, fs, path, ejs,
+    , randomBytes, createHmac, fs, path, ejs,
 }
 
