@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIC Report</title>
+    <title>Transcript Report</title>
     <%- include("../component/metadata.html") %> 
 
 </head>
@@ -26,32 +26,56 @@
 
   <div id="main-content" class="p-2 mt-5 row">
 
-    <div id="printResult">
+    <div class="btn-section-top mt-3 mb-3">
+      <center>
+        <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"  class="  btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a> 
+        <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a> 
+        <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a> 
+    
+        
+    </center>
+    </div>
+
+
+    
+
+<div id="btnSection" class="mb-2 btn-section-bottom">
+  <center> <input class="student_id" type="hidden" value="<%=student_id%>" name="">
+   <button  class="btn droppedResult btn-danger">অনউত্তীর্ণ</button> 
+   <button  class="btn passedResult btn-success">উত্তীর্ণ</button> 
+   <a href="/admin/transcript/report-get/<%=className%>/<%=sectionName%>/auto?student_offset=<%=offsetPlus%>" class="btn <%=btnstatus%> btn-primary">পর্রবতী</a> 
+
+   <button class="btn btn-light printAreaBtn" onclick="printArea()">Download</button>
+
+  </center>
+</div>
+
+
+    <div id="printArea">
 
       
     
-    <center>
-      <img src="/image/default/logo.png" width="50px" alt=""> <br>
+    <div class=" row">
+     
+       <div class="card col-12 col-md-8 p-2">
+        <img class=" m-auto" width="60px" src="/image/default/logo.png" alt="">
+          <center>
+            <h4 class="card-text">Boalamri George Academy</h4>
+          <h6 class="card-text">Transcript Report</h6>
+          </center>
+       </div>  
+       
+       <div class="card col-12 col-md-4 p-2">
+        <img class=" m-auto" width="100px" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
+        <div class=" m-auto"> <br>
+          <h6 class="card-text text-capitalize"><%=infoStudent[0].name %> - <%=infoStudent[0].student_id %></h6>
+        </div>
+        </div>
 
-      <b> Boalmari George Academy</b> <br>
-      <button class="btn btn-light printResultBtn" onclick="printResult()">Print Transcript</button>
-  
       
-      <img width="60px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
-      
-       <small><%=infoStudent[0].student_id%> - <%=infoStudent[0].name%></small>
   
-     </center>
-<hr>
+    </div>
 
-<div class="btn-section-top">
-  <center>
-    <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"  class="  btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a> 
-    <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a> 
-    <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a> 
-
-</center>
-</div>
 
 
 
@@ -67,7 +91,8 @@
 
 
   <div class="col-auto m-auto ">
-<center><caption><b>BI Perfomance</b></caption></center>
+<center><caption><b>BI Perfomance</b></caption>
+  </center>
   <table class=" table table-bordered">
 
       <thead  class="">
@@ -106,22 +131,9 @@
   </div>
 </div>
 
-
-
-<div id="btnSection" class="mb-1 btn-section-bottom">
-  <center> <input class="student_id" type="hidden" value="<%=student_id%>" name="">
-   <button  class="btn droppedResult btn-danger">অনউত্তীর্ণ</button> 
-   <button  class="btn passedResult btn-success">উত্তীর্ণ</button> 
-   <a href="/admin/transcript/report-get/<%=className%>/<%=sectionName%>/auto?student_offset=<%=offsetPlus%>" class="btn <%=btnstatus%> btn-primary">পর্রবতী</a> 
-
-  </center>
-</div>
-
-
-
   
-<div class="row" style="width: 100%; overflow-x: auto;">
-  <div class="col-auto m-auto" id="mainApp">
+<div class="row mainApp" style="width: 100%; overflow-x: auto;">
+  <div class="col-12 m-auto ">
 
   <center><caption clas><b>Transcript report</b></caption></center>
     <table class=" table table-bordered mt-2">
@@ -186,18 +198,19 @@
 
 <script>
 
-  function printResult(todo){
- $('.printResultBtn').addClass('disabled');
+  function printArea(todo){
+ $('.printAreaBtn').addClass('disabled');
   $('.mainApp').css('overflow-x', 'visible');
   $('.btn-section-top').hide();
   $('.btn-section-bottom').hide();
+  
 
 const className= '<%=className%>'
 const sectionName= '<%=sectionName%>'
 const student_id= '<%=student_id%>'
 _spin_pull()
   setTimeout(() => {
-var element = document.getElementById('printResult');
+var element = document.getElementById('printArea');
 
    var opt = {
         margin: 1,
@@ -206,9 +219,9 @@ var element = document.getElementById('printResult');
            scale: 2
         },
         jsPDF: {
-           unit: 'in',
+           unit: 'pt',
            format: 'tabloid',
-           orientation: 'portrait'
+           orientation: 'p'
         }
      };
         html2pdf().set(opt).from(element).save();

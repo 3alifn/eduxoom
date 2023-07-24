@@ -29,7 +29,6 @@
   <center>
     <img src="/image/default/logo.png" width="50px" alt=""> <br>
     <b> Boalmari George Academy</b> <br>
-    <button class="btn btn-light printResultBtn" onclick="printResult()">Print Transcript</button>
 
     
     <img width="60px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
@@ -219,39 +218,6 @@
 <script>
 
 
-
-function printResult(todo){
- 
-  $('.printResultBtn').addClass('disabled')
-   $('.mainApp').css('overflow-x', 'visible');
- const className= '<%=className%>'
- const sectionName= '<%=sectionName%>'
- const student_id= '<%=student_id%>'
- _spin_pull()
-   setTimeout(() => {
- var element = document.getElementById('printResult');
-
-    var opt = {
-         margin: 1,
-         filename: `Transcript-${className}-${sectionName}-${-student_id}.pdf`,
-         html2canvas: {
-            scale: 2
-         },
-         jsPDF: {
-            unit: 'in',
-            format: 'tabloid',
-            orientation: 'portrait'
-         }
-      };
-         html2pdf().set(opt).from(element).save();
-        _spin_pop()
-   _msg_pull('alert-success', 'Download Successfully...', false)
-
-
-   }, 3000);
-
-   
-}
 
 
 function student_checkout_class() {

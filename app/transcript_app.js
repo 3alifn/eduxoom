@@ -1,7 +1,7 @@
 
 const express = require("express")
 const app = express()
-const { sqlmap , puppeteer, fs} = require("../server")
+const { sqlmap , fs} = require("../server");
 
 
 
@@ -128,6 +128,17 @@ exports.privet_transcript_report_get_checkout= (req, res)=>{
   })
 }
 
+exports.admin_transcript_report_get_checkout= (req, res)=>{
+
+  const {className, sectionName, student_id}= req.body;
+  sqlmap.query(`SELECT pi, checkout, bg_color FROM transcript_report WHERE student_id='${student_id}' AND class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
+      if(errFind) console.log(errFind.sqlMessage);
+      else {  
+          res.send({info_checkout}) 
+      }
+  })
+}
+
 
 // admin transcript router....
 
@@ -188,10 +199,236 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
 
 
 
-exports.admin_transcript_report_get_checkout= (req, res)=>{
 
-  const {className, sectionName, student_id}= req.body;
-  sqlmap.query(`SELECT pi, checkout, bg_color FROM transcript_report WHERE student_id='${student_id}' AND class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
+
+// admin transcript pdf download
+
+exports.admin_transcript_pdf_page= ( req , res)=>{
+  const {className, sectionName}= req.params; 
+  sqlmap.query(`SELECT student_id FROM transcript_report WHERE class='${className}' AND section='${sectionName}' GROUP BY student_id ORDER BY ID`, (err, getStudent)=>{
+    if(err) console.log(err.sqlMessage);
+    if(getStudent.length>0){
+      res.render('admin/transcript-pdf-page', {className, sectionName, getStudent})
+
+    }
+    else res.send('<center><h1>Not Report Found</h1></center>')
+  })
+
+
+}
+
+
+exports.admin_transcript_pdf_get= ( req , res)=>{
+  const {className, sectionName, student_id}= req.body; 
+  teacher_bi_transcript_post_update(className, sectionName, student_id)
+
+  const findStudent= `SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`
+  sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
+
+sqlmap.query(`SELECT * FROM subject WHERE class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
+
+sqlmap.query( findStudent,(errStudent, infoStudent)=>{
+ if(errStudent) console.log(errStudent.sqlMessage);
+
+  if(infoStudent.length>0){  
+    
+
+
+        
+    var infoChapter= ['PI-1','PI-2','PI-3','PI-4','PI-5', 'PI-6','PI-7','PI-8','PI-9','PI-10','PI-11','PI-12']
+
+   var student_card= `<div class=" row">
+     
+   <div class="card col-12 col-md-8 p-2">
+    <img class=" m-auto" width="60px" src="/image/default/logo.png" alt="">
+      <center>
+        <h4 class="card-text">Boalamri George Academy</h4>
+      <h6 class="card-text">Transcript Report</h6>
+      </center>
+   </div>  
+   
+   <div class="card col-12 col-md-4 p-2">
+    <img class=" m-auto" width="100px" src="/image/student/${infoStudent[0].avatar}" alt="">
+    <div class=" m-auto"> <br>
+      <h6 class="card-text text-capitalize">${infoStudent[0].name } - ${infoStudent[0].student_id }</h6>
+    </div>
+    </div>
+
+  
+
+</div>`
+
+
+
+
+
+
+
+ var bi_perfomance= `
+
+<div class="row" style="width: 100%; overflow-x: auto;">
+
+
+  <div class="col-auto m-auto ">
+<center><caption><b>BI Perfomance</b></caption></center>
+  <table class=" table table-bordered">
+
+      <thead  class="infoCatagory">
+
+`
+
+
+
+ for( let index = 0; index <infoCatagory.length; index++ ) { 
+ bi_perfomance+= `<th><small style="font-size: smaller;">BI-${index+1}</small></th>`
+
+ }
+
+
+
+
+ 
+ bi_perfomance+= `</thead>
+
+ <tbody class="">
+
+      <tr>
+`
+
+
+
+ for( let index = 0; index <infoCatagory.length; index++ ) { 
+bi_perfomance+= `<td > 
+    <div class="form-check checkout_${infoStudent[0].student_id}${infoCatagory[index].catagory_code} fs-1 p-0 m-0">
+
+                                            
+    </div>
+
+    
+   </td>`
+  }
+
+
+  bi_perfomance+= 
+  `
+  </tr>
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+`
+
+  
+var transcript_report= `<div class="row" style="width: 100%; overflow-x: auto;">
+  <div class="col-auto m-auto" id="mainApp">
+
+  <center><caption clas><b>Transcript report</b></caption></center>
+    <table class=" table table-bordered mt-2">
+   <thead class=""> 
+    <tr>
+      <th>Subject</th>
+
+`
+
+for( let index = 0; index <infoChapter.length; index++ ) { 
+transcript_report+= `<th>${infoChapter[index]}</th>`
+
+
+ }
+
+
+transcript_report+=`  
+
+</tr>
+</thead>
+
+<tbody class="">`
+
+
+
+
+for( let i = 0; i < infoSubject.length; i++ ) { 
+ transcript_report+= `<tr>
+  
+  <td>
+  <small style="font-size: smaller; font-weight: bold;">${infoSubject[i].subject}</small>
+  </td>`
+  
+  for( let index = 0; index <infoChapter.length; index++ ) { 
+    transcript_report+= `<td > 
+    
+      <div class="form-check checkout_${student_id}${infoSubject[i].subject_code}${infoChapter[index]} fs-1 p-0 m-0">
+                  
+                                  
+         
+         </div>
+    
+      
+     </td>`
+
+    }
+}
+
+
+
+transcript_report+=`
+
+</tr>
+</tbody>
+</table>
+
+</div>
+</div> 
+`
+
+let report_card= `
+<div class='row mt-3'>
+<div class='col-auto'>
+`
+
+report_card+=student_card; report_card+=bi_perfomance; report_card+=transcript_report;
+
+report_card+=`</div></div>`
+
+      res.send ({infoStudent, infoCatagory, infoSubject, student_id, className, sectionName, report_card})
+
+  }
+
+
+  })
+
+
+  })
+  })
+
+}
+
+
+
+exports.admin_transcript_pdf_checkout= (req, res)=>{
+ 
+  const {className, sectionName}= req.body;
+  sqlmap.query(`SELECT pi, checkout, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
+      if(errFind) console.log(errFind.sqlMessage);
+      else {  
+          res.send({info_checkout}) 
+      }
+  })
+}
+
+
+
+exports.admin_bi_transcript_pdf_checkout= (req, res)=>{
+
+  const {className, sectionName}= req.body;
+  
+  sqlmap.query(`SELECT bi, checkout, bi_point, bg_color FROM bi_transcript WHERE class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
           res.send({info_checkout}) 

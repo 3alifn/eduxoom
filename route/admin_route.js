@@ -14,7 +14,7 @@ const { admin_student_import, admin_student_get, admin_student_get_class_base, a
 const { admin_subject_list, admin_subject_select_teacher, admin_subject_set_time, admin_subject_delete, admin_subject_post } = require("../app/subject_app")
 const { admin_teacher_get, admin_teacher_delete, admin_teacher_update, admin_teacher_update_page, admin_teacher_config, join, admin_config_subject, admin_teacher_join, multer_upload_teacher } = require("../app/teacher_app")
 const { app } = require("../server")
-const { admin_transcript_student_get, admin_transcript_student_final_card, admin_transcript_student_final_card_init, admin_transcript_final_card_init, admin_transcript_final_card_mark, admin_transcript_final_card_accept_student_list, admin_transcript_final_card_waiting_student_list, admin_transcript_final_card_drop_student_list, admin_transcript_final_card_passed_student_list, admin_transcript_final_card_passed_result, admin_transcript_final_card_drop_result, admin_transcript_report_page, admin_transcript_report_student_get, privet_transcript_report_get, admin_transcript_report_get, admin_transcript_report_get_checkout } = require("../app/transcript_app")
+const { admin_transcript_student_get, admin_transcript_student_final_card, admin_transcript_student_final_card_init, admin_transcript_final_card_init, admin_transcript_final_card_mark, admin_transcript_final_card_accept_student_list, admin_transcript_final_card_waiting_student_list, admin_transcript_final_card_drop_student_list, admin_transcript_final_card_passed_student_list, admin_transcript_final_card_passed_result, admin_transcript_final_card_drop_result, admin_transcript_report_page, admin_transcript_report_student_get, privet_transcript_report_get, admin_transcript_report_get, admin_transcript_report_get_checkout, admin_transcript_pdf_page, admin_transcript_pdf_checkout, admin_bi_transcript_pdf_checkout, admin_transcript_pdf_get } = require("../app/transcript_app")
 const { render } = require("ejs")
 const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_post, admin_bi_catagory_delete } = require("../app/bi_app")
 const admin= express.Router()
@@ -59,6 +59,18 @@ admin.post('/transcript/final-card-drop-result', admin_transcript_final_card_dro
 // bi trancript router...........
 
 
+// transcript pdf downloader
+
+admin.get('/transcript/pdf-init-page', (req, res)=>{
+  res.render('admin/transcript-pdf-init-page')
+
+})
+
+admin.get('/transcript/pdf-page/:className/:sectionName', admin_transcript_pdf_page)
+
+admin.post('/transcript/pdf-get', admin_transcript_pdf_get)
+admin.post('/transcript/pdf-checkout', admin_transcript_pdf_checkout)
+admin.post('/bi/transcript/pdf-checkout', admin_bi_transcript_pdf_checkout)
 
 
 // self router......
