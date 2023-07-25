@@ -299,7 +299,9 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
 
  for( let index = 0; index <infoCatagory.length; index++ ) { 
 bi_perfomance+= `<td > 
-    <div class="form-check checkout_${infoStudent[0].student_id}${infoCatagory[index].catagory_code} fs-1 p-0 m-0">
+    <div class="form-check checkout_${infoStudent[0].student_id}${infoCatagory[index].catagory_code} fs-3 p-0 m-0">
+  
+    <i class="bi bi-square"></i>           
 
                                             
     </div>
@@ -363,9 +365,10 @@ for( let i = 0; i < infoSubject.length; i++ ) {
   for( let index = 0; index <infoChapter.length; index++ ) { 
     transcript_report+= `<td > 
     
-      <div class="form-check checkout_${student_id}${infoSubject[i].subject_code}${infoChapter[index]} fs-1 p-0 m-0">
+      <div class="form-check checkout_${student_id}${infoSubject[i].subject_code}${infoChapter[index]} fs-3 p-0 m-0">
                   
-                                  
+      <i class="bi bi-square"></i>           
+                   
          
          </div>
     
@@ -388,8 +391,8 @@ transcript_report+=`
 `
 
 let report_card= `
-<div class='row mt-3'>
-<div class='col-auto'>
+<div class='row mb-3'>
+<div class='col-auto m-auto'>
 `
 
 report_card+=student_card; report_card+=bi_perfomance; report_card+=transcript_report;

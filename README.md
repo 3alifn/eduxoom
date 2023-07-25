@@ -16,7 +16,7 @@
 ### Admission system
 ### Application system
 ### Student Rank system
-### Transcript system
+### Transcript result system
 
 
 

@@ -16,6 +16,7 @@
     border-color: inherit;
     border-style: solid;
     border-width: 3 !important;
+    text-align: center;
 }
 </style>
 <body onload='pageLoadingTop()'>
@@ -112,8 +113,10 @@
 
           <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
               <td > 
-                  <div class="form-check checkout_<%=infoStudent[0].student_id%><%=infoCatagory[index].catagory_code%> fs-1 p-0 m-0">
+                  <div class="form-check checkout_<%=infoStudent[0].student_id%><%=infoCatagory[index].catagory_code%> fs-3 p-0 m-0">
               
+                    <i class="bi bi-square"></i>           
+
                                                           
                   </div>
           
@@ -163,9 +166,9 @@
 <% for( let index = 0; index <infoChapter.length; index++ ) { %>
     <td > 
 
-        <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> fs-1 p-0 m-0">
+        <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> fs-3 p-0 m-0">
                     
-                                     
+          <i class="bi bi-square"></i>           
        
            
            </div>
@@ -246,13 +249,13 @@ function student_checkout_class() {
  const student_id= '<%=student_id%>'
     $.ajax({
         method: "post",
-        url: "/admin/transcript/report-get-checkout",
+        url: "/privet/transcript/report-get-checkout",
         data: {className, sectionName, student_id},
         dataType: "JSON",
         success: function (response) {
          
             for (const key in response.info_checkout) {
-              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].pi==1?'&#9726;':response.info_checkout[key].pi==2?'&#9673;':'&#9650;');
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].pi==1?'<i class="bi bi-square-fill"></i>':response.info_checkout[key].pi==2?'<i class="bi bi-circle-fill"></i>':response.info_checkout[key].pi==3?'<i class="bi bi-triangle-fill"></i>':'<i class="bi bi-square"></i>');
             }
         }
     });
@@ -272,7 +275,7 @@ function bi_checkout_class() {
         dataType: "JSON",
         success: function (response) {
             for (const key in response.info_checkout) {
-              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].bi_point==1?'&#9726;':response.info_checkout[key].bi_point==2?'&#9673;':response.info_checkout[key].bi_point==3?'&#9650;':'');
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].bi_point==1?'<i class="bi bi-square-fill"></i>':response.info_checkout[key].bi_point==2?'<i class="bi bi-circle-fill"></i>':response.info_checkout[key].bi_point==3?'<i class="bi bi-triangle-fill"></i>':'<i class="bi bi-square"></i>');
 
 
             }

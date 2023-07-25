@@ -11,11 +11,14 @@
 <style>
   table>thead {
     vertical-align:baseline !important;
+
 }
+
   tbody, td, tfoot, th, thead, tr {
     border-color: inherit;
     border-style: solid;
     border-width: 3 !important;
+    text-align: center;
 }
 </style>
 <body onload="pageLoadingTop()" >
@@ -68,9 +71,10 @@
  
            <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
                <td> 
-                   <div class="form-check checkout_<%=infoStudent[0].student_id%><%=infoCatagory[index].catagory_code%> p-0 m-0 fs-1">
+                   <div class="form-check checkout_<%=infoStudent[0].student_id%><%=infoCatagory[index].catagory_code%> p-0 m-0 fs-3">
                
-                                                           
+                    <i class="bi bi-square"></i>           
+                         
                    </div>
            
                    
@@ -122,9 +126,10 @@
 <% for( let index = 0; index <infoChapterHalf.length; index++ ) { %>
    <td > 
 
-       <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapterHalf[index]%> fs-1 p-0 m-0">
+       <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapterHalf[index]%> fs-3 p-0 m-0">
                    
-                                    
+        <i class="bi bi-square"></i>           
+         
       
           
           </div>
@@ -186,9 +191,10 @@
 <% for( let index = 0; index <infoChapterFull.length; index++ ) { %>
    <td > 
 
-       <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapterFull[index]%> fs-1 p-0 m-0">
+       <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapterFull[index]%> fs-3 p-0 m-0">
                    
-                                           
+        <i class="bi bi-square"></i>           
+                     
           
           </div>
 
@@ -232,7 +238,7 @@ function student_checkout_class() {
         success: function (response) {
          
             for (const key in response.info_checkout) {
-              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].pi==1?'&#9726;':response.info_checkout[key].pi==2?'&#9673;':'&#9650;');
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].pi==1?'<i class="bi bi-square-fill"></i>':response.info_checkout[key].pi==2?'<i class="bi bi-circle-fill"></i>':response.info_checkout[key].pi==3?'<i class="bi bi-triangle-fill"></i>':'<i class="bi bi-square"></i>');
             }
 
         }
@@ -256,7 +262,7 @@ function bi_checkout_class() {
         success: function (response) {
             for (const key in response.info_checkout) { 
 
-              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].bi_point==1?'&#9726;':response.info_checkout[key].bi_point==2?'&#9673;':response.info_checkout[key].bi_point==3?'&#9650;':'');
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].bi_point==1?'<i class="bi bi-square-fill"></i>':response.info_checkout[key].bi_point==2?'<i class="bi bi-circle-fill"></i>':response.info_checkout[key].bi_point==3?'<i class="bi bi-triangle-fill"></i>':'<i class="bi bi-square"></i>');
             }
         }
     });
