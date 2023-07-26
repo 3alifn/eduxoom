@@ -191,7 +191,7 @@ function loadContentData(){
         
         $.ajax({
             method: "post",
-            url: "/admin/content/get",
+            url: "/admingalleryget",
             data: {},
             dataType: "JSON",
             success: function (info) {
@@ -223,7 +223,7 @@ $("#contentVideoForm").on('submit', (event)=>{
 
         $.ajax({
             method: "post",
-            url: "/admin/content/video/post",
+            url: "/admingalleryvideo/post",
             data: $("#contentVideoForm").serialize(),
             dataType: "JSON",
             beforeSend: function(){
@@ -250,7 +250,7 @@ $("#contentImageForm").on('submit', (event)=>{
 
         $.ajax({
             method: "post",
-            url: "/admin/content/image/post",
+            url: "/admingalleryimage/post",
             data: formdata,
              mimeType: "multipart/form-data",
               cache: false,
@@ -288,7 +288,7 @@ $("#imageContent").on("click", ()=>{
     
         $.ajax({
             method: "post",
-            url: "/admin/content/get",
+            url: "/admingalleryget",
             data: {itemType},
             dataType: "JSON",
             success: function (info) {
@@ -307,7 +307,7 @@ $("#videoContent").on("click", ()=>{
     
         $.ajax({
             method: "post",
-            url: "/admin/content/get",
+            url: "/admin/gallery/get",
             data: {itemType},
             dataType: "JSON",
             success: function (info) {
@@ -332,7 +332,7 @@ $("#deleteDataForm").on("submit", (e)=>{
     $("#confirmed").on("click", ()=>{
         $.ajax({
         type: "post",
-        url: "/admin/content/delete",
+        url: "/admin/gallery/delete",
         data: $("#deleteDataForm").serialize(),
         dataType: "JSON",
         success: function (info) {

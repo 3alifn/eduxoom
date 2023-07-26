@@ -5,7 +5,7 @@ const express= require("express")
 const admin_app = require("../app/admin_app")
 const { admin_admission_page, admin_admission_accept, admin_admission_reject, admin_admission_info } = require("../app/admission_app")
 const { admin_application_get, admin_application_replay, admin_application_download } = require("../app/appllication_app")
-const { admin_content_post, admin_content_get, admin_content_delete, admin_content_list_data, admin_content_list_data_delete, admin_content_image, admin_content_video, admin_content_data_delete, admin_content_image_post, admin_content_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete } = require("../app/content_app")
+const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_gallery_list_data, admin_gallery_list_data_delete, admin_gallery_image, admin_gallery_video, admin_gallery_data_delete, admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete } = require("../app/gallery_app")
 const { admin_library_update, admin_library_update_page, admin_library_delete, admin_library_get, admin_library_post, upload_library_image } = require("../app/library_app")
 const { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_delete, admin_notice_download } = require("../app/notice_app")
 const { admin_parent_get, admin_parent_delete, admin_parent_profile } = require("../app/parent_app")
@@ -66,6 +66,8 @@ admin.get('/transcript/pdf-init-page', (req, res)=>{
 
 })
 
+
+
 admin.get('/transcript/pdf-page/:className/:sectionName', admin_transcript_pdf_page)
 
 admin.post('/transcript/pdf-get', admin_transcript_pdf_get)
@@ -96,31 +98,31 @@ admin.post("/email/update", admin_app.self_email_update)
 
 
 
-// content router..........
-admin.get("/content/page", (req, res)=>{
-  res.render("admin/content_page")
+// gallery router..........
+admin.get("/gallery/page", (req, res)=>{
+  res.render("admin/gallery_page")
 })
 
-admin.get('/content/image', (req, res)=>{
+admin.get('/gallery/image', (req, res)=>{
   app.locals.dataid= req.query.data;
-  res.render("admin/content_image_data")
+  res.render("admin/gallery_image_data")
 })
 
-admin.get('/content/video/', (req, res)=>{
+admin.get('/gallery/video/', (req, res)=>{
   app.locals.dataid= req.query.data;
 
-  res.render("admin/content_video_data")
+  res.render("admin/gallery_video_data")
 })
 
 
-admin.post('/content/image/post', multer_upload.any('itemLink'), admin_content_image_post)
-admin.post('/content/video/post', admin_content_video_post)
-admin.post('/content/get', admin_content_get)
+admin.post('/gallery/image/post', multer_upload.any('itemLink'), admin_gallery_image_post)
+admin.post('/gallery/video/post', admin_gallery_video_post)
+admin.post('/gallery/get', admin_gallery_get)
 
-admin.post('/content/image', admin_content_image)
-admin.post('/content/video', admin_content_video)
-admin.post('/content/data/delete', admin_content_data_delete)
-admin.post('/content/delete', admin_content_delete)
+admin.post('/gallery/image', admin_gallery_image)
+admin.post('/gallery/video', admin_gallery_video)
+admin.post('/gallery/data/delete', admin_gallery_data_delete)
+admin.post('/gallery/delete', admin_gallery_delete)
 
 // carousel router.........
 admin.get("/carousel/page", (req, res)=>{

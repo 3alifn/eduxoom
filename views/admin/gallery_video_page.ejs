@@ -59,7 +59,7 @@ function loadContentData(){
         
         $.ajax({
             method: "post",
-            url: "/admin/content/video",
+            url: "/admin/gallery/video",
             data: {},
             dataType: "JSON",
             success: function (info) {
@@ -85,7 +85,7 @@ $("#deleteDataForm").on("submit", (e)=>{
     $("#confirmed").on("click", ()=>{
         $.ajax({
         type: "post",
-        url: "/admin/content/data/delete",
+        url: "/admin/gallery/data/delete",
         data: $("#deleteDataForm").serialize(),
         dataType: "JSON",
         success: function (info) {

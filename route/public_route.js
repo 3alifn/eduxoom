@@ -1,7 +1,7 @@
 
 const express= require("express")
 const { public_admission_step1, public_admission_step2, public_admission_post } = require("../app/admission_app")
-const { public_gallery_video, public_gallery_image, public_gallery_video_list, public_gallery_image_list, public_carousel_get } = require("../app/content_app")
+const { public_gallery_video, public_gallery_image, public_gallery_video_list, public_gallery_image_list, public_carousel_get } = require("../app/gallery_app")
 const { public_notice_get, public_notice_download } = require("../app/notice_app")
 const { join, self_verify_code } = require("../app/parent_app")
 const { public_rank_class_page, public_rank_page, public_rank_get, public_rank_get_class_base } = require("../app/rank_app")
@@ -20,7 +20,7 @@ public.get("/team-saanvi", (req, res) => {
 })
 public.post("/team-saanvi/contact-us", public_team_saanvi_sent_message)
 
-// content router.............
+// gallery router.............
 
 public.get("/carousel/get", public_carousel_get)
 

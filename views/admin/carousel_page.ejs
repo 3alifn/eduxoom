@@ -21,12 +21,12 @@
 
 
     <%-include("../component/modal-trigger.html") %> 
-    <%-include("../component/___node.html") %> 
 
 
 
 <!-- Button trigger modal -->
 <center>
+    <h1>Carousel Image Limit 12</h1>
     <button type="button" class="btn " data-toggle="modal" data-target="#modelImage">ADD Image</button>
 
 </center>
@@ -47,18 +47,19 @@
             </div>
             <div class="modal-body">
                 
-                <p class="card-text">Image Size upto 5mb.</p>
+                <p class="card-text">Image Size upto 2mb.</p>
 
                 <form id="contentImageForm"  method="post">
 
 
-  
-                    <input type="file" class=" form-self" name="itemName[]" multiple id=""> <p></p>
-
-                    
-
+                    <label for="file">
+                        <h5  class="btn btn-light">Select Image</h5>
+                    </label>
+                    <input id="file" type="file" class="d-none form-self" name="itemName[]" multiple> <p></p>
+   
+                 
                     <center>
-                        <input id="submit" class=" w-50 btn btn-primary" type="submit" value="ADD">
+                        <input id="submit" class=" mb-2 w-50 btn btn-primary" type="submit" value="ADD">
                     </center>
 
 
@@ -67,6 +68,12 @@
                     
 
                 </form>
+
+                <div class="row">
+                    <div id="file_append" class="col-auto">
+
+                    </div>
+                </div>
 
             </div>
         
@@ -90,23 +97,27 @@
 
 </div>
 </div>
+<%-include("../component/___node.html") %> 
+<script src="/app/noviewport.js"></script>
 
-
+</body>
 <script>
 
-
-
-$(document).on("click", ".removeItemE", (e)=>{
-    let thisItem= e.currentTarget.previousSibling.parentElement
+// $(document).on("click", ".removeItemE", (e)=>{
+//     let thisItem= e.currentTarget.previousSibling.parentElement
     
-    $(thisItem).remove()
+//     $(thisItem).remove()
  
     
-})
+// })
 
 
-
-
+noview.port({
+   file_id: 'file',
+   append_id:  'file_append', 
+   file_type: 'image',
+   max_kb_size: 1024*2
+  })
     
 function loadContentData(){
         
@@ -115,12 +126,14 @@ function loadContentData(){
             url: "/admin/carousel/get",
             data: {},
             dataType: "JSON",
-            success: function (info) {
-    
-                $("#listDataPrint").html(info.listData)
-               
+            beforeSend: function(){
+                _spin_pull()
 
-                
+            },
+            success: function (info) {
+            _spin_pop()
+                $("#listDataPrint").html(info.listData)
+            
             }
         });
 
@@ -137,7 +150,7 @@ function loadContentData(){
 $("#contentImageForm").on('submit', (event)=>{
       event.preventDefault()
       let formdata = new FormData($("form")[0])
-
+      console.log(formdata);
         $.ajax({
             method: "post",
             url: "/admin/carousel/post",
@@ -147,15 +160,14 @@ $("#contentImageForm").on('submit', (event)=>{
               processData: false,
               contentType: false,
                dataType: "JSON",
-
-            beforeSend: function(){
+       
+        beforeSend: function(){
       $("#submit").addClass("btn disabled")
+      _spin_pull()
             },
             success: function (info) {
-    
-                $("#msg").text(info.msg)
-                $("#msg").addClass(info.alert)
-                toast_alive()
+                _spin_pop()
+                _msg_pull( 'alert-success', 'Image added...', null)
                 $("#submit").removeClass("disabled")
                 loadContentData()
 
@@ -168,39 +180,24 @@ $("#contentImageForm").on('submit', (event)=>{
   
     
     
-    
-    
-    
-$(document).on("click", '.del_def', (e)=>{
+function _delbox_push(ID){
 
-        let ID= e.currentTarget.attributes[0].value;
-    
-    $("#modal").click();
-    
-    $("#confirmed").on("click", ()=>{
-        $.ajax({
+    $.ajax({
         type: "post",
         url: "/admin/carousel/delete",
         data: {ID},
         dataType: "JSON",
         success: function (info) {
-            
-            $("#msg").text(info.msg)
-            $("#msg").addClass(info.alert)
-            toast_alive();
             loadContentData();
-      
+           _msg_pull('alert-danger', 'Image Deleted!',  null)
     
         }
     });
-    })
-    
-    })
+}
+
     
 
     </script>
 
-<%- include("../component/___node.html") %> 
 
-</body>
 </html>
