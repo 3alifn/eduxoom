@@ -5,7 +5,7 @@ const express= require("express")
 const admin_app = require("../app/admin_app")
 const { admin_admission_page, admin_admission_accept, admin_admission_reject, admin_admission_info } = require("../app/admission_app")
 const { admin_application_get, admin_application_replay, admin_application_download } = require("../app/appllication_app")
-const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_gallery_list_data, admin_gallery_list_data_delete, admin_gallery_image, admin_gallery_video, admin_gallery_data_delete, admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete } = require("../app/gallery_app")
+const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_gallery_list_data, admin_gallery_list_data_delete, admin_gallery_image, admin_gallery_video, admin_gallery_data_delete, admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete, admin_gallery_image_get, admin_gallery_image_delete, admin_gallery_image_data_get, admin_gallery_image_data_delete, admin_gallery_image_data_post } = require("../app/gallery_app")
 const { admin_library_update, admin_library_update_page, admin_library_delete, admin_library_get, admin_library_post, upload_library_image } = require("../app/library_app")
 const { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_delete, admin_notice_download } = require("../app/notice_app")
 const { admin_parent_get, admin_parent_delete, admin_parent_profile } = require("../app/parent_app")
@@ -98,31 +98,29 @@ admin.post("/email/update", admin_app.self_email_update)
 
 
 
-// gallery router..........
-admin.get("/gallery/page", (req, res)=>{
-  res.render("admin/gallery_page")
+// gallery image router..........
+
+admin.get("/gallery/image/page", (req, res)=>{
+  res.render("admin/gallery_image_page")
 })
 
-admin.get('/gallery/image', (req, res)=>{
-  app.locals.dataid= req.query.data;
-  res.render("admin/gallery_image_data")
+admin.post('/gallery/image/get', admin_gallery_image_get)
+admin.post('/gallery/image/post', multer_upload.any('itemName'), admin_gallery_image_post)
+admin.post('/gallery/image/data/post',  multer_upload.any('itemName'), admin_gallery_image_data_post)
+admin.post('/gallery/image/delete', admin_gallery_image_delete)
+admin.post('/gallery/image/data/delete', admin_gallery_image_data_delete)
+admin.get('/gallery/image/data/:dataid/:item_title', (req, res)=>{
+  const {dataid, item_title}= req.params;
+  res.render('admin/gallery_image_data', {dataid, item_title})
 })
-
-admin.get('/gallery/video/', (req, res)=>{
-  app.locals.dataid= req.query.data;
-
-  res.render("admin/gallery_video_data")
-})
+admin.post('/gallery/image/data/get', admin_gallery_image_data_get)
 
 
-admin.post('/gallery/image/post', multer_upload.any('itemLink'), admin_gallery_image_post)
-admin.post('/gallery/video/post', admin_gallery_video_post)
-admin.post('/gallery/get', admin_gallery_get)
+// gallery video router...........
 
-admin.post('/gallery/image', admin_gallery_image)
-admin.post('/gallery/video', admin_gallery_video)
-admin.post('/gallery/data/delete', admin_gallery_data_delete)
-admin.post('/gallery/delete', admin_gallery_delete)
+
+
+
 
 // carousel router.........
 admin.get("/carousel/page", (req, res)=>{
@@ -211,7 +209,7 @@ res.render("admin/library_page")
 
 })
 
-admin.post("/library/post", upload_library_image.single("photos"), admin_library_post)
+admin.post("/library/post", upload_library_image.single("images"), admin_library_post)
 admin.post("/library/get", admin_library_get)
 admin.post("/library/delete", admin_library_delete)
 admin.get("/library/update/page", admin_library_update_page)
@@ -276,4 +274,4 @@ admin.post('/bi/catagory-get', admin_bi_catagory_get)
 admin.post('/bi/catagory-update-post', admin_bi_catagory_update_post)
 admin.post('/bi/catagory-delete', admin_bi_catagory_delete )
 
-module.exports= admin;
+module.exports= admin;  

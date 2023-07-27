@@ -1,7 +1,7 @@
 
 const express= require("express")
 const { public_admission_step1, public_admission_step2, public_admission_post } = require("../app/admission_app")
-const { public_gallery_video, public_gallery_image, public_gallery_video_list, public_gallery_image_list, public_carousel_get } = require("../app/gallery_app")
+const { public_gallery_video, public_gallery_image, public_gallery_video_list, public_gallery_image_list, public_carousel_get, public_gallery_image_get, admin_gallery_image_data_get, public_gallery_image_data_get } = require("../app/gallery_app")
 const { public_notice_get, public_notice_download } = require("../app/notice_app")
 const { join, self_verify_code } = require("../app/parent_app")
 const { public_rank_class_page, public_rank_page, public_rank_get, public_rank_get_class_base } = require("../app/rank_app")
@@ -20,39 +20,22 @@ public.get("/team-saanvi", (req, res) => {
 })
 public.post("/team-saanvi/contact-us", public_team_saanvi_sent_message)
 
-// gallery router.............
+// carousel router.............
 
 public.get("/carousel/get", public_carousel_get)
 
 
-public.get("/help/supports", (req, res) => {
-  res.render("public/helpdesk")
-})
-
-public.get("/gallery/video", (req, res)=>{
-  res.render("public/gallery_video_page")
-})
-public.get("/gallery/photos",  (req, res)=>{
-  res.render("public/gallery_image_page")
-})
 
 
-public.get("/gallery/video/list", (req, res)=>{
-  app.locals.dataid= req.query.data;
-  res.render("public/gallery_video_list")
-})
-public.get("/gallery/image/list",  (req, res)=>{
-  app.locals.dataid= req.query.data;
+// gallery router......
+public.get("/gallery/image/page", public_gallery_image_get)
 
-  res.render("public/gallery_image_list")
-})
+public.get("/gallery/image/data/:dataid", public_gallery_image_data_get)
 
+// public.get("/gallery/video/page", )
 
-public.post('/gallery/video/get', public_gallery_video)
-public.post('/gallery/image/get', public_gallery_image)
+// public.get("/gallery/video/data",)
 
-public.post('/gallery/video/list', public_gallery_video_list)
-public.post('/gallery/image/list', public_gallery_image_list)
 
 
 

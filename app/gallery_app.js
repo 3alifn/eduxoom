@@ -74,64 +74,140 @@ exports.multer_upload_carousel= multer({
 
 
 
+// public gallery..........
+
+exports.public_gallery_image_get= (req, res)=>{
 
 
+  let sql= `SELECT * FROM gallery WHERE item_type='image' GROUP BY data_id ORDER BY ID DESC`
 
 
+    sqlmap.query(sql, (err, info)=>{
+        if(err) console.log(err.sqlMessage);
 
-exports.admin_gallery_image_post= async (req, res)=>{
-  let {itemTitle}= req.body;
-
-  for (let x = 0; x < req.files.length; x++) {
-    const { filename: image } = req.files[x];
-
-  if(req.files[x].size<1048576){
-    await sharp(req.files[x].path)
-    //  .resize(4000, 4000)
-    //  .jpeg({ quality: 99 })
-     .toFile(
-         path.resolve(req.files[x].destination,'resized',image)
-     )
-     fs.unlinkSync(req.files[x].path)
-  
-    }
-    else {
-      await sharp(req.files[x].path)
-      //  .resize(4000, 4000)
-       .jpeg({ quality: 20 })
-       .toFile(
-           path.resolve(req.files[x].destination,'resized',image)
-       )
-       fs.unlinkSync(req.files[x].path)
-    
-      }
-    }
+        if(info){
+              res.render('public/gallery_image_page', {info})
 
 
+        } else res.send('<center><h1>Image not found!</h1></center>')
+
+    })
+
+}
 
 
-
-  let dataId=itemTitle+Math.random()*900000;
-  
- for (let i = 0; i < req.files.length; i++) {
-  sqlmap.query(`INSERT INTO gallery (item_type, item_title, item_name, data_id)VALUES('image', '${itemTitle}', '${req.files[i].filename}', '${dataId}')`, (err, next)=>{
-      if(err) console.log(err.sqlMessage);
-      
-  })
+exports.public_gallery_image_data_get= (req, res)=>{
+ const {dataid}= req.params;
+ console.log(req.params);
+  let sql= `SELECT * FROM gallery WHERE item_type='image' AND data_id='${dataid}' ORDER BY ID DESC`
 
 
-  
- }
+    sqlmap.query(sql, (err, info)=>{
+        if(err) console.log(err.sqlMessage);
+
+        if(info){
+          res.render('public/gallery_image_data', {info})
 
 
-//  console.log(itemTitle, dataId, );
+    } else res.send('<center><h1>Image not found!</h1></center>')
 
-  res.send({msg: "gallery Added Successfully!", alert: "success"})
+
+    })
+
 }
 
 
 
 
+
+
+
+
+exports.public_gallery_video_get= (req, res)=>{
+  // data_id='${req.app.locals.dataid}'
+  let sql= `SELECT * FROM gallery WHERE item_type='video' GROUP BY data_id ORDER BY ID DESC`
+
+
+    sqlmap.query(sql, (err, info)=>{
+        if(err) console.log(err.sqlMessage);
+
+        if(info){
+        
+           let listData= '';
+
+           for (let i = 0; i < info.length; i++) {
+            listData+= `
+          
+            <div class="col-6 col-md-3 m-0 p-0 ">
+          
+            <div class="card" id="">
+            
+            <iframe class='video-scope card-img-top' src="${info[i].item_name}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <center><a href="/pu/gallery/video/list?data=${info[i].data_id}" class=" link-primary">${info[i].item_title}....<a/></center>
+
+            </div>
+                      
+                  </div>
+
+            `
+
+        }
+
+        res.send({listData})
+
+        }
+
+    })
+
+}
+
+
+
+exports.public_gallery_video_data_get= (req, res)=>{
+
+  let sql= `SELECT * FROM gallery WHERE item_type='video' AND data_id='${req.app.locals.dataid}' ORDER BY ID DESC`
+
+
+    sqlmap.query(sql, (err, info)=>{
+        if(err) console.log(err.sqlMessage);
+
+        if(info){
+        
+           let listData= '';
+
+           for (let i = 0; i < info.length; i++) {
+            listData+= `
+          
+            <div class="col-6 col-md-3 p-0 m-0 ">
+          
+            <div  class="card" id="">
+            
+            
+            <iframe  class='video-scope card-img-top' src="${info[i].item_name.replace("watch?v=", "embed/")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            
+            </div>
+                      
+                  </div>
+
+            `
+
+        }
+
+        res.send({listData})
+
+        }
+
+    })
+
+}
+
+
+
+
+
+
+
+// admin carousel part
 
 exports.admin_carousel_post= async (req, res)=>{
 
@@ -261,8 +337,6 @@ sqlmap.query(`DELETE FROM carousel WHERE ID=${ID}`, (err, next)=>{
 
 
 
-
-
 exports.public_carousel_get= (req, res)=>{ 
 
   sqlmap.query(`SELECT * FROM carousel ORDER BY ID DESC LIMIT 12`, (err, info)=>{
@@ -307,45 +381,12 @@ exports.public_carousel_get= (req, res)=>{
 
 
 
+// admin gallery image part
 
+exports.admin_gallery_image_get= (req, res)=>{
 
-
-
-exports.admin_gallery_video_post= (req, res)=>{
-    let {itemLink, itemTitle}= req.body;
-    let dataId=itemTitle+Math.random()*900000;
-    
-   for (let i = 0; i < itemLink.length; i++) {
-    sqlmap.query(`INSERT INTO gallery (item_type, item_title, item_name, data_id)VALUES('video', '${itemTitle}', '${itemLink[i].replaceAll("/watch?v=", "/embed/").replaceAll("//youtu.be/", "//youtube.com/embed/")}', '${dataId}')`, (err, next)=>{
-        if(err) console.log(err.sqlMessage);
-        
-    })
-   }
-    
-
-    res.send({msg: "gallery Added Successfully!", alert: "success"})
-}
-
-
-
-
-
-
-
-
-
-
-exports.admin_gallery_get= (req, res)=>{
-
-    
-    if(req.body.itemType==undefined){
-    
-  var sqlgalleryGet= `SELECT * FROM gallery GROUP BY data_id ORDER BY ID DESC`
-    }
-    else {
-        var sqlgalleryGet= `SELECT * FROM gallery WHERE item_type='${req.body.itemType}' GROUP BY data_id ORDER BY ID DESC`
-
-    }
+        var sqlgalleryGet= `SELECT * FROM gallery WHERE item_type='image' GROUP BY data_id ORDER BY ID DESC`
+  
 
     sqlmap.query(sqlgalleryGet, (err, info)=>{
         if(err) console.log(err.sqlMessage);
@@ -355,9 +396,189 @@ exports.admin_gallery_get= (req, res)=>{
 
            for (let i = 0; i < info.length; i++) {
             listData+= `
-            <li class="list-group-item"> <a href="/admin/gallery/${info[i].item_type=='image'?'image':'video'}?data=${info[i].data_id}">${info[i].item_title}</a> <input style="height:30px; width: 30px" type="checkbox" name="deleteData[]" value="${info[i].data_id}"></li>
-                  
+            <div class="col-10">
+            <div class="list-group">
+
+            <a href="/admin/gallery/image/data/${info[i].data_id}/${info[i].item_title}" class="list-group-item list-group-item-action"> 
+            <input <input style="transform: scale(1.5);"  type="checkbox" name="imageid" value="${info[i].data_id}"> <span class='ms-2'>${info[i].item_title}</span></a>
+            </div>
+         </div>
+            `
+
+        }
+
+        res.send({listData})
+
+        }
+
+        else res.send(404)
+
+
+    })
+
+}
+
+
+
+
+
+
+exports.admin_gallery_image_post= async (req, res)=>{
+  let {itemTitle}= req.body;
+  for (let x = 0; x < req.files.length; x++) {
+    const { filename: image } = req.files[x];
+
+  if(req.files[x].size<1048576){
+    await sharp(req.files[x].path)
+    //  .resize(4000, 4000)
+    //  .jpeg({ quality: 99 })
+     .toFile(
+         path.resolve(req.files[x].destination,'resized',image)
+     )
+     fs.unlinkSync(req.files[x].path)
+  
+    }
+    else {
+      await sharp(req.files[x].path)
+      //  .resize(4000, 4000)
+       .jpeg({ quality: 20 })
+       .toFile(
+           path.resolve(req.files[x].destination,'resized',image)
+       )
+       fs.unlinkSync(req.files[x].path)
+    
+      }
+    }
+
+
+
+
+
+   const randomString= Math.random()*900000000;
+  
+ for (let i = 0; i < req.files.length; i++) {
+  sqlmap.query(`INSERT INTO gallery (item_type, item_title, item_name, data_id)VALUES('image', '${itemTitle}', '${req.files[i].filename}', '${randomString}')`, (err, next)=>{
+      if(err) console.log(err.sqlMessage);
+      
+  })
+
+
+  
+ }
+
+
+//  console.log(itemTitle, dataId, );
+
+  res.send({msg: "gallery Added Successfully!", alert: "success"})
+}
+
+
+exports.admin_gallery_image_data_post= async (req, res)=>{
+  let {itemTitle, dataId}= req.body;
+
+  for (let x = 0; x < req.files.length; x++) {
+    const { filename: image } = req.files[x];
+
+  if(req.files[x].size<1048576){
+    await sharp(req.files[x].path)
+    //  .resize(4000, 4000)
+    //  .jpeg({ quality: 99 })
+     .toFile(
+         path.resolve(req.files[x].destination,'resized',image)
+     )
+     fs.unlinkSync(req.files[x].path)
+  
+    }
+    else {
+      await sharp(req.files[x].path)
+      //  .resize(4000, 4000)
+       .jpeg({ quality: 20 })
+       .toFile(
+           path.resolve(req.files[x].destination,'resized',image)
+       )
+       fs.unlinkSync(req.files[x].path)
+    
+      }
+    }
+
+ for (let i = 0; i < req.files.length; i++) {
+  sqlmap.query(`INSERT INTO gallery (item_type, item_title, item_name, data_id)VALUES('image', '${itemTitle}', '${req.files[i].filename}', '${dataId}')`, (err, next)=>{
+      if(err) console.log(err.sqlMessage);
+      
+  })
+
+
+  
+ }
+
+
+
+  res.send({msg: "gallery Added Successfully!", alert: "success"})
+
+}
+
+
+exports.admin_gallery_image_delete= (req, res)=>{
+  let dataId=  req.body.imageId;
+
+ sqlmap.query(`SELECT * FROM gallery WHERE data_id IN (${dataId})`, (errInfo, findInfo)=>{
+     if(errInfo) console.log("data not found!")
+     
+     else {
+ 
+         
+ sqlmap.query(`DELETE FROM gallery WHERE data_id IN (${dataId})`, (err, next)=>{
+     if(err) console.log(err.sqlMessage);
+     else
+     {
+ 
+        for (const i in findInfo) {
+         fs.unlink(`./public/image/gallery/resized/${findInfo[i].item_name}`, function (errDelete) {
+             if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
+ 
+             
            
+           });
+        }
+ 
+        res.send({msg: "Deleted! Successfully!", alert: "success"})
+         
+     }
+ })
+ 
+     }
+ 
+ })
+
+}
+
+
+
+
+exports.admin_gallery_image_data_get= (req, res)=>{
+ const dataid= req.body.dataid;
+
+  let sql= `SELECT * FROM gallery WHERE item_type='image' AND data_id='${dataid}' ORDER BY ID DESC`
+
+
+    sqlmap.query(sql, (err, info)=>{
+        if(err) console.log(err.sqlMessage);
+
+        if(info){
+        
+           let listData= '';
+
+           for (let index= 0; index < info.length; index++) {
+            listData+= `
+   
+                  <div class="col-10 col-md-3">
+          
+                  <div class="card" id="">
+                  <input value='${info[index].ID}' type="checkbox" name="imageid" style="position: absolute; height: 20px; width: 20px;" >
+                    <img class='card-img-top bg-demo-img-color' width="100%" height='140px' src="/image/gallery/resized/${info[index].item_name}" alt="...">
+                  </div>
+
+                   </div> 
             `
 
         }
@@ -371,6 +592,60 @@ exports.admin_gallery_get= (req, res)=>{
 }
 
 
+exports.admin_gallery_image_data_delete= (req, res)=>{
+  let dataId=  req.body.imageId;
+
+ sqlmap.query(`SELECT * FROM gallery WHERE ID IN (${dataId})`, (errInfo, findInfo)=>{
+     if(errInfo) console.log("data not found!")
+     
+     else {
+ 
+         
+ sqlmap.query(`DELETE FROM gallery WHERE ID IN (${dataId})`, (err, next)=>{
+     if(err) console.log(err.sqlMessage);
+     else
+     {
+ 
+        for (const i in findInfo) {
+         fs.unlink(`./public/image/gallery/resized/${findInfo[i].item_name}`, function (errDelete) {
+             if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
+ 
+             
+           
+           });
+        }
+ 
+        res.send({msg: "Deleted! Successfully!", alert: "success"})
+         
+     }
+ })
+ 
+     }
+ 
+ })
+
+}
+
+
+
+
+
+// admin gallery video part 
+
+exports.admin_gallery_video_post= (req, res)=>{
+  let {itemLink, itemTitle}= req.body;
+  let dataId=itemTitle+Math.random()*900000;
+  
+ for (let i = 0; i < itemLink.length; i++) {
+  sqlmap.query(`INSERT INTO gallery (item_type, item_title, item_name, data_id)VALUES('video', '${itemTitle}', '${itemLink[i].replaceAll("/watch?v=", "/embed/").replaceAll("//youtu.be/", "//youtube.com/embed/")}', '${dataId}')`, (err, next)=>{
+      if(err) console.log(err.sqlMessage);
+      
+  })
+ }
+  
+
+  res.send({msg: "gallery Added Successfully!", alert: "success"})
+}
 
 
 exports.admin_gallery_video= (req, res)=>{
@@ -415,296 +690,3 @@ exports.admin_gallery_video= (req, res)=>{
 
 
 
-
-
-exports.admin_gallery_image= (req, res)=>{
-
-
-  let sql= `SELECT * FROM gallery WHERE item_type='image' AND data_id='${req.app.locals.dataid}' ORDER BY ID DESC`
-
-
-    sqlmap.query(sql, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
-
-        if(info){
-        
-           let listData= '';
-
-           for (let i = 0; i < info.length; i++) {
-            listData+= `
-     
-            <div class="col-6 col-md-3 m-auto ">
-          
-            <div class="card" id="">
-           
-              <input style="height:20px; width: 20px" type="checkbox" name="deleteData[]" value="${info[i].ID}"></li>
-               
-              <img class='card-img-top' width="100%" src="/image/gallery/resized/${info[i].item_name}" alt="404">
-        
-            </div>
-                      
-                  </div>
-            `
-
-        }
-
-        res.send({listData})
-
-        }
-
-    })
-
-}
-
-
-
-
-
-
-exports.admin_gallery_delete= (req, res)=>{
-   let dataId=  req.body.deleteData;
-   let data= dataId.toString()
-   let datapush= []
-   for (let i=0; i<dataId.length; i++) {
-    datapush.push(JSON.stringify(dataId[i]))
-   }
-
-
-    sqlmap.query(`SELECT * FROM gallery WHERE data_id IN (${datapush.toString()})`, (errInfo, findInfo)=>{
-      if(errInfo) console.log("data not found!")
-      
-      else {
-  
-          
-  sqlmap.query(`DELETE FROM gallery WHERE data_id IN (${datapush.toString()})`, (err, next)=>{
-      if(err) console.log(err.sqlMessage);
-      else
-      {
-  
-         for (const i in findInfo) {
-          fs.unlink(`./public/image/gallery/resized/${findInfo[i].item_name}`, function (errDelete) {
-              if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
-  
-              
-            
-            });
-         }
-  
-         res.send({msg: "Data Deleted! Successfully!", alert: "success"})
-          
-      }
-  })
-  
-      }
-  
-  })
-
-}
-
-
-
-exports.admin_gallery_data_delete= (req, res)=>{
-
-    let dataId= req.body.deleteData;
-
-
-
-    sqlmap.query(`SELECT * FROM gallery WHERE ID IN (${dataId.toString()})`, (errInfo, findInfo)=>{
-      if(errInfo) console.log("data not found!")
-      
-      else {
-  
-          
-  sqlmap.query(`DELETE FROM gallery WHERE ID IN (${dataId.toString()})`, (err, next)=>{
-      if(err) console.log(err.sqlMessage);
-      else
-      {
-  
-         for (const i in findInfo) {
-          fs.unlink(`./public/image/gallery/resized/${findInfo[i].item_name}`, function (errDelete) {
-              if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
-  
-              
-            
-            });
-         }
-  
-         res.send({msg: "Data Deleted! Successfully!", alert: "success"})
-          
-      }
-  })
-  
-      }
-  
-  })
-    
-
-}
-
-
-
-
-
-
-
-
-
-
-exports.public_gallery_video= (req, res)=>{
-  // data_id='${req.app.locals.dataid}'
-  let sql= `SELECT * FROM gallery WHERE item_type='video' GROUP BY data_id ORDER BY ID DESC`
-
-
-    sqlmap.query(sql, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
-
-        if(info){
-        
-           let listData= '';
-
-           for (let i = 0; i < info.length; i++) {
-            listData+= `
-          
-            <div class="col-6 col-md-3 m-0 p-0 ">
-          
-            <div class="card" id="">
-            
-            <iframe class='video-scope card-img-top' src="${info[i].item_name}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            <center><a href="/pu/gallery/video/list?data=${info[i].data_id}" class=" link-primary">${info[i].item_title}....<a/></center>
-
-            </div>
-                      
-                  </div>
-
-            `
-
-        }
-
-        res.send({listData})
-
-        }
-
-    })
-
-}
-
-
-
-
-
-exports.public_gallery_video_list= (req, res)=>{
-
-  let sql= `SELECT * FROM gallery WHERE item_type='video' AND data_id='${req.app.locals.dataid}' ORDER BY ID DESC`
-
-
-    sqlmap.query(sql, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
-
-        if(info){
-        
-           let listData= '';
-
-           for (let i = 0; i < info.length; i++) {
-            listData+= `
-          
-            <div class="col-6 col-md-3 p-0 m-0 ">
-          
-            <div  class="card" id="">
-            
-            
-            <iframe  class='video-scope card-img-top' src="${info[i].item_name.replace("watch?v=", "embed/")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            
-            </div>
-                      
-                  </div>
-
-            `
-
-        }
-
-        res.send({listData})
-
-        }
-
-    })
-
-}
-
-
-
-
-
-
-exports.public_gallery_image= (req, res)=>{
-
-
-  let sql= `SELECT * FROM gallery WHERE item_type='image' GROUP BY data_id ORDER BY ID DESC`
-
-
-    sqlmap.query(sql, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
-
-        if(info){
-        
-           let listData= '';
-
-           for (let i = 0; i < info.length; i++) {
-            listData+= `
-     
-            <div class='col-6 col-md-3 m-0 p-0 shadow-1'>
-          
-            <a href="/pu/gallery/image/list?data=${info[i].data_id}" class=" link-primary">
-              <img height='200px' width='100%' class='bg-demo-img-color hover-img' src="/image/gallery/resized/${info[i].item_name}" alt="404">
-              <center>${info[i].item_title}</center>
-              </a>
-            </div>
-            `
-
-        }
-
-        res.send({listData})
-
-        }
-
-    })
-
-}
-
-
-
-
-
-
-
-
-exports.public_gallery_image_list= (req, res)=>{
-
-
-  let sql= `SELECT * FROM gallery WHERE item_type='image' AND data_id='${req.app.locals.dataid}' ORDER BY ID DESC`
-
-
-    sqlmap.query(sql, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
-
-        if(info){
-        
-          let imgsource=''
-
-           for (let i = 0; i < info.length; i++) {
-            imgsource+= `
-            <div class='col-6 col-md-2  p-1 shadow-1'>
-
-            <img style='display:block' class="bg-demo-img-color img-btn h-100 w-100"  src="/image/gallery/resized/${info[i].item_name}">
-              
-            </div>
-            `
-
-        }
-
-        res.send({imgsource})
-
-        }
-
-    })
-
-}

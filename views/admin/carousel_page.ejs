@@ -22,7 +22,7 @@
 
     <%-include("../component/modal-trigger.html") %> 
 
-
+<hr>
 
 <!-- Button trigger modal -->
 <center>
@@ -150,7 +150,6 @@ function loadContentData(){
 $("#contentImageForm").on('submit', (event)=>{
       event.preventDefault()
       let formdata = new FormData($("form")[0])
-      console.log(formdata);
         $.ajax({
             method: "post",
             url: "/admin/carousel/post",

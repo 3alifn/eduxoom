@@ -8,63 +8,59 @@
     <title>Video settings</title>
     <%- include("../component/metadata.html") %> 
 
+
 </head>
 
 <body onload="pageLoadingTop()">
-
 
     <%- include("../component/admin-header-nav.html") %> 
     <%- include("../component/admin-menu-nav.html") %> 
   
   
     <div id="main-content" class="p-2 mt-5">
-  
+        <div class="col">
 
     <%-include("../component/modal-trigger.html") %> 
-    <%-include("../component/___node.html") %> 
- 
+
 
 
 
  <form action="" id="deleteDataForm" method="post">
- 
-    <center>
-        <input class="btn btn-danger" id="" type="submit" value="Delete">
-    </center>
- <p></p>
+  
     <div class="row" id="listDataPrint">
         
-
-     
-
 
             </div>
 
         </div>
     </div>
 
-
-
-
-
  </form>
 
 </div>
 </div>
+<%-include("../component/___node.html") %> 
+<script src="/app/noviewport.js"></script>
 
 <script>
 
-
+    
 function loadContentData(){
         
         $.ajax({
             method: "post",
-            url: "/admin/gallery/video",
+            url: "/admin/gallery/video-get",
             data: {},
             dataType: "JSON",
+            beforeSend: function(){
+                _spin_pull()
+
+            },
             success: function (info) {
     
                 $("#listDataPrint").html(info.listData)
+                _spin_pop()
+
             }
         });
     
@@ -74,38 +70,23 @@ function loadContentData(){
     
     
     
-    
-    
-$("#deleteDataForm").on("submit", (e)=>{
-     
-        e.preventDefault()
-    
-    $("#modal").click();
-    
-    $("#confirmed").on("click", ()=>{
-        $.ajax({
-        type: "post",
-        url: "/admin/gallery/data/delete",
-        data: $("#deleteDataForm").serialize(),
-        dataType: "JSON",
-        success: function (info) {
-            
-            $("#msg").text(info.msg)
-            $("#msg").addClass(info.alert)
-            toast_alive();
-            loadContentData();
-      
-    
-        }
-    });
-    })
-    
-    })
-    
+function _delbox_push(ID){
 
+$.ajax({
+    type: "post",
+    url: "/admin/gallery/video/delete",
+    data: $("#deleteDataForm").serialize(),
+    dataType: "JSON",
+    success: function (info) {
+        loadContentData();
+       _msg_pull('alert-danger', 'Image Deleted!',  null)
+
+    }
+});
+} 
+ 
     </script>
 
-<%- include("../component/___node.html") %> 
 
 </body>
 </html>

@@ -1,0 +1,108 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Image settings</title>
+    <%- include("../component/metadata.html") %> 
+
+
+</head>
+
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/admin-header-nav.html") %> 
+    <%- include("../component/admin-menu-nav.html") %> 
+  
+  
+    <div id="main-content" class="p-2 mt-5">
+        <div class="col">
+
+    <%-include("../component/modal-trigger.html") %> 
+
+
+
+
+ <form action="" id="deleteDataForm" method="post">
+  
+    <div class="row" id="listDataPrint">
+        
+
+            </div>
+
+        </div>
+    </div>
+
+ </form>
+
+</div>
+</div>
+<%-include("../component/___node.html") %> 
+<script src="/app/noviewport.js"></script>
+
+<script>
+
+noview.port({
+   file_id: 'file',
+   append_id:  'file_append', 
+   file_type: 'image',
+   max_kb_size: 1024*2
+  })
+    
+function loadContentData(){
+        
+        $.ajax({
+            method: "post",
+            url: "/admin/gallery/image-get",
+            data: {},
+            dataType: "JSON",
+            beforeSend: function(){
+                _spin_pull()
+
+            },
+            success: function (info) {
+    
+                $("#listDataPrint").html(info.listData)
+                _spin_pop()
+
+            }
+        });
+    
+    }
+
+    loadContentData()
+    
+    
+    
+    
+    
+$("#deleteDataForm").on("submit", (e)=>{
+     
+        e.preventDefault()
+    
+    $("#modal").click();
+    
+    $("#confirmed").on("click", ()=>{
+        $.ajax({
+        type: "post",
+        url: "/admin/gallery/image/delete",
+        data: $("#deleteDataForm").serialize(),
+        dataType: "JSON",
+        success: function (info) {
+ 
+            loadContentData();
+      
+    
+        }
+    });
+    })
+    
+    })
+ 
+    </script>
+
+
+</body>
+</html>
