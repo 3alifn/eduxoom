@@ -1,80 +1,106 @@
-
-
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
-    <title> Video Content</title>
-    <%- include("../component/metadata.html") %> 
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Image</title>
+
+<%- include("../component/metadata.html") %>
+
 
 </head>
 
+    
+<style>
+    html,* { font-family: 'Inter'; box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: #fafafa; line-height:1.6;}
+  
+  .container img { width: 200px; height: 150px; float: left;  }
+  
+  .img-btn:hover{
+    cursor: pointer;
+  }
+  
+  </style>
+
 <body onload="pageLoadingTop()">
-    <%- include("../component/header-nav.html") %> 
-<%- include("../component/menu-nav.html") %> 
-<%- include("../component/offcanvas-nav.html") %> 
-    <div class="row">
-   
-        <div class="col">
+    
 
-            <center>
+          
+<%- include("../component/header-nav.html") %>
+<%- include("../component/menu-nav.html") %>
+<%- include("../component/offcanvas-nav.html") %>
+  
+<center>
 
-                <h5 class="container text-center w-50 alert alert-secondary">Video Gallery </h5>
+  <h5 class="container text-center w-100 alert alert-secondary">Video gallery </h5>
 
-            </center>
-    <p></p>
+</center>
+  
+            <div id="listDataPrint" class="row">
+              
+  
+              <% for( let index = 0; index < info.length; index++ ) { %>
+              
+                <div class="col-10 col-md-3 m-auto m-md-0 p-2">
 
-    <div class="row" id="listDataPrint">
-        
+                    <div class="card" id="">
+                        <iframe class='video-scope card-img-top bg-demo-img-color' src="<%=info[index].item_name.replace("watch?v=", "embed/")%>/iframe>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+       
+                    </div>
+       
+                    </div>
 
-     
-
-
+              <% } %>
+             
+              
             </div>
-
-        </div>
+  
+  
+      
+      
+      <!-- Button trigger modal -->
+  
+      
+   <!-- Modal -->
+  <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
+      
+      <img  id="modal-img" class="bg-demo-img-color" height="250px" width="100%" src="" alt="loading...">
+      
     </div>
-
-
-</div>
-</div>
-
-
-<%- include("../component/footer-nav.html") %> 
-
-
-<script>
+  </div>
+      
+  <button  id="modal-btn" type="button" class="btn d-none btn-lg" data-toggle="modal" data-target="#modelId">
+  </button>
 
 
 
-function loadContentData(){
+<%- include("../component/footer-nav.html") %>
+
+  
+  </body>
+  
+  
+  <script>
+  
+
+      $(document).on('click', '.img-btn', (event)=>{
+        const data= event.currentTarget.attributes[2].value;
         
-        $.ajax({
-            method: "post",
-            url: "/pu/gallery/video/list",
-            data: {},
-            dataType: "JSON",
-            success: function (info) {
+        $("#modal-img").attr('src', data)
+      
+        $("#modal-img").addClass('overlay-img')
+        $("#modal-btn").click()
+      
+      })
+      
     
-                $("#listDataPrint").html(info.listData)
-            }
-        });
-    
-    }
+  
+  
+  
+      
+  </script>
+      
 
-    loadContentData()
-    
-    
-
-    
-    
-    
-    
-    
-    
-    </script>
-</body>
 </html>

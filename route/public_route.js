@@ -1,7 +1,7 @@
 
 const express= require("express")
 const { public_admission_step1, public_admission_step2, public_admission_post } = require("../app/admission_app")
-const { public_gallery_video, public_gallery_image, public_gallery_video_list, public_gallery_image_list, public_carousel_get, public_gallery_image_get, admin_gallery_image_data_get, public_gallery_image_data_get } = require("../app/gallery_app")
+const { public_gallery_video, public_gallery_image, public_gallery_video_list, public_gallery_image_list, public_carousel_get, public_gallery_image_get, admin_gallery_image_data_get, public_gallery_image_data_get, public_gallery_video_get, public_gallery_video_data_get } = require("../app/gallery_app")
 const { public_notice_get, public_notice_download } = require("../app/notice_app")
 const { join, self_verify_code } = require("../app/parent_app")
 const { public_rank_class_page, public_rank_page, public_rank_get, public_rank_get_class_base } = require("../app/rank_app")
@@ -32,9 +32,9 @@ public.get("/gallery/image/page", public_gallery_image_get)
 
 public.get("/gallery/image/data/:dataid", public_gallery_image_data_get)
 
-// public.get("/gallery/video/page", )
+public.get("/gallery/video/page", public_gallery_video_get)
 
-// public.get("/gallery/video/data",)
+public.get("/gallery/video/data/:dataid", public_gallery_video_data_get)
 
 
 

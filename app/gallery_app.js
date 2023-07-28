@@ -98,7 +98,6 @@ exports.public_gallery_image_get= (req, res)=>{
 
 exports.public_gallery_image_data_get= (req, res)=>{
  const {dataid}= req.params;
- console.log(req.params);
   let sql= `SELECT * FROM gallery WHERE item_type='image' AND data_id='${dataid}' ORDER BY ID DESC`
 
 
@@ -120,38 +119,15 @@ exports.public_gallery_image_data_get= (req, res)=>{
 
 
 exports.public_gallery_video_get= (req, res)=>{
-  // data_id='${req.app.locals.dataid}'
   let sql= `SELECT * FROM gallery WHERE item_type='video' GROUP BY data_id ORDER BY ID DESC`
-
-
     sqlmap.query(sql, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         if(info){
         
-           let listData= '';
+         res.render('public/gallery_video_page', {info})
 
-           for (let index=0; index < info.length; index++) {
-            listData+= `
-          
-            <div class="col-6 col-md-3 m-0 p-0 ">
-          
-            <div class="card" id="">
-            
-            <iframe class='video-scope card-img-top' src="${info[index].item_name}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            <center><a class='btn btn-light w-100' href="/pu/gallery/video/list?data=${info[index].data_id}" class=" link-primary">${info[index].item_title}....<a/></center>
-
-            </div>
-                      
-                  </div>
-
-            `
-
-        }
-
-        res.send({listData})
-
-        }
+        } else res.send('<center><h1>Video not found!</h1></center>')
 
     })
 
@@ -160,8 +136,9 @@ exports.public_gallery_video_get= (req, res)=>{
 
 
 exports.public_gallery_video_data_get= (req, res)=>{
+  const {dataid}= req.params;
 
-  let sql= `SELECT * FROM gallery WHERE item_type='video' AND data_id='${req.app.locals.dataid}' ORDER BY ID DESC`
+  let sql= `SELECT * FROM gallery WHERE item_type='video' AND data_id='${dataid}' ORDER BY ID DESC`
 
 
     sqlmap.query(sql, (err, info)=>{
@@ -169,27 +146,11 @@ exports.public_gallery_video_data_get= (req, res)=>{
 
         if(info){
         
-           let listData= '';
-
-           for (let index=0; index < info.length; index++) {
-            listData+= `
-          
-            <div class="col-6 col-md-3 p-0 m-0 ">
-          
-            <div  class="card" id="">
-            
-            
-            <iframe  class='video-scope card-img-top' src="${info[index].item_name.replace("watch?v=", "embed/")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            
-            </div>
-                      
-                  </div>
-
-            `
-
-        }
-
-        res.send({listData})
+          if(info){
+        
+            res.render('public/gallery_video_data', {info})
+   
+           } else res.send('<center><h1>Video not found!</h1></center>')
 
         }
 
@@ -674,7 +635,8 @@ exports.admin_gallery_video_get= (req, res)=>{
                   <div class="list-group">
       
                   <a href="/admin/gallery/video/data/${info[index].data_id}/${info[index].item_title}" class="list-group-item list-group-item-action"> 
-                  <input <input style="transform: scale(1.5);"  type="checkbox" name="imageid" value="${info[index].data_id}"> <span class='ms-2'>${info[index].item_title}</span></a>
+                  <input <input style="transform: scale(1.5);"  type="checkbox" name="imageid" value="${info[index].data_id}"> <span class='ms-2'>${info[index].item_title}</span>
+                  </a>
                   </div>
                </div>
 
