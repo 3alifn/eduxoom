@@ -1,0 +1,212 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Mark</title>
+  
+
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/user-header-nav.html") %> 
+    <%- include("../component/teacher-offcanvas-nav.html") %> 
+
+
+    <div class="row">
+
+
+        <div class="col">
+
+            
+    <div class=" w-50 mt-2 m-auto">
+        <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="Example: 140044" id="search">
+    
+    </div>
+
+    
+    <center>
+        <div class="btn-group bg-secondary ">
+            <button data-id="Six" class="classDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">Six</span></button>
+            <button data-id="Seven" class="classDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">Seven</span></button>
+            <button data-id="Eight" class="classDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">Eight</span></button>
+            <button data-id="Nine" class="classDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">Nine</span></button>
+            <button data-id="Ten" class="classDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">Ten</span></button>
+       
+          </div>
+    </center>
+    <center>
+        <div class="btn-group bg-secondary ">
+            <button data-id="- A" class="sectionDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">A</span></button>
+            <button data-id="- B"  class="sectionDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">B</span></button>
+            <button data-id="- C" class="sectionDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">C</span></button>
+       
+          </div>
+    </center>
+<div class="row">
+    <div class="col-12 col-md-6 m-auto" id="list">
+        
+
+        <% for(let i= 0; i<info.length; i++) {%>
+
+            <ul class="list-group mt-2" id="list">
+                <li class="list-group-item list-group-item-light shadow">
+                    <img src="/image/student/<%=info[i].avatar%>" height="30px" class=" rounded" width="40px" alt="">
+             
+                    <span class="  bg-light text-muted">(<%=info[i].class%> - <%=info[i].section%>) </span>
+                    <span class="  bg-light text-dark"><%=info[i].name%> (<%=info[i].roll%>) </span>
+            <hr> <span class=" btn-lg  badge bg-light text-dark">Behavior</span> <br>
+                    <div class=" btn-group btn-group-sm ">
+
+                        <button data-id="weak_B" data-id2="<%=info[i].ID%>" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#x2730;</button>
+
+                        <button data-id="good_B" data-id2="<%=info[i].ID%>" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#x2730;&#x2730;</button>
+                        <button data-id="excellent_B" data-id2="<%=info[i].ID%>" id="excellent" class="def  btn btn-success fs-3 bg-light text-success ">&#x2730;&#x2730;&#x2730;</button>
+
+                   </div>
+
+                   <hr>  <span class=" btn-lg  badge bg-light text-dark">Uniform</span> <br>
+                   <div class=" btn-group btn-group-sm ">
+                       
+                       <button data-id="weak_U" data-id2="<%=info[i].ID%>" id="weak" class="def  btn btn-danger fs-3 bg-light  text-danger ">&#10026;</button>
+                       <button data-id="good_U" data-id2="<%=info[i].ID%>" id="good" class="def  btn btn-primary fs-3 bg-light text-primary">&#10026;&#10026;</button>
+                        <button data-id="excellent_U" data-id2="<%=info[i].ID%>" id="excellent" class="def  btn btn-success fs-3 bg-light text-success ">&#10026;&#10026;&#10026;</button>
+                   </div>
+           
+
+                   <hr> <span class=" btn-lg  badge bg-light text-dark">Study</span> <br>
+                   <div class=" btn-group btn-group-sm ">
+                    
+                       <button data-id="weak_S" data-id2="<%=info[i].ID%>" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#10030;</button>
+
+                        <button data-id="good_S" data-id2="<%=info[i].ID%>" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#10030;&#10030;</button>
+                        <button data-id="excellent_S" data-id2="<%=info[i].ID%>" id="excellent" class="def  btn btn-success fs-3  bg-light text-success ">&#10030;&#10030;&#10030;</button>
+
+                    </div>
+                 </li>
+               
+             
+            </ul>
+
+            <% } %>  
+
+    </div>
+</div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+<script>
+
+$(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $(".list-group").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+$(document).ready(function(){
+  $(".sectionDef").click(function(e) {
+    let btn=  e.currentTarget;
+    $(".sectionDef").removeClass("btn-light")
+var value= e.currentTarget.attributes[0].value;
+$(btn).addClass("btn-light")
+    
+    $(".list-group").filter(function() {
+       
+      $(this).toggle($(this).text().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+$(document).on("click", ".def",(e)=>{
+ let ID =  e.currentTarget.attributes[1].value
+ let mark =  e.currentTarget.attributes[0].value
+ let btn= e.currentTarget
+
+$.ajax({
+    method: "post",
+    url: "/teacher/rank/post",
+    data: {ID, mark},
+    dataType: "JSON",
+    beforeSend: function(){
+        $(btn).addClass("btn")
+        $(btn).addClass("disabled")
+    },
+    success: function (info) {
+       
+        $(".toast-msg").removeClass("text-danger")
+        $(".toast-msg").addClass(`alert-${info.alert}`)
+        $(".toast-msg").text(info.msg)
+        $(".toast").addClass('show')
+
+        setTimeout(() => {
+            $(btn).removeClass("disabled")
+        }, 2000);
+    }
+});
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$(document).on("click", ".classDef", (e)=>{
+    let btn= e.currentTarget;
+$(".classDef").removeClass("btn-light")
+$(".sectionDef").removeClass("btn-light")
+
+let className= e.currentTarget.attributes[0].value;
+$(btn).addClass("btn-light")
+function loadDataClassBase()
+{
+   $.ajax({
+       method: "post",
+       url: "/teacher/rank/get/class/base",
+       data: {className},
+       dataType: "JSON",
+       success: function (info) {
+
+           $("#list").html(info.html)
+           
+       }
+   });
+}
+
+loadDataClassBase()
+
+})
+
+
+</script>
+
+<%-include('../component/___node.html') %>
+</body>
+
+
+</html>

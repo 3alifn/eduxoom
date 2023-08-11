@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher settings</title>
+    <%- include("../component/metadata.html") %> 
+
+
+
+    <style>
+    .chosen-container-active{
+     width: 100% !important;
+   }
+   
+   .search-field{
+     width: 100% !important;
+   }
+   
+   ul.chosen-choices{
+     width: 300px !important;
+   }
+    </style>
+
+
+</head>
+
+<body onload="pageLoadingTop()">
+  <%- include("../component/admin-header-nav.html") %> 
+  <%- include("../component/admin-menu-nav.html") %> 
+
+
+  <div id="main-content" class="p-2 mt-5">
+
+
+  <div class="col">
+    
+
+      
+    <%-include("../component/modal-trigger.html") %> 
+
+
+
+<!-- Button trigger modal -->
+<div class="row">
+  <div class="col mt-5 ms-5">
+    <button title="ADD" type="button" class="btn " data-toggle="modal" data-target="#modelId_form">
+    <img width="30px" src="/icon/file/icons8-add-list-48.png" alt="">
+    </button>
+    <span title="Refresh" class=" btn" onclick="window.location.reload()"><img width="30px" src="/icon/file/icons8-refresh-64.png" alt=""></span>
+
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modelId_form" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Teacher List</h5>
+                    <button type="button" class="btn close btn-primary close-post" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-11">
+                        <form id="teacherForm" method="post" class="" novalidate>
+                            <center>
+
+              
+                              <label>
+                                <img id="getImg" src="/image/teacher/male_avatar.png" width="200px" height="100px" alt="IMG" style="cursor: pointer;"> 
+                                <input  style="display: none" type="file" name="avatar" id="fileItem">
+                            </label>
+ <br>            
+
+                              <strong>Teacher Information</strong>
+                            </center>     
+<p></p>
+                            <div class="input-group">
+                              <span class=" input-group-text ">Position</span>
+                            <select class="form-self form-select form-self" name="position" id="" required>
+                            
+                              <option disabled selected value="" >Select Position</option>
+                              <option value="Headmaster">Headmaster</option>
+                              <option value="Assistant Headmaster">Assistant Headmaster</option>
+                              <option value="Assistant Teacher">Assistant Teacher</option>
+                              <option value="Instructor">Instructor</option>
+                              <option value="Sports Teacher">Sports Teacher</option>
+                              <option value="Librarian">Librarian</option>
+                            
+                            </select>
+                            
+                            
+                            </div>
+                  
+                            <p></p>
+
+
+                            <div class="input-group">
+                              <span class=" input-group-text ">Group</span>
+                            <select class="form-self form-select form-self" name="groupSpecial" id="" required>
+                            
+                              <option disabled selected value="" >Select Group</option>
+                              <option value="Science">Science</option>
+                              <option value="Commerce">Commerce</option>
+                              <option value="Arts">Arts</option>
+                              <option value="N/A">N/A</option>
+                        
+                            
+                            </select>
+                            
+                            
+                            </div>
+
+
+                            <p></p>
+
+                          
+                            <div class=" input-group"> 
+                                <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
+                                <input pattern="^[0-9]*$" type="tel" placeholder="enter pds id." name="pdsId" value="" class="form-control form-self">
+
+                                <div  class="valid-feedback"></div>
+                                 <div id="" class="invalid-feedback">Enter only number</div>
+
+                            </div>
+                        
+                            <p></p>
+                
+                        <div class=" input-group"> 
+                            <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
+                            <input pattern="[A-Za-z0-9]*$" type="text" placeholder="enter index no." name="indexNo" value="" class="form-control form-self"> 
+                            <div  class="valid-feedback"></div>
+                            <div id="" class="invalid-feedback">Enter only letter & number</div>
+
+                        </div>
+
+
+                
+                        <p></p>
+
+                        
+                        <div class=" input-group"> 
+                            <span class=" input-group-text"><i class=" fa fa-user-circle"></i></span>
+                            <input pattern="^[A-Za-z .-_]*$" type="text" placeholder="enter name" name="name" value="" class="form-control form-self" required>
+                            <div  class="valid-feedback"></div>
+                            <div id="" class="invalid-feedback">Enter a valid name</div>
+                            
+                        </div>
+
+                        <p></p>
+
+                
+                           <div>
+                            <label for="male"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="male" value="Male" checked name="gender" > Male </span> </label> 
+                            <label for="female">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="Female" id="female"  name="gender" > Female </span> </label>
+                              </div>
+
+                          <p></p>
+
+                
+                        <div class=" input-group"> 
+                            <span class=" input-group-text"><i class="fa-sharp fa-solid fa-at"></i></span>
+                            <input pattern="^([A-Za-z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([A-Za-z0-9\-]+\.)+))([A-Za-z]{2,4}|[0-9]{1,3})(\]?)$"  type="email" placeholder="example@gmail.com" name="email" value="" class="form-control form-self" required> 
+
+                            <div  class="valid-feedback"></div>
+                            <div id="" class="invalid-feedback">Enter a valid email</div>
+                           
+                        </div>
+                        
+                        <p></p>
+
+                
+                        <div class=" input-group"> 
+                            <span class=" input-group-text"><i class=" fa fa-contact-book"></i></span>
+                            <input pattern="^01[0-9]*$" maxlength="11" type="tel" placeholder="017XXXXXXXX" name="telephone" value="" class="form-control form-self" required>
+
+                            <div  class="valid-feedback"></div>
+                            <div id="" class="invalid-feedback">Enter contact number</div>
+                        </div>
+                
+                
+                        <p></p>
+
+                        <div class="input-group">
+                          <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-praying-man-48.png" alt=""></span>
+                        <select class="form-self form-select form-self" name="religion" id="" required>
+                        
+                          <option disabled selected value="" >Select Religion</option>
+                          <option value="Islam">Islam</option>
+                          <option value="Hinduism">Hinduism</option>
+                          <option value="Christianity">Christianity</option>
+                          <option value="Buddhism">Buddhism</option>
+                        </select>
+                        
+                        
+                        </div>
+              
+                        <p></p>
+
+
+
+                     <div class=" input-group">
+                      <span class=" input-group-text"><i class="fa-sharp fa-solid fa-lock"></i></span>
+                      <input id="password" type="password" placeholder="********" name="password"  value="password" class="form-control form-self" required>
+                      <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text"><i class="bi bi-eye-slash-fill"></i></span>
+                      <span  style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text"><i class="bi bi-eye-fill"></i></span>
+                            </div>
+                
+                  <p></p>
+
+                          
+                        <div title="Joining Date" class=" input-group"> 
+                            <span class=" input-group-text"><i class="fa-sharp fa-solid fa-right-to-bracket"></i></span>
+                            <input type="text"  placeholder="Joing Date: 10-11-2002"  name="joiningDate" class=" form-control form-self">
+                        </div>
+                        <p></p>
+
+                        
+                        <center>
+                          <button id="submitbtn" class=" w-50 btn-self rounded">Join</button>
+                        </center>
+
+                        
+
+                        <p></p>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+      
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row mt-2" id="list">
+
+</div>
+<p></p>
+
+
+
+
+
+
+
+<!-- Button trigger modal -->
+<button id="editFormBtn" type="button" class="btn d-none" data-toggle="modal" data-target="#modelId_edit">
+  Edit
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modelId_edit" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Teacher Modify</h5>
+          <button type="button" class="close btn btn-primary close-edit" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body" id="editForm">
+     
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  </div>
+
+</div>
+<%- include("../component/___node.html") %> 
+
+<script>
+
+ function defform(){
+  const forms = document.querySelectorAll('#teacherForm')
+
+
+Array.from(forms).forEach(form => {
+
+  form.addEventListener('submit', event => {
+
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+
+    }
+    else {
+      event.preventDefault()
+
+      todoTeacher(event)
+    }
+
+
+
+    form.classList.add('was-validated')
+  })
+})
+ }
+
+ defform()
+
+
+$('#eye-hide').click(()=>{
+    $('#password').attr('type', "text")
+    $('#eye-hide').css({'display': 'none'})
+    $('#eye-show').css({'display': 'block'})
+})
+
+
+$('#eye-show').click(()=>{
+    $('#password').attr('type', "password")
+    $('#eye-hide').css({'display': 'block'})
+    $('#eye-show').css({'display': 'none'})
+})
+
+
+
+function displayLoad(){
+
+  $.ajax({
+    method: "post",
+    url: "/admin/teacher/get",
+    data: {},
+    dataType: "JSON",
+    beforeSend: function(){
+    _spin_pull()
+    },
+    success: function (info) {
+      
+      $("#list").html(info.list)
+     _spin_pop()
+
+    }
+  });
+
+}
+
+displayLoad()
+
+
+  function todoTeacher(e){
+  e.preventDefault()
+
+  var formdata = new FormData($('form')[0]);
+  $.ajax({
+    method: "post",
+    url: "/admin/teacher/join",
+    data: formdata, 
+    mimeTypes:"multipart/form-data",
+    contentType: false,
+    cache: false,
+    processData: false,   
+    dataType: "JSON",
+    beforeSend: function(){
+      $("#submitbtn").addClass("disabled")
+    _spin_pull()
+
+    },
+    success: function (info) {
+        _spin_pop()
+        _msg_pull('alert-success', 'added....')
+        displayLoad()
+
+    }
+  });
+
+}
+
+
+
+
+
+ function _delbox_push(ID){
+  $.ajax({
+  method: "post",
+  url: "/admin/teacher/delete",
+  data: {ID},
+  dataType: "JSON",
+  beforeSend: function(){
+    _spin_pull()
+
+  },
+  success: function (info) {
+        _spin_pop()
+        _msg_pull('alert-success', 'deleted....')
+        displayLoad()
+    
+  }
+ });
+ }
+
+
+
+
+
+
+
+$(document).on("click", ".edit_def", (e)=>{
+ let ID=  e.currentTarget.attributes[0].value;
+
+
+  $.ajax({
+  method: "post",
+  url: "/admin/teacher/update/page",
+  data: {ID},
+  dataType: "JSON",
+  beforeSend: function(){
+
+  },
+  success: function (info) {
+
+  $("#editForm").html(info.list)
+    
+    $("#editFormBtn").click()
+  }
+
+ });
+
+
+})
+
+
+
+
+$(document).on("submit", "#editTeacherList", (e)=>{
+ e.preventDefault();
+
+
+  $.ajax({
+  method: "post",
+  url: "/admin/teacher/update",
+  data: $("#editTeacherList").serialize(),
+  dataType: "JSON",
+  beforeSend: function(){
+    _spin_pull()
+
+  },
+  success: function (info) {
+         _spin_pop()
+        _msg_pull('alert-success', 'updated....')
+        displayLoad()
+  }
+ });
+
+
+})
+
+
+
+</script>
+
+</body>
+</html>

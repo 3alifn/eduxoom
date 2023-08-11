@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Account info</title>
+
+    <%- include("../component/metadata.html") %> 
+
+
+</head>
+<style>
+ 
+  
+  
+  #link a:hover{
+      background-color: rgb(199, 176, 247);
+      color: blueviolet;
+   
+  }
+  
+  
+  .bg-active{
+    background-color: rgb(199, 176, 247);
+      color: blueviolet;
+   
+  }
+
+</style>
+
+
+<body onload="pageLoadingTop()">
+
+  <%- include("../component/user-header-nav.html") %> 
+  <%- include("../component/parent-offcanvas-nav.html") %> 
+
+
+<% if( typeof msg!=typeof alifn && msg.length>0) {%>
+
+  <%-include("../component/toast-ejs") %> 
+
+     <% } else { %>
+       <%=null %> 
+       <% } %> 
+
+
+
+<div class="row">
+  
+  <div id="personalInfos" class="col-md-6 m-auto">
+
+
+    <div class="card p-2">
+      <div class="card-body">
+          <h4 class="card-title">Profile Details</h4>
+          
+          <p class="card-text">You have full control to manage your account setting.</p>
+    </div>
+
+      <form id="formFile"  method="post" enctype="multipart/form-data">
+        <label>
+          <div>
+            <input type="file" name="avatar" id="file" style="display: none;">
+            <img id="avatar" width="50px" class="rounded bg-demo-img-color" src="/image/parent/<%=info[0].avatar%>" alt="">
+            <center> <span id="fileEdit" class="btn btn-dark rounded-pill p-1 m-0">edit</span></center>
+          </div>
+        </label>
+       </form>
+
+       <h4 class="text-dark mt-3"><%-info[0].name %> </h4>
+       <p class="text-dark mt-3"><%-info[0].email %> </p>
+   <p class="text-muted">PNG or JPG and max file size 2mb.</p>
+
+  </div>
+
+</div>
+
+</div>
+
+<p></p>
+
+<form action="/parent/info/update" method="post">
+
+<div class="row">
+
+<div class="col-md-6 m-auto">
+
+
+<label  for="name">Name</label>
+<input class="form-dev " type="text" value="<%=info[0].name%>" name="name"  id="name" placeholder="Enter Name" required>
+<p></p>
+
+<div>
+  <label for="male"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="male" value="Male" <%=info[0].gender=='Male' || info[0].gender=='male' ? 'checked': 'no'%>  name="gender" > Male </span> </label> 
+  <label for="female">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="Female" id="female" <%=info[0].gender=='Female' || info[0].gender=='female'? 'checked': 'no'%>  name="gender" > Female </span> </label>
+</div>
+
+<label  for="">Contact</label>
+<input class="form-dev " type="tel" value="<%=info[0].telephone%>" name="telephone"  id="" placeholder="Contact No" required>
+<p></p>
+
+
+     
+<label for="">Student Id</label>
+<input readonly disabled type="number"class="form-dev " value="<%=info[0].student_id%>" name="student_id" id="" placeholder="Student Id" required>
+<p></p>
+
+
+<label for="">Relation With Student</label>
+<select class="form-dev " name="relation" id="" required>
+
+  <option selected value="" disabled>Select Relation</option>
+  <option value="Father">Father</option>
+  <option value="Mother">Mother</option>
+  <option value="Brother">Brother</option>
+  <option value="Sister">Sister</option>
+  <option value="Grand Father">Grand Father</option>
+  <option value="Grand Mother">Grand Mother</option>
+  <option value="Others">Others</option>
+  <option <%=info[0].relation==undefined?'':'selected'%> value="<%=info[0].relation%>"><%=info[0].relation%></option>
+
+
+  </select>      
+<p></p>
+
+
+<center>
+    <button class=" btn-dev w-50" type="submit">Save Change</button>
+    </center>
+</div>
+
+
+</div>
+       
+
+</form>
+
+<p></p>
+
+
+<div class="row">
+
+  
+<div id="securitys"  class="col-md-6 m-auto">
+
+        <div class="card">
+          <div class="card-body">
+              <h4 class="card-title">Security </h4>
+              <p class="card-text text-muted">Edit your account settings your password here.</p>
+          
+              <hr>
+          <p></p>
+          <form action="/parent/email/update/page" method="post">
+              <h4 class="card-title">Email address</h4>
+              <p class="card-text">Your current email address is <a class="nav-item " style="text-decoration:none; color: rgb(82, 187, 129);" href="#"><%=info[0].email%> </a></p>
+           <p></p>
+              <label for="email">New email address </label>
+              <input class="form-dev " type="email" name="username"  id="newemail" placeholder="<%=info[0].email%>" required>
+              <p></p>
+              <button id="emailUpdate" style="color:rgb(255, 255, 255) ; background-color: blueviolet;" class="btn btn-outline-light">Update</button>
+            <p></p>
+              <hr>
+            <p></p>
+           
+          </form>
+
+            <form id="passwordUpdateForm" action="/parent/password/update" method="post">
+
+            
+              <h4 class="card-title">Change Password</h4>
+              <p class="card-text text-muted">We will email you a confirmation when changing your password,so please expect that email after submitting.</p>
+           <p></p>
+              <label for="password">Current Password</label>
+
+              <div class="input-group">
+
+
+                <span class=" input-group-text"> <img width="30px" src="/icon/icons8-sign-in-form-password-48.png" alt=""> </span>
+                <input id="password" type="password" placeholder="********" name="pastPassword"  value="" class="form-control" required>
+                <span id="eye-hide" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye-slash"></i></span>
+                <span style="display: none;" id="eye-show" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye"></i></span>
+    
+
+            </div>
+        
+            <p></p>
+            <label for="newpassword">New Password</label>
+            <div class="input-group">
+
+
+              <span class=" input-group-text"> <img width="30px" src="/icon/icons8-sign-in-form-password-48.png" alt=""> </span>
+              <input id="password2" type="password" placeholder="********" name="password"  value="" class="form-control" required>
+              <span id="eye-hide2" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye-slash"></i></span>
+              <span style="display: none;" id="eye-show2" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye"></i></span>
+  
+
+          </div>
+     <p></p>
+            
+
+              <button  style="color:rgb(255, 255, 255) ; background-color: blueviolet;" class="btn btn-outline-light">Save Change</button>
+          <p></p>
+              <p>Can't remember password? <a href="/au/forgot/password" style="color:blueviolet ;"> Reset password</a></p>
+
+       </div>
+</form>
+
+         </div>
+      </div>
+
+</div>
+        
+
+
+
+<script>
+
+
+
+$('#eye-hide').click(()=>{
+    $('#password').attr('type', "text")
+    $('#eye-hide').css({'display': 'none'})
+    $('#eye-show').css({'display': 'block'})
+})
+
+
+$('#eye-show').click(()=>{
+    $('#password').attr('type', "password")
+    $('#eye-hide').css({'display': 'block'})
+    $('#eye-show').css({'display': 'none'})
+})
+
+$('#eye-hide2').click(()=>{
+    $('#password2').attr('type', "text")
+    $('#eye-hide2').css({'display': 'none'})
+    $('#eye-show2').css({'display': 'block'})
+})
+
+
+$('#eye-show2').click(()=>{
+    $('#password2').attr('type', "password")
+    $('#eye-hide2').css({'display': 'block'})
+    $('#eye-show2').css({'display': 'none'})
+})
+
+
+$("#emailUpdate").on("click", (e)=>{
+
+let updatebtn=  e.currentTarget;
+
+
+ $(updatebtn).addClass("disabled")
+
+
+
+})
+
+
+
+
+
+$(document).on("click", ".nav-link", (e)=>{
+  let navLink= e.currentTarget;
+  $(".nav-link").removeClass("bg-active")
+  $(navLink).addClass("bg-active")
+})
+
+
+
+
+  
+
+
+
+$("#file").on("change", ()=>{
+  $("#formFile").submit()
+
+})
+
+
+$("#formFile").submit(function(e){
+
+        e.preventDefault();
+
+    var formdata = new FormData(this);
+
+        $.ajax({
+            url: "/parent/avatar/upload",
+            type: "POST",
+            data: formdata,
+            mimeTypes:"multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            beforeSend: function(){
+              $("#fileEdit").hide()
+             $("#avatar").addClass("spinner-grow")
+
+            },
+
+            success: function(info){
+
+                  window.location.reload()
+             
+
+            },
+
+         });
+
+         
+ 
+      })
+      
+    
+     
+
+        
+</script>
+<%- include("../component/___node.html") %> 
+
+</body>
+</html>

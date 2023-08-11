@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Parent</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<body onload="pageLoadingTop()">
+
+    <% if( typeof msg!=typeof alifn && msg.length>0) {%>
+
+        <%-include("../component/toast-ejs") %> 
+    
+           <% } else { %>
+             <%=null %> 
+             <% } %> 
+
+   <!-- section 1............ -->
+   <div class="row">
+    <div class=" col-md-6 col-11 m-auto">
+
+        <% if(step=="step1") {%> 
+        <form  id="form" action="/pu/join/parent"  class="form container" novalidate method="post">
+
+            <img src="/image/school/user.png" height="60px" alt="">
+
+            <h5>Join Parent</h5>
+
+            <p>have a account? <a href="/au/singin/page" id="signIn_link">Sign in</a></p><br>
+
+ 
+        
+            <div class="input-group">
+
+              <span class=" input-group-text"> <img width="30px" src="/icon/user/icons8-test-account-48.png" alt=""> </span>
+  
+  
+              <input pattern="^[A-Za-z .-_]*$" type="text" placeholder="Full Name" name="name" class="form-self form-control" required>
+  
+              <div  class="valid-feedback"></div>
+              <div id="" class="invalid-feedback">Enter a valid name</div>
+             
+  
+             </div>
+
+<p></p>
+
+
+
+<div>
+  <label for="male"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="male" value="Male" checked name="gender" > Male </span> </label> 
+  <label for="female">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="Female" id="female"  name="gender" > Female </span> </label>
+</div>
+
+<p></p>
+
+            <div class="input-group">
+
+              <span class=" input-group-text"> <img width="30px" src="/icon/user/icons8-checked-identification-documents-48.png" alt=""> </span>
+  
+  
+              <input pattern="^[0-9]*$" type="tel" placeholder="Enter Student Id" name="student_id" class="form-self form-control" required>
+  
+              <div  class="valid-feedback"></div>
+              <div id="" class="invalid-feedback">Enter a valid student id</div>
+        
+  
+             </div>
+
+             <p></p>     
+
+             <div class="input-group">
+
+              <span class=" input-group-text"> <img width="30px" src="/icon/user/icons8-contact-48.png" alt=""> </span>
+  
+  
+              <input maxlength="11" pattern="^01[0-9]*$" type="tel" placeholder="Contact No." name="telephone" class="form-self form-control" required>
+              <div  class="valid-feedback"></div>
+              <div id="" class="invalid-feedback">Enter contact number</div>
+          
+  
+             </div>
+  
+
+
+<p></p>
+
+          
+            <div class="input-group">
+
+              <span class=" input-group-text"> <img width="30px" src="/icon/user/icons8-mail-48.png" alt=""> </span>
+  
+  
+              <input pattern="([A-Za-z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([A-Za-z0-9\-]+\.)+))([A-Za-z]{2,4}|[0-9]{1,3})(\]?)$" type="email" placeholder="example@mail.com" name="email"  class="form-self form-control" required>
+              <div  class="valid-feedback"></div>
+              <div id="" class="invalid-feedback">Enter a valid email</div>
+             
+  
+             </div>
+
+<p></p>
+    
+            
+<div class=" input-group">
+  <span class=" input-group-text"> <img width="30px" src="/icon/icons8-sign-in-form-password-48.png" alt=""> </span>
+  <!-- <label for="password"> -->
+    <input maxlength="20" minlength="6" pattern="[A-Za-z0-9!@#$%&*]*$" id="password" type="password" placeholder="Enter password" name="password" value="" class="form-control form-self"  required>
+
+  <!-- </label> -->
+  <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text"><i class="bi bi-eye-slash-fill"></i></span>
+  <span  style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text"><i class="bi bi-eye-fill"></i></span>
+
+  <div  class="valid-feedback"></div>
+  <div id="" class="invalid-feedback">Enter minimum 6 letter, maximum 20 letter & case ([A-Za-z0-9!@#$%&*]) </div>
+
+</div>
+
+           <p></p>
+
+            <center>
+                <input type="submit" value="Join" class="btn-self w-50">
+            </center> 
+
+    
+        </form>
+
+
+      </div>
+    </div>
+ <% } else if (step=="step2") {%>
+
+   <div class="row">
+    <div class="col-11 m-auto col-md-6">
+      <form id="form2" action="/pu/join/verifycode" method="post" novalidate class=" form container">
+
+        <center>
+          <img src="/image/school/user.png" height="70px" alt=""> <br>
+          <strong>Check Your Email and Enter Verification code!</strong>
+        </center>   
+        <p></p>
+  
+        <div>
+          <input pattern="^[0-9]*$" type="tel" placeholder="Enter verification" name="verifyCode" class="form-self form-control" required>
+
+          <div  class="valid-feedback"></div>
+          <div id="" class="invalid-feedback">Enter a valid code</div>
+        
+      
+
+        </div>
+        <p></p>
+  
+        <center>
+          <button class="w-50 btn-self">Verify</button>
+        </center>
+        <p></p>
+      </form>
+
+    <% }  else {%>
+
+        <%=null %> 
+        
+        <% } %> 
+
+    <p></p>
+    </div>
+   </div>
+
+
+    <script>
+
+
+
+$('#eye-hide').click(()=>{
+    $('#password').attr('type', "text")
+    $('#eye-hide').css({'display': 'none'})
+    $('#eye-show').css({'display': 'block'})
+})
+
+
+$('#eye-show').click(()=>{
+    $('#password').attr('type', "password")
+    $('#eye-hide').css({'display': 'block'})
+    $('#eye-show').css({'display': 'none'})
+})
+
+
+function defForm1(){
+
+  const forms = document.querySelectorAll('#form')
+
+
+  Array.from(forms).forEach(form => {
+
+    form.addEventListener('submit', event => {
+ 
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+
+      }
+
+
+
+      form.classList.add('was-validated')
+    })
+  })
+
+
+}
+
+defForm1()
+
+function defForm2(){
+  const forms = document.querySelectorAll('#form2')
+
+
+Array.from(forms).forEach(form => {
+
+  form.addEventListener('submit', event => {
+
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+
+    }
+
+
+
+    form.classList.add('was-validated')
+  })
+})
+}
+
+defForm2()
+
+
+
+    </script>
+</body>
+</html>

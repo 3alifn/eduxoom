@@ -1,0 +1,361 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcript Report</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<style>
+  table>thead {
+    vertical-align:baseline !important;
+}
+  tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 3 !important;
+    text-align: center;
+}
+</style>
+<body onload='pageLoadingTop()'>
+
+  <%- include("../component/admin-header-nav.html") %> 
+  <%- include("../component/admin-menu-nav.html") %> 
+
+
+  <div id="main-content" class="p-2 mt-5 row">
+
+    <div class="btn-section-top mt-3 mb-3">
+      <center>
+        <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"  class="  btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a> 
+        <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a> 
+        <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a> 
+    
+        
+    </center>
+    </div>
+
+
+    
+
+<div id="btnSection" class="mb-2 btn-section-bottom">
+  <center> <input class="student_id" type="hidden" value="<%=student_id%>" name="">
+   <button  class="btn droppedResult btn-danger">অনউত্তীর্ণ</button> 
+   <button  class="btn passedResult btn-success">উত্তীর্ণ</button> 
+   <a href="/admin/transcript/report-get/<%=className%>/<%=sectionName%>/auto?student_offset=<%=offsetPlus%>" class="btn <%=btnstatus%> btn-primary">পর্রবতী</a> 
+
+   <button class="btn btn-light printAreaBtn" onclick="printArea()">Download</button>
+
+  </center>
+</div>
+
+
+    <div id="printArea">
+
+      
+    
+    <div class=" row">
+     
+       <div class="card col-12 col-md-8 p-2">
+        <img class=" m-auto" width="60px" src="/image/default/logo.png" alt="">
+          <center>
+            <h4 class="card-text">Boalamri George Academy</h4>
+          <h6 class="card-text">Transcript Report</h6>
+          </center>
+       </div>  
+       
+       <div class="card col-12 col-md-4 p-2">
+        <img class=" m-auto" width="100px" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
+        <div class=" m-auto"> <br>
+          <h6 class="card-text text-capitalize"><%=infoStudent[0].name %> - <%=infoStudent[0].student_id %></h6>
+        </div>
+        </div>
+
+      
+  
+    </div>
+
+
+
+
+    <% const infoChapter= ['PI-1','PI-2','PI-3','PI-4','PI-5',
+    'PI-6','PI-7','PI-8','PI-9','PI-10','PI-11','PI-12'
+ ]%>
+
+<p></p>
+
+
+
+<div class="row mainApp" style="width: 100%; overflow-x: auto;">
+
+
+  <div class="col-auto m-auto ">
+<center><caption><b>BI Perfomance</b></caption>
+  </center>
+  <table class=" table table-bordered">
+
+      <thead  class="">
+
+          <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
+            <th><small style="font-size: smaller;">BI-<%=index+1%></small></th>
+
+          <% } %>
+
+      </thead>
+
+
+
+      <tbody class="">
+
+           <tr>
+
+          <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
+              <td > 
+                  <div class="form-check checkout_<%=infoStudent[0].student_id%><%=infoCatagory[index].catagory_code%> fs-3 p-0 m-0">
+              
+                    <i class="bi bi-square"></i>           
+
+                                                          
+                  </div>
+          
+                  
+                 </td>
+          <% } %>
+ 
+</tr>
+      </tbody>
+
+
+  </table>
+
+
+  </div>
+</div>
+
+  
+<div class="row mainApp" style="width: 100%; overflow-x: auto;">
+  <div class="col-12 m-auto ">
+
+  <center><caption clas><b>Transcript report</b></caption></center>
+    <table class=" table table-bordered mt-2">
+   <thead class=""> 
+    <tr>
+      <th>Subject</th>
+
+   <% for( let index = 0; index <infoChapter.length; index++ ) { %>
+                    <th><%=infoChapter[index]%></th>
+    
+                  
+        <% } %>
+      
+
+      </tr>
+   </thead>
+
+  <tbody class="">
+
+<% for( let i = 0; i < infoSubject.length; i++ ) { %>
+ <tr>
+
+<td>
+  <small style="font-size: smaller; font-weight: bold;"><%=infoSubject[i].subject%></small>
+</td>
+
+<% for( let index = 0; index <infoChapter.length; index++ ) { %>
+    <td > 
+
+        <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> fs-3 p-0 m-0">
+                    
+          <i class="bi bi-square"></i>           
+       
+           
+           </div>
+
+        
+       </td>
+<% } %>
+
+</tr>
+<% } %>
+</tbody>
+
+
+  
+  </table>
+
+  </div>
+</div> 
+
+    </div>
+
+</div> 
+    
+<%- include("../component/___node.html") %> 
+
+</body>
+
+
+<script src= "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
+
+<script>
+
+  function printArea(todo){
+ $('.printAreaBtn').addClass('disabled');
+  $('.mainApp').css('overflow-x', 'visible');
+  $('.btn-section-top').hide();
+  $('.btn-section-bottom').hide();
+  
+
+const className= '<%=className%>'
+const sectionName= '<%=sectionName%>'
+const student_id= '<%=student_id%>'
+_spin_pull()
+  setTimeout(() => {
+var element = document.getElementById('printArea');
+
+   var opt = {
+        margin: 1,
+        filename: `Transcript-${className}-${sectionName}-${-student_id}.pdf`,
+        html2canvas: {
+           scale: 2
+        },
+        jsPDF: {
+           unit: 'pt',
+           format: 'tabloid',
+           orientation: 'p'
+        }
+     };
+        html2pdf().set(opt).from(element).save();
+       _spin_pop()
+  _msg_pull('alert-success', 'Download Successfully...', false)
+ 
+  setTimeout(() => {
+  $('.btn-section-top').show()
+  $('.btn-section-bottom').show()
+  }, 1000);
+
+  }, 3000);
+
+  
+}
+
+
+
+function student_checkout_class() {
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+ const student_id= '<%=student_id%>'
+    $.ajax({
+        method: "post",
+        url: "/privet/transcript/report-get-checkout",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        success: function (response) {
+         
+            for (const key in response.info_checkout) {
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].pi==1?'<i class="bi bi-square-fill"></i>':response.info_checkout[key].pi==2?'<i class="bi bi-circle-fill"></i>':response.info_checkout[key].pi==3?'<i class="bi bi-triangle-fill"></i>':'<i class="bi bi-square"></i>');
+            }
+        }
+    });
+    
+}
+
+student_checkout_class()
+
+function bi_checkout_class() {
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+ const student_id= '<%=student_id%>'
+    $.ajax({
+        method: "post",
+        url: "/privet/bi/transcript-report-checkout",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        success: function (response) {
+            for (const key in response.info_checkout) {
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].bi_point==1?'<i class="bi bi-square-fill"></i>':response.info_checkout[key].bi_point==2?'<i class="bi bi-circle-fill"></i>':response.info_checkout[key].bi_point==3?'<i class="bi bi-triangle-fill"></i>':'<i class="bi bi-square"></i>');
+
+
+            }
+        }
+    });
+    
+}
+
+bi_checkout_class()
+
+
+
+$(document).on('click', '.passedResult', ()=>{
+    const className=  `<%=className%>`;
+    const sectionName= `<%=sectionName%>`;
+    const student_id= $('.student_id').val()
+    $.ajax({
+        method: "post",
+        url: "/admin/transcript/final-card-passed-result",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        beforeSend: function(){
+ $('.droppedResult').addClass('disabled')
+
+$('.passedResult').addClass('disabled')
+
+
+$('.toast-msg').html(`<img src="/image/default/loading-load.gif" width="100px" class=" bg-dark" alt="">
+        <span>Processing...</span>`)
+        $('.toast').addClass('show');
+
+        },
+        success: function (info) {
+
+      
+         $('.toast-btn').click()
+            
+        }
+    });
+})
+
+
+
+
+
+$(document).on('click', '.droppedResult', ()=>{
+    const className=  `<%=className%>`;
+    const sectionName= `<%=sectionName%>`;
+    const student_id= $('.student_id').val()
+    $.ajax({
+        method: "post",
+        url: "/admin/transcript/final-card-drop-result",
+        data: {className, sectionName, student_id},
+        dataType: "JSON",
+        beforeSend: function(){
+$('.passedResult').addClass('disabled')
+$('.droppedResult').addClass('disabled')
+
+$('.toast-msg').html(`<img src="/image/default/loading-load.gif" width="100px" class=" bg-dark" alt="">
+        <span>Processing...</span>`)
+        $('.toast').addClass('show');
+
+        },
+        success: function (info) {
+
+      
+         $('.toast-btn').click()
+        }
+    });
+})
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</html>

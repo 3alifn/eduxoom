@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book settings</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<body onload="pageLoadingTop()">
+
+<%- include("../component/admin-header-nav.html") %> 
+<%- include("../component/admin-menu-nav.html") %> 
+
+
+<div id="main-content" class="p-2 mt-5">
+
+
+        <div class="col">
+
+            <div class="container">
+                <center>
+                    <legend class=" container alert bg-light shadow">Edit Book</legend>
+                </center>
+            
+            
+                    <div class="row">       
+            
+                   <div class="col-12 col-md-8 m-auto">
+                    <form id="form" action="/admin/library/update" method="post" class=" bg-light p-5 shadow " >
+                     
+            
+            
+                        <div>
+                            <label for="name">Class:</label> <p></p>
+                            <select class="m-1 form-dev" name="className" id="" required>
+                                <option value="Six">Six</option>
+                                <option value="Seven">Seven</option>
+                                <option value="Eight">Eight</option>
+                                <option value="Nine">Nine</option>
+                                <option  value="Ten">Ten</option>
+                                <option selected value="<%=info[0].class_name%>"><%=info[0].class_name%></option>
+                            </select>
+                        </div>
+                        <p></p>
+                        
+                        <div>
+                            <label for="name">Section:</label> <p></p>
+                            <select class="m-1 form-dev" name="sectionName" id="" required>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option selected value="<%=info[0].saection_name%>"><%=info[0].section_name%></option>
+                        
+                            </select>
+                        </div>
+            <p></p>
+            <div>
+                <label for="name">Name:</label> <p></p>
+                <input type="text"  name="bookName" value="<%=info[0].book_name%>" class="form-dev" placeholder="Books Name.." required>
+            
+            </div>
+            <p></p>
+            <div>
+                <label for="name">Author:</label> <p></p>
+                <input type="text" value="<%=info[0].book_author%>" name="bookAuthor" class="form-dev" placeholder="Author name...">
+            
+            </div>
+            <p></p>
+            
+            <div>
+                <label for="name">Copy:</label> <p></p>
+                <input type="number" value="<%=info[0].book_copy%>" name="bookCopy" class="form-dev" placeholder="Copy.." required>
+            
+            </div>
+            <p></p>
+            
+            
+            <p></p>
+            <div>
+                <label for="name">Description:</label> <p></p>
+            
+             <textarea class=" form-dev" name="description" id="" cols="40" rows="5"><%=info[0].description%></textarea>
+            </div>
+            <p></p>
+            
+            <input type="hidden" name="ID" value="<%=info[0].ID%>"id="">
+            
+            <div>
+                <center>
+                    <button  id="btn" class="btn-self w-50">Update</button>
+                </center>
+            </div>
+            
+                    </form>
+                   </div>
+                    
+            
+                </div>
+                </div>
+             
+                <p></p>
+               </div>
+
+        </div>
+
+    </div>
+
+ 
+
+
+    <%- include("../component/___node.html") %> 
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Video settings</title>
+    <%- include("../component/metadata.html") %> 
+
+
+</head>
+
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/admin-header-nav.html") %> 
+    <%- include("../component/admin-menu-nav.html") %> 
+  
+  
+    <div id="main-content" class="p-2 mt-5">
+        <div class="col">
+
+    <%-include("../component/modal-trigger.html") %> 
+
+<hr>
+    
+<!-- Button trigger modal -->
+<center>
+    <h1>Gallery video </h1>
+    <button type="button" class="btn " data-toggle="modal" data-target="#modelvideo">ADD video</button>
+
+</center>
+
+
+<hr>
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="modelvideo" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add video</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                
+                <form class="galleryVideoForm"  method="post">
+
+
+                    <input type="hidden" class=" form-self" name="dataid" value="<%=dataid%>" id="" required> <p></p>
+                    <input type="hidden" class=" form-self" name="itemTitle" value="<%=item_title%>" id="" required> <p></p>
+                
+                    <input type="text" class=" form-self  " name="itemLink[]" placeholder="youtube embed link" id="" required> 
+                    <span type="button"  class="addItem input-group-text btn "><i class="fa-sharp fa-solid fa-plus"></i></span>
+                
+                    <center>
+                        <input id="submitVideo" class=" w-50 btn btn-primary" type="submit" value="ADD">
+                    </center>
+                <p></p>
+                </form>
+    
+
+            </div>
+        
+        </div>
+    </div>
+ </div>
+
+
+
+ <div class="col-10 mb-2">
+    <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-info"> 
+            <input style="transform: scale(1.5);" type="checkbox" class="check-mark">
+            <span class='ms-2'> Select Item </span>
+            <span class='float-end bi bi-trash-fill btn' onclick="_delbox_pull(1)">  </span>
+        </a>
+    </div>
+ </div>
+
+
+
+ <form action="#" class="galleryvideoDelete">
+
+    <div class="row check-mark-area" id="listDataPrint">
+        
+        <div class="col-6 col-md-3 m-auto ">
+          
+           
+                      
+             </div> 
+    </div>
+
+</form>
+  
+<%-include("../component/___node.html") %> 
+<script src="/app/noviewport.js"></script>
+
+<script>
+
+$(".check-mark").click(function(){
+    $('.check-mark-area input:checkbox').not(this).prop('checked', this.checked);
+});
+
+
+noview.port({
+   file_id: 'file',
+   append_id:  'file_append', 
+   file_type: 'video',
+   max_kb_size: 1024*2
+  })
+    
+function galleryvideoPull(){
+        const dataid= '<%=dataid%>'
+        $.ajax({
+            method: "post",
+            url: "/admin/gallery/video/data/get",
+            data: {dataid},
+            dataType: "JSON",
+            beforeSend: function(){
+                _spin_pull()
+
+            },
+            success: function (info) {
+    
+                $("#listDataPrint").html(info.listData)
+                _spin_pop()
+            }
+        });
+    
+    }
+
+galleryvideoPull()
+    
+    
+
+
+$(".galleryvideoForm").on('submit', (event)=>{
+      event.preventDefault()
+        $.ajax({
+            method: "post",
+            url: `/admin/gallery/video/data/post`,
+            data: $(".galleryVideoForm").serialize(),
+            dataType: "JSON",
+       
+        beforeSend: function(){
+      $("#submit").addClass("btn disabled")
+      _spin_pull()
+            },
+            success: function (info) {
+                _spin_pop()
+                _msg_pull( 'alert-success', 'video added...', null)
+                $("#submit").removeClass("disabled")
+                galleryvideoPull()
+
+    
+            }
+        });
+    
+    })
+
+
+
+function _delbox_push(ID){
+    
+    var videoIdLen= $(".galleryvideoDelete input:checked").length;
+    var videoId= []
+    for (let index = 0; index < videoIdLen; index++) {
+        videoId.push($(".galleryvideoDelete input:checked")[index].attributes[0].value);
+    }
+$.ajax({
+    type: "post",
+    url: "/admin/gallery/video/data/delete",
+    data: {videoId},
+    dataType: "JSON",
+    success: function (info) {
+       _msg_pull('alert-danger', 'video Deleted!',  null)
+       galleryvideoPull();
+
+    }
+});
+
+} 
+
+
+
+
+$(document).on("click", ".addItem", (e) => {
+
+$(".galleryVideoForm").append(`
+<div id="" class="row "  >
+<div   class="col-11  m-auto shadow  bg-light ">
+
+
+<input type="text" class=" form-self" name="itemLink[]" placeholder="youtube embed link" id="">
+
+<span type="button"  class="addItem input-group-text btn "><i class="fa-sharp fa-solid fa-plus"></i></span>
+<span type="button"  class="removeItemE input-group-text btn "><i class="fa-sharp fa-solid fa-xmark"></i></span>
+
+
+
+</div>
+</div>
+`)
+
+})
+
+
+
+
+
+$(document).on("click", ".removeItemE", (e)=>{
+    let thisItem= e.currentTarget.previousSibling.parentElement
+    
+    $(thisItem).remove()
+ 
+    
+})
+
+
+
+
+$(".galleryVideoForm").on('submit', (event)=>{
+      event.preventDefault()
+
+        $.ajax({
+            method: "post",
+            url: "/admin/gallery/video/post",
+            data: $(".galleryVideoForm").serialize(),
+            dataType: "JSON",
+            beforeSend: function(){
+      $("#submitVideo").addClass("btn disabled")
+            },
+            success: function (info) {
+                $("#submitVideo").removeClass("disabled")
+                _msg_pull('alert-success', 'Youtube link added!',  null)
+                 galleryvideoPull();
+
+    
+            }
+        });
+    
+    })
+
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library settings</title>
+    <%- include("../component/metadata.html") %> 
+
+    <style>
+        @media only screen and (max-width: 768px) {
+            #form 
+        {
+            width: 100% !important;
+        }
+        }
+    </style>
+</head>
+<body onload="pageLoadingTop()">
+    <%- include("../component/admin-header-nav.html") %> 
+    <%- include("../component/admin-menu-nav.html") %> 
+  
+<div id="main-content" class="p-2 mt-5">
+        <%-include("../component/modal-trigger.html") %> 
+  
+
+
+
+<div class="col-auto">
+
+        
+<center><legend class="container alert bg-light shadow">Manage Library</legend></center>
+<p></p>
+    <center>
+        <button id="expand" class=" btn-self w-50 "><i id="addnew"  class="fa-solid fa-circle-plus fa-beat"></i> <i id="addicon"></i> </button>
+    </center>
+
+<div id="step1">
+    
+    <form id="form"  method="post" class="w-50 container bg-light ps-3 shadow" enctype="multipart/form-data">
+        
+        <div>
+            <label for="name">Class:</label> <p></p>
+            <select class="m-1 form-dev" name="className[]" id="" required>
+                <option value="Six">Six</option>
+                <option value="Seven">Seven</option>
+                <option value="Eight">Eight</option>
+                <option value="Nine">Nine</option>
+                <option selected value="Ten">Ten</option>
+            </select>
+        </div>
+        <p></p>
+        
+        <div>
+            <label for="name">Section:</label> <p></p>
+
+            <select class="m-1 form-dev" name="sectionName[]" id="" required>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+
+            </select>
+        </div>
+        <p></p>
+
+        <div>
+            <label for="name">Name:</label> <p></p>
+            <input type="text"  name="bookName" value="NodeJs-II" class=" form-dev" placeholder="Books Name.." required>
+        
+        </div>
+        <p></p>
+        <div>
+            <label for="name">Author:</label> <p></p>
+            <input type="text" value="Ryan Dahl" name="authorName" class="form-dev" placeholder="Author name...">
+        
+        </div>
+        <p></p>
+        
+        <div>
+            <label for="name">Copy:</label> <p></p>
+            <input type="number" value="30" name="bookCopy" class="form-dev" placeholder="Copy.." required>
+        
+        </div>
+        <p></p>
+        
+    
+        <div class=" "> 
+            <label for="name">Description:</label> <p></p>
+            <textarea name="description" id="" cols="40" class=" form-dev" rows="5">web programming skill development.</textarea>
+        
+        </div>
+        <p></p>
+        
+
+        
+        <div>
+            <center><button  id="btn" class="btn-self w-50 ">Save</button></center>
+        </div>
+</div>
+
+ </form>
+        
+
+    </div>
+ 
+    <p></p>
+
+    <div id="step2" class=" container row">
+        <input class=" m-auto col-6"  type="search" name="myInput" id="myInput" style="outline: none;" placeholder="Search">
+<p></p>
+        <form action="" method="post" id="dataForm">
+            <center>
+         
+        
+                <button type="submit" class=" rounded " >
+                    <span  class="btn btn-sm btn-light " data-toggle="modal"  data-target="#modelId">Delete</span>
+                </button> 
+            </center>
+
+
+        <table class=" table table-hover">
+            <thead class="" id="thead">
+                <tr>
+                    <th>Name <input type="checkbox" name="" class="check-mark" id=""></th>
+                    <th>Author</th>
+                    <th>Copy</th>
+                    <th>Class</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th></th>
+                    </tr>
+            </thead>
+
+            <tbody class="check-mark-area">
+
+               
+            </tbody>
+
+            <!-- <tfoot>
+                <tr>
+                    <td>Total=</td>
+                </tr>
+            </tfoot> -->
+
+
+        </table>
+    </form>
+
+    </div>
+    
+
+</div>
+
+
+<%- include("../component/___node.html") %> 
+
+</body>
+
+<script>
+
+
+
+
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tbody tr").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+$("#step1").hide()
+
+$("#expand").click(()=>{
+    $("#step1").toggle("slow")
+   
+    $("#addicon").toggleClass('fa-solid fa-caret-up')
+    $("#addnew").toggle('fa-solid fa-caret-down')
+
+})
+
+function loadDisplay(){
+
+$.ajax({
+method: "post",
+url: "/admin/library/get",
+data: {},
+dataType: "JSON",
+beforeSend: function(){
+    app_loading_pull()
+},
+ 
+success: function(info){
+  app_loading_pop()
+
+    $("tbody").html(info.html)
+
+
+}
+})
+
+}
+
+loadDisplay()
+
+    
+
+$("#form").on("submit", (events)=>{
+        events.preventDefault();
+        let formdata= new FormData($("form")[0])
+    $.ajax({
+    method: "post",
+    url: "/admin/library/post",
+    data: formdata,
+    mimeType: "multipart/form-data",
+    contentType: false,
+    cache: false,
+    processData: false,
+    dataType: "JSON",
+    beforeSend: function(){
+  app_loading_pull()
+
+    },
+     
+    success: function(info){
+        $("#step1").hide()
+        antoast_msg_pull('alert-success', 'adding success...')
+        antoast_msg_pop(1000)
+        app_loading_pop()
+        loadDisplay()
+       
+    }
+   
+}) 
+
+})
+
+  
+
+
+
+ $("#dataForm").on("submit", (e)=>{
+
+
+e.preventDefault();
+
+$('.modal-trigger-trigger').click()
+$('.modal-trigger-body').text('are want to delete?').addClass('alert alert-danger fw-bolder')
+ 
+$(".modal-trigger-ok").click(()=>{
+
+$.ajax({
+    method: "post",
+    url: "/admin/library/delete",
+    data: $("#dataForm").serialize(),
+    dataType: "JSON",
+    beforeSend: function(){
+   app_loading_pull()
+    },
+    success: function (info) {
+
+        antoast_msg_pull('alert-success', 'deleted...')
+        antoast_msg_pop(1000)
+        app_loading_pop()
+        loadDisplay()
+        
+    }
+});
+
+
+})
+
+
+
+})
+
+
+    
+
+
+
+
+ </script>
+
+    
+</body>
+</html>

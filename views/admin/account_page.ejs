@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account info</title>
+    <%- include("../component/metadata.html") %> 
+
+
+</head>
+<style>
+ 
+
+.col-md-9{
+    display:none ;
+}  
+
+#link a:hover{
+    background-color: rgb(199, 176, 247);
+    color: rgb(194, 194, 194);
+   
+
+}
+#link a:hover i{
+    background-color: rgb(199, 176, 247);
+    color: blueviolet;
+ 
+}
+
+
+.bg-active{
+  background-color: rgb(199, 176, 247);
+    color: blueviolet;
+ 
+}
+</style>
+
+
+<body onload="pageLoadingTop()">
+  <%- include("../component/admin-header-nav.html") %> 
+  <%- include("../component/admin-menu-nav.html") %> 
+
+
+<div   id="main-content" class=" row p-2 mt-5">
+
+  <% if( typeof msg!=typeof alifn && msg.length>0) {%>
+
+    <%-include("../component/toast-ejs") %> 
+  
+       <% } else { %>
+         <%=null %> 
+         <% } %> 
+
+
+  <div id="personalInfos"  class="col-10">
+
+    
+        <div class="card p-2">
+          <div class="card-body">
+              <h4 class="card-title">Profile Details</h4>
+              
+              <p class="card-text">You have full control to manage your account setting.</p>
+        </div>
+    
+      
+              <div>
+                <input type="file" name="avatar" id="file" style="display: none;">
+                <img id="" width="50px" class="rounded " src="/image/admin/male_avatar.png" alt="">
+              </div>
+          
+    
+           <h4 class="text-dark mt-3"><%-info[0].hash_name %> </h4>
+           <p class="text-dark mt-3"><%-info[0].hash_username %> </p>
+       <p class="text-muted">PNG or JPG and max file size 2mb.</p>
+    
+      </div>
+    
+  </div>
+    
+
+    <form action="/admin/info/update" method="post">
+    
+    <div class="col-10">
+    
+    
+    <label  for="name">Name</label>
+    <input class="form-dev " type="text" value="<%=info[0].hash_name%>" name="hash_name"  id="name" placeholder="Enter Name" required>
+    <p></p>
+    
+    <center>
+        <button class=" btn-dev w-50">Save Change</button>
+        </center>
+
+             </div>
+    
+  </form>
+
+     <div id="securitys"  class="col-10">
+
+
+              <div class="card">
+                <div class="card-body">
+                            <h4 class="card-title">Security </h4>
+                            <p class="card-text text-muted">Edit your account settings your password here.</p>
+                        
+                            <hr>
+                        <p></p>
+                        <form action="/admin/email/update" method="post">
+                            <h4 class="card-title">Email address</h4>
+                            <p class="card-text">Your current email address is <a class="nav-item " style="text-decoration:none; color: rgb(82, 187, 129);" href="#"><%=info[0].hash_username%> </a></p>
+                         <p></p>
+                            <label for="email">New email address </label>
+                            <input class="form-dev " type="email" name="hash_username"  id="newemail" placeholder="<%=info[0].hash_username%>" required>
+                            <p></p>
+                            <button id="emailUpdate" style="color:rgb(255, 255, 255) ; background-color: blueviolet;" class="btn btn-outline-light">Update</button>
+                          <p></p>
+                            <hr>
+                          <p></p>
+                         
+                        </form>
+            
+                          <form id="passwordUpdateForm" action="/admin/password/update" method="post">
+            
+                          <input type="hidden" value="<%=info[0].hash_username%>" name="hash_username">
+                            <h4 class="card-title">Change Password</h4>
+                            <p class="card-text text-muted">We will email you a confirmation when changing your password,so please expect that email after submitting.</p>
+                         <p></p>
+                            <label for="password">Current Password</label>
+                            <input class="form-dev " type="password" name="pastPassword"   id="current password" placeholder="current password" required>
+            
+                      
+                          <p></p>
+                          <label for="newpassword">New Password</label>
+                          <input class="form-dev " type="password" name="hash_password" id="newemail" placeholder="new password" required>
+                     
+                   <p></p>
+                          
+            
+                            <button  style="color:rgb(255, 255, 255) ; background-color: blueviolet;" class="btn btn-outline-light">Save Change</button>
+                        <p></p>
+            
+               </div>
+            </form>
+            
+             </div>
+            
+            </div>
+
+
+</div>
+
+             
+</div>
+<script>
+
+
+$("#file").on("change", ()=>{
+  $("#formFile").submit()
+
+})
+
+    </script>
+    
+    <%- include("../component/___node.html") %> 
+
+</body>
+</html>

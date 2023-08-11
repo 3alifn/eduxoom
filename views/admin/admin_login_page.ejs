@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <%- include("../component/metadata.html") %> 
+
+
+</head>
+<style>
+    .row .card-body{
+    background-color: #F5F4F8 !important;
+
+    color: #754FFE ;
+}
+</style>
+<body onload="pageLoadingTop()">
+
+    <hr>
+
+    
+    <% if( typeof msg!=typeof alifn && msg.length>0) {%>
+
+       <center>
+        <%-include("../component/toast-ejs") %> 
+       </center>
+   
+           <% } else { %>
+             <%=null %> 
+             <% } %> 
+  
+
+<div class="row mt-5">
+    <div class="col-11 col-md-6 m-auto shadow-1">
+        
+        <form action="/admin/login" class="form" method="post">
+
+
+      <center>
+        <h5>Admin Login</h5>
+
+        <div class="input-group">
+
+            <span class=" input-group-text"> <img width="30px" src="/icon/icons8-mail-48.png" alt=""> </span>
+            <input type="text" placeholder="user@admin.com" value="user@admin.com" name="hashUsername" class="form-self form-control" required><p></p>
+
+        </div>
+<p></p>
+       <div class="input-group">
+
+
+            <span class=" input-group-text"> <img width="30px" src="/icon/icons8-sign-in-form-password-48.png" alt=""> </span>
+            <input id="password" type="password"  placeholder="admin@123" name="hashPassword"  value="admin@123" class="form-control form-self" required>
+            <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text"><i class="bi bi-eye-slash-fill"></i></span>
+            <span  style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text"><i class="bi bi-eye-fill"></i></span>
+          
+
+        </div>
+        <p></p>
+        
+        <button class=" btn-self w-50">Login</button>
+
+      </center>
+         
+            
+         </form>
+
+    </div>
+</div>
+
+
+
+<script>
+$('#eye-hide').click(()=>{
+    $('#password').attr('type', "text")
+    $('#eye-hide').css({'display': 'none'})
+    $('#eye-show').css({'display': 'block'})
+})
+
+$('#eye-show').click(()=>{
+    $('#password').attr('type', "password")
+    $('#eye-hide').css({'display': 'block'})
+    $('#eye-show').css({'display': 'none'})
+})
+
+
+
+
+</script>
+
+      
+
+</body>
+</html>

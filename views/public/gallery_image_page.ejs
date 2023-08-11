@@ -1,0 +1,57 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title> Gallery Image</title>
+  
+    <%- include("../component/metadata.html") %> 
+
+</head>
+
+<style>
+    .hover-img:hover{
+
+        transition: all 1s;
+        transform: scale(1.2);
+        position: relative;
+        z-index: 1020;
+    }
+</style>
+
+
+<body onload="pageLoadingTop()">
+ 
+    <%- include("../component/header-nav.html") %> 
+    <%- include("../component/menu-nav.html") %> 
+    <%- include("../component/offcanvas-nav.html") %> 
+
+    <center>
+
+        <h5 class="container text-center w-100 alert alert-secondary">Photos playlist </h5>
+
+    </center>
+
+ 
+    <div  class="row" id="listDataPrint">
+
+    <% for( let index = 0; index < info.length; index++ ) { %>
+        <div class='col-6 col-md-3 m-0 m-md-auto p-2'>
+          
+            <a href="/pu/gallery/image/data/<%=info[index].data_id%>" class="nav-link fw-bold text-center">
+              <img height='200px' width='100%' class='bg-demo-img-color hover-img' src="/image/gallery/resized/<%=info[index].item_name%>" alt="404">
+             <%=info[index].item_title%>
+              </a>
+            </div>
+    <% } %>
+
+   </div>
+
+
+<%- include("../component/footer-nav.html") %> 
+
+
+</body>
+</html>

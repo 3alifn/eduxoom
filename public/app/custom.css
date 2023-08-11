@@ -1,0 +1,150 @@
+/* 
+::-webkit-scrollbar {
+    scroll-behavior:smooth;
+  
+  } */
+  
+
+
+.page-loading-top{
+    height: max-content !important;
+    width: 200px !important;
+    text-align: center !important;
+    background-color: rgba(237, 198, 7, 0.633) !important;
+    padding: 5px !important;
+    position: fixed !important;
+    top: 0px !important;
+    left: 50% !important;
+    transform: translate(-50%) !important;
+    border-radius: 5px !important;
+    z-index: 1030 !important;
+  }
+
+  .bg-demo-img-color{
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: bg-demo-img-placeholder 5s ease infinite;
+    border-radius: 10px;
+
+  }
+
+
+  @keyframes bg-demo-img-placeholder {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#class_section_link a{
+ text-decoration: none;
+ color: #754FFE ;
+    
+}
+
+.form-self
+{
+
+ padding: 10px !important;
+ width: 100% ;
+ outline: none !important;
+
+ 
+ 
+}
+
+.form-self:focus
+{
+     box-shadow: 0 4px 8px 0 rgba(71, 86, 202, 0.2), 0 6px 20px 0 #281e5d !important;
+      outline: 1px solid #281e5d !important;
+      border: none !important;
+      transition: all 1s !important;
+
+      
+}
+
+.btn-self
+{
+ color: white;
+ background-color: #4043eecd ;
+ padding: 5px;
+ border: none;
+ border-radius: 5px;
+ width: 90px;
+}
+.btn-self:hover
+{
+ background-color: #5499e9;
+}
+
+
+.btn-dev 
+{
+    background-color: blueviolet !important;
+    padding: 5px !important;
+    color: white;
+    border: none;
+
+}
+
+.btn-dev:hover 
+{
+    background-color: rgb(86, 14, 154) !important;
+    padding: 5px !important;
+    color: white;
+    border: none;
+}
+
+
+
+  .form-dev{
+
+     outline-color: slateblue !important;
+     width: 98%;
+     padding: 5px;
+
+  }
+
+  #thead
+  {
+      background-color:  #281e5d !important;
+      color: white !important;
+  }
+
+
+
+
+  *, ::before, ::after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.icon-arrow{
+    transition: all 1s;
+    transform: rotate(90deg) !important;
+}
+
+.menu-list-item li a, .footer-list-item li a {
+    font-size: small;
+    padding: 10px;
+    
+
+}
+.menu-list-item li a:hover, .footer-list-item li a:hover{
+background-color: rgba(90, 92, 92, 0.222);
+
+transition: all 1s;
+
+
+}
+
+#nav-link a{
+    padding:10px;
+}
+
+

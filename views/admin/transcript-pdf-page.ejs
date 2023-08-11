@@ -1,0 +1,161 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcript Report</title>
+      <%- include('../component/metadata.html') %>
+</head>
+<style>
+  table>thead {
+    vertical-align:baseline !important;
+}
+  tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 3 !important;
+}
+</style>
+<body onload='pageLoadingTop()'>
+
+  <center><button onclick="printArea()" class="btn btn-light disabled printAreaBtn">Get now pdf <span class="spinner-grow spinner-grow-sm"></span></button></center>
+<div class="appenddata" id="printArea">
+    
+</div>
+
+    
+<%- include("../component/___node.html") %>  
+</body>
+
+
+<% for( let index = 0; index < getStudent.length; index++ ) { %>
+  <input class="getStudent<%=index%>" value="<%=getStudent[index].student_id%>" type="hidden" name="">
+
+<% } %>
+
+
+<script src= "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
+
+<script>
+
+function printArea(todo){
+ $('.printAreaBtn').addClass('disabled');
+  $('.mainApp').css('overflow-x', 'visible');
+
+
+const className= '<%=className%>'
+const sectionName= '<%=sectionName%>'
+_spin_pull()
+  setTimeout(() => {
+var element = document.getElementById('printArea');
+
+   var opt = {
+        margin: 1,
+        filename: `Transcript-${className}-${sectionName}.pdf`,
+        html2canvas: {
+           scale: 3
+        },
+        jsPDF: {
+           unit: 'px',
+           format: [1000, 1085],
+           orientation: 'portrait'
+        }
+     };
+        html2pdf().set(opt).from(element).save();
+       _spin_pop()
+  _msg_pull('alert-success', 'Download Successfully...', false)
+ 
+
+
+  }, 3000);
+
+  
+}
+
+
+
+function transcript_pdf_get(){
+  _spin_pull()
+  const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+ var getLength= `<%=getStudent.length%>`
+for (let index = 0; index < getLength; index++) {
+  console.log(getLength, index);
+ const student_id= $('.getStudent'+index).val();
+ if(getLength==index+1) {
+  _spin_pop()
+  $('.printAreaBtn').removeClass('disabled')
+  $('.printAreaBtn span').removeClass('spinner-grow')
+
+ }
+  $.ajax({
+    type: "post",
+    url: "/admin/transcript/pdf-get",
+    data: {className, sectionName, student_id},
+    dataType: "JSON",
+    success: function (res) {
+      $('.appenddata').append(res.report_card);
+bi_checkout_class()
+student_checkout_class()
+
+    }
+  });
+
+}
+}
+
+transcript_pdf_get()
+
+
+
+
+function bi_checkout_class() {
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+    $.ajax({
+        method: "post",
+        url: "/admin/bi/transcript/pdf-checkout",
+        data: {className, sectionName},
+        dataType: "JSON",
+        success: function (response) {
+            for (const key in response.info_checkout) {
+
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].bi_point==1?'<i class="bi bi-square-fill"></i>':response.info_checkout[key].bi_point==2?'<i class="bi bi-circle-fill"></i>':response.info_checkout[key].bi_point==3?'<i class="bi bi-triangle-fill"></i>':'<i class="bi bi-square"></i>');
+
+
+            }
+        }
+    });
+    
+}
+
+
+
+
+function student_checkout_class() {
+ const className= '<%=className%>'
+ const sectionName= '<%=sectionName%>'
+    $.ajax({
+        method: "post",
+        url: "/admin/transcript/pdf-checkout",
+        data: {className, sectionName},
+        dataType: "JSON",
+        success: function (response) {
+            for (const key in response.info_checkout) {
+              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].pi==1?'<i class="bi bi-square-fill"></i>':response.info_checkout[key].pi==2?'<i class="bi bi-circle-fill"></i>':response.info_checkout[key].pi==3?'<i class="bi bi-triangle-fill"></i>':'<i class="bi bi-square"></i>');
+
+
+            }
+        }
+    });
+    
+}
+
+
+
+
+</script>
+
+
+</html>

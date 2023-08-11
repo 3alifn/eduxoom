@@ -1,0 +1,357 @@
+
+
+<html lang="en">
+<head>
+    <title>Transcript report</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+
+<style>
+    
+    .row a
+    {
+        text-decoration: none;
+        
+    }
+    .row .card-body{
+        background-color: #F5F4F8 !important;
+    
+        color: #754FFE ;
+    }
+    
+
+</style>
+
+<body onload="pageLoadingTop()">
+    
+    <%- include("../component/admin-header-nav.html") %> 
+    <%- include("../component/admin-menu-nav.html") %> 
+    
+
+  
+<div id="main-content" class="p-2 mt-5 row">
+
+    <center>
+     <h5> Transcript pdf system</h5>
+    </center>
+
+<center>
+    <button id="classSixbtn" class="btn-self mt-3 dropdown-toggle w-50">ষষ্ঠ শ্রেণী</button>
+   </center>
+   
+<div id="classSix" class="row">
+
+
+    <div class="card shadow-sm m-auto ">
+        <div class="card-body text-center text-dark">
+            <h4 class="card-title">ষষ্ঠ শ্রেণী</h4>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-10 m-auto">
+   
+        <a href="/admin/transcript/pdf-page/Six/A">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (ক)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div>      
+      
+      
+      <div class="col-md-4 col-10 m-auto"> 
+
+        <a href="/admin/transcript/pdf-page/Six/B">
+          <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (খ)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div>  
+
+
+      <div class="col-md-4 col-10 m-auto">
+
+        <a href="/admin/transcript/pdf-page/Six/C">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (গ)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div> 
+</div>
+
+
+<center>
+    <button id="classSevenbtn" class="btn-self mt-3 dropdown-toggle w-50">সপ্তম শ্রেণী</button>
+   </center>
+<div id="classSeven" class="row">
+
+    <div class="card shadow-sm m-auto ">
+        <div class="card-body text-center text-dark">
+            <h4 class="card-title">সপ্তম শ্রেণী</h4>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-10 m-auto">
+   
+        <a href="/admin/transcript/pdf-page/Seven/A">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (ক)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div>      
+      
+      
+      <div class="col-md-4 col-10 m-auto">
+
+        <a href="/admin/transcript/pdf-page/Seven/B">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (খ)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div>  
+
+
+      <div class="col-md-4 col-10 m-auto">
+
+        <a href="/admin/transcript/pdf-page/Seven/C">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (গ)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div> 
+</div>
+
+
+
+
+<center>
+    <button id="classEightbtn" class="btn-self mt-3 dropdown-toggle w-50">অষ্টম শ্রেণী</button>
+   </center>
+<div id="classEight" class="row">
+
+    <div class="card shadow-sm m-auto ">
+        <div class="card-body text-center text-dark">
+            <h4 class="card-title">অষ্টম শ্রেণী</h4>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-10 m-auto">
+   
+        <a href="/admin/transcript/pdf-page/Eight/A">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (ক)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div>      
+      
+      
+      <div class="col-md-4 col-10 m-auto">
+
+        <a href="/admin/transcript/pdf-page/Eight/B">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (খ)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div>  
+
+
+      <div class="col-md-4 col-10 m-auto">
+
+        <a href="/admin/transcript/pdf-page/Eight/C">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (গ)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div> 
+</div>
+
+
+
+
+
+
+<center>
+    <button id="classNinebtn" class="btn-self mt-3 dropdown-toggle w-50">নবম শ্রেণী</button>
+   </center>
+<div id="classNine" class="row">
+
+    <div class="card shadow-sm m-auto ">
+        <div class="card-body text-center text-dark">
+            <h4 class="card-title">নবম শ্রেণী</h4>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-10 m-auto">
+   
+        <a href="/admin/transcript/pdf-page/Nine/A">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (ক)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div>      
+      
+      
+      <div class="col-md-4 col-10 m-auto">
+
+        <a href="/admin/transcript/pdf-page/Nine/B">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (খ)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div>  
+
+
+      <div class="col-md-4 col-10 m-auto">
+
+        <a href="/admin/transcript/pdf-page/Nine/C">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (গ)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div> 
+</div>
+
+
+
+
+
+
+
+<center>
+    <button id="classTenbtn" class="btn-self mt-3 dropdown-toggle w-50">দশম শ্রেণী</button>
+   </center>
+<div id="classTen" class="row ">
+
+    <div class="card shadow-sm m-auto ">
+        <div class="card-body text-center text-dark">
+            <h4 class="card-title">দশম শ্রেণী</h4>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-10 m-auto">
+   
+        <a href="/admin/transcript/pdf-page/Ten/A">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (ক)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div>      
+      
+      
+      <div class="col-md-4 col-10 m-auto">
+
+        <a href="/admin/transcript/pdf-page/Ten/B">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (খ)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div>  
+
+
+      <div class="col-md-4 col-10 m-auto">
+
+        <a href="/admin/transcript/pdf-page/Ten/C">
+            <div class="card shadow-sm">
+              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+              <div class="card-body text-center">
+                  <h4 class="card-title">শাখা (গ)</h4>
+              </div>
+          </div>
+        </a>
+
+      </div> 
+</div>
+
+
+
+
+</div>
+
+</body>
+
+
+
+<script>
+$("#classSixbtn").on("click", ()=>{
+    $("#classSix").toggle()
+})
+
+
+$("#classSevenbtn").on("click", ()=>{
+    $("#classSeven").toggle()
+})
+
+$("#classEightbtn").on("click", ()=>{
+    $("#classEight").toggle()
+})
+
+$("#classNinebtn").on("click", ()=>{
+    $("#classNine").toggle()
+})
+
+$("#classTenbtn").on("click", ()=>{
+    $("#classTen").toggle()
+})
+
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,212 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BI settings</title>
+    <%- include("../component/metadata.html") %> 
+  
+
+
+
+
+</head>
+
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/admin-header-nav.html") %> 
+    <%- include("../component/admin-menu-nav.html") %> 
+
+    <div id="main-content" class="p-2 row mt-5">
+
+
+
+<p></p>
+  
+  <form style="border: 1px solid black;" id="form_catagory"  method="post" >
+              
+    
+     <div class="row"  id="">
+         
+    
+        <div class=" col-12 col-md-11 m-auto btn-group" > 
+                
+            <textarea  class="form-self" placeholder="catagory name" name="catagory_name[]" cols='40' rows='5' required></textarea>
+
+            <span class=" btn addItem"><i class="bi bi-plus-circle-fill"></i></span>
+            </div>
+    
+            
+    </div>
+    
+
+    
+           <div  class="row" id="catagoryAppend">
+          
+         
+           </div>
+    
+    
+    
+           <p></p>
+            
+            <div class=" col-6 col-md-2 m-auto">
+            <button  class="btn btn-sm btn-secondary onsubmit w-100">Save</button>
+            </div>
+            <p></p>
+   
+ </form>
+<p></p>
+
+<div class="row">
+
+    <div class="col-11 m-auto">
+
+        <table class=" table table-hover">
+            <thead>
+              <tr>
+                <th>Catagory</th>
+                <th>Oparation</th>
+              </tr>
+            </thead>
+
+            <tbody class="tbody-data">
+
+            </tbody>
+        </table>
+
+    </div>
+
+ </div>
+
+ </div>
+
+</body>
+
+<%-include("../component/___node.html") %> 
+
+
+<script>
+
+
+function init_get_data(){
+
+    $.ajax({
+        method: "post",
+        url: "/admin/bi/catagory-get",
+        data: {},
+        dataType: "JSON",
+        beforeSend: function(){
+   _spin_pull();
+        },
+        success: function (response) {
+            
+            $('.tbody-data').html(response.tbody_data);
+            _spin_pop();
+
+        }
+    });
+
+}
+init_get_data()
+
+
+$(document).on("click", ".addItem", (e) => {
+ 
+ $("#catagoryAppend").append(` 
+
+ <div class=" col-12 col-md-11 m-auto btn-group" > 
+                
+    <textarea  class="form-self" placeholder="catagory name" name="catagory_name[]" cols='40' rows='5' required></textarea>
+         <button type="button" class="btn btn-light addItem" title="ADD" ><i class="bi bi-plus-circle-fill text-primary"></i></button>
+          <button type="button" class="btn btn-light removeItem" title="Remove" ><i class="bi bi-x-circle-fill text-danger"></i></button>
+
+</div>
+    
+    
+ 
+ `)
+ 
+ })
+
+     $(document).on("click", ".removeItem", (e)=>{
+          let thisItem= e.currentTarget.parentElement;
+         
+          $(thisItem).remove()
+       
+          
+}) 
+
+
+ function _penbox_sm_push(catagory_id){
+   const catagory_name=  $('._inputbox-'+catagory_id).val();
+   $.ajax({
+    method: "post",
+    url: "/admin/bi/catagory-update-post",
+    data: {catagory_id, catagory_name},
+    dataType: "JSON",
+    beforeSend: function (){
+     _spin_pull()
+    },
+    success: function (response) {
+        _spin_pop()
+        _msg_pull('alert-success', 'updated....')
+        init_get_data()
+    }
+   });
+ }
+
+
+
+
+function _delbox_sm_push(catagory_id){
+    $.ajax({
+    method: "post",
+    url: "/admin/bi/catagory-delete",
+    data: {catagory_id},
+    dataType: "JSON",
+    beforeSend: function (){
+        _spin_pull()
+    },
+    success: function (response) {
+        
+_msg_pull('alert-success', 'delete from bi catagory')
+_spin_pop()
+init_get_data()
+    }
+   });
+
+
+}
+
+
+
+$('#form_catagory').on('submit', (event)=>{
+event.preventDefault();
+
+$.ajax({
+    method: "post",
+    url: "/admin/bi/catagory-post",
+    data: $('#form_catagory').serialize(),
+    dataType: "JSON",
+    beforeSend: ()=>{
+
+        $(".onsubmit").addClass("disabled")
+       _spin_pull()
+},
+success: function (response) {
+    $(".onsubmit").removeClass("disabled")
+_msg_pull('alert-success', 'added bi catagory')
+_spin_pop()
+init_get_data()
+
+}
+});
+})
+
+
+
+</script>
+
+</html>

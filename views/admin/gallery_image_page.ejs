@@ -1,0 +1,224 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Image settings</title>
+    <%- include("../component/metadata.html") %> 
+
+
+</head>
+
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/admin-header-nav.html") %> 
+    <%- include("../component/admin-menu-nav.html") %> 
+  
+  
+    <div id="main-content" class="p-2 mt-5">
+        <div class="col">
+
+    <%-include("../component/modal-trigger.html") %> 
+
+<hr>
+    
+<!-- Button trigger modal -->
+<center>
+    <h1>Gallery Image </h1>
+    <button type="button" class="btn " data-toggle="modal" data-target="#modelImage">ADD Image</button>
+
+</center>
+
+
+<hr>
+
+ <!-- Modal -->
+ <div class="modal fade" id="modelImage" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                
+                <p class="card-text">Image Size upto 2mb.</p>
+
+                <form class="galleryImageForm"  method="post">
+ 
+                    <input class="form-self w-100" type="text" name="itemTitle" placeholder="Catagory name" required id="">
+                   
+                    <label for="file">
+                        <h5  class="btn btn-light">Select Image</h5>
+                    </label>
+                    <input id="file" type="file" class="d-none form-self" name="itemName[]" multiple required> <p></p>
+   
+                 
+                    <center>
+                        <input id="submit" class=" mb-2 w-50 btn btn-primary" type="submit" value="ADD">
+                    </center>
+
+
+                    
+                </form >
+
+                <div class="row">
+                    <div class="progress mb-2">
+                        <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 10%;" ></div>
+                    </div>
+                    
+                    <div id="file_append" class="col-auto">
+                   
+                    </div>
+                </div>
+
+            </div>
+        
+        </div>
+    </div>
+ </div>
+
+
+<div class="col-10">
+    <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-info"> 
+            <input style="transform: scale(1.5);" type="checkbox" class="check-mark">
+            <span class='ms-2'> Select Item </span>
+            <span class='float-end bi bi-trash-fill btn' onclick="_delbox_pull(1)">  </span>
+        </a>
+    </div>
+ </div>
+
+
+ <form action="#" class="galleryImageDelete">
+
+    <div class="row check-mark-area" id="listDataPrint">
+        
+
+    </div>
+
+</form>
+  
+<%-include("../component/___node.html") %> 
+<script src="/app/noviewport.js"></script>
+
+<script>
+
+$(".check-mark").click(function(){
+    $('.check-mark-area input:checkbox').not(this).prop('checked', this.checked);
+});
+
+
+noview.port({
+   file_id: 'file',
+   append_id:  'file_append', 
+   file_type: 'image',
+   max_kb_size: 1024*100000
+  })
+    
+function galleryImagePull(){
+        
+        $.ajax({
+            method: "post",
+            url: "/admin/gallery/image/get",
+            data: {},
+            dataType: "JSON",
+            beforeSend: function(){
+                _spin_pull()
+
+            },
+            success: function (info) {
+    
+                $("#listDataPrint").html(info.listData)
+                _spin_pop()
+            }
+        });
+    
+    }
+
+galleryImagePull()
+    
+
+
+
+$(".galleryImageForm").on('submit', (event)=>{
+      event.preventDefault()
+      let formdata = new FormData($("form")[0])
+      $('#progressbar').css({'width': 1+'%'}).text();
+  
+        $.ajax({
+            xhr: function() {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function(evt) {
+
+            if (evt.lengthComputable) {
+                var percentComplete = (evt.loaded / evt.total) * 100;
+                
+                    $('#progressbar').css({'width': percentComplete+'%'}).text(percentComplete+'%')
+                    
+            }
+        }, false);
+        return xhr;
+    },
+            method: "post",
+            url: "/admin/gallery/image/post",
+            data: formdata,
+             mimeType: "multipart/form-data",
+              cache: false,
+              processData: false,
+              contentType: false,
+               dataType: "JSON",
+       
+        beforeSend: function(){
+      $("#submit").addClass("btn disabled")
+      _spin_pull()
+            },
+            success: function (info) {
+                _spin_pop()
+                _msg_pull( 'alert-success', 'Image added...', null)
+                $("#submit").removeClass("disabled")
+                galleryImagePull()
+    
+            }
+        });
+
+    })
+
+
+
+function _delbox_push(ID){
+    
+    var imageIdLen= $(".galleryImageDelete input:checked").length;
+    var imageId= []
+    for (let index = 0; index < imageIdLen; index++) {
+        imageId.push($(".galleryImageDelete input:checked")[index].attributes[4].value);
+    }
+$.ajax({
+    type: "post",
+    url: "/admin/gallery/image/delete",
+    data: {imageId},
+    dataType: "JSON",
+    success: function (info) {
+       _msg_pull('alert-danger', 'Image Deleted!',  null)
+       galleryImagePull();
+
+    }
+});
+
+} 
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

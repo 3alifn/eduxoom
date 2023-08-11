@@ -1,0 +1,163 @@
+
+
+
+<form id="privecySettingForm" method="post" onsubmit="return false">
+
+    <div  class="row d-flex ">
+        <center><h5>Privacy Settings</h5></center>
+        <p></p>
+     
+  
+            
+          <div class="col-12 col-md-4">
+  
+            <div class="card ">
+              <div class="card-body">
+                <h6 class="card-title"><i class=" fa fa-at"></i> Email Settings</h6>
+
+                <div>
+                  <label for="privetEmail"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="privetEmail" value="privet" <%=info[0].gender=='Male' ? 'checked': 'no'%>  name="email" > Privet </span> </label> 
+                  <label for="publicEmail">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="public" id="publicEmail" <%=info[0].gender=='Female' ? 'checked': 'no'%>  name="email" > Public </span> </label>
+                </div>               
+                
+                <p class="card-text">Your Email's public visibility</p>
+              </div>
+            </div>
+    
+  
+              </div>
+  
+  
+              <div class="col-12 col-md-4">
+  
+                <div class="card ">
+                  <div class="card-body">
+                    <h6 class="card-title"> <i class=" fa fa-contact-book"></i> Contact Settings</h6>
+
+                    <div>
+                      <label for="privetTelephone"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="privetTelephone" value="privet" <%=info[0].gender=='Male' ? 'checked': 'no'%>  name="telephone" > Privet </span> </label> 
+                      <label for="publicTelephone">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="public" id="publicTelephone" <%=info[0].gender=='Female' ? 'checked': 'no'%>  name="telephone" > Public </span> </label>
+                    </div>
+
+
+                    <p class="card-text">Your contact's public visibility</p>
+                  </div>
+                </div>
+        
+      
+                  </div>
+  
+  
+  
+                  <div class="col-12 col-md-4">
+  
+                    <div class="card ">
+                      <div class="card-body">
+                        <h6 class="card-title"><i class=" fa fa-id-card"></i> Roll Settings</h6>
+
+
+                        <div>
+                          <label for="privetRoll"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="privetRoll" value="privet" <%=info[0].gender=='Male' ? 'checked': 'no'%>  name="roll" > Privet </span> </label> 
+                          <label for="publicRoll">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="public" id="publicRoll" <%=info[0].gender=='Female' ? 'checked': 'no'%>  name="roll" > Public </span> </label>
+                        </div>
+
+
+                        <p class="card-text">Your Roll No's public visibility</p>
+                      </div>
+                    </div>
+            
+          
+                      </div>
+  
+  
+                      <div class="col-12 col-md-4">
+  
+                        <div class="card ">
+                          <div class="card-body">
+                            <h6 class="card-title"><i class=" fa fa-cash-register"></i> Registration Settings</h6>
+
+
+                            <div>
+                              <label for="privetReg"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="privetReg" value="privet" <%=info[0].gender=='Male' ? 'checked': 'no'%>  name="reg" > Privet </span> </label> 
+                              <label for="publicReg">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="public" id="publicReg" <%=info[0].gender=='Female' ? 'checked': 'no'%>  name="reg" > Public </span> </label>
+                            </div>
+
+
+                            <p class="card-text">Your Registration No's public visibility</p>
+                          </div>
+                        </div>
+                
+              
+                          </div>
+  
+  
+  
+                          <div class="col-12 col-md-4">
+  
+                            <div class="card ">
+                              <div class="card-body">
+                                <h6 class="card-title"><i class=" fa fa-birthday-cake"></i> Date of Birth Settings</h6>
+
+
+                                <div>
+                                  <label for="privetBirth"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="privetBirth" value="privet" <%=info[0].gender=='Male' ? 'checked': 'no'%>  name="birthDate" > Privet </span> </label> 
+                                  <label for="publicBirth">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="public" id="publicBirth" <%=info[0].gender=='Female' ? 'checked': 'no'%>  name="birthDate" > Public </span> </label>
+                                </div>
+
+
+                                <p class="card-text">Your Date of Birth No's public visibility</p>
+                              </div>
+                            </div>
+                    
+                  
+                              </div>
+  
+  
+                              
+                          <div class="col-12 col-md-4">
+  
+                            <div class="card ">
+                              <div class="card-body">
+                                <h6 class="card-title"><i class=" fa fa-people-arrows"></i> Parent Settings</h6>
+
+                                <div>
+                                  <label for="privetParent"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="privetParent" value="privet" <%=info[0].gender=='Male' ? 'checked': 'no'%>  name="parent" > Privet </span> </label> 
+                                  <label for="publicParent">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="public" id="publicParent" <%=info[0].gender=='Female' ? 'checked': 'no'%>  name="parent" > Public </span> </label>
+                                </div>
+
+
+
+                                <p class="card-text">Your Parents's public visibility</p>
+                              </div>
+                            </div>
+                          <p></p>
+                              <button id="privecySettingBtn" class=" w-50  btn-dev float-end">Save Change</button>
+                           
+                  
+                              </div>
+
+                              <p></p>
+                             
+
+  
+     <!-- end subDiv        -->
+          </div>
+        </form>
+        <p></p>
+
+        <script>
+
+
+
+$('#menuButton').on('click', ()=>{
+
+     
+     $('#menuButton').html('&#9650;')
+   
+
+
+
+})
+
+
+        </script>

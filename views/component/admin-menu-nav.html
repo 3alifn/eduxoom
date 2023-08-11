@@ -1,0 +1,233 @@
+
+<style>
+
+::-webkit-scrollbar {
+  scroll-behavior:smooth;
+
+}
+
+/* width */
+.admin-menu-scroll-bar::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.admin-menu-scroll-bar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.admin-menu-scroll-bar::-webkit-scrollbar-thumb {
+  background: rgba(187, 181, 181, 0.829); 
+  border-radius: 10px;
+}
+
+@media only screen and (min-width:768px){
+#main-content{
+  position: relative; margin-left: 20% !important;
+}  
+#main-menu{
+  width: 20% !important;
+  
+}
+}
+
+
+@media only screen and (max-width:768px){
+#main-content{
+  position: relative; margin-left: 0px !important;
+}  
+#main-menu{
+  width: 100% !important;
+}
+}
+
+</style>
+
+<nav id="main-menu" style="height: 100% !important; background-color: rgb(255, 255, 255); position: fixed; z-index: 1020; top: 55px" class=" main-menu border-end d-none d-md-block shadow text-dark" >
+
+  <div  style=" height: 99%; overflow: auto;" class="col-auto admin-menu-scroll-bar">
+ 
+
+    <ul  class="menu-list-item border-top" style="list-style: none;">
+         
+      <li>
+          <button class="btn toggle-btn shadow-0 gallery-panel-btn" type="button" data-bs-toggle="collapse" data-bs-target="#school-menu-list">
+              <i class="bi bi-arrow-right-circle-fill"></i> School setting</button>
+  <ul id="school-menu-list" class="collapse show" style="list-style-type:disc">
+   
+  <li><a class=" nav-link " href="/admin/setup/school-settings">Setup School</a></li>
+  <li><a class=" nav-link " href="/admin/setup/class-section">Setup Class & Section</a></li>
+  
+  
+  </ul>
+      </li>
+    </ul>
+   
+
+       
+   <ul  class="menu-list-item border-top" style="list-style: none;">
+         
+    <li>
+        <button class="btn toggle-btn shadow-0 gallery-panel-btn" type="button" data-bs-toggle="collapse" data-bs-target="#bi-menu-list">
+            <i class="bi bi-arrow-right-circle-fill"></i> Transcript setting</button>
+<ul id="bi-menu-list" class="collapse show" style="list-style-type:disc">
+ 
+<li><a class=" nav-link " href="/admin/bi/catagory-page">BI Catagory</a></li>
+
+
+</ul>
+    </li>
+  </ul>
+ 
+ 
+   
+   <ul  class="menu-list-item border-top" style="list-style: none;">
+         
+     <li>
+         <button class="btn toggle-btn shadow-0 gallery-panel-btn" type="button" data-bs-toggle="collapse" data-bs-target="#gallery-menu-list">
+             <i class="bi bi-arrow-right-circle-fill"></i> Gallery</button>
+ <ul id="gallery-menu-list" class="collapse show" style="list-style-type:disc">
+  
+ <li><a class=" nav-link " href="/admin/carousel/page">Carousel settings</a></li>
+ <li><a class=" nav-link " href="/admin/gallery/image/page">Image settings</a></li>
+ <li><a class=" nav-link " href="/admin/gallery/video/page">Video settings</a></li>
+ 
+ </ul>
+     </li>
+   </ul>
+ 
+ 
+   <ul  class="menu-list-item border-top" style="list-style: none;">
+         
+     <li>
+         <button class="btn toggle-btn shadow-0 teacher-panel-btn" type="button" data-bs-toggle="collapse" data-bs-target="#teacher-menu-list">
+             <i class="bi bi-arrow-right-circle-fill"></i> Teacher</button>
+ <ul id="teacher-menu-list" class="collapse show" style="list-style-type:disc">
+  
+ <li><a class=" nav-link " href="/admin/teacher/page">Teacher settings</a></li>
+ 
+ </ul>
+     </li>
+   </ul>
+ 
+ 
+   <ul  class="menu-list-item border-top" style="list-style: none;">
+         
+     <li>
+         <button class="btn toggle-btn shadow-0 student-panel-btn" type="button" data-bs-toggle="collapse" data-bs-target="#student-menu-list">
+             <i class="bi bi-arrow-right-circle-fill"></i> Student</button>
+ <ul id="student-menu-list" class="collapse show" style="list-style-type:disc">
+  
+ <li><a class=" nav-link " href="/admin/student/page">Student settings</a></li>
+ <li><a class=" nav-link " href="/admin/parent/page">Parent settings</a></li>
+ <li><a class=" nav-link " href="/pu/rank/class/page">Student ranking</a></li>
+ <li><a class=" nav-link " href="/admin/admission/report/page">Admission settings</a></li>
+ <li><a class=" nav-link " href="/admin/application/page">Application approval</a></li>
+ </ul>
+     </li>
+   </ul>
+   
+ 
+   
+ 
+   <ul class="menu-list-item border-top" style="list-style: none;">
+     
+     <li>
+         <button class="btn toggle-btn shadow-0 academic-panel-btn" type="button" data-bs-toggle="collapse" data-bs-target="#academic-menu-list">
+          <i class="bi bi-arrow-right-circle-fill"></i> Academic</button>
+ <ul id="academic-menu-list" class="collapse show" style="list-style-type:disc">
+  
+ <li><a class=" nav-link " href="/admin/notice/page">Notice settings</a></li>
+ <li><a class=" nav-link " href="/admin/subject/page?className=Six">Subject settings</a></li>
+ <li><a class=" nav-link " href="/admin/routine/page">Routine settings</a></li>
+ <li><a class=" nav-link " href="/pu/routine/page">Routine view</a></li>
+ <li><a class=" nav-link " href="/admin/library/page">Library settings</a></li>
+ </ul>
+     </li>
+   </ul>
+ 
+ 
+   
+   <ul class="menu-list-item border-top" style="list-style: none;">
+     
+     <li>
+         <button class="btn toggle-btn shadow-0 result-panel-btn" type="button" data-bs-toggle="collapse" data-bs-target="#result-menu-list">
+             <i class="bi bi-arrow-right-circle-fill"></i> Transcript</button>
+ <ul id="result-menu-list" class="collapse show" style="list-style-type:disc">
+  
+  <li ><a class=" nav-link" href="/privet/pic/report-init-page">PIC report</a></li>
+  <li ><a class=" nav-link" href="/privet/pis/report-init-page">PIS report</a></li>
+  <li> <a class=" nav-link" href="/privet/transcript/report-init-page">Transcript primary</a></li>
+  <li> <a class=" nav-link" href="/admin/transcript/report-init-page">Transcript final</a></li>
+  <li> <a class=" nav-link" href="/admin/transcript/pdf-init-page">Transcript get pdf</a></li>
+ </ul>
+ 
+     </li>
+   </ul>
+ 
+ 
+   
+   <ul class="menu-list-item border-top" style="list-style: none;">
+     
+     <li>
+         <button class="btn toggle-btn shadow-0 menu-list-btn01" type="button" data-bs-toggle="collapse" data-bs-target="#academic">
+          <i class="bi bi-arrow-right-circle-fill"></i> Academic view</button>
+ <ul id="academic" class="collapse show" style="list-style-type:disc">
+ 
+   <li ><a class=" page-link" href="/pu/all/teacher">Teachers</a></li>
+   <li ><a class=" page-link" href="/pu/student/page">Students</a></li>
+   <li> <a class=" page-link" href="/pu/rank/class/page">Student rank</a></li>
+   <li ><a class=" page-link" href="/privet/routine/page">Class routine</a></li>
+ 
+ </ul>
+     </li>
+   </ul>
+ 
+ 
+   
+   <ul class="menu-list-item border-top" style="list-style: none;">
+     
+     <li>
+         <button class="btn toggle-btn shadow-0 systems-panel-btn" type="button" data-bs-toggle="collapse" data-bs-target="#systems-menu-list">
+             <i class="bi bi-arrow-right-circle-fill"></i> Systems</button>
+ <ul id="systems-menu-list" class="collapse show" style="list-style-type:disc">
+  
+ <li><a class=" nav-link " href="/au/singout">Sing out</a></li>
+ <li><a class=" nav-link disabled" href="#">Menual guide <i class=" bi bi-x-circle-fill"></i></a></li>
+ <li><a class=" nav-link disabled" href="#">Systems information <i class=" bi bi-x-circle-fill"></i></a></li>
+ <li><a class=" nav-link disabled" href="#">Support <i class=" bi bi-x-circle-fill"></i></a></li>
+ </ul>
+     </li>
+   </ul>
+ 
+ 
+ 
+ 
+       
+     </nav>
+ 
+  <script>
+ 
+    
+     
+ $(".menu-collapse-btn").click(()=>{
+ 
+ $("#main-menu").toggleClass('d-none')
+}) 
+
+
+$(document).ready(function(){
+  $(".search-menu-item").keyup(function() { 
+    var value = $(this).val().toLowerCase();
+    $(".menu-list-item").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+  
+  </script> 

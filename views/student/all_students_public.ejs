@@ -1,0 +1,299 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Students</title>
+    <%- include("../component/metadata.html") %> 
+
+
+</head>
+<style>
+ 
+    #studentID a, #studentID{
+        text-decoration: none;
+        color:black !important;
+    }
+
+</style>
+<body onload="pageLoadingTop()">
+
+  <%- include("../component/header-nav.html") %> 
+<%- include("../component/menu-nav.html") %> 
+<%- include("../component/offcanvas-nav.html") %> 
+
+
+  <%- include("../component/modal-person.html") %> 
+
+
+
+<div class=" w-50 mt-2 m-auto">
+    <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+
+</div>
+
+       <div class="row element">
+        <% for(let i= 0; i<info.length; i++) {%>
+
+    
+          <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+              <!-- <a href="#"> -->
+                <div class="card ">
+                    <img class="bg-demo-img-color m-auto" width="100px" src="/image/student/<%=info[i].avatar%>" alt="404">
+                    <div class="card-body">
+                        <h5 class="card-title"> <%=info[i].name%> </h5>
+                        <h6 class="card-title">Class Roll (<%=info[i].roll%>) </h6>
+                        <button data-id="<%=info[i].ID%>" title="See more..." class="modal-person-trigger btn"><i class=" bi bi-info-circle-fill"></i></button>
+                    </div>
+              <!-- </a> -->
+                </div>
+            </div>
+      
+          <% } %>  
+
+       </div>
+<!-- end main card -->
+       <div class="row demoCard">
+     
+       </div>
+<!-- end demo card -->
+       <div class="row">
+        <div class="col-10 m-auto">
+          <button onclick="pullPaginationOrder()" class="btn btn-light pullPaginationOrder w-100 mb-2">show more...</button>
+          </div>
+       </div>
+    
+
+
+
+<script>
+
+
+
+    
+var requestPageOffset= 0;
+var className= '<%=className%>';
+var sectionName= '<%=sectionName%>';
+
+
+window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+       pullPaginationOrder()
+    }
+    
+};
+
+function pullPaginationOrder(){
+  requestPageOffset++;
+  callingAjax()
+
+    function callingAjax(){
+        $.ajax({
+            method: 'post',
+            url: `/pu/student/get-page/`,
+            data: {className, sectionName,  requestPageOffset},
+            dataType: "JSON",
+           beforeSend:function(){
+  $('.pullPaginationOrder').addClass('disabled')
+  
+  $('.demoCard').html(`
+  
+  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+          <div class="card" aria-hidden="true">
+            <img class='bg-demo-img-color' src="./demo.png" class="card-img-top" alt="loading...">
+            <div class="card-body">
+              <h5 class="card-title placeholder-glow">
+                <span class="placeholder col-6"></span>
+              </h5>
+              <p class="card-text placeholder-glow">
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-8"></span>
+              </p>
+              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+            </div>
+          </div>
+        </div>
+          
+  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+          <div class="card" aria-hidden="true">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title placeholder-glow">
+                <span class="placeholder col-6"></span>
+              </h5>
+              <p class="card-text placeholder-glow">
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-8"></span>
+              </p>
+              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+            </div>
+          </div>
+        </div>
+          
+  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+          <div class="card" aria-hidden="true">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title placeholder-glow">
+                <span class="placeholder col-6"></span>
+              </h5>
+              <p class="card-text placeholder-glow">
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-8"></span>
+              </p>
+              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+            </div>
+          </div>
+        </div>
+          
+  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+          <div class="card" aria-hidden="true">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title placeholder-glow">
+                <span class="placeholder col-6"></span>
+              </h5>
+              <p class="card-text placeholder-glow">
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-8"></span>
+              </p>
+              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+            </div>
+          </div>
+        </div>
+          
+  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+          <div class="card" aria-hidden="true">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title placeholder-glow">
+                <span class="placeholder col-6"></span>
+              </h5>
+              <p class="card-text placeholder-glow">
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-8"></span>
+              </p>
+              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+            </div>
+          </div>
+        </div>
+          
+  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+          <div class="card" aria-hidden="true">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title placeholder-glow">
+                <span class="placeholder col-6"></span>
+              </h5>
+              <p class="card-text placeholder-glow">
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-8"></span>
+              </p>
+              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+            </div>
+          </div>
+        </div>
+        
+        `)
+           },
+            success: function (response) {
+           if(response.orderData){
+            $('.demoCard').html('');
+              $('.element').append(response.orderData)
+          $('.pullPaginationOrder').removeClass('disabled')
+           }
+           else {
+            $('.demoCard').remove();
+
+          $('.pullPaginationOrder').text('End').addClass('disabled')
+           }
+
+            }
+        });
+    }
+
+}
+
+
+
+    $(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $(".card").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+$(document).on("click", ".modal-person-trigger", (e)=>{
+  let ID= e.currentTarget.attributes[0].value;
+  $.ajax({
+  type: "post",
+  url: "/privet/info/student",
+  data: {ID},
+  dataType: "JSON",
+  beforeSend: function(){
+    $(".modal-person-body").html(`<div class="card" aria-hidden="true">
+  <div class="card-body">
+    <h5 class="card-title placeholder-glow">
+      <span class="placeholder col-6"></span>
+    </h5>
+    <p class="card-text placeholder-glow">
+      <span class="placeholder col-7"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-6"></span>
+      <span class="placeholder col-8"></span>
+    </p>
+    <a class="btn btn-primary disabled placeholder col-6"></a>
+  </div> <p>প্রফাইলটি প্রাইভেট মুডে আছে! অনুগ্রহ করে লগইন করে পুনরায় চেক করুন। </p>
+</div>`)
+  
+     $(".modal-person-btn").click()
+  },
+
+  success: function (info) {
+    
+      $(".modal-person-body").html(info.html)
+     $(".modal-person-avatar").attr("src", `/image/student/${info.avatar}`)
+  
+     $(".modal-person-btn").click()
+  }
+});
+})
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+
+</html>

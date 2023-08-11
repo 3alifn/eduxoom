@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sing in</title>
+    <link rel="shortcut icon" href="/image/default/logo.png" type="image/x-icon">
+
+    <%- include("../component/metadata.html") %> 
+
+
+</head>
+<style>
+    .row .card-body{
+    background-color: #F5F4F8 !important;
+
+    color: #754FFE ;
+}
+</style>
+<body onload="pageLoadingTop()">
+  
+   <!-- section 1............ -->
+   <div id="section1">
+    <div class="row">
+     <div class="col-lg-3 col-md-2 col-sm-1"></div>
+     <div class="col-lg-5 col-md-8 col-sm-10">
+      
+      <% if( typeof msg!=typeof alifn && msg.length>0) {%>
+
+     <%-include("../component/toast-ejs") %> 
+
+        <% } else { %>
+          <%=null %> 
+          <% } %> 
+         <form action="/au/logger" class="form container" method="get">
+ 
+             <img src="/image/school/user.png" height="70px" alt="">
+ 
+             <h3>Sing in</h3>
+ 
+             <p>Don't have a account? <a href="/pu/join/parent" id="signIn_link">Join Parent</a> or <a href="/">home</a> </p><br>
+ 
+         
+
+
+             <div class="input-group">
+
+                <span class=" input-group-text"> <img width="30px" src="/icon/icons8-test-account-48.png" alt=""> </span>
+                <select name="userRole" id="" class="form-self  form-select">
+                    <option value="students">Student</option>
+                 <option selected value="teachers">Teacher</option>
+                 <option value="parents">Parent</option>
+                 </select> 
+            </div>
+             
+ <p></p>
+
+             <div class="input-group">
+
+                <span class=" input-group-text"> <img width="30px" src="/icon/icons8-mail-48.png" alt=""> </span>
+                <input type="text" placeholder="user email" value="soumitrasahatanin@gmail.com" name="username" class="form-self form-control" required><p></p>
+ 
+            </div>
+
+            <p></p>
+
+            <div class="input-group">
+
+
+                <span class=" input-group-text"> <img width="30px" src="/icon/icons8-sign-in-form-password-48.png" alt=""> </span>
+                <input id="password" type="password" placeholder="********" name="password"  value="password" class="form-control form-self" required>
+                <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text"><i class="bi bi-eye-slash-fill"></i></span>
+                <span  style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text"><i class="bi bi-eye-fill"></i></span>
+                      
+
+            </div>
+
+
+
+
+             <p></p>
+ 
+             <center>
+                 <button class=" btn-self w-50">Sing in</button>
+             </center> <hr>
+               <!-- socal media links -->
+               <center>
+                <span class=""> <a href="/au/forgot/password" id="signIn_link">Forgot Password <img width="20px" src="/icon/user/icons8-forgot-password-48.png" alt=""></a>  </span>
+               </center>
+            
+         </form>
+         <p></p>
+         
+      
+     </div>
+     <div class="col-lg4 col-md-2 col-sm-1"></div>
+ 
+    </div>
+     </div>
+
+
+<script>
+    
+$('#eye-hide').click(()=>{
+    $('#password').attr('type', "text")
+    $('#eye-hide').css({'display': 'none'})
+    $('#eye-show').css({'display': 'block'})
+})
+
+
+$('#eye-show').click(()=>{
+    $('#password').attr('type', "password")
+    $('#eye-hide').css({'display': 'block'})
+    $('#eye-show').css({'display': 'none'})
+})
+
+</script>
+      
+<%- include("../component/___node.html") %> 
+
+</body>
+</html>

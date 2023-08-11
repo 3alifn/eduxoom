@@ -1,0 +1,222 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Carousel settings</title>
+    <%- include("../component/metadata.html") %> 
+  
+
+</head>
+
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/admin-header-nav.html") %> 
+    <%- include("../component/admin-menu-nav.html") %> 
+  
+
+    <div id="main-content" class="p-2 mt-5">
+
+
+    <%-include("../component/modal-trigger.html") %> 
+
+<hr>
+
+<!-- Button trigger modal -->
+<center>
+    <h1>Carousel Image Limit 12</h1>
+    <button type="button" class="btn " data-toggle="modal" data-target="#modelImage">ADD Image</button>
+
+</center>
+
+
+<hr>
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="modelImage" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                
+                <p class="card-text">Image Size upto 2mb.</p>
+
+                <form id="contentImageForm"  method="post">
+
+
+                    <label for="file">
+                        <h5  class="btn btn-light">Select Image</h5>
+                    </label>
+                    <input id="file" type="file" class="d-none form-self" name="itemName[]" multiple> <p></p>
+   
+                 
+                    <center>
+                        <input id="submit" class=" mb-2 w-50 btn btn-primary" type="submit" value="ADD">
+                    </center>
+
+
+
+
+                    
+
+                </form>
+
+                <div class="row">
+
+                    <div class="progress mb-2">
+                        <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 10%;" ></div>
+                    </div>
+
+                    <div id="file_append" class="col-auto">
+
+                    </div>
+                </div>
+
+            </div>
+        
+        </div>
+    </div>
+ </div>
+
+
+ <div class="row" id="listDataPrint">
+        
+
+     
+
+
+ </div>
+
+
+
+
+
+
+</div>
+</div>
+<%-include("../component/___node.html") %> 
+<script src="/app/noviewport.js"></script>
+
+</body>
+<script>
+
+// $(document).on("click", ".removeItemE", (e)=>{
+//     let thisItem= e.currentTarget.previousSibling.parentElement
+    
+//     $(thisItem).remove()
+ 
+    
+// })
+
+
+noview.port({
+   file_id: 'file',
+   append_id:  'file_append', 
+   file_type: 'image',
+   max_kb_size: 1024*2
+  })
+    
+function loadContentData(){
+        
+        $.ajax({
+            method: "post",
+            url: "/admin/carousel/get",
+            data: {},
+            dataType: "JSON",
+            beforeSend: function(){
+                _spin_pull()
+
+            },
+            success: function (info) {
+            _spin_pop()
+                $("#listDataPrint").html(info.listData)
+            
+            }
+        });
+
+        
+    
+    }
+
+    loadContentData()
+
+
+
+
+
+$("#contentImageForm").on('submit', (event)=>{
+      event.preventDefault()
+      let formdata = new FormData($("form")[0])
+    $('#progressbar').css({'width': 1+'%'}).text();
+  
+        $.ajax({
+            xhr: function() {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function(evt) {
+
+            if (evt.lengthComputable) {
+                var percentComplete = (evt.loaded / evt.total) * 100;
+                
+                    $('#progressbar').css({'width': percentComplete+'%'}).text(percentComplete+'%')
+                    
+            }
+        }, false);
+        return xhr;
+    },
+            method: "post",
+            url: "/admin/carousel/post",
+            data: formdata,
+             mimeType: "multipart/form-data",
+              cache: false,
+              processData: false,
+              contentType: false,
+               dataType: "JSON",
+       
+        beforeSend: function(){
+      $("#submit").addClass("btn disabled")
+      _spin_pull()
+            },
+            success: function (info) {
+                _spin_pop()
+                _msg_pull( 'alert-success', 'Image added...', null)
+                $("#submit").removeClass("disabled")
+                loadContentData()
+
+    
+            }
+        });
+    
+    })
+
+  
+    
+    
+function _delbox_push(ID){
+
+    $.ajax({
+        type: "post",
+        url: "/admin/carousel/delete",
+        data: {ID},
+        dataType: "JSON",
+        success: function (info) {
+            loadContentData();
+           _msg_pull('alert-danger', 'Image Deleted!',  null)
+    
+        }
+    });
+}
+
+    
+
+    </script>
+
+
+</html>

@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIS report system</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+<style>
+    thead th, tbody td{
+    border-right: 1px solid black;
+    }
+</style>
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/user-header-nav.html") %> 
+    <%- include("../component/offcanvas-nav.html") %>
+
+
+    <div class="row">
+
+
+        <div class="col-md-10 m-auto ">
+    
+            <center>
+                <span class="bg-light badge fs-5 text-dark"><%=className%> - <%=sectionName%></span>
+            </center>
+
+
+
+
+
+            
+  <div class=" w-50 mt-2 m-auto">
+    <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+
+</div>
+
+  <div id="infoAdmission" class="row">
+
+    <% for(let i= 0; i<infoStudent.length; i++) {%>
+
+     
+       
+       <div  class="col-10 col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
+         
+             <div class="card ">
+                <a class="page-link" href="/privet/pis/report-get/<%=className%>/<%=sectionName%>/<%=infoStudent[i].student_id%>">
+
+                 <img class="bg-demo-img-color m-auto" width="100px" src="/image/student/<%=infoStudent[i].avatar%>" alt="404"> 
+                 <div class="card-body">
+                     <h5 class="card-title"><%=infoStudent[i].name%> </h5>    
+                 </div>
+                 </a>          
+             </div>
+         </div>
+   
+       <% } %>  
+   
+           <!-- end div -->
+       </div>
+    
+        </div>
+      </div>
+      <%- include("../component/___node.html") %> 
+
+</body>
+
+
+<script>
+
+
+$(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $(".card").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+</script>
+
+
+</html>

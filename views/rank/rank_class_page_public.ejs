@@ -1,0 +1,211 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Rank </title>
+    <%- include("../component/metadata.html") %> 
+
+
+
+<style>
+    
+    .row a
+    {
+        text-decoration: none;
+        
+    }
+    .row .card-body{
+        background-color: #F5F4F8 !important;
+    
+        color: #754FFE ;
+    }
+    
+        
+    #row1 .card-body:hover{
+        background-color: #281e5d !important;
+        /* background: #F5F4F8 !important; */
+        color: white;
+        transform: scale(1.1);
+        transition: background-color, transform 1s;
+     
+    }
+    </style>
+<body onload="pageLoadingTop()">
+    
+  <%- include("../component/header-nav.html") %> 
+<p></p>
+
+  <div id="classList" class="row">
+
+
+    <% if(infoTen.length>0) {%>   
+      <div class="col-md-2 col-9 mt-1 m-auto">
+
+      <a href="/pu/rank/page?className=Ten">
+          <div class="card shadow-sm">
+            <img class=" m-auto" width="100px" src="/image/student/<%= infoTen[0].avatar %>" alt="">
+            <div class="card-body text-center">
+              <h6 class="card-text fw-bold">দশম শ্রেণী </i></h6>
+
+              <strong  class="badge bg-primary">Rank: 1</strong>
+                <strong  class="badge" style="background-color: slateblue;">Rating (<%=infoTen[0].poient%>)</strong>
+                <br>
+                <strong  class="badge bg-secondary"><%=infoTen[0].name%></strong>
+                <br>
+                <strong  class="badge bg-light text-dark btn btn-link ">Show All</strong>
+           
+            </div>
+        </div>
+      </a>
+
+    </div> 
+    <% }  else {%>
+      <%=null %> 
+      <% } %>  
+
+
+
+
+
+
+
+<% if(infoNine.length>0) {%>   
+      <div class="col-md-2 col-9 mt-1 m-auto">
+
+      <a href="/pu/rank/page?className=Nine">
+          <div class="card shadow-sm">
+            <img class=" m-auto" width="100px" src="/image/student/<%=infoNine[0].avatar%>" alt="">
+            <div class="card-body text-center">
+              <h6 class="card-text fw-bold"> নবম শ্রেণী</i></h6>
+
+              <strong  class="badge bg-primary">Rank: 1</strong>
+                <strong  class="badge" style="background-color: slateblue;">Rating (<%=infoNine[0].poient%>)</strong>
+                <br>
+                <strong  class="badge bg-secondary"><%=infoNine[0].name%></strong>
+                <br>
+                <strong  class="badge bg-light text-dark btn btn-link ">Show All</strong>
+           
+            </div>
+        </div>
+      </a>
+
+    </div> 
+
+    <% }  else {%>
+      <%=null %> 
+      <% } %>  
+
+
+  <% if(infoEight.length>0) {%>
+    <div class="col-md-2 col-9 mt-1 m-auto">
+
+      <a href="/pu/rank/page?className=Eight">
+          <div class="card shadow-sm">
+            <img class=" m-auto" width="100px" src="/image/student/<%=infoEight[0].avatar%>" alt="">
+            <div class="card-body text-center">
+              <h6 class="card-text fw-bold"> অষ্টম শ্রেণী</i></h6>
+
+              <strong  class="badge bg-primary">Rank: 1</strong>
+                <strong  class="badge" style="background-color: slateblue;">Rating (<%=infoEight[0].poient%>)</strong>
+                <br>
+                <strong  class="badge bg-secondary"><%=infoEight[0].name%></strong>
+                <br>
+                <strong  class="badge bg-light text-dark btn btn-link ">Show All</strong>
+           
+            </div>
+        </div>
+      </a>
+
+    </div> 
+
+    <% }  else {%>
+      <%=null %> 
+      <% } %>  
+
+
+
+
+
+
+      <% if(infoSeven.length>0) {%>   
+
+    <div class="col-md-2 col-9 mt-1 m-auto">
+
+      <a href="/pu/rank/page?className=Seven">
+          <div class="card shadow-sm">
+            <img class=" m-auto" width="100px" src="/image/student/<%=infoSeven[0].avatar%>" alt="">
+            <div class="card-body text-center">
+              <h6 class="card-text fw-bold"> সপ্তম শ্রেণী</i></h6>
+
+              <strong  class="badge bg-primary">Rank: 1</strong>
+                <strong  class="badge" style="background-color: slateblue;">Rating (<%=infoSeven[0].poient%>)</strong>
+                <br>
+                <strong  class="badge bg-secondary"><%=infoSeven[0].name%></strong>
+                <br>
+                <strong  class="badge bg-light text-dark btn btn-link ">Show All</strong>
+           
+            </div>
+        </div>
+      </a>
+
+    </div> 
+
+    <% }  else {%>
+      <%=null %> 
+      <% } %>  
+
+
+
+
+
+
+
+
+    
+      <% if(infoSix.length>0) {%>   
+        <div class="col-md-2 col-9 mt-1 m-auto">
+
+      <a href="/pu/rank/page?className=Six">
+          <div class="card shadow-sm">
+            <img class=" m-auto" width="100px" src="/image/student/<%=infoSix[0].avatar%>" alt="">
+            <div class="card-body text-center">
+              <h6 class="card-text fw-bold"> ষষ্ঠ শ্রেণী </i></h6>
+
+              <strong  class="badge bg-primary">Rank: 1</strong>
+                <strong  class="badge" style="background-color: slateblue;">Rating (<%=infoSix[0].poient%>)</strong>
+                <br>
+                <strong  class="badge bg-secondary"><%=infoSix[0].name%></strong>
+                 <br>
+                <strong  class="badge bg-light text-dark btn btn-link ">Show All</strong>
+           
+            </div>
+        </div>
+      </a>
+
+    </div> 
+    
+    <% }  else {%>
+      <%=null %> 
+      <% } %>  
+
+    <!-- end rowDiv -->
+    </div> 
+    
+          
+          
+     
+
+
+
+
+</body>
+
+
+
+
+</body>
+
+
+</html>

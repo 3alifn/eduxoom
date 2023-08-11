@@ -1,0 +1,61 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title> Gallery Image</title>
+  
+    <%- include("../component/metadata.html") %> 
+
+</head>
+
+<style>
+    .hover-img:hover{
+
+        transition: all 1s;
+        transform: scale(1.2);
+        position: relative;
+        z-index: 1020;
+    }
+</style>
+
+
+<body onload="pageLoadingTop()">
+ 
+    <%- include("../component/header-nav.html") %> 
+    <%- include("../component/menu-nav.html") %> 
+    <%- include("../component/offcanvas-nav.html") %> 
+
+    <center>
+
+        <h5 class="container text-center w-100 alert alert-secondary">Video playlist </h5>
+
+    </center>
+
+ 
+    <div  class="row" id="listDataPrint">
+
+    <% for( let index = 0; index < info.length; index++ ) { %>
+
+        <div class="col-10 col-md-3 m-auto m-md-0 p-2">
+
+             <div class="card" id="">
+                 <iframe class='video-scope card-img-top bg-demo-img-color' src="<%=info[index].item_name.replace("watch?v=", "embed/")%>/iframe>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                 <a  href="/pu/gallery/video/data/<%=info[index].data_id%>" class="btn fw-bold nav-link"> 
+                    <span class='ms-2'> Playlist - <%=info[index].item_title%></span>   </a>
+
+             </div>
+
+             </div>
+    <% } %>
+
+   </div>
+
+
+<%- include("../component/footer-nav.html") %> 
+
+
+</body>
+</html>
