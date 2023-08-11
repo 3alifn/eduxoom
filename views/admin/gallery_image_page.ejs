@@ -67,8 +67,12 @@
                 </form >
 
                 <div class="row">
+                    <div class="progress mb-2">
+                        <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 10%;" ></div>
+                    </div>
+                    
                     <div id="file_append" class="col-auto">
-
+                   
                     </div>
                 </div>
 
@@ -113,7 +117,7 @@ noview.port({
    file_id: 'file',
    append_id:  'file_append', 
    file_type: 'image',
-   max_kb_size: 1024*2
+   max_kb_size: 1024*100000
   })
     
 function galleryImagePull(){
@@ -138,13 +142,28 @@ function galleryImagePull(){
 
 galleryImagePull()
     
-    
+
 
 
 $(".galleryImageForm").on('submit', (event)=>{
       event.preventDefault()
       let formdata = new FormData($("form")[0])
+      $('#progressbar').css({'width': 1+'%'}).text();
+  
         $.ajax({
+            xhr: function() {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function(evt) {
+
+            if (evt.lengthComputable) {
+                var percentComplete = (evt.loaded / evt.total) * 100;
+                
+                    $('#progressbar').css({'width': percentComplete+'%'}).text(percentComplete+'%')
+                    
+            }
+        }, false);
+        return xhr;
+    },
             method: "post",
             url: "/admin/gallery/image/post",
             data: formdata,
@@ -163,11 +182,10 @@ $(".galleryImageForm").on('submit', (event)=>{
                 _msg_pull( 'alert-success', 'Image added...', null)
                 $("#submit").removeClass("disabled")
                 galleryImagePull()
-
     
             }
         });
-    
+
     })
 
 
@@ -192,7 +210,14 @@ $.ajax({
 });
 
 } 
-    </script>
+
+
+
+
+
+</script>
+
+
 
 
 </body>

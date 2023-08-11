@@ -1,7 +1,4 @@
-
 const express= require("express")
-
-
 const admin_app = require("../app/admin_app")
 const { admin_admission_page, admin_admission_accept, admin_admission_reject, admin_admission_info } = require("../app/admission_app")
 const { admin_application_get, admin_application_replay, admin_application_download } = require("../app/appllication_app")
@@ -17,6 +14,8 @@ const { app } = require("../server")
 const { admin_transcript_student_get, admin_transcript_student_final_card, admin_transcript_student_final_card_init, admin_transcript_final_card_init, admin_transcript_final_card_mark, admin_transcript_final_card_accept_student_list, admin_transcript_final_card_waiting_student_list, admin_transcript_final_card_drop_student_list, admin_transcript_final_card_passed_student_list, admin_transcript_final_card_passed_result, admin_transcript_final_card_drop_result, admin_transcript_report_page, admin_transcript_report_student_get, privet_transcript_report_get, admin_transcript_report_get, admin_transcript_report_get_checkout, admin_transcript_pdf_page, admin_transcript_pdf_checkout, admin_bi_transcript_pdf_checkout, admin_transcript_pdf_get } = require("../app/transcript_app")
 const { render } = require("ejs")
 const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_post, admin_bi_catagory_delete } = require("../app/bi_app")
+const { multer_upload_school_settings, admin_school_post, admin_school_get, admin_school_headmaster_post, admin_school_headmaster_get, admin_school_president_post, admin_school_president_get, admin_school_secretary_post, admin_school_secretary_get } = require("../app/school_app")
+const school_app = require("../app/school_app")
 const admin= express.Router()
 
 
@@ -38,6 +37,19 @@ admin.all('*', (req, res, next)=>{
    else res.end("sorry! you are unauthorized!");
 
 })
+
+
+// setup school-settings.........
+admin.get('/setup/school-settings', school_app.admin_school_page)
+
+admin.post('/setup/school-settings/post', multer_upload_school_settings.single('logoImg'), admin_school_post)
+
+admin.post('/setup/school-settings/headmaster/post', multer_upload_school_settings.single('headmasterImg'), admin_school_headmaster_post)
+
+admin.post('/setup/school-settings/president/post', multer_upload_school_settings.single('presidentImg'), admin_school_president_post)
+
+admin.post('/setup/school-settings/secretary/post', multer_upload_school_settings.single('secretaryImg'), admin_school_secretary_post)
+
 
 
 // final transcript router....

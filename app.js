@@ -1,8 +1,7 @@
 
-const { app, mysql, xlsx ,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs } = require("./server")
+const { app, express, mysql ,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs } = require("./server")
 app.locals.data = require('./app/admission_app');
 
-const express= require("express")
 const { MulterError } = require("multer")
 const public = require("./route/public_route")
 const privet = require("./route/privet_route")

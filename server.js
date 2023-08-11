@@ -1,4 +1,5 @@
 const express = require("express")
+const app = express()
 const mysql = require("mysql")
 const path = require("path")
 const fs = require("fs")
@@ -17,9 +18,7 @@ const dotenv= require("dotenv").config()
 const cors= require("cors")
 const sharp = require('sharp');
 
-const xlsx= require("xlsx")
 
-const app = express()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
@@ -31,8 +30,7 @@ app.set("views", path.join(__dirname, "views"))
 app.use(express.static("./public/"))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.static("./public/"))
-  app.use(flash());
+app.use(flash());
 app.use(cors())
 
 
@@ -62,14 +60,14 @@ const sessionStore= new mysqlStore({
  }, sqlmap)
 
 
-  app.use(cookieParser('seawebit'));
+  app.use(cookieParser('nocookie'));
   app.use( session({
     key: 'auth',
-    secret: 'alifn',
+    secret: 'pipilikiapipra',
     store: sessionStore,
     resave: true,
     saveUninitialized: true,
-    name: "alifn",
+    name: "saanvi-abc",
     cookie: {
       secure: false, httpOnly: true, maxAge: 86400000, 
     }
@@ -81,7 +79,7 @@ const sessionStore= new mysqlStore({
 sqlmap.connect((err, res) => {
 
   if (err) console.log("Server not running")
-  else console.log("saanvi-abc code by 3alifn...")
+  else console.log("SAANVI S1 code by 3alifn...")
 })
 
 
@@ -91,7 +89,7 @@ app.listen(process.env.listen_port)
 
 
 module.exports= {
-    app, mysql, session, cookieParser, flash, bodyParser, sqlmap, multer, nodemailer, dotenv, cors, xlsx, sharp
+    app, express, mysql, session, cookieParser, flash, bodyParser, sqlmap, multer, nodemailer, dotenv, cors, sharp
     , randomBytes, createHmac, fs, path, ejs,
 }
 
