@@ -1,2 +1,9 @@
+.env
 node_modules
+<<<<<<< HEAD
 /public/image/
+=======
+package-lock.json
+.gitignore
+public/image
+>>>>>>> demo

@@ -127,6 +127,7 @@
     
         <input class="d-none headmaster" name="headmasterImg"  id="headmaster" type="file">
     
+
          
         <div class="input-group">
           <span class="input-group-text">Name</span>
@@ -166,6 +167,7 @@
     
         <input class="d-none president" name="presidentImg"  type="file" id="president" >
     
+
         <div class="input-group">
           <span class="input-group-text">Name</span>
           <input class="form-control mb-2" type="text" value="<%=info[0].president_name%>" placeholder="President name" name="presidentName" id="" required>
@@ -204,6 +206,7 @@
     
         <input class="d-none secretary" name="secretaryImg"  type="file" id="secretary" >
     
+
         <div class="input-group">
           <span class="input-group-text">Name</span>
           <input class="form-control mb-2" type="text" value="<%=info[0].secretary_name%>" placeholder="Secretary name" name="secretaryName" id="" required>
@@ -273,7 +276,6 @@
 <form id="schoolForm" action="#">
     <div id="logo-div" class="row m-2 p-2 border border-black">
         <div class="col-md-6 col-11 m-auto">
-
           <label for="logo">
             <h1 class="btn btn-light">Setup logo</h1>
           </label>
@@ -289,7 +291,7 @@
     
         </div>
       
-      
+
         <div class="col-md-6 col-11 m-auto">
   
           <div class="logo_append">
@@ -421,6 +423,7 @@
 <script>
 
 noview.port({
+
   input_class: 'homeImg',
  append_class: 'homeImg_append', 
  file_type: 'image', 
@@ -551,6 +554,7 @@ $("#headmasterForm").on('submit', (event)=>{
         });
     
     })
+
 
 
 $("#presidentForm").on('submit', (event)=>{

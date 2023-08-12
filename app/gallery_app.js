@@ -1,4 +1,5 @@
 const express = require("express")
+
 const { sqlmap , multer, Jimp, randomBytes, createHmac} = require("../server")
 const app = express()
 const fs= require('fs')
@@ -157,6 +158,7 @@ exports.public_gallery_video_data_get= (req, res)=>{
     })
 
 }
+
 
 
 
@@ -346,8 +348,6 @@ exports.public_carousel_get= (req, res)=>{
 
 
 
-// admin gallery image part
-
 exports.admin_gallery_image_get= (req, res)=>{
 
         var sqlgalleryGet= `SELECT * FROM gallery WHERE item_type='image' GROUP BY data_id ORDER BY ID DESC`
@@ -384,14 +384,13 @@ exports.admin_gallery_image_get= (req, res)=>{
 }
 
 
-
 exports.admin_gallery_image_post= (req, res)=>{
   let {itemTitle}= req.body;
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
 
   if(req.files[x].size<1048576){
-    
+  
     Jimp.read(req.files[x].path)
     .then((img) => {
       return img
@@ -428,6 +427,7 @@ exports.admin_gallery_image_post= (req, res)=>{
         }
     
       }
+
 
    const randomString= Math.random()*900000000;
   
@@ -499,13 +499,12 @@ exports.admin_gallery_image_data_post= (req, res)=>{
       
   })
 
+  
+ }
 
   res.send({msg: "gallery Added Successfully!", alert: "success"})
 
 }
-
-}
-
 
 
 exports.admin_gallery_image_delete= (req, res)=>{
@@ -615,7 +614,6 @@ exports.admin_gallery_image_data_delete= (req, res)=>{
  })
 
 }
-
 
 
 // admin gallery video part 

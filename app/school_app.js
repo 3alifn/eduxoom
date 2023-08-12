@@ -290,7 +290,7 @@ module.exports= {
              if(req.file){
                 const { filename: image } = req.file;
                 if(req.file.size<1048576){
-                    Jimp.read(req.files[x].path)
+Jimp.read(req.files[x].path)
                     .then((img) => {
                       return img
                         // .resize(256, 256) // resize
@@ -382,6 +382,7 @@ module.exports= {
                 const { filename: image } = req.file;
                 if(req.file.size<1048576){
 
+
                 Jimp.read(req.files[x].path)
       .then((img) => {
         return img
@@ -398,6 +399,7 @@ module.exports= {
                   }
               
                   else {
+
                     Jimp.read(req.files[x].path)
                     .then((img) => {
                       return img
@@ -474,6 +476,7 @@ module.exports= {
              if(req.file){
                 const { filename: image } = req.file;
                 if(req.file.size<1048576){
+
                     Jimp.read(req.files[x].path)
                     .then((img) => {
                       return img
@@ -490,6 +493,7 @@ module.exports= {
                   }
               
                   else {
+
                     Jimp.read(req.files[x].path)
                     .then((img) => {
                       return img
@@ -564,5 +568,3 @@ module.exports= {
 
 
 }
-
-
