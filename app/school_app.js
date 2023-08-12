@@ -4,7 +4,7 @@ const {sqlmap, multer, randomBytes, Jimp, createHmac, path, fs}= require('../ser
 
 const multer_location= multer.diskStorage({
     destination: (req, file, cb)=>{
-     cb(null, "./public/image/school/setup")
+     cb(null, "./public/image/default/")
     } ,
   
     filename: (req, file, cb)=>{

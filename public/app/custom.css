@@ -8,16 +8,16 @@
 
 .page-loading-top{
     height: max-content !important;
-    width: 200px !important;
+    width: 100px !important;
     text-align: center !important;
-    background-color: rgba(237, 198, 7, 0.633) !important;
+    background-color: #ffdf00 !important;
     padding: 5px !important;
     position: fixed !important;
     top: 0px !important;
     left: 50% !important;
     transform: translate(-50%) !important;
-    border-radius: 5px !important;
-    z-index: 1030 !important;
+    border-radius: 10px !important;
+    z-index: 999999 !important;
   }
 
   .bg-demo-img-color{

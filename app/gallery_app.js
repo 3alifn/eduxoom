@@ -41,7 +41,7 @@ exports.multer_upload= multer({
 
 const multer_location_carousel= multer.diskStorage({
   destination: (req, file, cb)=>{
-   cb(null, "./public/image/school/")
+   cb(null, "./public/image/carousel/")
   } ,
 
   filename: (req, file, cb)=>{
@@ -241,7 +241,7 @@ exports.admin_carousel_get= (req, res)=>{
         <div class="card" id="">
         
            
-          <img class='card-img-top bg-demo-img-color' width="100%" src="/image/school/resized/${info[index].item_name}" alt="404">
+          <img class='card-img-top bg-demo-img-color' width="100%" src="/image/carousel/resized/${info[index].item_name}" alt="404">
           <span data-id="${info[index].ID}" onclick='_delbox_pull(${info[index].ID})' class='btn bi bi-trash-fill'></span>
         </div>
                   
@@ -280,7 +280,7 @@ sqlmap.query(`DELETE FROM carousel WHERE ID=${ID}`, (err, next)=>{
     {
 
        for (const index in findInfo) {
-        fs.unlink(`./public/image/school/resized/${findInfo[index].item_name}`, function (errDelete) {
+        fs.unlink(`./public/image/carousel/resized/${findInfo[index].item_name}`, function (errDelete) {
             if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
 
             
@@ -331,7 +331,7 @@ exports.public_carousel_get= (req, res)=>{
  
 
         <div class="carousel-item  ${index==0?'active':''}" >
-        <img class="d-block w-100 responsive-img"  src="/image/school/resized/${info[index].item_name}" alt="404">
+        <img class="d-block w-100 responsive-img"  src="/image/carousel/resized/${info[index].item_name}" alt="404">
         </div>
         `       
       }
