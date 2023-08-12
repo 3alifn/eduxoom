@@ -1,0 +1,81 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>School settings</title>
+    <%- include("../component/metadata.html") %> 
+  
+
+</head>
+
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/admin-header-nav.html") %> 
+    <%- include("../component/admin-menu-nav.html") %> 
+  
+
+<div id="main-content" class="p-2 mt-5">
+
+
+<hr>
+<div class="row m-2 shadow-1 text-center">
+    <div class="col-12 m-auto">
+          <h3> <button class=" btn btn-light" onclick="window.location.reload()">Refresh</button>Setup Class Section</h3>
+    </div>
+  </div>
+
+
+  <div class="row" id="elementid">
+
+  </div>
+
+</div>
+<%-include("../component/___node.html") %> 
+
+</body>
+<script>
+
+function get_data(){
+  
+    $.ajax({
+        type: "get",
+        url: "/admin/setup/class-section/get",
+        data: {},
+        dataType: "JSON",
+        success: function (response) {
+            $('#elementid').html(response.element)
+        }
+    });
+}
+
+get_data()
+
+$(document).on('click', '.pushed', (event)=>{
+    const current_at_status= event.currentTarget.attributes[0].value;
+    const elementid= event.currentTarget.attributes[1].value;
+    if(current_at_status=='off') var at_status= 'on'; else at_status='off';
+  $.ajax({
+    type: "post",
+    url: "/admin/setup/class-section/post",
+    data: {at_status, elementid},
+    dataType: "JSON",
+    beforeSend: function (){
+      _spin_pull()
+    },
+    success: function (response) {
+
+        _msg_pull('alert-success', 'Updated...')
+        get_data()
+        _spin_pop()
+    }
+  });
+})
+
+
+</script>
+
+
+</html>

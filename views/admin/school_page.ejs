@@ -30,19 +30,67 @@
 
 <% if (info.length>0) { %>
  
-  <form id="schoolForm" action="#">
+<form id="schoolEIIN" action="#">
     <div id="logo-div" class="row m-2 p-2 border border-black">
         <div class="col-md-6 col-11 m-auto">
       
-          <label for="logo">
-            <h1 class="btn btn-light">Setup Logo</h1>
+            <label for="homeImg">
+            <h1 class="btn btn-light">Setup home photo </h1>
           </label>
+
+          <button type="submit" class="btn btn-light submitbtn float-end">Save & Changes</button>      
+          <input class="d-none homeImg"  id="homeImg" name="homeImg"  type="file" >
+      
+          <div class="input-group">
+           <span class="input-group-text">EIIN</span>
+            <input class=" mb-1 form-control" type="number" value="<%=info[0].school_EIIN%>" placeholder="School EIIN" name="school_EIIN" id="" required>
+          
+          </div>
+          
+          <input type="hidden" name="homeImg" value="<%=info[0].home_img%>">
+    
+        </div>
+      
+        
+      
+        <div class="col-md-6 col-11 m-auto">
+          
+
+          <div class="homeImg_append">
+      
+            <img class="rounded bg-demo-img-color" src="/image/school/setup/resized/<%=info[0].home_img%>" width="100%" height="200px" alt="Home image">
+      
+      
+          </div>
+
+        
+        </div>
+      
+      
+      
+    </div>
+</form>
+
+
+<form id="schoolForm" action="#">
+    <div id="logo-div" class="row m-2 p-2 border border-black">
+        <div class="col-md-6 col-11 m-auto">
+      
+          
+          <label for="logo">
+            <h1 class="btn btn-light">Setup logo</h1>
+          </label>
+
     
           <button type="submit" class="btn btn-light submitbtn float-end">Save & Changes</button>
       
           <input class="d-none logo"  id="logo" name="logoImg"  type="file" >
       
-          <input class="w-100 mb-1" type="text" value="<%=info[0].school_name%>" placeholder="School name" name="schoolName" id="" required>
+          <div class="input-group">
+           <span class="input-group-text">Name</span>
+            <input class="form-control mb-1" type="text" value="<%=info[0].school_name%>" placeholder="School name" name="schoolName" id="" required>
+          
+          </div>
           
           <textarea required class="w-100" placeholder="School about here..."  name="schoolAbout" id="" cols="40" rows="4"><%=info[0].school_about%></textarea>
 
@@ -51,11 +99,11 @@
         </div>
       
       
-        <div class="col-md-6 d-flex col-11 m-auto">
+        <div class="col-md-6  col-11 m-auto">
           
           <div class="logo_append">
       
-            <img class="rounded bg-demo-img-color" src="/image/school/setup/resized/<%=info[0].school_logo%>" width="200px" height="200px" alt="logo image">
+            <img class="rounded bg-demo-img-color" src="/image/school/setup/resized/<%=info[0].school_logo%>" width="100%" height="200px" alt="logo image">
       
       
           </div>
@@ -79,8 +127,13 @@
     
         <input class="d-none headmaster" name="headmasterImg"  id="headmaster" type="file">
     
-        <input class="w-100 mb-2" type="text" value="<%=info[0].headmaster_name%>" placeholder="Headermaster name" name="headmasterName" id="" required>
+
          
+        <div class="input-group">
+          <span class="input-group-text">Name</span>
+          <input class="form-control mb-2" type="text" value="<%=info[0].headmaster_name%>" placeholder="Headermaster name" name="headmasterName" id="" required>
+         
+         </div>
       </div>
     
     
@@ -114,8 +167,12 @@
     
         <input class="d-none president" name="presidentImg"  type="file" id="president" >
     
-        <input class="w-100 mb-2" type="text" value="<%=info[0].president_name%>" placeholder="President name" name="presidentName" id="" required>
+
+        <div class="input-group">
+          <span class="input-group-text">Name</span>
+          <input class="form-control mb-2" type="text" value="<%=info[0].president_name%>" placeholder="President name" name="presidentName" id="" required>
          
+         </div>
       </div>
     
     
@@ -149,8 +206,12 @@
     
         <input class="d-none secretary" name="secretaryImg"  type="file" id="secretary" >
     
-        <input class="w-100 mb-2" type="text" value="<%=info[0].secretary_name%>" placeholder="Secretary name" name="secretaryName" id="" required>
+
+        <div class="input-group">
+          <span class="input-group-text">Name</span>
+          <input class="form-control mb-2" type="text" value="<%=info[0].secretary_name%>" placeholder="Secretary name" name="secretaryName" id="" required>
          
+         </div>
       </div>
     
     
@@ -171,16 +232,53 @@
     </div>
 </form>
 
+
+
+
 <% } else {%>
+
+  <form id="schoolEIIN" action="#">
+    <div id="logo-div" class="row m-2 p-2 border border-black">
+        <div class="col-md-6 col-11 m-auto">
+      
+            <label for="homeImg">
+            <h1 class="btn btn-light">Setup home photo </h1>
+          </label>
+
+          <button type="submit" class="btn btn-light submitbtn float-end">Save & Changes</button>      
+          <input class="d-none homeImg"  id="homeImg" name="homeImg"  type="file" >
+          <input class="w-100 mb-1" type="number" value="" placeholder="School EIIN" name="school_EIIN" id="" required>
+
+    
+        </div>
+      
+      
+        <div class="col-md-6 col-11 m-auto">
+          
+
+          <div class="homeImg_append">
+      
+            <img class="rounded bg-demo-img-color" src="/image/school/setup/resized/" width="100%" height="200px" alt="Home image">
+      
+      
+          </div>
+
+        
+        </div>
+      
+      
+      
+    </div>
+</form>
+
+
  
 <form id="schoolForm" action="#">
     <div id="logo-div" class="row m-2 p-2 border border-black">
         <div class="col-md-6 col-11 m-auto">
-      
           <label for="logo">
-            <h1 class="btn btn-light">Setup Logo</h1>
+            <h1 class="btn btn-light">Setup logo</h1>
           </label>
-    
           <button type="submit" class="btn btn-light submitbtn float-end">Save & Changes</button>
       
           <input class="d-none logo"  id="logo" name="logoImg"  type="file" >
@@ -193,16 +291,16 @@
     
         </div>
       
-      
-        <div class="col-md-6 d-flex col-11 m-auto">
-          
+
+        <div class="col-md-6 col-11 m-auto">
+  
           <div class="logo_append">
       
-            <img class="rounded bg-demo-img-color" src="/image/school/setup/resized/" width="200px" height="200px" alt="logo image">
+            <img class="rounded bg-demo-img-color" src="/image/school/setup/resized/" width="100%" height="200px" alt="logo image">
       
       
           </div>
-        
+      
         </div>
       
       
@@ -317,20 +415,21 @@
 
   <% } %>
 
-
-  
-
-
-
-
-
-
 </div>
 <%-include("../component/___node.html") %> 
 <script src="/app/___noviewport.js"></script>
 
 </body>
 <script>
+
+noview.port({
+
+  input_class: 'homeImg',
+ append_class: 'homeImg_append', 
+ file_type: 'image', 
+ max_kb_size: 1024,
+ multiple: false,
+})
 
 noview.port({
   input_class: 'logo',
@@ -367,9 +466,39 @@ noview.port({
 })
 
 
-$("#schoolForm").on('submit', (event)=>{
+$("#schoolEIIN").on('submit', (event)=>{
       event.preventDefault()
       let formdata = new FormData($("form")[0])
+
+        $.ajax({
+            method: "post",
+            url: "/admin/setup/school-settings/EIIN/post",
+            data: formdata,
+             mimeType: "multipart/form-data",
+              cache: false,
+              processData: false,
+              contentType: false,
+               dataType: "JSON",
+       
+        beforeSend: function(){
+      $(".submitbtn").addClass("btn disabled")
+      _spin_pull()
+            },
+            success: function (info) {
+                _spin_pop()
+                _msg_pull( 'alert-success', 'Image added...', null)
+                $(".submitbtn").removeClass("disabled")
+
+    
+            }
+        });
+    
+    })
+
+
+$("#schoolForm").on('submit', (event)=>{
+      event.preventDefault()
+      let formdata = new FormData($("form")[1])
 
         $.ajax({
             method: "post",
@@ -395,12 +524,11 @@ $("#schoolForm").on('submit', (event)=>{
         });
     
     })
-
   
 
 $("#headmasterForm").on('submit', (event)=>{
       event.preventDefault()
-      let formdata = new FormData($("form")[1])
+      let formdata = new FormData($("form")[2])
   
         $.ajax({
             method: "post",
@@ -431,7 +559,7 @@ $("#headmasterForm").on('submit', (event)=>{
 
 $("#presidentForm").on('submit', (event)=>{
       event.preventDefault()
-      let formdata = new FormData($("form")[2])
+      let formdata = new FormData($("form")[3])
   
         $.ajax({
             method: "post",
@@ -459,10 +587,9 @@ $("#presidentForm").on('submit', (event)=>{
     })
 
 
-
 $("#secretaryForm").on('submit', (event)=>{
       event.preventDefault()
-      let formdata = new FormData($("form")[3])
+      let formdata = new FormData($("form")[4])
   
         $.ajax({
             method: "post",

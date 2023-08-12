@@ -11,13 +11,11 @@ const bodyParser = require("body-parser")
 const { render } = require("ejs")
 const {randomBytes, createHmac}= require("crypto")
 const ejs = require('ejs')
-
+const Jimp= require('jimp')
 const multer= require("multer")
 const nodemailer= require("nodemailer")
 const dotenv= require("dotenv").config()
 const cors= require("cors")
-const sharp = require('sharp');
-
 
 
 app.use(bodyParser.json())
@@ -89,7 +87,8 @@ app.listen(process.env.listen_port)
 
 
 module.exports= {
-    app, express, mysql, session, cookieParser, flash, bodyParser, sqlmap, multer, nodemailer, dotenv, cors, sharp
-    , randomBytes, createHmac, fs, path, ejs,
+app, express, mysql, session, cookieParser, flash, bodyParser,
+ sqlmap, multer, nodemailer, dotenv, cors, randomBytes,
+  createHmac, fs, path, ejs, Jimp
 }
 

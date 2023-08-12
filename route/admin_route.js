@@ -40,11 +40,20 @@ admin.all('*', (req, res, next)=>{
 
 
 // setup school-settings.........
+admin.get('/setup/class-section', (req, res)=>{
+  res.render('admin/class_section_page')
+})
+
+admin.get('/setup/class-section/get', school_app.admin_class_section_get)
+admin.post('/setup/class-section/post', school_app.admin_class_section_post)
+
 admin.get('/setup/school-settings', school_app.admin_school_page)
 
 admin.post('/setup/school-settings/post', multer_upload_school_settings.single('logoImg'), admin_school_post)
 
-admin.post('/setup/school-settings/headmaster/post', multer_upload_school_settings.single('headmasterImg'), admin_school_headmaster_post)
+admin.post('/setup/school-settings/EIIN/post', multer_upload_school_settings.single('homeImg'), school_app.admin_school_EIIN_post)
+
+admin.post('/setup/school-settings/headmaster/post', multer_upload_school_settings.single('headmasterImg'),  admin_school_headmaster_post)
 
 admin.post('/setup/school-settings/president/post', multer_upload_school_settings.single('presidentImg'), admin_school_president_post)
 
