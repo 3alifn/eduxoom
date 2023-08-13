@@ -7,25 +7,21 @@
     <div id="footer-list-item" class="row border-bottom justify-content-end bg-light ">
 
 
-        <div class="col-12 col-md-4 ">
+        <div class="col-12 col-md-4 " >
 
             
-                <div class="card shadow-0">
+                <div class="card shadow-0" style="height: 300px;overflow: scroll;" >
                     
-                    <div class="d-flex">
-                        <img height="auto" width="71px" class="logo-school" src="/image/default/logo.png" alt="logo">
-                        <strong class="name-school align-self-center">Boalmari George Academy</strong>
+                    <div class="d-flex" >
+                        <img height="auto" width="71px" class="logo-school rounded-circle" src="/image/default/resized/logo.png" alt="logo">
                     </div>
 
                     <div class="card-body p-0 ps-1" >
-                        <a target="_blank" href="https://www.facebook.com/BoalmariGeorgeAcademyOfficials" 
-                        class="p-2 text-decoration-none" >Official page <i class=" bi bi-facebook"></i></a>
+                        <a target="_blank" class="p-2 school-fb-link text-decoration-none"  href="#"   >Official page <i class=" bi bi-facebook"></i></a>
 
-                        <p class="card-text p-2 about-school" >
-                            বোয়ালমারী জর্জ একাডেমী, বোয়ালমারী ওয়াপদা মোড় রোড|
-                            বোয়ালমারীতে অবস্থিত একটি শিক্ষা প্রতিষ্ঠান। এটির একটি ক্যাম্পাস এবং প্রায়  ১৭০০+  শিক্ষার্থী রয়েছে। 
-                            বোয়ালমারী জর্জ একাডেমী বোয়ালমারীর একটি বিখ্যাত শিক্ষা প্রতিষ্ঠান।
-                        </p>
+                        <p class="p-2 fs-6 school-about" >
+                        
+                        <p>
                   
 
                     </div>
@@ -129,6 +125,20 @@ _default()
   $(window).resize(()=>{
   _default()
   })
+
+
+  (function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/school/info/get",
+    data: {},
+    dataType: "JSON",
+    success: function (response) {
+      $(".school-about").text(response.info[0].about)
+      $(".school-fb-link").attr( 'href', `${response.info[0].fb_link}`)
+    }
+  });
+  }())
 
 
 </script>

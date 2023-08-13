@@ -30,8 +30,8 @@
 <div class="row" id="printResult">
   
   <center>
-    <img src="/image/default/logo.png" width="50px" alt=""> <br>
-    <b> Boalmari George Academy</b> <br>
+    <img src="/image/default/resized/logo.png" width="50px" alt=""> <br>
+    <b class="school-name"> </b> <br>
 
     
     <img width="60px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[0].avatar%>" alt="">
@@ -225,6 +225,17 @@
 
 
 
+(function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/school/info/get",
+    data: {},
+    dataType: "JSON",
+    success: function (response) {
+      $(".school-name").text(response.info[0].name)
+    }
+  });
+  }())
 
 function student_checkout_class() {
  const className= '<%=className%>'

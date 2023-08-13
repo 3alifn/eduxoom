@@ -11,6 +11,7 @@
 
 </head>
 
+
 <body onload="pageLoadingTop()">
 
     <%- include("../component/admin-header-nav.html") %> 
@@ -23,34 +24,46 @@
 <hr>
 <div class="row m-2 shadow-1 text-center">
     <div class="col-12 m-auto">
-          <h3> <button class=" btn btn-light" onclick="window.location.reload()">Refresh</button> Setup School Settings</h3>
+          <h3> <button class=" btn btn-light shadow" onclick="window.location.reload()">Refresh</button> Setup School Settings</h3>
     </div>
   </div>
 
 
  
   <form id="schoolform" action="#">
-    <div id="text-div" class="row m-2 p-2 border border-black">
+    <div id="text-div" class="row m-2 p-2 ">
       <div class="col-md-8 col-11 m-auto">
         <table class=" table table-bordered">
 
           <tr>
             <td>EIIN</td>
-            <td> <input class="w-100 mb-1" type="number" value="<%=info[0].EIIN%>" placeholder="School EIIN" name="EIIN" id=""></td>
+            <td> <input class="w-100 mb-1  form-control" type="number" value="<%=info[0].EIIN%>" placeholder="School EIIN" name="EIIN" id=""></td>
           </tr>
 
           <tr>
             <td>Name</td>
-            <td><input class="w-100 mb-1" type="text" value="<%=info[0].name%>" placeholder="School name" name="name" id=""></td>
+            <td><input class="w-100 mb-1 form-control" type="text" value="<%=info[0].name%>" placeholder="School name" name="name" id=""></td>
+
+          </tr>
+
+          <tr>
+            <td>Heading</td>
+            <td><input class="w-100 mb-1 form-control" type="text" value="<%=info[0].heading%>" placeholder="Heading here..." name="heading" id=""></td>
 
           </tr>
 
           <tr>
             <td>About</td>
-            <td><textarea class="w-100" placeholder="School about here..." name="about" id="" cols="40" rows="4"><%=info[0].about%></textarea></td>
+            <td><textarea class="w-100 mb-1 form-control" placeholder="School about here..." name="about" id="" cols="40" rows="4"><%=info[0].about%></textarea></td>
           </tr>
 
-          <button type="submit" class="btn btn-light submitbtn float-end">Save & Changes</button>
+          <tr>
+            <td>Facebook page link</td>
+            <td><input class="w-100 mb-1 form-control" type="text" value="<%=info[0].fb_link%>" placeholder="https://www.facebook.com/url-page-name" name="fb_link" id=""></td>
+          </tr>
+
+
+          <button type="submit" class="btn btn-light shadow submitbtn float-end">Save & Changes</button>
 
         </table>
 
@@ -61,7 +74,7 @@
 
   <form id="personform" action="#">
 
-    <div id="person-div" class="row m-2 p-2 border border-black">
+    <div id="person-div" class="row m-2 p-2 ">
       <div class="col-md-8 col-11 m-auto">
 
           <table class="table table-bordered ">
@@ -70,7 +83,7 @@
           <tr >
             <td>Headmaster name</td>
             <td>
-               <input class="w-100 mb-2" type="text" value="<%=info[0].h_name%>" placeholder="Headermaster name" name="h_name" id="">
+               <input class="w-100 mb-2 form-control" type="text" value="<%=info[0].h_name%>" placeholder="Headermaster name" name="h_name" id="">
             </td>
             
           </tr>
@@ -79,7 +92,7 @@
             <td>Headmaster message</td>
 
             <td>
-              <textarea class="w-100 mb-2" placeholder="Headmaster message" name="h_mag" id="" cols="40"rows="5"><%=info[0].h_msg%></textarea>
+              <textarea class="w-100 mb-2 form-control" placeholder="Headmaster message" name="h_mag" id="" cols="40"rows="5"><%=info[0].h_msg%></textarea>
             </td>
 
           </tr>
@@ -90,7 +103,7 @@
           <tr >
             <td>President name</td>
             <td>
-               <input class="w-100 mb-2" type="text" value="<%=info[0].p_name%>" placeholder="p_img name" name="p_name" id="">
+               <input class="w-100 mb-2 form-control" type="text" value="<%=info[0].p_name%>" placeholder="p_img name" name="p_name" id="">
             </td>
             
           </tr>
@@ -99,7 +112,7 @@
             <td>President message</td>
 
             <td>
-              <textarea class="w-100 mb-2" placeholder="Headmaster message" name="p_msg" id="" cols="40"rows="5"><%=info[0].p_msg%></textarea>
+              <textarea class="w-100 mb-2 form-control" placeholder="Headmaster message" name="p_msg" id="" cols="40"rows="5"><%=info[0].p_msg%></textarea>
             </td>
 
           </tr>
@@ -111,7 +124,7 @@
           <tr >
             <td>Secretary name</td>
             <td>
-               <input class="w-100 mb-2" type="text" value="<%=info[0].s_name%>" placeholder="Secretary name" name="s_name" id="">
+               <input class="w-100 mb-2 form-control" type="text" value="<%=info[0].s_name%>" placeholder="Secretary name" name="s_name" id="">
             </td>
             
           </tr>
@@ -120,13 +133,13 @@
             <td>Secretary message</td>
 
             <td>
-              <textarea class="w-100 mb-2" placeholder="Secretary message" name="s_msg" id="" cols="40"rows="5"><%=info[0].s_msg%></textarea>
+              <textarea class="w-100 mb-2 form-control" placeholder="Secretary message" name="s_msg" id="" cols="40"rows="5"><%=info[0].s_msg%></textarea>
             </td>
 
           </tr>
         </thead>
 
-        <button type="submit" class="btn btn-light submitbtn float-end">Save & Changes</button>
+        <button type="submit" class="btn btn-light shadow submitbtn float-end">Save & Changes</button>
 
 
          </table>
@@ -137,7 +150,7 @@
 
 
   <form id="imgForm" action="#">
-    <div id="text-div" class="row m-2 p-2 border border-black">
+    <div id="text-div" class="row m-2 p-2 ">
       <div class="col-11 m-auto">
         <table class=" table table-bordered">
           <thead >
@@ -145,7 +158,7 @@
               <td>
 
                <label for="front_img">
-                  <h1 class="btn btn-light">Front photo </h1>
+                  <h5 class="btn btn-light shadow">Front photo </h5>
                 </label>
 
                           <input data-id="front_img" class="d-none pushed front_img"  id="front_img" name="image"  type="file" >
@@ -158,7 +171,7 @@
               <td>
 
                 <label for="logo">
-                   <h1 class="btn btn-light">Logo photo </h1>
+                   <h5 class="btn btn-light shadow">Logo photo </h5>
                  </label>
 
                            <input data-id="logo"  class="d-none pushed logo"  id="logo" name="image"  type="file" >
@@ -170,7 +183,7 @@
               <td>
             
               <label for="h_img">
-                <h1 class="btn btn-light">Headmaster photo</h1>
+                <h6 class="btn btn-light shadow">Headmaster photo</h6>
               </label>
 
         <input data-id="h_img" class="d-none pushed h_img" name="image"  id="h_img" type="file">
@@ -181,7 +194,7 @@
               <td>
             
                 <label for="p_img">
-                  <h1 class="btn btn-light">President photo</h1>
+                  <h5 class="btn btn-light shadow">President photo</h5>
                 </label>
 
           <input data-id="p_img" class="d-none p_img pushed" name="image"  id="p_img" type="file">
@@ -193,7 +206,7 @@
                 <td>
             
                   <label for="s_img">
-                    <h1 class="btn btn-light">Secretary photo</h1>
+                    <h5 class="btn btn-light shadow">Secretary photo</h5>
                   </label>
   
             <input data-id="s_img" class="d-none pushed s_img" name="image"  id="s_img" type="file">

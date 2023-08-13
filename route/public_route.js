@@ -8,11 +8,18 @@ const { public_rank_class_page, public_rank_page, public_rank_get, public_rank_g
 const { public_routine_page, public_routine_page_class_base, public_routine_download } = require("../app/routine_app")
 const { public_student_page, public_student_profile, public_student_list, self_join_student, self_student_verify_code, self_student_send_mail, public_student_get } = require("../app/student_app")
 const { public_teacher_list, public_teacher_profile_get } = require("../app/teacher_app")
-const { app } = require("../server")
+const { app, sqlmap } = require("../server")
 const { public_team_saanvi_sent_message } = require("../app/team_saanvi_app")
+const school_app = require("../app/school_app")
+const { pu_class_secton_rm } = require("../app/class_section")
 const public= express.Router()
 
+// class section settings...
+public.get("/class/section/rm", pu_class_secton_rm)
 
+
+// school settings...
+public.get("/school/info/get", school_app.pu_school_info_get)
 
 // team sannvi 
 public.get("/team-saanvi", (req, res) => {

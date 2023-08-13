@@ -10,13 +10,12 @@
     height: max-content !important;
     width: 100px !important;
     text-align: center !important;
-    background-color: #ffdf00 !important;
-    padding: 5px !important;
+    background-color: #fddc06fb !important;
+    padding: 2px !important;
     position: fixed !important;
     top: 0px !important;
     left: 50% !important;
     transform: translate(-50%) !important;
-    border-radius: 10px !important;
     z-index: 999999 !important;
   }
 

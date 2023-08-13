@@ -1,22 +1,14 @@
-<div class="toast-body  text-<%=alert%>  fw-bold" id="msgLive">
-  
-  <div class="mt-2 pt-2 border-top">
-  </div>
-</div>
 
-
-    <!-- Flexbox container for aligning the toasts -->
-    <div  aria-live="polite" aria-atomic="true" class="d-flex  justify-content-center align-items-center w-100">
+        <!-- Flexbox container for aligning the toasts -->
+        <div style="position: fixed; top: 1px; z-index: 99999;"  aria-live="polite" aria-atomic="true" class="d-flex  justify-content-center align-items-center w-100">
     
-      <!-- Then put toasts within -->
-      <div class="toast fade show " role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header ">
-          <strong class="me-auto toast-title" id="toast-title">notification</strong>
-          <small >just now</small>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          <!-- Then put toasts within -->
+          <div class="toast fade show " role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body fw-bold alert alert-<%=alert%> toast-msg" id="toast-msg">
+              <%=msg%> 
+              <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
+
+            </div>
+            
+          </div>
         </div>
-        <div class="toast-body fw-bold alert alert-<%=alert%> toast-msg" id="toast-msg">
-          <%=msg%> 
-        </div>
-      </div>
-    </div>

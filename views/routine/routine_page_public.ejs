@@ -112,11 +112,11 @@
             <option value="Nine-C">নবম - গ</option>
            </optgroup>
      
-            <optgroup label="দশম শ্রেণী">
-               <option value="Ten-A">দশম - ক</option>
+            <optgroup class="Ten_All" label="দশম শ্রেণী">
+               <option class="Ten_A" value="Ten-A">দশম - ক</option>
                
-               <option value="Ten-B">দশম - খ</option>
-               <option value="Ten-C">দশম - গ</option>
+               <option class="Ten_B" value="Ten-B">দশম - খ</option>
+               <option class="Ten_C" value="Ten-C">দশম - গ</option>
               </optgroup>
       
 
@@ -408,27 +408,23 @@ $("#classBase").on("change", ()=>{
 })
 
 
-function printRoutine(){
-    
-    $("#listDataId").show()
+(function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/class/section/rm",
+    data: {},
+    dataType: "JSON",
+    success: function (res) {
 
-var prtContent = document.getElementById("listDataId");
-var WinPrint = window.open('', '', 'left=0,top=0,width=384,height=900,toolbar=0,scrollbars=0,status=0');
-WinPrint.document.write('<html><head>');
-WinPrint.document.write('<link rel="stylesheet" href="/app/bootstrap.css">');
-WinPrint.document.write('<link rel="stylesheet" href="/app/jquery.js">');
-WinPrint.document.write('</head><body onload="print();close();">');
-WinPrint.document.write(prtContent.innerHTML);
-WinPrint.document.write('</body></html>');
-WinPrint.document.close();
-WinPrint.focus();
+     for (let index = 0; index < res.info.length; index++) {
 
+        $("."+res.info[index].class+'_'+res.info[index].section).remove()
+        
+     }
+    }
+  });
 
-
-}
-
-
-
+  }())
 
 
 

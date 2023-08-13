@@ -4,6 +4,7 @@ const {sqlmap, multer, randomBytes, createHmac, path, fs}= require('../server');
 const { json } = require('body-parser');
 const sharp= require("sharp")
 
+
 const multer_location= multer.diskStorage({
     destination: (req, file, cb)=>{
      cb(null, "./public/image/default/")
@@ -16,8 +17,7 @@ const multer_location= multer.diskStorage({
     
   })
   
-  
-  
+
 module.exports= {
     multer_upload_school_settings: multer({
         storage: multer_location,
@@ -38,62 +38,13 @@ module.exports= {
       }),
 
 
-   admin_class_section_get: (req, res)=>{
-    
-        sqlmap.query(`SELECT * FROM class_section ORDER BY ID`, (err, info)=>{
+      pu_school_info_get: (req, res)=>{
+
+        sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (err, info)=>{
             if(err) console.log(err.sqlMessage);
-            
-            var element= 
-            `<div class="col-11 m-auto">
-              <table class=" table table-bordered">
-                <thead>
-                  <tr>
-                    <th>CLASS</th>
-                    <th>SECTION</th>
-                    <th>STATUS</th>
-                  </tr>
-                </thead>
-              
-                <tbody>
-              
-                    
-          
-              `
-
-            for (let index = 0; index < info.length; index++) {
-                element+=`
-                
-                <tr>
-                <td><li class="list-group-item p-2 list-group-item-success fw-bold">${info[index].class}</li></td>
-                <td><li class="list-group-item p-2 list-group-item-success fw-bold">${info[index].section}</li></td>
-                <td>
-                  <button data-status="${info[index].at_status}" data-id="${info[index].ID}" class="btn fw-bold ${info[index].at_status=='on'?'btn-success':'btn-danger'} pushed">${info[index].at_status}</button>
-                </td>
-              </tr> 
-
-                `
-                
-            }
-
-            element+=`
-            </tbody>
-            </table>
-          </div>`
-          
-            res.send({element})
+            else res.send({info})
         })
-
-     
     
-    },    
-
-    admin_class_section_post: (req, res)=>{
-        const {elementid, at_status}= req.body;
-        sqlmap.query( `UPDATE class_section SET at_status='${at_status}' WHERE ID=${elementid}`, (err, next)=>{
-            if(err) console.log(err.sqlMessage);
-            else res.send({msg: 'updated...'})
-        })
-
     },
 
     admin_school_page: (req, res)=>{
@@ -108,12 +59,12 @@ module.exports= {
     },
 
     admin_school_post:  (req, res)=>{
-    const {EIIN, name, about}= req.body;
+    const {EIIN, name, about, fb_link, heading}= req.body;
         sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
             if(errHave) console.log(errHave.sqlMessage);
             if(infoHave.length==0||infoHave==undefined){
 
-                sqlmap.query(`INSERT INTO school_settings (EIIN, name, about)VALUES( '${EIIN}', '${name}','${about}')`, (err, next)=>{
+                sqlmap.query(`INSERT INTO school_settings (EIIN, name, about, fb_link, heading)VALUES( '${EIIN}', '${name}','${about}', '${fb_link}', '${heading}')`, (err, next)=>{
                     if(err) console.log(err.sqlMessage);
                     else res.send({msg: 'Updated'})
         
@@ -121,7 +72,7 @@ module.exports= {
         
 
             } else {
-                sqlmap.query(`UPDATE school_settings SET EIIN='${EIIN}', name='${name}', about="${about}"`, (err, next)=>{
+                sqlmap.query(`UPDATE school_settings SET EIIN='${EIIN}', name='${name}', about="${about}", fb_link='${fb_link}', heading='${heading}'`, (err, next)=>{
                     if(err) console.log(err.sqlMessage);
                     else res.send({msg: ' Updated'})
                 })

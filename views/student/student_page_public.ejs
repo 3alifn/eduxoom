@@ -51,7 +51,7 @@
             </div>
         </div>
     
-        <div class="col-md-4 col-10 m-auto">
+        <div class="col-md-4 col-10 m-auto Six_A">
        
             <a href="/pu/all/student?className=Six&sectionName=A">
                 <div class="card shadow-sm">
@@ -66,7 +66,7 @@
           </div>      
           
           
-          <div class="col-md-4 col-10 m-auto"> 
+          <div class="col-md-4 col-10 m-auto Six_B"> 
     
             <a href="/pu/all/student?className=Six&sectionName=B">
               <div class="card shadow-sm">
@@ -81,7 +81,7 @@
           </div>  
     
     
-          <div class="col-md-4 col-10 m-auto">
+          <div class="col-md-4 col-10 m-auto Six_C">
     
             <a href="/pu/all/student?className=Six&sectionName=C">
                 <div class="card shadow-sm">
@@ -109,7 +109,7 @@
             </div>
         </div>
     
-        <div class="col-md-4 col-10 m-auto">
+        <div class="col-md-4 col-10 m-auto A">
        
             <a href="/pu/all/student?className=Seven&sectionName=A">
                 <div class="card shadow-sm">
@@ -124,7 +124,7 @@
           </div>      
           
           
-          <div class="col-md-4 col-10 m-auto">
+          <div class="col-md-4 col-10 m-auto Seven_B">
     
             <a href="/pu/all/student?className=Seven&sectionName=B">
                 <div class="card shadow-sm">
@@ -139,7 +139,7 @@
           </div>  
     
     
-          <div class="col-md-4 col-10 m-auto">
+          <div class="col-md-4 col-10 m-auto Seven_C">
     
             <a href="/pu/all/student?className=Seven&sectionName=C">
                 <div class="card shadow-sm">
@@ -169,7 +169,7 @@
             </div>
         </div>
     
-        <div class="col-md-4 col-10 m-auto">
+        <div class="col-md-4 col-10 m-auto Eight_A">
        
             <a href="/pu/all/student?className=Eight&sectionName=A">
                 <div class="card shadow-sm">
@@ -184,7 +184,7 @@
           </div>      
           
           
-          <div class="col-md-4 col-10 m-auto">
+          <div class="col-md-4 col-10 m-auto Eight_B">
     
             <a href="/pu/all/student?className=Eight&sectionName=B">
                 <div class="card shadow-sm">
@@ -199,7 +199,7 @@
           </div>  
     
     
-          <div class="col-md-4 col-10 m-auto">
+          <div class="col-md-4 col-10 m-auto Eight_C">
     
             <a href="/pu/all/student?className=Eight&sectionName=C">
                 <div class="card shadow-sm">
@@ -231,7 +231,7 @@
             </div>
         </div>
     
-        <div class="col-md-4 col-10 m-auto">
+        <div class="col-md-4 col-10 m-auto Nine_A">
        
             <a href="/pu/all/student?className=Nine&sectionName=A">
                 <div class="card shadow-sm">
@@ -246,7 +246,7 @@
           </div>      
           
           
-          <div class="col-md-4 col-10 m-auto">
+          <div class="col-md-4 col-10 m-auto Nine_B">
     
             <a href="/pu/all/student?className=Nine&sectionName=B">
                 <div class="card shadow-sm">
@@ -261,7 +261,7 @@
           </div>  
     
     
-          <div class="col-md-4 col-10 m-auto">
+          <div class="col-md-4 col-10 m-auto Nine_C">
     
             <a href="/pu/all/student?className=Nine&sectionName=C">
                 <div class="card shadow-sm">
@@ -294,7 +294,7 @@
             </div>
         </div>
     
-        <div class="col-md-4 col-10 m-auto">
+        <div class="col-md-4 col-10 m-auto Ten_A">
        
             <a href="/pu/all/student?className=Ten&sectionName=A">
                 <div class="card shadow-sm">
@@ -309,7 +309,7 @@
           </div>      
           
           
-          <div class="col-md-4 col-10 m-auto">
+          <div class="col-md-4 col-10 m-auto Ten_B">
     
             <a href="/pu/all/student?className=Ten&sectionName=B">
                 <div class="card shadow-sm">
@@ -324,7 +324,7 @@
           </div>  
     
     
-          <div class="col-md-4 col-10 m-auto">
+          <div class="col-md-4 col-10 m-auto Ten_C">
     
             <a href="/pu/all/student?className=Ten&sectionName=C">
                 <div class="card shadow-sm">
@@ -347,6 +347,25 @@
 
 
 <script>
+
+(function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/class/section/rm",
+    data: {},
+    dataType: "JSON",
+    success: function (res) {
+
+     for (let index = 0; index < res.info.length; index++) {
+
+        $("."+res.info[index].class+'_'+res.info[index].section).remove()
+        
+     }
+    }
+  });
+
+  }())
+
     $("#classSixbtn").on("click", ()=>{
         $("#classSix").toggle()
     })

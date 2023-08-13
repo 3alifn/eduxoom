@@ -8,7 +8,7 @@
 
     <title>SAANVI</title>
     <%- include("../component/metadata.html") %> 
- <link rel="shortcut icon" href="/image/default/logo.png" type="image/x-icon">
+ <link rel="shortcut icon" href="/image/default/resized/logo.png" type="image/x-icon">
 </head>
 <style>
     ::-webkit-scrollbar {
@@ -17,7 +17,7 @@
 }
 
 .my-bg-img{
-  background-image: url('/image/default/bg-img.jpg');
+  background-image: url('/image/default/resized/front_img.png');
   background-size:cover;
   background-repeat: no-repeat;
   background-position:center;
@@ -60,7 +60,7 @@
 
 
     <div class="d-flex flex-column align-items-center justify-content-center h-100 w-100" style="background-color: rgba(0, 0, 0, 0.449);">
-      <h1 class="text-light text-uppercase shadow">Boalmari George Academy</h1>
+      <h1 id="" class="text-light school-name text-uppercase shadow"></h1>
   
     </div>
 
@@ -81,5 +81,18 @@
   function pageLoaded(){
    $('.page-loading-top').remove()
   }
+
+
+(function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/school/info/get",
+    data: {},
+    dataType: "JSON",
+    success: function (response) {
+      $(".school-name").text(response.info[0].name)
+    }
+  });
+  }())
 </script>
 </html>

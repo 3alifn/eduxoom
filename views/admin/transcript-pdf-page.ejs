@@ -39,6 +39,8 @@
 
 <script>
 
+  
+
 function printArea(todo){
  $('.printAreaBtn').addClass('disabled');
   $('.mainApp').css('overflow-x', 'visible');
@@ -81,7 +83,6 @@ function transcript_pdf_get(){
  const sectionName= '<%=sectionName%>'
  var getLength= `<%=getStudent.length%>`
 for (let index = 0; index < getLength; index++) {
-  console.log(getLength, index);
  const student_id= $('.getStudent'+index).val();
  if(getLength==index+1) {
   _spin_pop()
@@ -153,7 +154,17 @@ function student_checkout_class() {
 }
 
 
-
+(function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/school/info/get",
+    data: {},
+    dataType: "JSON",
+    success: function (response) {
+      $(".school-name").text(response.info[0].name)
+    }
+  });
+  }())
 
 </script>
 

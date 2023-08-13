@@ -302,7 +302,7 @@ exports.public_user_nav_item_header= (req, res)=>{
     
       if(req.session.hashUser=='hashAdmin'){
         let listData= ` 
-        <a href='/'>   <img src="/image/default/logo.png" width="71px" height="auto" class=" p-1">
+        <a href='/'>   <img src="/image/default/resized/logo.png" width="71px" height="auto" class=" p-1">
         </a></li>
       <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/admin/dashboard">Dashboard</a></li>
       <li><a class=" p-2 d-none d-md-block text-dark nav-link" href="/admin/account">Account</a></li>
@@ -317,7 +317,7 @@ exports.public_user_nav_item_header= (req, res)=>{
   
       else if(req.session.user=='teacher') {
         let listData= ` 
-       <a href='/'> <img src="/image/default/logo.png" width="71px" height="auto" class=" p-1">
+       <a href='/'> <img src="/image/default/resized/logo.png" width="71px" height="auto" class=" p-1">
         </a></li>
 
         <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/teacher/dashboard">Dashboard</a></li>
@@ -332,7 +332,7 @@ exports.public_user_nav_item_header= (req, res)=>{
       else if(req.session.user=='student'){
   
           let listData= ` 
-          <a href='/'> <img src="/image/default/logo.png" width="71px" height="auto" class=" p-1">
+          <a href='/'> <img src="/image/default/resized/logo.png" width="71px" height="auto" class=" p-1">
           </a></li>
   
           <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/student/dashboard">Dashboard</a></li>
@@ -348,7 +348,7 @@ exports.public_user_nav_item_header= (req, res)=>{
   
       else if(req.session.user=='parent'){
         let listData= ` 
-        <a href='/'>  <img src="/image/default/logo.png" width="71px" height="auto" class=" p-1">
+        <a href='/'>  <img src="/image/default/resized/logo.png" width="71px" height="auto" class=" p-1">
         </a></li>
 
         <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/parent/dashboard">Dashboard</a></li>

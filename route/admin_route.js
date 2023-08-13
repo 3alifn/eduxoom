@@ -16,6 +16,7 @@ const { render } = require("ejs")
 const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_post, admin_bi_catagory_delete } = require("../app/bi_app")
 const { multer_upload_school_settings, admin_school_post, admin_school_get, admin_school_headmaster_post, admin_school_headmaster_get, admin_school_president_post, admin_school_president_get, admin_school_secretary_post, admin_school_secretary_get } = require("../app/school_app")
 const school_app = require("../app/school_app")
+const { admin_class_section_get, admin_class_section_post } = require("../app/class_section")
 const admin= express.Router()
 
 
@@ -40,12 +41,14 @@ admin.all('*', (req, res, next)=>{
 
 
 // setup school-settings.........
+
+
 admin.get('/setup/class-section', (req, res)=>{
   res.render('admin/class_section_page')
 })
 
-admin.get('/setup/class-section/get', school_app.admin_class_section_get)
-admin.post('/setup/class-section/post', school_app.admin_class_section_post)
+admin.get('/setup/class-section/get', admin_class_section_get)
+admin.post('/setup/class-section/post', admin_class_section_post)
 
 admin.get('/setup/school-settings', school_app.admin_school_page)
 

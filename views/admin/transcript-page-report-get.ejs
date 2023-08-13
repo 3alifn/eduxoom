@@ -59,9 +59,9 @@
     <div class=" row">
      
        <div class="card col-12 col-md-8 p-2">
-        <img class=" m-auto" width="60px" src="/image/default/logo.png" alt="">
+        <img class=" m-auto" width="60px" src="/image/default/resized/logo.png" alt="">
           <center>
-            <h4 class="card-text">Boalamri George Academy</h4>
+            <h4 class="card-text school-name"></h4>
           <h6 class="card-text">Transcript Report</h6>
           </center>
        </div>  
@@ -200,6 +200,8 @@
 <script src= "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
 
 <script>
+
+  
 
   function printArea(todo){
  $('.printAreaBtn').addClass('disabled');
@@ -350,7 +352,17 @@ $('.toast-msg').html(`<img src="/image/default/loading-load.gif" width="100px" c
 
 
 
-
+(function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/school/info/get",
+    data: {},
+    dataType: "JSON",
+    success: function (response) {
+      $(".school-name").text(response.info[0].name)
+    }
+  });
+  }())
 
 
 

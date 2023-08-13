@@ -240,9 +240,9 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
    var student_card= `<div class=" row">
      
    <div class="card col-12 col-md-8 p-2">
-    <img class=" m-auto" width="60px" src="/image/default/logo.png" alt="">
+    <img class=" m-auto" width="60px" src="/image/default/resized/logo.png" alt="">
       <center>
-        <h4 class="card-text">Boalamri George Academy</h4>
+        <h4 class="card-text school-name"></h4>
       <h6 class="card-text">Transcript Report</h6>
       </center>
    </div>  
