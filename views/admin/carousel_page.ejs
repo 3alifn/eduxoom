@@ -55,7 +55,7 @@
                     <label for="file">
                         <h5  class="btn btn-light">Select Image</h5>
                     </label>
-                    <input id="file" type="file" class="d-none form-self" name="itemName[]" multiple> <p></p>
+                    <input id="file" type="file" class="d-none file form-self" name="itemName[]" multiple> <p></p>
    
                  
                     <center>
@@ -75,7 +75,7 @@
                         <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 10%;" ></div>
                     </div>
 
-                    <div id="file_append" class="col-auto">
+                    <div class="file_append" class="col-auto">
 
                     </div>
                 </div>
@@ -103,7 +103,7 @@
 </div>
 </div>
 <%-include("../component/___node.html") %> 
-<script src="/app/noviewport.js"></script>
+<script src="/app/___noviewport.js"></script>
 
 </body>
 <script>
@@ -118,10 +118,11 @@
 
 
 noview.port({
-   file_id: 'file',
-   append_id:  'file_append', 
-   file_type: 'image',
-   max_kb_size: 1024*2
+input_class: 'file',
+ append_class: 'file_append', 
+ file_type: 'image', 
+ max_kb_size: 1024,
+ multiple: true,
   })
     
 function loadContentData(){

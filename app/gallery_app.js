@@ -1,9 +1,10 @@
 const express = require("express")
 
-const { sqlmap , multer, Jimp, randomBytes, createHmac} = require("../server")
+const { sqlmap , multer, randomBytes, createHmac} = require("../server")
 const app = express()
 const fs= require('fs')
 const path= require('path')
+const sharp= require("sharp");
 
 
 const multer_location= multer.diskStorage({
@@ -164,7 +165,7 @@ exports.public_gallery_video_data_get= (req, res)=>{
 
 // admin carousel part
 
-exports.admin_carousel_post= (req, res)=>{
+exports.admin_carousel_post= async(req, res)=>{
 
 
   for (let x = 0; x < req.files.length; x++) {
@@ -172,35 +173,22 @@ exports.admin_carousel_post= (req, res)=>{
    
   if(req.files[x].size<1048576){
 
-    Jimp.read(req.files[x].path)
-  .then((img) => {
-    return img
-      // .resize(256, 256) // resize
-      .quality(20) // set JPEG quality
-      .write(path.resolve(req.files[x].destination,'resized',image)); // save
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-
-  fs.unlinkSync(req.files[x].path)
-
+    await sharp(req.files[x].path)
+    .jpeg({ quality: 50 })
+    .toFile(
+        path.resolve(path.resolve(req.files[x].destination, 'resized',image))
+    )
   
     }
 
     else {
 
       
-    Jimp.read(req.files[x].path)
-  .then((img) => {
-    return img
-      // .resize(256, 256) // resize
-      .quality(50) // set JPEG quality
-      .write(path.resolve(req.files[x].destination,'resized',image)); // save
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+      await sharp(req.file.path)
+      .jpeg({ quality: 50 })
+      .toFile(
+          path.resolve(path.resolve(req.file.destination, 'resized',image))
+      )
 
   fs.unlinkSync(req.files[x].path)
     
@@ -384,23 +372,18 @@ exports.admin_gallery_image_get= (req, res)=>{
 }
 
 
-exports.admin_gallery_image_post= (req, res)=>{
+exports.admin_gallery_image_post= async(req, res)=>{
   let {itemTitle}= req.body;
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
 
   if(req.files[x].size<1048576){
   
-    Jimp.read(req.files[x].path)
-    .then((img) => {
-      return img
-        // .resize(256, 256) // resize
-        .quality(20) // set JPEG quality
-        .write(path.resolve(req.files[x].destination,'resized',image)); // save
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+    await sharp(req.files[x].path)
+    .jpeg({ quality: 50 })
+    .toFile(
+        path.resolve(path.resolve(req.files[x].destination, 'resized',image))
+    )
   
     fs.unlinkSync(req.files[x].path)
   
@@ -409,17 +392,11 @@ exports.admin_gallery_image_post= (req, res)=>{
   
     
     else {
-      
-      Jimp.read(req.files[x].path)
-      .then((img) => {
-        return img
-          // .resize(256, 256) // resize
-          .quality(50) // set JPEG quality
-          .write(path.resolve(req.files[x].destination,'resized',image)); // save
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      await sharp(req.files[x].path)
+      .jpeg({ quality: 30 })
+      .toFile(
+          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
+      )
     
       fs.unlinkSync(req.files[x].path)
     
@@ -448,7 +425,7 @@ exports.admin_gallery_image_post= (req, res)=>{
 }
 
 
-exports.admin_gallery_image_data_post= (req, res)=>{
+exports.admin_gallery_image_data_post= async (req, res)=>{
   let {itemTitle, dataId}= req.body;
 
   for (let x = 0; x < req.files.length; x++) {
@@ -456,16 +433,11 @@ exports.admin_gallery_image_data_post= (req, res)=>{
 
   if(req.files[x].size<1048576){
     
-    Jimp.read(req.files[x].path)
-    .then((img) => {
-      return img
-        // .resize(256, 256) // resize
-        .quality(20) // set JPEG quality
-        .write(path.resolve(req.files[x].destination,'resized',image)); // save
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+    await sharp(req.files[x].path)
+    .jpeg({ quality: 50 })
+    .toFile(
+        path.resolve(path.resolve(req.files[x].destination, 'resized',image))
+    )
   
     fs.unlinkSync(req.files[x].path)
   
@@ -473,17 +445,11 @@ exports.admin_gallery_image_data_post= (req, res)=>{
     }
 
     else {
-
-      Jimp.read(req.files[x].path)
-      .then((img) => {
-        return img
-          // .resize(256, 256) // resize
-          .quality(50) // set JPEG quality
-          .write(path.resolve(req.files[x].destination,'resized',image)); // save
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      await sharp(req.files[x].path)
+      .jpeg({ quality: 30 })
+      .toFile(
+          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
+      )
     
       fs.unlinkSync(req.files[x].path)
     

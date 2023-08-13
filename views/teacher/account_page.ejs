@@ -230,14 +230,12 @@ $("#formFile").submit(function(e){
             processData: false,
             beforeSend: function(){
               $("#fileEdit").hide()
-             $("#avatar").addClass("spinner-grow")
 
             },
 
             success: function(info){
 
-              $("#msg").html(info.msg)
-    toast()
+  
                 setTimeout(() => {
                   window.location.reload()
                 }, 3000);

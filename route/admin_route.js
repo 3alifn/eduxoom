@@ -49,16 +49,9 @@ admin.post('/setup/class-section/post', school_app.admin_class_section_post)
 
 admin.get('/setup/school-settings', school_app.admin_school_page)
 
-admin.post('/setup/school-settings/post', multer_upload_school_settings.single('logoImg'), admin_school_post)
-
-admin.post('/setup/school-settings/EIIN/post', multer_upload_school_settings.single('homeImg'), school_app.admin_school_EIIN_post)
-
-admin.post('/setup/school-settings/headmaster/post', multer_upload_school_settings.single('headmasterImg'),  admin_school_headmaster_post)
-
-admin.post('/setup/school-settings/president/post', multer_upload_school_settings.single('presidentImg'), admin_school_president_post)
-
-admin.post('/setup/school-settings/secretary/post', multer_upload_school_settings.single('secretaryImg'), admin_school_secretary_post)
-
+admin.post('/setup/school-settings/post', school_app.admin_school_post)
+admin.post('/setup/school-settings/person/post', school_app.admin_school_person_post)
+admin.post('/setup/school-settings/img/post', multer_upload_school_settings.single('image'), school_app.admin_school_img_post)
 
 
 // final transcript router....

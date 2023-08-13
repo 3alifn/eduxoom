@@ -55,7 +55,7 @@
                     <label for="file">
                         <h5  class="btn btn-light">Select Image</h5>
                     </label>
-                    <input id="file" type="file" class="d-none form-self" name="itemName[]" multiple required> <p></p>
+                    <input id="file" type="file" class="d-none file form-self" name="itemName[]" multiple required> <p></p>
    
                  
                     <center>
@@ -71,7 +71,7 @@
                         <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 10%;" ></div>
                     </div>
                     
-                    <div id="file_append" class="col-auto">
+                    <div id="file_append" class="col-auto file_append">
                    
                     </div>
                 </div>
@@ -104,7 +104,7 @@
 </form>
   
 <%-include("../component/___node.html") %> 
-<script src="/app/noviewport.js"></script>
+<script src="/app/___noviewport.js"></script>
 
 <script>
 
@@ -114,10 +114,11 @@ $(".check-mark").click(function(){
 
 
 noview.port({
-   file_id: 'file',
-   append_id:  'file_append', 
-   file_type: 'image',
-   max_kb_size: 1024*100000
+input_class: 'file',
+ append_class: 'file_append', 
+ file_type: 'image', 
+ max_kb_size: 1024,
+ multiple: true,
   })
     
 function galleryImagePull(){

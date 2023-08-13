@@ -1,6 +1,8 @@
 const express= require('express');
 const app= express();
-const {sqlmap, multer, randomBytes, Jimp, createHmac, path, fs}= require('../server');
+const {sqlmap, multer, randomBytes, createHmac, path, fs}= require('../server');
+const { json } = require('body-parser');
+const sharp= require("sharp")
 
 const multer_location= multer.diskStorage({
     destination: (req, file, cb)=>{
@@ -36,7 +38,7 @@ module.exports= {
       }),
 
 
-     admin_class_section_get: (req, res)=>{
+   admin_class_section_get: (req, res)=>{
     
         sqlmap.query(`SELECT * FROM class_section ORDER BY ID`, (err, info)=>{
             if(err) console.log(err.sqlMessage);
@@ -106,72 +108,12 @@ module.exports= {
     },
 
     admin_school_post:  (req, res)=>{
-    const {schoolName, schoolAbout, schoolLogo, schoolImg}= req.body;
-     if(req.file){
-        const { filename: image } = req.file;
-        if(req.file.size<1048576){
-
-            Jimp.read(req.files[x].path)
-            .then((img) => {
-              return img
-                // .resize(256, 256) // resize
-                .quality(60) // set JPEG quality
-                .write(path.resolve(req.files[x].destination,'resized',image)); // save
-            })
-            .catch((err) => {
-              console.error(err);
-            });
-          
-            fs.unlinkSync(req.files[x].path)
-        
-          }
-      
-          else {
-
-            Jimp.read(req.files[x].path)
-      .then((img) => {
-        return img
-          // .resize(256, 256) // resize
-          .quality(90) // set JPEG quality
-          .write(path.resolve(req.files[x].destination,'resized',image)); // save
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    
-      fs.unlinkSync(req.files[x].path)
-          
-            }
-
-            sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
-                if(errHave) console.log(errHave.sqlMessage);
-                if(infoHave.length==0||infoHave==undefined){
-
-                    sqlmap.query(`INSERT INTO school_settings (school_name, school_about, school_logo)VALUES( '${schoolName}', '${schoolAbout}','${req.file.filename}')`, (err, next)=>{
-                        if(err) console.log(err.sqlMessage);
-                        else res.send({msg: ' Updated'})
-        
-                    })
-
-                } else {
-                    sqlmap.query(`UPDATE school_settings SET school_name='${schoolName}', school_about='${schoolAbout}', school_logo='${req.file.filename}'`, (err, next)=>{
-                        if(err) console.log(err.sqlMessage);
-                        else res.send({msg: ' Updated'})
-                    })
-                }
-                
-            })
-
-
-        
-
-     } else {
-
+    const {EIIN, name, about}= req.body;
         sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
             if(errHave) console.log(errHave.sqlMessage);
             if(infoHave.length==0||infoHave==undefined){
 
-                sqlmap.query(`INSERT INTO school_settings (school_name, school_about, school_logo)VALUES( '${schoolName}', '${schoolAbout}','${schoolLogo}')`, (err, next)=>{
+                sqlmap.query(`INSERT INTO school_settings (EIIN, name, about)VALUES( '${EIIN}', '${name}','${about}')`, (err, next)=>{
                     if(err) console.log(err.sqlMessage);
                     else res.send({msg: 'Updated'})
         
@@ -179,7 +121,7 @@ module.exports= {
         
 
             } else {
-                sqlmap.query(`UPDATE school_settings SET school_name='${schoolName}', school_about='${schoolAbout}'`, (err, next)=>{
+                sqlmap.query(`UPDATE school_settings SET EIIN='${EIIN}', name='${name}', about="${about}"`, (err, next)=>{
                     if(err) console.log(err.sqlMessage);
                     else res.send({msg: ' Updated'})
                 })
@@ -187,384 +129,109 @@ module.exports= {
             
         })
         
-        
-  
-    }
-      
+
     },  
     
-    
-    
-  admin_school_EIIN_post:  (req, res)=>{
-    const {school_EIIN, homeImg}= req.body;
-     if(req.file){
-        const { filename: image } = req.file;
-        if(req.file.size<1048576){
-
-            Jimp.read(req.files[x].path)
-            .then((img) => {
-              return img
-                // .resize(256, 256) // resize
-                .quality(60) // set JPEG quality
-                .write(path.resolve(req.files[x].destination,'resized',image)); // save
-            })
-            .catch((err) => {
-              console.error(err);
-            });
-          
-            fs.unlinkSync(req.files[x].path)
+    admin_school_person_post:  (req, res)=>{
+            const {h_name, h_msg, p_name, p_msg, s_name, s_msg}= req.body;
+                sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
+                    if(errHave) console.log(errHave.sqlMessage);
+                    if(infoHave.length==0||infoHave==undefined){
         
-          }
-      
-          else {
-
-            Jimp.read(req.files[x].path)
-            .then((img) => {
-              return img
-                // .resize(256, 256) // resize
-                .quality(90) // set JPEG quality
-                .write(path.resolve(req.files[x].destination,'resized',image)); // save
-            })
-            .catch((err) => {
-              console.error(err);
-            });
-          
-            fs.unlinkSync(req.files[x].path)
-          
-            }
-
-            sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
-                if(errHave) console.log(errHave.sqlMessage);
-                if(infoHave.length==0||infoHave==undefined){
-
-                    sqlmap.query(`INSERT INTO school_settings (school_EIIN, home_img)VALUES( '${school_EIIN}', '${req.file.filename}')`, (err, next)=>{
-                        if(err) console.log(err.sqlMessage);
-                        else res.send({msg: ' Updated'})
-        
-                    })
-
-                } else {
-                    sqlmap.query(`UPDATE school_settings SET school_EIIN='${school_EIIN}', home_img='${req.file.filename}'`, (err, next)=>{
-                        if(err) console.log(err.sqlMessage);
-                        else res.send({msg: ' Updated'})
-                    })
-                }
+                        sqlmap.query(`INSERT INTO school_settings (h_name, h_msg, p_name, p_msg, s_name, s_msg)VALUES( '${h_name}', '${h_msg}','${p_name}', '${p_msg}', '${s_name}', '${s_msg}')`, (err, next)=>{
+                            if(err) console.log(err.sqlMessage);
+                            else res.send({msg: 'Updated'})
                 
-            })
-
-
+                        })
+                
         
-
-     } else {
-
-        sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
-            if(errHave) console.log(errHave.sqlMessage);
-            if(infoHave.length==0||infoHave==undefined){
-
-                sqlmap.query(`INSERT INTO school_settings (school_EIIN, home_img)VALUES( '${school_EIIN}','${homeImg}')`, (err, next)=>{
-                    if(err) console.log(err.sqlMessage);
-                    else res.send({msg: 'Updated'})
-        
+                    } else {
+                        sqlmap.query(`UPDATE school_settings SET h_name='${h_name}', h_msg='${h_msg}', p_name='${p_name}', p_msg='${p_msg}', s_name='${s_name}', s_msg='${s_msg}'`, (err, next)=>{
+                            if(err) console.log(err.sqlMessage);
+                            else res.send({msg: ' Updated'})
+                        })
+                    }
+                    
                 })
+                
+              
+        
         
 
-            } else {
-                sqlmap.query(`UPDATE school_settings SET school_EIIN='${school_EIIN}', home_img='${homeImg}'`, (err, next)=>{
-                    if(err) console.log(err.sqlMessage);
-                    else res.send({msg: ' Updated'})
-                })
-            }
-            
-        })
-        
+
+    }, 
+
+
+    admin_school_img_post:  (req, res)=>{
+      const {h_name, h_msg, p_name, p_msg, s_name, s_msg}= req.body;
+
+          sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
+              if(errHave) console.log(errHave.sqlMessage);
+              if(infoHave.length==0||infoHave==undefined){
+  
+                  sqlmap.query(`INSERT INTO school_settings (h_name, h_msg, p_name, p_msg, s_name, s_msg)VALUES( '${h_name}', '${h_msg}','${p_name}', '${p_msg}', '${s_name}', '${s_msg}')`, (err, next)=>{
+                      if(err) console.log(err.sqlMessage);
+                      else res.send({msg: 'Updated'})
+          
+                  })
+          
+  
+              } else {
+                  sqlmap.query(`UPDATE school_settings SET h_name='${h_name}', h_msg='${h_msg}', p_name='${p_name}', p_msg='${p_msg}', s_name='${s_name}', s_msg='${s_msg}'`, (err, next)=>{
+                      if(err) console.log(err.sqlMessage);
+                      else res.send({msg: ' Updated'})
+                  })
+              }
+              
+          })
+          
         
   
-    }
+  
+
+
+}, 
+
+admin_school_img_post: async (req, res)=>{
+ const jsondata= (JSON.stringify(req.body));
+  const imgrole= JSON.parse(jsondata).imgrole;
+  if(req.file.size<1048576){
+
+      await sharp(req.file.path)
+       .jpeg({ quality: 50 })
+       .toFile(
+           path.resolve(path.resolve(req.file.destination, 'resized', imgrole+'.png'))
+       )
+
+  fs.unlinkSync(req.file.path)
+  
+    
+      }
+  
+    
+    else {
+      await sharp(req.file.path)
+      .jpeg({ quality: 30 })
+      .toFile(
+          path.resolve(path.resolve(req.file.destination, 'resized', imgrole+'.png'))
+      )
+    
+      fs.unlinkSync(req.file.path)
+    
       
-    },
+        }
+  
+  //  const randomString= Math.random()*900000000;
+  
+  // sqlmap.query(`UPDATE school_settings SET  ${imgrole}='${imgrole+'.png'}'`, (err, next)=>{
+  //     if(err) console.log(err.sqlMessage);
+      
+  // })
+
+  res.send({msg: "Added Successfully!", alert: "success"})
+}
 
 
-
-    admin_school_headmaster_post:  (req, res)=>{
-            const {headmasterName, headmasterMsg, headmasterImg}= req.body;
-             if(req.file){
-                const { filename: image } = req.file;
-                if(req.file.size<1048576){
-Jimp.read(req.files[x].path)
-                    .then((img) => {
-                      return img
-                        // .resize(256, 256) // resize
-                        .quality(60) // set JPEG quality
-                        .write(path.resolve(req.files[x].destination,'resized',image)); // save
-                    })
-                    .catch((err) => {
-                      console.error(err);
-                    });
-                  
-                    fs.unlinkSync(req.files[x].path)
-                
-                  }
-              
-                  else {
-
-                 Jimp.read(req.files[x].path)
-      .then((img) => {
-        return img
-          // .resize(256, 256) // resize
-          .quality(90) // set JPEG quality
-          .write(path.resolve(req.files[x].destination,'resized',image)); // save
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    
-      fs.unlinkSync(req.files[x].path)
-                  
-                    }
-        
-                    sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
-                        if(errHave) console.log(errHave.sqlMessage);
-                        if(infoHave.length==0||infoHave==undefined){
-        
-                            sqlmap.query(`INSERT INTO school_settings (headmaster_name, headmaster_msg, headmaster_img)VALUES( '${headmasterName}', '${headmasterMsg}','${req.file.filename}')`, (err, next)=>{
-                                if(err) console.log(err.sqlMessage);
-                                else res.send({msg: ' Updated'})
-                
-                            })
-        
-                        } else {
-                            sqlmap.query(`UPDATE school_settings SET headmaster_name='${headmasterName}', headmaster_msg='${headmasterMsg}', headmaster_img='${req.file.filename}'`, (err, next)=>{
-                                if(err) console.log(err.sqlMessage);
-                                else res.send({msg: ' Updated'})
-                            })
-                        }
-                        
-                    })
-        
-        
-                
-        
-             } else {
-        
-                sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
-                    if(errHave) console.log(errHave.sqlMessage);
-                    if(infoHave.length==0||infoHave==undefined){
-        
-                        sqlmap.query(`INSERT INTO school_settings (headmaster_name, headmaster_msg, headmaster_img)VALUES( '${headmasterName}', '${headmasterMsg}','${headmasterImg}')`, (err, next)=>{
-                            if(err) console.log(err.sqlMessage);
-                            else res.send({msg: 'Updated'})
-                
-                        })
-                
-        
-                    } else {
-                        sqlmap.query(`UPDATE school_settings SET headmaster_name='${headmasterName}', headmaster_msg='${headmasterMsg}'`, (err, next)=>{
-                            if(err) console.log(err.sqlMessage);
-                            else res.send({msg: ' Updated'})
-                        })
-                    }
-                    
-                })
-                
-                
-          
-            }
-              
-        
-        
-
-
-    }, 
-
-    admin_school_president_post:  (req, res)=>{
-            const {presidentName, presidentMsg, presidentImg}= req.body;
-             if(req.file){
-                const { filename: image } = req.file;
-                if(req.file.size<1048576){
-
-
-                Jimp.read(req.files[x].path)
-      .then((img) => {
-        return img
-          // .resize(256, 256) // resize
-          .quality(60) // set JPEG quality
-          .write(path.resolve(req.files[x].destination,'resized',image)); // save
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    
-      fs.unlinkSync(req.files[x].path)
-                
-                  }
-              
-                  else {
-
-                    Jimp.read(req.files[x].path)
-                    .then((img) => {
-                      return img
-                        // .resize(256, 256) // resize
-                        .quality(90) // set JPEG quality
-                        .write(path.resolve(req.files[x].destination,'resized',image)); // save
-                    })
-                    .catch((err) => {
-                      console.error(err);
-                    });
-                  
-                    fs.unlinkSync(req.files[x].path)
-                  
-                    }
-        
-                    sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
-                        if(errHave) console.log(errHave.sqlMessage);
-                        if(infoHave.length==0||infoHave==undefined){
-        
-                            sqlmap.query(`INSERT INTO school_settings (president_name, president_msg, president_img)VALUES( '${presidentName}', '${presidentMsg}','${req.file.filename}')`, (err, next)=>{
-                                if(err) console.log(err.sqlMessage);
-                                else res.send({msg: ' Updated'})
-                
-                            })
-        
-                        } else {
-                            sqlmap.query(`UPDATE school_settings SET president_name='${presidentName}', president_msg='${presidentMsg}', president_img='${req.file.filename}'`, (err, next)=>{
-                                if(err) console.log(err.sqlMessage);
-                                else res.send({msg: ' Updated'})
-                            })
-                        }
-                        
-                    })
-        
-        
-                
-        
-             } else {
-        
-                sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
-                    if(errHave) console.log(errHave.sqlMessage);
-                    if(infoHave.length==0||infoHave==undefined){
-        
-                        sqlmap.query(`INSERT INTO school_settings (president_name, president_msg, president_img)VALUES( '${presidentName}', '${presidentMsg}','${presidentImg}')`, (err, next)=>{
-                            if(err) console.log(err.sqlMessage);
-                            else res.send({msg: 'Updated'})
-                
-                        })
-                
-        
-                    } else {
-                        sqlmap.query(`UPDATE school_settings SET president_name='${presidentName}', president_msg='${presidentMsg}'`, (err, next)=>{
-                            if(err) console.log(err.sqlMessage);
-                            else res.send({msg: ' Updated'})
-                        })
-                    }
-                    
-                })
-                
-                
-          
-            }
-              
-        
-        
-
-
-    
-    }, 
-
-    admin_school_secretary_post: async (req, res)=>{
-
-            const {secretaryName, secretaryMsg, secretaryImg}= req.body;
-             if(req.file){
-                const { filename: image } = req.file;
-                if(req.file.size<1048576){
-
-                    Jimp.read(req.files[x].path)
-                    .then((img) => {
-                      return img
-                        // .resize(256, 256) // resize
-                        .quality(60) // set JPEG quality
-                        .write(path.resolve(req.files[x].destination,'resized',image)); // save
-                    })
-                    .catch((err) => {
-                      console.error(err);
-                    });
-                  
-                    fs.unlinkSync(req.files[x].path)
-                
-                  }
-              
-                  else {
-
-                    Jimp.read(req.files[x].path)
-                    .then((img) => {
-                      return img
-                        // .resize(256, 256) // resize
-                        .quality(90) // set JPEG quality
-                        .write(path.resolve(req.files[x].destination,'resized',image)); // save
-                    })
-                    .catch((err) => {
-                      console.error(err);
-                    });
-                  
-                    fs.unlinkSync(req.files[x].path)
-                  
-                    }
-        
-                    sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
-                        if(errHave) console.log(errHave.sqlMessage);
-                        if(infoHave.length==0||infoHave==undefined){
-        
-                            sqlmap.query(`INSERT INTO school_settings (secretary_name, secretary_msg, secretary_img)VALUES( '${secretaryName}', '${secretaryMsg}','${req.file.filename}')`, (err, next)=>{
-                                if(err) console.log(err.sqlMessage);
-                                else res.send({msg: ' Updated'})
-                
-                            })
-        
-                        } else {
-                            sqlmap.query(`UPDATE school_settings SET secretary_name='${secretaryName}', secretary_msg='${secretaryMsg}', secretary_img='${req.file.filename}'`, (err, next)=>{
-                                if(err) console.log(err.sqlMessage);
-                                else res.send({msg: ' Updated'})
-                            })
-                        }
-                        
-                    })
-        
-        
-                
-        
-             } else {
-        
-                sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave)=>{
-                    if(errHave) console.log(errHave.sqlMessage);
-                    if(infoHave.length==0||infoHave==undefined){
-        
-                        sqlmap.query(`INSERT INTO school_settings (secretary_name, secretary_msg, secretary_img)VALUES( '${secretaryName}', '${secretaryMsg}','${secretaryImg}')`, (err, next)=>{
-                            if(err) console.log(err.sqlMessage);
-                            else res.send({msg: 'Updated'})
-                
-                        })
-                
-        
-                    } else {
-                        sqlmap.query(`UPDATE school_settings SET secretary_name='${secretaryName}', secretary_msg='${secretaryMsg}'`, (err, next)=>{
-                            if(err) console.log(err.sqlMessage);
-                            else res.send({msg: ' Updated'})
-                        })
-                    }
-                    
-                })
-                
-                
-          
-            }
-              
-        
-        
-
-
-    
-    
-
-    }, 
 
 
 }
