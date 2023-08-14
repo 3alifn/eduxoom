@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student settings</title>
-
     <%- include("../component/metadata.html") %> 
 
   </head>
@@ -74,7 +73,7 @@
           <center>
             
               <label>
-                  <img id="getImg" src="/image/default/" width="200px" height="100px" alt="Tap & Select IMG" style="cursor: pointer;"> 
+                  <img class="bg-demo-img-color" id="getImg" src="/image/default/male_avatar.png" width="200px" height="100px" alt="Tap & Select IMG" style="cursor: pointer;"> 
                   <input  style="display: none" accept=".jpg,.png" type="file" name="avatar" id="fileItem">
               </label>
               <br> <br>
@@ -83,51 +82,51 @@
 
 
 <p></p>
-         
+        
 
           <div class=" input-group"> 
               <span class=" input-group-text"><i class=" fa-solid fa-people-line"></i></span>
 
-              <select name="classNameX" id="" class=" form-select form-self" required>
-
-                <option value="" selected>শ্রেণী নির্বাচন করুন</option>
+               <select required name="classNameX" class=" form-control">
         
-                <optgroup label="ষষ্ঠ শ্রেণী">
-                  <option value="Six $%& A">ষষ্ঠ - ক</option>
-                  <option value="Six $%& B">ষষ্ঠ - খ</option>
-                  <option value="Six $%& C">ষষ্ঠ - গ</option>
+                <option value="" selected disabled>শ্রেণী নির্বাচন করুন</option>
+        
+                <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
+                  <option class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
+                  <option class="status_Six_B" value="Six $%& B">ষষ্ঠ - খ</option>
+                  <option class="status_Six_C" value="Six $%& C">ষষ্ঠ - গ</option>
                  </optgroup>
         
         
                               
-                 <optgroup label="সপ্তম শ্রেণী">
-                  <option value="Seven $%& A">সপ্তম - ক</option>
-                  <option value="Seven $%& B">সপ্তম - খ</option>
-                  <option value="Seven $%& C">সপ্তম - গ</option>
+                 <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
+                  <option class="status_Seven_A" value="Seven $%& A">সপ্তম - ক</option>
+                  <option class="status_Seven_B" value="Seven $%& B">সপ্তম - খ</option>
+                  <option class="status_Seven_C" value="Seven $%& C">সপ্তম - গ</option>
                  </optgroup>
                  
         
         
-                 <optgroup label="অষ্টম শ্রেণী">
-                  <option value="Eight $%& A">অষ্টম - ক</option>
-                  <option value="Eight $%& B">অষ্টম - খ</option>
-                  <option value="Eight $%& C">অষ্টম - গ</option>
+                 <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
+                  <option class="status_Eight_A" value="Eight $%& A">অষ্টম - ক</option>
+                  <option class="status_Eight_B" value="Eight $%& B">অষ্টম - খ</option>
+                  <option class="status_Eight_C" value="Eight $%& C">অষ্টম - গ</option>
                  </optgroup>
         
                   
         
                           
-                   <optgroup label="নবম শ্রেণী">
-                    <option value="Nine $%& A">নবম - ক</option>
-                    <option value="Nine $%& B">নবম - খ</option>
-                    <option value="Nine $%& C">নবম - গ</option>
+                   <optgroup class="status_Nine" label="নবম শ্রেণী">
+                    <option class="status_Nine_A" value="Nine $%& A">নবম - ক</option>
+                    <option class="status_Nine_B" value="Nine $%& B">নবম - খ</option>
+                    <option class="status_Nine_c" value="Nine $%& C">নবম - গ</option>
                    </optgroup>
              
-                    <optgroup label="দশম শ্রেণী">
-                       <option value="Ten $%& A">দশম - ক</option>
+                    <optgroup class="status_Ten" label="দশম শ্রেণী">
+                       <option class="status_Ten_A" value="Ten $%& A">দশম - ক</option>
                        
-                       <option value="Ten $%& B">দশম - খ</option>
-                       <option value="Ten $%& C">দশম - গ</option>
+                       <option class="status_Ten_B" value="Ten $%& B">দশম - খ</option>
+                       <option class="status_Ten_C" value="Ten $%& C">দশম - গ</option>
                       </optgroup>
               
         
@@ -398,52 +397,54 @@
     <div class=" input-group"> 
       <span class=" input-group-text">Class</span>
 
-      <select name="classNameX" id="" class=" form-select form-self" required>
+     
+       <select required name="classNameX" id="" class=" form-control">
+        
+        <option value="" selected disabled>শ্রেণী নির্বাচন করুন</option>
 
-        <option value="" selected>শ্রেণী নির্বাচন করুন</option>
-
-        <optgroup label="ষষ্ঠ শ্রেণী">
-          <option value="Six $%& A">ষষ্ঠ - ক</option>
-          <option value="Six $%& B">ষষ্ঠ - খ</option>
-          <option value="Six $%& C">ষষ্ঠ - গ</option>
+        <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
+          <option class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
+          <option class="status_Six_B" value="Six $%& B">ষষ্ঠ - খ</option>
+          <option class="status_Six_C" value="Six $%& C">ষষ্ঠ - গ</option>
          </optgroup>
 
 
                       
-         <optgroup label="সপ্তম শ্রেণী">
-          <option value="Seven $%& A">সপ্তম - ক</option>
-          <option value="Seven $%& B">সপ্তম - খ</option>
-          <option value="Seven $%& C">সপ্তম - গ</option>
+         <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
+          <option class="status_Seven_A" value="Seven $%& A">সপ্তম - ক</option>
+          <option class="status_Seven_B" value="Seven $%& B">সপ্তম - খ</option>
+          <option class="status_Seven_C" value="Seven $%& C">সপ্তম - গ</option>
          </optgroup>
          
 
 
-         <optgroup label="অষ্টম শ্রেণী">
-          <option value="Eight $%& A">অষ্টম - ক</option>
-          <option value="Eight $%& B">অষ্টম - খ</option>
-          <option value="Eight $%& C">অষ্টম - গ</option>
+         <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
+          <option class="status_Eight_A" value="Eight $%& A">অষ্টম - ক</option>
+          <option class="status_Eight_B" value="Eight $%& B">অষ্টম - খ</option>
+          <option class="status_Eight_C" value="Eight $%& C">অষ্টম - গ</option>
          </optgroup>
 
           
 
                   
-           <optgroup label="নবম শ্রেণী">
-            <option value="Nine $%& A">নবম - ক</option>
-            <option value="Nine $%& B">নবম - খ</option>
-            <option value="Nine $%& C">নবম - গ</option>
+           <optgroup class="status_Nine" label="নবম শ্রেণী">
+            <option class="status_Nine_A" value="Nine $%& A">নবম - ক</option>
+            <option class="status_Nine_B" value="Nine $%& B">নবম - খ</option>
+            <option class="status_Nine_c" value="Nine $%& C">নবম - গ</option>
            </optgroup>
      
-            <optgroup label="দশম শ্রেণী">
-               <option value="Ten $%& A">দশম - ক</option>
+            <optgroup class="status_Ten" label="দশম শ্রেণী">
+               <option class="status_Ten_A" value="Ten $%& A">দশম - ক</option>
                
-               <option value="Ten $%& B">দশম - খ</option>
-               <option value="Ten $%& C">দশম - গ</option>
+               <option class="status_Ten_B" value="Ten $%& B">দশম - খ</option>
+               <option class="status_Ten_C" value="Ten $%& C">দশম - গ</option>
               </optgroup>
       
 
           
        
        </select>
+
 
        <div  class="valid-feedback"></div>
        <div id="" class="invalid-feedback">Select Class & Section</div>
@@ -504,6 +505,31 @@
 
 <script>
 
+(function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/class/section/rm",
+    data: {},
+    dataType: "JSON",
+    success: function (res) {
+
+     for (let index = 0; index < res.cls.length; index++) {
+
+      $(".status_"+res.cls[index].class).remove()
+        
+     }
+
+     for (let index = 0; index < res.clss.length; index++) {
+
+        $(".status_"+res.clss[index].class+'_'+res.clss[index].section).remove()
+        
+     }
+    }
+  });
+
+  }())
+
+
 $(document).on("click", ".addItemQuick", (e) => {
  
  $(".studentAppend").append(` 
@@ -562,7 +588,7 @@ $(document).on("click", ".addItemQuick", (e) => {
 
 
 <div class="row">
-    <div class="col-10 col-md-6 mt-2 m-auto">
+    <div class="col-10 col-md-6 mb-2 mt-2 m-auto">
         <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="Example: 140044" id="search">
     
     </div>
@@ -574,46 +600,47 @@ $(document).on("click", ".addItemQuick", (e) => {
     <div class="row">
         
     <div class="col-10 col-md-6 m-auto">
-      <select name="classBase" id="classBase" class="w-100 form-self" >
 
-        <option value="" selected>শ্রেণী নির্বাচন করুন</option>
+       <select required name="classBase" id="classBase" class="form-self">
+        
+        <option value="" selected disabled >শ্রেণী নির্বাচন করুন</option>
 
-        <optgroup label="ষষ্ঠ শ্রেণী">
-          <option value="Six $%& A">ষষ্ঠ - ক</option>
-          <option value="Six $%& B">ষষ্ঠ - খ</option>
-          <option value="Six $%& C">ষষ্ঠ - গ</option>
+        <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
+          <option class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
+          <option class="status_Six_B" value="Six $%& B">ষষ্ঠ - খ</option>
+          <option class="status_Six_C" value="Six $%& C">ষষ্ঠ - গ</option>
          </optgroup>
 
 
                       
-         <optgroup label="সপ্তম শ্রেণী">
-          <option value="Seven $%& A">সপ্তম - ক</option>
-          <option value="Seven $%& B">সপ্তম - খ</option>
-          <option value="Seven $%& C">সপ্তম - গ</option>
+         <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
+          <option class="status_Seven_A" value="Seven $%& A">সপ্তম - ক</option>
+          <option class="status_Seven_B" value="Seven $%& B">সপ্তম - খ</option>
+          <option class="status_Seven_C" value="Seven $%& C">সপ্তম - গ</option>
          </optgroup>
          
 
 
-         <optgroup label="অষ্টম শ্রেণী">
-          <option value="Eight $%& A">অষ্টম - ক</option>
-          <option value="Eight $%& B">অষ্টম - খ</option>
-          <option value="Eight $%& C">অষ্টম - গ</option>
+         <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
+          <option class="status_Eight_A" value="Eight $%& A">অষ্টম - ক</option>
+          <option class="status_Eight_B" value="Eight $%& B">অষ্টম - খ</option>
+          <option class="status_Eight_C" value="Eight $%& C">অষ্টম - গ</option>
          </optgroup>
 
           
 
                   
-           <optgroup label="নবম শ্রেণী">
-            <option value="Nine $%& A">নবম - ক</option>
-            <option value="Nine $%& B">নবম - খ</option>
-            <option value="Nine $%& C">নবম - গ</option>
+           <optgroup class="status_Nine" label="নবম শ্রেণী">
+            <option class="status_Nine_A" value="Nine $%& A">নবম - ক</option>
+            <option class="status_Nine_B" value="Nine $%& B">নবম - খ</option>
+            <option class="status_Nine_c" value="Nine $%& C">নবম - গ</option>
            </optgroup>
      
-            <optgroup label="দশম শ্রেণী">
-               <option value="Ten $%& A">দশম - ক</option>
+            <optgroup class="status_Ten" label="দশম শ্রেণী">
+               <option class="status_Ten_A" value="Ten $%& A">দশম - ক</option>
                
-               <option value="Ten $%& B">দশম - খ</option>
-               <option value="Ten $%& C">দশম - গ</option>
+               <option class="status_Ten_B" value="Ten $%& B">দশম - খ</option>
+               <option class="status_Ten_C" value="Ten $%& C">দশম - গ</option>
               </optgroup>
       
 
@@ -627,14 +654,12 @@ $(document).on("click", ".addItemQuick", (e) => {
 
 </div>
 
-<form action="" method="post" id="dataForm">
+<form action="" method="post" id="deleteStudent">
     <center>
-        <button type="button" class=" rounded" >
-            <span class=" badge btn-danger text-dark" id="selectAll">Select All</span>
-        </button> 
 
-        <button type="submit" class=" rounded " >
-            <span  class=" badge btn-danger text-dark" data-toggle="modal"  data-target="#modelId">Delete</span>
+
+        <button class=" btn btn-link float-end" onclick="_delbox_pull()" type="button"  >
+           Delete
         </button> 
     </center>
 <table class="table  table-hover container" id="table" >
@@ -645,14 +670,14 @@ $(document).on("click", ".addItemQuick", (e) => {
             <th class=" text-dark">Student ID</th>
             <th class=" text-dark">Name</th>
             <th class=" text-dark">Avatar</th>
-            <th class=" text-dark">Remove</th>
+            <th class=" text-dark"><input type="checkbox" class="check-mark" ></th>
             <th class=" text-dark">Edit</th>
             <th></th>
         
     
         </tr>
     </thead>
-    <tbody>
+    <tbody class="check-mark-area">
 
     </tbody>
 
@@ -667,7 +692,6 @@ $(document).on("click", ".addItemQuick", (e) => {
 </body>
 
 <script>
-
 
 
 function defform(){
@@ -849,14 +873,6 @@ $('#eye-show').click(()=>{
 })
 
 
-$("#selectAll").on("click", ()=>{
-    if($("#selectAll").children().text()=="Select All") $("#selectAll").children().text("Unselect")
-    else $("#selectAll").children().text("Select All")
-
-    $("input[type=checkbox]").click()
-})
-
-
 
 
 $(document).ready(function(){
@@ -874,29 +890,16 @@ $(document).ready(function(){
 
 
 
-$("#dataForm").on("submit", (e)=>{
-
-
-    e.preventDefault();
-   
-    $('.modal-trigger-trigger').click()
-$('.modal-trigger-body').text('are you want to delete?').addClass('alert alert-danger fw-bolder')
-
-
-     
-  $(".modal-trigger-ok").click(()=>{
-
+function _delbox_push(){
+  console.log($("#deleteStudent").serialize());
     $.ajax({
         method: "post",
         url: "/admin/student/delete",
-        data: $("#dataForm").serialize(),
+        data: $("#deleteStudent").serialize(),
         dataType: "JSON",
         success: function (info) {
-
-$(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
-
-$('.toast').addClass('show')
-loadDisplay()
+    
+        loadDisplay()
         
 
             
@@ -904,11 +907,7 @@ loadDisplay()
     });
 
  
-})
-
-   
-
-})
+}
 
 
 
@@ -943,9 +942,13 @@ function loadDisplay(){
         url: "/admin/student/get",
         data: {className, sectionName},
         dataType: "JSON",
+        beforeSend: function(){
+          _spin_pull()
+        },
         success: function (info) {
             
             $("tbody").html(info.list)
+            _spin_pop()
 
         }
     });
@@ -955,7 +958,56 @@ loadDisplay()
 
 
 
+function loopClass(){
+  (function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/class/section/rm",
+    data: {},
+    dataType: "JSON",
+    success: function (res) {
 
+     for (let index = 0; index < res.cls.length; index++) {
+
+      $(".status_"+res.cls[index].class).remove()
+        
+     }
+
+     for (let index = 0; index < res.clss.length; index++) {
+
+        $(".status_"+res.clss[index].class+'_'+res.clss[index].section).remove()
+        
+     }
+    }
+  });
+
+  }())
+}
+
+
+(function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/class/section/rm",
+    data: {},
+    dataType: "JSON",
+    success: function (res) {
+
+     for (let index = 0; index < res.cls.length; index++) {
+
+      $(".status_"+res.cls[index].class).remove()
+        
+     }
+
+     for (let index = 0; index < res.clss.length; index++) {
+
+        $(".status_"+res.clss[index].class+'_'+res.clss[index].section).remove()
+        
+     }
+    }
+  });
+
+  }())
 
 </script>
 

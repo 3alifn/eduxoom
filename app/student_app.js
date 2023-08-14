@@ -185,51 +185,49 @@ exports.admin_student_update_form = (req, res) => {
                 <span class=" input-group-text"><i class=" fa-solid fa-people-line"></i></span>
   
                 
-                <select name="classBase" id="" class=" form-select form-self">
+                <select onclick='loopClass()' name="classBase" id="" class=" form-select form-self">
   
                 <option selected value="${info[0].class}-${info[0].section}">${info[0].class} - ${info[0].section}</option>
 
   
-                    <optgroup label="Class Ten">
-                       <option value="Ten-A">Ten - A</option>
-                       
-                       <option value="Ten-B">Ten - B</option>
-                       <option value="Ten-C">Ten - C</option>
-                      </optgroup>
+                <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
+                <option class="status_Six_A" value="Six-A">ষষ্ঠ - ক</option>
+                <option class="status_Six_B" value="Six-B">ষষ্ঠ - খ</option>
+                <option class="status_Six_C" value="Six-C">ষষ্ঠ - গ</option>
+               </optgroup>
+      
+      
+                            
+               <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
+                <option class="status_Seven_A" value="Seven-A">সপ্তম - ক</option>
+                <option class="status_Seven_B" value="Seven-B">সপ্তম - খ</option>
+                <option class="status_Seven_C" value="Seven-C">সপ্তম - গ</option>
+               </optgroup>
+               
+      
+      
+               <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
+                <option class="status_Eight_A" value="Eight-A">অষ্টম - ক</option>
+                <option class="status_Eight_B" value="Eight-B">অষ্টম - খ</option>
+                <option class="status_Eight_C" value="Eight-C">অষ্টম - গ</option>
+               </optgroup>
+      
+                
+      
+                        
+                 <optgroup class="status_Nine" label="নবম শ্রেণী">
+                  <option class="status_Nine_A" value="Nine-A">নবম - ক</option>
+                  <option class="status_Nine_B" value="Nine-B">নবম - খ</option>
+                  <option class="status_Nine_c" value="Nine-C">নবম - গ</option>
+                 </optgroup>
+           
+                  <optgroup class="status_Ten" label="দশম শ্রেণী">
+                     <option class="status_Ten_A" value="Ten-A">দশম - ক</option>
                      
-                      <optgroup label="Class Nine">
-                       <option value="Nine-A">Nine - A</option>
-                       <option value="Nine-B">Nine - B</option>
-                       <option value="Nine-C">Nine - C</option>
-                      </optgroup>
-                     
-                     
-                      
-                      <optgroup label="Class Eight">
-                       <option value="Eight-A">Eight - A</option>
-                       <option value="Eight-B">Eight - B</option>
-                       <option value="Eight-C">Eight - C</option>
-                      </optgroup>
-                     
-                     
-                     
-                      
-                      <optgroup label="Class Seven">
-                       <option value="Seven-A">Seven - A</option>
-                       <option value="Seven-B">Seven - B</option>
-                       <option value="Seven-C">Seven - C</option>
-                      </optgroup>
-                      
-                     
-                     
-                     
-                      
-                      <optgroup label="Class Six">
-                       <option  value="Six-A">Six - A</option>
-                       <option value="Six-B">Six - B</option>
-                       <option value="Six-C">Six - C</option>
-                      </optgroup>
-                      
+                     <option class="status_Ten_B" value="Ten-B">দশম - খ</option>
+                     <option class="status_Ten_C" value="Ten-C">দশম - গ</option>
+                    </optgroup>
+            
                    
                    </select>
                  </div>

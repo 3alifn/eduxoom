@@ -79,44 +79,44 @@
      <form id="classBaseForm" action="/pu/routine/page/class/base" method="get">
       <select name="classBase" id="classBase" class="w-100 form-self">
         
-        <option value="" selected>শ্রেণী নির্বাচন করুন</option>
+        <option value="" selected disabled>শ্রেণী নির্বাচন করুন</option>
 
-        <optgroup label="ষষ্ঠ শ্রেণী">
-          <option value="Six-A">ষষ্ঠ - ক</option>
-          <option value="Six-B">ষষ্ঠ - খ</option>
-          <option value="Six-C">ষষ্ঠ - গ</option>
+        <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
+          <option class="status_Six_A" value="Six-A">ষষ্ঠ - ক</option>
+          <option class="status_Six_B" value="Six-B">ষষ্ঠ - খ</option>
+          <option class="status_Six_C" value="Six-C">ষষ্ঠ - গ</option>
          </optgroup>
 
 
                       
-         <optgroup label="সপ্তম শ্রেণী">
-          <option value="Seven-A">সপ্তম - ক</option>
-          <option value="Seven-B">সপ্তম - খ</option>
-          <option value="Seven-C">সপ্তম - গ</option>
+         <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
+          <option class="status_Seven_A" value="Seven-A">সপ্তম - ক</option>
+          <option class="status_Seven_B" value="Seven-B">সপ্তম - খ</option>
+          <option class="status_Seven_C" value="Seven-C">সপ্তম - গ</option>
          </optgroup>
          
 
 
-         <optgroup label="অষ্টম শ্রেণী">
-          <option value="Eight-A">অষ্টম - ক</option>
-          <option value="Eight-B">অষ্টম - খ</option>
-          <option value="Eight-C">অষ্টম - গ</option>
+         <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
+          <option class="status_Eight_A" value="Eight-A">অষ্টম - ক</option>
+          <option class="status_Eight_B" value="Eight-B">অষ্টম - খ</option>
+          <option class="status_Eight_C" value="Eight-C">অষ্টম - গ</option>
          </optgroup>
 
           
 
                   
-           <optgroup label="নবম শ্রেণী">
-            <option value="Nine-A">নবম - ক</option>
-            <option value="Nine-B">নবম - খ</option>
-            <option value="Nine-C">নবম - গ</option>
+           <optgroup class="status_Nine" label="নবম শ্রেণী">
+            <option class="status_Nine_A" value="Nine-A">নবম - ক</option>
+            <option class="status_Nine_B" value="Nine-B">নবম - খ</option>
+            <option class="status_Nine_c" value="Nine-C">নবম - গ</option>
            </optgroup>
      
-            <optgroup class="Ten_All" label="দশম শ্রেণী">
-               <option class="Ten_A" value="Ten-A">দশম - ক</option>
+            <optgroup class="status_Ten" label="দশম শ্রেণী">
+               <option class="status_Ten_A" value="Ten-A">দশম - ক</option>
                
-               <option class="Ten_B" value="Ten-B">দশম - খ</option>
-               <option class="Ten_C" value="Ten-C">দশম - গ</option>
+               <option class="status_Ten_B" value="Ten-B">দশম - খ</option>
+               <option class="status_Ten_C" value="Ten-C">দশম - গ</option>
               </optgroup>
       
 
@@ -416,15 +416,22 @@ $("#classBase").on("change", ()=>{
     dataType: "JSON",
     success: function (res) {
 
-     for (let index = 0; index < res.info.length; index++) {
+     for (let index = 0; index < res.cls.length; index++) {
 
-        $("."+res.info[index].class+'_'+res.info[index].section).remove()
+      $(".status_"+res.cls[index].class).remove()
+        
+     }
+
+     for (let index = 0; index < res.clss.length; index++) {
+
+        $(".status_"+res.clss[index].class+'_'+res.clss[index].section).remove()
         
      }
     }
   });
 
   }())
+
 
 
 

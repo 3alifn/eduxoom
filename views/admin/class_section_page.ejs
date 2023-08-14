@@ -27,8 +27,11 @@
     </div>
   </div>
 
+  <div class="row" id="elementmain">
 
-  <div class="row" id="elementid">
+  </div>
+
+  <div class="row" id="elementdata">
 
   </div>
 
@@ -46,12 +49,35 @@ function get_data(){
         data: {},
         dataType: "JSON",
         success: function (response) {
-            $('#elementid').html(response.element)
+            $('#elementmain').html(response.elementmain)
+            $('#elementdata').html(response.elementdata)
         }
     });
 }
 
 get_data()
+
+$(document).on('click', '.pushedmain', (event)=>{
+    const current_at_status= event.currentTarget.attributes[0].value;
+    const className= event.currentTarget.attributes[1].value;
+    if(current_at_status=='off') var at_status= 'on'; else at_status='off';
+  $.ajax({
+    type: "post",
+    url: "/admin/setup/class-section/main/post",
+    data: {at_status, className},
+    dataType: "JSON",
+    beforeSend: function (){
+      _spin_pull()
+    },
+    success: function (response) {
+
+        _msg_pull('alert-success', 'Updated...')
+        get_data()
+        _spin_pop()
+    }
+  });
+})
+
 
 $(document).on('click', '.pushed', (event)=>{
     const current_at_status= event.currentTarget.attributes[0].value;

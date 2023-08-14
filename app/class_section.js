@@ -4,6 +4,16 @@ const {sqlmap}= require('../server');
 
 
 
+
+exports.admin_class_section_main_post=(req, res)=>{
+  const {className, at_status}= req.body;
+  sqlmap.query( `UPDATE class_section SET class_status='${at_status}' WHERE class='${className}'`, (err, next)=>{
+      if(err) console.log(err.sqlMessage);
+      else res.send({msg: 'updated...'})
+  })
+
+}
+
 exports.admin_class_section_post=(req, res)=>{
     const {elementid, at_status}= req.body;
     sqlmap.query( `UPDATE class_section SET at_status='${at_status}' WHERE ID=${elementid}`, (err, next)=>{
@@ -15,10 +25,28 @@ exports.admin_class_section_post=(req, res)=>{
 
 exports.admin_class_section_get= (req, res)=>{
     
+    sqlmap.query(`SELECT * FROM class_section GROUP BY class ORDER BY ID`, (err, infomain)=>{
     sqlmap.query(`SELECT * FROM class_section ORDER BY ID`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
+
         
-        var element= 
+      var elementmain= ` <div class="col-11 m-auto">
+      <ul class="list-group">`
+
+
+     for (let index = 0; index < infomain.length; index++) {
+      elementmain+=`
+      <li class="list-group-item shadow-1 m-1 list-group-item-success fw-bold">${infomain[index].class}
+      <button data-status="${infomain[index].class_status}" data-id="${infomain[index].class}" class="btn fw-bold float-end ${infomain[index].class_status=='on'?'btn-success':'btn-danger'} pushedmain">service ${infomain[index].class_status}</button>
+
+    </li>
+      `
+      
+  }
+
+  elementmain+='</ul> </div>'
+        
+        var elementdata= 
         `<div class="col-11 m-auto">
           <table class=" table table-bordered">
             <thead>
@@ -36,13 +64,15 @@ exports.admin_class_section_get= (req, res)=>{
           `
 
         for (let index = 0; index < info.length; index++) {
-            element+=`
+            elementdata+=`
             
             <tr>
             <td><li class="list-group-item p-2 list-group-item-success fw-bold">${info[index].class}</li></td>
             <td><li class="list-group-item p-2 list-group-item-success fw-bold">${info[index].section}</li></td>
             <td>
+            <li class="list-group-item p-2  list-group-item-success fw-bold">
               <button data-status="${info[index].at_status}" data-id="${info[index].ID}" class="btn fw-bold ${info[index].at_status=='on'?'btn-success':'btn-danger'} pushed">${info[index].at_status}</button>
+            </li>
             </td>
           </tr> 
 
@@ -50,12 +80,14 @@ exports.admin_class_section_get= (req, res)=>{
             
         }
 
-        element+=`
+        elementdata+=`
         </tbody>
         </table>
       </div>`
+
       
-        res.send({element})
+        res.send({elementmain,elementdata})
+    })
     })
 
  
@@ -64,9 +96,12 @@ exports.admin_class_section_get= (req, res)=>{
 
 exports.pu_class_secton_rm=(req, res)=>{
 
-    sqlmap.query(`SELECT * FROM class_section WHERE at_status='off'`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM class_section WHERE class_status='off' GROUP BY class ORDER BY ID`, (err, cls)=>{
+    sqlmap.query(`SELECT * FROM class_section WHERE at_status='off'`, (err, clss)=>{
         if(err) console.log(err.sqlMessage);
-        else res.send({info})
+        else res.send({cls, clss})
+        
+    })
     })
 
 }
