@@ -12,39 +12,41 @@
 
 </head>
 
-<body onload="pageLoadingTop()"">
+<body onload="pageLoadingTop()">
 
   <%- include("../component/header-nav.html") %> 
 <%- include("../component/menu-nav.html") %> 
 <%- include("../component/offcanvas-nav.html") %> 
 
 
-    <center>
-        <legend class=" alert container bg-light shadow">নোটিশ তালিকা</legend>
+    <div class="row">
       
-        <input type="date" name="" id="findDate">
-    
-        <input class=" ms-5" type="search" name="" placeholder="search..." id="search">
-    
-    </center>
+      <div class="col-11 m-auto col-md-6">
+        <legend class=" alert container bg-light shadow">নোটিশ তালিকা</legend>
+          <input type="date" class="form-control" name="" id="findDate">
+
+          <input class="mt-2 mb-2 form-control" type="search" name="" placeholder="search..." id="search">
+
+      </div>
+  </div>
 
 
-   
-    <table class=" table table-hover ">
-        <thead  id="thead">
-            <th>তারিখ</th>
-            <th>শিরোনাম</th>
-            <th> মন্তব্য </th>
-        </thead>
 
-        <tbody>
+    <div class="row">
+      <div class="col-12 col-md-10 m-auto">
 
-        </tbody>
-    </table>
+          <ul id="noticedata" class="list-group">
 
+          </ul>
+
+
+      </div>
+  </div>
 
     <%- include("../component/footer-nav.html") %> 
+    <%- include("../component/___node.html") %> 
 
+</body>
 
 <script>
 
@@ -53,7 +55,7 @@ $(document).ready(function(){
     let findDate= $("#findDate").val().replaceAll("-", "/");
 
     var value = findDate
-    $("tbody tr").filter(function() {
+    $("#noticdata li").filter(function() {
        
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
      
@@ -64,7 +66,7 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#search").keyup(function() {
     var value = $(this).val().toLowerCase();
-    $("tbody tr").filter(function() {
+    $("#noticedata li").filter(function() {
        
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
      
@@ -81,8 +83,13 @@ $(document).ready(function () {
                 url: "/pu/notice/get",
                 data: {},
                 dataType: "JSON",
+                beforeSend: function(){
+                _spin_pull()
+
+                },
                 success: function (info) {
-                    $("tbody").html(info.html)
+                    $("#noticedata").html(info.html)
+                    _spin_pop()
                 }
             });
 
@@ -91,8 +98,7 @@ $(document).ready(function () {
 
 
     </script>
-    <%- include("../component/___node.html") %> 
 
-</body>
 
 </html>
+

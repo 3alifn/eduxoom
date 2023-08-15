@@ -23,13 +23,13 @@ exports.uploadNotice= multer({
     limits: {fileSize: 10000000},
     fileFilter: (req, file, cb)=>{
   
-      if(file.mimetype=="application/pdf" || file.mimetype=="image/png" || file.mimetype=="image/jpeg")
+      if(file.mimetype=="application/pdf" || file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg")
       {
         cb(null, true)
       } 
       else 
       {
-          cb(new Error("file extension allow only pdf / png / jpeg"))
+          cb(new Error("file extension allow only pdf / png / jpeg/ jpg"))
       }
       
     }
@@ -49,21 +49,14 @@ sqlmap.query(sql, (err, info)=>{
         {
             let html= "";
             for (const key in info) {
-             html+= `<tr>
-             <td>
-             <span class="badge bg-light text-danger">${info[key].at_date.toString().substring(0, 25)}</span>
-              <span class="d-none">${info[key].at_date.toLocaleString('en-ZA')}</span>
-              
-             </td>
+             html+= `
+             <li class="list-group-item list-group-item-light shadow p-2 mt-2">
+             <a class="float-start text-decoration-none" target="_blank" href="/docs/notice/${info[key].attachment}">${info[key].at_date.toString().substring(0, 25)} | <i class="bi bi-download"></i></a>
+             <span class="float-end">${info[key].description} <i class='btn btn-close'  onclick="_delbox_pull(${info[key].ID})"></i></span>
+             <span class="d-none">${info[key].at_date.toLocaleString('en-ZA')}</span>
 
-             <td>
-             <a  title="Download" class="nav-link badge bg-light text-primary" href="/admin/notice/download?id=${info[key].ID}"><i class="fa-solid fa-download"></i> ${info[key].title} </a>
-             </td>
-
-             <td> <span class="badge bg-light text-dark">${info[key].description}</span></td>
-             <td><input type="checkbox" name="ID[]" id="" value="${info[key].ID}"></td>
-
-         </tr>`
+         </li>
+`
             }
 
             res.send({html: html})
@@ -71,7 +64,7 @@ sqlmap.query(sql, (err, info)=>{
 
         else 
         {
-            res.send({html: "<center><strong><h5>কোন নোটিশ পাওয়া জানি!</h5></strong></center>"})
+            res.send({html: "<center><strong><h5>এখনো কোন নোটিশ পাওয়া যুক্ত করা হয়নি!</h5></strong></center>"})
         }
     }
 
@@ -116,21 +109,19 @@ exports.public_notice_get= (req, res)=>{
                 for (const key in info) {
                  html+= 
                  `
-                 <tr>
-                 <td><span class="badge bg-light text-danger">${info[key].at_date.toString().substring(0, 25)}</span>
-                  <span class="d-none">${info[key].at_date.toLocaleString('en-ZA')}</span>
-                  </td>
-                 <td><a  title="Download" class="nav-link badge bg-light text-primary" href="/pu/notice/download?id=${info[key].ID}"><i class="fa-solid fa-download"></i> ${info[key].title} </a> </td>
-                 <td> <span class="badge bg-light text-dark">${info[key].description}</span></td>
-                 </tr>`
-                }
+                 <li class="list-group-item list-group-item-light shadow mt-2">
+                 <a class="float-start nav-link" target="_blank" href="/docs/notice/${info[key].attachment}">${info[key].at_date.toString().substring(0, 25)} | <i class="bi bi-download"></i></a>
+                 <span class="float-end">${info[key].description}</span>
+                 <span class="d-none">${info[key].at_date.toLocaleString('en-ZA')}</span>
+               
+               </li>`                }
 
                 res.send({html: html})
             }
 
             else 
             {
-                res.send({html: "<center><strong><h5>কোন নোটিশ পাওয়া জানি!</h5></strong></center>"})
+                res.send({html: "<center><strong><h5>এখনো কোন নোটিশ পাওয়া যুক্ত করা হয়নি!</h5></strong></center>"})
             }
           
         }

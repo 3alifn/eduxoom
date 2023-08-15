@@ -16,226 +16,188 @@
 
     <%- include("../component/admin-header-nav.html") %>
         <%- include("../component/admin-menu-nav.html") %>
-        <%-include("../component/modal-trigger.html") %>
+
+        <div id="main-content" class="p-2 mt-5">
+
+                <div class="col-auto" id="contentId">
 
 
+                    <center>
+                        <legend class=" alert bg-light shadow ">Notice Board</legend>
+                    </center>
 
-<div id="main-content" class="p-2 mt-5">
+                    <center>
+                        <button id="collapsebtn" class="w-50 btn-self"> <i class=" bi bi-arrow-up"></i>
+                        </button>
+                        <p></p>
 
-                            <div class="col" id="contentId">
+                        <form id="form" method="post" class=" ps-3 m-auto shadow bg-light"
+                            enctype="multipart/form-data">
 
-                                <div class="container">
+                            <div><label for=""></label>Title</div>
+                            <input class=" form-dev" type="text" value="Exam Notice" name="title" id=""
+                                placeholder="Title" required>
+                            <p></p>
+                            <label class=" badge bg-light text-danger" for="file">
+                                <input style=" display: none" class=" form-dev" id="file" type="file" name="attachment">
+                                <span class="btn fa-solid fa-file-image-o"> Upload pdf or jpeg file</span>
+                            </label>
+                            <p></p>
+                            <div><label for=""></label>Comment</div>
+                            <textarea class=" form-dev" name="description" id="" cols="10"
+                                rows="5">Attention all student for next exam!</textarea>
+                            <p></p>
+                            <center>
+                                <button id="submitbtn" class="btn-self w-50">Publish</button>
+                            </center>
+                        </form>
+                        <p></p>
 
-                                    <center>
-                                        <legend class=" alert bg-light shadow ">Notice Board</legend>
-                                    </center>
+                        <div class="row">
+                            <div class="col-11 m-auto col-md-6">
+                                <input type="date" class="form-control" name="" id="findDate">
 
-                                    <center>
-                                        <button id="expand" class="w-50 btn-self"><i id="addnew"
-                                                class="fa-solid fa-circle-plus fa-beat"></i> <i id="addicon"></i>
-                                        </button>
-                                        <p></p>
+                                <input class="mt-2 mb-2 form-control" type="search" name="" placeholder="search..."
+                                    id="search">
 
-                                        <form id="form" method="post" class=" ps-3 m-auto shadow bg-light"
-                                            enctype="multipart/form-data">
+                            </div>
+                        </div>
 
-                                            <div><label for=""></label>Title</div>
-                                            <input class=" form-dev" type="text" value="Exam Notice" name="title" id=""
-                                                placeholder="Title" required>
-                                            <p></p>
-                                            <label class=" badge bg-light text-danger" for="file">
-                                                <input style=" display: none" class=" form-dev" id="file" type="file"
-                                                    name="attachment">
-                                                PDF Attachment Or Photos <span class=" fa-solid fa-file-image-o"></span>
-                                            </label>
-                                            <p></p>
-                                            <div><label for=""></label>Comment</div>
-                                            <textarea class=" form-dev" name="description" id="" cols="10"
-                                                rows="5">Attention all student for next exam!</textarea>
-                                            <p></p>
-                                            <center>
-                                                <button id="submit" class="btn-self w-50">Publish</button>
-                                            </center>
-                                        </form>
-                                        <p></p>
+                        <form action="#" method="post" id="dataForm">
 
-                                        <input type="date" name="" id="findDate">
+                            <div class="row">
+                                <div class="col-12 col-md-10 m-auto">
 
-                                        <input class=" ms-5" type="search" name="" placeholder="search..." id="search">
+                                    <ul id="noticedata" class="list-group">
 
-                                        <div class="row">
-                                            <div class="col">
-                                                <form action="" method="post" id="dataForm">
-
-                                                    <center>
-                                                        <button type="button" class=" rounded">
-                                                            <span class=" badge btn-danger text-dark"
-                                                                id="selectAll">Select All</span>
-                                                        </button>
-
-                                                        <button type="submit" class=" rounded ">
-                                                            <span class=" badge btn-danger text-dark "
-                                                                data-toggle="modal" data-target="#modelId">Delete</span>
-                                                        </button>
-                                                    </center>
-
-                                                    <table class="table table-hover ">
-                                                        <thead class=" " id="thead">
-                                                            <th>Date</th>
-                                                            <th>Title</th>
-                                                            <th>Comment</th>
-                                                        </thead>
-
-                                                        <tbody>
-
-
-                                                        </tbody>
-                                                    </table>
-
-                                                </form>
-
-                                            </div>
-                                        </div>
+                        
+                                    </ul>
 
 
                                 </div>
-
-
-
-
                             </div>
+                        </form>
+
+                </div>
 
 
-</div>
-
-                            <script>
-
-                                $("#selectAll").on("click", () => {
-                                    if ($("#selectAll").children().text() == "Select All") $("#selectAll").children().text("Unselect")
-                                    else $("#selectAll").children().text("Select All")
-
-                                    $("input[type=checkbox]").click()
-                                })
+            </div>
 
 
-
-                                $(document).ready(function () {
-                                    $("#findDate").change(function (e) {
-                                        let findDate = $("#findDate").val().replaceAll("-", "/");
-
-                                        var value = findDate
-                                        $("tbody tr").filter(function () {
-
-                                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-
-                                        });
-                                    });
-                                });
+          
 
 
-                                $(document).ready(function () {
-                                    $("#search").keyup(function () {
-                                        var value = $(this).val().toLowerCase();
-                                        $("tbody tr").filter(function () {
-
-                                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-
-                                        });
-                                    });
-                                });
-
-                                $("#form").hide()
-                                $("#expand").on("click", () => {
-                                    $("#form").toggle()
-                                    $("#addicon").toggleClass('fa-solid fa-caret-up')
-                                    $("#addnew").toggle('fa-solid fa-caret-down')
-                                })
-
-
-
-                                function displayLoad() {
-                                    $.ajax({
-                                        type: "post",
-                                        url: "/admin/notice/get",
-                                        data: {},
-                                        dataType: "JSON",
-                                        success: function (info) {
-                                            $("tbody").html(info.html)
-                                        }
-                                    });
-                                }
-
-                                displayLoad()
-
-
-                                $("#form").on("submit", (e) => {
-                                    e.preventDefault();
-                                    let formdata = new FormData($("form")[0])
-                                    $.ajax({
-                                        type: "post",
-                                        url: "/admin/notice/post",
-                                        data: formdata,
-                                        mimeType: "multipart/form-data",
-                                        cache: false,
-                                        processData: false,
-                                        contentType: false,
-                                        dataType: "JSON",
-                                        success: function (info) {
-
-                                            $(".toast-msg").html(info.msg).addClass('alert alert-success fw-bolder')
-                                            displayLoad()
-                                            $('.toast').addClass('show')
-                                            $("#form").hide()
-
-                                        }
-                                    });
-                                })
-
-
-
-
-
-                                $("#dataForm").on("submit", (e) => {
-
-
-                                    e.preventDefault();
-                                      
-                                    $('.modal-trigger-trigger').click()
-                                    $('.modal-trigger-body').text('are you want to delete?').addClass('alert alert-danger fw-bolder')
-
-                                    $(".modal-trigger-ok").click(() => {
-
-                                        $.ajax({
-                                            method: "post",
-                                            url: "/admin/notice/delete",
-                                            data: $("#dataForm").serialize(),
-                                            dataType: "JSON",
-                                            success: function (info) {
-
-
-                                            $(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
-                                            displayLoad()
-                                            $('.toast').addClass('show')
-
-
-                                            }
-                                        });
-
-
-                                    })
-
-
-
-                                })
-
-
-
-
-
-                            </script>
-
-<%- include("../component/___node.html") %> 
+<%- include("../component/___node.html") %>
 
 </body>
+
+<script>
+
+    $('#collapsebtn').on('click', () => {
+        $('#form').toggle('slow')
+    })
+
+
+    $("#findDate").change(function (e) {
+        let findDate = $("#findDate").val().replaceAll("-", "/");
+
+        var value = findDate
+        $("#noticedata li").filter(function () {
+
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+        });
+    });
+
+
+    $(document).ready(function () {
+        $("#search").keyup(function () {
+            var value = $(this).val().toLowerCase();
+            $("#noticedata li").filter(function () {
+
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+            });
+        });
+    });
+
+
+
+
+    function displayLoad() {
+        $.ajax({
+            type: "post",
+            url: "/admin/notice/get",
+            data: {},
+            dataType: "JSON",
+            beforeSend: function(){
+              _spin_pull()
+            },
+            success: function (info) {
+                $("#noticedata").html(info.html)
+                _spin_pop()
+
+            }
+        });
+    }
+
+    displayLoad()
+
+
+    $("#form").on("submit", (e) => {
+        e.preventDefault();
+        let formdata = new FormData($("form")[0])
+        $.ajax({
+            type: "post",
+            url: "/admin/notice/post",
+            data: formdata,
+            mimeType: "multipart/form-data",
+            cache: false,
+            processData: false,
+            contentType: false,
+            dataType: "JSON",
+            beforeSend: function(){
+                _spin_pull()
+            $("#submitbtn").addClass('disabled')
+            },
+            success: function (info) {
+
+                displayLoad()
+                _msg_pull('alert-success', 'Adding notice file...')
+                _spin_pop()
+            $("#submitbtn").removeClass('disabled')
+
+
+
+            }
+        });
+    })
+
+
+
+
+
+
+    function _delbox_push(ID) {
+        $.ajax({
+            method: "post",
+            url: "/admin/notice/delete",
+            data: {ID},
+            dataType: "JSON",
+            success: function (info) {
+                displayLoad()
+                _msg_pull('alert-success', 'Deleted...')
+            }
+        });
+    }
+
+
+
+
+
+
+</script>
+
+
 
 </html>
