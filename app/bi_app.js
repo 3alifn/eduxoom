@@ -103,9 +103,8 @@ exports.teacher_bi_page_mark_get= (req, res)=>{
         const pagination= student_row / limit 
         if(Math.ceil(pagination)==page) var nextbtnstatus= 'disabled'; else nextbtnstatus=''
         if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus=''
-        console.log(Math.ceil(pagination), pagination);
         sqlmap.query(`SELECT student_id, name, avatar, roll FROM students WHERE class='${className}' AND section='${sectionName}'
-         ORDER BY ID DESC LIMIT ${limit} OFFSET ${offset*limit}`
+         ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`
         ,(errStudent, infoStudentData)=>{
     
         if(infoStudentData.length>0){

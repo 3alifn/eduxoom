@@ -278,7 +278,7 @@
 
             <span class=" input-group-text"> <img width="30px" src="/icon/user/icons8-drawing-48.png" alt=""></span>
         
-            <select name="Hobbies" id="" class="form-self form-select">
+            <select name="Hobbies" id="" class="form-self form-select" required>
                 <option value="" selected disabled>Your hobbies</option>
                 <option  value="Cricket">Cricket</option>
                 <option value="Football">Football</option>
@@ -292,21 +292,6 @@
 
             </div>
 
-
-
-          <p></p>
-
-          <div class=" input-group">
-
-          <span class=" input-group-text"> <img width="30px" src="/icon/user/icons8-banknotes-48.png" alt=""></span>
-            <input required pattern="^[0-9]*$" type="number"class="form-self form-control"  name="yearlyIncome" id="" placeholder=" Yearly income ">
-         
-            <div  class="valid-feedback"></div>
-            <div id="" class="invalid-feedback">Enter digit</div>
-           
-            
-
-          </div>
 
 </div> 
 
@@ -356,7 +341,7 @@
         <% if( data) {%>
 
             <input type="hidden" name="pastData" 
-            value="<%=data.studentName%>$%&<%=data.dobNumber%>$%&<%=data.birthDate%>$%&<%=data.Gender%>$%&<%=data.fatherName%>$%&<%=data.motherName%>$%&<%=data.bloodGroup%>$%&<%=data.Religion%>$%&<%=data.telephone%>$%&<%=data.Email%>$%&<%=data.guardianName%>$%&<%=data.Address%>$%&<%=data.Hobbies%>$%&<%=data.yearlyIncome%>" 
+            value="<%=data.studentName%>$%&<%=data.dobNumber%>$%&<%=data.birthDate%>$%&<%=data.Gender%>$%&<%=data.fatherName%>$%&<%=data.motherName%>$%&<%=data.bloodGroup%>$%&<%=data.Religion%>$%&<%=data.telephone%>$%&<%=data.Email%>$%&<%=data.guardianName%>$%&<%=data.Address%>$%&<%=data.Hobbies%>" 
             required>              
 
             <% } else {%>
@@ -381,12 +366,30 @@
             </select>
             
          </div>
-<p></p>
          </div>
+
+<p></p>
          
 
+         <div class="col-10 col-md-6 d-md-flex m-auto">
 
 
+          <div class=" input-group">
+  
+              <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-student-center-48.png" alt=""></span>
+  
+           
+              <select name="joinGroup" id="" class="form-self form-select" required>
+                  <option value="" selected disabled>Group</option>
+                  <option value="Science">Science</option>
+                  <option value="Accounting">Accounting</option>
+                  <option value="Humanities">Humanities</option>
+          
+          
+              </select>
+              
+           </div>
+           </div>
 
 
 <p></p>  
@@ -482,7 +485,7 @@
 
  <div class="col-10 col-md-6 d-md-flex m-auto">
   <div>
-  <textarea name="comment" id="" cols="80" style="width: 100%;" rows="5"  placeholder="what's on your mind?"></textarea>
+  <textarea name="comment" id="" cols="80" style="width: 100%;" rows="5"  placeholder="comment : what's on your mind?"></textarea>
 </div>
 
   </div>

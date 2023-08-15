@@ -447,7 +447,7 @@ exports.admin_transcript_final_card_passed_result= (req, res)=>{
   const {className, sectionName, student_id} = req.body;
   const session= new Date().getUTCFullYear();
   const at_status= 'passed'
-  sqlmap.query(`SELECT * FROM students WHERE student_id=${student_id} AND class='${className}' AND section='${sectionName}'`,(errStudent, infoStudent)=>{
+  sqlmap.query(`SELECT * FROM students WHERE student_id=${student_id} AND class='${className}' AND section='${sectionName}' ORDER BY roll`,(errStudent, infoStudent)=>{
     if(errStudent) console.log(errStudent.sqlMessage);
 
     sqlmap.query(`INSERT INTO transcript_origin (session, class, section, student_id, name, roll, at_status, avatar)
@@ -479,7 +479,7 @@ exports.admin_transcript_final_card_drop_result= (req, res)=>{
   const session= new Date().getUTCFullYear();
   const at_status= 'dropped'
 
-  sqlmap.query(`SELECT * FROM students WHERE student_id=${student_id} AND class='${className}' AND section='${sectionName}'`,(errStudent, infoStudent)=>{
+  sqlmap.query(`SELECT * FROM students WHERE student_id=${student_id} AND class='${className}' AND section='${sectionName}' ORDER BY roll`,(errStudent, infoStudent)=>{
     if(errStudent) console.log(errStudent.sqlMessage);
 
     sqlmap.query(`INSERT INTO transcript_origin (session, class, section, student_id, name, roll, at_status, avatar)

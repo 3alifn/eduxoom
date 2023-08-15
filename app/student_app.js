@@ -54,7 +54,7 @@ exports.admin_student_join= (req, res)=>{
   let tempData= classNameX.split(' $%& ');
   var className= tempData[0];
   var sectionName= tempData[1];
-  var email = student_id+'@gmail.com';
+  var email = student_id+'@abc.com';
   var session= new Date().getUTCFullYear();
 
   const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
@@ -126,7 +126,7 @@ for (let index = 0; index < name.length; index++) {
    {  let student_id= Math.floor(Math.random()*900000);
  
    sqlmap.query(`INSERT INTO students (session, name, email, student_id, roll, class, section, gender, password, avatar)
-   VALUES (${session}, "${name[index]}","${student_id+'@gmail.com'}", "${student_id}", '${roll}', "${className}", "${sectionName}","${gender[index]}", 
+   VALUES (${session}, "${name[index]}","${student_id+'@abc.com'}", "${student_id}", '${roll}', "${className}", "${sectionName}","${gender[index]}", 
   "password", "${avatarName}")`, (err_sub, info_sub)=>{
  
      if(err_sub) {console.log(err_sub.sqlMessage); res.send({msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger"});}
@@ -487,7 +487,7 @@ exports.admin_student_get= (req, res)=>{
 
   let {className, sectionName}= req.body;
 
-  sqlmap.query(`SELECT * FROM students WHERE class='${className}' AND section='${sectionName}' ORDER BY ID DESC`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM students WHERE class='${className}' AND section='${sectionName}' ORDER BY roll`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
 
     else 
@@ -499,7 +499,7 @@ exports.admin_student_get= (req, res)=>{
         list += `
         
        <tr>
-       <td><span class='badge text-dark bg-light'>${info[i].student_id}</span></td>
+       <td><span class='badge text-dark bg-light'>${info[i].roll}</span></td>
        <td><span class='badge text-dark bg-light'>${info[i].name}</span></td>
        <td><span class='badge text-dark bg-light'> 
        <img data-id="${info[i].ID}" title='See more...' class="modal-trigger-trigger" style='cursor: pointer'  src="/image/student/${info[i].avatar}" alt="404" width="30px" >
@@ -538,7 +538,7 @@ exports.admin_student_get_class_base= (req, res)=>{
 
   let {className, sectionName}=  req.body;
 
-  sqlmap.query(`SELECT * FROM students WHERE class='${className}' AND section='${sectionName}' ORDER BY ID DESC`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM students WHERE class='${className}' AND section='${sectionName}' ORDER BY roll`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
 
     else 
@@ -550,7 +550,7 @@ exports.admin_student_get_class_base= (req, res)=>{
         list += `
         
        <tr>
-       <td><span class='badge text-dark bg-light'>${info[i].student_id}</span></td>
+       <td><span class='badge text-dark bg-light'>${info[i].roll}</span></td>
        <td><span class='badge text-dark bg-light'>${info[i].name}</span></td>
        <td><span class='badge text-dark bg-light'> 
        <img data-id="${info[i].ID}" class="modal-trigger-trigger" style='cursor: pointer'  src="/image/student/${info[i].avatar}" alt="404" width="30px" >

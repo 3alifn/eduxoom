@@ -30,15 +30,12 @@ exports.public_admission_post = (req, res) => {
   let { lastEducation, roll, regNumber, Board, passingYear, joinGroup, comment } = req.body;
   let data = req.body.pastData.split("$%&");
  if(data[3]=='Male') var avatar= 'male_avatar.png'; else var avatar= 'female_avatar.png'; 
- console.log(data[3]);
  let session= new Date().getUTCFullYear();
     let findDate= new Date().toLocaleDateString();
-
-
   sqlmap.query(`
-  INSERT INTO admission (session, find_date, comment, name, avatar, dob_number, birth_date, gender, father_name, mother_name, blood_group, religion, telephone, email, guardian_name, address, hobbies, yearly_income, last_education, roll, reg, board, passing_year, join_group) 
+  INSERT INTO admission (session, find_date, comment, name, avatar, dob_number, birth_date, gender, father_name, mother_name, blood_group, religion, telephone, email, guardian_name, address, hobbies, last_education, roll, reg, board, passing_year, join_group) 
      
-  VALUES ( '${session}', "${findDate}", "${comment}", "${data[0]}", "${avatar}", "${data[1]}","${data[2]}","${data[3]}","${data[4]}","${data[5]}", "${data[6]}","${data[7]}", "${data[8]}","${data[9]}","${data[10]}","${data[11]}","${data[12]}", "${data[13]}","${lastEducation}", "${roll}", "${regNumber}", "${Board}", "${passingYear}", "${joinGroup}")
+  VALUES ( '${session}', "${findDate}", "${comment}", "${data[0]}", "${avatar}", "${data[1]}","${data[2]}","${data[3]}","${data[4]}","${data[5]}", "${data[6]}","${data[7]}", "${data[8]}","${data[9]}","${data[10]}","${data[11]}","${data[12]}","${lastEducation}", "${roll}", "${regNumber}", "${Board}", "${passingYear}", "${joinGroup}")
 
   `, (err, next) => {
 
@@ -102,6 +99,7 @@ exports.admin_admission_info= (req, res)=>{
               let avatar= `${info[0].avatar}`
 
               let html= `
+              <strong>Personal Information</strong> <br> 
                <h5 class="card-title">${info[0].name} </h5>
                <p class="badge border bg-light text-dark">Gender: ${info[0].gender}</p> 
                <p class="badge border bg-light text-dark">Email: ${info[0].email}</p> 
@@ -110,6 +108,7 @@ exports.admin_admission_info= (req, res)=>{
                <br>
                <strong>Education Information</strong> <br>
                <p class="badge border bg-light text-dark">Last Education: ${info[0].last_education}</p> 
+               <p class="badge border bg-light text-dark">Join Group: ${info[0].join_group}</p> 
                <p class="badge border bg-light text-dark"> Roll No: ${info[0].roll}</p> 
                <p class="badge border bg-light text-dark">Reg No: ${info[0].reg}</p> 
                <p class="badge border bg-light text-dark">Board: ${info[0].board}</p> 
@@ -124,7 +123,6 @@ exports.admin_admission_info= (req, res)=>{
                <p class="badge border bg-light text-dark">Reliigion: ${info[0].religion}</p> 
                <p class="badge border bg-light text-dark">Address: ${info[0].address}</p> 
                <p class="badge border bg-light text-dark">Hobbies: ${info[0].hobbies}</p> 
-               <p class="badge border bg-light text-dark">Yearly Income: ${info[0].yearly_income}</p> <br>
                <p class="badge border bg-light text-dark">Comment: ${info[0].comment}</p> 
                `
   

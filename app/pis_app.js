@@ -24,7 +24,7 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
   if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus=''
 
  
-      sqlmap.query(`SELECT student_id, name, avatar, roll FROM students WHERE class='${className}' AND section='${sectionName}'  ORDER BY ID DESC LIMIT ${limit} OFFSET ${offset*limit}`,
+      sqlmap.query(`SELECT student_id, name, avatar, roll FROM students WHERE class='${className}' AND section='${sectionName}'  ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
       (errStudent, infoStudentData)=>{
 
         sqlmap.query(`SELECT subject_code, subject FROM subject WHERE class='${className}'  AND subject='${subject}'`
