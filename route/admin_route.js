@@ -248,7 +248,7 @@ res.render("admin/library_page")
 
 })
 
-admin.post("/library/post", upload_library_image.single("images"), admin_library_post)
+admin.post("/library/post", upload_library_image.single("bookimage"), admin_library_post)
 admin.post("/library/get", admin_library_get)
 admin.post("/library/delete", admin_library_delete)
 admin.get("/library/update/page", admin_library_update_page)

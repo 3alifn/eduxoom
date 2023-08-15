@@ -155,6 +155,7 @@
           <p></p>
 
 
+
       <div class=" input-group"> 
           <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
           <input patternoff="^[0-9]*$" type="number" placeholder="Student Roll" name="roll" value="" class="form-control form-self" required> 
@@ -491,7 +492,7 @@
 </div>
 
 <div class="col-6 col-md-3 m-auto ">
-  <input class="btn w-100 btn-self border border-dark" type="submit" value="Join">
+  <input class="btn btn-light w-100 btn-self border border-dark submitbtn"  type="submit" value="Join">
 
 </div>
 </form>
@@ -807,16 +808,14 @@ function todoStudent(){
     dataType: "JSON",
     beforeSend: function(){
       $("#submitbtn").addClass("disabled")
+      _spin_pull()
     },
     success: function (info) {
  
-
-$(".toast-msg").html(info.msg).addClass('alert alert-success fw-bolder')
-
-$('.toast').addClass('show')
-$("#submitbtn").removeClass("disabled")
-$('.todo-student-form-close').click()
+  _msg_pull('alert-success', 'Student added...')
       loadDisplay()
+   _spin_pop()
+
     }
   });
 
@@ -841,13 +840,15 @@ $("#studentUpdateForm").on("submit", (e)=>{
     dataType: "JSON",
     beforeSend: function(){
       $("#submitupdatebtn").addClass("disabled")
+      _spin_pull()
+
     },
     success: function (info) {
 
-$(".toast-msg").html('modifed...').addClass('alert alert-success fw-bolder')
 
-$('.toast').addClass('show')
+      _msg_pull('alert-success', 'Student added...')
       loadDisplay()
+     _spin_pop()
 
     $('.modelId_update_form_close').click()
       
@@ -897,8 +898,12 @@ function _delbox_push(){
         url: "/admin/student/delete",
         data: $("#deleteStudent").serialize(),
         dataType: "JSON",
+        beforeSend: function (){
+          _spin_pull()
+        },
         success: function (info) {
-    
+          _msg_pull('alert-success', 'Student deleted...')
+        _spin_pop()
         loadDisplay()
         
 

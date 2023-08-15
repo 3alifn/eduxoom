@@ -42,11 +42,11 @@ exports.upload_library_image= multer({
 
 exports.admin_library_post = (req, res)=>{
 
-    let {bookName, authorName, bookCopy, className, sectionName, description} = req.body
+    let {bookName, authorName, bookCopy,  description} = req.body
     if(req.file) var filenameBook= req.file.filename;
-    else  var filenameBook= "book_avatar.png"
+    else  var filenameBook= "book_image.png"
 
-    let sql= `INSERT INTO library (book_name, book_author, book_copy, class_name, section_name, description) VALUES ("${bookName}", "${authorName}", "${bookCopy}","${className}", "${sectionName}", "${description}")`
+    let sql= `INSERT INTO library (book_name, book_author, book_copy, description, book_image) VALUES ("${bookName}", "${authorName}", "${bookCopy}", "${description}", "${filenameBook}")`
 
     sqlmap.query(sql, (err, next)=>{
   
@@ -83,8 +83,8 @@ exports.admin_library_get= (req, res)=>{
         <input type="checkbox" name="ID[]" id="" value="${info[i].ID}">
          </td>
         <td><span class="badge bg-light text-primary">${info[i].book_author}</span></td>
-        <td><span class="badge bg-light text-dark">${info[i].book_copy}</span></td>
-        <td><span class="badge bg-light text-dark">${info[i].class_name} - ${info[i].section_name}</span></td>
+        <td><img width='100px' height='60px' class="bg-demo-img-color" src="/image/library/${info[i].book_image}"></td>
+        <td><span class="badge bg-light text-dark">${ info[i].book_copy}</span></td>
         <td><span class="badge bg-light text-dark">${info[i].description}</span></td>
      
         <td> <span class="badge bg-light text-primary">${info[i].at_date.toString().substring(0, 15)}</span></td>
@@ -111,9 +111,7 @@ exports.admin_library_get= (req, res)=>{
 exports.admin_library_delete = (req, res)=>{
 let filepathBook= path.dirname(__dirname)
 
-    let {ID} = req.body
-
-
+    const {ID} = req.body;
 
     sqlmap.query(`SELECT * FROM library WHERE ID IN (${ID.toString()})`, (errInfo, findInfo)=>{
       if(errInfo) console.log("data not found!")
@@ -170,8 +168,8 @@ exports.admin_library_update_page = (req, res)=>{
 
 exports.admin_library_update= (req, res)=>{
 
-  let {ID, bookName, bookAuthor, className, sectionName, bookCopy, description}= req.body;
-  let sql= `UPDATE library SET book_name="${bookName}", book_author="${bookAuthor}", class_name="${className}", section_name="${sectionName}", book_copy="${bookCopy}", description="${description}" WHERE ID="${ID}"`
+  let {ID, bookName, bookAuthor,  bookCopy, description}= req.body;
+  let sql= `UPDATE library SET book_name="${bookName}", book_author="${bookAuthor}",  book_copy="${bookCopy}", description="${description}" WHERE ID="${ID}"`
   sqlmap.query(sql, (err, next)=>{
 
     if(err) console.log(err.sqlMessage);
@@ -182,7 +180,7 @@ exports.admin_library_update= (req, res)=>{
 
 
 
-exports.privet_library_get= (req, res)=>{
+exports.public_library_get= (req, res)=>{
 
     let sql= `SELECT * FROM library ORDER BY ID DESC`
     sqlmap.query(sql, (err, info)=>{
@@ -200,7 +198,6 @@ exports.privet_library_get= (req, res)=>{
         <td> <span class="badge bg-light text-danger">${info[i].book_name}</span> </td>
         <td><span class="badge bg-light text-primary">${info[i].book_author}</span></td>
         <td><span class="badge bg-light text-dark">${info[i].book_copy}</span></td>
-        <td><span class="badge bg-light text-dark">${info[i].class_name} - ${info[i].section_name}</span></td>
         <td><span class="badge bg-light text-dark">${info[i].description}</span></td>
      
         <td> <span class="badge bg-light text-primary">${info[i].at_date.toString().substring(0, 15)}</span></td>

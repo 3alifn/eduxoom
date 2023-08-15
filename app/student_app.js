@@ -105,11 +105,12 @@ exports.admin_student_join_quick= (req, res)=>{
   const sectionName= tempData[1];
   const session= new Date().getUTCFullYear();
 
-    if(gender=="Male") var avatarName= "male_avatar.png"
-    else avatarName= "female_avatar.png";
 
  var message= [];
 for (let index = 0; index < name.length; index++) {
+
+  if(gender[index]=="Male") var avatarName= "male_avatar.png"
+  else avatarName= "female_avatar.png";
 
   sqlmap.query(`SELECT  student_id, roll FROM students WHERE class='${className}' AND section='${sectionName}' AND roll='${roll[index]}'`, (err_, info_)=>{
  

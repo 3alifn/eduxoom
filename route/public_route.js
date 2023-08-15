@@ -12,6 +12,7 @@ const { app, sqlmap } = require("../server")
 const { public_team_saanvi_sent_message } = require("../app/team_saanvi_app")
 const school_app = require("../app/school_app")
 const { pu_class_secton_rm } = require("../app/class_section")
+const { public_library_get } = require("../app/library_app")
 const public= express.Router()
 
 // class section settings...
@@ -30,6 +31,17 @@ public.post("/team-saanvi/contact-us", public_team_saanvi_sent_message)
 // carousel router.............
 
 public.get("/carousel/get", public_carousel_get)
+
+
+
+// library router..........
+public.get("/library/page", (req, res)=>{
+
+  res.render("library/library_page_public")
+
+    })
+
+public.post('/library/get', public_library_get)
 
 
 

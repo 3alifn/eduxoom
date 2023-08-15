@@ -1,6 +1,5 @@
 
 const express= require("express");
-const { privet_library_get } = require("../app/library_app");
 const { privet_routine_get, admin_routine_page, privet_routine_page, privet_routine_page_class_base } = require("../app/routine_app");
 const { privet_student_profile } = require("../app/student_app");
 const { app } = require("../server");
@@ -68,15 +67,6 @@ privet.post('/transcript/report-get-checkout', privet_transcript_report_get_chec
 
 
 
-
-// library router..........
-privet.get("/library/page", (req, res)=>{
-
-    res.render("library/library_page_privet")
-  
-      })
-
-privet.post('/library/get', privet_library_get)
 
 
 
