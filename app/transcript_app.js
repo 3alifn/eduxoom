@@ -10,11 +10,12 @@ const { sqlmap , fs} = require("../server");
 exports.privet_transcript_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
 
-  sqlmap.query(`SELECT student_id, name, avatar FROM transcript_report WHERE class='${className}' AND section='${sectionName}'
-   GROUP BY student_id  ORDER BY ID DESC`
+  sqlmap.query(`SELECT student_id, name, roll, avatar FROM transcript_report WHERE class='${className}' AND section='${sectionName}'
+   GROUP BY student_id  ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
       const infoStudent= infoStudentData;
+      console.log(infoStudent[0].roll);
       res.render('transcript/transcript-page-report-student-privet', {infoStudent, className, sectionName})
   }
   else res.send('<center><h1>student not found!</h1></center>')
@@ -86,7 +87,7 @@ exports.privet_transcript_report_get= ( req , res)=>{
 
   sqlmap.query(`SELECT * FROM subject WHERE class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
 
-    sqlmap.query(`SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}'
+    sqlmap.query(`SELECT student_id, name, avatar, pi, bg_color, roll FROM transcript_report WHERE class='${className}' AND section='${sectionName}'
     AND student_id='${student_id}'`
     ,(errStudent, infoStudent)=>{
 
@@ -145,8 +146,8 @@ exports.admin_transcript_report_get_checkout= (req, res)=>{
 exports.admin_transcript_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
 
-  sqlmap.query(`SELECT student_id, name, avatar FROM transcript_report WHERE class='${className}' AND section='${sectionName}'
-  GROUP BY student_id  ORDER BY ID DESC`
+  sqlmap.query(`SELECT student_id, name, roll, avatar FROM transcript_report WHERE class='${className}' AND section='${sectionName}'
+  GROUP BY student_id  ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
       const infoStudent= infoStudentData;
@@ -167,8 +168,8 @@ exports.admin_transcript_report_get= ( req , res)=>{
   var {className, sectionName, student_id}= req.params; 
   const {student_offset}= req.query; const init_student= student_id;
   if(student_offset==undefined) var offset= 0; if(student_id=='auto') var offset= student_offset;  
-  if(student_id=='auto')   var findStudent= `SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}'  GROUP BY student_id  ORDER BY ID DESC LIMIT 1 OFFSET ${offset}`
-  else  var findStudent= `SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`
+  if(student_id=='auto')   var findStudent= `SELECT student_id, name, avatar, pi, roll, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}'  GROUP BY student_id  ORDER BY ID DESC LIMIT 1 OFFSET ${offset}`
+  else  var findStudent= `SELECT student_id, name, avatar, pi, roll, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`
   sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
 sqlmap.query(`SELECT * FROM subject WHERE class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
@@ -205,7 +206,7 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
 
 exports.admin_transcript_pdf_page= ( req , res)=>{
   const {className, sectionName}= req.params; 
-  sqlmap.query(`SELECT student_id FROM transcript_report WHERE class='${className}' AND section='${sectionName}' GROUP BY student_id ORDER BY ID`, (err, getStudent)=>{
+  sqlmap.query(`SELECT student_id, roll FROM transcript_report WHERE class='${className}' AND section='${sectionName}' GROUP BY student_id ORDER BY ID`, (err, getStudent)=>{
     if(err) console.log(err.sqlMessage);
     if(getStudent.length>0){
       res.render('admin/transcript-pdf-page', {className, sectionName, getStudent})
@@ -222,7 +223,7 @@ exports.admin_transcript_pdf_get= ( req , res)=>{
   const {className, sectionName, student_id}= req.body; 
   teacher_bi_transcript_post_update(className, sectionName, student_id)
 
-  const findStudent= `SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`
+  const findStudent= `SELECT student_id, name, avatar, roll, pi, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`
   sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
 sqlmap.query(`SELECT * FROM subject WHERE class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
@@ -250,7 +251,7 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
    <div class="card col-12 col-md-4 p-2">
     <img class=" m-auto" width="100px" src="/image/student/${infoStudent[0].avatar}" alt="">
     <div class=" m-auto"> <br>
-      <h6 class="card-text text-capitalize">${infoStudent[0].name } - ${infoStudent[0].student_id }</h6>
+      <h6 class="card-text text-capitalize">${infoStudent[0].name } - ${infoStudent[0].roll }</h6>
     </div>
     </div>
 
@@ -417,7 +418,7 @@ report_card+=`</div></div>`
 exports.admin_transcript_pdf_checkout= (req, res)=>{
  
   const {className, sectionName}= req.body;
-  sqlmap.query(`SELECT pi, checkout, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
+  sqlmap.query(`SELECT pi, checkout, roll, bg_color FROM transcript_report WHERE class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
           res.send({info_checkout}) 
