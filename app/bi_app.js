@@ -89,8 +89,7 @@ sqlmap.query(`DELETE FROM bi_catagory WHERE ID=${catagory_id}`, (err, done)=>{
 
 
 exports.teacher_bi_page_mark_get= (req, res)=>{
-
-    const teacher_pdsid= req.session.pdsId;
+    const teacher_pdsid= req.session.pdsId; 
     const {className, sectionName, page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit= 15; 
 
     sqlmap.query(`SELECT * FROM bi_catagory ORDER BY ID DESC`, (err_catagory, infoCatagory)=>{
