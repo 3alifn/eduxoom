@@ -126,7 +126,7 @@ for (let index = 0; index < name.length; index++) {
    {  let student_id= Math.floor(Math.random()*900000);
  
    sqlmap.query(`INSERT INTO students (session, name, email, student_id, roll, class, section, gender, password, avatar)
-   VALUES (${session}, "${name[index]}","${student_id+'@abc.com'}", "${student_id}", '${roll}', "${className}", "${sectionName}","${gender[index]}", 
+   VALUES (${session}, "${name[index]}","${student_id+'@abc.com'}", "${student_id}", '${roll[index]}', "${className}", "${sectionName}","${gender[index]}", 
   "password", "${avatarName}")`, (err_sub, info_sub)=>{
  
      if(err_sub) {console.log(err_sub.sqlMessage); res.send({msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger"});}
