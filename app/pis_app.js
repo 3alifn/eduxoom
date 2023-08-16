@@ -131,7 +131,7 @@ exports.teacher_pis_subject_get=(req, res)=>{
  exports.privet_pis_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
 
-  sqlmap.query(`SELECT student_id, name, avatar FROM pis_mark WHERE class='${className}' AND section='${sectionName}'
+  sqlmap.query(`SELECT student_id, name,roll, avatar FROM pis_mark WHERE class='${className}' AND section='${sectionName}'
    GROUP BY student_id ORDER BY ID DESC`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
@@ -152,7 +152,7 @@ exports.privet_pis_report_get= ( req , res)=>{
   const {className, sectionName, student_id}= req.params;
 
   sqlmap.query(`SELECT * FROM subject WHERE class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
-  sqlmap.query(`SELECT student_id, name, avatar, pi, bg_color FROM pis_mark WHERE class='${className}' AND section='${sectionName}'
+  sqlmap.query(`SELECT student_id, roll,  name, avatar, pi, bg_color FROM pis_mark WHERE class='${className}' AND section='${sectionName}'
    AND student_id='${student_id}'`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData){
@@ -192,7 +192,7 @@ function todo_transcipt(className, teacher_pdsid, roll, sectionName,  student_id
   const session= new Date().getUTCFullYear(); 
   if(chapter=='A1' || chapter=='A2' || chapter=='A3' || chapter=='A4' || chapter=='A5' || chapter=='A6') var transciptName= 'half'; else var transciptName= 'full';
   if(pi>pic_pi) var final_pi= pi; else var final_pi=  pic_pi; if(final_pi==1) var bg_color= 'bg-danger'; else if(final_pi==2) var bg_color='bg-warning'; else bg_color='bg-success';
-  sqlmap.query(`SELECT subject, chapter, student_id FROM transcript_report WHERE class='${className}' AND section='${sectionName}' AND 
+  sqlmap.query(`SELECT subject, chapter, student_id, roll FROM transcript_report WHERE class='${className}' AND section='${sectionName}' AND 
   subject='${subject}' AND chapter='${chapter}' AND student_id=${student_id}`, (err_find, info_find)=>{
     if(err_find) console.log(err_find.sqlMessage);
     if(info_find.length==0 || info_find==undefined){

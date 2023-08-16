@@ -177,7 +177,7 @@ exports.admin_student_update_form = (req, res) => {
               <strong>Student Information</strong>
             </center>     
   
-            <input type="hidden" name="ID" value="${info[0].ID}">
+            <input required type="hidden" name="ID" value="${info[0].ID}">
 
   <p></p>
            
@@ -186,7 +186,7 @@ exports.admin_student_update_form = (req, res) => {
                 <span class=" input-group-text"><i class=" fa-solid fa-people-line"></i></span>
   
                 
-                <select onclick='loopClass()' name="classBase" id="" class=" form-select form-self">
+                <select onclick='loopClass()' name="classBase" id="" class=" form-select form-self" required>
   
                 <option selected value="${info[0].class}-${info[0].section}">${info[0].class} - ${info[0].section}</option>
 
@@ -284,7 +284,7 @@ exports.admin_student_update_form = (req, res) => {
   
         <div class=" input-group"> 
             <span class=" input-group-text"><i class=" fa fa-male"></i></span>
-            <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Father Name" name="fname" value="${info[0].father_name}" class="form-control form-self" required>
+            <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Father Name" name="fname" value="${info[0].father_name}" class="form-control form-self" >
   
             <div  class="valid-feedback"></div>
             <div id="" class="invalid-feedback">Enter a valid name</div>
@@ -296,7 +296,7 @@ exports.admin_student_update_form = (req, res) => {
   
         <div class=" input-group"> 
             <span class=" input-group-text"><i class=" fa fa-female"></i></span>
-            <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Mother Name" name="mname" value="${info[0].mother_name}" class="form-control form-self" required>
+            <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Mother Name" name="mname" value="${info[0].mother_name}" class="form-control form-self" >
   
             <div  class="valid-feedback"></div>
             <div id="" class="invalid-feedback">Enter a valid name</div>
@@ -322,7 +322,7 @@ exports.admin_student_update_form = (req, res) => {
       <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-contact-48.png" alt=""></span>
     
     
-      <input patternoff="^01[0-9]*$" maxlength="11" type="tel" placeholder="01XXXXXXXX" value="${info[0].telephone}" name="telephone"  class="form-self form-control form-self" required>  
+      <input patternoff="^01[0-9]*$" maxlength="11" type="tel" placeholder="01XXXXXXXX" value="${info[0].telephone}" name="telephone"  class="form-self form-control form-self" >  
       <div  class="valid-feedback"></div>
       <div id="" class="invalid-feedback">Enter contact number</div>
     
@@ -334,7 +334,7 @@ exports.admin_student_update_form = (req, res) => {
         
         <div class=" input-group"> 
             <span class=" input-group-text"><i class="fa-sharp fa-solid fa-location-dot"></i></span>
-            <input type="text" placeholder="Gunbaha, Boalmari-Faridpur" name="address" value="${info[0].address}" class="form-control form-self" required> 
+            <input type="text" placeholder="Gunbaha, Boalmari-Faridpur" name="address" value="${info[0].address}" class="form-control form-self" > 
   
             <div  class="valid-feedback"></div>
             <div id="" class="invalid-feedback">Required address</div>
@@ -347,7 +347,7 @@ exports.admin_student_update_form = (req, res) => {
   
         <div class="input-group">
             <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-praying-man-48.png" alt=""></span>
-          <select class="form-self form-select form-self" name="religion" id="" required>
+          <select class="form-self form-select form-self" name="religion" id="" >
           
             <option disabled  value="">Select Religion</option>
             <option value="Islam">Islam</option>
@@ -414,7 +414,7 @@ exports.admin_student_update_form = (req, res) => {
           
         <div class=" input-group"> 
             <span class=" input-group-text"><i class="fa-sharp fa-solid fa-birthday-cake"></i></span>
-            <input type="date"  name="birthDate"  value="${info[0].birth_date}" class=" form-control form-self" required>
+            <input type="date"  name="birthDate"  value="${info[0].birth_date}" class=" form-control form-self" >
         </div>
   
         

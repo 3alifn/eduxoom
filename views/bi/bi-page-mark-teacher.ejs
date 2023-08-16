@@ -66,14 +66,14 @@
  <tr>
            
 
-            <td><img width="40px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[i].avatar%>" alt="">
-                <b><%=infoStudent[i].student_id%></b> <br> <b><%=infoStudent[i].name%></b>
+            <td><img width="90px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[i].avatar%>" alt="">
+                <small><%=infoStudent[i].roll%> - <%=infoStudent[i].name%> </small> 
             </td>
 
             <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
                 <td > 
                     
-                    <small class="badge bg-light text-dark"><%=infoStudent[i].name%></small> 
+                    <small class="badge bg-light text-dark"><%=infoStudent[i].name%> - <%=infoStudent[i].roll%></small> 
                     <div class="form-check checkout_<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%> m-0 p-0 form-switch d-flex btn ">
                 
                                  
