@@ -16,7 +16,7 @@ exports.teacher_pic_page_mark_get= (req, res)=>{
   
   
 
- if(page==1) var offset=0; else var offset=page-1; const limit= 15; 
+ if(page==1) var offset=0; else var offset=page-1; const limit=20; 
 
  sqlmap.query(`SELECT COUNT(student_id) as student_row FROM students WHERE class='${className}' AND section='${sectionName}'`
  ,(err_row, count_row)=>{

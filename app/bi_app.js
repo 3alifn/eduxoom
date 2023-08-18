@@ -90,7 +90,7 @@ sqlmap.query(`DELETE FROM bi_catagory WHERE ID=${catagory_id}`, (err, done)=>{
 
 exports.teacher_bi_page_mark_get= (req, res)=>{
     const teacher_pdsid= req.session.pdsId; 
-    const {className, sectionName, page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit= 15; 
+    const {className, sectionName, page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit=20; 
 
     sqlmap.query(`SELECT * FROM bi_catagory ORDER BY ID DESC`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
@@ -128,7 +128,7 @@ exports.teacher_bi_page_mark_get= (req, res)=>{
 exports.teacher_bi_report_get= ( req , res)=>{
 
     const teacher_pdsid= req.session.pdsId;
-    const {className, sectionName,page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit= 15; 
+    const {className, sectionName,page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit=20; 
     sqlmap.query(`SELECT * FROM bi_catagory ORDER BY ID DESC`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
 
@@ -178,7 +178,7 @@ exports.teacher_bi_mark_post= (req, res)=>{
                 else { 
 
 
-                    teacher_bi_transcript_post(teacher_pdsid, className, sectionName, catagory, bi, student_id, name, checkout)
+                    teacher_bi_transcript_post(teacher_pdsid, roll,  className, sectionName, catagory, bi, student_id, name, checkout)
                     
                     res.send({msg: 'success'}) 
 
@@ -222,15 +222,15 @@ exports.teacher_bi_report_self_checkout= (req, res)=>{
 
 
 
-const teacher_bi_transcript_post= ( teacher_pdsid, className, sectionName, catagory, bi, student_id, name, checkout )=>{
+const teacher_bi_transcript_post= ( teacher_pdsid, roll,  className, sectionName, catagory, bi, student_id, name, checkout )=>{
     const session= new Date().getUTCFullYear();
 
     sqlmap.query(`SELECT teacher_pdsid FROM bi_transcript WHERE teacher_pdsid=${teacher_pdsid} AND student_id='${student_id}' AND class='${className}' AND section='${sectionName}' AND catagory='${catagory}'`
     , (errCheck, infoCheck)=>{
         if(errCheck) console.log(errCheck.sqlMessage);
         if(infoCheck==undefined||infoCheck.length===0){
-            sqlmap.query(`INSERT INTO bi_transcript (session, class, section, teacher_pdsid, student_id, name, catagory, bi, checkout) 
-            VALUES(${session}, '${className}', '${sectionName}', '${teacher_pdsid}',${student_id}, '${name}', '${catagory}', '${bi}', '${checkout}')`, (errPost, nextPost)=>{
+            sqlmap.query(`INSERT INTO bi_transcript (session, class, section, teacher_pdsid, student_id, roll, name, catagory, bi, checkout) 
+            VALUES(${session}, '${className}', '${sectionName}', '${teacher_pdsid}',${student_id}, '${roll}', '${name}', '${catagory}', '${bi}', '${checkout}')`, (errPost, nextPost)=>{
                 if(errPost) console.log(errPost.sqlMessage);
                 console.log('bi_transcript_makeing!');
             })
