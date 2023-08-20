@@ -78,10 +78,12 @@
     </div>
     
     
-    <%- include("../component/footer-nav.html") %> 
+    <%- include("../component/___node.html") %> 
 
 
+</body>
 
+</html>
 <script>
 
     
@@ -133,10 +135,8 @@ contentType: false,
 success: function (info) {
 
 
-        $('.toast-msg').text('Application Sent...')
-        $('.toast').addClass('show')
-        $('.alert-type').addClass('alert alert-success')
-
+        _msg_pull('alert-success','Application Sent...')
+  
 
 
  loadData()
@@ -172,8 +172,4 @@ loadData()
 
 
 </script>
-<%- include("../component/___node.html") %> 
 
-</body>
-
-</html>

@@ -5,7 +5,7 @@
     <%- include("../component/metadata.html") %> 
 
     <title>Account info</title>
-
+  <script src="/app/___noviewport.js"></script>
 
 </head>
 <style>
@@ -121,10 +121,18 @@
                 
 <!-- end mainDiv -->
 </div>
-   
+<%-include("../component/___node.html") %> 
+
 
 
 <script>
+noview.port({
+input_class: 'file',
+ append_class: 'file_append', 
+ file_type: 'image', 
+ max_kb_size: 1024,
+ multiple: false,
+  })
 
 $('#eye-hide').click(()=>{
     $('#password').attr('type', "text")
@@ -179,29 +187,7 @@ $(document).on("click", ".defClose",()=>{
 
   
 
-$(document).on("click", ".defClose", (e)=>{
 
-let dataID= e.currentTarget.attributes[0].value;
-
-
-$("#modal").click()
-
-   $("#confirmed").on("click", ()=>{
-    $.ajax({
-        type: "post",
-        url: "/teacher/close/account",
-        data: {dataID},
-        dataType: "JSON",
-        success: function (info) {
-           window.location.replace("/au/singin/page")
-            
-        }
-    });
-
-   })
-
-
-})
 
 
   
@@ -229,16 +215,15 @@ $("#formFile").submit(function(e){
             cache: false,
             processData: false,
             beforeSend: function(){
-              $("#fileEdit").hide()
 
+              _spin_pull()
+               
             },
 
             success: function(info){
-
+           _spin_pop()
+           _msg_pull('alert-success', 'profile updated...')
   
-                setTimeout(() => {
-                  window.location.reload()
-                }, 3000);
             },
 
          });

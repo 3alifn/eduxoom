@@ -590,7 +590,7 @@ $(document).on("click", ".addItemQuick", (e) => {
 
 <div class="row">
     <div class="col-10 col-md-6 mb-2 mt-2 m-auto">
-        <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="Example: 140044" id="search">
+        <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
     
     </div>
 
@@ -604,10 +604,10 @@ $(document).on("click", ".addItemQuick", (e) => {
 
        <select required name="classBase" id="classBase" class="form-self">
         
-        <option value="" selected disabled >শ্রেণী নির্বাচন করুন</option>
+        <option value=""  disabled >শ্রেণী নির্বাচন করুন</option>
 
         <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
-          <option class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
+          <option selected class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
           <option class="status_Six_B" value="Six $%& B">ষষ্ঠ - খ</option>
           <option class="status_Six_C" value="Six $%& C">ষষ্ঠ - গ</option>
          </optgroup>
@@ -811,10 +811,11 @@ function todoStudent(){
       _spin_pull()
     },
     success: function (info) {
- 
+      $("#submitbtn").removeClass("disabled")
+
+      _spin_pop()
   _msg_pull('alert-success', 'Student added...')
       loadDisplay()
-   _spin_pop()
 
     }
   });
@@ -938,13 +939,12 @@ $("#classBase").on("click", ()=>{
 
 
 function loadDisplay(){
-    let value= $("#classBase").val().split("-");
+  let value= $("#classBase").val().split(" $%& ");
     let className= value[0];
     let sectionName= value[1];
-
     $.ajax({
         type: "post",
-        url: "/admin/student/get",
+        url: "/admin/student/get/class/base",
         data: {className, sectionName},
         dataType: "JSON",
         beforeSend: function(){

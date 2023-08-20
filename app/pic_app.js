@@ -122,7 +122,7 @@ exports.teacher_pic_subject_get=(req, res)=>{
   const {className, sectionName}= req.params;
 
   sqlmap.query(`SELECT ID, student_id, name, roll, avatar FROM pic_mark WHERE class='${className}' AND section='${sectionName}'
-   GROUP BY student_id ORDER BY ID DESC`
+   GROUP BY student_id ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
       const infoStudent= infoStudentData;
@@ -143,7 +143,7 @@ exports.privet_pic_report_get= ( req , res)=>{
 
   sqlmap.query(`SELECT * FROM subject WHERE class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
   sqlmap.query(`SELECT student_id, name, avatar, pi, roll, bg_color FROM pic_mark WHERE class='${className}' AND section='${sectionName}'
-   AND student_id='${student_id}' ORDER BY ID DESC`
+   AND student_id='${student_id}' ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData){
       const infoStudent= infoStudentData;
@@ -165,7 +165,7 @@ exports.privet_pic_report_get= ( req , res)=>{
 exports.privet_pic_report_get_checkout= (req, res)=>{
 
   const {className, sectionName, student_id}= req.body;
-  sqlmap.query(`SELECT checkout, bg_color FROM pic_mark WHERE student_id='${student_id}' AND class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
+  sqlmap.query(`SELECT checkout, bg_color FROM pic_mark WHERE student_id='${student_id}' AND class='${className}' AND section='${sectionName}' ORDER BY roll`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
           

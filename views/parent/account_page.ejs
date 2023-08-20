@@ -6,6 +6,7 @@
     <title>Account info</title>
 
     <%- include("../component/metadata.html") %> 
+    <script src="/app/___noviewport.js"></script>
 
 
 </head>
@@ -60,8 +61,10 @@
       <form id="formFile"  method="post" enctype="multipart/form-data">
         <label>
           <div>
-            <input type="file" name="avatar" id="file" style="display: none;">
-            <img id="avatar" width="50px" class="rounded bg-demo-img-color" src="/image/parent/<%=info[0].avatar%>" alt="">
+            <input class="file" type="file" name="avatar" id="file" style="display: none;">
+            <span class="file_append">
+              <img id="avatar" width="50px" class="rounded bg-demo-img-color" src="/image/parent/<%=info[0].avatar%>" alt="">
+            </span>
             <center> <span id="fileEdit" class="btn btn-dark rounded-pill p-1 m-0">edit</span></center>
           </div>
         </label>
@@ -212,10 +215,17 @@
         
 
 
+<%-include("../component/___node.html") %> 
 
 <script>
 
-
+noview.port({
+input_class: 'file',
+ append_class: 'file_append', 
+ file_type: 'image', 
+ max_kb_size: 1024,
+ multiple: false,
+  })
 
 $('#eye-hide').click(()=>{
     $('#password').attr('type', "text")
@@ -293,16 +303,16 @@ $("#formFile").submit(function(e){
             cache: false,
             processData: false,
             beforeSend: function(){
-              $("#fileEdit").hide()
 
-            },
+_spin_pull()
+ 
+},
 
-            success: function(info){
+success: function(info){
+_spin_pop()
+_msg_pull('alert-success', 'profile updated...')
 
-                  window.location.reload()
-             
-
-            },
+},
 
          });
 

@@ -244,7 +244,7 @@ exports.privet_routine_page= (req, res)=>{
                             sqlmap.query(sqlThu, (errThu, infoThu)=>{
        
                             
-                                    res.render("routine/routine_page_privet", { infoSun, infoMon, infoTue, infoWed, infoThu})
+                                    res.render("routine/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu})
                        
                 
                             })

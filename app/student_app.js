@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express()
-const {sqlmap, nodemailer, multer, createHmac}= require("../server")
+const {sqlmap, nodemailer, multer, createHmac, fs, path}= require("../server")
+const sharp= require("sharp")
 
 var regexTelephone= /^01[0-9]*$/
 var regexNumber= /^[0-9]*$/
@@ -12,7 +13,7 @@ var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|
 
 const multer_location= multer.diskStorage({
   destination: (req, file, cb)=>{
-   cb(null, "./public/image/student")
+   cb(null, "./public/image/")
   } ,
 
   filename: (req, file, cb)=>{
@@ -28,7 +29,7 @@ const multer_location= multer.diskStorage({
 exports.multer_upload_student= multer({
   storage: multer_location,
 
-  limits: {fileSize: 1024*1024 * 2},
+  limits: {fileSize: 1024*1024},
   fileFilter: (req, file, cb)=>{
 
     if(file.mimetype=="image/png" || file.mimetype=="image/jpeg")
@@ -61,7 +62,7 @@ exports.teacher_student_info= (req, res)=>{
 
 
 
-exports.admin_student_join= (req, res)=>{
+exports.admin_student_join= async (req, res)=>{
 
   let {religion,  telephone, classNameX,  student_id, roll, name, fname, mname, gender, address, bloodGroup, password, birthDate}= req.body;
   student_id==undefined? student_id= Math.floor(Math.random()*900000) : student_id=student_id;
@@ -74,9 +75,10 @@ exports.admin_student_join= (req, res)=>{
   const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
 
 
-  if(req.files.length>0) var avatarName= req.files[0].filename;
+  if(req.file) var avatarName= req.file.filename;
    else if(gender=="Male") var avatarName= "male_avatar.png"
     else avatarName= "female_avatar.png";
+
 
   sqlmap.query(`SELECT  student_id, roll FROM students WHERE class='${className}' AND section='${sectionName}' AND (student_id="${student_id}" OR roll=${roll})`, (err_, info_)=>{
  
@@ -104,6 +106,35 @@ exports.admin_student_join= (req, res)=>{
 
    
   })
+
+  if(req.file){
+    
+    if(req.file.size<524288){
+
+      await sharp(req.file.path)
+       .jpeg({ quality: 50 })
+       .toFile(
+           path.resolve(path.resolve(req.file.destination, 'student', avatarName))
+       )
+
+  fs.unlinkSync(req.file.path)
+  
+    
+      }
+  
+    
+    else {
+      await sharp(req.file.path)
+      .jpeg({ quality: 20 })
+      .toFile(
+        path.resolve(path.resolve(req.file.destination, 'student', avatarName))
+        )
+    
+      fs.unlinkSync(req.file.path)
+    
+      
+        }
+  }
 
 
 }
@@ -759,14 +790,41 @@ else
 
 
 
-exports.self_avatar_upload= (req, res, next)=>{
+exports.self_avatar_upload= async (req, res, next)=>{
 
   sqlmap.query(`UPDATE students SET avatar="${req.file.filename}"  WHERE ID=${req.session.userid}`, (err, next)=>{
 
     if(err) console.log(err.message);
  
-    else res.send({msg: "Changed Successfully!"})
+    else {res.send({msg: "Changed Successfully!"})}
   })
+
+  if(req.file.size<524288){
+
+    await sharp(req.file.path)
+     .jpeg({ quality: 50 })
+     .toFile(
+         path.resolve(path.resolve(req.file.destination, 'student', req.file.filename))
+     )
+
+fs.unlinkSync(req.file.path)
+
+  
+    }
+
+  
+  else {
+    await sharp(req.file.path)
+    .jpeg({ quality: 20 })
+    .toFile(
+      path.resolve(path.resolve(req.file.destination, 'student', req.file.filename))
+      )
+  
+    fs.unlinkSync(req.file.path)
+  
+    
+      }
+  
   
  
 }
@@ -795,9 +853,7 @@ exports.self_email_update_page= (req, res)=>{
 
   
       const transporter= nodemailer.createTransport({
-        service: process.env.email_service,
-       
-    
+           
         host: process.env.email_host,
         port: process.env.email_port,
         auth: {
@@ -830,7 +886,7 @@ exports.self_email_update_page= (req, res)=>{
         if(err) {
           req.flash("msg", "Something Wrong! please try again...")
           req.flash("alert", "warning")
-          res.redirect("/student/account", {msg: req.flash("msg"), alert: req.flash("alert")})
+          res.redirect("/student/account")
          }
         
     else {

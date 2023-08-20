@@ -11,17 +11,19 @@
 
               <form id="formFile"  method="post" enctype="multipart/form-data">
                 <label>
-                  <div>
-                    <input type="file" name="avatar" id="file" style="display: none;">
-                    <img id="avatar" width="200px" class="rounded bg-demo-img-color" src="/image/teacher/<%=info[0].avatar%>" alt="">
-                    <center> <span id="fileEdit" class="btn  "><img width="30px" src="/icon/file/icons8-add-image-48.png" alt=""></span></center>
+                  <div >
+                    <input class="file" type="file" name="avatar" id="file" style="display: none;">
+                    <span class="file_append">
+                      <img id="avatar" width="200px" class="rounded bg-demo-img-color" src="/image/teacher/<%=info[0].avatar%>" alt="">
+                    </span>
+                    <center > <span id="fileEdit" class="btn  "><img width="30px" src="/icon/file/icons8-add-image-48.png" alt=""></span></center>
                   </div>
                 </label>
                </form>
 
                <h4 class="text-dark mt-3"><%-info[0].name %> <img width="30px" src="/icon/toolkit/icons8-verified-account-48.png" alt=""> </h4>
                <p class="text-dark mt-3"><%-info[0].email %> </p>
-           <p class="text-muted">PNG or JPG and max file size 2mb.</p>
+           <p class="text-muted">PNG or JPG and max file size 1mb.</p>
 
           </div>
       

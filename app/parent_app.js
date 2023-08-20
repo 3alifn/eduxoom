@@ -136,7 +136,7 @@ exports.join= (req, res)=>{
 
 const multer_location= multer.diskStorage({
   destination: (req, file, cb)=>{
-   cb(null, "./public/image/parent")
+   cb(null, "./public/image/")
   } ,
 
   filename: (req, file, cb)=>{
@@ -402,7 +402,7 @@ else
 
 
 
-exports.self_avatar_upload= (req, res, next)=>{
+exports.self_avatar_upload= async(req, res, next)=>{
 
 
 sqlmap.query(`UPDATE parents SET avatar="${req.file.filename}" WHERE ID="${req.session.userid}"`, (err, next)=>{
@@ -412,6 +412,33 @@ sqlmap.query(`UPDATE parents SET avatar="${req.file.filename}" WHERE ID="${req.s
 
   else res.send({msg: "Changed Successfully!"})
 })
+
+    
+  if(req.file.size<524288){
+
+    await sharp(req.file.path)
+     .jpeg({ quality: 50 })
+     .toFile(
+         path.resolve(path.resolve(req.file.destination, 'parent', req.file.filename))
+     )
+
+fs.unlinkSync(req.file.path)
+
+  
+    }
+
+  
+  else {
+    await sharp(req.file.path)
+    .jpeg({ quality: 20 })
+    .toFile(
+      path.resolve(path.resolve(req.file.destination, 'parent', req.file.filename))
+      )
+  
+    fs.unlinkSync(req.file.path)
+  
+    
+      }
 
 
 }

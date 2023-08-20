@@ -38,8 +38,7 @@ exports.uploadNotice= multer({
   
   
 
-exports.admin_notice_get= (req, res)=>{
-
+exports.admin_notice_get= (req, res)=>{  
 
 let sql="SELECT * FROM notice ORDER BY ID DESC"
 sqlmap.query(sql, (err, info)=>{
@@ -110,7 +109,7 @@ exports.public_notice_get= (req, res)=>{
                  html+= 
                  `
                  <li class="list-group-item list-group-item-light shadow mt-2">
-                 <a class="float-start nav-link" target="_blank" href="/docs/notice/${info[key].attachment}">${info[key].at_date.toString().substring(0, 25)} | <i class="bi bi-download"></i></a>
+                 <a class="float-start nav-link" target="_blank" href="/public/docs/notice/${info[key].attachment}">${info[key].at_date.toString().substring(0, 25)} | <i class="bi bi-download"></i></a>
                  <span class="float-end">${info[key].description}</span>
                  <span class="d-none">${info[key].at_date.toLocaleString('en-ZA')}</span>
                

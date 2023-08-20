@@ -102,6 +102,7 @@
     </div>
 
 
+    <%- include("../component/___node.html") %> 
 
 
 <script>
@@ -145,14 +146,11 @@ $.ajax({
     dataType: "JSON",
     beforeSend: function(){
         $(btn).addClass("btn")
-        $(btn).addClass("disabled")
+        $(btn).addClass("disabled bg-dark")
     },
     success: function (info) {
-       
-        $(".toast-msg").removeClass("text-danger")
-        $(".toast-msg").addClass(`alert-${info.alert}`)
-        $(".toast-msg").text(info.msg)
-        $(".toast").addClass('show')
+
+        _msg_pull(`alert-${info.alert}`, info.msg, 1000 )
 
         setTimeout(() => {
             $(btn).removeClass("disabled")

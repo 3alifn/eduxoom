@@ -1,12 +1,13 @@
 const express = require("express");
-const {sqlmap, nodemailer, multer, createHmac}= require("../server")
+const {sqlmap, nodemailer, multer, createHmac, path, fs}= require("../server")
+const sharp= require("sharp")
 
 const app = express()
 
 
 const multer_location= multer.diskStorage({
   destination: (req, file, cb)=>{
-   cb(null, "./public/image/teacher")
+   cb(null, "./public/image/")
   } ,
 
   filename: (req, file, cb)=>{
@@ -19,7 +20,7 @@ const multer_location= multer.diskStorage({
 exports.multer_upload_teacher= multer({
   storage: multer_location,
 
-  limits: {fileSize: 1024*1024  * 2},
+  limits: {fileSize: 1024*1024},
   fileFilter: (req, file, cb)=>{
 
     if(file.mimetype=="image/png" || file.mimetype=="image/jpeg")
@@ -38,15 +39,15 @@ exports.multer_upload_teacher= multer({
 
 
 
-exports.admin_teacher_join= (req, res)=>{
+exports.admin_teacher_join= async (req, res)=>{
 
   let {religion, name, email,  gender, pdsId, indexNo, position, groupSpecial,  telephone, password,  joiningDate, bloodGroup}= req.body;
    if(pdsId==undefined || pdsId=='') var pdsId_= Math.floor(Math.random()*900000); else var pdsId_=  pdsId
    if(indexNo==undefined || indexNo=='') var indexNo_= 'N'+Math.floor(Math.random()*900000); else var indexNo_=  indexNo;
    const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
 
-  if(req.files.length>0){
-    var avatar_png= req.files[0].filename;
+  if(req.file){
+    var avatar_png= req.file.filename;
 
    }
 
@@ -54,6 +55,8 @@ exports.admin_teacher_join= (req, res)=>{
     if(gender=="Female") var avatar_png= "female_avatar.png"
     else var avatar_png= "male_avatar.png"
    }
+
+
 
   sqlmap.query(`SELECT ID, email, pds_id, index_number FROM teachers WHERE email="${email}" OR pds_id="${pdsId}" OR index_number="${indexNo_}"`, (err_, info_)=>{
  
@@ -86,6 +89,34 @@ exports.admin_teacher_join= (req, res)=>{
   })
 
 
+  if(req.file){
+    
+   if(req.file.size<524288){
+
+    await sharp(req.file.path)
+     .jpeg({ quality: 50 })
+     .toFile(
+         path.resolve(path.resolve(req.file.destination, 'teacher', avatar_png))
+     )
+
+fs.unlinkSync(req.file.path)
+
+  
+    }
+
+  
+  else {
+    await sharp(req.file.path)
+    .jpeg({ quality: 20 })
+    .toFile(
+      path.resolve(path.resolve(req.file.destination, 'teacher', avatar_png))
+      )
+  
+    fs.unlinkSync(req.file.path)
+  
+    
+      }
+  }
 
 }
 
@@ -407,13 +438,42 @@ exports.self_account = (req, res)=>{
 
 
 
-  exports.self_avatar_upload =  (req, res, next)=>{
+  exports.self_avatar_upload =  async (req, res, next)=>{
+
     sqlmap.query(`UPDATE teachers SET avatar="${req.file.filename}" WHERE ID="${req.session.userid}"`, (err, next)=>{
   
       if(err) console.log(err.message);
    
-      else res.send({msg: "Changed Successfully!"})
+      else {
+        res.send({msg: "Changed Successfully!"})
+      } 
     })
+
+    if(req.file.size<524288){
+
+      await sharp(req.file.path)
+       .jpeg({ quality: 50 })
+       .toFile(
+           path.resolve(path.resolve(req.file.destination, 'teacher', req.file.filename))
+       )
+
+  fs.unlinkSync(req.file.path)
+  
+    
+      }
+  
+    
+    else {
+      await sharp(req.file.path)
+      .jpeg({ quality: 20 })
+      .toFile(
+        path.resolve(path.resolve(req.file.destination, 'teacher', req.file.filename))
+        )
+    
+      fs.unlinkSync(req.file.path)
+    
+      
+        }
     
    
   }
@@ -567,24 +627,7 @@ exports.self_password_update= (req, res)=>{
       
       
       
-      
-      
-      
-exports.self_avatar_upload= (req, res, next)=>{
-  if(req.session.user=='teacher'){
-        sqlmap.query(`UPDATE teachers SET avatar="${req.file.filename}" WHERE ID="${req.session.userid}"`, (err, next)=>{
-      
-       console.log("hello");
-          if(err) console.log(err.message);
-       
-          else res.send({msg: "Changed Successfully!"})
-        })
-        
-       
-      }
-      }
-      
-      
+    
 
 
 

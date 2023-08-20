@@ -132,7 +132,7 @@ exports.teacher_pis_subject_get=(req, res)=>{
   const {className, sectionName}= req.params;
 
   sqlmap.query(`SELECT student_id, name,roll, avatar FROM pis_mark WHERE class='${className}' AND section='${sectionName}'
-   GROUP BY student_id ORDER BY ID DESC`
+   GROUP BY student_id ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
       const infoStudent= infoStudentData;
@@ -176,7 +176,7 @@ exports.privet_pis_report_get_checkout= (req, res)=>{
   const session= new Date().getUTCFullYear();
 
   const {className, sectionName, student_id}= req.body;
-  sqlmap.query(`SELECT checkout, bg_color FROM pis_mark WHERE student_id='${student_id}' AND class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
+  sqlmap.query(`SELECT checkout, bg_color FROM pis_mark WHERE student_id='${student_id}' AND class='${className}' AND section='${sectionName}' ORDER BY roll`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
           
