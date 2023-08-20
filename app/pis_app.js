@@ -24,7 +24,7 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
   if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus=''
 
  
-      sqlmap.query(`SELECT student_id, name, avatar, roll FROM students WHERE class='${className}' AND section='${sectionName}'  ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
+      sqlmap.query(`SELECT ID, student_id, name, avatar, roll FROM students WHERE class='${className}' AND section='${sectionName}'  ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
       (errStudent, infoStudentData)=>{
 
         sqlmap.query(`SELECT subject_code, subject FROM subject WHERE class='${className}'  AND subject='${subject}'`
@@ -77,7 +77,7 @@ exports.teacher_pis_mark_post= (req, res)=>{
 
     }
 
-    else res.send({msg: 'উক্ত বিষয় এবং অধ্যায়ের পি আই সি মার্ক আগে সম্পূর্ণ করতে হবে! তারপার পি আই এস করতে হবে! '})
+    else res.send({msg: 'উক্ত বিষয় এবং অধ্যায়ের পি আই সি মার্ক আগে সম্পূর্ণ করতে হবে! তারপর পি আই এস করতে হবে! '})
   })
 
 

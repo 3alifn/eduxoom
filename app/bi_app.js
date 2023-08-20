@@ -11,6 +11,14 @@ var regexBi= /^[A-Za-z0-9-_]*$/
 var regexPassword= /^[a-zA-Z0-9!@#$%&*]*$/
 var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/ 
 
+exports.teacher_bi_info= (req, res)=>{
+    const {ID}= req.body;
+sqlmap.query(`SELECT catagory_name FROM bi_catagory WHERE ID=${ID}`, (err, info)=>{
+    if(err) console.log(err.sqlMessage);
+    const data= `<p>${info[0].catagory_name}</p>`
+    res.send({data})
+})
+}
 
 exports.admin_bi_catagory_post= (req, res)=>{
     const get= req.body;
@@ -30,7 +38,7 @@ res.send({msg: 'Adding successfully!'})
 
 exports.admin_bi_catagory_get= (req, res)=>{
 
-    sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_name ORDER BY ID DESC`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_name ORDER BY ID`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         let tbody_data= '';
         for (let index = 0; index < info.length; index++) {
@@ -92,7 +100,7 @@ exports.teacher_bi_page_mark_get= (req, res)=>{
     const teacher_pdsid= req.session.pdsId; 
     const {className, sectionName, page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit=20; 
 
-    sqlmap.query(`SELECT * FROM bi_catagory ORDER BY ID DESC`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory ORDER BY ID`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
 
         sqlmap.query(`SELECT COUNT(student_id) as student_row FROM students WHERE class='${className}' AND section='${sectionName}'`
@@ -102,7 +110,7 @@ exports.teacher_bi_page_mark_get= (req, res)=>{
         const pagination= student_row / limit 
         if(Math.ceil(pagination)==page) var nextbtnstatus= 'disabled'; else nextbtnstatus=''
         if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus=''
-        sqlmap.query(`SELECT student_id, name, avatar, roll FROM students WHERE class='${className}' AND section='${sectionName}'
+        sqlmap.query(`SELECT ID, student_id, name, avatar, roll FROM students WHERE class='${className}' AND section='${sectionName}'
          ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`
         ,(errStudent, infoStudentData)=>{
     
@@ -129,7 +137,7 @@ exports.teacher_bi_report_get= ( req , res)=>{
 
     const teacher_pdsid= req.session.pdsId;
     const {className, sectionName,page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit=20; 
-    sqlmap.query(`SELECT * FROM bi_catagory ORDER BY ID DESC`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory ORDER BY ID`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
 
         sqlmap.query(`SELECT COUNT(student_id) as student_row FROM bi_mark WHERE class='${className}' AND section='${sectionName}' AND teacher_pdsid='${teacher_pdsid}' GROUP BY student_id`
@@ -141,7 +149,7 @@ exports.teacher_bi_report_get= ( req , res)=>{
             if(Math.ceil(pagination)==page) var nextbtnstatus= 'disabled'; else nextbtnstatus=''
             if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus='null'
             sqlmap.query(`SELECT teacher_pdsid, student_id, name, avatar, roll FROM bi_mark WHERE class='${className}' AND section='${sectionName}'
-            AND teacher_pdsid=${teacher_pdsid} GROUP BY student_id ORDER BY ID DESC LIMIT ${limit} OFFSET ${offset*limit}`
+            AND teacher_pdsid=${teacher_pdsid} GROUP BY student_id ORDER BY ID LIMIT ${limit} OFFSET ${offset*limit}`
             ,(errStudent, infoStudentData)=>{
         if(infoStudentData.length>0){ 
             const infoStudent= infoStudentData;
@@ -197,7 +205,7 @@ exports.teacher_bi_checkout= (req, res)=>{
     const teacher_pdsid= req.session.pdsId;
 
     const {className, sectionName, checkout}= req.body;
-    sqlmap.query(`SELECT checkout, bg_color FROM bi_mark WHERE class='${className}' AND section='${sectionName}' AND teacher_pdsid='${teacher_pdsid}' ORDER BY ID DESC`, (errFind, info_checkout)=>{
+    sqlmap.query(`SELECT checkout, bg_color FROM bi_mark WHERE class='${className}' AND section='${sectionName}' AND teacher_pdsid='${teacher_pdsid}' ORDER BY ID`, (errFind, info_checkout)=>{
         if(errFind) console.log(errFind.sqlMessage);
         res.send({info_checkout})
     })
@@ -247,7 +255,7 @@ const teacher_bi_transcript_post= ( teacher_pdsid, roll,  className, sectionName
 
 const teacher_bi_transcript_post_update= (className, sectionName, student_id)=>{
 
-    sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_code ORDER BY ID DESC`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_code ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
     for (let index = 0; index < infoCatagory.length; index++) {
         sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =1`,(err_bi_danger, info_bi_danger)=>{
@@ -301,7 +309,7 @@ exports.privet_bi_transcript_report_checkout=(req, res)=>{
     const {className,sectionName, student_id}= req.body;
     teacher_bi_transcript_post_update(className, sectionName, student_id)
 
-    sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_name ORDER BY ID DESC`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
     sqlmap.query(`SELECT student_id, catagory, checkout, bg_color, bi_point FROM bi_transcript WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`,
     (err_find_class, info_checkout)=>{

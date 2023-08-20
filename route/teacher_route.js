@@ -4,7 +4,8 @@ const { teacher_pic_subject_get,  teacher_pic_page_mark_get, teacher_pic_mark_po
 const {  teacher_pis_subject_get,  teacher_pis_page_mark_get, teacher_pis_mark_post, teacher_pis_mark_checkout } = require("../app/pis_app");
 const { teacher_rank_mark_post, teacher_rank_mark_page_class_base, teacher_rank_mark_page, teacher_rank_mark_post_attendance } = require("../app/rank_app");
 const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update, self_email_update_page, self_social_update, self_close_account, self_avatar_upload, multer_upload, multer_upload_teacher } = require("../app/teacher_app");
-const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, teacher_bi_report_get,  teacher_bi_checkout, teacher_bi_report_self_checkout } = require("../app/bi_app");
+const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, teacher_bi_report_get,  teacher_bi_checkout, teacher_bi_report_self_checkout, teacher_bi_info } = require("../app/bi_app");
+const { teacher_student_info } = require("../app/student_app");
 const teacher= express.Router()
 
 teacher.all('*', (req, res, next)=>{
@@ -23,7 +24,8 @@ teacher.all('*', (req, res, next)=>{
 })
 
 
-
+// student router...
+teacher.post("/student/info/", teacher_student_info)
 
 // self account........
 teacher.get("/dashboard", self_dashboard)
@@ -47,7 +49,7 @@ teacher.get('/bi/page-mark-init', (req, res)=>{
 teacher.get('/bi/page-report-init', (req, res)=>{
    res.render("bi/bi-page-report-init-teacher")
 })
-
+teacher.post("/bi/info/", teacher_bi_info)
 teacher.get("/bi/page-mark-get/:page/:className/:sectionName/", teacher_bi_page_mark_get)
 teacher.get("/bi/page-report-get/:page/:className/:sectionName/", teacher_bi_report_get)
 teacher.post("/bi/mark-post", teacher_bi_mark_post)

@@ -45,6 +45,20 @@ exports.multer_upload_student= multer({
 })
 
 
+exports.teacher_student_info= (req, res)=>{
+  const {ID}= req.body;
+  sqlmap.query(`SELECT * FROM students WHERE ID='${ID}'`, (err, info)=>{
+    if(err) console.log(err.sqlMessage);
+    const avatar= info[0].avatar
+    const data= `
+    <p>Name: ${info[0].name}</p>
+    <p>Roll: ${info[0].roll}</p>
+    <p>SID: ${info[0].student_id}</p>
+    `
+    res.send({avatar, data})
+  })
+}
+
 
 
 exports.admin_student_join= (req, res)=>{

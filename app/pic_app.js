@@ -27,7 +27,7 @@ exports.teacher_pic_page_mark_get= (req, res)=>{
   if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus=''
 
  
-      sqlmap.query(`SELECT student_id, name, avatar, roll FROM students WHERE class='${className}' AND section='${sectionName}'  ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
+      sqlmap.query(`SELECT ID, student_id, name, avatar, roll FROM students WHERE class='${className}' AND section='${sectionName}'  ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
       (errStudent, infoStudentData)=>{
   
         sqlmap.query(`SELECT subject_code, subject FROM subject WHERE class='${className}' AND subject='${subject}'`
@@ -121,7 +121,7 @@ exports.teacher_pic_subject_get=(req, res)=>{
  exports.privet_pic_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
 
-  sqlmap.query(`SELECT student_id, name, roll, avatar FROM pic_mark WHERE class='${className}' AND section='${sectionName}'
+  sqlmap.query(`SELECT ID, student_id, name, roll, avatar FROM pic_mark WHERE class='${className}' AND section='${sectionName}'
    GROUP BY student_id ORDER BY ID DESC`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
