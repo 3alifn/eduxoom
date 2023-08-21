@@ -26,7 +26,7 @@ exports.authentication_check = (req, res)=>{
 
    if(userRole=='parents')  var findBashQuery= `SELECT * FROM ${userRole} WHERE permission='allow' AND  email="${username}" AND password="${hashPassword}"`
 
-   else if(userRole=='students') var findBashQuery= `SELECT * FROM ${userRole} WHERE  email="${username}" AND password="${hashPassword}" OR password="${password}"`
+   else if(userRole=='students') var findBashQuery= `SELECT * FROM ${userRole} WHERE  email="${username}" AND (password="${hashPassword}" OR password="${password}")`
 
    else if(userRole=='teachers') var findBashQuery= `SELECT * FROM ${userRole} WHERE email="${username}" AND password="${hashPassword}"`
 

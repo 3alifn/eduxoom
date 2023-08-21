@@ -1,14 +1,6 @@
 
         <!-- Flexbox container for aligning the toasts -->
-        <div style="position: fixed; top: 1px; z-index: 99999;"  aria-live="polite" aria-atomic="true" class="d-flex  justify-content-center align-items-center w-100">
-    
-          <!-- Then put toasts within -->
-          <div class="toast fade show " role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-body fw-bold alert alert-<%=alert%> toast-msg" id="toast-msg">
-              <%=msg%> 
-              <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
+        <div style="position: fixed; top: 5px; z-index: 99999;"  aria-live="polite" aria-atomic="true" class="d-flex  justify-content-center align-items-center w-100">
+          <code class=" alert alert-success"><%=msg%> </code>
 
-            </div>
-            
-          </div>
         </div>

@@ -73,8 +73,11 @@
           <center>
             
               <label>
+                <span class="file_append">
                   <img class="bg-demo-img-color" id="getImg" src="/image/default/male_avatar.png" width="200px" height="100px" alt="Tap & Select IMG" style="cursor: pointer;"> 
-                  <input  style="display: none" accept=".jpg,.png" type="file" name="avatar" id="fileItem">
+
+                </span>
+                  <input class="file" style="display: none" accept=".jpg,.png" type="file" name="avatar" id="fileItem">
               </label>
               <br> <br>
             <strong>Student Information</strong>
@@ -691,8 +694,18 @@ $(document).on("click", ".addItemQuick", (e) => {
 <%- include("../component/___node.html") %> 
 
 </body>
+<script src="/app/___noviewport.js"></script>
 
 <script>
+
+  
+noview.port({
+input_class: 'file',
+ append_class: 'file_append', 
+ file_type: 'image', 
+ max_kb_size: 1024,
+ multiple: false,
+  })
 
 
 function defform(){
@@ -893,7 +906,6 @@ $(document).ready(function(){
 
 
 function _delbox_push(){
-  console.log($("#deleteStudent").serialize());
     $.ajax({
         method: "post",
         url: "/admin/student/delete",

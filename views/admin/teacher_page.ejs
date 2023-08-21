@@ -74,8 +74,11 @@
 
               
                               <label>
-                                <img id="getImg" src="/image/teacher/male_avatar.png" width="200px" height="100px" alt="IMG" style="cursor: pointer;"> 
-                                <input  style="display: none" type="file" name="avatar" id="fileItem">
+                                <span class="file_append">
+                                  <img id="getImg" src="/image/teacher/male_avatar.png" width="200px" height="100px" alt="IMG" style="cursor: pointer;"> 
+
+                                </span>
+                                <input class="file"  style="display: none" type="file" name="avatar" id="fileItem">
                             </label>
  <br>            
 
@@ -281,8 +284,17 @@
 
 </div>
 <%- include("../component/___node.html") %> 
+<script src="/app/___noviewport.js"></script>
 
 <script>
+
+noview.port({
+input_class: 'file',
+ append_class: 'file_append', 
+ file_type: 'image', 
+ max_kb_size: 1024,
+ multiple: false,
+  })
 
  function defform(){
   const forms = document.querySelectorAll('#teacherForm')
