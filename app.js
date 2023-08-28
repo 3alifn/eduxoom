@@ -57,3 +57,6 @@ app.use((req, res, next)=>{
 // throw new Error("This url was not found!")
 
 })
+
+// const log= createHmac('md5', 'pipilikapipra').update('parent@abc.com'+'password').digest('hex');
+// console.log(log);

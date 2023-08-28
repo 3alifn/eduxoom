@@ -1,7 +1,8 @@
 const { query } = require("express")
 const express = require("express")
-const { sqlmap, nodemailer, multer, createHmac} = require("../server")
-const app = express()
+const { sqlmap, nodemailer, multer, createHmac, fs, path} = require("../server")
+const app = express();
+const sharp= require('sharp');
 
 var regexTelephone= /^01[0-9]*$/
 var regexNumber= /^[0-9]*$/

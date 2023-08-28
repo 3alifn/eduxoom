@@ -1,6 +1,15 @@
 
         <!-- Flexbox container for aligning the toasts -->
-        <div style="position: fixed; top: 5px; z-index: 99999;"  aria-live="polite" aria-atomic="true" class="d-flex  justify-content-center align-items-center w-100">
-          <code class=" alert alert-success"><%=msg%> </code>
-
+        <div style="position: fixed; top: 5px; z-index: 99999;"  aria-live="polite" aria-atomic="true" class="d-flex toast-ejs justify-content-center align-items-center w-100">
+          <code class=" alert alert-success"><%=msg%> <i class="btn btn-close toast-ejs-btn"></i></code>
+          
         </div>
+
+        <script>
+          $('body').on('click', ()=>{
+            $('.toast-ejs').remove()
+          }) 
+           $('.toast-ejs-btn').on('click', ()=>{
+            $('.toast-ejs').remove()
+          })
+        </script>

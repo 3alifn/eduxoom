@@ -18,7 +18,3 @@
 ### Student Rank system
 ### Transcript result system
 
-
-
-
-

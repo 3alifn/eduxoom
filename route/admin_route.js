@@ -17,6 +17,7 @@ const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_
 const { multer_upload_school_settings, admin_school_post, admin_school_get, admin_school_headmaster_post, admin_school_headmaster_get, admin_school_president_post, admin_school_president_get, admin_school_secretary_post, admin_school_secretary_get } = require("../app/school_app")
 const school_app = require("../app/school_app")
 const { admin_class_section_get, admin_class_section_post, admin_class_section_main_post } = require("../app/class_section")
+const { admin_st_current_status, admin_dashboard_status } = require("../app/admin_dashboard_app")
 const admin= express.Router()
 
 
@@ -56,6 +57,16 @@ admin.get('/setup/school-settings', school_app.admin_school_page)
 admin.post('/setup/school-settings/post', school_app.admin_school_post)
 admin.post('/setup/school-settings/person/post', school_app.admin_school_person_post)
 admin.post('/setup/school-settings/img/post', multer_upload_school_settings.single('image'), school_app.admin_school_img_post)
+
+
+
+// routes for dashboard status...
+admin.post('/dashboard/status', admin_dashboard_status )
+
+
+
+
+
 
 
 // final transcript router....
