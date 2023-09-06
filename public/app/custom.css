@@ -20,7 +20,7 @@
   }
 
   .bg-demo-img-color{
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background: linear-gradient(-45deg, #ced4da, #a8b8d8, #627594, #ebeff4);
     background-size: 400% 400%;
     animation: bg-demo-img-placeholder 5s ease infinite;
     border-radius: 10px;

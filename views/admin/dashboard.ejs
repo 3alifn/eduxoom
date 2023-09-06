@@ -33,7 +33,18 @@
  </body>
  <script>
     
-
+function getDashboardStatus(){
+    $.ajax({
+        method: "post",
+        url: "/admin/dashboard/status",
+        data: {user: 'admin'},
+        dataType: "JSON",
+        success: function (res) {
+            
+        }
+    });
+}
+// getDashboardStatus()
 
 
 </script>

@@ -11,7 +11,9 @@ const parent = require("./route/parent_route")
 const  authentication= require("./route/auhentication_route");
 const { home_page } = require("./app/home_app");
 const admin = require("./route/admin_route");
-
+app.get('/test', (req, res)=>{
+  res.render('test', {text:'hi'})
+})
 app.get("/", home_page)
 app.use("/pu", public)
 app.use("/privet", privet)
@@ -60,3 +62,5 @@ app.use((req, res, next)=>{
 
 // const log= createHmac('md5', 'pipilikapipra').update('parent@abc.com'+'password').digest('hex');
 // console.log(log);
+
+

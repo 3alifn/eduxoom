@@ -60,7 +60,7 @@ admin.post('/setup/school-settings/img/post', multer_upload_school_settings.sing
 
 
 
-// routes for dashboard status...
+// dashboard status...
 admin.post('/dashboard/status', admin_dashboard_status )
 
 
