@@ -22,8 +22,19 @@
     "express-session": "^1.17.3",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
-    "nodemailer": "^6.9.4",
+    "nodemailer": "^6.9.5",
     "session": "^0.1.0",
     "sharp": "^0.31.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3alifn/saanvi.git"
+  },
+  "keywords": [
+    "pipilikapipra"
+  ],
+  "bugs": {
+    "url": "https://github.com/3alifn/saanvi/issues"
+  },
+  "homepage": "https://github.com/3alifn/saanvi#readme"
 }
