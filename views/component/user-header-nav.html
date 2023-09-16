@@ -1,66 +1,27 @@
-<style>
-    
-    *, ::before, ::after{
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-  }
-  .icon-arrow{
-      transition: all 1s;
-      transform: rotate(90deg) !important;
-  }
+<header id="userNav" class="row shadow-sm" style="background-color:  #fafafa; height: 69px; overflow: hidden;">
   
-  .menu-list-item li a, .footer-list-item li a {
-      font-size: small;
-      padding: 10px;
-      
-  
-  }
-  .menu-list-item li a:hover, .footer-list-item li a:hover{
-  background-color: rgba(90, 92, 92, 0.222);
-  
-  transition: all 1s;
-  
-  
-  }
-  
-  #nav-link a{
-      padding:10px;
-  }
-  
-  </style>
-<header class="row shadow" style="background-color:  #fafafa; height: 65px; overflow: hidden;">
-  
-    <nav class="col-12 col-md-6 ">
-        <ul class="user-nav-item-header p-0 d-flex justify-content-center  align-items-center justify-content-md-start" style="list-style: none;">
-            <li><a href="/">
-                <img src="/image/default/resized/logo.png" alt="loading..." width="71px" height="auto" class=" p-1">
-            </a></li>
-    
-        <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/pu/join/student">Join Student</a></li>
-        <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/pu/join/parent">Join Parent</a></li>
-        <li><a class=" p-2 d-none d-md-block text-dark nav-link" href="/au/singin/page">Sing in</a></li>
-    
-        <li style="left: 25%; position: relative" class=" d-md-none ">
-            <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" class="nav-link shadow-0  btn text-dark"><i class=" bi bi-three-dots fs-1"></i></button>
-        </li>
-  
-         </ul>
-  
-  
-        </nav>
-  
-    <nav class=" col-12 col-md-6">        
-             
+    <div class="d-flex justify-content-end align-items-center">
+
+      <div style="font-family:'Times New Roman', Times, serif;" class="flex-fill ps-2 fw-bold fs-6 rounded d-flex h-100 align-items-center" >
+        <img  src="/icons/logo-w-card.png" alt="loading..." width="80px" height="50px" class="rounded rounded-3 p-1">
+
+        SAANVI S1
         
-             <ul style="list-style: none;" class=" d-flex justify-content-end  align-items-center ">
-                
-                <li  class="d-none d-md-block"><button id="main-menu-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" class="nav-link shadow-0 p-2  text-dark  btn"><i class=" bi bi-three-dots fs-1"></i></button></li>
+      </div>
+
+      <a class="pe-5 btn btn-lg btn-hover" href="/teacher/account">
+        <i class="bi bi-person-fill"></i>
+      </a>
+
+
+      <button  style="height: max-content;" id="main-menu-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" class=" btn-hover shadow-sm-0 p-2 btn">
+        <img width="30px" height="30px" src="/icons/icons8-apps-100.png" alt="">
+        </button>
         
-             </ul>
-        
-            </nav>
+
+
     </div>
+ 
   </header>
 
 <script>

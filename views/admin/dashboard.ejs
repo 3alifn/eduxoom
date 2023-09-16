@@ -1,12 +1,10 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <%- include("../component/metadata.html") %> 
+            <%-include("../component/metadata.html") %> 
 
    </head>
 
@@ -17,34 +15,851 @@
   <%- include("../component/admin-menu-nav.html") %> 
 
 
-  <div id="main-content" class="p-2 mt-5">
-
-
-<div class="row mt-3 contentDiv">
-
-
-</div>
+  <main id="main-content" class="main-content mt-5">
+  
+    <div class="row p-md-2 teacher-student-staff">
+      <div class="col-md-4 col-11 m-auto mt-4 pe-md-0 pe-5" style="height: 150px;">
+        <a class=" text-decoration-none bg-light  page-link shadow mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+        href="/pu/all/teacher">
         
+          <p class="ps-3 pt-4 text-muted fw-semibold">Our teachers</p>
+      
+          <div class="d-flex justify-content-between">
+            <ul class="w-50 text-muted">
+    
+              <li class="d-flex justify-content-between">
+                <span>Male </span> <small>60%</small>
+              </li>
+        
+              <li class="d-flex justify-content-between">
+                <span>Female </span> <small>40%</small>
+        
+              </li>
+        
+             </ul>
+        
+            <ul class="text-muted d-flex justify-content-center align-items-center p-2 me-3 " style="width: 100px; height: 100px; border-radius: 100%; border: 10px solid rgb(17, 113, 209); margin-top: -40px;">
+              <li class="list-unstyled">
+                <b>28</b>
+               </li>
+            </ul>
+          </div>
+    
+    
+        </a>
+    
+        
+      </div>
+        
+    
+    
+    
+      
+      <div class="col-md-4 col-11 m-auto mt-4 pe-md-0 pe-5" style="height: 150px;">
+        <a class=" text-decoration-none bg-light  page-link shadow mt-3 p-1 rounded border" style="height: 100%; width: 100%;"
+         href="/pu/student/page">
+        
+          <p class="ps-3 pt-4 text-muted fw-semibold">Our students</p>
+      
+          <div class="d-flex justify-content-between">
+            <ul class="w-50 text-muted">
+    
+              <li class="d-flex justify-content-between">
+                <span>Male </span> <small>30%</small>
+              </li>
+        
+              <li class="d-flex justify-content-between">
+                <span>Female </span> <small>70%</small>
+        
+              </li>
+        
+             </ul>
+        
+            <ul class="text-muted d-flex justify-content-center align-items-center p-2 me-3 " style="width: 100px; height: 100px; border-radius: 100%; border: 10px solid rgb(23, 56, 88); margin-top: -40px;">
+              <li class="list-unstyled">
+                <b>1700</b>
+               </li>
+            </ul>
+          </div>
+    
+    
+        </a>
+    
+        
+      </div>
+        
+    
+    
+    
+    
+    
+      
+      <div class="col-md-4 col-11 m-auto mt-4 pe-md-0 pe-5" style="height: 150px;">
+        <a class=" text-decoration-none bg-light  page-link shadow mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+        href="#">
+        
+          <p class="ps-3 pt-4 text-muted fw-semibold">Our staff</p>
+      
+          <div class="d-flex justify-content-between">
+            <ul class="w-50 text-muted">
+    
+              <li class="d-flex justify-content-between">
+                <span>Male </span> <small>80%</small>
+              </li>
+        
+              <li class="d-flex justify-content-between">
+                <span>Female </span> <small>20%</small>
+        
+              </li>
+        
+             </ul>
+        
+            <ul class="text-muted d-flex justify-content-center align-items-center p-2 me-3 " style="width: 100px; height: 100px; border-radius: 100%; border: 10px solid rgb(183, 21, 148); margin-top: -40px;">
+              <li class="list-unstyled">
+                <b>7</b>
+               </li>
+            </ul>
+          </div>
+    
+    
+        </a>
+    
+        
+      </div>
+        
+    
+    </div>
+    
+    
+    <div class="row p-2 view-cards">
+    
+    
+    
+      <div class="col-md-2 col-6 mt-4" style="height: 80px;">
+    <a class="text-center text-decoration-none bg-light btn-light page-link  shadow mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+    href="/">
+    
+          <img class="mt-1" width="30px" src="/icons/icons8-home-94.png" alt=""> 
+          <p class="text-muted fw-semibold mt-1">Home</p>
+    </a>
+    
+      </div>
+    
+    
+              
+      <div class="col-md-2 col-6 mt-4" style="height: 80px;">
+        <a class="text-center text-decoration-none bg-light btn-light page-link  shadow mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+        href="">
+        
+              <img class="mt-1" width="30px" src="/icons/icons8-admission-100.png" alt=""> 
+              <p class="text-muted fw-semibold mt-1">Admission</p>
+        </a>
+        
+          </div>
+    
+    
+    
+    
+          <div class="col-md-2 col-6 mt-4" style="height: 80px;">
+            <a class="text-center text-decoration-none bg-light btn-light page-link  shadow mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+            href="/admin/admission/report/page">
+            
+                  <img class="mt-1" width="30px" src="/icons/icons8-document-48.png" alt=""> 
+                  <p class="text-muted fw-semibold mt-1">Application</p>
+            </a>
+            
+              </div>
+    
+    
+    
+    
+          <div class="col-md-2 col-6 mt-4" style="height: 80px;">
+            <a class="text-center text-decoration-none bg-light btn-light page-link  shadow mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+            href="/admin/notice/page">
+            
+                  <img class="mt-1" width="30px" src="/icons/icons8-bell-94.png" alt=""> 
+                  <p class="text-muted fw-semibold mt-1">Notice settings</p>
+            </a>
+            
+              </div>
+    
+    
+              
+          <div class="col-md-2 col-6 mt-4" style="height: 80px;">
+            <a class="text-center text-decoration-none bg-light btn-light page-link  shadow mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+            href="/pu/routine/page">
+            
+                  <img class="mt-1" width="30px" src="/icons/icons8-calendar-48.png" alt=""> 
+                  <p class="text-muted fw-semibold mt-1">Class routine</p>
+            </a>
+            
+              </div>
+    
+    
+    
+                        
+          <div class="col-md-2 col-6 mt-4" style="height: 80px;">
+            <a class="text-center text-decoration-none bg-light btn-light page-link  shadow mt-3 p-1 rounded border" style="height: 100%; width: 100%;"
+             href="/pu/rank/class/page">
+            
+                  <img class="mt-1" width="30px" src="/icons/icons8-rank-48.png" alt=""> 
+                  <p class="text-muted fw-semibold mt-1">Student rank</p>
+            </a>
+            
+              </div>
+    
+    
+    
+    </div>
+    
+    
+    
+    <div class="row p-2 mt-3 mb-5 settings-cards">
+    
+      <div class="col-md-10 col-11 mt-3 mb-3 m-auto" style="overflow: auto; ">
+        
+        <div class="d-md-flex d-inline-flex flex-nowrap  shadow rounded-pill">
+    
+            <button onclick="component('schoolData')" style="font-weight: 600; width: 150px" class="flex-md-fill rounded-start-pill  rounded-0 btn btn-light schoolData  text-light bg-gradient-info activeMode">School settings</button>
+                <button onclick="component('academicData')" style="font-weight: 600; width: 200px;" class="flex-md-fill btn  rounded-0 btn-light academicData activeMode">Academic settings</button>
+                <button onclick="component('transcriptData')" style="font-weight: 600; width: 150px;" class="flex-md-fill btn  rounded-0 btn-light transcriptData activeMode">Transcript card</button>
+                <button onclick="component('organizationData')" style="font-weight: 600; width: 150px; " class="flex-md-fill btn rounded-0  btn-light organizationData activeMode">Organization</button>
+                <button onclick="component('galleryData')" style="font-weight: 600; width: 150px; " class="flex-md-fill rounded-end-pill btn rounded-0  btn-light galleryData activeMode">Gallery settings</button>
+            
+    
+            </div>
+    
+        </div>
+    
+    <code class="settings-data">
+    
+      <code class="school-settings">
+      
+        <div class="col-md-7  col-11 m-auto  rounded">
+      
+          <span class="">
+      
+         <!-- Hover added -->
+         <div class="list-group  fw-semibold text-muted">
+          <a href="/admin/setup/school-settings" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+            <div class="d-flex align-items-center">
+              <img height="20px" width="20px" src="/icons/icons8-school-building-48.png" alt="">
+              <span class="ps-1 text-muted">School setup</span>
+            </div>
+          </a>
+         </div>
+         
+          </span>
+      
+      </div>
+      
+      
+      
+      
+      
+      <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+      
+        <span class="">
+      
+       <!-- Hover added -->
+       <div class="list-group  fw-semibold text-muted">
+        <a href="/admin/setup/class-section" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+          <div class="d-flex align-items-center">
+            <img height="20px" width="20px" src="/icons/icons8-class-64.png" alt="">
+            <span class="ps-1 text-muted">Setup class & section</span>
+          </div>
+        </a>
+       </div>
+       
+        </span>
+      
+      </div>
+      
+      
+      
+      
+      <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+      
+      <span class="">
+      
+      <!-- Hover added -->
+      <div class="list-group  fw-semibold text-muted">
+      <a href="/admin/carousel/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-photo-gallery-94.png" alt="">
+          <span class="ps-1 text-muted">Setup carousel slider</span>
+        </div>
+      </a>
+      </div>
+      
+      </span>
+      
+      </div>
+      
+      
+      
+      
+      
+      <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+      
+      <span class="">
+      
+      <!-- Hover added -->
+      <div class="list-group  fw-semibold text-muted">
+      <a href="#" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-committee-64.png" alt="">
+          <span class="ps-1 text-muted">Setup committee</span>
+        </div>
+      </a>
+      </div>
+      
+      </span>
+      
+      </div>
+      
+      </code>
+      
+    
+    </code>
+    
+    
+    </div>
+    
+    
+    </main>
 
-   </div>
+    
+    
+    <script>
+    
+    
+    const elemData= {
+      schoolData:  `
+      <code class="school-settings">
+      
+      <div class="col-md-7  col-11 m-auto  rounded">
+    
+        <span class="">
+    
+       <!-- Hover added -->
+       <div class="list-group  fw-semibold text-muted">
+        <a href="/admin/setup/school-settings" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+          <div class="d-flex align-items-center">
+            <img height="20px" width="20px" src="/icons/icons8-school-building-48.png" alt="">
+            <span class="ps-1 text-muted">School setup</span>
+          </div>
+        </a>
+       </div>
+       
+        </span>
+    
+    </div>
+    
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="/admin/setup/class-section" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-class-64.png" alt="">
+          <span class="ps-1 text-muted">Setup class & section</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+    <span class="">
+    
+    <!-- Hover added -->
+    <div class="list-group  fw-semibold text-muted">
+    <a href="/admin/carousel/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+      <div class="d-flex align-items-center">
+        <img height="20px" width="20px" src="/icons/icons8-photo-gallery-94.png" alt="">
+        <span class="ps-1 text-muted">Setup carousel slider</span>
+      </div>
+    </a>
+    </div>
+    
+    </span>
+    
+    </div>
+    
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+    <span class="">
+    
+    <!-- Hover added -->
+    <div class="list-group  fw-semibold text-muted">
+    <a href="#" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+      <div class="d-flex align-items-center">
+        <img height="20px" width="20px" src="/icons/icons8-committee-64.png" alt="">
+        <span class="ps-1 text-muted">Setup committee</span>
+      </div>
+    </a>
+    </div>
+    
+    </span>
+    
+    </div>
+    
+    </code>
+    `
+    ,
+     academicData: `<code class="academic-settings">  
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="/admin/teacher/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-teacher-48.png" alt="">
+          <span class="ps-1 text-muted">Teacher settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="/admin/student/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-students-48.png" alt="">
+          <span class="ps-1 text-muted">Student settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="/admin/parent/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-family-60.png" alt="">
+          <span class="ps-1 text-muted">Parent settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="#" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-users-48.png" alt="">
+          <span class="ps-1 text-muted">Satff settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="/admin/subject/page?className=Six"" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-books-48.png" alt="">
+          <span class="ps-1 text-muted">Subject settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="/admin/routine/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-calendar-64.png" alt="">
+          <span class="ps-1 text-muted">Class routine settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    </code>`
+    
+    ,
+    
+    transcriptData: `<code class="transcript-cards">
+      
+    
+      <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+      
+        <span class="">
+      
+       <!-- Hover added -->
+       <div class="list-group  fw-semibold text-muted">
+        <a href="/privet/pic/report-init-page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+          <div class="d-flex align-items-center">
+            <img height="20px" width="20px" src="/icons/icons8-reports-58.png" alt="">
+            <span class="ps-1 text-muted">PIC reports</span>
+          </div>
+        </a>
+       </div>
+       
+        </span>
+      
+      </div>
+      
+      
+      
+      <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+      
+        <span class="">
+      
+       <!-- Hover added -->
+       <div class="list-group  fw-semibold text-muted">
+        <a href="/privet/pis/report-init-page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+          <div class="d-flex align-items-center">
+            <img height="20px" width="20px" src="/icons/icons8-reports-50.png" alt="">
+            <span class="ps-1 text-muted">PIS reports</span>
+          </div>
+        </a>
+       </div>
+       
+        </span>
+      
+      </div>
+      
+      
+      
+      
+      
+      <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+      
+        <span class="">
+      
+       <!-- Hover added -->
+       <div class="list-group  fw-semibold text-muted">
+        <a href="/privet/transcript/report-init-page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+          <div class="d-flex align-items-center">
+            <img height="20px" width="20px" src="/icons/icons8-reports-64.png" alt="">
+            <span class="ps-1 text-muted">Transcript primary</span>
+          </div>
+        </a>
+       </div>
+       
+        </span>
+      
+      </div>
+      
+      
+      
+      
+      
+      <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+      
+        <span class="">
+      
+       <!-- Hover added -->
+       <div class="list-group  fw-semibold text-muted">
+        <a href="/admin/transcript/report-init-page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+          <div class="d-flex align-items-center">
+            <img height="20px" width="20px" src="/icons/icons8-report-passed-94.png" alt="">
+            <span class="ps-1 text-muted">Transcript final</span>
+          </div>
+        </a>
+       </div>
+       
+        </span>
+      
+      </div>
+      
+      
+      
+      <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+      
+        <span class="">
+      
+       <!-- Hover added -->
+       <div class="list-group  fw-semibold text-muted">
+        <a href="/admin/transcript/pdf-init-page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+          <div class="d-flex align-items-center">
+            <img height="20px" width="20px" src="/icons/icons8-pdf-48.png" alt="">
+            <span class="ps-1 text-muted">Transcript pdf</span>
+          </div>
+        </a>
+       </div>
+       
+        </span>
+      
+      </div>
+      
+      
+      
+      </code>
+      `
+    
+      ,
+    
+    organizationData: `
+    <code class="organization-settings">
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="#" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-award-94.png" alt="">
+          <span class="ps-1 text-muted">Acheivement settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="#" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-events-64.png" alt="">
+          <span class="ps-1 text-muted">Event & news settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="#" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-facilities-64.png" alt="">
+          <span class="ps-1 text-muted">Facilities settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="/admin/library/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-book-shelf-94.png" alt="">
+          <span class="ps-1 text-muted">Library settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="#" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-cash-in-hand-48.png" alt="">
+          <span class="ps-1 text-muted">Fees management</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    
+    </code>`
+    ,
+    
+    galleryData: `
+    <code class="gallery-settings">
+    
+    
+      <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+      
+      
+        <span class="">
+    
+       <!-- Hover added -->
+       <div class="list-group  fw-semibold text-muted">
+        <a href="/admin/gallery/image/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+          <div class="d-flex align-items-center">
+            <img height="20px" width="20px" src="/icons/icons8-photos-48.png" alt="">
+            <span class="ps-1 text-muted">Photos settings</span>
+          </div>
+        </a>
+       </div>
+       
+        </span>
+    
+    </div>
+    
+    
+    
+    <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+    
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="/admin/gallery/video/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-media-60.png" alt="">
+          <span class="ps-1 text-muted">Video settings</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+    
+    </code>
+    `
+    ,
+    }
+    
+    
+    function component(elem){
+        $('.activeMode').removeClass('bg-gradient-info').removeClass('text-light')
+        $('.'+elem).addClass('bg-gradient-info').addClass('text-light')
+        $('.'+elem).css('border', '3px dotted white')
+        $('.settings-data').hide()
+        $('.settings-data').fadeIn()
+        $('.settings-data').html(elemData[`${elem}`])
+    }
+    
+    
+    
+    </script>
 
    <%- include("../component/___node.html") %> 
 
- </body>
- <script>
+
+   <script>
     
-function getDashboardStatus(){
-    $.ajax({
-        method: "post",
-        url: "/admin/dashboard/status",
-        data: {user: 'admin'},
-        dataType: "JSON",
-        success: function (res) {
-            
-        }
-    });
-}
-// getDashboardStatus()
-
-
-</script>
+    function getDashboardStatus(){
+        $.ajax({
+            method: "post",
+            url: "/admin/dashboard/status",
+            data: {user: 'admin'},
+            dataType: "JSON",
+            success: function (res) {
+                
+            }
+        });
+    }
+    // getDashboardStatus()
+    
+    
+    </script>
+ </body>

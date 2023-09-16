@@ -2,7 +2,7 @@
 
 <%- include("../component/metadata.html") %> 
 <link rel="stylesheet" href="/app/about-us-team-saanvi.css">
-<link rel="stylesheet" href="/app/contact-us-team-saanvi.css">
+<!-- <link rel="stylesheet" href="/app/contact-us-team-saanvi.css"> -->
 
 
 <title>About us</title>
@@ -301,7 +301,6 @@ color: white;
           _spin_pull()
       },
       success: function (response) {
-        console.log(response);
         $('.contactus').removeClass('disabled')
         _spin_pop()
         _msg_pull('alert-success', response.msg)

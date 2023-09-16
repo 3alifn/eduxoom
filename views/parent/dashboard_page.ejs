@@ -8,193 +8,224 @@
    </head>
 
    
-
-<style>
-
-#sidebar 
-{
-    background-color: #18113C !important;
-    color: white ;
-}
-
-#sidebar a
-
-{
-    color: white;
-}
- 
-        a {
-            text-decoration: none;
-           
-            
-        }
-         .card-body{
-            background-color: #F5F4F8 !important;
-        
-            color: #754FFE ;
-        }
-        
-            
-        .card-body:hover{
-            background-color: #281e5d !important;
-            /* background: #F5F4F8 !important; */
-            color: white;
-            transform: scale(1.1);
-            transition: background-color, transform 1s;
-         
-        }
-
-
-</style>
 <body onload="pageLoadingTop()">
     
     <%- include("../component/user-header-nav.html") %> 
     <%- include("../component/parent-offcanvas-nav.html") %> 
 
 
+<main>
+    <div id="dashboard" class="row p-2 mb-5">
 
-  <div class="row">                    
-
-                      
-                                    <div class="col-md-4 col-10 m-auto ">
-                                
-                                      <a href="/parent/dashboard">
-                                        <div class="card shadow-sm">
-                                            <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                            <div class="card-body text-center">
-                                                <h4 class="card-title">Dashboard</h4>
-                                                <h5 class="card-text fw-bold"> <i class=" fa-solid fa-dashboard"></i></h5>
-                                            </div>
-                                        </div>
-                                      </a>
-                                
-                                    </div>  
-                                    
-                                    
-                                
-                                    <div class="col-md-4 col-10 m-auto ">
-                                
-                                       <a href="/parent/account">
-                                        <div class="card shadow-sm">
-                                            <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                            <div class="card-body text-center">
-                                                <h4 class="card-title">Account</h4>
-                                                <h5 class="card-text fw-bold"><i class=" fa-solid fa-user"></i></h5>
-                                            </div>
-                                        </div>
-                                       </a>
-                                
-                                    </div>                
-                                
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+      
+            <img class="mt-1" width="30px" src="./media/icons/icons8-home-94.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">Home</p>
+      </a>
+      
+        </div>
+      
+        
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+      
+            <img class="mt-1" width="30px" src="./media/icons/icons8-topic-push-notification-94.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">Notice</p>
+      </a>
+      
+        </div>
+        
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+      
+            <img class="mt-1" width="30px" src="./media/icons/icons8-children-48.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">My childs</p>
+      </a>
+      
+        </div>
+      
+      
+      
+      
+      
                     
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-rank-64.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">Rank</p>
+          </a>
+          
+            </div>
+      
+      
+      
+      
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-classroom-94.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">Class routine</p>
+          </a>
+          
+            </div>
+      
+      
+      
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-calendar-48.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">Childs attendance</p>
+          </a>
+          
+            </div>
+      
+      
+      
+      
+      
+              
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-reports-58.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">Childs pic report</p>
+          </a>
+          
+            </div>
+      
+      
+              
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-reports-50.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">Childs pis report</p>
+          </a>
+          
+            </div>
+      
+      
+      
+      
+              
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-reports-64.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">Childs bi report</p>
+          </a>
+          
+            </div>
+      
+      
+      
+              
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-result-64.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">Childs transcript</p>
+          </a>
+          
+            </div>
+      
+      
+      
+      
                     
-                                    
-                                    <div class="col-md-4 col-10 m-auto ">
-                                
-                                        <a href="/pu/notice/page">
-                                            <div class="card text-center">
-                                                <!-- <img class="card-img-top" src="holder.js/100px180/" alt=""> -->
-                                                <div class="card-body">
-                                                    <h4 class="card-title">Notice</h4>
-                                                    <h5 class="card-text fw-bold">&#128226;</h5>
-                                
-                                                </div>
-                                              </div>
-                                        </a>
-                                
-                                    </div>                
-                                
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-teacher-48.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1 ">Our teachers</p>
+          </a>
+          
+            </div>
+      
+      
+      
+            
                     
-                    
-                    
-                                    <div class="col-md-4 col-10 m-auto ">
-                                
-                                      <a href="#">
-                                        <div class="card shadow-sm">
-                                            <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                            <div class="card-body text-center">
-                                                <h4 class="card-title">Child History</h4>
-                                                <h5 class="card-text fw-bold"> <i class=" fa fa-people-line"></i></h5>
-                                            </div>
-                                        </div>
-                                      </a>
-                                
-                                    </div>                
-                         
-    
-                
-                                    <div class="col-md-4 col-10 m-auto ">
-                                
-                                      <a href="/privet/routine/page">
-                                        <div class="card shadow-sm">
-                                            <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                            <div class="card-body text-center">
-                                                <h4 class="card-title">Routine</h4>
-                                                <h5 class="card-text fw-bold"> &#128214;</h5>
-                                            </div>
-                                        </div>
-                                      </a>
-                                
-                                    </div>  
-                    
-                    
-                    
-                                    <div class="col-md-4 col-10 m-auto ">
-                                
-                                        <a href="/pu/rank/class/page">
-                                          <div class="card shadow-sm">
-                                              <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                              <div class="card-body text-center">
-                                                  <h4 class="card-title">Ranks</h4>
-                                                  <h5 class="card-text fw-bold"> <i class="  fa fa-ranking-star"></i></h5>
-                                              </div>
-                                          </div>
-                                        </a>
-                                  
-                                      </div>  
-
-                                      
-                            
-                                       
-                                
-                                    <div class="col-md-4 col-10 m-auto ">
-                                
-                                        <a href="/pu/all/teacher">
-                                            <div class="card shadow-sm">
-                                                <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                                <div class="card-body text-center">
-                                                    <h4 class="card-title">Teachers</h4>
-                                                    <h5 class="card-text fw-bold"> <i class=" fa fa-people-group"></i></h5>
-                                                </div>
-                                            </div>
-                                        </a>
-                                
-                                    </div>        
-                                
-                                             
-                                    
-                                
-                                    <div class="col-md-4 col-10 m-auto ">
-                                
-                                        <a href="/pu/student/page">
-                                            <div class="card text-center">
-                                                <!-- <img class="card-img-top" src="holder.js/100px180/" alt=""> -->
-                                                <div class="card-body">
-                                                    <h4 class="card-title">Students</h4>
-                                                    <h5 class="card-text fw-bold"><i class=" fa fa-people-line"></i></h5>
-                                
-                                                </div>
-                                              </div>
-                                        </a>
-                                
-                                    </div>    
-                                    
-
-                         
-
-   </div>
-
-
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-user-group-94.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1 ">Our students</p>
+          </a>
+          
+            </div>
+      
+      
+      
+            
+              
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-reports-58.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">All pic report</p>
+          </a>
+          
+            </div>
+      
+      
+              
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-reports-50.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">All pis report</p>
+          </a>
+          
+            </div>
+      
+      
+      
+      
+              
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-reports-64.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">All bi report</p>
+          </a>
+          
+            </div>
+      
+      
+      
+              
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-report-file-48.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">All transcript</p>
+          </a>
+          
+            </div>
+      
+      
+      
+            
+              
+        <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+          <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="#">
+          
+                <img class="mt-1" width="30px" src="./media/icons/icons8-calendar-64.png" alt=""> 
+                <p class="fw-500 text-truncate  mt-1">All attendance</p>
+          </a>
+          
+            </div>
+      
+      
+      
+      
+      </div>
+      
+</main>
 
    <%- include("../component/___node.html") %> 
 

@@ -1,56 +1,68 @@
-<div class="" id="menu-list-item-height" style="width:100%;  position: absolute !important; top:66px; z-index: 1030;">
-    <div id="menu-list-item" class="row collapse  justify-content-center bg-light border-bottom">
-   
-           <div  class="col-6 col-md-2">
-               <ul class="menu-list-item" style="list-style: none;"> Academic
-                   <li ><a class=" page-link" href="/pu/admission/step1">Admission</a></li>
-                   <li ><a class=" page-link" href="/pu/all/teacher">Teachers</a></li>
-                   <li> <a class=" page-link" href="/pu/student/page">Students</a></li>
-                   <li ><a class=" page-link" href="/pu/routine/page">Class routine</a></li>
-                   <li ><a class=" page-link" href="/pu/rank/class/page">Student rank</a></li>
-                   <li ><a class=" page-link" href="/pu/notice/page">Notice</a></li>
-               </ul>
-           </div>
-   
-   
-           <div class="col-6 col-md-2">
-               <ul class="menu-list-item"  style="list-style: none;"> Organization
-                <li ><a class=" page-link" href="/pu/team-saanvi">Developer Team</a></li>
-                <li ><a class=" page-link" href="#">About us</a></li>
-                <li ><a class=" page-link" href="#">Contact us</a></li>
-                   <li ><a class=" page-link" href="#">Faq</a></li>
-                   <li ><a class=" page-link" href="#">Terms o use</a></li>
-                   <li ><a class=" page-link" href="#">Privacy policy</a></li>
-                </ul>
-           </div>
-   
-      
-       
-           <div class="col-6 col-md-2">
-               <ul class="menu-list-item user-nav-item-menu"  style="list-style: none;"> User 
-                   <li ><a class=" page-link" href="/pu/join/parent">Join parent</a></li>
-                   <li ><a class=" page-link" href="/au/singin/page">Sing in</a></li>
-                   <li ><a class=" page-link" href="/admin/">Admin</a></li>
-               
-               </ul>
-           </div>   
-       
-   
-            
-           <div class="col-6 col-md-2 ">
-               <ul class="menu-list-item"  style="list-style: none;"> Gallery
-                   <li ><a class=" page-link" href="/pu/gallery/image/page">Photos</a></li>
-                   <li ><a class=" page-link" href="/pu/gallery/video/page">Videos</a></li>
-                 
-               </ul>
-           </div>
-   
-           
-       </div>
-   
-   
+<menu>
     
+    <div id="mainMenu">
+        <div id="menu-list-item" class="row">
+
+            <div class="col-12 col-md-3 mt-5">
+                <ul class="menu-list-item" style="list-style: none;">
+                    <li class="page-link fs-4">Academic</li>
+                    <li><a class=" page-link" href="/pu/admission/step1">Admission</a></li>
+                    <li><a class=" page-link" href="/pu/all/teacher">Teachers</a></li>
+                    <li> <a class=" page-link" href="/pu/student/page">Students</a></li>
+                    <li><a class=" page-link" href="/pu/routine/page">Class routine</a></li>
+                    <li><a class=" page-link" href="/pu/rank/class/page">Student rank</a></li>
+                    <li><a class=" page-link" href="/pu/notice/page">Notice</a></li>
+                </ul>
+            </div>
+
+
+            <div class="col-12 col-md-3 mt-5">
+
+                <ul class="menu-list-item" style="list-style: none;">
+                    <li class="page-link fs-4">Organization</li>
+
+                    <li><a class=" page-link" href="#">About us</a></li>
+                    <li><a class=" page-link" href="#">Contact us</a></li>
+                    <li><a class=" page-link" href="#">Facilities</a></li>
+                    <li><a class=" page-link" href="#">Event & news</a></li>
+                    <li><a class=" page-link" href="#">Achievement</a></li>
+                    <li><a class=" page-link" href="#">Committee</a></li>
+                </ul>
+            </div>
+
+
+
+            <div class="col-12 col-md-3 mt-5">
+
+                <ul class="menu-list-item user-nav-item-menu" style="list-style: none;">
+                    <li class="page-link fs-4">Others</li>
+
+                    <li><a class=" page-link" href="/pu/gallery/image/page">Photos</a></li>
+                    <li><a class=" page-link" href="/pu/gallery/video/page">Videos</a></li>
+
+                    <li><a class=" page-link" href="/pu/join/parent">Join parent</a></li>
+                    <li><a class=" page-link" href="/au/singin/page">Sign in</a></li>
+                    <li><a class=" page-link" href="#">Faq</a></li>
+
+                </ul>
+            </div>
+
+
+
+
+
+        </div>
+
+        <script>
+            $('.mainMenuBtn').on('click', () => {
+
+                $('#mainMenu').fadeToggle()
+                $('.rToggleBtn').toggleClass('toggleBtnRotate')
+            })
+        </script>
+
     </div>
+</menu>
 
     <script>
 

@@ -5,29 +5,7 @@
             
           <%- include("../component/metadata.html") %> 
    </head>
-<style>
-      .contentDiv a
-        {
-            text-decoration: none;
-           
-            
-        }
-        .contentDiv .card-body{
-            background-color: #F5F4F8 !important;
-        
-            color: #754FFE ;
-        }
-        
-            
-        .contentDiv .card-body:hover{
-            background-color: #281e5d !important;
-            /* background: #F5F4F8 !important; */
-            color: white;
-            transform: scale(1.1);
-            transition: background-color, transform 1s;
-         
-        }
-</style>
+
 <body onload="pageLoadingTop()">
 
      
@@ -36,280 +14,207 @@
 
 
 
-  <div class="row">     
+ <main>
+  <div id="dashboard" class="row p-2 mb-5">
 
-                        <div class="col">
-
-        
-        
-                            <div  class="row mt-3 contentDiv">
-                            
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                  <a href="/teacher/dashboard">
-                                    <div class="card shadow-sm">
-                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title">Dashboard</h4>
-                                            <h5 class="card-text fw-bold"> <i class=" fa-solid fa-dashboard"></i></h5>
-                                        </div>
-                                    </div>
-                                  </a>
-                            
-                                </div>  
-                                
-                                
-                            
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                   <a href="/teacher/account">
-                                    <div class="card shadow-sm">
-                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title">Account</h4>
-                                            <h5 class="card-text fw-bold"><i class=" fa-solid fa-user"></i></h5>
-                                        </div>
-                                    </div>
-                                   </a>
-                            
-                                </div>           
-                                
-                                
-                
-                
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                    <a href="/pu/notice/page">
-                                        <div class="card text-center">
-                                            <!-- <img class="card-img-top" src="holder.js/100px180/" alt=""> -->
-                                            <div class="card-body">
-                                                <h4 class="card-title">Notice</h4>
-                                                <h5 class="card-text fw-bold">&#128226;</h5>
-                            
-                                            </div>
-                                          </div>
-                                    </a>
-                            
-                                </div>                
-                            
-                
-                
-
-                                
-                
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                  <a href="/teacher/daily/mark/page">
-                                    <div class="card shadow-sm">
-                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title">Daily Marks </h4>
-                                            <h5 class="card-text fw-bold">  &#9998;</h5>
-                                        </div>
-                                    </div>
-                                  </a>
-                            
-                                </div>     
-                                            
-                
-                                
-                
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                  <a href="/teacher/bi/page-mark-init">
-                                    <div class="card shadow-sm">
-                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title">BI Marks system </h4>
-                                            <h5 class="card-text fw-bold">  &#128221;</h5>
-                                        </div>
-                                    </div>
-                                  </a>
-                            
-                                </div>                                     
-                
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                  <a href="/teacher/bi/page-report-init">
-                                    <div class="card shadow-sm">
-                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title">BI Marks report </h4>
-                                            <h5 class="card-text fw-bold"> <i class=" fa-solid fa-pie-chart"></i></h5>
-
-                                        </div>
-                                    </div>
-                                  </a>
-                            
-                                </div>     
-                                
-                
-                           
-                
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                  <a href="/teacher/pic/page-mark-init">
-                                    <div class="card shadow-sm">
-                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title">PIC Marks system</h4>
-                                            <h5 class="card-text fw-bold"> &#128221;</h5>
-                                        </div>
-                                    </div>
-                                  </a>
-                            
-                                </div>                                
-                
-                                
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                  <a href="/teacher/pis/page-mark-init">
-                                    <div class="card shadow-sm">
-                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title">PIS Marks system</h4>
-                                            <h5 class="card-text fw-bold"> &#128221;</h5>
-                                        </div>
-                                    </div>
-                                  </a>
-                            
-                                </div>     
-                                
-                
-                           
-                
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                  <a href="/privet/pic/report-init-page">
-                                    <div class="card shadow-sm">
-                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title">PIC Reports </h4>
-                                            <h5 class="card-text fw-bold"> <i class=" fa-solid fa-pie-chart"></i></h5>
-                                        </div>
-                                    </div>
-                                  </a>
-                            
-                                </div>     
-                                
-                
-                
-                           
-                
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                  <a href="/privet/pis/report-init-page">
-                                    <div class="card shadow-sm">
-                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title">PIS Reports </h4>
-                                            <h5 class="card-text fw-bold"> <i class=" fa-solid fa-pie-chart"></i></h5>
-                                        </div>
-                                    </div>
-                                  </a>
-                            
-                                </div>     
-                                
-                
-                
-
-                                
-                            
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                    <a href="/privet/transcript/report-init-page">
-                                        <div class="card shadow-sm">
-                                            <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                            <div class="card-body text-center">
-                                                <h4 class="card-title">Transcript Reports</h4>
-                                                <h5 class="card-text fw-bold"> <i class=" fa-solid fa-pie-chart"></i></h5>
-
-                                            </div>
-                                        </div>
-                                    </a>
-                            
-                                </div>        
-                            
-                                 
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                  <a href="/privet/routine/page">
-                                    <div class="card shadow-sm">
-                                        <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title">Routine</h4>
-                                            <h5 class="card-text fw-bold"> &#128214;</h5>
-                                        </div>
-                                    </div>
-                                  </a>
-                            
-                                </div>  
-                
-                
-                
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                    <a href="/pu/rank/class/page">
-                                      <div class="card shadow-sm">
-                                          <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                          <div class="card-body text-center">
-                                              <h4 class="card-title">Ranks</h4>
-                                              <h5 class="card-text fw-bold"> <i class="  fa fa-ranking-star"></i></h5>
-                                          </div>
-                                      </div>
-                                    </a>
-                              
-                                  </div>  
-                
-
-                        
-                                   
-                            
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                    <a href="/pu/all/teacher">
-                                        <div class="card shadow-sm">
-                                            <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                                            <div class="card-body text-center">
-                                                <h4 class="card-title">Teachers</h4>
-                                                <h5 class="card-text fw-bold"> <i class=" fa fa-people-group"></i></h5>
-                                            </div>
-                                        </div>
-                                    </a>
-                            
-                                </div>        
-                            
-                                         
-                                
-                            
-                                <div class="col-md-4 col-10 m-auto mt-2 ">
-                            
-                                    <a href="/pu/student/page">
-                                        <div class="card text-center">
-                                            <!-- <img class="card-img-top" src="holder.js/100px180/" alt=""> -->
-                                            <div class="card-body">
-                                                <h4 class="card-title">Students</h4>
-                                                <h5 class="card-text fw-bold"><i class=" fa fa-people-line"></i></h5>
-                            
-                                            </div>
-                                          </div>
-                                    </a>
-                            
-                                </div>    
-                            
-                                  
-                            <!-- end mainDiv -->
-                            </div>
-                            
-                        
- 
-                    
-                
-                
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+  <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" href="/">
+  
+        <img class="mt-1" width="30px" src="/icons/icons8-home-94.png" alt=""> 
+        <p class="fw-500 text-truncate  mt-1">Home</p>
+  </a>
+  
     </div>
+    
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+  <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;"
+   href="#">
+  
+        <img class="mt-1" width="30px" src="/icons/icons8-calendar-48.png" alt=""> 
+        <p class="fw-500 text-truncate  mt-1">My attendance</p>
+  </a>
+  
+    </div>
+    
+  
+    
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+  <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;"
+   href="/privet/routine/page">
+  
+        <img class="mt-1" width="30px" src="/icons/icons8-classroom-94.png" alt=""> 
+        <p class="fw-500 text-truncate  mt-1">My routine</p>
+  </a>
+  
+    </div>
+  
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;"
+       href="/pu/notice/page">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-topic-push-notification-94.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">Notice</p>
+      </a>
+      
+        </div>
+  
+  
+            
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+      href="/teacher/daily/mark/page">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-hand-with-pen-94.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">Daily mark</p>
+      </a>
+      
+        </div>
+  
+  
+  
+  
+                
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+      href="/pu/rank/class/page">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-rank-64.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">Rank</p>
+      </a>
+      
+        </div>
+  
+  
+  
+  
+  
+  
+  
+  
+      
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;"
+       href="/teacher/pic/page-mark-init">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-ball-point-pen-94.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">PIC mark</p>
+      </a>
+      
+        </div>
+  
+  
+          
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;"
+       href="/privet/pic/report-init-page">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-reports-58.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">PIC report</p>
+      </a>
+      
+        </div>
+  
+  
+          
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+      href="/teacher/pis/page-mark-init">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-hand-with-pen-100.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">PIS mark</p>
+      </a>
+      
+        </div>
+  
+  
+  
+          
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+      href="/privet/pis/report-init-page">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-reports-50.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">PIS report</p>
+      </a>
+      
+        </div>
+  
+  
+  
+          
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+      href="/teacher/bi/page-mark-init">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-hand-with-pen-60.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">BI mark</p>
+      </a>
+      
+        </div>
+  
+  
+          
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+      href="/teacher/bi/page-report-init">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-reports-64.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">BI report</p>
+      </a>
+      
+        </div>
+  
+  
+  
+          
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+      href="/privet/transcript/report-init-page">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-result-64.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1">Transcript report</p>
+      </a>
+      
+        </div>
+  
+  
+  
+  
+                
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+      href="/pu/all/teacher">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-teacher-48.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1 ">Our teachers</p>
+      </a>
+      
+        </div>
+  
+  
+  
+        
+                
+    <div class="col-md-3 col-6 mt-4" style="height: 100px;">
+      <a class="text-center text-decoration-none btn-light page-link btn-focus shadow-sm mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
+      href="/pu/student/page">
+      
+            <img class="mt-1" width="30px" src="/icons/icons8-user-group-94.png" alt=""> 
+            <p class="fw-500 text-truncate  mt-1 ">Our students</p>
+      </a>
+      
+        </div>
+  
+  
+  </div>
+ </main>
+  
+
                          
 
 
     <%- include("../component/___node.html") %> 
 
-        </body>
+   </body>
+
+   </html>
