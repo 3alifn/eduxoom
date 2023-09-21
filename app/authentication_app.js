@@ -22,7 +22,6 @@ exports.authentication_check = (req, res)=>{
 
     const {userRole, username, password}= req.query;
      const hashPassword= createHmac('md5', 'pipilikapipra').update(username+password).digest('hex');
-    // console.log(username, password, hashPassword);
 
    if(userRole=='parents')  var findBashQuery= `SELECT * FROM ${userRole} WHERE permission='allow' AND  email="${username}" AND password="${hashPassword}"`
 

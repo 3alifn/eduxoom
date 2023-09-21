@@ -31,8 +31,6 @@ rel="stylesheet"
      
           <div class="row flex-center min-vh-100 py-6 text-center">
             <div class="col-sm-10 m-auto col-md-8 col-lg-6 col-xxl-5">
-              <img class="me-2" src="/image/default/resized/logo.png" alt="" width="58">
-              <span class="font-sans-serif fw-bolder fs-5 d-inline-block school-name"></span></a>
               <div class="card shadow-1">
                 <div class="card-body p-4 p-sm-5">
                   <div class="fw-black lh-1 " style="font-size: 8rem; font-weight: 500; color: rgba(109, 112, 115, 0.685);">500</div>
@@ -53,19 +51,5 @@ rel="stylesheet"
 </body>
 
 
-<script>
-  
-(function(){
-  $.ajax({
-    type: "get",
-    url: "/pu/school/info/get",
-    data: {},
-    dataType: "JSON",
-    success: function (response) {
-      $(".school-name").text(response.info[0].name)
-    }
-  });
-  }())
-</script>
 
 </html>

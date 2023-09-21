@@ -2,7 +2,7 @@
     margin: 0 ;
     padding: 0 ;
     box-sizing: border-box;
-    margin-right: 0 !important;
+    margin-right: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 ::selection{
@@ -10,6 +10,7 @@
     color: white;
   }
 
+  
   @media only screen and (min-width:768px){
     
     .main-content{
@@ -32,6 +33,25 @@
       width: 100% !important;
     }
     }
+
+
+    #mujibCorner{
+        position: absolute; 
+        background-color: rgba(236, 231, 231, 0.758); 
+        right: 0; 
+        width: 200px !important;
+    }
+
+    @media only screen and (max-width:768px){
+        #mujibCorner{
+            position: absolute; 
+            background-color: rgba(236, 231, 231, 0.758); 
+            right: 0; 
+            width: 100px !important;
+        }
+    
+        }
+    
 
   #aef img {
     width: 100%;
@@ -65,6 +85,34 @@ img {
         border-radius: 10px;
 
     }
+}
+
+/* modified css */
+.text-muted{
+    font-weight: 500 !important;
+}
+.tooltipx{
+    position: relative;
+    z-index: 1080;
+
+}
+.tooltipx:hover .tooltipy{
+display: block;
+}
+.tooltipy{
+    display: none;
+    position: absolute;
+    top: 45px;
+    /* left: 50%; */
+    right: 0%;
+    /* transform: translate(-50%, -50%); */
+    padding: 2px;
+    /* background-color: rgba(0, 0, 0, 0.133); */
+    font-weight: 500;
+    border-radius: 5px;
+    z-index: 1080;
+
+
 }
 
 
@@ -167,7 +215,7 @@ transition: all 2s !important;
     font-family: sans-serif;
 }
 
-#footer li a:hover{
+#footer  a:hover{
     color: #C8F169 !important;
     text-decoration: underline !important;
 
@@ -183,7 +231,7 @@ transition: all 2s !important;
 
 .toggleBtnRotate{
     transition: all 1s;
-    transform: rotate(180deg) !important;
+    transform: rotate(90deg) !important;
     background-color: #78C51C;
 
 }
@@ -258,13 +306,15 @@ transition: all 2s !important;
     height: max-content !important;
     width: 100px !important;
     text-align: center !important;
-    background-color: #fddc06fb !important;
+    /* background-color: #fddc06fb !important; */
+    background-color: #feefc3 !important;
     padding: 2px !important;
     position: fixed !important;
     top: 0px !important;
     left: 50% !important;
     transform: translate(-50%) !important;
     z-index: 999999 !important;
+    font-weight:600;
   }
 
 
@@ -323,14 +373,6 @@ transition: all 2s !important;
 
 
 
-  .form-dev{
-
-     outline-color: slateblue !important;
-     width: 98%;
-     padding: 5px;
-
-  }
-
   #thead
   {
       background-color:  #281e5d !important;
@@ -346,3 +388,36 @@ transition: all 2s !important;
     box-sizing: border-box;
 }
 
+.form-dev{
+    border: 1px solid #c2e7ff;
+    outline: none;
+    padding: 10px;
+  }
+  .form-dev:focus{
+    border: none;
+    outline: none;
+    background-color: #c2e7ff;
+  }
+  
+.bg-go{
+    background-color: #feefc3;
+}
+.btn-go{
+    background-color: #c2e7ff;
+}
+
+.btn-go:hover{
+    background-color: rgba(194, 231, 255, 0.684)
+}
+
+.shadowx{
+   box-shadow:  0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.18)
+}
+
+.btn-primary{
+    background-color: #3598dc !important;
+}
+
+.btn-primary:hover{
+    background-color: #1a75b1 !important;
+}

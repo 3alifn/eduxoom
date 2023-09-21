@@ -11,9 +11,7 @@ const parent = require("./route/parent_route")
 const  authentication= require("./route/auhentication_route");
 const { home_page } = require("./app/home_app");
 const admin = require("./route/admin_route");
-app.get('/test', (req, res)=>{
-  res.render('test', {text:'hi'})
-})
+
 app.get("/", home_page)
 app.use("/pu", public)
 app.use("/privet", privet)
@@ -54,11 +52,12 @@ app.use((err, req, res, next)=>{
 
 app.use((req, res, next)=>{
 
-  res.sendFile(__dirname+'/views/public/404.html')
+  res.redirect('/pages/404.html')
 
 // throw new Error("This url was not found!")
 
 })
+
 
 // const log= createHmac('md5', 'pipilikapipra').update('parent@abc.com'+'password').digest('hex');
 // console.log(log);
