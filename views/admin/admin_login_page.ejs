@@ -10,17 +10,8 @@
 
 
 </head>
-<style>
-    .row .card-body{
-    background-color: #F5F4F8 !important;
 
-    color: #754FFE ;
-}
-</style>
 <body onload="pageLoadingTop()">
-
-    <hr>
-
     
     <% if( typeof msg!=typeof alifn && msg.length>0) {%>
 
@@ -33,14 +24,14 @@
              <% } %> 
   
 
-<div class="row mt-5">
-    <div class="col-11 col-md-6 m-auto shadow-1">
+<div class="row p-2">
+    
+    <div class="col-11 m-auto shadowx p-3 pb-5 mt-5 mb-5 col-md-6 m-auto ">
         
-        <form action="/admin/login" class="form" method="post">
+        <form action="/admin/login" method="post">
 
 
-      <center>
-        <h5>Admin Login</h5>
+        <p class="p-2 fw-semibold fs-5">Admin Login</p>
 
         <div class="input-group">
 
@@ -61,9 +52,10 @@
         </div>
         <p></p>
         
+       <center>
         <button class=" btn-self w-50">Login</button>
+       </center>
 
-      </center>
          
             
          </form>

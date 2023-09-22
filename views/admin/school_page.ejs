@@ -21,274 +21,135 @@
 <div id="main-content" class="p-2 main-content mt-5">
 
 
-<hr>
-<div class="row m-2 shadow-1 text-center">
-    <div class="col-12 m-auto">
-          <h3> <button class=" btn btn-light shadow" onclick="window.location.reload()">Refresh</button> Setup School Settings</h3>
+<div class="row m-2 mt-5 shadowx text-center">
+    <div class="col-11 m-auto">
+
+      <p class="p-2 text-muted fw-semibold fs-5">Setup main settings</p>
+
     </div>
   </div>
 
+  <div id="school-settings" class="row  p-2 mt-1">
 
- 
-  <form id="schoolform" action="#">
-    <div id="text-div" class="row m-2 p-2 ">
-      <div class="col-md-8 col-11 m-auto">
-        <table class=" table table-bordered">
-
-          <tr>
-            <td>EIIN</td>
-            <td> <input class="w-100 mb-1  form-control" type="number" value="<%=info[0].EIIN%>" placeholder="School EIIN" name="EIIN" id=""></td>
-          </tr>
-
-          <tr>
-            <td>Name</td>
-            <td><input class="w-100 mb-1 form-control" type="text" value="<%=info[0].name%>" placeholder="School name" name="name" id=""></td>
-
-          </tr>
-
-          <tr>
-            <td>Heading</td>
-            <td><input class="w-100 mb-1 form-control" type="text" value="<%=info[0].heading%>" placeholder="Heading here..." name="heading" id=""></td>
-
-          </tr>
-
-          <tr>
-            <td>About</td>
-            <td><textarea class="w-100 mb-1 form-control" placeholder="School about here..." name="about" id="" cols="40" rows="4"><%=info[0].about%></textarea></td>
-          </tr>
-
-          <tr>
-            <td>Facebook page link</td>
-            <td><input class="w-100 mb-1 form-control" type="text" value="<%=info[0].fb_link%>" placeholder="https://www.facebook.com/url-page-name" name="fb_link" id=""></td>
-          </tr>
-
-
-          <button type="submit" class="btn btn-light shadow submitbtn float-end">Save & Changes</button>
-
-        </table>
-
+    <form id="schoolForm" action="#" method="post">
+      <div class="col-md-10 shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+      
+  
+       <div class="d-flex  p-2 justify-content-between align-items-center">
+         <p class="w-25 fw-semibold m-auto">EIIN</p>
+         <input name="eiin" class="w-75 shadowx form-dev form-control-sm" placeholder="enter eiin number" type="number"  id="">
+       </div>
+     
+     
+       <div class="d-flex  p-2 justify-content-between align-items-center">
+         <p class="w-25 fw-semibold m-auto">Name</p>
+         <input name="name" class="w-75 shadowx form-dev form-control-sm" placeholder="enter school name" type="number"  id="">
+       </div>
+     
+       
+       <div class="d-flex  p-2 justify-content-between align-items-center">
+        <p class="w-25 fw-semibold m-auto">Email</p>
+        <input name="email" class="w-75 shadowx form-dev form-control-sm" placeholder="enter email address" type="email"  id="">
       </div>
-    </div>
-  </form>
-
-
-  <form id="personform" action="#">
-
-    <div id="person-div" class="row m-2 p-2 ">
-      <div class="col-md-8 col-11 m-auto">
-
-          <table class="table table-bordered ">
-
-        <thead class="h_img-data">
-          <tr >
-            <td>Headmaster name</td>
-            <td>
-               <input class="w-100 mb-2 form-control" type="text" value="<%=info[0].h_name%>" placeholder="Headermaster name" name="h_name" id="">
-            </td>
-            
-          </tr>
-
-          <tr>
-            <td>Headmaster message</td>
-
-            <td>
-              <textarea class="w-100 mb-2 form-control" placeholder="Headmaster message" name="h_mag" id="" cols="40"rows="5"><%=info[0].h_msg%></textarea>
-            </td>
-
-          </tr>
-        </thead>
-
-
-        <thead class="p_img-data">
-          <tr >
-            <td>President name</td>
-            <td>
-               <input class="w-100 mb-2 form-control" type="text" value="<%=info[0].p_name%>" placeholder="p_img name" name="p_name" id="">
-            </td>
-            
-          </tr>
-
-          <tr>
-            <td>President message</td>
-
-            <td>
-              <textarea class="w-100 mb-2 form-control" placeholder="Headmaster message" name="p_msg" id="" cols="40"rows="5"><%=info[0].p_msg%></textarea>
-            </td>
-
-          </tr>
-        </thead>
-
-
-
-        <thead class="s_img-data">
-          <tr >
-            <td>Secretary name</td>
-            <td>
-               <input class="w-100 mb-2 form-control" type="text" value="<%=info[0].s_name%>" placeholder="Secretary name" name="s_name" id="">
-            </td>
-            
-          </tr>
-
-          <tr>
-            <td>Secretary message</td>
-
-            <td>
-              <textarea class="w-100 mb-2 form-control" placeholder="Secretary message" name="s_msg" id="" cols="40"rows="5"><%=info[0].s_msg%></textarea>
-            </td>
-
-          </tr>
-        </thead>
-
-        <button type="submit" class="btn btn-light shadow submitbtn float-end">Save & Changes</button>
-
-
-         </table>
-
+    
+      
+      <div class="d-flex  p-2 justify-content-between align-items-center">
+        <p class="w-25 fw-semibold m-auto">Phone</p>
+        <input name="phone" class="w-75 shadowx form-dev form-control-sm" placeholder="enter phone number" type="tel"  id="">
       </div>
-    </div>
-  </form>
-
-
-  <form id="imgForm" action="#">
-    <div id="text-div" class="row m-2 p-2 ">
-      <div class="col-11 m-auto">
-        <table class=" table table-bordered">
-          <thead >
-            <tr>
-              <td>
-
-               <label for="front_img">
-                  <h5 class="btn btn-light shadow">Front photo </h5>
-                </label>
-
-                          <input data-id="front_img" class="d-none pushed front_img"  id="front_img" name="image"  type="file" >
+  
+  
+      <div class="d-flex  p-2 justify-content-between align-items-center">
+        <p class="w-25 fw-semibold m-auto">Facebook link</p>
+        <input name="fb_link" class="w-75 shadowx form-dev form-control-sm" placeholder="enter facebook url" type="text"  id="">
+      </div>
+  
         
-
-              </td>
-
-
-
-              <td>
-
-                <label for="logo">
-                   <h5 class="btn btn-light shadow">Logo photo </h5>
-                 </label>
-
-                           <input data-id="logo"  class="d-none pushed logo"  id="logo" name="image"  type="file" >
+       <div class="d-flex p-2 justify-content-between align-items-center">
+         <p class="w-25  fw-semibold m-auto">Address</p>
+         <span class="w-75">
          
-               </td>
-
-
-
-              <td>
-            
-              <label for="h_img">
-                <h6 class="btn btn-light shadow">Headmaster photo</h6>
-              </label>
-
-        <input data-id="h_img" class="d-none pushed h_img" name="image"  id="h_img" type="file">
-
-              </td>
-
-
-              <td>
-            
-                <label for="p_img">
-                  <h5 class="btn btn-light shadow">President photo</h5>
-                </label>
-
-          <input data-id="p_img" class="d-none p_img pushed" name="image"  id="p_img" type="file">
-
-                </td>
-
-
-
-                <td>
-            
-                  <label for="s_img">
-                    <h5 class="btn btn-light shadow">Secretary photo</h5>
-                  </label>
+          <textarea name="address" class="form-dev shadowx" style="width: 100%;"  placeholder="tell us your school address" id="" cols="40" rows="5"></textarea>
   
-            <input data-id="s_img" class="d-none pushed s_img" name="image"  id="s_img" type="file">
+         </span>
+       
+       </div>  
+       
   
-                  </td>
-
-
-
-            </tr>
-
-
-            </thead>
-
-
-            <tbody>
-
-            <tr>
-              <td>
-                <div class="front_append">
-            
-                  <img class="rounded bg-demo-img-color" src="/image/default/resized/<%=info[0].front_img%>" width="150px" height="150px" alt="front image">
-            
-            
-                </div>
-
-              </td>
-
-              <td>
-                <div class="logo_append">
-            
-                  <img class="rounded bg-demo-img-color" src="/image/default/resized/<%=info[0].logo%>" width="150px" height="150px" alt="front image">
-            
-            
-                </div>
-                
-              </td>
-
-              <td>
-                <div class="h_append">
-          
-                  <img class="rounded bg-demo-img-color" src="/image/default/resized/<%=info[0].h_img%>" width="150px" height="150px" alt="no image">
-            
-            
-                </div>
-              </td>
-
-
-
-              
-              <td>
-                <div class="p_append">
-          
-                  <img class="rounded bg-demo-img-color" src="/image/default/resized/<%=info[0].p_img%>" width="150px" height="150px" alt="no image">
-            
-            
-                </div>
-              </td>
-
-
-
-              
-              <td>
-                <div class="s_append">
-          
-                  <img class="rounded bg-demo-img-color" src="/image/default/resized/<%=info[0].s_img%>" width="150px" height="150px" alt="no image">
-            
-            
-                </div>
-              </td>
-
-
-
-            </tr>
-
-          </tbody>      
+       <div class="d-flex p-2 justify-content-between align-items-center">
+        <p class="w-25  fw-semibold m-auto">Headline</p>
+        <span class="w-75">
         
-        
-        </table>
+         <textarea name="headline" class="form-dev shadowx" style="width: 100%;"  placeholder="tell us your headline" id="" cols="40" rows="5"></textarea>
+  
+        </span>
+      
+      </div>  
+  
+  
+       
+       <div class="d-flex p-2 justify-content-between align-items-center">
+         <p class="w-25  fw-semibold m-auto">About</p>
+         <span class="w-75">
+         
+          <textarea name="about" class="form-dev shadowx" style="width: 100%;"  placeholder="tell us something about your school" id="" cols="40" rows="5"></textarea>
+  
+         </span>
+       
+       </div>
+     
+
+
+       <div class="d-flex  p-2 justify-content-between align-items-center">
+        <p class="w-25 fw-semibold m-auto">Logo</p>
+        <input name="logo" class="w-75 logo shadowx  form-dev form-control-sm" type="file"  id="">
+      </div>
+
+
+      <div class="d-flex  p-2 justify-content-between align-items-center">
+        <p class="w-25 fw-semibold m-auto"></p>
+
+      <div class="logo_append w-75">
+        <img class="bg-demo-img-color shadowx" src="/image/default/resized/logo.png" height="100px" width="120px" alt="">
 
       </div>
-    </div>
-  </form>
+
+      </div>
+  
+
+
+      
+      <div class="d-flex  p-2 justify-content-between align-items-center">
+        <p class="w-25 fw-semibold m-auto">Main photo</p>
+        <input multiple name="main_img" class="w-75  main_img shadowx form-dev form-control-sm" type="file"  id="">
+      </div>
+
+
+      <div class="d-flex  p-2 justify-content-between align-items-center">
+        <p class="w-25 fw-semibold m-auto"></p>
+
+      <div class="main_img_append  w-75">
+ <img class="bg-demo-img-color shadowx" src="/image/default/resized/main_img.png" height="100px" width="120px" alt="">
+      </div>
+
+      </div>
+  
+
+
+     
+       <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+        <button  class="btn  text-primary nav-fill btn-hover shadowx">Build my school</button>
+      </div>
+     
+      </div>
+    </form>
+
+   </div>
+
+</div>
+
+
+</div>
 
 
 </div>
@@ -298,17 +159,9 @@
 </body>
 <script>
 
-noview.port({
-
-input_class: 'front_img',
- append_class: 'front_append', 
- file_type: 'image', 
- max_kb_size: 1024,
- multiple: false,
-})
 
 noview.port({
-  input_class: 'logo',
+input_class: 'logo',
  append_class: 'logo_append', 
  file_type: 'image', 
  max_kb_size: 1024,
@@ -316,26 +169,8 @@ noview.port({
 })
 
 noview.port({
- input_class: 'h_img',
- append_class: 'h_append', 
- file_type: 'image', 
- max_kb_size: 1024,
- multiple: false,
-
-
-})
-
-noview.port({
- input_class: 'p_img',
- append_class: 'p_append', 
- file_type: 'image', 
- max_kb_size: 1024,
- multiple: false,
-})
-
-noview.port({
- input_class: 's_img',
- append_class: 's_append', 
+input_class: 'main_img',
+ append_class: 'main_img_append', 
  file_type: 'image', 
  max_kb_size: 1024,
  multiple: false,
@@ -348,29 +183,6 @@ $("#schoolform").on('submit', (event)=>{
             method: "post",
             url: "/admin/setup/school-settings/post",
             data: $("#schoolform").serialize(),
-            dataType: "JSON",
-        beforeSend: function(){
-      $(".submitbtn").addClass("btn disabled")
-      _spin_pull()
-            },
-            success: function (info) {
-                _spin_pop()
-                _msg_pull( 'alert-success', 'Updated...', null)
-                $(".submitbtn").removeClass("disabled")
-
-    
-            }
-        });
-    
-    })
-  
-
-$("#personform").on('submit', (event)=>{
-      event.preventDefault()
-        $.ajax({
-            method: "post",
-            url: "/admin/setup/school-settings/person/post",
-            data: $("#personform").serialize(),
             dataType: "JSON",
         beforeSend: function(){
       $(".submitbtn").addClass("btn disabled")

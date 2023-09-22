@@ -59,6 +59,24 @@ admin.post('/setup/school-settings/person/post', school_app.admin_school_person_
 admin.post('/setup/school-settings/img/post', multer_upload_school_settings.single('image'), school_app.admin_school_img_post)
 
 
+// setup achievement
+
+admin.get('/setup/eventnews/', (req, res)=>{
+  res.render('admin/eventnews')
+})
+
+
+
+
+
+// setup headofschool
+admin.get('/setup/headofschool/', (req, res)=>{
+  res.render('admin/headofschool')
+})
+
+
+
+
 
 // dashboard status...
 admin.post('/dashboard/status', admin_dashboard_status )
