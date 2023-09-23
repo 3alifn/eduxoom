@@ -18,6 +18,8 @@ const { multer_upload_school_settings, admin_school_post, admin_school_get, admi
 const school_app = require("../app/school_app")
 const { admin_class_section_get, admin_class_section_post, admin_class_section_main_post } = require("../app/class_section")
 const { admin_st_current_status, admin_dashboard_status } = require("../app/admin_dashboard_app")
+const headofschool_app = require("../app/headofschool_app")
+const { admin_eventnews_post, multer_upload_eventnews, admin_eventnews_get } = require("../app/eventnews")
 const admin= express.Router()
 
 
@@ -55,24 +57,25 @@ admin.post('/setup/class-section/main/post', admin_class_section_main_post)
 admin.get('/setup/school-settings', school_app.admin_school_page)
 
 admin.post('/setup/school-settings/post', school_app.admin_school_post)
-admin.post('/setup/school-settings/person/post', school_app.admin_school_person_post)
 admin.post('/setup/school-settings/img/post', multer_upload_school_settings.single('image'), school_app.admin_school_img_post)
 
 
-// setup achievement
+// setup event and news...
 
 admin.get('/setup/eventnews/', (req, res)=>{
   res.render('admin/eventnews')
 })
 
+admin.post('/setup/eventnews/post', multer_upload_eventnews.any('images'), admin_eventnews_post)
+admin.post('/eventnews/get', admin_eventnews_get)
 
 
 
 
 // setup headofschool
-admin.get('/setup/headofschool/', (req, res)=>{
-  res.render('admin/headofschool')
-})
+admin.get('/setup/headofschool/', headofschool_app.admin_headofschool_page)
+admin.post('/setup/headofschool/post', headofschool_app.admin_headofschool_post)
+admin.post('/setup/headofschool/img/post', multer_upload_school_settings.single('image'), headofschool_app.admin_headofschool_img_post)
 
 
 

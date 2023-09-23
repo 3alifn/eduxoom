@@ -3,3 +3,9 @@ node_modules
 *.jpg
 *.jpeg
 *.pdf
+*.zip
+*.mp4
+*.mp3
+*.xlsx
+*.docs
+*.docx

@@ -1,206 +1,172 @@
-
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
-    <title>Event and news</title>
-    <%- include("../component/metadata.html") %> 
-  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+  <title>Event and news</title>
+  <%- include("../component/metadata.html") %>
+
 
 </head>
 
 
 <body onload="pageLoadingTop()">
 
-    <%- include("../component/admin-header-nav.html") %> 
-    <%- include("../component/admin-menu-nav.html") %> 
-  
-
-<div id="main-content" class="p-2 main-content mt-5">
+  <%- include("../component/admin-header-nav.html") %>
+    <%- include("../component/admin-menu-nav.html") %>
 
 
-
-  <div class="row m-2 mt-5 shadowx text-center">
-    <div class="col-11 m-auto">
-
-      <p class="p-2 text-muted fw-semibold fs-5">Setup event and news</p>
-
-    </div>
-  </div>
-
-  
- 
-<div id="tabledata" class="row shadow p-2 mt-5">
-
-  <div class="col-auto ms-auto me-2">
-    <button data-bs-toggle="modal" data-bs-target="#openform" id="createStudent" class="btn link-success shadowx btn-go fw-500">Create a new student</button>
-  </div>
-<p></p>
- <div class="col-md-8 col-12 m-auto">
-  
-  <div class="d-flex justify-content-between">
-    <select style="width: 100px; outline: none;" class="form-dev shadowx p-0" name="" id="">
-      <option selected value="15">15</option>
-      <option  value="50">50</option>
-      <option  value="100">100</option>
-      <option  value="All">All</option>
-    </select>
-
-    <input style="width: 200px; outline: none;" class="ps-2 form-dev p-0 shadowx" type="search" placeholder="search" >
-
-  </div>
-
-  <table class="table mt-1 mbx shadowx table-borderless table-ed">
-   <thead>
-   <tr class="shadowx">
-    <th class="p-3"> <input class="shadowx form-check-input" type="checkbox" name="checkout" id=""></th>
-    <th class="fw-semibold text-muted">Title</th>
-    <th class="fw-semibold text-muted">Date</th>
-    <th class="fw-semibold text-muted">Action</th>
-   </tr>
-   </thead>
-   <tbody >
-
-    <tr>
-      <td class="p-3"> <input class="shadowx form-check-input" type="checkbox" name="checkout" id=""></td>
-      <td class="fw-semibold text-muted">
-  
-        <img  class="shadowx" style="width: 60px; height: 40px;" src="./media/ach2.jpg"  alt="">
-        Tree plantition
-      </td>
-  
-      <td class="fw-semibold text-muted">22 Sep 2023</td>
-  
-      <td class="fw-semibold text-muted">
-        <div class="dropdown">
-           <button data-bs-toggle="dropdown" class="btn btn-link dropdown-toggle shadowx"> <i class="bi bi-three-dots-vertical"></i></button>
-           <div class="dropdown-menu">
-            <button class="btn dropdown-item btn-link p-2"><i class="bi bi-pen p-1"></i>Edit</button>
-            <button class="btn dropdown-item btn-link p-2"><i class="bi bi-trash p-1"></i>Delete</button>
-           </div>
-        </div>
-      </td>
-     
-     </tr>
-  
-
-
-     <tr>
-      <td class="p-3"> <input class="shadowx form-check-input" type="checkbox" name="checkout" id=""></td>
-      <td class="fw-semibold text-muted">
-  
-        <img  class="shadowx" style="width: 60px; height: 40px;" src="./media/ach2.jpg"  alt="">
-        Tree plantition
-      </td>
-  
-      <td class="fw-semibold text-muted">22 Sep 2023</td>
-  
-      <td class="fw-semibold text-muted">
-        <div class="dropdown">
-           <button data-bs-toggle="dropdown" class="btn btn-link dropdown-toggle shadowx"> <i class="bi bi-three-dots-vertical"></i></button>
-           <div class="dropdown-menu">
-            <button class="btn dropdown-item btn-link p-2"><i class="bi bi-pen p-1"></i>Edit</button>
-            <button class="btn dropdown-item btn-link p-2"><i class="bi bi-trash p-1"></i>Delete</button>
-           </div>
-        </div>
-      </td>
-     
-     </tr>
-  
-
-   
-
- 
-
-   <tr>
-   <td class="shadowx"> <i class="bi shadowx bi-trash-fill btn btn-outline-danger"></i></td>
-   </tr>
-
-   </tbody>
-  </table>
-
- </div>
-</div> 
+      <div id="main-content" class="p-2 main-content mt-5">
 
 
 
-  <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
+        <div class="row m-2 mt-5 shadowx text-center">
+          <div class="col-11 m-auto">
 
-    <form id="eventnewsform" action="#" method="post">
+            <p class="p-2 text-muted fw-semibold fs-5">Setup event and news</p>
 
-      <div class="col-md-10  modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
-      
-        <div class="d-flex justify-content-end p-2">
-          <button type="button" data-bs-dismiss="modal" class="btn btn-close bg-light "></button>
-  
-        </div>
-
-        <div class="president-section mt-2 p-2">
-          
-          <div class="col-11">
-            <p class="p-2 text-muted text-center fw-semibold fs-5">Create event and news</p>
           </div>
+        </div>
 
-       <div class="d-flex  p-2 justify-content-between align-items-center">
-        <p class="w-25 fw-semibold m-auto">Date</p>
-        <input name="e_date" class="w-75  shadowx form-dev form-control-sm"  type="date"  id="">
+
+
+        <div id="tabledata" class="row shadow p-2 mt-5">
+       <form id="formdata" action="#">
+          <div class="col-auto ms-auto me-2">
+            <button data-bs-toggle="modal" data-bs-target="#openform" id="createStudent"
+              class="btn link-success shadowx btn-go fw-500">Create a new student</button>
+          </div>
+          <p></p>
+          <div class="col-md-8 col-12 m-auto">
+
+            <div class="d-flex justify-content-between">
+              <select style="width: 100px; outline: none;" class="form-dev shadowx p-0" name="" id="">
+                <option selected value="15">15</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="All">All</option>
+              </select>
+
+              <input style="width: 200px; outline: none;" class="ps-2 form-dev p-0 shadowx" type="search"
+                placeholder="search">
+
+            </div>
+
+            <table class="table mt-1 mbx shadowx table-borderless table-ed">
+              <thead>
+                <tr>
+                  <th class="p-3"> <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id=""></th>
+                  <th class="fw-semibold text-muted">Title</th>
+                  <th class="fw-semibold text-muted">Date</th>
+                  <th class="fw-semibold text-muted">Action</th>
+                </tr>
+              </thead>
+              <tbody class="check-mark-area">
+
+               <tr>
+                <td colspan="3" ><span class="text-center shadowx alert-info">Loading...</span></td>
+               </tr>
+
+            <tfoot>
+                 
+              <tr>
+                <td class="shadowx"> <i class="bi shadowx  btnpop bi-trash-fill btn btn-outline-danger"></i></td>
+              </tr>
+
+            </tfoot>
+
+              </tbody>
+            </table>
+
+          </div>
+        </form>
+        </div>
+
+
+
+        <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
+
+          <form id="eventnewsform" action="#" method="post">
+
+            <div
+              class="col-md-10  modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+
+              <div class="d-flex justify-content-end p-2">
+                <button type="button" data-bs-dismiss="modal" class="btn btn-close bg-light "></button>
+
+              </div>
+
+              <div class="president-section mt-2 p-2">
+
+                <div class="col-11">
+                  <p class="p-2 text-muted text-center fw-semibold fs-5">Create event and news</p>
+                </div>
+
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold m-auto">Date</p>
+                  <input name="e_date" class="w-75  shadowx form-dev form-control-sm" type="date" id="">
+                </div>
+
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold m-auto">Title</p>
+                  <input name="title" class="w-75 shadowx form-dev form-control-sm" placeholder="Title here" type="text"
+                    id="">
+                </div>
+
+
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold m-auto">Upload photos</p>
+                  <input multiple name="images[]" class="w-75 shadowx images form-dev form-control-sm" type="file"
+                    id="">
+                </div>
+
+
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold m-auto"></p>
+
+                  <div class="images_append w-75">
+
+
+                  </div>
+
+                </div>
+
+
+                <div class="d-flex p-2 justify-content-between align-items-center">
+                  <p class="w-25  fw-semibold m-auto">Description</p>
+                  <span class="w-75">
+
+                    <textarea name="description" class="form-dev shadowx" style="width: 100%;"
+                      placeholder="description here..." id="" cols="40" rows="5"></textarea>
+
+                  </span>
+
+                </div>
+
+                <div class="progress mb-2">
+                  <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                    style="width: 1%;"></div>
+                </div>
+
+                <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+                  <button class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Publish event and news</button>
+                </div>
+
+              </div>
+          </form>
+
+        </div>
+
+
+
+        <!-- end  -->
+
       </div>
 
-       <div class="d-flex  p-2 justify-content-between align-items-center">
-        <p class="w-25 fw-semibold m-auto">Title</p>
-        <input name="title" class="w-75 shadowx form-dev form-control-sm" placeholder="Title here" type="text"  id="">
-      </div>
 
-
-      <div class="d-flex  p-2 justify-content-between align-items-center">
-       <p class="w-25 fw-semibold m-auto">Upload photos</p>
-       <input multiple name="images" class="w-75 shadowx images form-dev form-control-sm" type="file"  id="">
-     </div>
-
-
-     <div class="d-flex  p-2 justify-content-between align-items-center">
-       <p class="w-25 fw-semibold m-auto"></p>
-
-     <div class="images_append w-75">
- 
-
-     </div>
-
-     </div>
-
-      
-     <div class="d-flex p-2 justify-content-between align-items-center">
-       <p class="w-25  fw-semibold m-auto">Description</p>
-       <span class="w-75">
-       
-        <textarea name="description" class="form-dev shadowx" style="width: 100%;"  placeholder="description here..." id="" cols="40" rows="5"></textarea>
-
-       </span>
-     
-     </div>
-   
-  
-     
-       <div class="d-flex justify-content-end p-2 mt-2 mb-2">
-        <button  class="btn  text-primary nav-fill btn-hover shadowx">Publish event and news</button>
-      </div>
-     
-      </div>
-    </form>
-
-   </div>
-
-
-
-<!-- end  -->
-
-</div>
-
-
-<%-include("../component/___node.html") %> 
-<script src="/app/___noviewport.js"></script>
+      <%-include("../component/___node.html") %>
+        <script src="/app/___noviewport.js"></script>
 
 </body>
 <script>
@@ -208,51 +174,106 @@
 
 
 noview.port({
- input_class: 'images',
- append_class: 'images_append', 
- file_type: 'image', 
- max_kb_size: 1024,
- multiple: true,
+    input_class: 'images',
+    append_class: 'images_append',
+    file_type: 'image',
+    max_kb_size: 1024,
+    multiple: true,
 
 
+  })
+
+function tabledata(){
+  $.ajax({
+    method: "post",
+    url: "/admin/eventnews/get",
+    data: {type: 'eventnews'},
+    dataType: "JSON",
+    success: function (res) {
+      $('#tabledata tbody').html(res.tabledata)
+    }
+  });
+}
+
+tabledata()
+
+$("#eventnewsform").on('submit', (event) => {
+    event.preventDefault()
+    let formdata = new FormData($("form")[0])
+    $('#progressbar').css({ 'width': 1 + '%' }).text();
+
+    $.ajax({
+      xhr: function () {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function (evt) {
+
+          if (evt.lengthComputable) {
+            var percentComplete = (evt.loaded / evt.total) * 100;
+
+            $('#progressbar').css({ 'width': percentComplete + '%' }).text(percentComplete + '%')
+
+          }
+        }, false);
+        return xhr;
+      },
+      method: "post",
+      url: "/admin/setup/eventnews/post",
+      data: formdata,
+      mimeType: "multipart/form-data",
+      cache: false,
+      processData: false,
+      contentType: false,
+      dataType: "JSON",
+
+      beforeSend: function () {
+        $(".submitbtn").addClass("disabled")
+        _spin_pull()
+      },
+      success: function (info) {
+        _spin_pop()
+        _msg_pull('alert-success', 'Image added...', null)
+        $(".submitbtn").removeClass("disabled")
+       tabledata()
+
+      }
+    });
+
+  })
+
+
+
+$('.btnpop').on('click', ()=>{
+
+  const dataid= $('#formdata').serialize()
+  if(dataid){
+    console.log(dataid);
+
+  }
 })
 
 
 
+function _delbox_push(){
+    $.ajax({
+        method: "post",
+        url: "/admin/eventnews/pop",
+        data: $("#deleteStudent").serialize(),
+        dataType: "JSON",
+        beforeSend: function (){
+          _spin_pull()
+        },
+        success: function (info) {
+          _msg_pull('alert-success', 'Student deleted...')
+        _spin_pop()
+        loadDisplay()
+        
 
-$(".pushed").on('change', (event)=>{
-      const jsform= new FormData();
-      const thisIs = event.currentTarget.attributes[0].value;
-jsform.append('image',$('.'+thisIs).get(0).files[0]); 
-jsform.append('imgrole',thisIs); 
- console.log(thisIs, $('.'+thisIs).get(0).files[0]);
+            
+        }
+    });
 
-        $.ajax({
-            method: "post",
-            url: "/admin/setup/school-settings/img/post",
-            data: jsform,
-             mimeType: "multipart/form-data",
-              cache: false,
-              processData: false,
-              contentType: false,
-               dataType: "JSON",
-       
-        beforeSend: function(){
-      $(".submitbtn").addClass("btn disabled")
-      _spin_pull()
-            },
-            success: function (info) {
-                _spin_pop()
-                _msg_pull( 'alert-success', 'Updated...', null)
-                $(".submitbtn").removeClass("disabled")
-
-    
-            }
-        });
-    
-    })
-
-
+ 
+}
 
 
 </script>

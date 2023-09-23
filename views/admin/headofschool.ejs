@@ -1,228 +1,235 @@
-
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
-    <title>Head of school</title>
-    <%- include("../component/metadata.html") %> 
-  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+  <title>Head of school</title>
+  <%- include("../component/metadata.html") %>
+
 
 </head>
 
 
 <body onload="pageLoadingTop()">
 
-    <%- include("../component/admin-header-nav.html") %> 
-    <%- include("../component/admin-menu-nav.html") %> 
-  
-
-<div id="main-content" class="p-2 main-content mt-5">
+  <%- include("../component/admin-header-nav.html") %>
+    <%- include("../component/admin-menu-nav.html") %>
 
 
-<div class="row m-2 mt-5 shadowx text-center">
-    <div class="col-11 m-auto">
+      <div id="main-content" class="p-2 main-content mt-5">
 
-      <p class="p-2 text-muted fw-semibold fs-5">Setup head of school</p>
+        <div class="row m-2 mt-5 shadowx text-center">
+          <div class="col-11 m-auto">
 
-    </div>
-  </div>
+            <p class="p-2 text-muted fw-semibold fs-5">Setup head of school</p>
 
-  <div id="headofschool" class="row  p-2 mt-1">
-
-    <form id="headofschoolForm" action="#" method="post">
-
-      <div class="col-md-10 shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
-      
-
-        <div class="president-section mt-2 p-2">
-          
-          <div class="col-11">
-            <p class="p-2 text-muted text-center fw-semibold fs-5">Our president</p>
           </div>
-
-       <div class="d-flex  p-2 justify-content-between align-items-center">
-        <p class="w-25 fw-semibold m-auto">Name</p>
-        <input name="pr_name" class="w-75 shadowx form-dev form-control-sm" placeholder="enter president name" type="text"  id="">
-      </div>
-
-
-      <div class="d-flex  p-2 justify-content-between align-items-center">
-       <p class="w-25 fw-semibold m-auto">Photo</p>
-       <input name="pr_img" class="w-75 shadowx president form-dev form-control-sm" type="file"  id="">
-     </div>
-
-
-     <div class="d-flex  p-2 justify-content-between align-items-center">
-       <p class="w-25 fw-semibold m-auto"></p>
-
-     <div class="president_append w-75">
-       <img class="bg-demo-img-color shadowx" src="/image/default/resized/pr_img.png" height="100px" width="120px" alt="">
-
-     </div>
-
-     </div>
-
-      
-     <div class="d-flex p-2 justify-content-between align-items-center">
-       <p class="w-25  fw-semibold m-auto">About</p>
-       <span class="w-75">
-       
-        <textarea name="pr_about" class="form-dev shadowx" style="width: 100%;"  placeholder="president message" id="" cols="40" rows="5"></textarea>
-
-       </span>
-     
-     </div>
-   
-        </div>
-  
-
-
-        <div class="headmaster-section mt-2 p-2">
-          
-          <div class="col-11">
-            <p class="p-2 text-muted text-center fw-semibold fs-5">Our headmaster</p>
-          </div>
-
-       <div class="d-flex  p-2 justify-content-between align-items-center">
-        <p class="w-25 fw-semibold m-auto">Name</p>
-        <input name="hm_name" class="w-75 shadowx form-dev form-control-sm" placeholder="enter headmaster name" type="text"  id="">
-      </div>
-
-
-      <div class="d-flex  p-2 justify-content-between align-items-center">
-       <p class="w-25 fw-semibold m-auto">Photo</p>
-       <input name="hm_img" class="w-75 headmaster shadowx  form-dev form-control-sm" type="file"  id="">
-     </div>
-
-
-     <div class="d-flex  p-2 justify-content-between align-items-center">
-       <p class="w-25 fw-semibold m-auto"></p>
-
-     <div class="headmaster_append w-75">
-       <img class="bg-demo-img-color shadowx" src="/image/default/resized/hm_img.png" height="100px" width="120px" alt="">
-
-     </div>
-
-     </div>
-
-      
-     <div class="d-flex p-2 justify-content-between align-items-center">
-       <p class="w-25  fw-semibold m-auto">About</p>
-       <span class="w-75">
-       
-        <textarea name="about" class="form-dev shadowx" style="width: 100%;"  placeholder="headmaster message" id="" cols="40" rows="5"></textarea>
-
-       </span>
-     
-     </div>
-   
         </div>
 
+        <div id="headofschool" class="row  p-2 mt-1">
 
-     
-       <div class="d-flex justify-content-end p-2 mt-2 mb-2">
-        <button  class="btn  text-primary nav-fill btn-hover shadowx">Publish head of school</button>
+          <form id="headofschoolform" action="#" method="post">
+
+            <div class="col-md-10 shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+
+
+              <div class="president-section mt-2 p-2">
+
+                <div class="col-11">
+                  <p class="p-2 text-muted text-center fw-semibold fs-5">Our president</p>
+                </div>
+
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold m-auto">Name</p>
+                  <input value="<%=info[0]==undefined?null:info[0].pr_name%>" required name="pr_name"
+                    class="w-75 shadowx form-dev form-control-sm" placeholder="enter president name" type="text" id="">
+                </div>
+
+
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold m-auto">Photo</p>
+                  <input data-id="president" value="<%=info[0]==undefined?null:info[0].pr_img%>" name="image"
+                    class="w-75 shadowx president pushImage form-dev form-control-sm" type="file" id="">
+                </div>
+
+
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold m-auto"></p>
+
+                  <div class="president_append w-75">
+                    <img class="bg-demo-img-color shadowx" src="/image/default/resized/president.png" height="100px"
+                      width="120px" alt="">
+
+                  </div>
+
+                </div>
+
+
+                <div class="d-flex p-2 justify-content-between align-items-center">
+                  <p class="w-25  fw-semibold m-auto">Message</p>
+                  <span class="w-75">
+
+                    <textarea required name="pr_msg" class="form-dev shadowx" style="width: 100%;"
+                      placeholder="president message" id="" cols="40"
+                      rows="5"><%=info[0]==undefined?null:info[0].pr_msg%></textarea>
+
+                  </span>
+
+                </div>
+
+              </div>
+
+
+
+              <div class="headmaster-section mt-2 p-2">
+
+                <div class="col-11">
+                  <p class="p-2 text-muted text-center fw-semibold fs-5">Our headmaster</p>
+                </div>
+
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold m-auto">Name</p>
+                  <input required value="<%=info[0]==undefined?null:info[0].hm_name%>" name="hm_name"
+                    class="w-75 shadowx  form-dev form-control-sm" placeholder="enter headmaster name" type="text" id="">
+                </div>
+
+
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold m-auto">Photo</p>
+                  <input data-id="headmaster" value="<%=info[0]==undefined?null:info[0].hm_img%>" name="image"
+                    class="w-75 headmaster shadowx pushImage form-dev form-control-sm" type="file" id="">
+                </div>
+
+
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold m-auto"></p>
+
+                  <div class="headmaster_append w-75">
+                    <img class="bg-demo-img-color shadowx" src="/image/default/resized/headmaster.png" height="100px"
+                      width="120px" alt="">
+
+                  </div>
+
+                </div>
+
+
+                <div class="d-flex p-2 justify-content-between align-items-center">
+                  <p class="w-25  fw-semibold m-auto">Message</p>
+                  <span class="w-75">
+
+                    <textarea required name="hm_msg" class="form-dev shadowx" style="width: 100%;"
+                      placeholder="headmaster message" id="" cols="40"
+                      rows="5"><%=info[0]==undefined?null:info[0].hm_msg%></textarea>
+
+                  </span>
+
+                </div>
+
+              </div>
+
+
+
+              <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+                <button class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Publish head of school</button>
+              </div>
+
+            </div>
+          </form>
+
+        </div>
+
       </div>
-     
+
+
       </div>
-    </form>
-
-   </div>
-
-</div>
-
-
-</div>
 
 
 
-</div>
-<%-include("../component/___node.html") %> 
-<script src="/app/___noviewport.js"></script>
+      </div>
+      <%-include("../component/___node.html") %>
+        <script src="/app/___noviewport.js"></script>
 
 </body>
 <script>
 
 
 
-noview.port({
- input_class: 'headmaster',
- append_class: 'headmaster_append', 
- file_type: 'image', 
- max_kb_size: 1024,
- multiple: false,
+  noview.port({
+    input_class: 'headmaster',
+    append_class: 'headmaster_append',
+    file_type: 'image',
+    max_kb_size: 1024,
+    multiple: false,
 
 
-})
+  })
 
 
-noview.port({
- input_class: 'president',
- append_class: 'president_append', 
- file_type: 'image', 
- max_kb_size: 1024,
- multiple: false,
-})
+  noview.port({
+    input_class: 'president',
+    append_class: 'president_append',
+    file_type: 'image',
+    max_kb_size: 1024,
+    multiple: false,
+  })
 
 
 
 
-$("#personform").on('submit', (event)=>{
-      event.preventDefault()
-        $.ajax({
-            method: "post",
-            url: "/admin/setup/school-settings/person/post",
-            data: $("#personform").serialize(),
-            dataType: "JSON",
-        beforeSend: function(){
-      $(".submitbtn").addClass("btn disabled")
-      _spin_pull()
-            },
-            success: function (info) {
-                _spin_pop()
-                _msg_pull( 'alert-success', 'Updated...', null)
-                $(".submitbtn").removeClass("disabled")
+  $("#headofschoolform").on('submit', (event) => {
+    event.preventDefault()
+    $.ajax({
+      method: "post",
+      url: "/admin/setup/headofschool/post",
+      data: $("#headofschoolform").serialize(),
+      dataType: "JSON",
+      beforeSend: function () {
+        $(".submitbtn").addClass("btn disabled")
+        _spin_pull()
+      },
+      success: function (info) {
+        _spin_pop()
+        _msg_pull('alert-success', 'Updated...', null)
+        $(".submitbtn").removeClass("disabled")
 
-    
-            }
-        });
-    
-    })
-  
 
-$(".pushed").on('change', (event)=>{
-      const jsform= new FormData();
-      const thisIs = event.currentTarget.attributes[0].value;
-jsform.append('image',$('.'+thisIs).get(0).files[0]); 
-jsform.append('imgrole',thisIs); 
- console.log(thisIs, $('.'+thisIs).get(0).files[0]);
+      }
+    });
 
-        $.ajax({
-            method: "post",
-            url: "/admin/setup/school-settings/img/post",
-            data: jsform,
-             mimeType: "multipart/form-data",
-              cache: false,
-              processData: false,
-              contentType: false,
-               dataType: "JSON",
-       
-        beforeSend: function(){
-      $(".submitbtn").addClass("btn disabled")
-      _spin_pull()
-            },
-            success: function (info) {
-                _spin_pop()
-                _msg_pull( 'alert-success', 'Updated...', null)
-                $(".submitbtn").removeClass("disabled")
+  })
 
-    
-            }
-        });
-    
-    })
+
+  $(".pushImage").on('change', (event) => {
+    const jsform = new FormData();
+    const thisIs = event.currentTarget.attributes[0].value;
+    jsform.append('image', $('.' + thisIs).get(0).files[0]);
+    jsform.append('imgrole', thisIs);
+
+    $.ajax({
+      method: "post",
+      url: "/admin/setup/headofschool/img/post",
+      data: jsform,
+      mimeType: "multipart/form-data",
+      cache: false,
+      processData: false,
+      contentType: false,
+      dataType: "JSON",
+
+      beforeSend: function () {
+        $(".submitbtn").addClass("btn disabled")
+        _spin_pull()
+      },
+      success: function (info) {
+        _spin_pop()
+        _msg_pull('alert-success', 'Updated...', null)
+        $(".submitbtn").removeClass("disabled")
+
+
+      }
+    });
+
+  })
 
 
 

@@ -36,7 +36,7 @@ module.exports = {
     }),
 
 
-    pu_school_info_get: (req, res) => {
+    pu_headofschool_get: (req, res) => {
 
         sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (err, info) => {
             if (err) console.log(err.sqlMessage);
@@ -45,25 +45,25 @@ module.exports = {
 
     },
 
-    admin_school_page: (req, res) => {
+    admin_headofschool_page: (req, res) => {
 
-        sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (err, info) => {
+        sqlmap.query(`SELECT * FROM headofschool ORDER BY ID DESC LIMIT 1`, (err, info) => {
             if (err) console.log(err.sqlMessage);
-            else res.render('admin/school_page', { info })
+            else res.render('admin/headofschool', { info })
         })
 
 
 
     },
 
-    admin_school_post: (req, res) => {
-        const { eiin, name, email, phone, address, headline, about, fb_link } = req.body;
-        sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave) => {
+    admin_headofschool_post: (req, res) => {
+        const { pr_name, pr_msg, hm_name, hm_msg } = req.body;
+        sqlmap.query(`SELECT * FROM headofschool ORDER BY ID DESC LIMIT 1`, (errHave, infoHave) => {
             if (errHave) console.log(errHave.sqlMessage);
             if (infoHave.length == 0 || infoHave == undefined) {
 
-                sqlmap.query(`INSERT INTO school_settings (eiin, name, email, phone, address, headline, about, fb_link)
-                VALUES( '${eiin}', '${name}','${email}', '${phone}', '${address}', '${headline}', '${about}', '${fb_link}')`, (err, next) => {
+                sqlmap.query(`INSERT INTO headofschool (pr_name, pr_msg, hm_name, hm_msg)
+                VALUES( '${pr_name}', '${pr_msg}','${hm_name}', '${hm_msg}')`, (err, next) => {
                     if (err) console.log(err.sqlMessage);
                     else res.send({ msg: 'Updated' })
 
@@ -71,8 +71,7 @@ module.exports = {
 
 
             } else {
-                sqlmap.query(`UPDATE school_settings SET eiin='${eiin}', name='${name}', about="${about}", fb_link='${fb_link}', 
-                headline='${headline}', address='${address}', email='${email}', phone='${phone}'`, (err, next) => {
+                sqlmap.query(`UPDATE headofschool SET pr_name='${pr_name}', pr_msg='${pr_msg}', hm_name="${hm_name}", hm_msg='${hm_msg}'`, (err, next) => {
                     if (err) console.log(err.sqlMessage);
                     else res.send({ msg: ' Updated' })
                 })
@@ -83,7 +82,7 @@ module.exports = {
 
     },
 
-    admin_school_img_post: async (req, res) => {
+    admin_headofschool_img_post: async (req, res) => {
         const jsondata = (JSON.stringify(req.body));
         const imgrole = JSON.parse(jsondata).imgrole;
         //   console.log(imgrole, JSON.parse(jsondata).image);
