@@ -42,14 +42,14 @@
 
                 <div class="d-flex  p-2 justify-content-between align-items-center">
                   <p class="w-25 fw-semibold m-auto">Name</p>
-                  <input value="<%=info[0]==undefined?null:info[0].pr_name%>" required name="pr_name"
+                  <input value="<%=info[0]==undefined?null:info[0].president_name%>" required name="president_name"
                     class="w-75 shadowx form-dev form-control-sm" placeholder="enter president name" type="text" id="">
                 </div>
 
 
                 <div class="d-flex  p-2 justify-content-between align-items-center">
                   <p class="w-25 fw-semibold m-auto">Photo</p>
-                  <input data-id="president" value="<%=info[0]==undefined?null:info[0].pr_img%>" name="image"
+                  <input data-id="president" value="<%=info[0]==undefined?null:info[0].president_img%>" name="image"
                     class="w-75 shadowx president pushImage form-dev form-control-sm" type="file" id="">
                 </div>
 
@@ -70,9 +70,9 @@
                   <p class="w-25  fw-semibold m-auto">Message</p>
                   <span class="w-75">
 
-                    <textarea required name="pr_msg" class="form-dev shadowx" style="width: 100%;"
+                    <textarea required name="president_msg" class="form-dev shadowx" style="width: 100%;"
                       placeholder="president message" id="" cols="40"
-                      rows="5"><%=info[0]==undefined?null:info[0].pr_msg%></textarea>
+                      rows="5"><%=info[0]==undefined?null:info[0].president_msg%></textarea>
 
                   </span>
 
@@ -90,14 +90,14 @@
 
                 <div class="d-flex  p-2 justify-content-between align-items-center">
                   <p class="w-25 fw-semibold m-auto">Name</p>
-                  <input required value="<%=info[0]==undefined?null:info[0].hm_name%>" name="hm_name"
+                  <input required value="<%=info[0]==undefined?null:info[0].headmaster_name%>" name="headmaster_name"
                     class="w-75 shadowx  form-dev form-control-sm" placeholder="enter headmaster name" type="text" id="">
                 </div>
 
 
                 <div class="d-flex  p-2 justify-content-between align-items-center">
                   <p class="w-25 fw-semibold m-auto">Photo</p>
-                  <input data-id="headmaster" value="<%=info[0]==undefined?null:info[0].hm_img%>" name="image"
+                  <input data-id="headmaster" value="<%=info[0]==undefined?null:info[0].headmaster_img%>" name="image"
                     class="w-75 headmaster shadowx pushImage form-dev form-control-sm" type="file" id="">
                 </div>
 
@@ -118,9 +118,9 @@
                   <p class="w-25  fw-semibold m-auto">Message</p>
                   <span class="w-75">
 
-                    <textarea required name="hm_msg" class="form-dev shadowx" style="width: 100%;"
+                    <textarea required name="headmaster_msg" class="form-dev shadowx" style="width: 100%;"
                       placeholder="headmaster message" id="" cols="40"
-                      rows="5"><%=info[0]==undefined?null:info[0].hm_msg%></textarea>
+                      rows="5"><%=info[0]==undefined?null:info[0].headmaster_msg%></textarea>
 
                   </span>
 

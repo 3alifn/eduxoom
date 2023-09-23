@@ -392,6 +392,7 @@ transition: all 2s !important;
     border: 1px solid #c2e7ff;
     outline: none;
     padding: 10px;
+    width: 100%;
   }
   .form-dev:focus{
     border: none;

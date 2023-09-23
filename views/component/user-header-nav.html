@@ -1,6 +1,5 @@
 
-<header id="userNav" class="row  shadow-sm" style="position: fixed; z-index: 1020; top:0;right:0;left: 0; height: 69px; overflow: visible;">
-  
+<header id="userNav" class="row  shadowx mb-5 bg-light" style="position: fixed; z-index: 1020; top:0;right:0;left: 0; height: 69px; overflow: visible;">
   <div class="d-flex justify-content-between align-items-center">
 
     <button  style="height: max-content;" id="main-menu-btn-md" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" class="offcanvasbtn d-none d-md-block btn-hover shadow-sm-0 ps-3 btn">
@@ -22,12 +21,12 @@
 
       <div class="d-flex pe-2">
 
-        <a class="p-2  btn-hover btn rounded" href="#">
+        <a class="p-2  btn-hover btn rounded" href="/">
           <i class="bi bi-house fs-3"></i>
 
         </a>
 
-        <a class="p-2  btn-hover btn rounded" href="#">
+        <a class="p-2  btn-hover btn rounded" href="/pu/notice/page">
           <i class="bi bi-bell fs-3"></i>
         </a>
         
@@ -35,9 +34,9 @@
           <img height="30pc" width="30px" src="/image/default/male_avatar.png" alt="">
           
           <div class="tooltipy  bg-light shadow ps-5 pe-5 pt-3 pb-3">
-             <a class="nav-link mt-1 btn-hover rounded p-1" href="#">My profile</a>
-             <a class="nav-link mt-1 btn-hover rounded p-1" href="#">Dashboard</a>
-             <a class="nav-link mt-1 btn-hover rounded p-1" href="#">Sign out</a>
+             <a class="nav-link mt-1 btn-hover rounded p-1 append-user-profile" href="#">My profile</a>
+             <a class="nav-link mt-1 btn-hover rounded p-1 append-user-dashboard" href="#">Dashboard</a>
+             <a class="nav-link mt-1 btn-hover rounded p-1" href="/au/signout/">Sign out</a>
           </div>
 
         </div>
@@ -48,23 +47,20 @@
   </div>
 
 </header>
-
+<p class="mbx"></p>
 <script>
   
-function collapsebtn(elem){
-    $(`.${elem}`).toggleClass('toggleBtnRotate')
-}
-     
+
 
 function user_nav(){
     $.ajax({
         method: "get",
-        url: "/au/user/nav-item-header",
+        url: "/au/user/header-nav",
         data: {},
         dataType: "JSON",
-        success: function (response) {
-            $('.user-nav-item-header').html(response.listData)
-            
+        success: function (res) {
+            $('.append-user-profile').attr('href',res.profile)
+            $('.append-user-dashboard').attr('href',res.dashboard)
         }
     });
  } user_nav()

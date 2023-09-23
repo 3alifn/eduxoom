@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Head of school</title>  
+        <link rel="shortcut icon" href="/image/default/resized/logo.png" type="image/x-icon">
+
         <link rel="stylesheet" href="/app/custom.css">
         <!-- Custom js cdn -->
         
@@ -25,7 +27,8 @@
         
     </head>
 <body>
-   
+  
+
     <div id="headofschool" class="row mt-3">
         <h1 class="fw-semibold text-center p-2 ">Head of school</h1>
       <p class="text-center fw-semibold mb-3">Meet our most honorable person's in the school</p>
@@ -42,20 +45,17 @@
         <div class="col-md-8 shadowx col-11 m-auto">
           <div class="d-flex align-items-center">
             
-            <img class="img-thumbnail" style="border-radius: 100%; height: 180px; width: 200px; line-height: 1.9;" src="/image/demo/pr.jpg"  alt="">
+            <img class="img-thumbnail append-president-img" style="border-radius: 100%; height: 180px; width: 200px; line-height: 1.9;" src="/image/demo/pr.jpg"  alt="">
         
             <div class="ps-4">
-             <h5 class="fw-semibold">Mst Rokeya Begum</h5>
+             <h5 class="fw-semibold append-president-name"></h5>
              <p class="fw-semibold">Our President</p>
             </div>
         
           </div>
         
-          <p class="p-2">
+          <p class="p-2 append-president-msg">
         
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam ipsam ab, asperiores nostrum minus earum sapiente, aliquam provident quae dignissimos, sunt voluptas recusandae minima at ad inventore tempore consequatur incidunt.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut reiciendis suscipit, qui laudantium ullam provident, assumenda neque labore ex, saepe quae quibusdam debitis. Voluptates ex doloribus, deleniti expedita esse quam.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus hic aliquid repudiandae magni at voluptatibus nisi? Deserunt dolorem id est earum quo sit, velit quod ducimus ullam cupiditate ipsum veniam?
         
           </p>
         </div>
@@ -75,27 +75,45 @@
             <div class="d-flex justify-content-end align-items-center">
             
               <div class="pe-4">
-                <h5 class="fw-semibold">Mst Sufia Begum</h5>
+                <h5 class="fw-semibold append-headmaster-name"></h5>
                 <p class="fw-semibold">Our Headmaster</p>
                </div>
         
                
-              <img class="img-thumbnail" style="border-radius: 100%; height: 180px; width: 200px; line-height: 1.9;" src="/image/demo/hm.jpg"  alt="">
+              <img class="img-thumbnail append-headmaster-img" style="border-radius: 100%; height: 180px; width: 200px; line-height: 1.9;" src="/image/demo/hm.jpg"  alt="">
           
         
           
             </div>
           
-            <p class="p-2">
+            <p class="p-2 append-headmaster-msg">
           
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam ipsam ab, asperiores nostrum minus earum sapiente, aliquam provident quae dignissimos, sunt voluptas recusandae minima at ad inventore tempore consequatur incidunt.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut reiciendis suscipit, qui laudantium ullam provident, assumenda neque labore ex, saepe quae quibusdam debitis. Voluptates ex doloribus, deleniti expedita esse quam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus hic aliquid repudiandae magni at voluptatibus nisi? Deserunt dolorem id est earum quo sit, velit quod ducimus ullam cupiditate ipsum veniam?
-          
+         
             </p>
           </div>
     </div>
           
 
 </body>
+
+<script>
+(function(){
+$.ajax({
+  method: "get",
+  url: "/pu/headofschool/get/",
+  data: {},
+  dataType: "JSON",
+  success: function (res) {
+
+    $(".append-president-name").text(res.info_headofschool[0].president_name)
+    $(".append-president-msg").text(res.info_headofschool[0].president_msg)
+      $(".append-president-img").attr( 'href', `${res.info_headofschool[0].president_img}`)
+
+    $(".append-headmaster-name").text(res.info_headofschool[0].headmaster_name)
+    $(".append-headmaster-msg").text(res.info_headofschool[0].headmaster_msg)
+      $(".append-headmaster-img").attr( 'href', `${res.info_headofschool[0].headmaster_img}`)
+  }
+});
+}())
+</script>
 </html>

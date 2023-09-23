@@ -101,12 +101,12 @@ exports.authentication_check = (req, res)=>{
 
 
 exports.authentication_404=  (req, res)=>{
-    res.render("authentication/singin_page", {msg: req.flash("msg"), alert: req.flash("alert")})
+    res.render("authentication/signin_page", {msg: req.flash("msg"), alert: req.flash("alert")})
     }
 
-exports.singout =  (req, res)=>{
+exports.signout =  (req, res)=>{
     req.session.destroy()
-    res.render("authentication/singin_page")
+    res.render("authentication/signin_page")
     }
 
 
@@ -229,7 +229,7 @@ exports.reset_password= (req, res)=>{
       { 
         req.flash("alert", "success")
         req.flash("msg", "Password Changed Successfully!")
-         res.redirect("/au/singin/page")
+         res.redirect("/au/signin/page")
       }
     })
   }
@@ -238,53 +238,32 @@ exports.reset_password= (req, res)=>{
 
 
 
-exports.public_user_nav_item_menu= (req, res)=>{
+
+exports.au_user_header_nav= (req, res)=>{
   
     if(req.session.userAccess==='privet'){
   
-  
       if(req.session.hashUser=='hashAdmin'){
-        let listData= ` 
-        <li ><a class=" page-link" href="/admin/dashboard">Dashboard</a></li>
-        <li ><a class=" page-link" href="/admin/account">Account</a></li>
-        <li ><a class=" page-link" href="/au/singout">Singout</a></li>
+        res.send({profile: '/admin/account/', dashboard: '/admin/dashboard/'})
 
-        `
-    
-        res.send({listData})
       }
   
       else if(req.session.user=='teacher') {
-        let listData= ` 
-        <li ><a class=" page-link" href="/teacher/dashboard">Dashboard</a></li>
-        <li ><a class=" page-link" href="/teacher/account">Account</a></li>
-        <li ><a class=" page-link" href="/au/singout">Singout</a></li>
-        `
     
-        res.send({listData})
+        res.send({profile: '/teacher/account/', dashboard: '/teacher/dashboard/'})
+
       }
   
       else if(req.session.user=='student'){
   
-          let listData= ` 
-          <li ><a class=" page-link" href="/student/dashboard">Dashboard</a></li>
-          <li ><a class=" page-link" href="/student/account">Account</a></li>
-          <li ><a class=" page-link" href="/au/singout">Singout</a></li>
-            <a href="/au/singout" class="fw-bold dropdown-item ">Singout</a> 
-          `
-      
-          res.send({listData})
+        res.send({profile: '/student/account/', dashboard: '/student/dashboard/'})
+
         
       }
   
       else if(req.session.user=='parent'){
-        let listData= ` 
-        <li ><a class=" page-link" href="/parent/dashboard">Dashboard</a></li>
-        <li ><a class=" page-link" href="/parent/account">Account</a></li>
-        <li ><a class=" page-link" href="/au/singout">Singout</a></li>
-        `
-    
-        res.send({listData})
+        res.send({profile: '/parent/account/', dashboard: '/parent/dashboard/'})
+
       }
      
     }
@@ -293,76 +272,3 @@ exports.public_user_nav_item_menu= (req, res)=>{
 
 
 
-
-exports.public_user_nav_item_header= (req, res)=>{
-  
-    if(req.session.userAccess==='privet'){
-  
-    
-      if(req.session.hashUser=='hashAdmin'){
-        let listData= ` 
-        <a href='/'>   <img src="/image/default/resized/logo.png" width="71px" height="auto" class=" p-1">
-        </a></li>
-      <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/admin/dashboard">Dashboard</a></li>
-      <li><a class=" p-2 d-none d-md-block text-dark nav-link" href="/admin/account">Account</a></li>
-      <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/au/singout">Singout</a></li>
-
-<li style="left: 25%; position: relative" class=" d-md-none "><button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" class="nav-link shadow-0  btn text-dark"><i class=" bi bi-three-dots fs-1"></i></button></li>
-
-        `
-    
-        res.send({listData})
-      }
-  
-      else if(req.session.user=='teacher') {
-        let listData= ` 
-       <a href='/'> <img src="/image/default/resized/logo.png" width="71px" height="auto" class=" p-1">
-        </a></li>
-
-        <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/teacher/dashboard">Dashboard</a></li>
-        <li><a class=" p-2 d-none d-md-block text-dark nav-link" href="/teacher/account">Account</a></li>
-        <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/au/singout">Singout</a></li>
-        <li style="left: 25%; position: relative" class=" d-md-none "><button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" class="nav-link shadow-0  btn text-dark"><i class=" bi bi-three-dots fs-1"></i></button></li>
-
-          `
-        res.send({listData})
-      }
-  
-      else if(req.session.user=='student'){
-  
-          let listData= ` 
-          <a href='/'> <img src="/image/default/resized/logo.png" width="71px" height="auto" class=" p-1">
-          </a></li>
-  
-          <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/student/dashboard">Dashboard</a></li>
-          <li><a class=" p-2 d-none d-md-block text-dark nav-link" href="/student/account">Account</a></li>
-          <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/au/singout">Singout</a></li>
-          <li style="left: 25%; position: relative" class=" d-md-none "><button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" class="nav-link shadow-0  btn text-dark"><i class=" bi bi-three-dots fs-1"></i></button></li>
-
-              `
-      
-          res.send({listData})
-        
-      }
-  
-      else if(req.session.user=='parent'){
-        let listData= ` 
-        <a href='/'>  <img src="/image/default/resized/logo.png" width="71px" height="auto" class=" p-1">
-        </a></li>
-
-        <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/parent/dashboard">Dashboard</a></li>
-        <li><a class=" p-2 d-none d-md-block text-dark nav-link" href="/parent/account">Account</a></li>
-        <li><a class="p-2 d-none d-md-block text-dark nav-link" href="/au/singout">Singout</a></li>
-        <li style="left: 25%; position: relative" class=" d-md-none "><button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" class="nav-link shadow-0  btn text-dark"><i class=" bi bi-three-dots fs-1"></i></button></li>
-
-          `
-    
-        res.send({listData})
-      }
-     
-    }
-
-  }
-
-
-  

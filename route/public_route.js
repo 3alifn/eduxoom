@@ -13,24 +13,25 @@ const { public_team_saanvi_sent_message } = require("../app/team_saanvi_app")
 const school_app = require("../app/school_app")
 const { pu_class_secton_rm } = require("../app/class_section")
 const { public_library_get } = require("../app/library_app")
+const { pu_school_get, pu_headofschool_get, au_user_nav, au_user_profile_header_nav } = require("../app/home_app")
 const public= express.Router()
 
 // class section settings...
 public.get("/class/section/rm", pu_class_secton_rm)
 
+//get public data...
+public.get('/user/profile/header-nav/', au_user_profile_header_nav)
+public.get('/school/get/', pu_school_get)
+public.get('/headofschool/get/', pu_headofschool_get)
+public.post("/contact-us/sent/msg", school_app.public_sent_message)
 
-// school settings...
-public.get("/school/info/get", school_app.pu_school_info_get)
+
 
 // team sannvi 
 public.get("/team-saanvi", (req, res) => {
   res.render("team_saanvi/team-saanvi")
 })
 public.post("/team-saanvi/contact-us", public_team_saanvi_sent_message)
-
-// carousel router.............
-
-public.get("/carousel/get", public_carousel_get)
 
 
 

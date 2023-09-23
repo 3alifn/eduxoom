@@ -9,10 +9,14 @@
 
                 <h1 style="color: #C8F169; border-bottom: 1px solid #C8F169;" class=" page-link   pb-2">Contact us
                 </h1>
-                <li class=""> <i class="bi bi-house"></i> <span>Boalmari George Academy, Owapda Moor, Boalmari
-                        -Faridpur</span> </li>
-                <li class=""> <i class="bi bi-envelope"></i> <span>Example@mail.com</span> </li>
-                <li class=""> <i class="bi bi-telephone"></i> <span>+88017XXXXXXX</span> </li>
+                <li class=""> <i class="bi bi-house"></i> <span class="append-address">Address loading...</span> </li>
+                <li class=""> <i class="bi bi-envelope"></i> <span class="append-email">example@mail.com</span> </li>
+                <li class=""> <i class="bi bi-telephone"></i> <span class="append-phone">+12234567890</span> </li>
+                <li class=""> 
+                <a class="page-link append-fb-link" target="_blank" href="#" >
+                    <i class="bi bi-facebook"></i> <span>Facebook page</span>
+                </a>    
+                </li>
 
 
             </ul>
@@ -46,9 +50,9 @@
                 </h1>
                 <li><a class=" page-link" href="/pages/about-us.html">About us</a></li>
                 <li><a class=" page-link" href="/pages/contact-us.html">Contact us</a></li>
-                <li> <a class=" page-link" href="#">Facilities</a></li>
-                <li><a class=" page-link" href="#">Event & news</a></li>
-                <li><a class=" page-link" href="#">Achievement</a></li>
+                <li> <a class=" page-link" href="/pages/facilities.html">Facilities</a></li>
+                <li><a class=" page-link" href="/pages/eventnews.html">Event & news</a></li>
+                <li><a class=" page-link" href="/pages/acheivement.html">Achievement</a></li>
 
 
             </ul>
@@ -64,7 +68,7 @@
                 <li><a class=" page-link" href="/pu/gallery/image/page">Photos</a></li>
                 <li> <a class=" page-link" href="/pu/gallery/video/page">Videos</a></li>
                 <li><a class=" page-link" href="/pu/join/parent">Join parent</a></li>
-                <li><a class=" page-link" href="/au/singin/page">Sign in</a></li>
+                <li><a class=" page-link" href="/au/signin/page">Sign in</a></li>
                 <li><a class=" page-link" href="#">Faq</a></li>
 
 
@@ -95,34 +99,19 @@
 
  <script>
 
-function _default(){
-    const bodyHeight= window.innerHeight;
-    const bodyWidth= window.innerWidth;
-    
-
-    if(bodyWidth>600){
-        $('.accordion-button').click()
-  
-    }
-}
-
-_default()
-
-
-  $(window).resize(()=>{
-  _default()
-  })
-
 
   (function(){
   $.ajax({
-    type: "get",
-    url: "/pu/school/info/get",
+    method: "get",
+    url: "/pu/school/get/",
     data: {},
     dataType: "JSON",
-    success: function (response) {
-      $(".school-about").text(response.info[0].about)
-      $(".school-fb-link").attr( 'href', `${response.info[0].fb_link}`)
+    success: function (res) {
+
+      $(".append-address").text(res.info_school[0].address)
+      $(".append-email").text(res.info_school[0].email)
+      $(".append-phone").text(res.info_school[0].phone)
+      $(".append-fb-link").attr( 'href', `${res.info_school[0].fb_link}`)
     }
   });
   }())

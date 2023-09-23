@@ -43,11 +43,550 @@
 
 
 
-<%- include("../component/main-carousel.html") %> 
+<%- include("./main-carousel") %> 
 
 
 
-<%-include("./content_page") %> <p></p>
+
+
+<div id="headline">
+  <script src="/app/marquee.min.js"></script>
+
+  <div class="headlineMarquee row">
+      <div class="text-capitalize font-monospace col-12 m-auto alert bg-gradient-secondary text-light p-1 p-md-3 fs-5 "
+          id="headlineMarquee"></div>
+  </div>
+
+  <script>
+      const myScroller1 = new SuperMarquee(
+          document.getElementById("headlineMarquee"),
+          {
+              "content": "<%=info_school[0].headline%> |"
+          }
+      );
+
+
+      let lastTime = (new Date()).getTime(),
+          currentTime = 0,
+          counter = 0;
+
+
+      function loop() {
+          window.requestAnimationFrame(loop);
+          currentTime = (new Date()).getTime();
+          delta = (currentTime - lastTime) / 2000;
+      }
+
+      loop();
+  </script>
+</div>  
+
+
+<div id="stats" class="row mt-1 mbx p-md-3">
+
+  <div class="col-12 mt-1 col-md-4  p-2  bg-light shadow rounded  " style="height: 150px;">
+
+    <center>
+      <h5 style="font-weight: 600;" class="text-center mt-4"> 
+          <i class="bi bi-people"></i> Teachers <b class="fw-semibold"><%=info_teacher[0].count%></b>
+   </h5>
+      <p style="line-height: 1.5;" class="text-center">
+      Our teachers information
+      </p>
+      <a class="text-decoration-none fw-semibold link-hover" href="/pu/all/teacher">
+          View teachers
+          <i class="link-move fa fa-angle-right"></i>
+        </a> 
+    </center>
+
+  </div>
+
+
+
+  <div class="col-12 mt-1 col-md-4  p-2  bg-light shadow rounded " style="height: 150px;">
+
+      <center>
+        <h5 style="font-weight: 600;" class="text-center mt-4"> 
+            <i class="bi bi-people"></i> Students <b class="fw-semibold"><%=info_student[0].count%></b>
+     </h5>
+        <p style="line-height: 1.5;" class="text-center">
+        Our students information
+        </p>
+        <a class="text-decoration-none fw-semibold link-hover" href="/pu/student/page">
+            View students
+            <i class="link-move fa fa-angle-right"></i>
+          </a> 
+      </center>
+
+    </div>
+
+
+    <div class="col-12 mt-1 col-md-4  p-2  bg-light shadow rounded " style="height: 150px;">
+
+      <center>
+        <h5 style="font-weight: 600;" class="text-center mt-4"> 
+            <i class="bi bi-people"></i> Staff <b class="fw-semibold">N/A</b>
+     </h5>
+        <p style="line-height: 1.5;" class="text-center">
+        Our staff information
+        </p>
+        <a class="text-decoration-none fw-semibold link-hover" href="#">
+            View staff
+            <i class="link-move fa fa-angle-right"></i>
+          </a> 
+      </center>
+
+    </div>
+
+
+
+</div> 
+
+
+
+<div id="headofschool" class="row mt-2">
+<h1 class="fw-semibold text-center p-2 ">Head of school</h1>
+<p class="text-center fw-semibold mb-3">Meet our most honorable person's in the school</p>
+
+<div class="row">
+  <div class="col-12">
+      
+<div id="president" class="d-flex justify-content-md-center" style="overflow: auto;">
+
+  <div class="shadow p-3 rounded">
+    <img  class="p-2 rounded rounded-4" width="200px" height="150px" src="/image/default/resized/president_img.png" alt="">
+     <p class="ps-3 fs-5 fw-semibold">President</p>
+     <p class="ps-3  fs-6"><%=info_headofschool[0].president_name%></p>
+      <a class="ps-3 page-link link-hover link-primary link-move" href="/pages/headofschool.html?#President">Message here <i class="fa fa-angle-right link-move"></i></a>
+      
+  </div>
+  
+  <div id="Headmaster" class="shadow p-3 rounded">
+    <img  class="p-2 rounded rounded-4" width="200px" height="150px" src="/image/default/resized/headmaster_img.png" alt="">
+     <p class="ps-3 fs-5 fw-semibold">Headmaster</p>
+     <p class="ps-3  fs-6"><%=info_headofschool[0].headmaster_name%></p>
+      <a class="ps-3 page-link link-hover link-primary link-move" href="/pages/headofschool.html?#Headmaster">Message here <i class="fa fa-angle-right link-move"></i></a>
+      
+  </div>
+
+
+
+</div>
+</div>
+
+  </div>
+</div>
+
+
+
+
+
+<div id="nacs" class="row mt-5 p-md-5 mb-5 ">
+
+  <div class="col-11  m-auto">
+      <p style="font-weight: 600; font-size: 1.9rem;" class="text-center  mb-4">
+          Finding academic information
+      </p>
+      <p style="line-height: 1.5;" class="text-center">
+      We provide our best academic service for student. You can find our importent academic information here.  </p>
+  </div>
+
+<div class="col-md-8 col-11 mt-3 m-auto" style="overflow: auto; ">
+
+<div class="d-md-flex d-inline-flex flex-nowrap  shadow rounded-pill">
+
+  <button onclick="componentA('admissionData')" style="font-weight: 600; width: 150px" class="flex-md-fill rounded-start-pill  rounded-0 btn btn-light admissionData activeModeA text-light bg-gradient-info">Admission</button>
+      <button onclick="componentA('routineData')" style="font-weight: 600; width: 150px;" class="flex-md-fill btn  rounded-0 btn-light routineData activeModeA">Class routine</button>
+      <button onclick="componentA('rankData')" style="font-weight: 600; width: 150px;" class="flex-md-fill btn  rounded-0 btn-light rankData activeModeA">Student rank</button>
+      <button onclick="componentA('noticeData')" style="font-weight: 600; width: 150px; " class="flex-md-fill rounded-end-pill btn rounded-0  btn-light noticeData activeModeA">Notice</button>
+  
+
+  </div>
+
+</div>
+
+
+  <div class="col-md-10 mt-5 col-11 m-auto  rounded">
+
+      <span class="nacs-data">
+          <center>
+              <img src="/image/default/admission.png" class='bg-demo-img-color responsive-card-img' alt="">
+          
+          <h5 class="mt-4 text-center">Admission</h5>
+          <p class="text-center" style="line-height: 1.5;">
+              A good school can change your life we provide best education for our student. Apply for admission and be a part of our femily.
+                      </p>
+          
+          
+          
+          <a class="text-decoration-none text-center  fw-semibold link-hover" href="/pu/admission/step1">
+              Open admission form
+              <i class="link-move fa fa-angle-right"></i>
+            </a> 
+          </center>
+     
+      </span>
+
+  </div>
+
+
+
+
+</div>
+
+
+
+
+
+<!-- <div id="aef" class="row p-md-5 mb-5 mtx">
+
+  <div class="col-11  m-auto">
+      <p style="font-weight: 600; font-size: 1.9rem;" class="text-center  mb-4">
+          Finding our repository            </p>
+      <p style="line-height: 1.5;" class="text-center">
+          Best school known for their achievement and for best facilities which they provide, 
+          <br>
+           Our school has all kind of facilities and many achievement.
+      </p>
+  </div>
+
+  <div class="col-md-4 mt-5 col-11 m-auto  rounded">
+
+
+      <img class="img-thumbnail"  src="/image/demo/e1.jpg"  alt="">
+
+      <h5 class="mt-4">News and event</h5>
+      <p style="line-height: 1.5;" class="text-wrap text-muted fw-bold">
+          Keep track of your daily to-dos and lists with this smart daily planner.
+       </p>
+       <a class="text-decoration-none   fw-semibold link-hover" href="/pages/eventnews.html">
+          Open news
+          <i class="link-move fa fa-angle-right"></i>
+        </a> 
+
+  </div>
+
+  <div class="col-md-4 mt-5 col-11 m-auto  rounded ">
+
+
+      <img class="img-thumbnail"  src="/image/demo/ach1.jpg"  alt="">
+
+       <h5 class="mt-4">Achievement</h5>
+       <p style="line-height: 1.5;" class="text-wrap text-muted fw-bold">
+          Keep track of your daily to-dos and lists with this smart daily planner.
+       </p>
+      <a class="text-decoration-none   fw-semibold link-hover" href="/pages/acheivement.html">
+          Open achievement
+          <i class="link-move fa fa-angle-right"></i>
+        </a> 
+
+  </div>
+
+  <div class="col-md-4 mt-5 col-11 m-auto  rounded ">
+
+
+      <img class="img-thumbnail"  src="/image/demo/ict-5.webp"  alt="">
+
+      <h5 class="mt-4">Facilities</h5>
+      <p style="line-height: 1.5;" class="text-wrap text-muted fw-bold">
+          Keep track of your daily to-dos and lists with this smart daily planner.
+       </p>
+       
+       <a class="text-decoration-none   fw-semibold link-hover" href="/pages/facilities.html">
+          Open facilities
+          <i class="link-move fa fa-angle-right"></i>
+        </a> 
+
+
+  </div>
+
+
+</div> -->
+
+
+
+<div id="cpv" class="row p-md-5 mb-5 mtx">
+
+  <div class="col-11  m-auto">
+      <p style="font-weight: 600; font-size: 1.9rem;" class="text-center  mb-4">
+          Connect and gallery corner 
+      </p>
+      <p style="line-height: 1.5;" class="text-center">
+          A picture bear thousand of word. Explore our school gallery and videos as if you can learn more about our schools.
+      
+      </p>
+  </div>
+
+<div class="col-md-8 col-11 mt-3  m-auto">
+
+<div  class="d-flex shadow rounded-pill">
+  <button onclick="componentB('photoData')" style="font-weight: 600;" class="flex-fill btn rounded-start-pill rounded-0 btn-light photoData activeModeB text-light bg-gradient-info" >Photos</button>
+  
+  <button  onclick="componentB('videoData')" style="font-weight: 600;" class="flex-fill btn rounded-0  btn-light videoData activeModeB" >Videos</button>
+
+   <button   onclick="componentB('contactUsData')" style="font-weight: 600;" class="flex-fill rounded-end-pill  rounded-0 btn btn-light  contactUsData activeModeB" >Contact us</button>
+
+   
+  </div>
+
+</div>
+
+
+  <div class="col-md-10 mt-5 col-11 m-auto  rounded">
+
+      <span class="cpv-data">
+          
+     
+<center>
+<img src="/image/default/gallery-photos.png" class='bg-demo-img-color responsive-card-img ' alt="">
+
+<h5 class="mt-4 text-center">Gallery photos</h5>
+<p class="text-center" style="line-height: 1.5;">
+  Here you can see our beautiful campus photos and award photos that we won.
+
+</p>
+
+
+<a class="text-decoration-none text-center  fw-semibold link-hover" href="/pu/gallery/image/page">
+Open photos
+<i class="link-move fa fa-angle-right"></i>
+</a> 
+</center>
+      </span>
+
+  </div>
+
+
+
+
+</div>
+
+
+
+<div class="row mt-3 mb-2 p-2 ">
+  <div class="col-12 text-center">
+    <h5 class="fw-semibold">Useful link</h5>
+    <p class="fw-500">Finding your usable link here</p>
+  </div>
+</div>
+
+<div class="row ">
+  <div class="col-12 m-auto">
+      
+  <div class="d-flex align-items-center justify-content-md-center overflow-auto">
+  
+      <a target="_blank" class="page-link btn-hover link-hover shadowx m-1 p-2" href="https://dshe.gov.bd/">DSHE</a>
+      <a target="_blank" class="page-link btn-hover link-hover shadowx m-1 p-2" href="http://nctb.gov.bd/">NCTB</a>
+      <a target="_blank" class="page-link btn-hover link-hover shadowx m-1 p-2" href="https://dhakaeducationboard.gov.bd">DEB</a>
+      <a target="_blank" class="page-link btn-hover link-hover shadowx m-1 p-2" href="http://emis.gov.bd/emis/">EMIS</a>
+      <a target="_blank" class="page-link btn-hover link-hover shadowx m-1 p-2" href="https://www.shed.gov.bd/">SHED</a>
+      <a target="_blank" class="page-link btn-hover link-hover shadowx m-1 p-2" href="https://bteb.gov.bd/">BTEB</a>
+      <a target="_blank" class="page-link btn-hover link-hover shadowx m-1 p-2" href="https://banbeis.gov.bd/">BANBEIS</a>
+    
+    </div>
+  </div>
+</div>
+
+
+<div id="contactus" class="row mb-5 m-3 d-flex justify-content-center">
+
+  <div class="col-12 mt-1 col-md-4  p-2 shadow-sm border bg-light rounded" style="height: 150px;">
+
+      <h5 class="text-center mt-4"> <i class="bi bi-house"></i> Address </h5>
+      <Address class="text-center"><%=info_school[0].address%></Address>
+
+  </div>
+
+
+
+  <div class="col-12 mt-1 col-md-4  p-2  bg-light rounded border  shadow-sm" style="height: 150px;">
+      <h5 class="text-center mt-4"> <i class="bi bi-envelope"></i> Email </h5>
+      <Address class="text-center"><%=info_school[0].email%></Address>
+
+  </div>
+
+
+
+
+  <div class="col-12 mt-1 col-md-4  p-2  bg-light rounded border shadow-sm " style="height: 150px;">
+      <h5 class="text-center mt-4"> <i class="bi bi-telephone"></i> Phone </h5>
+      <Address class="text-center">+<%=info_school[0].phone%></Address>
+
+  </div>
+
+
+</div>  
+
+<script>
+
+
+  const elemA= {
+  noticeData: `
+  
+  <center>
+      <img src="/image/default/notice-paper.png" class='bg-demo-img-color responsive-card-img' alt="">
+  
+  <h5 class="mt-4 text-center">Notice board</h5>
+  <p class="text-center" style="line-height: 1.5;">
+      Notice is very important for all school. Publish and get important notice easily.    </p>
+  
+  
+  <a class="text-decoration-none text-center  fw-semibold link-hover" href="/pu/notice/page">
+      Open notice
+      <i class="link-move fa fa-angle-right"></i>
+    </a> 
+  </center>
+  `
+  ,
+  
+  
+  admissionData: `
+  
+  <center>
+      <img src="/image/default/admission.png" class='bg-demo-img-color responsive-card-img' alt="">
+  
+  <h5 class="mt-4 text-center">Admission</h5>
+  <p class="text-center" style="line-height: 1.5;">
+
+      A good school can change your life we provide best education for our student. Apply  for admission and be a part of our femily.    </p>
+  
+  
+  <a class="text-decoration-none text-center  fw-semibold link-hover" href="/pu/admission/step1">
+      Open admission form
+      <i class="link-move fa fa-angle-right"></i>
+    </a> 
+  </center>`
+  
+  
+  ,
+  
+  
+  routineData: `
+  
+  <center>
+      <img src="/image/default/class-routine.png" class='bg-demo-img-color responsive-card-img' alt="">
+  
+  <h5 class="mt-4 text-center">Class routine</h5>
+  <p class="text-center" style="line-height: 1.5;">
+Here you can find our dynamic class routine with teachers and their subject.    </p>
+  
+  
+  <a class="text-decoration-none text-center  fw-semibold link-hover" href="/pu/routine/page">
+      Open class routine
+      <i class="link-move fa fa-angle-right"></i>
+    </a> 
+  </center>`
+  
+  
+  ,
+  
+  
+  rankData:`
+  
+  <center>
+      <img src="/image/default/rank.png" class='bg-demo-img-color responsive-card-img' alt="">
+  
+  <h5 class="mt-4 text-center">Student rank</h5>
+  <p class="text-center" style="line-height: 1.5;">
+      We always  reward our best student for their best performance. Here you can see our student rank.    </p>
+  
+  
+  <a class="text-decoration-none text-center  fw-semibold link-hover" href="/pu/rank/class/page">
+      Open student rank
+      <i class="link-move fa fa-angle-right"></i>
+    </a> 
+  </center>
+  `
+  
+  
+  }
+  
+  
+  function componentA(elem){
+      $('.activeModeA').removeClass('bg-gradient-info').removeClass('text-light')
+      $('.'+elem).addClass('bg-gradient-info').addClass('text-light')
+      $('.'+elem).css('border', '3px dotted white')
+      $('.nacs-data').hide()
+      $('.nacs-data').fadeIn()
+      $('.nacs-data').html(elemA[`${elem}`])
+  }
+  
+  
+  const elemB= {
+  contactUsData: `
+  
+  <center>
+      <img src="/image/default/contact-us.png" class='bg-demo-img-color responsive-card-img' alt="">
+  
+  <h5 class="mt-4 text-center">Contact us</h5>
+  <p class="text-center" style="line-height: 1.5;">
+      Check our contact section and contact us for any problem or something else.
+          </p>
+  
+  
+  <a class="text-decoration-none text-center  fw-semibold link-hover" href="/pages/contact-us.html">
+      Open contact form
+      <i class="link-move fa fa-angle-right"></i>
+    </a> 
+  </center>
+  `
+  
+  ,
+  
+  photoData:` 
+  
+  <center>
+      <img src="/image/default/gallery-photos.png" class='bg-demo-img-color responsive-card-img' alt="">
+  
+  <h5 class="mt-4 text-center">Gallery photos</h5>
+  <p class="text-center" style="line-height: 1.5;">
+      Here you can see our beautiful campus photos and award photos that we won.
+      
+      </p>
+  
+  
+  <a class="text-decoration-none text-center  fw-semibold link-hover" href="/pu/gallery/image/page">
+      Open photos
+      <i class="link-move fa fa-angle-right"></i>
+    </a> 
+  </center>`
+  
+  ,
+  
+  videoData: `
+  
+  <center>
+      <img src="/image/default/video-gallery-2.png" class='bg-demo-img-color responsive-card-img' alt="">
+  
+  <h5 class="mt-4 text-center">Gallery videos</h5>
+  <p class="text-center" style="line-height: 1.5;">
+      Take a tour of school Through this video and explore our beautiful school.
+          </p>
+  
+  
+  <a class="text-decoration-none text-center  fw-semibold link-hover" href="/pu/gallery/video/page">
+      Open videos
+      <i class="link-move fa fa-angle-right"></i>
+    </a> 
+  </center>`
+  
+  
+  }
+  
+  
+  function componentB(elem){
+  
+      $('.activeModeB').removeClass('bg-gradient-info').removeClass('text-light')
+      $('.'+elem).addClass('bg-gradient-info').addClass('text-light')
+      $('.'+elem).css('border', '3px dotted white')
+      $('.cpv-data').hide()
+      $('.cpv-data').fadeIn()
+      $('.cpv-data').html(elemB[`${elem}`])
+  }
+  
+  
+  
+  </script>
 
 <%- include("../component/footer-nav.html") %> 
 
@@ -60,16 +599,8 @@
   }
 
 
-(function(){
-  $.ajax({
-    type: "get",
-    url: "/pu/school/info/get",
-    data: {},
-    dataType: "JSON",
-    success: function (response) {
-      $(".school-name").text(response.info[0].name)
-    }
-  });
-  }())
+
+
+
 </script>
 </html>

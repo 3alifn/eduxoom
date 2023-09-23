@@ -57,13 +57,13 @@ module.exports = {
     },
 
     admin_headofschool_post: (req, res) => {
-        const { pr_name, pr_msg, hm_name, hm_msg } = req.body;
+        const { president_name, president_msg, headmaster_name, headmaster_msg } = req.body;
         sqlmap.query(`SELECT * FROM headofschool ORDER BY ID DESC LIMIT 1`, (errHave, infoHave) => {
             if (errHave) console.log(errHave.sqlMessage);
             if (infoHave.length == 0 || infoHave == undefined) {
 
-                sqlmap.query(`INSERT INTO headofschool (pr_name, pr_msg, hm_name, hm_msg)
-                VALUES( '${pr_name}', '${pr_msg}','${hm_name}', '${hm_msg}')`, (err, next) => {
+                sqlmap.query(`INSERT INTO headofschool (president_name, president_msg, headmaster_name, headmaster_msg)
+                VALUES( '${president_name}', '${president_msg}','${headmaster_name}', '${headmaster_msg}')`, (err, next) => {
                     if (err) console.log(err.sqlMessage);
                     else res.send({ msg: 'Updated' })
 
@@ -71,7 +71,7 @@ module.exports = {
 
 
             } else {
-                sqlmap.query(`UPDATE headofschool SET pr_name='${pr_name}', pr_msg='${pr_msg}', hm_name="${hm_name}", hm_msg='${hm_msg}'`, (err, next) => {
+                sqlmap.query(`UPDATE headofschool SET president_name='${president_name}', president_msg='${president_msg}', headmaster_name="${headmaster_name}", headmaster_msg='${headmaster_msg}'`, (err, next) => {
                     if (err) console.log(err.sqlMessage);
                     else res.send({ msg: ' Updated' })
                 })
@@ -124,4 +124,4 @@ module.exports = {
     },
 
 
-}
+} 

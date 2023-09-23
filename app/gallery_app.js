@@ -294,44 +294,6 @@ sqlmap.query(`DELETE FROM carousel WHERE ID=${ID}`, (err, next)=>{
 
 
 
-exports.public_carousel_get= (req, res)=>{ 
-
-  sqlmap.query(`SELECT * FROM carousel ORDER BY ID DESC LIMIT 12`, (err, info)=>{
-
-    if(info.length>0){
-
-      let listData= '';
-      let listDataBtn= '';
-
-      for (const x in info) {
-
-   
-        listDataBtn+= `
-    <button style="padding: 1px;" class="btn  text-secondary ${x==0?'active':''}" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="${x}"  aria-current="true" ></button>
-
-        `       
-      }
-      for (const index in info) {
-
-   
-
-        listData+= `
- 
-
-        <div class="carousel-item  ${index==0?'active':''}" >
-        <img class="d-block w-100 responsive-img"  src="/image/carousel/resized/${info[index].item_name}" alt="404">
-        </div>
-        `       
-      }
-
-      res.send({listData, listDataBtn})
-
-
-    }
-
-  })
-
-}
 
 
 
