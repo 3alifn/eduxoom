@@ -59,9 +59,9 @@ exports.au_user_profile_header_nav= (req, res)=>{
          <img height="30pc" width="30px" src="/image/default/user.png" alt="">
              
              <div class="tooltipy  bg-light shadow ps-5 pe-5 pt-3 pb-3">
-                <a class="nav-link mt-1 btn-hover rounded p-1 append-user-profile" href="/admin/profile">My profile</a>
-                <a class="nav-link mt-1 btn-hover rounded p-1 append-user-dashboard" href="/teacher/dashboard">Dashboard</a>
-                <a class="nav-link mt-1 btn-hover rounded p-1" href="/au/signout/">Sign out</a>
+                <a class="nav-link mt-1 btn-hover text-dark rounded p-1 append-user-profile" href="/admin/account">My profile</a>
+                <a class="nav-link mt-1 btn-hover text-dark rounded p-1 append-user-dashboard" href="/admin/dashboard">Dashboard</a>
+                <a class="nav-link mt-1 btn-hover text-dark rounded p-1" href="/au/signout/">Sign out</a>
              </div>
              `
         
@@ -74,9 +74,9 @@ exports.au_user_profile_header_nav= (req, res)=>{
         <img height="30pc" width="30px" src="/image/default/user.png" alt="">
             
             <div class="tooltipy  bg-light shadow ps-5 pe-5 pt-3 pb-3">
-               <a class="nav-link mt-1 btn-hover rounded p-1 append-user-profile" href="/teacher/profile">My profile</a>
-               <a class="nav-link mt-1 btn-hover rounded p-1 append-user-dashboard" href="/teacher/dashboard">Dashboard</a>
-               <a class="nav-link mt-1 btn-hover rounded p-1" href="/au/signout/">Sign out</a>
+               <a class="nav-link mt-1 btn-hover  text-dark rounded p-1 append-user-profile" href="/teacher/account">My profile</a>
+               <a class="nav-link mt-1 btn-hove  text-darkr rounded p-1 append-user-dashboard" href="/teacher/dashboard">Dashboard</a>
+               <a class="nav-link mt-1 btn-hover  text-dark rounded p-1" href="/au/signout/">Sign out</a>
             </div>
             `
       }
@@ -87,9 +87,9 @@ exports.au_user_profile_header_nav= (req, res)=>{
         <div class="p-2  tooltipx btn-hover bg-light btn  rounded">
         <img height="30pc" width="30px" src="/image/default/user.png" alt="">
             <div class="tooltipy  bg-light shadow ps-5 pe-5 pt-3 pb-3">
-               <a class="nav-link mt-1 btn-hover rounded p-1 append-user-profile" href="/student/profile">My profile</a>
-               <a class="nav-link mt-1 btn-hover rounded p-1 append-user-dashboard" href="/student/dashboard">Dashboard</a>
-               <a class="nav-link mt-1 btn-hover rounded p-1" href="/au/signout/">Sign out</a>
+               <a class="nav-link mt-1 btn-hover  text-dark rounded p-1 append-user-profile" href="/student/account">My profile</a>
+               <a class="nav-link mt-1 btn-hover  text-dark rounded p-1 append-user-dashboard" href="/student/dashboard">Dashboard</a>
+               <a class="nav-link mt-1 btn-hover  text-dark rounded p-1" href="/au/signout/">Sign out</a>
             </div>
             `
         
@@ -101,9 +101,9 @@ exports.au_user_profile_header_nav= (req, res)=>{
             <img height="30pc" width="30px" src="/image/default/user.png" alt="">
             
             <div class="tooltipy  bg-light shadow ps-5 pe-5 pt-3 pb-3">
-               <a class="nav-link mt-1 btn-hover rounded p-1 append-user-profile" href="/parent/profile">My profile</a>
-               <a class="nav-link mt-1 btn-hover rounded p-1 append-user-dashboard" href="/parent/dashboard">Dashboard</a>
-               <a class="nav-link mt-1 btn-hover rounded p-1" href="/au/signout/">Sign out</a>
+               <a class="nav-link mt-1 btn-hover  text-dark rounded p-1 append-user-profile" href="/parent/account">My profile</a>
+               <a class="nav-link mt-1 btn-hover  text-dark rounded p-1 append-user-dashboard" href="/parent/dashboard">Dashboard</a>
+               <a class="nav-link mt-1 btn-hover  text-dark rounded p-1" href="/au/signout/">Sign out</a>
             </div>
             `
       }

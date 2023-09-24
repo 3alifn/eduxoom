@@ -82,7 +82,7 @@ sqlmap.connect((err, res) => {
 
 
 
-app.listen(process.env.listen_port)
+app.listen(process.env.listen_port || 30)
 
 
 module.exports= {
