@@ -99,7 +99,11 @@
 
  <script>
 
+function pageLoadingTop(){
+    document.querySelector('.page-loading-top').remove();
+   }
 
+   
   (function(){
   $.ajax({
     method: "get",

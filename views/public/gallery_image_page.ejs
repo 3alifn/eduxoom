@@ -28,15 +28,19 @@
     <%- include("../component/menu-nav.html") %> 
     <%- include("../component/offcanvas-nav.html") %> 
 
-    <center>
 
-        <h5 class="container text-center w-100 alert alert-secondary">Photos playlist </h5>
+    <div  class="row shadowx p-2 mt-5 mbx" id="listDataPrint">
+    
+        <div class="col-11 m-auto">
+            <p class="p-2 shadowx fw-semibold">Photos playlist</p>
+        </div>
 
-    </center>
-
+        <% if(info.length==0) {%>
+            <div class="col-11 m-auto">
+                <p class="p-2 shadowx fw-semibold alert">No record</p>
+            </div>
+            <% } %>
  
-    <div  class="row" id="listDataPrint">
-
     <% for( let index = 0; index < info.length; index++ ) { %>
         <div class='col-6 col-md-3 m-0 m-md-auto p-2'>
           

@@ -344,7 +344,7 @@ exports.privet_routine_page_class_base= (req, res)=>{
 exports.public_routine_page= (req, res)=>{
 
 
-    let className=req.query.className==undefined?"Nine":req.query.className;
+    let className=req.query.className==undefined?"SIX":req.query.className;
     let sectionName=req.query.sectionName==undefined?"A":req.query.sectionName;
 
  
@@ -373,7 +373,7 @@ exports.public_routine_page= (req, res)=>{
                             sqlmap.query(sqlThu, (errThu, infoThu)=>{
        
                             
-                                    res.render("routine/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu})
+                                    res.render("routine/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu, info})
                        
                 
                             })

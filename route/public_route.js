@@ -14,6 +14,8 @@ const school_app = require("../app/school_app")
 const { pu_class_secton_rm } = require("../app/class_section")
 const { public_library_get } = require("../app/library_app")
 const { pu_school_get, pu_headofschool_get, au_user_nav, au_user_profile_header_nav } = require("../app/home_app")
+const { pu_headofschool_render } = require("../app/headofschool_app")
+const headofschool_app = require("../app/headofschool_app")
 const public= express.Router()
 
 // class section settings...
@@ -24,6 +26,10 @@ public.get('/user/profile/header-nav/', au_user_profile_header_nav)
 public.get('/school/get/', pu_school_get)
 public.get('/headofschool/get/', pu_headofschool_get)
 public.post("/contact-us/sent/msg", school_app.public_sent_message)
+
+
+// pages router...
+public.get('/headofschool.html/', pu_headofschool_render)
 
 
 

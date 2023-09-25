@@ -144,38 +144,42 @@
 
 
 
-<div id="headofschool" class="row mt-2">
-<h1 class="fw-semibold text-center p-2 ">Head of school</h1>
-<p class="text-center fw-semibold mb-3">Meet our most honorable person's in the school</p>
+<% if(info_headofschool.length>0) {%>
 
-<div class="row">
-  <div class="col-12">
+  <div id="headofschool" class="row mt-2">
+    <h1 class="fw-semibold text-center p-2 ">Head of school</h1>
+    <p class="text-center fw-semibold mb-3">Meet our most honorable person's in the school</p>
+    
+    <div class="row">
+      <div class="col-12">
+          
+    <div id="president" class="d-flex justify-content-md-center" style="overflow: auto;">
+    
+      <div class="shadow p-3 rounded">
+        <img  class="p-2 rounded append-president-img rounded-4" width="200px" height="150px" src="/image/default/resized/<%=info_headofschool[0].president_img%>" alt="">
+         <p class="ps-3 fs-6 fw-semibold">President</p>
+         <p class="ps-3  fs-6"><%=info_headofschool[0].president_name%></p>
+          <a class="ps-3 page-link link-hover link-primary link-move" href="/pu/headofschool.html?#President">Message here <i class="fa fa-angle-right link-move"></i></a>
+          
+      </div>
       
-<div id="president" class="d-flex justify-content-md-center" style="overflow: auto;">
+      <div id="Headmaster" class="shadow p-3 rounded ">
+        <img  class="p-2 rounded append-headmaster-img  rounded-4" width="200px" height="150px" src="/image/default/resized/<%=info_headofschool[0].headmaster_img%>" alt="">
+         <p class="ps-3 fs-6 fw-semibold">Headmaster</p>
+         <p class="ps-3  fs-6"><%=info_headofschool[0].headmaster_name%></p>
+          <a class="ps-3 page-link link-hover link-primary link-move" href="/pu/headofschool.html?#Headmaster">Message here <i class="fa fa-angle-right link-move"></i></a>
+          
+      </div>
+    
+    
+    
+    </div>
+    </div>
+    
+      </div>
+    </div>
 
-  <div class="shadow p-3 rounded">
-    <img  class="p-2 rounded append-president-img rounded-4" width="200px" height="150px" src="/image/default/resized/president_img.png" alt="">
-     <p class="ps-3 fs-5 fw-semibold">President</p>
-     <p class="ps-3  fs-6"><%=info_headofschool[0].president_name%></p>
-      <a class="ps-3 page-link link-hover link-primary link-move" href="/pages/headofschool.html?#President">Message here <i class="fa fa-angle-right link-move"></i></a>
-      
-  </div>
-  
-  <div id="Headmaster" class="shadow p-3 rounded">
-    <img  class="p-2 rounded append-headmaster-img rounded-4" width="200px" height="150px" src="/image/default/resized/headmaster_img.png" alt="">
-     <p class="ps-3 fs-5 fw-semibold">Headmaster</p>
-     <p class="ps-3  fs-6"><%=info_headofschool[0].headmaster_name%></p>
-      <a class="ps-3 page-link link-hover link-primary link-move" href="/pages/headofschool.html?#Headmaster">Message here <i class="fa fa-angle-right link-move"></i></a>
-      
-  </div>
-
-
-
-</div>
-</div>
-
-  </div>
-</div>
+  <% } %>
 
 
 
@@ -599,7 +603,18 @@ Here you can find our dynamic class routine with teachers and their subject.    
   }
 
 
+  (function(){
+$.ajax({
+  method: "get",
+  url: "/pu/headofschool/get/",
+  data: {},
+  dataType: "JSON",
+  success: function (res) {
 
+      $(".append-logo").attr( 'src', `/image/default/resized/${res.info_school[0].logo}`)
+  }
+});
+}())
 
 
 </script>

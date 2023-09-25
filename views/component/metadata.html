@@ -1,10 +1,10 @@
-<link class="append-logo" rel="shortcut icon" href="/image/default/resized/logo.png" type="image/x-icon">
 <p class="page-loading-top shadowx">Loading...</p> 
 <head>
       
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title class="append-name">SAANVI</title>
+    <link style="border-radius: 100%;" class="append-logo rounded-circle" rel="shortcut icon" href="/image/default/resized/logo.png" type="image/x-icon">
    
 <!-- Custom CSS cdn -->
 
@@ -44,6 +44,8 @@
     success: function (res) {
 
       $(".append-name").text(res.info_school[0].name)
+      $(".append-logo").attr( 'href', `/image/default/resized/${res.info_school[0].logo}`)
+
   
     }
   });

@@ -12,8 +12,6 @@
 
     
 <style>
-    html,* { font-family: 'Inter'; box-sizing: border-box; margin: 0; padding: 0; }
-  body { background-color: #fafafa; line-height:1.6;}
   
   .container img { width: 200px; height: 150px; float: left;  }
   
@@ -30,15 +28,20 @@
 <%- include("../component/header-nav.html") %>
 <%- include("../component/menu-nav.html") %>
 <%- include("../component/offcanvas-nav.html") %>
-  
-<center>
 
-  <h5 class="container text-center w-100 alert alert-secondary">Photos gallery </h5>
-
-</center>
   
-            <div id="listDataPrint" class="row d-inline-flex">
-              
+            <div id="listDataPrint" class="row shadowx mt-5 ps-2 pe-2 justify-content-start mbx d-flex">
+          
+               
+        <div class="col-11 m-auto">
+          <p class="p-2 shadowx fw-semibold">Our gallery photos</p>
+      </div>
+
+      <% if(info.length==0) {%>
+          <div class="col-11 m-auto">
+              <p class="p-2 fw-semibold shadowx alert">No record</p>
+          </div>
+          <% } %>
   
               <% for( let index = 0; index < info.length; index++ ) { %>
               

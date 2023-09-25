@@ -36,12 +36,24 @@ module.exports = {
     }),
 
 
+    pu_headofschool_render: (req, res)=>{
+        
+        sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (err, info) => {
+            if (err) console.log(err.sqlMessage);
+            res.render('public/headofschool', {info})
+
+        })
+
+      },
+      
+
     pu_headofschool_get: (req, res) => {
 
         sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (err, info) => {
             if (err) console.log(err.sqlMessage);
             else res.send({ info })
         })
+
 
     },
 
@@ -85,14 +97,14 @@ module.exports = {
     admin_headofschool_img_post: async (req, res) => {
         const jsondata = (JSON.stringify(req.body));
         const imgrole = JSON.parse(jsondata).imgrole;
-        //   console.log(imgrole, JSON.parse(jsondata).image);
+        const randomString= Math.random()*900000000;
 
         if (req.file.size < 524288) {
 
             await sharp(req.file.path)
                 .jpeg({ quality: 50 })
                 .toFile(
-                    path.resolve(path.resolve(req.file.destination, 'resized', imgrole + '.png'))
+                    path.resolve(path.resolve(req.file.destination, 'resized', imgrole+'_'+randomString+'.png'))
                 )
 
             fs.unlinkSync(req.file.path)
@@ -105,7 +117,7 @@ module.exports = {
             await sharp(req.file.path)
                 .jpeg({ quality: 20 })
                 .toFile(
-                    path.resolve(path.resolve(req.file.destination, 'resized', imgrole + '.png'))
+                    path.resolve(path.resolve(req.file.destination, 'resized', imgrole+'_'+randomString+'.png'))
                 )
 
             fs.unlinkSync(req.file.path)
@@ -113,12 +125,24 @@ module.exports = {
 
         }
 
-        //  const randomString= Math.random()*900000000;
 
-        // sqlmap.query(`UPDATE school_settings SET  ${imgrole}='${imgrole+'.png'}'`, (err, next)=>{
-        //     if(err) console.log(err.sqlMessage);
+        sqlmap.query(`SELECT * FROM headofschool`, (err, info)=>{
+            if(info.length>0){
+                
+        sqlmap.query(`UPDATE headofschool SET  ${imgrole+'_img'}="${imgrole+'_'+randomString+'.png'}"`, (err, next)=>{
+            if(err) console.log(err.sqlMessage);
+            else console.log('updated');
+        })
+            } else {
 
-        // })
+                sqlmap.query(`INSERT INTO headofschool (${imgrole+'_img'}) VALUES("${imgrole+'_'+randomString+'.png'}")`, (err, next)=>{
+                    if(err) console.log(err.sqlMessage);
+                    else console.log('inserted');
+
+                })
+
+            }
+        })
 
         res.send({ msg: "Added Successfully!", alert: "success" })
     },

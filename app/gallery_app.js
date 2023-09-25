@@ -1,11 +1,5 @@
-const express = require("express")
-
-const { sqlmap , multer, randomBytes, createHmac} = require("../server")
-const app = express()
-const fs= require('fs')
-const path= require('path')
-const sharp= require("sharp");
-
+const { sqlmap , multer, randomBytes, createHmac, path,  fs, app, express} = require("../server")
+const sharp= require('sharp');
 
 const multer_location= multer.diskStorage({
   destination: (req, file, cb)=>{
@@ -167,7 +161,6 @@ exports.public_gallery_video_data_get= (req, res)=>{
 
 exports.admin_carousel_post= async(req, res)=>{
 
-
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
    
@@ -178,17 +171,21 @@ exports.admin_carousel_post= async(req, res)=>{
     .toFile(
         path.resolve(path.resolve(req.files[x].destination, 'resized',image))
     )
+    // console.log(req.files[x].path);
+    fs.unlinkSync(req.files[x].path)
+
   
     }
 
     else {
 
       
-      await sharp(req.file.path)
+      await sharp(req.files.path)
       .jpeg({ quality: 50 })
       .toFile(
-          path.resolve(path.resolve(req.file.destination, 'resized',image))
+          path.resolve(path.resolve(req.files.destination, 'resized',image))
       )
+      // console.log(req.files[x].path);
 
   fs.unlinkSync(req.files[x].path)
     
@@ -215,7 +212,7 @@ res.send({msg: 'Image Added!', alert: 'success'})
 
 exports.admin_carousel_get= (req, res)=>{
 
-  sqlmap.query(`SELECT * FROM carousel ORDER BY ID DESC LIMIT 12`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM carousel ORDER BY ID DESC LIMIT 5`, (err, info)=>{
 
     if(info.length>0){
 
@@ -224,12 +221,12 @@ exports.admin_carousel_get= (req, res)=>{
       for (const index in info) {
 
         listData+= `
-        <div class="col-6 col-md-3 m-auto ">
+        <div class="col-6 col-md-3 p-2 ">
           
         <div class="card" id="">
         
            
-          <img class='card-img-top bg-demo-img-color' width="100%" src="/image/carousel/resized/${info[index].item_name}" alt="404">
+          <img class='card-img-top bg-demo-img-color' height='150px' width="100%" src="/image/carousel/resized/${info[index].item_name}" alt="404">
           <span data-id="${info[index].ID}" onclick='_delbox_pull(${info[index].ID})' class='btn bi bi-trash-fill'></span>
         </div>
                   
@@ -542,6 +539,7 @@ exports.admin_gallery_image_data_delete= (req, res)=>{
  })
 
 }
+
 
 
 // admin gallery video part 

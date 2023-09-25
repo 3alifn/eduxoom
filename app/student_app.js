@@ -1125,7 +1125,6 @@ exports.public_student_list= (req, res)=>{
   }
 
 
-
 exports.public_student_get= (req, res)=>{
 
     const {className, sectionName, requestPageOffset}= req.body; const limit = 12; 

@@ -8,42 +8,24 @@
     <%- include("../component/metadata.html") %> 
 
 
-
-<style>
-    
-    .row a
-    {
-        text-decoration: none;
-        
-    }
-    .row .card-body{
-        background-color: #F5F4F8 !important;
-    
-        color: #754FFE ;
-    }
-    
-        
-    #row1 .card-body:hover{
-        background-color: #281e5d !important;
-        /* background: #F5F4F8 !important; */
-        color: white;
-        transform: scale(1.1);
-        transition: background-color, transform 1s;
-     
-    }
-    </style>
 <body onload="pageLoadingTop()">
     
   <%- include("../component/header-nav.html") %> 
-<p></p>
+  <%- include("../component/menu-nav.html") %> 
+  <%- include("../component/offcanvas-nav.html") %> 
 
-  <div id="classList" class="row">
+
+  <div id="classList" class="row p-2 mt-5 mbx shadowx ">
+
+    <div class="col-11 m-auto">
+      <p class="p-2 shadowx fw-semibold">Our student rank here</p>
+  </div>
 
 
     <% if(infoTen.length>0) {%>   
-      <div class="col-md-2 col-9 mt-1 m-auto">
+      <div class="col-md-2 col-9 mt-1">
 
-      <a href="/pu/rank/page?className=Ten">
+      <a class='page-link' href="/pu/rank/page?className=Ten">
           <div class="card shadow-sm">
             <img class=" m-auto" width="100px" src="/image/student/<%= infoTen[0].avatar %>" alt="">
             <div class="card-body text-center">
@@ -74,7 +56,7 @@
 <% if(infoNine.length>0) {%>   
       <div class="col-md-2 col-9 mt-1 m-auto">
 
-      <a href="/pu/rank/page?className=Nine">
+      <a class='page-link' href="/pu/rank/page?className=Nine">
           <div class="card shadow-sm">
             <img class=" m-auto" width="100px" src="/image/student/<%=infoNine[0].avatar%>" alt="">
             <div class="card-body text-center">
@@ -101,7 +83,7 @@
   <% if(infoEight.length>0) {%>
     <div class="col-md-2 col-9 mt-1 m-auto">
 
-      <a href="/pu/rank/page?className=Eight">
+      <a class='page-link' href="/pu/rank/page?className=Eight">
           <div class="card shadow-sm">
             <img class=" m-auto" width="100px" src="/image/student/<%=infoEight[0].avatar%>" alt="">
             <div class="card-body text-center">
@@ -133,7 +115,7 @@
 
     <div class="col-md-2 col-9 mt-1 m-auto">
 
-      <a href="/pu/rank/page?className=Seven">
+      <a class="page-link" href="/pu/rank/page?className=Seven">
           <div class="card shadow-sm">
             <img class=" m-auto" width="100px" src="/image/student/<%=infoSeven[0].avatar%>" alt="">
             <div class="card-body text-center">
@@ -167,7 +149,7 @@
       <% if(infoSix.length>0) {%>   
         <div class="col-md-2 col-9 mt-1 m-auto">
 
-      <a href="/pu/rank/page?className=Six">
+      <a class='page-link' href="/pu/rank/page?className=Six">
           <div class="card shadow-sm">
             <img class=" m-auto" width="100px" src="/image/student/<%=infoSix[0].avatar%>" alt="">
             <div class="card-body text-center">

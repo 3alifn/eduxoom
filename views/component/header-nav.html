@@ -5,7 +5,7 @@
             style="list-style: none;">
             <li>
                 <a href="/">
-                    <img src="/image/default/resized/logo.png" alt="loading..." width="50px" height="50px" class="append-logo rounded-circle p-1">
+                    <img  src="/image/default/resized/logo.png" alt="loading..." width="50px" height="50px" class="append-logo rounded-circle p-1">
                 </a>
         
                   </div>
@@ -64,6 +64,21 @@
 
  } user_nav()
 
+ (function(){
+  $.ajax({
+    method: "get",
+    url: "/pu/school/get/",
+    data: {},
+    dataType: "JSON",
+    success: function (res) {
+
+      $(".append-name").text(res.info_school[0].name)
+      $(".append-logo").attr( 'src', `/image/default/resized/${res.info_school[0].logo}`)
+
+  
+    }
+  });
+  }())
 
 </script>
     

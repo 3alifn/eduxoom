@@ -92,7 +92,8 @@ exports.admin_eventnews_post= async(req, res)=>{
     .toFile(
         path.resolve(path.resolve(req.files[x].destination, 'resized',image))
     )
-  
+    fs.unlinkSync(req.files[x].path)
+
     }
 
     else {

@@ -28,14 +28,22 @@
     <%- include("../component/menu-nav.html") %> 
     <%- include("../component/offcanvas-nav.html") %> 
 
-    <center>
-
-        <h5 class="container text-center w-100 alert alert-secondary">Video playlist </h5>
-
-    </center>
-
+  
  
-    <div  class="row" id="listDataPrint">
+    <div  class="row shadowx p-2 mt-5 mbx" id="listDataPrint">
+
+        <div id="listDataPrint" class="row shadowx mt-b mbx">
+              
+            <div class="col-11 m-auto">
+              <p class="p-2 fw-semibold shadowx ">Video playlist</p>
+          </div>
+          
+        <% if(info.length==0) {%>
+            <div class="col-11 m-auto">
+                <p class="p-2 fw-semibold shadowx alert">No record</p>
+            </div>
+            <% } %>
+
 
     <% for( let index = 0; index < info.length; index++ ) { %>
 

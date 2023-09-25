@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery Image</title>
+    <title>Gallery Video</title>
 
 <%- include("../component/metadata.html") %>
 
@@ -12,8 +12,7 @@
 
     
 <style>
-    html,* { font-family: 'Inter'; box-sizing: border-box; margin: 0; padding: 0; }
-  body { background-color: #fafafa; line-height:1.6;}
+
   
   .container img { width: 200px; height: 150px; float: left;  }
   
@@ -31,14 +30,19 @@
 <%- include("../component/menu-nav.html") %>
 <%- include("../component/offcanvas-nav.html") %>
   
-<center>
 
-  <h5 class="container text-center w-100 alert alert-secondary">Video gallery </h5>
-
-</center>
   
-            <div id="listDataPrint" class="row">
+            <div id="listDataPrint" class="row shadowx mt-b mbx">
               
+              <div class="col-11 m-auto">
+                <p class="p-2 fw-semibold shadowx ">Our gallery videos</p>
+            </div>
+    
+            <% if(info.length==0) {%>
+                <div class="col-11 m-auto">
+                    <p class="p-2 fw-semibold shadowx alert">No record</p>
+                </div>
+                <% } %>
   
               <% for( let index = 0; index < info.length; index++ ) { %>
               

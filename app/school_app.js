@@ -77,13 +77,15 @@ module.exports = {
         const jsondata = (JSON.stringify(req.body));
         const imgrole = JSON.parse(jsondata).imgrole;
         //   console.log(imgrole, JSON.parse(jsondata).image);
-
+         const randomString= Math.random()*900000000;
+          const imgname= imgrole=='logo'?'logo':'image'
+        //   console.log(req.file.size);
         if (req.file.size < 524288) {
 
             await sharp(req.file.path)
-                .jpeg({ quality: 50 })
+                .jpeg({ quality: 80 })
                 .toFile(
-                    path.resolve(path.resolve(req.file.destination, 'resized', imgrole + '.png'))
+                    path.resolve(path.resolve(req.file.destination, 'resized', imgname+randomString+'.png'))
                 )
 
             fs.unlinkSync(req.file.path)
@@ -94,9 +96,9 @@ module.exports = {
 
         else {
             await sharp(req.file.path)
-                .jpeg({ quality: 20 })
+                .jpeg({ quality: 50 })
                 .toFile(
-                    path.resolve(path.resolve(req.file.destination, 'resized', imgrole + '.png'))
+                    path.resolve(path.resolve(req.file.destination, 'resized', imgname+randomString+'.png'))
                 )
 
             fs.unlinkSync(req.file.path)
@@ -104,12 +106,24 @@ module.exports = {
 
         }
 
-        //  const randomString= Math.random()*900000000;
 
-        // sqlmap.query(`UPDATE school_settings SET  ${imgrole}='${imgrole+'.png'}'`, (err, next)=>{
-        //     if(err) console.log(err.sqlMessage);
+        sqlmap.query(`SELECT * FROM school_settings`, (err, info)=>{
+            if(info.length>0){
+                
+        sqlmap.query(`UPDATE school_settings SET  ${imgname}="${imgname+randomString+'.png'}"`, (err, next)=>{
+            if(err) console.log(err.sqlMessage);
+            else console.log('updated');
+        })
+            } else {
 
-        // })
+                sqlmap.query(`INSERT INTO school_settings (${imgname}) VALUES("${imgname+randomString+'.png'}")`, (err, next)=>{
+                    if(err) console.log(err.sqlMessage);
+                    else console.log('inserted');
+
+                })
+
+            }
+        })
 
         res.send({ msg: "Added Successfully!", alert: "success" })
     },

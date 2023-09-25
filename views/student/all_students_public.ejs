@@ -28,12 +28,29 @@
 
 
 
-<div class=" w-50 mt-2 m-auto">
+<div class="row mt-5 p-2 shadowx">
+
+  <div class="col-11 m-auto">
+    <p class="p-2 shadowx fw-semibold">Our Student here</p>
+</div>
+
+  <div class="col-11 m-auto">
     <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+</div>
+
+
 
 </div>
 
-       <div class="row element">
+       <div class="row shadowx mt-5 mbx element">
+
+        
+      <% if(info.length==0) {%>
+        <div class="col-11 m-auto">
+            <p class="p-2 fw-semibold shadowx alert">No record</p>
+        </div>
+        <% } %>
+
         <% for(let i= 0; i<info.length; i++) {%>
 
     

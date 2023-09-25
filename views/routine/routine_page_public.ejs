@@ -72,17 +72,22 @@
 
 
   
-<div class="row mt-2">
-        
+<div class="row mt-5 p-2 mbx shadowx">
+  
+  <div class="col-11 m-auto">
+    <p class="p-2 shadowx fw-semibold">Our class routine here</p>
+</div>
+
+
   <div class="col-10 col-md-6 m-auto">
 
      <form id="classBaseForm" action="/pu/routine/page/class/base" method="get">
       <select name="classBase" id="classBase" class="w-100 form-self">
         
-        <option value="" selected disabled>শ্রেণী নির্বাচন করুন</option>
+        <option value=""  disabled>শ্রেণী নির্বাচন করুন</option>
 
         <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
-          <option class="status_Six_A" value="Six-A">ষষ্ঠ - ক</option>
+          <option selected class="status_Six_A" value="Six-A">ষষ্ঠ - ক</option>
           <option class="status_Six_B" value="Six-B">ষষ্ঠ - খ</option>
           <option class="status_Six_C" value="Six-C">ষষ্ঠ - গ</option>
          </optgroup>
@@ -128,10 +133,16 @@
   </div>
   </div>
 
-
-<p></p>
-  <div class="row" id="listDataId">
+ 
+  <div class="row shadowx mbx" id="listDataId">
     <!-- <span onclick="printRoutine()" class="btn  text-primary w-50 float-start">Save Routine</span> -->
+
+   
+  <% if(info.length==0) {%>
+      <div class="col-11 m-auto">
+          <p class="p-2 shadowx fw-semibold alert">No record</p>
+      </div>
+      <% } %>
 
     <div class="col-11 m-auto Container Flipped  overflow-scroll d-flex"  id="routineTable" >
       
@@ -391,7 +402,6 @@
     </div>
    
   </div>
-
 
 
   <%- include("../component/footer-nav.html") %> 
