@@ -48,7 +48,7 @@ module.exports = {
 admin_login: (req, res)=>{
 
     const {hashUsername, hashPassword}= req.body;
-    const hashPassword__= createHmac('md5', 'pipilikapipra').update(hashUsername+hashPassword).digest('hex');
+    const hashPassword__= createHmac('md5', 'pipilikapipra').update(hashPassword).digest('hex');
 
     sqlmap.query(`SELECT * FROM user_admin WHERE hash_username='${hashUsername}' AND hash_password='${hashPassword__}'`, (err, info)=>{
 
@@ -159,55 +159,57 @@ self_info_update: (req, res) =>{
   
 self_password_update: (req, res)=>{
   
-    let {hash_password, pastPassword, hash_username}= req.body;
+    let {hash_password, pastPassword}= req.body;
+
+      const hashPassword= createHmac('md5', 'pipilikapipra').update(hash_password).digest('hex');  
+      const pastHashPassword= createHmac('md5', 'pipilikapipra').update(pastPassword).digest('hex');  
+    
+       sqlmap.query(`SELECT hash_password FROM user_admin`, (errPass, infoPass)=>{
+    
+        if(errPass) console.log(errPass.sqlMessage);
+        else{
+    
+          if( pastHashPassword==infoPass[0].hash_password)
+    {
+    
+      sqlmap.query( `UPDATE user_admin SET hash_password="${hashPassword}"`, (err, info) =>{
+    
+        if(err) 
+        {
+          req.flash("msg", "Change Failed!")
+          req.flash("alert", "danger")
+          res.redirect("/admin/account")
+    
+        }
+    
+        else
+        {
+        
+          req.flash("msg", "Changed! Successfully...")
+          req.flash("alert", "success")
+          res.redirect("/admin/account")
+        }
+      })
+    
+    }
+    
+    else 
+    {
+      req.flash("msg", "Current Password Not Matched!")
+      req.flash("alert", "danger")
+      res.redirect("/admin/account")
+    }
+    
+        }
+    
+       })
+    
+
   
-    const hashPassword= createHmac('md5', 'pipilikapipra').update(hash_username+hash_password).digest('hex');  
-    const pastHashPassword= createHmac('md5', 'pipilikapipra').update(hash_username+pastPassword).digest('hex');  
   
-     sqlmap.query(`SELECT hash_password FROM user_admin`, (errPass, infoPass)=>{
+
   
-      if(errPass) console.log(errPass.sqlMessage);
-      else{
-  
-        if( pastHashPassword==infoPass[0].hash_password)
-  {
-  
-    sqlmap.query( `UPDATE user_admin SET hash_password="${hashPassword}"`, (err, info) =>{
-  
-      if(err) 
-      {
-        req.flash("msg", "Change Failed!")
-        req.flash("alert", "danger")
-        res.redirect("/admin/account")
-  
-      }
-  
-      else
-      {
-      
-        req.flash("msg", "Changed! Successfully...")
-        req.flash("alert", "success")
-        res.redirect("/admin/account")
-      }
-    })
-  
-  }
-  
-  else 
-  {
-    req.flash("msg", "Current Password Not Matched!")
-    req.flash("alert", "danger")
-    res.redirect("/admin/account")
-  }
-  
-      }
-  
-     })
-  
-      
-  
-  
-    } ,
+    },
   
   
   

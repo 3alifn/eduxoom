@@ -59,7 +59,7 @@ app.use((req, res, next)=>{
 })
 
 
-// const log= createHmac('md5', 'pipilikapipra').update('parent@abc.com'+'password').digest('hex');
+// const log= createHmac('md5', 'pipilikapipra').update('user@admin.com').digest('hex');
 // console.log(log);
 
 
