@@ -38,7 +38,7 @@ module.exports = {
 
     pu_headofschool_render: (req, res)=>{
         
-        sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (err, info) => {
+        sqlmap.query(`SELECT * FROM headofschool`, (err, info) => {
             if (err) console.log(err.sqlMessage);
             res.render('public/headofschool', {info})
 

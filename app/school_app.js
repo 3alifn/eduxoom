@@ -34,6 +34,25 @@ module.exports = {
 
     }),
 
+    pu_aboutus_render: (req, res)=>{
+        
+        sqlmap.query(`SELECT * FROM school_settings`, (err, info) => {
+            if (err) console.log(err.sqlMessage);
+            res.render('public/about-us', {info})
+
+        })
+
+      },
+
+    pu_contactus_render: (req, res)=>{
+        
+        sqlmap.query(`SELECT * FROM school_settings`, (err, info) => {
+            if (err) console.log(err.sqlMessage);
+            res.render('public/contact-us', {info})
+
+        })
+
+      },
 
     admin_school_page: (req, res) => {
 
