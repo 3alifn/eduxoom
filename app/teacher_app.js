@@ -58,7 +58,7 @@ exports.admin_teacher_join= async (req, res)=>{
 
 
 
-  sqlmap.query(`SELECT ID, email, pds_id, index_number FROM teachers WHERE email="${email}" OR pds_id="${pdsId}" OR index_number="${indexNo_}"`, (err_, info_)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE email="${email}" OR index_number="${index_number}" OR index_number="${indexNo_}"`, (err_, info_)=>{
  
    if(err_) console.log(err_.sqlMessage);
 
@@ -378,7 +378,7 @@ exports.admin_teacher_update= (req, res)=>{
 
   let {name, pdsId, indexNo, ID, position, joiningDate}= req.body;
 
-  sqlmap.query(`SELECT name, ID FROM teachers WHERE pds_id=${pdsId} OR index_number="${indexNo}"`, (errF, infoF)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE pds_id=${pdsId} OR index_number="${indexNo}"`, (errF, infoF)=>{
     if(errF) console.log(errF.sqlMessage);
   else {
 
@@ -484,18 +484,18 @@ exports.self_account = (req, res)=>{
 
 exports.public_teacher_list= (req, res)=>{
 
-    let sql= `SELECT name, avatar,  pds_id, index_number, position, ID FROM teachers`
+    let sql= `SELECT * FROM teachers`
   
             sqlmap.query(sql, (err, info)=>{
        
               if(info.length>0){
             
  
-                res.render("teacher/all_teachers_public", {info})
+                res.render("public/all_teachers_public", {info})
                   
               }
   
-        else res.render("teacher/all_teachers_public", {info})
+        else res.render("public/all_teachers_public", {info})
       })
     }
   

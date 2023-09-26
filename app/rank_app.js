@@ -35,7 +35,7 @@ exports.public_rank_class_page= (req, res)=>{
 
           }
     
-          else res.render("rank/rank_class_page_public", {infoSix, infoSeven, infoEight, infoNine, infoTen})
+          else res.render("public/rank_class_page_public", {infoSix, infoSeven, infoEight, infoNine, infoTen})
       
          
         })
@@ -77,7 +77,7 @@ exports.public_rank_page= (req, res)=>{
 
       
     
-      res.render("rank/rank_page_public", {infoA, infoB, infoC, className: app.locals.className})
+      res.render("public/rank_page_public", {infoA, infoB, infoC, className: app.locals.className})
     
      })
     

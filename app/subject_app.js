@@ -8,11 +8,7 @@ const { sqlmap, randomBytes } = require("../server");
 exports.admin_subject_post= (req, res)=>{
 
     let { className, subjectName }=req.body;
-  
-//  let teacherTemp= teacherName.split("$%&")
- 
-//  let teacherPdsid= teacherTemp[1]
-//  let teacherNameX= teacherTemp[0]
+
     
     for (let i = 0; i < subjectName.length; i++) {
     const randomString= randomBytes(10).toString('hex');
@@ -66,17 +62,17 @@ exports.admin_subject_delete = (req, res)=>{
 
 exports.admin_subject_select_teacher = (req, res)=>{
 
-    let {teacherPdsid, className, sectionName, subjectName, ID}= req.body;
+    let {teacherIndex, className, sectionName, subjectName, ID}= req.body;
 
  
 
-  sqlmap.query(`SELECT pds_id, name FROM teachers WHERE pds_id=(${teacherPdsid}) ORDER BY ID DESC`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE index_number=(${teacherIndex}) ORDER BY ID DESC`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     else 
     {
 
 
-                sqlmap.query(`UPDATE  subject SET teacher_name="${info[0].name}", teacher_pdsid="${info[0].pds_id}" WHERE ID=${ID}`, (errLast, nextLast)=>{
+                sqlmap.query(`UPDATE  subject SET teacher_name="${info[0].name}", teacher_index="${info[0].index_number}" WHERE ID=${ID}`, (errLast, nextLast)=>{
 
                     if(errLast) console.log(errLast.sqlMessage);
 

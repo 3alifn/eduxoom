@@ -39,7 +39,7 @@ const app = express()
 //                             sqlmap.query(sqlThu, (errThu, infoThu)=>{
        
                             
-//                                     res.render("routine/routine_page_download", { infoSun, infoMon, infoTue, infoWed, infoThu})
+//                                     res.render("public/routine_page_download", { infoSun, infoMon, infoTue, infoWed, infoThu})
                        
                 
 //                             })
@@ -76,7 +76,7 @@ exports.admin_routine_post= (req, res)=>{
 
  let teacherTemp= teacherName.split("$%&")
  
- let teacherPdsid= teacherTemp[1]
+ let teacherIndex= teacherTemp[1]
 
   let periodTemp= periodTable.split("$%&")
  
@@ -90,11 +90,11 @@ exports.admin_routine_post= (req, res)=>{
    if(checkErr) console.log(checkErr.sqlMessage);
 
    if(checkInfo.length==0){
-    sqlmap.query(`SELECT avatar, pds_id, name FROM teachers WHERE pds_id='${teacherPdsid}'`,(errT, infoT)=>{
+    sqlmap.query(`SELECT * FROM teachers WHERE index_number='${teacherIndex}'`,(errT, infoT)=>{
 
-        sqlmap.query(`INSERT INTO routine (class, day, period_table, subject, period_time, teacher_name, teacher_pdsid, teacher_avatar) 
+        sqlmap.query(`INSERT INTO routine (class, day, period_table, subject, period_time, teacher_name, teacher_index, teacher_avatar) 
         VALUES
-         ("${className}", "${day}", "${periodTableX}", "${subject}", "${periodTime}", "${infoT[0].name}", "${infoT[0].pds_id}", "${infoT[0].avatar}")`, (err, next)=>{
+         ("${className}", "${day}", "${periodTableX}", "${subject}", "${periodTime}", "${infoT[0].name}", "${infoT[0].index_number}", "${infoT[0].avatar}")`, (err, next)=>{
     
             if(err) console.log(err.sqlMessage);
             else res.send({msg: "Class Routine Created!", alert: 'text-success'})
@@ -230,7 +230,7 @@ exports.public_routine_page= (req, res)=>{
                             sqlmap.query(sqlThu, (errThu, infoThu)=>{
        
                             
-                                    res.render("routine/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu, info})
+                                    res.render("public/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu, info})
                        
                 
                             })
@@ -287,7 +287,7 @@ exports.public_routine_page_class_base= (req, res)=>{
                              
                                     
                             
-                                    res.render("routine/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu, info})
+                                    res.render("public/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu, info})
                           
               
                 
@@ -361,7 +361,7 @@ exports.admin_teacher_dynamic_get= (req, res)=>{
 
 
 
-    sqlmap.query(`SELECT name, pds_id FROM teachers ORDER BY ID DESC`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM teachers ORDER BY ID DESC`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 
@@ -374,7 +374,7 @@ exports.admin_teacher_dynamic_get= (req, res)=>{
                
                 html+= `
                 
-                <option  value="${info[i].name+"$%&"+info[i].pds_id}">${info[i].name+"-"+info[i].pds_id}</option>
+                <option  value="${info[i].name+"$%&"+info[i].index_number}">${info[i].name+"-"+info[i].index_number}</option>
             `
 
         }

@@ -1034,7 +1034,7 @@ exports.public_student_page= (req, res)=>{
 
                                             sqlmap.query(sqlSection10C, (err10c, info10c)=>{
 
-res.render("student/student_page_public", {info6, info6a, info6b, info6c, info7, info7a, info7b, info7c, info8, info8a, info8b, info8c, info9, info9a, info9b, info9c, info10, info10a, info10b, info10c})
+res.render("public/student_page_public", {info6, info6a, info6b, info6c, info7, info7a, info7b, info7c, info8, info8a, info8b, info8c, info9, info9a, info9b, info9c, info10, info10a, info10b, info10c})
             
                                             })
                  
@@ -1117,7 +1117,7 @@ exports.public_student_list= (req, res)=>{
             if(info.length>0){
 
               
-              res.render("student/all_students_public", {info, className, sectionName})
+              res.render("public/all_students_public", {info, className, sectionName})
             }
 
               else res.redirect('/pu/student/page')

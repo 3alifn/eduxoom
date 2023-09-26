@@ -5,7 +5,7 @@ const { sqlmap, nodemailer } = require("../server")
 
 exports.public_admission_step1 = (req, res) => {
 
-  res.render("admission/admission_form_public", { pastAdmission: true, nextAdmission: false, data: false, msg: req.flash("msg"), alert: req.flash("alert") })
+  res.render("public/admission_form_public", { pastAdmission: true, nextAdmission: false, data: false, msg: req.flash("msg"), alert: req.flash("alert") })
 
 
 }
@@ -16,7 +16,7 @@ exports.public_admission_step2 = (req, res) => {
   let data = req.body;
 
 
-  res.render("admission/admission_form_public", { nextAdmission: true, pastAdmission: false, data })
+  res.render("public/admission_form_public", { nextAdmission: true, pastAdmission: false, data })
 
 
 

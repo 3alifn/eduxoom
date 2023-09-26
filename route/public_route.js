@@ -46,7 +46,7 @@ public.post("/team-saanvi/contact-us", public_team_saanvi_sent_message)
 // library router..........
 public.get("/library/page", (req, res)=>{
 
-  res.render("library/library_page_public")
+  res.render("public/library_page_public")
 
     })
 
@@ -129,7 +129,7 @@ public.post("/rank/class/base", public_rank_get_class_base)
 
 
   public.get("/notice/page/", (req, res)=>{
-    res.render("notice/notice_page_public")
+    res.render("public/notice_page_public")
   })
   
   public.post("/notice/get/", public_notice_get)
