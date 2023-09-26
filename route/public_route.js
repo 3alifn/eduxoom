@@ -144,7 +144,7 @@ public.get("/notice/download/", public_notice_download)
 // routine router......
 public.get("/routine/page/", public_routine_page)
 public.get("/routine/page/class/base", public_routine_page_class_base)
-public.get("/routine/download/", public_routine_download)
+// public.get("/routine/download/", public_routine_download)
 
 
   

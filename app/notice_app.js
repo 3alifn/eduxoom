@@ -97,7 +97,7 @@ exports.admin_notice_post= (req, res)=>{
 
 
 exports.public_notice_get= (req, res)=>{
-    let sql= "SELECT * FROM notice";
+    let sql="SELECT * FROM notice ORDER BY ID DESC"
     sqlmap.query(sql, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else 
@@ -107,13 +107,24 @@ exports.public_notice_get= (req, res)=>{
                 let html= "";
                 for (const key in info) {
                  html+= 
-                 `
-                 <li class="list-group-item list-group-item-light shadow mt-2">
-                 <a class="float-start nav-link" target="_blank" href="/public/docs/notice/${info[key].attachment}">${info[key].at_date.toString().substring(0, 25)} | <i class="bi bi-download"></i></a>
-                 <span class="float-end">${info[key].description}</span>
-                 <span class="d-none">${info[key].at_date.toLocaleString('en-ZA')}</span>
-               
-               </li>`                }
+                 `           
+<div class="row">
+<div class="col-11 col-md-8 m-auto">
+
+    <a class="text-truncate btn-hover shadowx d-md-flex justify-content-between  p-3 mt-2 fs-6 fw-semibold page-link" target="_blank" href="/docs/notice/${info[key].attachment}">
+     <i class="bi bi-download p-2">${info[key].at_date.toString().substring(0, 25)} |</i> 
+
+    <span class="text-truncate p-2">${info[key].description}</span>
+
+  </a>
+
+  <span class="d-none">${info[key].at_date.toLocaleString('en-ZA')}</span>
+
+
+</div>
+</div>
+
+`                }
 
                 res.send({html: html})
             }

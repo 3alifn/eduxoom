@@ -84,49 +84,18 @@
      <form id="classBaseForm" action="/pu/routine/page/class/base" method="get">
       <select name="classBase" id="classBase" class="w-100 form-self">
         
-        <option value=""  disabled>শ্রেণী নির্বাচন করুন</option>
+        <option selected value=""  disabled>শ্রেণী নির্বাচন করুন</option>
 
-        <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
-          <option selected class="status_Six_A" value="Six-A">ষষ্ঠ - ক</option>
-          <option class="status_Six_B" value="Six-B">ষষ্ঠ - খ</option>
-          <option class="status_Six_C" value="Six-C">ষষ্ঠ - গ</option>
-         </optgroup>
+          <option  class="status_Six" value="Six">ষষ্ঠ</option>               
+          <option class="status_Seven_A" value="Seven">সপ্তম</option>
 
-
-                      
-         <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
-          <option class="status_Seven_A" value="Seven-A">সপ্তম - ক</option>
-          <option class="status_Seven_B" value="Seven-B">সপ্তম - খ</option>
-          <option class="status_Seven_C" value="Seven-C">সপ্তম - গ</option>
-         </optgroup>
-         
-
-
-         <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
-          <option class="status_Eight_A" value="Eight-A">অষ্টম - ক</option>
-          <option class="status_Eight_B" value="Eight-B">অষ্টম - খ</option>
-          <option class="status_Eight_C" value="Eight-C">অষ্টম - গ</option>
-         </optgroup>
-
+          <option class="status_Eight" value="Eight">অষ্টম</option>
           
+            <option class="status_Nine" value="Nine">নবম</option>
 
-                  
-           <optgroup class="status_Nine" label="নবম শ্রেণী">
-            <option class="status_Nine_A" value="Nine-A">নবম - ক</option>
-            <option class="status_Nine_B" value="Nine-B">নবম - খ</option>
-            <option class="status_Nine_c" value="Nine-C">নবম - গ</option>
-           </optgroup>
-     
-            <optgroup class="status_Ten" label="দশম শ্রেণী">
-               <option class="status_Ten_A" value="Ten-A">দশম - ক</option>
-               
-               <option class="status_Ten_B" value="Ten-B">দশম - খ</option>
-               <option class="status_Ten_C" value="Ten-C">দশম - গ</option>
-              </optgroup>
-      
+               <option class="status_Ten" value="Ten">দশম</option>
+            
 
-          
-       
        </select>
      </form>
 
@@ -162,7 +131,7 @@
            
             <center>
 
-              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoSun[i].class%>-<%=infoSun[i].section%> - <%=infoSun[i].period_table%>  </span>
+              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoSun[i].class%> - <%=infoSun[i].period_table%>  </span>
            
               <span class="badge bg-light text-danger">  <%=infoSun[i].subject%> - <%=infoSun[i].period_time%>   </span> 
               <br> 
@@ -201,7 +170,7 @@
            
           <center>
 
-              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoMon[i].class%>-<%=infoMon[i].section%> - <%=infoMon[i].period_table%>  </span>
+              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoMon[i].class%> - <%=infoMon[i].period_table%>  </span>
            
               <span class="badge bg-light text-danger">  <%=infoMon[i].subject%> - <%=infoMon[i].period_time%>   </span> 
               <br> 
@@ -235,7 +204,7 @@
            
             <center>
 
-              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoTue[i].class%>-<%=infoTue[i].section%> - <%=infoTue[i].period_table%>  </span>
+              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoTue[i].class%> - <%=infoTue[i].period_table%>  </span>
            
               <span class="badge bg-light text-danger">  <%=infoTue[i].subject%> - <%=infoTue[i].period_time%>   </span> 
               <br> 
@@ -273,7 +242,7 @@
            
             <center>
 
-              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoWed[i].class%>-<%=infoWed[i].section%> - <%=infoWed[i].period_table%>  </span>
+              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoWed[i].class%> - <%=infoWed[i].period_table%>  </span>
            
               <span class="badge bg-light text-danger">  <%=infoWed[i].subject%> - <%=infoWed[i].period_time%>   </span> 
               <br> 
@@ -307,7 +276,7 @@
           <li class="list-group-item border-dark">
             <center>
 
-              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoThu[i].class%>-<%=infoThu[i].section%> - <%=infoThu[i].period_table%>  </span>
+              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoThu[i].class%> - <%=infoThu[i].period_table%>  </span>
            
               <span class="badge bg-light text-danger">  <%=infoThu[i].subject%> - <%=infoThu[i].period_time%>   </span> 
               <br> 
@@ -429,12 +398,6 @@ $("#classBase").on("change", ()=>{
      for (let index = 0; index < res.cls.length; index++) {
 
       $(".status_"+res.cls[index].class).remove()
-        
-     }
-
-     for (let index = 0; index < res.clss.length; index++) {
-
-        $(".status_"+res.clss[index].class+'_'+res.clss[index].section).remove()
         
      }
     }

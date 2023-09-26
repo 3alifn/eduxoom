@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UAompatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Class Routine</title>
 
@@ -25,14 +25,14 @@
         .Content{
           width: 300px;
           color: white;
-          text-align: center;
+          textlign: center;
         }
         
         .Flipped, .Flipped .Content{
           transform: rotateX(180deg);
         }
         
-        /* Designing for scroll-bar */
+        /* Designing for scrollar */
         ::-webkit-scrollbar {
           width: 5px;
         }
@@ -56,207 +56,161 @@
     
     
     
-    </style>
+   </style>
 
 <body onload="pageLoadingTop()">
 
  <%- include("../component/admin-header-nav.html") %> 
  <%- include("../component/admin-menu-nav.html") %> 
 
+ <div id="main-content" class="p-2 main-content">
 
- <div id="main-content" class="p-2 main-content mt-5">
+<div id="contentId">
 
-
-    <div class="col-auto">
-
-
+<div class="row mt-3 mb-5 p-2">
       
-      <%-include("../component/modal-trigger.html") %> 
 
-      
-<center>
-    <legend class=" alert bg-light shadow">Class Routine</legend>
-</center>
-<p></p>
-
-<div class="row">
-  <div class="col-10 col-md-6 m-auto">
-    <p></p>
-    <center> <button id="expand" class=" btn-self "><i id="addnew"  class="fa-solid fa-circle-plus fa-beat"></i> <i id="addicon"></i> </button>
-    </center>
-   <div> 
-
-    <p></p>
+  <div class="col-10 p-2 m-auto">
     
-<form id="form" class="ps-3 shadow m-auto bg-light"  method="post">
+      <center>
+        <legend class=" m-auto mb-5 mt-5 alert bg-light shadow">Class Routine</legend>
+    <button id="expand" class="mb-3 btn-self "> ADD </button>
 
-            <div > 
+      </center>
 
-        <select  class="form-dev" name="className" id="selectClass" required>
-
-                 <option  disabled value="">Select Class</option>
-                 <option value="Six">Six</option>
-                 <option value="Seven">Seven</option>
-                 <option value="Eight">Eight</option>
-                 <option value="Nine">Nine</option>
-                 <option selected value="Ten">Ten</option>
-             </select> <p></p>
-         </div>
-
-<p></p>
-
-
-
-     
-
-
- <div id="" > 
-  <select title="Select Teachers" class=" form-dev" name="teacherName" id="dynamicTeacher" required>
-     <option selected disabled value="">Select Teacher</option>
-     
-  
-     
-  </select>
-
-
-
-</div><p></p>
-
-
-
-<div > 
-<select class=" form-dev" name="periodTable" id="" required>
-   <option selected disabled value="">Select Period Table</option>
-
-    <option value="১ম$%&১০ঃ১৫ - ১১ঃ০৫">১ম - ১০ঃ১৫ - ১১ঃ০৫</option>
-    <option value="২য়$%&১১ঃ০৫ - ১১ঃ৫০">২য় - ১১ঃ০৫ - ১১ঃ৫০</option>
-    <option value="৩য়$%&১১ঃ৫০ - ১২ঃ৩৫">৩য় - ১১ঃ৫০ - ১২ঃ৩৫</option>
-    <option value="৪র্থ$%&১২ঃ৩৫ - ১ঃ২০">৪র্থ - ১২ঃ৩৫ - ১ঃ২০</option>
-    <option value="৫ম$%&২ঃ০০ - ২ঃ৪০">৫ম - ২ঃ০০ - ২ঃ৪০</option>
-    <option value="৬ষ্ট$%&২ঃ৪০ - ৩ঃ২০">৬ষ্ট - ২ঃ৪০ - ৩ঃ২০</option>
-    <option value="৭ম$%&৩ঃ২০ - ৪ঃ১০">৭ম - ৩ঃ২০ - ৪ঃ১০</option>
-   
-</select>
-</div><p></p>
-
-
-
+    <form id="form" class="ps-3 p-2 mt-2 mb-2 shadow bg-light"  method="post">
+    
+    
+            <select  class="form-dev" name="className" id="selectClass" required>
+                     <option  disabled value="">Select Class</option>
+                     <option selected value="Six">Six</option>
+                     <option value="Seven">Seven</option>
+                     <option value="Eight">Eight</option>
+                     <option value="Nine">Nine</option>
+                     <option  value="Ten">Ten</option>
+              </select> 
+    
+              <p></p>
+    
      <div id="" > 
-     <select title="Select Subject" class=" form-dev" name="subject" id="dynamicSubject" required>
-        <option selected disabled value="">Select Subject</option>
-     
-        
-     </select>
-
-          
-   <!-- <input list="dynamicSubject" class=" form-dev" name="subject" placeholder="Subject name." value=""  value="" id="" required>
-
-    <datalist id="dynamicSubject"  required>
-
-
-
-   </datalist>  -->
-
- </div><p></p>
-
-
-
- <div > 
-    <select class=" form-dev" name="day" id="" required>
-       <option selected disabled value="">Select Day</option>
-
-        <option value="ররিবার">ররিবার</option>
-        <option value="সোমবার">সোমবার</option>
-        <option value="মঙ্গলবার">মঙ্গলবার</option>
-        <option value="বুধবার">বুধবার</option>
-        <option value="বৃহস্পতিবার">বৃহস্পতিবার</option>
+      <select title="Select Teachers" class=" form-dev" name="teacherName" id="dynamicTeacher" required>
+         <option selected disabled value="">Select Teacher</option>
+         
+      
+         
+      </select>
+    
+    
+    
+    </div><p></p>
+    
+    
+    
+    <div > 
+    <select class=" form-dev" name="periodTable" id="" required>
+       <option selected disabled value="">Select Period Table</option>
+    
+        <option value="১ম$%&১০ঃ১৫ - ১১ঃ০৫">১ম - ১০ঃ১৫ - ১১ঃ০৫</option>
+        <option value="২য়$%&১১ঃ০৫ - ১১ঃ৫০">২য় - ১১ঃ০৫ - ১১ঃ৫০</option>
+        <option value="৩য়$%&১১ঃ৫০ - ১২ঃ৩৫">৩য় - ১১ঃ৫০ - ১২ঃ৩৫</option>
+        <option value="৪র্থ$%&১২ঃ৩৫ - ১ঃ২০">৪র্থ - ১২ঃ৩৫ - ১ঃ২০</option>
+        <option value="৫ম$%&২ঃ০০ - ২ঃ৪০">৫ম - ২ঃ০০ - ২ঃ৪০</option>
+        <option value="৬ষ্ট$%&২ঃ৪০ - ৩ঃ২০">৬ষ্ট - ২ঃ৪০ - ৩ঃ২০</option>
+        <option value="৭ম$%&৩ঃ২০ - ৪ঃ১০">৭ম - ৩ঃ২০ - ৪ঃ১০</option>
        
     </select>
-</div><p></p>
+    </div><p></p>
+    
+    
+    
+         <div id="" > 
+         <select title="Select Subject" class=" form-dev" name="subject" id="dynamicSubject" required>
+            <option selected disabled value="">Select Subject</option>
+         
+            
+         </select>
+    
+              
+       <!-- <input list="dynamicSubject" class=" form-dev" name="subject" placeholder="Subject name." value=""  value="" id="" required>
+    
+        <datalist id="dynamicSubject"  required>
+    
+    
+    
+       </datalist>  -->
+    
+     </div><p></p>
+    
+    
+    
+     <div > 
+        <select class=" form-dev" name="day" id="" required>
+           <option selected disabled value="">Select Day</option>
+    
+            <option value="ররিবার">ররিবার</option>
+            <option value="সোমবার">সোমবার</option>
+            <option value="মঙ্গলবার">মঙ্গলবার</option>
+            <option value="বুধবার">বুধবার</option>
+            <option value="বৃহস্পতিবার">বৃহস্পতিবার</option>
+           
+        </select>
+    </div><p></p>
+    
+    
+    
+    <center>
+     <button type="submit" id="onsubmit" class="btn-self  w-50" >Save<span id="loading" class=""></span></button>
+    </center>
+    <p></p>
+    
+    </form>
 
-
-
-<center>
- <button id="onsubmit" class="btn-self  w-50" >Save<span id="loading" class=""></span></button>
-</center>
-<p></p>
-
-</form>
   </div>
+
+
+
+  <div class="col-10 m-auto">
+   
+     <form id="classBaseForm" action="/admin/routine/page/" method="get">
+    
+      <div class="d-flex ">
+        <button type="button" class="btn-link btn shadowx" onclick="window.location.reload()">Refresh</button>
+        <select name="classBase" id="classBase" class="w-75 form-self">
+  
+          <option selected value="" >Select Class</option>
+  
+           <option  value="Six">Six</option>
+            
+            <option value="Seven">Seven</option>
+
+            <option value="Eight">Eight</option>
+             
+              <option value="Nine">Nine</option>
+
+                 <option value="Ten">Ten</option>
+        
+
+         </select>
+      </div>
+
+     </form>
+
+  </div>
+
+
 </div>
 
 
 
-   
-<div class="row">
-        
-  <div class="col-10 col-md-6 m-auto">
+  
+<div class="row mt-2 mb-2 p-2" id="listDataId">
 
-     <form id="classBaseForm" action="/admin/routine/page" method="get">
-      <select name="classBase" id="classBase" class="w-100 form-self">
-
-        <option value="" selected>Select Class</option>
-
-        <optgroup label="Class Six">
-         <option value="Six-A">Six - A</option>
-          <option value="Six-B">Six - B</option>
-          <option value="Six-C">Six - C</option>
-         </optgroup>
-
-
-                      
-         <optgroup label="Class Seven">
-          <option value="Seven-A">Seven - A</option>
-          <option value="Seven-B">Seven - B</option>
-          <option value="Seven-C">Seven - C</option>
-         </optgroup>
-         
-
-
-         <optgroup label="Class Eight">
-          <option value="Eight-A">Eight - A</option>
-          <option value="Eight-B">Eight - B</option>
-          <option value="Eight-C">Eight - C</option>
-         </optgroup>
-
-          
-
-                  
-           <optgroup label="Class Nine">
-            <option value="Nine-A">Nine - A</option>
-            <option value="Nine-B">Nine - B</option>
-            <option value="Nine-C">Nine - C</option>
-           </optgroup>
-     
-            <optgroup label="Class Ten">
-               <option value="Ten-A">Ten - A</option>
-               
-               <option value="Ten-B">Ten - B</option>
-               <option value="Ten-C">Ten - C</option>
-              </optgroup>
-      
-
-          
-       
-       </select>
-     </form>
-
-  </div>
-  </div>
-
-
-
-<p></p>
-
-
-<div class="row" id="listDataId">
-
-  <div class="col-11 Container Flipped m-auto overflow-scroll responseTable d-flex" id="routineTable" >
+  <div class="col-12 Container Flipped auto overflow-scroll responseTable d-flex" id="routineTable" >
     
     
 
-    <ul class="list-group Content"  style="width: max-content; display: inline-block">
-      <li class="list-group-item text-center text-light shadow bg-secondary">
+    <ul class="list-group Content"  style="width: maxontent; display: inlinelock">
+      <li class="list-group-item textenter text-light shadow bg-secondary">
         ররিবার
       </li>
         
@@ -269,7 +223,7 @@
          
           <center>
 
-            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoSun[i].class%>-<%=infoSun[i].section%> - <%=infoSun[i].period_table%>  </span>
+            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoSun[i].class%> - <%=infoSun[i].period_table%>  </span>
          
             <span class="badge bg-light text-danger">  <%=infoSun[i].subject%> - <%=infoSun[i].period_time%>   </span> 
             <br> 
@@ -278,7 +232,7 @@
               <br> <br>
               <%=infoSun[i].teacher_name%> 
              </span>
-             <span class="badge bg-light text-danger"> <button data-id="<%=infoSun[i].ID%>" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
+             <span class="badge bg-light text-danger"> <button onclick="_delbox_pull('<%=infoSun[i].ID%>')" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
 
           </center>
 
@@ -298,8 +252,8 @@
 
 
 
-    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
-      <li class="list-group-item text-center text-light shadow bg-secondary">
+    <ul class="list-group Content"  style="width: maxontent; display: inlinelock;" >
+      <li class="list-group-item textenter text-light shadow bg-secondary">
         সোমবার
       </li>
         
@@ -309,7 +263,7 @@
          
         <center>
 
-            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoMon[i].class%>-<%=infoMon[i].section%> - <%=infoMon[i].period_table%>  </span>
+            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoMon[i].class%> - <%=infoMon[i].period_table%>  </span>
          
             <span class="badge bg-light text-danger">  <%=infoMon[i].subject%> - <%=infoMon[i].period_time%>   </span> 
             <br> 
@@ -318,7 +272,7 @@
               <br> <br>
               <%=infoMon[i].teacher_name%> 
              </span>
-             <span class="badge bg-light text-danger"> <button data-id="<%=infoMon[i].ID%>" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
+             <span class="badge bg-light text-danger"> <button onclick="_delbox_pull('<%=infoMon[i].ID%>')" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
           </center>
 
         </li>
@@ -332,8 +286,8 @@
 
 
 
-    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
-      <li class="list-group-item text-center text-light shadow bg-secondary">
+    <ul class="list-group Content"  style="width: maxontent; display: inlinelock;" >
+      <li class="list-group-item textenter text-light shadow bg-secondary">
         মঙ্গলবার
       </li>
         
@@ -343,7 +297,7 @@
          
           <center>
 
-            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoTue[i].class%>-<%=infoTue[i].section%> - <%=infoTue[i].period_table%>  </span>
+            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoTue[i].class%> - <%=infoTue[i].period_table%>  </span>
          
             <span class="badge bg-light text-danger">  <%=infoTue[i].subject%> - <%=infoTue[i].period_time%>   </span> 
             <br> 
@@ -352,7 +306,7 @@
               <br> <br>
               <%=infoTue[i].teacher_name%> 
              </span>
-             <span class="badge bg-light text-danger"> <button data-id="<%=infoTue[i].ID%>" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
+             <span class="badge bg-light text-danger"> <button onclick="_delbox_pull('<%=infoTue[i].ID%>')" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
 
           </center>
 
@@ -371,8 +325,8 @@
 
 
 
-    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
-      <li class="list-group-item text-center text-light shadow bg-secondary">
+    <ul class="list-group Content"  style="width: maxontent; display: inlinelock;" >
+      <li class="list-group-item textenter text-light shadow bg-secondary">
         বুধবার
       </li>
 
@@ -382,7 +336,7 @@
          
           <center>
 
-            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoWed[i].class%>-<%=infoWed[i].section%> - <%=infoWed[i].period_table%>  </span>
+            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoWed[i].class%> - <%=infoWed[i].period_table%>  </span>
          
             <span class="badge bg-light text-danger">  <%=infoWed[i].subject%> - <%=infoWed[i].period_time%>   </span> 
             <br> 
@@ -391,7 +345,7 @@
               <br> <br>
               <%=infoWed[i].teacher_name%> 
              </span>
-             <span class="badge bg-light text-danger"> <button data-id="<%=infoWed[i].ID%>" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
+             <span class="badge bg-light text-danger"> <button onclick="_delbox_pull('<%=infoWed[i].ID%>')" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
 
           </center>
         </li>
@@ -407,8 +361,8 @@
 
 
 
-    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
-      <li class="list-group-item text-center text-light shadow bg-secondary">
+    <ul class="list-group Content"  style="width: maxontent; display: inlinelock;" >
+      <li class="list-group-item textenter text-light shadow bg-secondary">
         বৃহস্পতিবার
       </li>
         
@@ -417,7 +371,7 @@
         <li class="list-group-item border-dark">
           <center>
 
-            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoThu[i].class%>-<%=infoThu[i].section%> - <%=infoThu[i].period_table%>  </span>
+            <span class="badge bg-light text-secondary" style="display: block;"> <%=infoThu[i].class%> - <%=infoThu[i].period_table%>  </span>
          
             <span class="badge bg-light text-danger">  <%=infoThu[i].subject%> - <%=infoThu[i].period_time%>   </span> 
             <br> 
@@ -427,7 +381,7 @@
               <%=infoThu[i].teacher_name%> 
              </span>
 
-             <span class="badge bg-light text-danger"> <button data-id="<%=infoThu[i].ID%>" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
+             <span class="badge bg-light text-danger"> <button onclick="_delbox_pull('<%=infoThu[i].ID%>')" title="Delete!" class="btn  delDef"> <i class="fa-solid fa-trash"></i></button> </span>
 
           </center>
         </li>
@@ -442,8 +396,8 @@
 
 
 
-    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
-      <li class="list-group-item text-center text-light shadow bg-secondary">
+    <ul class="list-group Content"  style="width: maxontent; display: inlinelock;" >
+      <li class="list-group-item textenter text-light shadow bg-secondary">
         শুক্রবার
       </li>
 
@@ -477,8 +431,8 @@
 
 
 
-    <ul class="list-group Content"  style="width: max-content; display: inline-block;" >
-      <li class="list-group-item text-center text-light shadow bg-secondary">
+    <ul class="list-group Content"  style="width: maxontent; display: inlinelock;" >
+      <li class="list-group-item textenter text-light shadow bg-secondary">
         শনিবার
       </li>
         
@@ -516,12 +470,8 @@
 </div>
 
 
-
-<p></p>
-
-
-    </div>
-
+<!-- end  -->
+  </div>
 
   </div>
 
@@ -594,8 +544,8 @@ $("#close").click(()=>{
 $("#expand").click(()=>{
     $("#form").toggle()
    
-    $("#addicon").toggleClass('fa-solid fa-caret-up')
-    $("#addnew").toggle('fa-solid fa-caret-down')
+    $("#addicon").toggleClass('fa-solid faaret-up')
+    $("#addnew").toggle('fa-solid faaret-down')
 
 })
 
@@ -615,11 +565,10 @@ $.ajax({
     },
     success: function (info) {
 
+      _msg_pull('alert-success', 'routine added...')
+        _spin_pop()
         $("#onsubmit").removeClass("disabled")
 
-  $(".toast-msg").html(info.msg).addClass('alert alert-success fw-bolder')
-
-$('.toast').addClass('show')
       
 
 
@@ -629,34 +578,25 @@ $('.toast').addClass('show')
 
 
 
-$(document).on("click", ".delDef", (e)=>{
 
-let dataID= e.currentTarget.attributes[0].value;
-$('.modal-trigger-trigger').click()
-$('.modal-trigger-body').text('are you want to delete?').addClass('alert alert-danger fw-bolder')
-
-
-
-   $(".modal-trigger-trigger").on("click", ()=>{
-    $.ajax({
+function _delbox_push(ID) {
+  const dataID= ID;
+  $.ajax({
         type: "post",
         url: "/admin/routine/delete",
         data: {dataID},
         dataType: "JSON",
         success: function (info) {
 
-$(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
-
-$('.toast').addClass('show')
-            
+          _msg_pull('alert-success', 'Delete successfully!')
 
         }
     });
+    }
+ 
 
-   })
 
 
-})
 
 
 

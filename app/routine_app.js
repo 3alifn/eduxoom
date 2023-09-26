@@ -7,61 +7,61 @@ const app = express()
 
 
 
-exports.public_routine_download= (req, res)=>{
+// exports.public_routine_download= (req, res)=>{
 
 
-    let className=req.query.className
-    let sectionName=req.query.sectionName
+//     let className=req.query.className
+//     let sectionName=req.query.sectionName
 
  
 
 
-    let sqlSun= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='ররিবার'  ORDER BY period_table `
-    let sqlMon= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='সোমবার'  ORDER BY period_table `
-    let sqlTue= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='মঙ্গলবার'  ORDER BY period_table `
-    let sqlWed= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বুধবার'  ORDER BY period_table `
-    let sqlThu= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বৃহস্পতিবার'  ORDER BY period_table `
+//     let sqlSun= `SELECT * FROM routine WHERE class="${className}"  AND day='ররিবার'  ORDER BY period_table `
+//     let sqlMon= `SELECT * FROM routine WHERE class="${className}"  AND day='সোমবার'  ORDER BY period_table `
+//     let sqlTue= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='মঙ্গলবার'  ORDER BY period_table `
+//     let sqlWed= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বুধবার'  ORDER BY period_table `
+//     let sqlThu= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বৃহস্পতিবার'  ORDER BY period_table `
  
-    sqlmap.query(`SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}"`, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
+//     sqlmap.query(`SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}"`, (err, info)=>{
+//         if(err) console.log(err.sqlMessage);
 
-        else 
-        {
+//         else 
+//         {
 
-            sqlmap.query(sqlSun, (errSun, infoSun)=>{
+//             sqlmap.query(sqlSun, (errSun, infoSun)=>{
 
-                sqlmap.query(sqlMon, (errMon, infoMon)=>{
+//                 sqlmap.query(sqlMon, (errMon, infoMon)=>{
         
-                    sqlmap.query(sqlTue, (errTue, infoTue)=>{
+//                     sqlmap.query(sqlTue, (errTue, infoTue)=>{
         
-                        sqlmap.query(sqlWed, (errWed, infoWed)=>{
+//                         sqlmap.query(sqlWed, (errWed, infoWed)=>{
         
-                            sqlmap.query(sqlThu, (errThu, infoThu)=>{
+//                             sqlmap.query(sqlThu, (errThu, infoThu)=>{
        
                             
-                                    res.render("routine/routine_page_download", { infoSun, infoMon, infoTue, infoWed, infoThu})
+//                                     res.render("routine/routine_page_download", { infoSun, infoMon, infoTue, infoWed, infoThu})
                        
                 
-                            })
+//                             })
                
               
                 
-                        })
+//                         })
               
                 
-                    })
+//                     })
               
                 
-                })
+//                 })
               
                 
-            })
+//             })
         
 
-        }
-    })
+//         }
+//     })
  
-}
+// }
 
 
 
@@ -72,8 +72,7 @@ exports.public_routine_download= (req, res)=>{
 
 exports.admin_routine_post= (req, res)=>{
 
-
-    let {className, section, subject, day, periodTable,  teacherName}=req.body
+    let {className, subject, day, periodTable,  teacherName}=req.body
 
  let teacherTemp= teacherName.split("$%&")
  
@@ -86,16 +85,16 @@ exports.admin_routine_post= (req, res)=>{
  
 
 
- sqlmap.query(`SELECT * FROM routine WHERE class='${className}' AND section="${section}" AND day="${day}" AND subject="${subject}" AND (period_table="${periodTableX}" OR period_time="${periodTime}")`,(checkErr, checkInfo)=>{
+ sqlmap.query(`SELECT * FROM routine WHERE class='${className}'  AND day="${day}" AND subject="${subject}" AND (period_table="${periodTableX}" OR period_time="${periodTime}")`,(checkErr, checkInfo)=>{
 
    if(checkErr) console.log(checkErr.sqlMessage);
 
    if(checkInfo.length==0){
     sqlmap.query(`SELECT avatar, pds_id, name FROM teachers WHERE pds_id='${teacherPdsid}'`,(errT, infoT)=>{
 
-        sqlmap.query(`INSERT INTO routine (class, section, day, period_table, subject, period_time, teacher_name, teacher_pdsid, teacher_avatar) 
+        sqlmap.query(`INSERT INTO routine (class, day, period_table, subject, period_time, teacher_name, teacher_pdsid, teacher_avatar) 
         VALUES
-         ("${className}", "${section}", "${day}", "${periodTableX}", "${subject}", "${periodTime}", "${infoT[0].name}", "${infoT[0].pds_id}", "${infoT[0].avatar}")`, (err, next)=>{
+         ("${className}", "${day}", "${periodTableX}", "${subject}", "${periodTime}", "${infoT[0].name}", "${infoT[0].pds_id}", "${infoT[0].avatar}")`, (err, next)=>{
     
             if(err) console.log(err.sqlMessage);
             else res.send({msg: "Class Routine Created!", alert: 'text-success'})
@@ -126,25 +125,20 @@ exports.admin_routine_page= (req, res)=>{
 
     if(req.query.classBase==undefined) {
         var className="Six";
-        var sectionName="A";
     }
     else {
-        let value= req.query.classBase.split("-");
-        var className= value[0];
-        var sectionName= value[1];
+        var className= req.query.classBase;
 
     }
     
-     
     
-    
-        let sqlSun= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='ররিবার'  ORDER BY period_table `
-        let sqlMon= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='সোমবার'  ORDER BY period_table `
-        let sqlTue= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='মঙ্গলবার'  ORDER BY period_table `
-        let sqlWed= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বুধবার'  ORDER BY period_table `
-        let sqlThu= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বৃহস্পতিবার'  ORDER BY period_table `
+        let sqlSun= `SELECT * FROM routine WHERE class="${className}"  AND day='ররিবার'  ORDER BY period_table `
+        let sqlMon= `SELECT * FROM routine WHERE class="${className}"  AND day='সোমবার'  ORDER BY period_table `
+        let sqlTue= `SELECT * FROM routine WHERE class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
+        let sqlWed= `SELECT * FROM routine WHERE class="${className}"  AND day='বুধবার'  ORDER BY period_table `
+        let sqlThu= `SELECT * FROM routine WHERE class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
      
-        sqlmap.query(`SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}"`, (err, info)=>{
+        sqlmap.query(`SELECT * FROM routine WHERE class="${className}" `, (err, info)=>{
             if(err) console.log(err.sqlMessage);
     
             else 
@@ -208,155 +202,18 @@ exports.admin_routine_delete= (req, res)=>{
 }
 
 
-
-
-
-
-exports.privet_routine_page= (req, res)=>{
-
-
-    let className=req.query.className==undefined?"Six":req.query.className;
-    let sectionName=req.query.sectionName==undefined?"A":req.query.sectionName;
-
- 
-
-
-    let sqlSun= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='ররিবার'  ORDER BY period_table `
-    let sqlMon= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='সোমবার'  ORDER BY period_table `
-    let sqlTue= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='মঙ্গলবার'  ORDER BY period_table `
-    let sqlWed= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বুধবার'  ORDER BY period_table `
-    let sqlThu= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বৃহস্পতিবার'  ORDER BY period_table `
- 
-    sqlmap.query(`SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}"`, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
-
-        else 
-        {
-
-            sqlmap.query(sqlSun, (errSun, infoSun)=>{
-
-                sqlmap.query(sqlMon, (errMon, infoMon)=>{
-        
-                    sqlmap.query(sqlTue, (errTue, infoTue)=>{
-        
-                        sqlmap.query(sqlWed, (errWed, infoWed)=>{
-        
-                            sqlmap.query(sqlThu, (errThu, infoThu)=>{
-       
-                            
-                                    res.render("routine/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu})
-                       
-                
-                            })
-               
-              
-                
-                        })
-              
-                
-                    })
-              
-                
-                })
-              
-                
-            })
-        
-
-        }
-    })
- 
-}
-
-
-
-
-exports.privet_routine_page_class_base= (req, res)=>{
-
-
-    let value= req.query.classBase.split("-");
-    let className= value[0];
-    let sectionName= value[1];
-
-  
-
-    let sqlSun= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='ররিবার'  ORDER BY period_table `
-    let sqlMon= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='সোমবার'  ORDER BY period_table `
-    let sqlTue= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='মঙ্গলবার'  ORDER BY period_table `
-    let sqlWed= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বুধবার'  ORDER BY period_table `
-    let sqlThu= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বৃহস্পতিবার'  ORDER BY period_table `
- 
-    sqlmap.query(`SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}"`, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
-
-        else 
-        {
-
-            sqlmap.query(sqlSun, (errSun, infoSun)=>{
-
-                sqlmap.query(sqlMon, (errMon, infoMon)=>{
-        
-                    sqlmap.query(sqlTue, (errTue, infoTue)=>{
-        
-                        sqlmap.query(sqlWed, (errWed, infoWed)=>{
-        
-                            sqlmap.query(sqlThu, (errThu, infoThu)=>{
-        
-               
-                             
-                                    
-                            
-                                    res.render("routine/routine_page_privet", { infoSun, infoMon, infoTue, infoWed, infoThu})
-                          
-              
-                
-                            })
-               
-              
-                
-                        })
-              
-                
-                    })
-              
-                
-                })
-              
-                
-            })
-        
-
-        }
-    })
- 
-}
-
-
-
-
-
-
-
-
-
-
-
 exports.public_routine_page= (req, res)=>{
 
-
     let className=req.query.className==undefined?"SIX":req.query.className;
-    let sectionName=req.query.sectionName==undefined?"A":req.query.sectionName;
 
+
+    let sqlSun= `SELECT * FROM routine WHERE class="${className}"  AND day='ররিবার'  ORDER BY period_table `
+    let sqlMon= `SELECT * FROM routine WHERE class="${className}"  AND day='সোমবার'  ORDER BY period_table `
+    let sqlTue= `SELECT * FROM routine WHERE class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
+    let sqlWed= `SELECT * FROM routine WHERE class="${className}"  AND day='বুধবার'  ORDER BY period_table `
+    let sqlThu= `SELECT * FROM routine WHERE class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
  
-
-
-    let sqlSun= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='ররিবার'  ORDER BY period_table `
-    let sqlMon= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='সোমবার'  ORDER BY period_table `
-    let sqlTue= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='মঙ্গলবার'  ORDER BY period_table `
-    let sqlWed= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বুধবার'  ORDER BY period_table `
-    let sqlThu= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বৃহস্পতিবার'  ORDER BY period_table `
- 
-    sqlmap.query(`SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}"`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM routine WHERE class="${className}" `, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 
@@ -402,20 +259,15 @@ exports.public_routine_page= (req, res)=>{
 
 exports.public_routine_page_class_base= (req, res)=>{
 
+     var className= req.query.classBase;
 
-    let value= req.query.classBase.split("-");
-    let className= value[0];
-    let sectionName= value[1];
-
-  
-
-    let sqlSun= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='ররিবার'  ORDER BY period_table `
-    let sqlMon= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='সোমবার'  ORDER BY period_table `
-    let sqlTue= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='মঙ্গলবার'  ORDER BY period_table `
-    let sqlWed= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বুধবার'  ORDER BY period_table `
-    let sqlThu= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বৃহস্পতিবার'  ORDER BY period_table `
+    let sqlSun= `SELECT * FROM routine WHERE class="${className}"  AND day='ররিবার'  ORDER BY period_table `
+    let sqlMon= `SELECT * FROM routine WHERE class="${className}"  AND day='সোমবার'  ORDER BY period_table `
+    let sqlTue= `SELECT * FROM routine WHERE class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
+    let sqlWed= `SELECT * FROM routine WHERE class="${className}"  AND day='বুধবার'  ORDER BY period_table `
+    let sqlThu= `SELECT * FROM routine WHERE class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
  
-    sqlmap.query(`SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}"`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM routine WHERE class="${className}" `, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 
@@ -435,7 +287,7 @@ exports.public_routine_page_class_base= (req, res)=>{
                              
                                     
                             
-                                    res.render("routine/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu})
+                                    res.render("routine/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu, info})
                           
               
                 
