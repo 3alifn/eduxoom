@@ -35,23 +35,13 @@ module.exports = {
 
     }),
 
-
-    pu_headofschool_render: (req, res)=>{
-        
-        sqlmap.query(`SELECT * FROM headofschool`, (err, info) => {
-            if (err) console.log(err.sqlMessage);
-            res.render('public/headofschool', {info})
-
-        })
-
-      },
       
 
-    pu_headofschool_get: (req, res) => {
+    pu_headofschool_view_page: (req, res) => {
 
-        sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (err, info) => {
+        sqlmap.query(`SELECT * FROM headofschool GROUP BY position ORDER BY ID DESC`, (err, info) => {
             if (err) console.log(err.sqlMessage);
-            else res.send({ info })
+            else res.render('public/headofschool', {info})
         })
 
 
@@ -59,7 +49,7 @@ module.exports = {
 
     admin_headofschool_page: (req, res) => {
 
-        sqlmap.query(`SELECT * FROM headofschool ORDER BY ID DESC LIMIT 1`, (err, info) => {
+        sqlmap.query(`SELECT * FROM headofschool ORDER BY ID DESC`, (err, info) => {
             if (err) console.log(err.sqlMessage);
             else res.render('admin/headofschool', { info })
         })
@@ -68,84 +58,69 @@ module.exports = {
 
     },
 
-    admin_headofschool_post: (req, res) => {
-        const { president_name, president_msg, headmaster_name, headmaster_msg } = req.body;
-        sqlmap.query(`SELECT * FROM headofschool ORDER BY ID DESC LIMIT 1`, (errHave, infoHave) => {
-            if (errHave) console.log(errHave.sqlMessage);
-            if (infoHave.length == 0 || infoHave == undefined) {
+    admin_headofschool_post: async(req, res) => {
+        var { position, name, message, dataid, haveimage } = req.body;
+        const randomString= Math.random()*90000;
 
-                sqlmap.query(`INSERT INTO headofschool (president_name, president_msg, headmaster_name, headmaster_msg)
-                VALUES( '${president_name}', '${president_msg}','${headmaster_name}', '${headmaster_msg}')`, (err, next) => {
-                    if (err) console.log(err.sqlMessage);
-                    else res.send({ msg: 'Updated' })
-
-                })
-
-
-            } else {
-                sqlmap.query(`UPDATE headofschool SET president_name='${president_name}', president_msg='${president_msg}', headmaster_name="${headmaster_name}", headmaster_msg='${headmaster_msg}'`, (err, next) => {
-                    if (err) console.log(err.sqlMessage);
-                    else res.send({ msg: ' Updated' })
-                })
-            }
-
-        })
-
-
-    },
-
-    admin_headofschool_img_post: async (req, res) => {
-        const jsondata = (JSON.stringify(req.body));
-        const imgrole = JSON.parse(jsondata).imgrole;
-        const randomString= Math.random()*900000000;
-
-        if (req.file.size < 524288) {
-
-            await sharp(req.file.path)
-                .jpeg({ quality: 50 })
-                .toFile(
-                    path.resolve(path.resolve(req.file.destination, 'resized', imgrole+'_'+randomString+'.png'))
-                )
-
-            fs.unlinkSync(req.file.path)
-
-
-        }
-
-
-        else {
-            await sharp(req.file.path)
-                .jpeg({ quality: 20 })
-                .toFile(
-                    path.resolve(path.resolve(req.file.destination, 'resized', imgrole+'_'+randomString+'.png'))
-                )
-
-            fs.unlinkSync(req.file.path)
-
-
-        }
-
-
-        sqlmap.query(`SELECT * FROM headofschool`, (err, info)=>{
-            if(info.length>0){
+        if(haveimage==undefined || haveimage=='') var image= position+randomString+'.png'; else var image=haveimage;
+              sqlmap.query(`SELECT * FROM headofschool WHERE ID='${dataid}'`, (errcheck, infocheck)=>{
+                if(errcheck) console.log(errcheck.sqlMessage);
+                if(infocheck.length==undefined||infocheck.length==0){
+                    sqlmap.query(`INSERT INTO headofschool (position, name, message, image)
+                    VALUES( '${position}', '${name}','${message}', '${image}')`, (err, next) => {
+                        if (err) console.log(err.sqlMessage);
+                        else res.redirect('/admin/setup/headofschool')
+    
+                    })
+                } 
                 
-        sqlmap.query(`UPDATE headofschool SET  ${imgrole+'_img'}="${imgrole+'_'+randomString+'.png'}"`, (err, next)=>{
-            if(err) console.log(err.sqlMessage);
-            else console.log('updated');
-        })
-            } else {
+            else {
+                    sqlmap.query(`UPDATE headofschool SET position='${position}', name='${name}', message='${message}', image='${image}' WHERE ID='${dataid}'`, (errN, nextN) => {
+                        if (errN) console.log(errN.sqlMessage+"- update issued");
+                       else res.redirect('/admin/setup/headofschool')
+    
+                    })
+                }
+              })
 
-                sqlmap.query(`INSERT INTO headofschool (${imgrole+'_img'}) VALUES("${imgrole+'_'+randomString+'.png'}")`, (err, next)=>{
-                    if(err) console.log(err.sqlMessage);
-                    else console.log('inserted');
+              if(req.file){
+                if (req.file.size < 524288) {
+        
+                    await sharp(req.file.path)
+                        .jpeg({ quality: 50 })
+                        .toFile(
+                            path.resolve(path.resolve(req.file.destination, 'resized', image))
+                        )
+        
+                    fs.unlinkSync(req.file.path)
+        
+        
+                }
+        
+        
+                else {
+                    await sharp(req.file.path)
+                        .jpeg({ quality: 20 })
+                        .toFile(
+                            path.resolve(path.resolve(req.file.destination, 'resized', image))
+                        )
+        
+                    fs.unlinkSync(req.file.path)
+        
+        
+                }
+              }
+  
 
-                })
-
-            }
-        })
-
-        res.send({ msg: "Added Successfully!", alert: "success" })
     },
+
+    admin_headofschool_rm: (req, res)=>{
+        const {dataid}=req.body;
+        sqlmap.query(`DELETE FROM headofschool WHERE ID=${dataid}`, (err, next)=>{
+            if(err) console.log(err.sqlMessage);
+            else res.send({msg: 'Deleted!'})
+        })
+    }
 
 
 } 

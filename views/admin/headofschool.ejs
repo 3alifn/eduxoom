@@ -22,120 +22,156 @@
         <div class="row m-2 mt-5 shadowx text-center">
           <div class="col-11 m-auto">
 
-            <p class="p-2 text-muted fw-semibold fs-5">Setup head of school</p>
+            <p class="p-2 text-muted fw-semibold fs-5">Setup head of school <button onclick="window.location.reload()" class="p-2 shadowx btn btn-light">Refresh</button></p>
 
           </div>
         </div>
 
         <div id="headofschool" class="row  p-2 mt-1">
 
-          <form id="headofschoolform" action="#" method="post">
+          <div class="append-headofschool col-md-10 shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
 
-            <div class="col-md-10 shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+            <% if(info.length>0) {%>
 
+              <% for( let index = 0; index < info.length; index++ ) { %>
+              
+                <form class="form_<%=info[index].ID%>" enctype="multipart/form-data" action="/admin/setup/headofschool/post" method="post">
+                  <div class="mt-1 p-2">
+                    <div class="col-12">
+                      <input value="<%=info[index].ID%>" type="hidden" name="dataid">
+                      <input value="<%=info[index].image%>" type="hidden" name="haveimage">
+                      <p class="p-2 text-muted text-center fw-semibold fs-5">
+                        Our honourable <input required placeholder="Headmaster" value="<%=info[index].position%>" class="form-dev p-0" name="position"
+                          list="positionList">
+                        <datalist id="positionList">
+                          <option value="Chairman">Chairman</option>
+                          <option value="Principal">Principal</option>
+                          <option value="President">President</option>
+                          <option value="Headmaster">Headmaster</option>
+    
+                        </datalist>
+    
+                      </p>
+    
+                      <div class="d-flex shadowx  overflow-auto text-muted fw-semibold justify-content-end">
+                        <button onclick="_delbox_pull('<%=info[index].ID%>')" type="button" class="page-link btn-go text-primary shadowx at_action border p-2">delete and reset</button>
 
-              <div class="president-section mt-2 p-2">
-
-                <div class="col-11">
-                  <p class="p-2 text-muted text-center fw-semibold fs-5">Our president</p>
-                </div>
-
-                <div class="d-flex  p-2 justify-content-between align-items-center">
-                  <p class="w-25 fw-semibold m-auto">Name</p>
-                  <input value="<%=info[0]==undefined?null:info[0].president_name%>" required name="president_name"
-                    class="w-75 shadowx form-dev form-control-sm" placeholder="enter president name" type="text" id="">
-                </div>
-
-
-                <div class="d-flex  p-2 justify-content-between align-items-center">
-                  <p class="w-25 fw-semibold m-auto">Photo</p>
-                  <input data-id="president" value="<%=info[0]==undefined?null:info[0].president_img%>" name="image"
-                    class="w-75 shadowx president pushImage form-dev form-control-sm" type="file" id="">
-                </div>
-
-
-                <div class="d-flex  p-2 justify-content-between align-items-center">
-                  <p class="w-25 fw-semibold m-auto"></p>
-
-                  <div class="president_append w-75">
-                    <img class="bg-demo-img-color shadowx" src="/image/default/resized/<%=info[0].president_img==''?'president_img.png':info[0].president_img%>" height="100px"
-                      width="120px" alt="">
-
+                        <button type="button"
+                          class=" createElement page-link btn-go text-primary shadowx  border p-2">create an another
+                          one</button>
+    
+                      </div>
+                    </div>
+    
+    
+    
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold m-auto">Name</p>
+                      <input  required value="<%=info[index].name%>" name="name" class="w-75 shadowx form-dev form-control-sm" placeholder="enter name"
+                        type="text" id="">
+                    </div>
+    
+    
+    
+                    <div class="d-flex p-2 justify-content-between align-items-center">
+                      <p class="w-25  fw-semibold m-auto">Message</p>
+                      <span class="w-75">
+    
+                        <textarea required name="message" class="form-dev shadowx" style="width: 100%;" placeholder="message" id=""
+                          cols="40" rows="5"><%=info[index].message%></textarea>
+    
+                      </span>
+    
+                    </div>
+    
+    
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold m-auto">Photo</p>
+                      <img class="rounded-circle p-2 shadowx" src="/image/default/resized/<%=info[index].image%>" height="50px" width="50px"
+                        alt="">
+                      <input  name="image" value="<%=info[index].image%>" class="w-75 ps-3 shadowx  form-dev form-control-sm" type="file"
+                        id="">
+                    </div>
+    
                   </div>
-
-                </div>
-
-
-                <div class="d-flex p-2 justify-content-between align-items-center">
-                  <p class="w-25  fw-semibold m-auto">Message</p>
-                  <span class="w-75">
-
-                    <textarea required name="president_msg" class="form-dev shadowx" style="width: 100%;"
-                      placeholder="president message" id="" cols="40"
-                      rows="5"><%=info[0]==undefined?null:info[0].president_msg%></textarea>
-
-                  </span>
-
-                </div>
-
-              </div>
-
-
-
-              <div class="headmaster-section mt-2 p-2">
-
-                <div class="col-11">
-                  <p class="p-2 text-muted text-center fw-semibold fs-5">Our headmaster</p>
-                </div>
-
-                <div class="d-flex  p-2 justify-content-between align-items-center">
-                  <p class="w-25 fw-semibold m-auto">Name</p>
-                  <input required value="<%=info[0]==undefined?null:info[0].headmaster_name%>" name="headmaster_name"
-                    class="w-75 shadowx  form-dev form-control-sm" placeholder="enter headmaster name" type="text" id="">
-                </div>
-
-
-                <div class="d-flex  p-2 justify-content-between align-items-center">
-                  <p class="w-25 fw-semibold m-auto">Photo</p>
-                  <input data-id="headmaster" value="<%=info[0]==undefined?null:info[0].headmaster_img%>" name="image"
-                    class="w-75 headmaster shadowx pushImage form-dev form-control-sm" type="file" id="">
-                </div>
-
-
-                <div class="d-flex  p-2 justify-content-between align-items-center">
-                  <p class="w-25 fw-semibold m-auto"></p>
-
-                  <div class="headmaster_append w-75">
-                    <img class="bg-demo-img-color shadowx" src="/image/default/resized/<%=info[0].headmaster_img==''?'headmaster_img.png':info[0].headmaster_img%>" height="100px"
-                      width="120px" alt="">
-
+    
+                  <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+                    <button type="submit" class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and
+                      publish</button>
                   </div>
+    
+                </form>
 
-                </div>
+              <% } %>
+              <% } else {%>
 
+                <form class="form0" enctype="multipart/form-data" action="/admin/setup/headofschool/post" method="post">
+                  <div class="mt-1 p-2">
+                    <div class="col-12">
+                      <p class="p-2 text-muted text-center fw-semibold fs-5">
+                        Our honourable <input required placeholder="Headmaster" class="form-dev p-0" name="position"
+                          list="positionList">
+                        <datalist id="positionList">
+                          <option value="Chairman">Chairman</option>
+                          <option value="Principal">Principal</option>
+                          <option value="President">President</option>
+                          <option value="Headmaster">Headmaster</option>
+    
+                        </datalist>
+    
+                      </p>
+    
+                      <div class="d-flex shadowx  overflow-auto text-muted fw-semibold justify-content-end">
+                        <button type="button"
+                          class=" createElement page-link btn-go text-primary shadowx  border p-2">create an another
+                          one</button>
+    
+                      </div>
+                    </div>
+    
+    
+    
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold m-auto">Name</p>
+                      <input  required value="" name="name" class="w-75 shadowx form-dev form-control-sm" placeholder="enter name"
+                        type="text" id="">
+                    </div>
+    
+    
+    
+                    <div class="d-flex p-2 justify-content-between align-items-center">
+                      <p class="w-25  fw-semibold m-auto">Message</p>
+                      <span class="w-75">
+    
+                        <textarea required name="message" class="form-dev shadowx" style="width: 100%;" placeholder="message" id=""
+                          cols="40" rows="5"></textarea>
+    
+                      </span>
+    
+                    </div>
+    
+    
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold m-auto">Photo</p>
+                      <img class="rounded-circle p-2 shadowx" src="/image/default/resized/male_avatar.png" height="50px" width="50px"
+                        alt="">
+                      <input required name="image" class="w-75 ps-3 shadowx  form-dev form-control-sm" type="file"
+                        id="">
+                    </div>
+    
+                  </div>
+    
+                  <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+                    <button type="submit" class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and
+                      publish</button>
+                  </div>
+    
+                </form>
 
-                <div class="d-flex p-2 justify-content-between align-items-center">
-                  <p class="w-25  fw-semibold m-auto">Message</p>
-                  <span class="w-75">
+                <% } %>
 
-                    <textarea required name="headmaster_msg" class="form-dev shadowx" style="width: 100%;"
-                      placeholder="headmaster message" id="" cols="40"
-                      rows="5"><%=info[0]==undefined?null:info[0].headmaster_msg%></textarea>
-
-                  </span>
-
-                </div>
-
-              </div>
-
-
-
-              <div class="d-flex justify-content-end p-2 mt-2 mb-2">
-                <button class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Publish head of school</button>
-              </div>
-
-            </div>
-          </form>
+         
+          </div>
 
         </div>
 
@@ -151,86 +187,103 @@
         <script src="/app/___noviewport.js"></script>
 
 </body>
+
 <script>
+  var elemNumber = 0;
+  $(document).on('click', '.createElement', () => {
+    elemNumber += 1
+    $(event.target).addClass('disabled text-muted')
+    $('.append-headofschool').prepend(`
+  <form  class="form${elemNumber}" enctype="multipart/form-data" action="/admin/setup/headofschool/post" method="post">
+          <div class="mt-1 p-2">
+            <div class="col-12">
+              <input value="" type="hidden" name="haveimage">
 
-
-
-  noview.port({
-    input_class: 'headmaster',
-    append_class: 'headmaster_append',
-    file_type: 'image',
-    max_kb_size: 1024,
-    multiple: false,
-
-
-  })
-
-
-  noview.port({
-    input_class: 'president',
-    append_class: 'president_append',
-    file_type: 'image',
-    max_kb_size: 1024,
-    multiple: false,
-  })
-
-
-
-
-  $("#headofschoolform").on('submit', (event) => {
-    event.preventDefault()
-    $.ajax({
-      method: "post",
-      url: "/admin/setup/headofschool/post",
-      data: $("#headofschoolform").serialize(),
-      dataType: "JSON",
-      beforeSend: function () {
-        $(".submitbtn").addClass("btn disabled")
-        _spin_pull()
-      },
-      success: function (info) {
-        _spin_pop()
-        _msg_pull('alert-success', 'Updated...', null)
-        $(".submitbtn").removeClass("disabled")
-
-
-      }
-    });
-
-  })
-
-
-  $(".pushImage").on('change', (event) => {
-    const jsform = new FormData();
-    const thisIs = event.currentTarget.attributes[0].value;
-    jsform.append('image', $('.' + thisIs).get(0).files[0]);
-    jsform.append('imgrole', thisIs);
-
-    $.ajax({
-      method: "post",
-      url: "/admin/setup/headofschool/img/post",
-      data: jsform,
-      mimeType: "multipart/form-data",
-      cache: false,
-      processData: false,
-      contentType: false,
-      dataType: "JSON",
-
-      beforeSend: function () {
-        $(".submitbtn").addClass("btn disabled")
-        _spin_pull()
-      },
-      success: function (info) {
-        _spin_pop()
-        _msg_pull('alert-success', 'Updated...', null)
-        $(".submitbtn").removeClass("disabled")
-
-
-      }
-    });
+              <p class="p-2 text-muted text-center fw-semibold fs-5">
+                Our honourable <input required placeholder="Headmaster" class="form-dev p-0" name="position" list="positionList">
+                <datalist  id="positionList">
+                  <option  value="Chairman">Chairman</option>
+                  <option value="Principal">Principal</option>
+                  <option value="President">President</option>
+                  <option value="Headmaster">Headmaster</option>
+                    
+                </datalist>
+  
+              </p> 
+  
+              <div class="d-flex shadowx  overflow-auto text-muted fw-semibold justify-content-end">
+                <button type="button" class="page-link resetElement btn-go text-primary shadowx at_action border p-2">delete and reset</button>
+  
+              <button type="button"  class=" createElement page-link btn-go text-primary shadowx  border p-2">create an another one</button>
+  
+              </div>
+            </div>
+  
+      
+  
+            <div class="d-flex  p-2 justify-content-between align-items-center">
+              <p class="w-25 fw-semibold m-auto">Name</p>
+              <input required value=""  name="name"
+                class="w-75 shadowx form-dev form-control-sm" placeholder="enter name" type="text" id="">
+            </div>
+  
+  
+  
+            <div class="d-flex p-2 justify-content-between align-items-center">
+              <p class="w-25  fw-semibold m-auto">Message</p>
+              <span class="w-75">
+  
+                <textarea required name="message" class="form-dev shadowx" style="width: 100%;"
+                  placeholder="message" id="" cols="40"
+                  rows="5"></textarea>
+  
+              </span>
+  
+            </div>
+  
+  
+            <div class="d-flex  p-2 justify-content-between align-items-center">
+              <p class="w-25 fw-semibold m-auto">Photo</p>
+              <img class="rounded-circle p-2 shadowx" src="/image/default/resized/male_avatar.png" height="50px" width="50px" alt="">
+              <input required name="image" class="w-75 ps-3 shadowx  form-dev form-control-sm" type="file" id="">
+            </div>
+  
+          </div>
+  
+          <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+            <button type="submit" class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and publish</button>
+          </div>
+  
+        </form>`
+    )
 
   })
 
+
+$(document).on('click', '.resetElement', (event) => {
+    var elem = event.target.parentElement.parentElement.parentElement.parentElement;
+    
+      $(elem).remove()
+
+})
+
+function _delbox_push(dataid){
+  $.ajax({
+    method: "post",
+    url: "/admin/headofschool/rm",
+    data: {dataid},
+    dataType: "JSON",
+    beforeSend: function(){
+_spin_pull()
+    },
+    success: function (res) {
+      _msg_pull('alert-danger','Deleted!')
+       $('.form_'+dataid).remove()
+       _spin_pop()
+
+    }
+  });
+}
 
 
 

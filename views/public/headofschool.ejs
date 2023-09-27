@@ -1,0 +1,80 @@
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Head of school</title>  
+        <%- include("../component/metadata.html") %>
+      
+
+    </head>
+<body onload="pageLoaded()">
+
+  <%- include("../component/header-nav.html") %>
+  <%- include("../component/menu-nav.html") %>
+
+    <div id="headofschool" class="row mt-3">
+        <h1 class="fw-semibold text-center p-2 ">Head of school</h1>
+      <p class="text-center fw-semibold mb-3">Meet our most honorable person's in the school</p>
+
+      
+ <% for( let index = 0; index < info.length; index++ ) { %>
+ 
+  <div class="row p-2 mb-5 mt-3">
+    <div class="col-md-8 shadowx col-11 m-auto">
+      <h5> <%=info[index].position%> of school</h5>
+    </div>
+  </div>
+      
+    <div id="<%=info[index].position%>" class="row headofschool-person p-2">
+
+        <div class="col-md-8 shadowx col-11 m-auto">
+          <div class="d-flex align-items-center">
+            
+            <img class="img-thumbnail" style="border-radius: 100%; height: 100px; width: 100px; line-height: 1.9;" src="/image/default/resized/<%=info[index].image%>"  alt="">
+        
+            <div class="ps-4">
+             <h5 class="fw-semibold"><%=info[index].position%></h5>
+             <p class="fw-semibold">Our <%=info[index].position%></p>
+            </div>
+        
+          </div>
+
+
+          <p class="p-2 mt-4 mb-4"><%=info[index].message%></p>
+                
+        </div>
+        
+    </div>
+
+ <% } %>
+        
+          
+    <%- include("../component/footer-nav.html") %>
+
+</body>
+
+<script>
+
+function pageLoaded(){
+   $('.page-loading-top').remove()
+  }
+
+
+  (function(){
+$.ajax({
+  method: "get",
+  url: "/pu/headofschool/get/",
+  data: {},
+  dataType: "JSON",
+  success: function (res) {
+
+      $(".append-logo").attr( 'src', `/image/default/resized/${res.info_school[0].logo}`)
+  }
+});
+}())
+  
+</script>
+
+
+</html>

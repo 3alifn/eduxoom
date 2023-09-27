@@ -1,0 +1,104 @@
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice Board</title>
+
+    <%- include("../component/metadata.html") %> 
+
+</head>
+
+<body onload="pageLoadingTop()">
+
+  <%- include("../component/header-nav.html") %> 
+<%- include("../component/menu-nav.html") %> 
+<%- include("../component/offcanvas-nav.html") %> 
+
+
+<div class="row mt-5 mbx p-2 shadowx">
+      
+      <div class="col-11 m-auto col-md-6">
+        <legend class=" alert container bg-light shadow">নোটিশ তালিকা</legend>
+    
+          <input class="mt-2 mb-2 form-control" type="search" name="" placeholder="search..." id="search">
+
+      </div>
+  </div>
+
+
+
+    <div class="row">
+      <div class="col-12 col-md-10 m-auto">
+
+          <ul id="noticedata" class="list-group">
+
+          </ul>
+
+
+      </div>
+  </div>
+
+    <%- include("../component/___node.html") %> 
+
+</body>
+
+<script>
+
+
+
+$(document).ready(function(){
+  $("#findDate").change(function(e) {
+    let findDate= $("#findDate").val().replaceAll("-", "/");
+
+    var value = findDate
+    $("#noticdata li").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+$(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $("#noticedata li").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+
+$(document).ready(function () {
+
+            $.ajax({
+                type: "post",
+                url: "/pu/notice/get",
+                data: {},
+                dataType: "JSON",
+                beforeSend: function(){
+                _spin_pull()
+
+                },
+                success: function (info) {
+                    $("#noticedata").html(info.html)
+                    _spin_pop()
+                }
+            });
+
+
+        })
+
+
+    </script>
+
+
+</html>
+

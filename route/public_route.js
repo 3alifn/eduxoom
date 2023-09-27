@@ -31,7 +31,7 @@ public.post("/contact-us/sent/msg", school_app.public_sent_message)
 // pages router...
 public.get('/about-us.html/', school_app.pu_aboutus_render)
 public.get('/contact-us.html/', school_app.pu_contactus_render)
-public.get('/headofschool.html/', pu_headofschool_render)
+public.get('/headofschool.html/', headofschool_app.pu_headofschool_view_page)
 
 
 

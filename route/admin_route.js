@@ -74,9 +74,8 @@ admin.post('/eventnews/get', admin_eventnews_get)
 
 // setup headofschool
 admin.get('/setup/headofschool/', headofschool_app.admin_headofschool_page)
-admin.post('/setup/headofschool/post', headofschool_app.admin_headofschool_post)
-admin.post('/setup/headofschool/img/post', multer_upload_school_settings.single('image'), headofschool_app.admin_headofschool_img_post)
-
+admin.post('/setup/headofschool/post', multer_upload_school_settings.single('image'),headofschool_app.admin_headofschool_post)
+admin.post('/headofschool/rm', headofschool_app.admin_headofschool_rm)
 
 
 

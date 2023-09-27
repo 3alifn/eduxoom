@@ -41,9 +41,9 @@ exports.multer_upload_teacher= multer({
 
 exports.admin_teacher_join= async (req, res)=>{
 
-  let {religion, name, email,  gender, pdsId, indexNo, position, groupSpecial,  telephone, password,  joiningDate, bloodGroup}= req.body;
+  let {religion, name, email,  gender, pdsId, index_number, position, groupSpecial,  telephone, password,  joiningDate, bloodGroup}= req.body;
    if(pdsId==undefined || pdsId=='') var pdsId_= Math.floor(Math.random()*900000); else var pdsId_=  pdsId
-   if(indexNo==undefined || indexNo=='') var indexNo_= 'N'+Math.floor(Math.random()*900000); else var indexNo_=  indexNo;
+   if(index_number==undefined || index_number=='') var index_number_= 'N'+Math.floor(Math.random()*900000); else var index_number_=  index_number;
    const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
 
   if(req.file){
@@ -58,19 +58,19 @@ exports.admin_teacher_join= async (req, res)=>{
 
 
 
-  sqlmap.query(`SELECT * FROM teachers WHERE email="${email}" OR index_number="${index_number}" OR index_number="${indexNo_}"`, (err_, info_)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE email="${email}" OR index_number="${index_number}" OR index_number="${index_number_}"`, (err_, info_)=>{
  
    if(err_) console.log(err_.sqlMessage);
 
    else 
    {
-    if(info_.length>0) res.send({msg: "Email or PDSID or IndexNo. Already Joined!", alert: "alert-danger text-danger"})
+    if(info_.length>0) res.send({msg: "Email or PDSID or index_number. Already Joined!", alert: "alert-danger text-danger"})
    else  
   {
 
   let sql= `INSERT INTO teachers (religion, name, gender, pds_id, index_number, position, group_special,  telephone, email, password, joining_date, avatar) 
   VALUES 
-  ("${religion}", "${name}", "${gender}", "${pdsId_}", "${indexNo_}", "${position}", "${groupSpecial}", "${telephone}", "${email}", "${hashPassword}", "${joiningDate}",  "${avatar_png}")`
+  ("${religion}", "${name}", "${gender}", "${pdsId_}", "${index_number_}", "${position}", "${groupSpecial}", "${telephone}", "${email}", "${hashPassword}", "${joiningDate}",  "${avatar_png}")`
 
   sqlmap.query(sql, (err_sub, info_sub)=>{
 
@@ -228,7 +228,7 @@ exports.admin_teacher_get= (req, res)=>{
                   <li class="list-group-item-secondary">
                       <span class=" badge bg-light border text-dark">Contact: ${info[i].telephone}</span>  <p></p>
                       <span class=" badge bg-light border text-dark">PDSID: ${info[i].pds_id}</span>  <p></p>
-                      <span class=" badge bg-light border text-dark">IndexNo: ${info[i].index_number}</span>
+                      <span class=" badge bg-light border text-dark">index_number: ${info[i].index_number}</span>
 
                      
                   </li> 
@@ -327,7 +327,7 @@ exports.admin_teacher_update_page= (req, res)=>{
 
  <div class=" input-group"> 
      <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
-     <input type="text" placeholder="enter index no." name="indexNo" value="${info[0].index_number}" class="form-control" required> 
+     <input type="text" placeholder="enter index no." name="index_number" value="${info[0].index_number}" class="form-control" required> 
  </div>
 
  
@@ -376,14 +376,14 @@ exports.admin_teacher_update_page= (req, res)=>{
 
 exports.admin_teacher_update= (req, res)=>{
 
-  let {name, pdsId, indexNo, ID, position, joiningDate}= req.body;
+  let {name, pdsId, index_number, ID, position, joiningDate}= req.body;
 
-  sqlmap.query(`SELECT * FROM teachers WHERE pds_id=${pdsId} OR index_number="${indexNo}"`, (errF, infoF)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE pds_id=${pdsId} OR index_number="${index_number}"`, (errF, infoF)=>{
     if(errF) console.log(errF.sqlMessage);
   else {
 
-        sqlmap.query(`UPDATE teachers SET name="${name}", pds_id="${pdsId}", index_number="${indexNo}", position='${position}', joining_date='${joiningDate}' WHERE ID="${ID}"`, (err, next)=>{
-          if(err) res.send({msg: "PDSID or IndexNo. Already Joined!", alert: "alert-danger text-danger"})
+        sqlmap.query(`UPDATE teachers SET name="${name}", pds_id="${pdsId}", index_number="${index_number}", position='${position}', joining_date='${joiningDate}' WHERE ID="${ID}"`, (err, next)=>{
+          if(err) res.send({msg: "PDSID or index_number. Already Joined!", alert: "alert-danger text-danger"})
 
           else res.send({msg: "Save Changes Successfully!", alert: "alert-success text-success"})
         })

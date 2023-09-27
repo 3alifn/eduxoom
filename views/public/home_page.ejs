@@ -151,28 +151,26 @@
     <p class="text-center fw-semibold mb-3">Meet our most honorable person's in the school</p>
     
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 ">
           
-    <div id="president" class="d-flex justify-content-md-center" style="overflow: auto;">
+    <div class="d-flex justify-content-md-center" style="overflow: auto;">
     
-      <div class="shadow p-3 rounded">
-        <img  class="p-2 rounded append-president-img rounded-4" width="200px" height="150px" src="/image/default/resized/<%=info_headofschool[0].president_img%>" alt="">
-         <p class="ps-3 fs-6 fw-semibold">President</p>
-         <p class="ps-3  fs-6"><%=info_headofschool[0].president_name%></p>
-          <a class="ps-3 page-link link-hover link-primary link-move" href="/pu/headofschool.html?#President">Message here <i class="fa fa-angle-right link-move"></i></a>
-          
-      </div>
+     <% if(info_headofschool.length>0) {%>
+
+      <% for( let index = 0; index < info_headofschool.length; index++ ) { %>
+
+        <div class="shadow headofschool-person p-3 rounded">
+          <img  class="p-2 rounded  rounded-4" width="200px" height="150px" src="/image/default/resized/<%=info_headofschool[index].image%>" alt="">
+           <p class="ps-3 fs-6 fw-semibold"><%=info_headofschool[index].position%></p>
+           <p class="ps-3  fs-6"><%=info_headofschool[index].name%></p>
+            <a class="ps-3 page-link link-hover link-primary link-move" href="/pu/headofschool.html?#<%=info_headofschool[index].position%>">Message here <i class="fa fa-angle-right link-move"></i></a>
+            
+        </div>
       
-      <div id="Headmaster" class="shadow p-3 rounded ">
-        <img  class="p-2 rounded append-headmaster-img  rounded-4" width="200px" height="150px" src="/image/default/resized/<%=info_headofschool[0].headmaster_img%>" alt="">
-         <p class="ps-3 fs-6 fw-semibold">Headmaster</p>
-         <p class="ps-3  fs-6"><%=info_headofschool[0].headmaster_name%></p>
-          <a class="ps-3 page-link link-hover link-primary link-move" href="/pu/headofschool.html?#Headmaster">Message here <i class="fa fa-angle-right link-move"></i></a>
-          
-      </div>
-    
-    
-    
+      <% } %>
+
+      <% } %>
+        
     </div>
     </div>
     
@@ -241,8 +239,8 @@
 
 
 
-
-<!-- <div id="aef" class="row p-md-5 mb-5 mtx">
+<!-- 
+<div id="aef" class="row p-md-5 mb-5 mtx">
 
   <div class="col-11  m-auto">
       <p style="font-weight: 600; font-size: 1.9rem;" class="text-center  mb-4">
