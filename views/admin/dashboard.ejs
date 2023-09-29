@@ -28,11 +28,11 @@
             <ul class="w-50 text-muted">
     
               <li class="d-flex justify-content-between">
-                <span>Male </span> <small>60%</small>
+                <span>Male </span> <small class="percent-t-male"></small>
               </li>
         
               <li class="d-flex justify-content-between">
-                <span>Female </span> <small>40%</small>
+                <span>Female </span> <small class="percent-t-female"></small>
         
               </li>
         
@@ -40,7 +40,7 @@
         
             <ul class="text-muted d-flex justify-content-center align-items-center p-2 me-3 " style="width: 100px; height: 100px; border-radius: 100%; border: 10px solid rgb(17, 113, 209); margin-top: -40px;">
               <li class="list-unstyled">
-                <b>28</b>
+                <b class="count-teacher"></b>
                </li>
             </ul>
           </div>
@@ -65,11 +65,11 @@
             <ul class="w-50 text-muted">
     
               <li class="d-flex justify-content-between">
-                <span>Male </span> <small>30%</small>
+                <span>Male </span> <small class="percent-s-male"></small>
               </li>
         
               <li class="d-flex justify-content-between">
-                <span>Female </span> <small>70%</small>
+                <span>Female </span> <small class="percent-s-female"></small>
         
               </li>
         
@@ -77,7 +77,7 @@
         
             <ul class="text-muted d-flex justify-content-center align-items-center p-2 me-3 " style="width: 100px; height: 100px; border-radius: 100%; border: 10px solid rgb(23, 56, 88); margin-top: -40px;">
               <li class="list-unstyled">
-                <b>1700</b>
+                <b class="student-count"></b>
                </li>
             </ul>
           </div>
@@ -330,8 +330,32 @@
     </main>
 
     
+   <%- include("../component/___node.html") %> 
     
     <script>
+
+  (function(){
+    $.ajax({
+      method: "post",
+      url: "/admin/dashboard/tsa/lookup/",
+      data: {},
+      dataType: "JSON",
+      success: function (res) {
+        $('.count-teacher').text(res.countTeacher);
+        $('.percent-t-male').append(res.percentTmale);
+        $('.percent-t-male').append(` (${res.tMale})`);
+        $('.percent-t-female').append(res.percentTfemale);     
+        $('.percent-t-female').append(` (${res.tFemale})`);     
+         $('.student-count').text(res.countStudent);
+        $('.percent-s-male').append(res.percentSmale);
+        $('.percent-s-male').append(` (${res.sMale})`);
+        $('.percent-s-female').append(res.percentSfemale);
+        $('.percent-s-female').append(` (${res.sFemale})`);
+      
+
+      }
+    });
+  })()
     
     
     const elemData= {
@@ -842,24 +866,5 @@
     
     </script>
 
-   <%- include("../component/___node.html") %> 
 
-
-   <script>
-    
-    function getDashboardStatus(){
-        $.ajax({
-            method: "post",
-            url: "/admin/dashboard/status",
-            data: {user: 'admin'},
-            dataType: "JSON",
-            success: function (res) {
-                
-            }
-        });
-    }
-    // getDashboardStatus()
-    
-    
-    </script>
  </body>

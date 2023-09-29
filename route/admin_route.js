@@ -20,6 +20,7 @@ const { admin_class_section_get, admin_class_section_post, admin_class_section_m
 const { admin_st_current_status, admin_dashboard_status } = require("../app/admin_dashboard_app")
 const headofschool_app = require("../app/headofschool_app")
 const { admin_eventnews_post, multer_upload_eventnews, admin_eventnews_get } = require("../app/eventnews")
+const { admin_dashboard_tsa_lookup } = require("../app/dashboard_app")
 const admin= express.Router()
 
 
@@ -42,6 +43,11 @@ admin.all('*', (req, res, next)=>{
 
 })
 
+
+
+// dashboard lookup
+
+admin.post('/dashboard/tsa/lookup/', admin_dashboard_tsa_lookup)
 
 // setup school-settings.........
 
