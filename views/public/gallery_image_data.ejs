@@ -41,7 +41,7 @@
           <div class="col-11 m-auto">
               <p class="p-2 fw-semibold shadowx alert">No record</p>
           </div>
-          <% } %>
+          <% } else {%>
   
               <% for( let index = 0; index < info.length; index++ ) { %>
               
@@ -51,6 +51,8 @@
                     
                   </div>
 
+              <% } %>
+              
               <% } %>
              
               

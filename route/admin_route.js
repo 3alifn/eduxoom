@@ -17,10 +17,10 @@ const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_
 const { multer_upload_school_settings, admin_school_post, admin_school_get, admin_school_headmaster_post, admin_school_headmaster_get, admin_school_president_post, admin_school_president_get, admin_school_secretary_post, admin_school_secretary_get } = require("../app/school_app")
 const school_app = require("../app/school_app")
 const { admin_class_section_get, admin_class_section_post, admin_class_section_main_post } = require("../app/class_section")
-const { admin_st_current_status, admin_dashboard_status } = require("../app/admin_dashboard_app")
 const headofschool_app = require("../app/headofschool_app")
 const { admin_eventnews_post, multer_upload_eventnews, admin_eventnews_get } = require("../app/eventnews")
 const { admin_dashboard_tsa_lookup } = require("../app/dashboard_app")
+const { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, admin_staff_penbox_pull, admin_staff_penbox_push } = require("../app/staff_app")
 const admin= express.Router()
 
 
@@ -50,7 +50,6 @@ admin.all('*', (req, res, next)=>{
 admin.post('/dashboard/tsa/lookup/', admin_dashboard_tsa_lookup)
 
 // setup school-settings.........
-
 
 admin.get('/setup/class-section', (req, res)=>{
   res.render('admin/class_section_page')
@@ -84,15 +83,15 @@ admin.post('/setup/headofschool/post', multer_upload_school_settings.single('ima
 admin.post('/headofschool/rm', headofschool_app.admin_headofschool_rm)
 
 
-
-
-// dashboard status...
-admin.post('/dashboard/status', admin_dashboard_status )
-
-
-
-
-
+// setup staff settings
+admin.get('/setup/staff/page', (req, res)=>{
+  res.render('admin/staff_page')
+})
+admin.post('/staff/get', admin_staff_get)
+admin.post('/setup/staff/post', multer_upload_staff.single('image'),admin_staff_post)
+admin.post('/staff/rm', admin_staff_rm)
+admin.post('/staff/penbox/pull', admin_staff_penbox_pull)
+admin.post('/staff/penbox/push', admin_staff_penbox_push)
 
 
 // final transcript router....

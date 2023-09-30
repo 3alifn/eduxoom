@@ -96,7 +96,7 @@
       
       <div class="col-md-4 col-11 m-auto mt-4 pe-md-0 pe-5" style="height: 150px;">
         <a class=" text-decoration-none bg-light  page-link shadow mt-3 p-1 rounded border" style="height: 100%; width: 100%;" 
-        href="#">
+        href="/admin/setup/staff/page">
         
           <p class="ps-3 pt-4 text-muted fw-semibold">Our staff</p>
       
@@ -104,11 +104,11 @@
             <ul class="w-50 text-muted">
     
               <li class="d-flex justify-content-between">
-                <span>Male </span> <small>80%</small>
+                <span>Male </span> <small class="staff-male"></small>
               </li>
         
               <li class="d-flex justify-content-between">
-                <span>Female </span> <small>20%</small>
+                <span>Female </span> <small class="staff-female"></small>
         
               </li>
         
@@ -116,7 +116,7 @@
         
             <ul class="text-muted d-flex justify-content-center align-items-center p-2 me-3 " style="width: 100px; height: 100px; border-radius: 100%; border: 10px solid rgb(183, 21, 148); margin-top: -40px;">
               <li class="list-unstyled">
-                <b>7</b>
+                <b class="staff-count"></b>
                </li>
             </ul>
           </div>
@@ -346,6 +346,11 @@
         $('.percent-t-male').append(` (${res.tMale})`);
         $('.percent-t-female').append(res.percentTfemale);     
         $('.percent-t-female').append(` (${res.tFemale})`);     
+        
+        $('.staff-count').text(res.countStaff);
+        $('.staff-female').append(res.staffFemale);
+        $('.staff-male').append(` (${res.staffMale})`);
+
          $('.student-count').text(res.countStudent);
         $('.percent-s-male').append(res.percentSmale);
         $('.percent-s-male').append(` (${res.sMale})`);
@@ -519,10 +524,10 @@
     
      <!-- Hover added -->
      <div class="list-group  fw-semibold text-muted">
-      <a href="#" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+      <a href="/admin/setup/staff/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
         <div class="d-flex align-items-center">
           <img height="20px" width="20px" src="/icons/icons8-users-48.png" alt="">
-          <span class="ps-1 text-muted">Satff settings</span>
+          <span class="ps-1 text-muted">Staff settings</span>
         </div>
       </a>
      </div>

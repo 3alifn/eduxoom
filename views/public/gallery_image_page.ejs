@@ -39,7 +39,7 @@
             <div class="col-11 m-auto">
                 <p class="p-2 shadowx fw-semibold alert">No record</p>
             </div>
-            <% } %>
+            <% } else {%>
  
     <% for( let index = 0; index < info.length; index++ ) { %>
         <div class='col-6 col-md-3 m-0 m-md-auto p-2'>
@@ -49,6 +49,7 @@
              <%=info[index].item_title%>
               </a>
             </div>
+    <% } %>
     <% } %>
 
    </div>

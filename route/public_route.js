@@ -16,6 +16,7 @@ const { public_library_get } = require("../app/library_app")
 const { pu_school_get, pu_headofschool_get, au_user_nav, au_user_profile_header_nav } = require("../app/home_app")
 const { pu_headofschool_render } = require("../app/headofschool_app")
 const headofschool_app = require("../app/headofschool_app")
+const { public_staff_page } = require("../app/staff_app")
 const public= express.Router()
 
 // class section settings...
@@ -32,6 +33,8 @@ public.post("/contact-us/sent/msg", school_app.public_sent_message)
 public.get('/about-us.html/', school_app.pu_aboutus_render)
 public.get('/contact-us.html/', school_app.pu_contactus_render)
 public.get('/headofschool.html/', headofschool_app.pu_headofschool_view_page)
+public.get('/staff.html/', headofschool_app.pu_headofschool_view_page)
+public.get('/staff-page.html/', public_staff_page)
 
 
 

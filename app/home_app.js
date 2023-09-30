@@ -19,8 +19,12 @@ exports.home_page = (req, res) => {
 
                     sqlmap.query(`SELECT * FROM carousel ORDER BY ID DESC LIMIT 5`, (err_carousel, info_carousel) => {
 
-                        res.render('public/home_page', { info_school, info_headofschool, info_teacher, info_student, info_carousel })
+                        sqlmap.query(`SELECT COUNT(ID) as count FROM staff ORDER BY ID DESC`, (err_staff, info_staff) => {
 
+                            res.render('public/home_page', { info_school, info_staff, info_headofschool, info_teacher, info_student, info_carousel })
+    
+    
+                        })
 
                     })
 

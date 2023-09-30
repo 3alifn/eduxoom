@@ -102,7 +102,7 @@ exports.admin_eventnews_post= async(req, res)=>{
       await sharp(req.file.path)
       .jpeg({ quality: 50 })
       .toFile(
-          path.resolve(path.resolve(req.file.destination, 'resized',image))
+          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
       )
 
   fs.unlinkSync(req.files[x].path)
