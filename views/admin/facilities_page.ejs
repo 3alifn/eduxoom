@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
-  <title>Event and news</title>
+  <title>Facilities settings</title>
   <%- include("../component/metadata.html") %>
 
 
@@ -15,13 +15,12 @@
   <%- include("../component/admin-header-nav.html") %>
     <%- include("../component/admin-menu-nav.html") %>
 
-
       <div id="main-content" class="p-2 main-content mt-5">
        
         <!-- tabledata for fetch data -->
         <div id="tabledata" class="row shadow p-2 mt-5">
           <div class="col-11 m-auto">
-            <p class="p-2 text-muted text-center fw-semibold fs-5">Our student information</p>
+            <p class="p-2 text-muted text-center fw-semibold fs-5">Our facilities information</p>
           </div>
         
           <div class="col-auto ms-auto me-2">
@@ -163,15 +162,13 @@ noview.port({
     file_type: 'image',
     max_kb_size: 1024,
     multiple: true,
-
-
   })
 
 function tabledata(){
   $.ajax({
     method: "post",
     url: "/admin/repository/get",
-    data: {datatype: 'eventnews'},
+    data: {datatype: 'facilities'},
     dataType: "JSON",
     success: function (res) {
       $('#tabledata tbody').html(res.tabledata)
@@ -185,7 +182,7 @@ tabledata()
 $("#formdata").on('submit', (event) => {
     event.preventDefault()
     let formdata = new FormData($("#formdata")[0])
-    formdata.append('datatype', 'eventnews')
+    formdata.append('datatype', 'facilities')
     $('#progressbar').css({ 'width': 1 + '%' }).text();
 
     $.ajax({
@@ -247,7 +244,7 @@ function _delbox_push(dataid){
 $.ajax({
   method: "post",
   url: "/admin/repository/rm",
-  data: {datatype:'eventnews',dataid},
+  data: {datatype:'facilities',dataid},
   dataType: "JSON",
   success: function (response) {
     _msg_pull('alert-danger', 'Delete successfully!')

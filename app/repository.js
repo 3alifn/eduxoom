@@ -56,7 +56,6 @@ const multer_location_images= multer.diskStorage({
 
 exports.multer_upload_repository= multer({
   storage: multer_location_images,
-
   limits: {fileSize: 1024*1024*2},
   fileFilter: (req, file, cb)=>{
   
@@ -270,5 +269,57 @@ else {
 
 }
 
+exports.admin_repository_update_post= (req, res)=>{
+  const {datatype, dataid, title, e_date, description}= req.body;
+sqlmap.query(`UPDATE repository SET title='${title}', e_date='${e_date}', description='${description}' WHERE dataid='${dataid}'`, (err, update)=>{
+  if(err) console.log(err.sqlMessage);
+  else res.send({alert: 'alert-success', msg: 'Updated!'})
+})
 
+}
+
+
+
+exports.admin_repository_img_update_post= async(req, res)=>{
+  const {datatype, dataid, title, e_date, description, images}= req.body;
+  for (let x = 0; x < req.files.length; x++) {
+    const { filename: image } = req.files[x];
+   
+  if(req.files[x].size<1048576){
+
+    await sharp(req.files[x].path)
+    .jpeg({ quality: 50 })
+    .toFile(
+        path.resolve(path.resolve(req.files[x].destination, 'resized',image))
+    )
+    fs.unlinkSync(req.files[x].path)
+
+    }
+
+    else {
+
+      
+      await sharp(req.file.path)
+      .jpeg({ quality: 50 })
+      .toFile(
+          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
+      )
+
+  fs.unlinkSync(req.files[x].path)
+    
+      }
+    }
+  
+  
+  
+ for (let index=0; index < req.files.length; index++) {
+  sqlmap.query(`INSERT INTO repository (dataid, datatype, title, e_date, description, image )VALUES('${dataid}','${datatype}', '${title}', '${e_date}', '${description}', '${req.files[index].filename}')`, (err, next)=>{
+      if(err) console.log(err.sqlMessage);
+  })
+}
+
+res.send({msg: 'Update successfully!', alert: 'success'})
+
+
+}
 

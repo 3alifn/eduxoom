@@ -331,6 +331,21 @@
     </div>
     
     <script>
+
+const xhr= { fill:    $('#progressbar').css({ 'width': 1 + '%' }).text(),
+  xhr: function () {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function (evt) {
+
+          if (evt.lengthComputable) {
+            var percentComplete = (evt.loaded / evt.total) * 100;
+
+            $('#progressbar').css({ 'width': percentComplete + '%' }).text(percentComplete + '%')
+
+          }
+        }, false);
+        return xhr;
+      },}
     
     
       $(document).ready(function(){

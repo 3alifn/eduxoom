@@ -33,6 +33,11 @@
 
         </div>
        <form id="imagedata" class="p-2 mb-2" action="#">
+        <input type="hidden" name="datatype" value="<%=info[0].datatype%>">
+        <input type="hidden" name="dataid" value="<%=info[0].dataid%>">
+        <input type="hidden" name="title" value="<%=info[0].title%>">
+        <input type="hidden" name="e_date" value="<%=info[0].e_date%>">
+        <input type="hidden" name="description" value="<%=info[0].description%>">
         <div class="d-flex p-2 justify-content-between align-items-center">
             <p class="w-25 fw-semibold">Upload photos</p>
             <code class="p-1">*</code>
@@ -134,31 +139,10 @@ noview.port({
 
 $("#formdata").on('submit', (event) => {
     event.preventDefault()
-    let formdata = new FormData($("#formdata")[0])
-    formdata.append('datatype', 'eventnews')
-    $('#progressbar').css({ 'width': 1 + '%' }).text();
-
-    $.ajax({
-      xhr: function () {
-        var xhr = new window.XMLHttpRequest();
-        xhr.upload.addEventListener("progress", function (evt) {
-
-          if (evt.lengthComputable) {
-            var percentComplete = (evt.loaded / evt.total) * 100;
-
-            $('#progressbar').css({ 'width': percentComplete + '%' }).text(percentComplete + '%')
-
-          }
-        }, false);
-        return xhr;
-      },
+    $.ajax({ 
       method: "post",
-      url: "/admin/setup/repository/update",
-      data: formdata,
-      mimeType: "multipart/form-data",
-      cache: false,
-      processData: false,
-      contentType: false,
+      url: "/admin/repository/update/post/",
+      data: $("#formdata").serialize(),
       dataType: "JSON",
 
       beforeSend: function () {
@@ -167,28 +151,40 @@ $("#formdata").on('submit', (event) => {
       },
       success: function (info) {
         _spin_pop()
-        _msg_pull('alert-success', 'Repository add successfully...', null)
+        _msg_pull('alert-success', 'Repository update successfully...', null)
         $(".submitbtn").removeClass("disabled")
-       tabledata()
 
       }
     });
 
   })
 
-function _delbox_push(dataid){
-$.ajax({
-  method: "post",
-  url: "/admin/repository/img/rm",
-  data: {datatype:'eventnews',dataid},
-  dataType: "JSON",
-  success: function (response) {
-    _msg_pull('alert-danger', 'Delete successfully!')
-    tabledata()
-  }
-});
- 
-}
+  $("#imagedata").on('submit', (event) => {
+    var formdata= new FormData($('#imagedata')[0])
+    event.preventDefault()
+    $.ajax({ 
+      method: "post",
+      url: "/admin/repository/img/update/post/",
+      data: formdata,
+      dataType: "JSON",
+      mimeType: 'multipart/form-data',
+      cache: false,
+      contentType: false,
+      processData: false,
+      beforeSend: function () {
+        $(".submitbtn").addClass("disabled")
+        _spin_pull()
+      },
+      success: function (info) {
+        _spin_pop()
+        _msg_pull('alert-success', 'Repository update successfully...', null)
+        $(".submitbtn").removeClass("disabled")
+
+      }
+    });
+
+  })
+
 
 function _delbox_push(dataid){
 $.ajax({
