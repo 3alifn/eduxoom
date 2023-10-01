@@ -26,9 +26,9 @@ const noview= {
   
     if( file_type=='image' && filetype=='image/jpeg' || filetype=='image/jpg' || filetype=='image/png' || filetype=='image/gif'){
       if(multiple==true){
-        $('.'+append_class).append(`<img class="rounded" src="${tmppath}" width="100px" height="auto" alt="">`)
+        $('.'+append_class).append(`<img class="rounded" src="${tmppath}" width="100px" height="80x" alt="">`)
       } else{
-        $('.'+append_class).html(`<img class="rounded" src="${tmppath}" width="100px" height="auto" alt="">`)
+        $('.'+append_class).html(`<img class="rounded" src="${tmppath}" width="100px" height="80px" alt="">`)
   
       }
     
@@ -53,10 +53,10 @@ const noview= {
   
    else if( file_type=='video' && filetype=='video/mp4'){
     if(multiple==true){
-      $('.'+append_class).append(`<video width="300px" height="auto" controls src="${tmppath}"></video>
+      $('.'+append_class).append(`<video width="300px" height="80x" controls src="${tmppath}"></video>
   `)
     } else {
-      $('.'+append_class).html(`<video width="300px" height="auto" controls src="${tmppath}"></video>
+      $('.'+append_class).html(`<video width="300px" height="80x" controls src="${tmppath}"></video>
   `)
     }
     

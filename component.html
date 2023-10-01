@@ -1,0 +1,460 @@
+<body>
+
+    <!-- view card for people/data information -->
+    <div class="col-md-4 mt-2 p-2 col-11  card shadowx">
+                 
+      <center class=" p-2">
+        <img style="width: 150px;" class=" shadowx float-start " src="/image/staff/resized/<%=info[index].image%>" alt="">
+      </center>
+    
+      <div class="card-body fw-semibold">
+    
+        <div class="d-flex text-muted ">
+           <div class="p-1 w-25">Name</div>
+           <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].name%></div>
+          </div>
+    
+          <div class="d-flex text-muted ">
+            <div class="p-1 w-25">Position</div>
+            <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].position%></div>
+           </div>
+    
+          <div class="d-flex text-muted ">
+            <div class="p-1 w-25">Gender</div>
+            <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].gender%></div>
+           </div>
+    
+           <div class="d-flex text-muted ">
+            <div class="p-1 w-25">Index no</div>
+            <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].index_number%></div>
+           </div>
+    
+           <div class="d-flex text-muted ">
+            <div class="p-1 w-25">Email</div>
+            <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].email%></div>
+           </div>
+    
+    
+           <div class="d-flex text-muted ">
+            <div class="p-1 w-25">Phone</div>
+            <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].phone%></div>
+           </div>
+    
+           <div class="d-flex text-muted ">
+            <div class="p-1 w-25">Age</div>
+            <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].age%></div>
+           </div>
+    
+           <div class="d-flex text-muted ">
+            <div class="p-1 w-25">Joining date</div>
+             <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].joining_date%></div>
+           </div>
+    
+    
+    
+    
+    
+    </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- penboxdata for update form -->
+    <button style="display: none;" type="button" data-bs-toggle="modal" data-bs-target="#penboxform" id="penboxmodalbtn"
+    class="btn link-success shadowx btn-go fw-500">Penbox form</button>
+    
+    <div class="penboxformappend">
+    
+    </div>
+    <div id="penboxform" data-bs-backdrop="static" class="row modal  p-2 mt-5">
+    
+      <div class="  modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+      <div class="d-flex justify-content-end p-2">
+      <button type="button" data-bs-dismiss="modal" class="btn btn-close bg-light "></button>
+      
+      </div>
+      <form id="penboxdata" class="penboxdata" method="post" action="#" onsubmit="return false">
+        <div class=" card shadowx">
+        <div class="d-flex">
+          <img style="width: 150px; height: 120px" class=" shadowx " src="/image/staff/resized/${info[0].image}" alt="">
+          <p class="p-2 text-muted fw-semibold ">Hi, dear can you changes fields below!</p>
+      
+        </div>
+      
+          <div class="card-body fw-semibold">
+        
+            <div class="d-flex  p-2 justify-content-between align-items-center">
+              <p class="w-25 fw-semibold">Name </p>
+              <code class="p-1">*</code> 
+              <input required type="text"  name="name" placeholder="enter name" class="w-75 shadowx form-dev form-control-sm" >
+            </div>
+    
+            <div class="d-flex p-1 justify-content-between align-items-center">
+              <p class="w-25 fw-semibold">Gender</p>
+              <code class="p-1">*</code>
+               <span class="w-75">
+                 Male <input name="gender" value="Male" checked class="form-check-input shadowx ms-2 me-2" type="radio"  id="">
+                 Female <input name="gender" value="Female" class="form-check-input shadowx ms-2" type="radio" id="">
+            
+              </span>
+            
+            </div>
+    
+    
+            <div class="d-flex  p-2 justify-content-between align-items-center">
+              <p class="w-25 fw-semibold">Email</p>
+            <code class="p-1">*</code>
+             <input required type="email" name="email" placeholder="example@gmai.com"  class="w-75 shadowx form-dev form-control-sm" >
+            </div>
+    
+            
+            <div class="d-flex  p-2 justify-content-between align-items-center">
+              <p class="w-25 fw-semibold">Phone</p>
+              <code class="p-1">*</code>
+               <input required type="number" name="phone" placeholder="017XXXXXXXX" maxlength="11"  class="w-75 shadowx form-dev form-control-sm" >
+            </div>
+    
+    
+            <div class="d-flex  p-2 justify-content-between align-items-center">
+              <p class="w-25 fw-semibold">Comment</p>
+              <code class="p-1">*</code>
+             <textarea required name="comment" placeholder="What's on your mind" class="w-75 shadowx form-dev form-control-sm" id="" cols="30" rows="5"></textarea>
+            </div>
+    
+    
+            <div class="d-flex  p-2 justify-content-between align-items-center">
+              <p class="w-25 fw-semibold">Birth date</p>
+              <code class="p-1">*</code>
+              <input required type="date" name="birth_date" class="w-75 shadowx form-dev form-control-sm" >
+            </div>
+    
+            
+    
+    
+            <div class="d-flex  p-2 justify-content-between align-items-center">
+              <p class="w-25 fw-semibold">Photo</p>
+              <code class="p-1">*</code>
+              <input required name="image" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
+            </div>
+    
+      
+                   
+            <div class="d-flex justify-content-end text-muted m-2">
+             <input  class="btn  text-primary submitbtn nav-fill btn-hover shadowx"  type="submit" value="Save and changes" id="">
+           </div>
+      
+      
+      </div>
+      </div>
+      </form>
+      </div>
+      </div>
+    
+    <!-- tabledata for fetch data -->
+    <div id="tabledata" class="row shadow p-2 mt-5">
+      <div class="col-11 m-auto">
+        <p class="p-2 text-muted text-center fw-semibold fs-5">Our student information</p>
+      </div>
+    
+      <div class="col-auto ms-auto me-2">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
+          class="btn link-success fw-semibold shadowx btn-go fw-500">Create a new data</button>
+      </div>
+      <p></p>
+      <div class="col-md-10 col-12 m-auto">
+    
+        <div class="d-flex justify-content-between">
+          <select disabled style="width: 100px; outline: none;" class="form-dev shadowx p-0" name="" id="">
+            <option  selected value="15">15</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="All">All</option>
+          </select>
+    
+          <input id="tablesearch" style="width: 200px; outline: none;" class="ps-2 form-dev p-0 shadowx" type="search"
+            placeholder="search">
+    
+        </div>
+    
+        <form id="formcheckout" action="#" method="get" onsubmit="return false">
+        <table class="table mt-1 mbx shadowx table-borderless ">
+          <thead>
+            <tr>
+              <th class="p-3"> <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id=""></th>
+              <th class="fw-semibold text-muted">Student</th>
+              <th class="fw-semibold text-muted">Roll</th>
+              <th class="fw-semibold text-muted">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbodydata" class="check-mark-area ">
+    
+           <!-- <tr> 
+            <td colspan="3" ><span class="text-center bg-go shadowx alert-info">Loading...</span></td>
+           </tr> -->
+    
+           <tr >
+            <td class="p-3"> 
+              <input value="" name="dataid[]"  type="checkbox" class="shadowx checkout form-check-input"  id="">
+            </td>
+            <td class="fw-semibold text-muted">
+    
+              <img class="shadowx" style="width: 60px; height: 40px;" src="/image/staff/resized/${info[index].image}" alt="">
+             Md tanvir
+            </td>
+    
+            <td class="fw-semibold text-muted">1001</td>
+    
+            <td class="fw-semibold text-muted">
+              <div class="dropdown">
+                <button data-bs-toggle="dropdown" class="btn btn-link dropdown-toggle shadowx"> <i class="bi bi-three-dots-vertical"></i></button>
+                <div class="dropdown-menu">
+                  <button type='button' onclick='_penbox_pull(1001)' class="btn  dropdown-item btn-link p-2"><i class="bi bi-pen p-1"></i>view and edit</button>
+                  <button type='button' onclick='_delbox_push(1001)' class="btn dropdown-item btn-link p-2"><i class="bi bi-trash p-1"></i>delete forever</button>
+                </div>
+              </div>
+            </td>
+    
+          </tr>
+    
+        <tfoot>
+             
+          <tr>
+            <td class="shadowx"> <button type="submit" class="bi shadowx  checkoutpop bi-trash-fill btn btn-outline-danger"></button></td>
+          </tr>
+    
+        </tfoot>
+    
+          </tbody>
+        </table>
+      </form>
+      </div>
+    </div>
+    
+    <!-- openform for create data -->
+    <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
+    
+        <div style="transform: scale(1);" class="col-md-10 me-auto modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 ">
+    
+          <form  id="formdata" action="#" method="post">
+    
+              <div class="d-flex justify-content-end p-2">
+                <button type="button" data-bs-dismiss="modal" class="btn btn-close bg-light "></button>
+    
+              </div>
+    
+        
+                <div class="col-11">
+                  <p class="p-2 text-muted text-center fw-semibold fs-5">My create form</p>
+                </div>
+    
+                
+                
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold">Name </p>
+                  <code class="p-1">*</code> 
+                  <input required type="text"  name="name" placeholder="enter name" class="w-75 shadowx form-dev form-control-sm" >
+                </div>
+    
+                <div class="d-flex p-1 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold">Gender</p>
+                  <code class="p-1">*</code>
+                   <span class="w-75">
+                     Male <input name="gender" value="Male" checked class="form-check-input shadowx ms-2 me-2" type="radio"  id="">
+                     Female <input name="gender" value="Female" class="form-check-input shadowx ms-2" type="radio" id="">
+                
+                  </span>
+                
+                </div>
+    
+    
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold">Email</p>
+                <code class="p-1">*</code>
+                 <input required type="email" name="email" placeholder="example@gmai.com"  class="w-75 shadowx form-dev form-control-sm" >
+                </div>
+    
+                
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold">Phone</p>
+                  <code class="p-1">*</code>
+                   <input required type="number" name="phone" placeholder="017XXXXXXXX" maxlength="11"  class="w-75 shadowx form-dev form-control-sm" >
+                </div>
+    
+    
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold">Comment</p>
+                  <code class="p-1">*</code>
+                 <textarea required name="comment" placeholder="What's on your mind" class="w-75 shadowx form-dev form-control-sm" id="" cols="30" rows="5"></textarea>
+                </div>
+    
+    
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold">Birth date</p>
+                  <code class="p-1">*</code>
+                  <input required type="date" name="birth_date" class="w-75 shadowx form-dev form-control-sm" >
+                </div>
+    
+                
+    
+    
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold">Photo</p>
+                  <code class="p-1">*</code>
+                  <input required name="image" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
+                </div>
+    
+    
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                  <p class="w-25 fw-semibold"></p>
+    
+                  <div class="images_append w-75">
+    
+    
+                  </div>
+    
+                </div>        
+    
+                <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+                  <button type="submit" class="btn text-primary submitbtn nav-fill btn-hover shadowx">Create and update</button>
+                </div>
+    
+          </form>
+    
+        </div>
+    
+      
+    </div>
+    
+    <script>
+    
+    
+      $(document).ready(function(){
+        $("#tablesearch").keyup(function() {
+          var value = $(this).val().toLowerCase();
+          $("#tabledata tbody tr").filter(function() {
+             
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+           
+          });
+        });
+      });
+      
+      
+      noview.port({
+          input_class: 'images',
+          append_class: 'images_append',
+          file_type: 'image',
+          max_kb_size: 1024,
+          multiple: true,
+      
+      
+        })
+      
+      function tabledata(){
+        $.ajax({
+          method: "post",
+          url: "/admin/student/get",
+          data: {type: 'eventnews'},
+          dataType: "JSON",
+          success: function (res) {
+            $('#tabledata tbody').html(res.tabledata)
+          }
+        });
+      }
+      
+      tabledata()
+      
+      $('#formdata').on('submit', (event)=>{
+      event.preventDefault();
+      let formdata = new FormData($("form")[1])
+      $.ajax({
+        method: "post",
+        url: "/admin/setup/student/post",
+        data: formdata,
+        dataType: "JSON",
+        mimeType: 'multipart/form-data',
+        cache: false,
+        processData: false,
+        contentType: false,
+        beforeSend: function(){
+      $('.submitbtn').addClass('disabled')
+        },
+        success: function (response) {
+          _msg_pull('alert-success', 'student added successfully!')
+          tabledata()
+          $('.submitbtn').removeClass('disabled')
+      
+        }
+      });
+      })
+      
+      
+      $('#formcheckout').on('submit', (event)=>{
+        event.preventDefault()
+        $.ajax({
+        method: "post",
+        url: "/admin/student/rm",
+        data: $('#formcheckout').serialize(),
+        dataType: "JSON",
+        success: function (response) {
+          _msg_pull(response.alert, response.msg)
+          tabledata()
+        }
+      });
+      })
+      
+      
+      function _delbox_push(dataid){
+      $.ajax({
+        method: "post",
+        url: "/admin/student/rm",
+        data: {dataid},
+        dataType: "JSON",
+        success: function (response) {
+          _msg_pull('alert-danger', 'Delete successfully!')
+          tabledata()
+        }
+      });
+       
+      }
+      
+      
+      function _penbox_pull(dataid){
+      $.ajax({
+        method: "post",
+        url: "/admin/student/penbox/pull",
+        data: {dataid},
+        dataType: "JSON",
+        success: function (res) {
+      
+          $('.penboxformappend').html(res.penboxdata)
+          $('#penboxmodalbtn').click()
+          
+        }
+      });
+      }
+    
+      
+      $(document).on('submit','#penboxdata', (event)=>{
+        event.preventDefault();
+        $.ajax({
+          method: "post",
+          url: "/admin/student/penbox/push",
+          data: $('.penboxdata').serialize(),
+          dataType: "JSON",
+          success: function (res) {
+            _msg_pull('alert-success', 'Update successfully!')
+            tabledata()
+          }
+        });
+      
+      })
+      
+      
+    </script>
+    </body>

@@ -10,7 +10,6 @@
 
 </head>
 
-
 <body onload="pageLoadingTop()">
 
   <%- include("../component/admin-header-nav.html") %>
@@ -18,151 +17,136 @@
 
 
       <div id="main-content" class="p-2 main-content mt-5">
-
-
-
-        <div class="row m-2 mt-5 shadowx text-center">
-          <div class="col-11 m-auto">
-
-            <p class="p-2 text-muted fw-semibold fs-5">Setup event and news</p>
-
-          </div>
-        </div>
-
-
-
+       
+        <!-- tabledata for fetch data -->
         <div id="tabledata" class="row shadow p-2 mt-5">
-       <form id="formdata" action="#">
+          <div class="col-11 m-auto">
+            <p class="p-2 text-muted text-center fw-semibold fs-5">Our student information</p>
+          </div>
+        
           <div class="col-auto ms-auto me-2">
-            <button data-bs-toggle="modal" data-bs-target="#openform" id="createStudent"
-              class="btn link-success shadowx btn-go fw-500">Create a new student</button>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
+              class="btn link-success fw-semibold shadowx btn-go fw-500">Create a new data</button>
           </div>
           <p></p>
-          <div class="col-md-8 col-12 m-auto">
-
+          <div class="col-md-10 col-12 m-auto">
+        
             <div class="d-flex justify-content-between">
-              <select style="width: 100px; outline: none;" class="form-dev shadowx p-0" name="" id="">
-                <option selected value="15">15</option>
+              <select disabled style="width: 100px; outline: none;" class="form-dev shadowx p-0" name="" id="">
+                <option  selected value="15">15</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
                 <option value="All">All</option>
               </select>
-
-              <input style="width: 200px; outline: none;" class="ps-2 form-dev p-0 shadowx" type="search"
+        
+              <input id="tablesearch" style="width: 200px; outline: none;" class="ps-2 form-dev p-0 shadowx" type="search"
                 placeholder="search">
-
+        
             </div>
-
-            <table class="table mt-1 mbx shadowx table-borderless table-ed">
+        
+            <form id="formcheckout" action="#" method="get" onsubmit="return false">
+            <table class="table mt-1 mbx shadowx table-borderless ">
               <thead>
                 <tr>
                   <th class="p-3"> <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id=""></th>
-                  <th class="fw-semibold text-muted">Title</th>
+                  <th class="fw-semibold text-muted">Photo</th>
+                  <th class="fw-semibold text-muted">Event</th>
                   <th class="fw-semibold text-muted">Date</th>
                   <th class="fw-semibold text-muted">Action</th>
                 </tr>
               </thead>
-              <tbody class="check-mark-area">
-
-               <tr>
-                <td colspan="3" ><span class="text-center shadowx alert-info">Loading...</span></td>
-               </tr>
-
+              <tbody id="tbodydata" class="check-mark-area ">
+        
+               <!-- <tr> 
+                <td colspan="3" ><span class="text-center bg-go shadowx alert-info">Loading...</span></td>
+               </tr> -->
+        
+      
             <tfoot>
                  
               <tr>
-                <td class="shadowx"> <i class="bi shadowx  btnpop bi-trash-fill btn btn-outline-danger"></i></td>
+                <td class="shadowx"> <button type="submit" class="bi shadowx  checkoutpop bi-trash-fill btn btn-outline-danger"></button></td>
               </tr>
-
+        
             </tfoot>
-
+        
               </tbody>
             </table>
-
-          </div>
-        </form>
-        </div>
-
-
-
-        <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
-
-          <form id="eventnewsform" action="#" method="post">
-
-            <div
-              class="col-md-10  modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
-
-              <div class="d-flex justify-content-end p-2">
-                <button type="button" data-bs-dismiss="modal" class="btn btn-close bg-light "></button>
-
-              </div>
-
-              <div class="president-section mt-2 p-2">
-
-                <div class="col-11">
-                  <p class="p-2 text-muted text-center fw-semibold fs-5">Create event and news</p>
-                </div>
-
-                <div class="d-flex  p-2 justify-content-between align-items-center">
-                  <p class="w-25 fw-semibold m-auto">Date</p>
-                  <input name="e_date" class="w-75  shadowx form-dev form-control-sm" type="date" id="">
-                </div>
-
-                <div class="d-flex  p-2 justify-content-between align-items-center">
-                  <p class="w-25 fw-semibold m-auto">Title</p>
-                  <input name="title" class="w-75 shadowx form-dev form-control-sm" placeholder="Title here" type="text"
-                    id="">
-                </div>
-
-
-                <div class="d-flex  p-2 justify-content-between align-items-center">
-                  <p class="w-25 fw-semibold m-auto">Upload photos</p>
-                  <input multiple name="images[]" class="w-75 shadowx images form-dev form-control-sm" type="file"
-                    id="">
-                </div>
-
-
-                <div class="d-flex  p-2 justify-content-between align-items-center">
-                  <p class="w-25 fw-semibold m-auto"></p>
-
-                  <div class="images_append w-75">
-
-
-                  </div>
-
-                </div>
-
-
-                <div class="d-flex p-2 justify-content-between align-items-center">
-                  <p class="w-25  fw-semibold m-auto">Description</p>
-                  <span class="w-75">
-
-                    <textarea name="description" class="form-dev shadowx" style="width: 100%;"
-                      placeholder="description here..." id="" cols="40" rows="5"></textarea>
-
-                  </span>
-
-                </div>
-
-                <div class="progress mb-2">
-                  <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                    style="width: 1%;"></div>
-                </div>
-
-                <div class="d-flex justify-content-end p-2 mt-2 mb-2">
-                  <button class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Publish event and news</button>
-                </div>
-
-              </div>
           </form>
-
+          </div>
         </div>
+        
+        <!-- openform for create data -->
+        <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
+        
+            <div style="transform: scale(1);" class="col-md-10 me-auto modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 ">
+        
+              <form  id="formdata" action="#" method="post">
+        
+               
+                  <div class="d-flex justify-content-end p-2">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-close bg-light "></button>
+        
+                  </div>
+        
+            
+                    <div class="col-11">
+                      <p class="p-2 text-muted text-center fw-semibold fs-5">My create form</p>
+                    </div>
+        
+                            
+        
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold">Event date</p>
+                      <code class="p-1">*</code>
+                      <input required type="datetime-local" value="" name="e_date" class="w-75 shadowx form-dev form-control-sm" >
+                    </div>
+        
+                    
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold">Title </p>
+                      <code class="p-1">*</code> 
+                      <input required type="text" value=""  name="title" placeholder="title here" class="w-75 shadowx form-dev form-control-sm" >
+                    </div>
 
+        
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold">Description</p>
+                      <code class="p-1">*</code>
+                     <textarea required name="description" placeholder="What's on your mind" class="w-75 shadowx form-dev form-control-sm" id="" cols="30" rows="5"></textarea>
+                    </div>
 
+                    <div class="d-flex p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold">Photos</p>
+                      <code class="p-1">*</code>
+                      <input multiple required name="images" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
+                    </div>
+                  
+        
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold"></p>
+        
+                      <div class="images_append w-75">
+        
+             
+                        
+                      </div>
+        
+                    </div>        
+        
+                    <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+                      <button type="submit" class="btn text-primary submitbtn nav-fill btn-hover shadowx">Create and update</button>
+                    </div>
+        
+              </form>
+        
+            </div>
+        
+          
+        </div>
 
         <!-- end  -->
-
-      </div>
+      </div> 
 
 
       <%-include("../component/___node.html") %>
@@ -186,8 +170,8 @@ noview.port({
 function tabledata(){
   $.ajax({
     method: "post",
-    url: "/admin/eventnews/get",
-    data: {type: 'eventnews'},
+    url: "/admin/repository/get",
+    data: {datatype: 'eventnews'},
     dataType: "JSON",
     success: function (res) {
       $('#tabledata tbody').html(res.tabledata)
@@ -197,9 +181,11 @@ function tabledata(){
 
 tabledata()
 
-$("#eventnewsform").on('submit', (event) => {
+
+$("#formdata").on('submit', (event) => {
     event.preventDefault()
-    let formdata = new FormData($("form")[0])
+    let formdata = new FormData($("#formdata")[0])
+    formdata.append('datatype', 'eventnews')
     $('#progressbar').css({ 'width': 1 + '%' }).text();
 
     $.ajax({
@@ -217,7 +203,7 @@ $("#eventnewsform").on('submit', (event) => {
         return xhr;
       },
       method: "post",
-      url: "/admin/setup/eventnews/post",
+      url: "/admin/setup/repository/post",
       data: formdata,
       mimeType: "multipart/form-data",
       cache: false,
@@ -231,7 +217,7 @@ $("#eventnewsform").on('submit', (event) => {
       },
       success: function (info) {
         _spin_pop()
-        _msg_pull('alert-success', 'Image added...', null)
+        _msg_pull('alert-success', 'Repository add successfully...', null)
         $(".submitbtn").removeClass("disabled")
        tabledata()
 
@@ -241,37 +227,33 @@ $("#eventnewsform").on('submit', (event) => {
   })
 
 
+$('#formcheckout').on('submit', (event)=>{
+  event.preventDefault()
+  $.ajax({
+  method: "post",
+  url: "/admin/repository/rm",
+  data: $('#formcheckout').serialize(),
+  dataType: "JSON",
+  success: function (response) {
+    tabledata()
 
-$('.btnpop').on('click', ()=>{
-
-  const dataid= $('#formdata').serialize()
-  if(dataid){
-    console.log(dataid);
-
+    _msg_pull(response.alert, response.msg)
   }
+});
 })
 
 
-
-function _delbox_push(){
-    $.ajax({
-        method: "post",
-        url: "/admin/eventnews/pop",
-        data: $("#deleteStudent").serialize(),
-        dataType: "JSON",
-        beforeSend: function (){
-          _spin_pull()
-        },
-        success: function (info) {
-          _msg_pull('alert-success', 'Student deleted...')
-        _spin_pop()
-        loadDisplay()
-        
-
-            
-        }
-    });
-
+function _delbox_push(dataid){
+$.ajax({
+  method: "post",
+  url: "/admin/repository/rm",
+  data: {datatype:'eventnews',dataid},
+  dataType: "JSON",
+  success: function (response) {
+    _msg_pull('alert-danger', 'Delete successfully!')
+    tabledata()
+  }
+});
  
 }
 

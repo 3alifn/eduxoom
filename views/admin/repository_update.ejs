@@ -1,0 +1,210 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+  <title>Event and news</title>
+  <%- include("../component/metadata.html") %>
+
+
+</head>
+
+<body onload="pageLoadingTop()">
+
+  <%- include("../component/admin-header-nav.html") %>
+    <%- include("../component/admin-menu-nav.html") %>
+
+
+      <div id="main-content" class="p-2 main-content mt-5">
+       
+<div class="row mt-3 p-2">
+    <div class="col-auto ms-auto">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#imageform" id="imageformbtn" class="btn link-success shadowx btn-go fw-500">Upload more Photos</button>
+    </div>
+</div>
+
+<div id="imageform" class="row mtx modal">
+    <div class="col-md-10 col-12 shadowx mt-2 p-2 modal-dialog modal-content">
+
+        <div class="d-flex justify-content-between mt-3 me-2 ">
+            <p class="fw-semibold p-2">Want you upload more photos?</p>
+            <button class="btn p-2 btn-close" data-bs-dismiss="modal"></button>
+
+        </div>
+       <form id="imagedata" class="p-2 mb-2" action="#">
+        <div class="d-flex p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold">Upload photos</p>
+            <code class="p-1">*</code>
+            <input multiple required name="images" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
+          </div>
+
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold"></p>
+
+            <div class="images_append w-75"> </div>
+                      
+          </div>   
+
+          <input class="btn float-end link-primary btn-hover p-1" type="submit" value="Upload and update" >
+       </form>
+          
+          
+
+    </div>
+</div>
+        
+        <!-- openform for create data -->
+        <div id="openform" data-bs-backdrop="static" class="row p-2 mt-1">
+        
+            <div style="transform: scale(1);" class="col-md-10 me-auto shadowx bg-light mb-5 col-12 ">
+        
+              <form  id="formdata" action="#" method="post">        
+                <input type="hidden" name="datatype" value="<%=info[0].datatype%>">
+                <input type="hidden" name="dataid" value="<%=info[0].dataid%>">
+
+                <div class="col-11">
+                      <p class="p-2 text-muted text-center fw-semibold fs-5">My update form</p>
+                    </div>
+        
+                            
+        
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold">Event date</p>
+                      <code class="p-1">*</code>
+                      <input required type="text" value="<%=info[0].e_date%>" name="e_date" class="w-75 shadowx form-dev form-control-sm" >
+                    </div>
+        
+                    
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold">Title </p>
+                      <code class="p-1">*</code> 
+                      <input required type="text" value="<%=info[0].title%>"  name="title" placeholder="title here" class="w-75 shadowx form-dev form-control-sm" >
+                    </div>
+
+        
+                    <div class="d-flex  p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold">Description</p>
+                      <code class="p-1">*</code>
+                     <textarea required name="description" placeholder="What's on your mind" class="w-75 shadowx form-dev form-control-sm" id="" cols="30" rows="5"><%=info[0].description%></textarea>
+                    </div>
+                    
+         
+        
+                    <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+                      <button type="submit" class="btn text-primary submitbtn nav-fill btn-hover shadowx">Changes and update</button>
+                    </div>
+        
+              </form>
+
+              <div class="d-flex flex-wrap">
+
+                <% for( let index = 0; index < info.length; index++ ) { %>
+                  <div style="position: relative; width: max-content; height: max-content;">
+                    <img height="80px" width="100px" src="/image/repository/resized/<%=info[index].image%>" alt="">
+                    <span onclick="_delbox_pull('<%=info[index].ID%>')" style="position: absolute; right: 0px;" class="btn shadowx bi bi-trash-fill link-light btn-hover p-2 bg-transparent"></span>
+                  </div>
+                  
+                <% } %>
+                
+              </div>
+        
+            </div>
+        
+
+        <!-- end  -->
+      </div> 
+
+      <%-include("../component/___node.html") %>
+        <script src="/app/___noviewport.js"></script>
+
+</body>
+<script>
+
+noview.port({
+    input_class: 'images',
+    append_class: 'images_append',
+    file_type: 'image',
+    max_kb_size: 1024,
+    multiple: true,
+
+
+  })
+
+$("#formdata").on('submit', (event) => {
+    event.preventDefault()
+    let formdata = new FormData($("#formdata")[0])
+    formdata.append('datatype', 'eventnews')
+    $('#progressbar').css({ 'width': 1 + '%' }).text();
+
+    $.ajax({
+      xhr: function () {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function (evt) {
+
+          if (evt.lengthComputable) {
+            var percentComplete = (evt.loaded / evt.total) * 100;
+
+            $('#progressbar').css({ 'width': percentComplete + '%' }).text(percentComplete + '%')
+
+          }
+        }, false);
+        return xhr;
+      },
+      method: "post",
+      url: "/admin/setup/repository/update",
+      data: formdata,
+      mimeType: "multipart/form-data",
+      cache: false,
+      processData: false,
+      contentType: false,
+      dataType: "JSON",
+
+      beforeSend: function () {
+        $(".submitbtn").addClass("disabled")
+        _spin_pull()
+      },
+      success: function (info) {
+        _spin_pop()
+        _msg_pull('alert-success', 'Repository add successfully...', null)
+        $(".submitbtn").removeClass("disabled")
+       tabledata()
+
+      }
+    });
+
+  })
+
+function _delbox_push(dataid){
+$.ajax({
+  method: "post",
+  url: "/admin/repository/img/rm",
+  data: {datatype:'eventnews',dataid},
+  dataType: "JSON",
+  success: function (response) {
+    _msg_pull('alert-danger', 'Delete successfully!')
+    tabledata()
+  }
+});
+ 
+}
+
+function _delbox_push(dataid){
+$.ajax({
+  method: "post",
+  url: "/admin/repository/img/rm",
+  data: {datatype:'eventnews',dataid},
+  dataType: "JSON",
+  success: function (response) {
+    window.location.reload()
+  }
+});
+ 
+}
+
+
+</script>
+
+
+</html>
