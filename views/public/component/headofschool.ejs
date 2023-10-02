@@ -1,0 +1,133 @@
+<headofschool>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="app/swipperenv/swiper-bundle.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="app/swipperenv/style.css">
+    
+    <% if(info_headofschool.length>0) {%>
+   
+<div class="slide-container swiper">
+ <div class="slide-content">
+     <div class="card-wrapper swiper-wrapper d-flex justify-content-center">
+
+        <% for( let index = 0; index < info_headofschool.length; index++ ) { %>
+            <div class="card swiper-slide" style="height: 400px !important;">
+                <div class="image-content">
+                    <span class="overlay"></span>
+   
+                    <div class="card-image">
+                        <img src="/image/default/resized/<%=info_headofschool[index].image%>" alt="" class="card-img">
+                    </div>
+                </div>
+   
+                <div class="card-content">
+                    <h2 class="name"><%=info_headofschool[index].position%></h2>
+                    <h6 class=""><%=info_headofschool[index].name%></h6>
+                    <p class="description text-three-line">
+                        <%=info_headofschool[index].message%>
+                    </p>
+   
+                    <a href="/pu/headofschool.html?#<%=info_headofschool[index].position%>" class="page-link btn-hover p-2 rounded-pill">Read more</a>
+                </div>
+            </div>
+        <% } %>
+    
+  
+ 
+     </div>
+ </div>
+
+ <div class="swiper-button-next swiper-navBtn"></div>
+ <div class="swiper-button-prev swiper-navBtn"></div>
+ <div class="swiper-pagination"></div>
+</div>
+
+<% } else {%> 
+   
+    <div class="slide-container swiper">
+        <div class="slide-content">
+            <div class="card-wrapper swiper-wrapper">
+  
+    <div class="card swiper-slide" style="height: 400px !important;">
+        <div class="image-content">
+            <span class="overlay"></span>
+
+            <div class="card-image">
+                <img src="/image/default/male_avatar.png" alt="" class="card-img">
+            </div>
+        </div>
+
+        <div class="card-content">
+            <h2 class="name">President</h2>
+            <h6 class="">No name</h6>
+            <p class="description text-three-line">
+               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia expedita voluptatem et libero adipisci repudiandae aspernatur amet! Enim eaque, laborum asperiores architecto, unde aut sapiente illo, recusandae est reiciendis voluptatum.
+            </p>
+
+            <a href="/pu/headofschool.html?#President" class="page-link btn-hover p-2 rounded-pill">Read more</a>
+        </div>
+    </div>
+
+
+
+    <div class="card swiper-slide" style="height: 400px !important;">
+        <div class="image-content">
+            <span class="overlay"></span>
+
+            <div class="card-image">
+                <img src="/image/default/male_avatar.png" alt="" class="card-img">
+            </div>
+        </div>
+
+        <div class="card-content">
+            <h2 class="name">Secretary</h2>
+            <h6 class="">No name</h6>
+            <p class="description text-three-line">
+               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia expedita voluptatem et libero adipisci repudiandae aspernatur amet! Enim eaque, laborum asperiores architecto, unde aut sapiente illo, recusandae est reiciendis voluptatum.
+            </p>
+
+            <a href="/pu/headofschool.html?#Secretary" class="page-link btn-hover p-2 rounded-pill">Read more</a>
+        </div>
+    </div>
+
+
+    <div class="card swiper-slide" style="height: 400px !important;">
+        <div class="image-content">
+            <span class="overlay"></span>
+
+            <div class="card-image">
+                <img src="/image/default/male_avatar.png" alt="" class="card-img">
+            </div>
+        </div>
+
+        <div class="card-content">
+            <h2 class="name">Headmaster</h2>
+            <h6 class="">No name</h6>
+            <p class="description text-three-line">
+               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia expedita voluptatem et libero adipisci repudiandae aspernatur amet! Enim eaque, laborum asperiores architecto, unde aut sapiente illo, recusandae est reiciendis voluptatum.
+            </p>
+
+            <a href="/pu/headofschool.html?#Headmaster" class="page-link btn-hover p-2 rounded-pill">Read more</a>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<div class="swiper-button-next swiper-navBtn"></div>
+<div class="swiper-button-prev swiper-navBtn"></div>
+<div class="swiper-pagination"></div>
+</div>
+
+    <% } %>
+
+ <!-- Swiper JS -->
+ <script src="app/swipperenv/swiper-bundle.min.js"></script>
+
+ <!-- JavaScript -->
+ <script src="app/swipperenv/script.js"></script>
+</headofschool>
+
+   

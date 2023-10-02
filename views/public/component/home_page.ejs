@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>SAANVI</title>
-    <%- include("../component/metadata.html") %> 
+    <%- include("../../component/metadata.html") %> 
  <link class="append-logo" rel="shortcut icon" href="/image/default/resized/logo.png" type="image/x-icon">
  <script src="/app/skdslider.js"></script>
 <link href="/app/skdslider.css" rel="stylesheet">
@@ -38,151 +38,18 @@
 </style>
 <body onload="pageLoaded()">
 
-<%- include("../component/header-nav.html") %> 
-<%- include("../component/menu-nav.html") %> 
+<%- include("../../component/header-nav.html") %> 
+<%- include("../../component/menu-nav.html") %> 
 
 
 
-<%- include("./main-carousel") %> 
+<%- include("./carousel") %> 
+<%- include("./headline") %>
+<%- include("./stats") %>
+<%- include("./headofschool")%> 
 
 
-
-
-
-<div id="headline">
-  <script src="/app/marquee.min.js"></script>
-
-  <div class="headlineMarquee row">
-      <div class="text-capitalize font-monospace col-12 m-auto alert bg-gradient-secondary text-light p-1 p-md-3 fs-5 "
-          id="headlineMarquee"></div>
-  </div>
-
-  <script>
-      const myScroller1 = new SuperMarquee(
-          document.getElementById("headlineMarquee"),
-          {
-              "content": "   <%=info_school[0].headline%>   |"
-          }
-      );
-
-
-      let lastTime = (new Date()).getTime(),
-          currentTime = 0,
-          counter = 0;
-
-
-      function loop() {
-          window.requestAnimationFrame(loop);
-          currentTime = (new Date()).getTime();
-          delta = (currentTime - lastTime) / 2000;
-      }
-
-      loop();
-  </script>
-</div>  
-
-
-<div id="stats" class="row mt-1 mbx p-md-3">
-
-  <div class="col-12 mt-1 col-md-4  p-2  bg-light shadow rounded  " style="height: 150px;">
-
-    <center>
-      <h5 style="font-weight: 600;" class="text-center mt-4"> 
-          <i class="bi bi-people"></i> Teachers <b class="fw-semibold"><%=info_teacher[0].count%></b>
-   </h5>
-      <p style="line-height: 1.5;" class="text-center">
-      Our teachers information
-      </p>
-      <a class="text-decoration-none fw-semibold link-hover" href="/pu/all/teacher">
-          View teachers
-          <i class="link-move fa fa-angle-right"></i>
-        </a> 
-    </center>
-
-  </div>
-
-
-
-  <div class="col-12 mt-1 col-md-4  p-2  bg-light shadow rounded " style="height: 150px;">
-
-      <center>
-        <h5 style="font-weight: 600;" class="text-center mt-4"> 
-            <i class="bi bi-people"></i> Students <b class="fw-semibold"><%=info_student[0].count%></b>
-     </h5>
-        <p style="line-height: 1.5;" class="text-center">
-        Our students information
-        </p>
-        <a class="text-decoration-none fw-semibold link-hover" href="/pu/student/page">
-            View students
-            <i class="link-move fa fa-angle-right"></i>
-          </a> 
-      </center>
-
-    </div>
-
-
-    <div class="col-12 mt-1 col-md-4  p-2  bg-light shadow rounded " style="height: 150px;">
-
-      <center>
-        <h5 style="font-weight: 600;" class="text-center mt-4"> 
-            <i class="bi bi-people"></i> Staff <b class="fw-semibold"><%=info_staff[0].count%></b>
-     </h5>
-        <p style="line-height: 1.5;" class="text-center">
-        Our staff information
-        </p>
-        <a class="text-decoration-none fw-semibold link-hover" href="/pu/staff-page.html">
-            View staff
-            <i class="link-move fa fa-angle-right"></i>
-          </a> 
-      </center>
-
-    </div>
-
-
-
-</div> 
-
-
-
-<% if(info_headofschool.length>0) {%>
-
-  <div id="headofschool" class="row mt-2">
-    <h1 class="fw-semibold text-center p-2 ">Head of school</h1>
-    <p class="text-center fw-semibold mb-3">Meet our most honorable person's in the school</p>
-    
-    <div class="row">
-      <div class="col-12 ">
-          
-    <div class="d-flex justify-content-center" style="overflow: auto;">
-    
-     <% if(info_headofschool.length>0) {%>
-
-      <% for( let index = 0; index < info_headofschool.length; index++ ) { %>
-
-        <div class="shadow headofschool-person p-3 rounded">
-          <img  class="p-2 rounded  rounded-4" width="200px" height="150px" src="/image/default/resized/<%=info_headofschool[index].image%>" alt="">
-           <p class="ps-3 fs-6 fw-semibold"><%=info_headofschool[index].position%></p>
-           <p class="ps-3  fs-6"><%=info_headofschool[index].name%></p>
-            <a class="ps-3 page-link link-hover link-primary link-move" href="/pu/headofschool.html?#<%=info_headofschool[index].position%>">Message here <i class="fa fa-angle-right link-move"></i></a>
-            
-        </div>
-      
-      <% } %>
-
-      <% } %>
-        
-    </div>
-    </div>
-    
-      </div>
-    </div>
-
-    <% } else {%> 
-      <%=null%>
-      <% } %>
-
-
-  <div id="nacs" class="row mt-5 p-md-5 mb-5">
+<div id="nacs" class="row mt-5 p-md-5 mb-5">
 
     <div class="col-11  m-auto">
         <p style="font-weight: 600; font-size: 1.9rem;" class="text-center  mb-4">
@@ -233,83 +100,11 @@
   
   
   
-  </div>
-
-
-<% if (info_repo_have.length>0) { %>
- 
-
-<div id="aef" class="row p-md-5 mb-5 mtx">
-
-  <div class="col-11  m-auto">
-      <p style="font-weight: 600; font-size: 1.9rem;" class="text-center  mb-4">
-          Finding our repository            </p>
-      <p style="line-height: 1.5;" class="text-center">
-          Best school known for their achievement and for best facilities which they provide, 
-          <br>
-           Our school has all kind of facilities and many achievement.
-      </p>
-  </div>
-
- <% if (info_repo_e.length>0) { %>
-  <div class="col-md-4 mt-5 col-11 m-auto  rounded">
-    <img class="img-thumbnail"  src="/image/repository/resized/<%=info_repo_e[0].image%>"  alt="">
-    <h5 class="mt-1"><%=info_repo_e[0].title%> </h5>
-    <p style="line-height: 1.5;" class="text-wrap  text-truncate">
-     <%=info_repo_e[0].description%>
-     </p>
-     <a class="text-decoration-none   fw-semibold link-hover" href="/pu/eventnews.html">
-        Open our event and news
-        <i class="link-move fa fa-angle-right"></i>
-      </a> 
-
-</div>
- <% } %>
-
-
- <% if (info_repo_a.length>0) { %>
-  <div class="col-md-4 mt-5 col-11 m-auto  rounded ">
-
-
-    <img class="img-thumbnail"  src="/image/repository/resized/<%=info_repo_a[0].image%>"  alt="">
-
-     <h5 class="mt-1"><%=info_repo_a[0].title%></h5>
-     <p style="line-height: 1.5;" class="text-wrap text-truncate">
-      <%=info_repo_a[0].description%>
-     </p>
-    <a class="text-decoration-none   fw-semibold link-hover" href="/pu/acheivement.html">
-        Open our achievement
-        <i class="link-move fa fa-angle-right"></i>
-      </a> 
-
-</div>
- <% } %>
- 
-<% if (info_repo_f.length>0) { %>
- 
-  <div class="col-md-4 mt-5 col-11 m-auto  rounded ">
-    <img class="img-thumbnail"  src="/image/repository/resized/<%=info_repo_f[0].image%>"  alt="">
-    <h5 class="mt-1"><%=info_repo_f[0].title%></h5>
-    <p style="line-height: 1.5;" class="text-wrap text-truncate">
-       <%=info_repo_f[0].description%>
-     </p>
-     
-     <a class="text-decoration-none   fw-semibold link-hover" href="/pu/facilities.html">
-        Open our facilities
-        <i class="link-move fa fa-angle-right"></i>
-      </a> 
-
-
 </div>
 
-<% } %>
-
-</div> 
-
-
-<% } else {%> 
-  <%=null%>
-  <% } %>
+<%- include("./facilities")%> 
+<%- include("./achievement")%> 
+<%- include("./eventnews")%> 
 
 
 
@@ -369,7 +164,6 @@ Open photos
 
 
 </div>
-
 
 
 <div class="row mt-3 mb-2 p-2 ">
@@ -595,9 +389,9 @@ Here you can find our dynamic class routine with teachers and their subject.    
   
   
   
-  </script>
+</script>
 
-<%- include("../component/footer-nav.html") %> 
+<%- include("../../component/footer-nav.html") %> 
 
 </body>
 

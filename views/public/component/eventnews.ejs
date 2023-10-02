@@ -1,0 +1,158 @@
+<facilites>
+
+    <div id="repo-eventnews" class="row p-md-5 mb-5 mtx">
+    
+        <div class="col-11  m-auto">
+            <p style="font-weight: 600; font-size: 1.9rem;" class="text-center  mb-4">
+                Finding our event and news
+            </p>
+            <p style="line-height: 1.5;" class="text-center">
+                Best school known for their achievement and for best facilities which they provide, 
+                <br>
+                 Our school has all kind of facilities and many achievement.
+            </p>
+        </div>
+<% if (info_repo_e.length>0) { %>
+ 
+
+    <div class="slide-container swiper">
+        <div class="slide-content">
+            <div class="card-wrapper swiper-wrapper gap-2 d-flex justify-content-center">
+       
+               <% for( let index = 0; index < info_repo_e.length; index++ ) { %>
+               
+                <div class="card swiper-slide shadowx p-2" >
+                    <div class="bg-card-color rounded-bottom-3" style="height: 205px;">
+                     <div class="image-content" style="background-image: url('/image/repository/resized/<%=info_repo_e[index].image%>');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 200px;">
+             
+                     </div>
+                    </div>
+ 
+                     <div class="card-content ">
+                         <h2 class="name"><%=info_repo_e[index].title%></h2>
+                         <p class="description text-three-line">
+                            <code><%=info_repo_e[index].e_date%></code> <br>
+                            <%=info_repo_e[index].description%>                         </p>
+ 
+                         <a href="/pu/eventnews-view.html" class="button text-decoration-none">Read more</a>
+                     </div>
+                 </div>
+
+               <% } %>
+            </div>
+        </div>
+
+        <div class="swiper-button-next swiper-navBtn"></div>
+        <div class="swiper-button-prev swiper-navBtn"></div>
+        <div class="swiper-pagination"></div>
+    
+    
+    </div> 
+
+
+
+<% } else {%>
+
+    <div class="slide-container swiper">
+        <div class="slide-content">
+            <div class="card-wrapper swiper-wrapper gap-2">
+       
+                <div class="card swiper-slide shadowx" >
+                   <div class="bg-card-color rounded-bottom-3" style="height: 205px;">
+                    <div class="image-content" style="background-image: url('./media/ict-5.webp');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 200px;">
+            
+                    </div>
+                   </div>
+
+                    <div class="card-content ">
+                        <h2 class="name">No title here</h2>
+                        <p class="description text-three-line">
+                            The lorem text the section that contains header with having open functionality. Lorem dolor sit amet consectetur adipisicing elit.
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
+                        </p>
+
+                        <a href="/pu/eventnews-view.html" class="button text-decoration-none">Read more</a>
+                    </div>
+                </div>
+  
+
+                
+                <div class="card swiper-slide shadowx" >
+                    <div class="bg-card-color rounded-bottom-3" style="height: 205px;">
+                     <div class="image-content" style="background-image: url('./media/ict-5.webp');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 200px;">
+             
+                     </div>
+                    </div>
+
+                     <div class="card-content ">
+                         <h2 class="name">No title here</h2>
+                         <p class="description text-three-line">
+                             The lorem text the section that contains header with having open functionality. Lorem dolor sit amet consectetur adipisicing elit.
+                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
+                         </p>
+
+                         <a href="/pu/eventnews-view.html" class="button text-decoration-none">Read more</a>
+                     </div>
+                 </div>
+
+
+                 
+                <div class="card swiper-slide shadowx" >
+                    <div class="bg-card-color rounded-bottom-3" style="height: 205px;">
+                     <div class="image-content" style="background-image: url('./media/ict-5.webp');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 200px;">
+             
+                     </div>
+                    </div>
+
+                     <div class="card-content ">
+                         <h2 class="name">No title here</h2>
+                         <p class="description text-three-line">
+                             The lorem text the section that contains header with having open functionality. Lorem dolor sit amet consectetur adipisicing elit.
+                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
+                         </p>
+
+                         <a href="/pu/eventnews-view.html" class="button text-decoration-none">Read more</a>
+                     </div>
+                 </div>
+
+
+                 
+                <div class="card swiper-slide shadowx" >
+                    <div class="bg-card-color rounded-bottom-3" style="height: 205px;">
+                     <div class="image-content" style="background-image: url('./media/ict-5.webp');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 200px;">
+             
+                     </div>
+                    </div>
+
+                     <div class="card-content ">
+                         <h2 class="name">No title here</h2>
+                         <p class="description text-three-line">
+                             The lorem text the section that contains header with having open functionality. Lorem dolor sit amet consectetur adipisicing elit.
+                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
+                         </p>
+
+                         <a href="/pu/facilities-view.html" class="button text-decoration-none">Read more</a>
+                     </div>
+                 </div>
+            </div>
+        </div>
+
+        <div class="swiper-button-next swiper-navBtn"></div>
+        <div class="swiper-button-prev swiper-navBtn"></div>
+        <div class="swiper-pagination"></div>
+    
+    
+    </div> 
+
+<% } %>
+<div class="d-flex p-2 m-1 justify-content-center">
+    <a class="page-link  fw-semibold link-primary text-decoration-underline" href="/pu/eventnews.html">View more <i class="fa fa-angle-right"></i></a>
+</div>
+</div>
+
+ <!-- Swiper JS -->
+ <script src="app/swipperenv/swiper-bundle.min.js"></script>
+
+ <!-- JavaScript -->
+ <script src="app/swipperenv/script.js"></script>
+</facilites>

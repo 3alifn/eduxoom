@@ -17,6 +17,7 @@
           });
       </script>
 
+ <%if(info_carousel.length>10) {%>
 
       <% for( let index = 0; index < info_carousel.length; index++ ) { %>
 
@@ -28,8 +29,14 @@
         </div>
   
       <% } %>
-    
-
+      <% } else {%>
+        <div class="slide">
+            <img class="bg-demo-img-color" src="/image/default/carousel.png"/>
+            <div class="slide-desc">
+                <h1 class="text-light p-2">বোয়ালমারী জর্জ একাডেমী</h1>
+            </div>
+        </div>
+        <% } %>
 
   </div>
   <img class="mt-0 p-2" id="mujibCorner"  src="/image/default/mujib_100_logo.png" alt="">

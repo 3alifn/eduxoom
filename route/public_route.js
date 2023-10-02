@@ -33,13 +33,24 @@ public.post("/contact-us/sent/msg", school_app.public_sent_message)
 public.get('/about-us.html/', school_app.pu_aboutus_render)
 public.get('/contact-us.html/', school_app.pu_contactus_render)
 public.get('/headofschool.html/', headofschool_app.pu_headofschool_view_page)
-public.get('/staff.html/', headofschool_app.pu_headofschool_view_page)
 public.get('/staff-page.html/', public_staff_page)
 
 
 
-//repository router
 
+//repository router
+public.get('/achievement.html/', (req, res)=>{
+  res.render('public/achievement')
+})
+public.get('/achievement-view.html/', (req, res)=>{
+  res.render('public/view-achievement')
+})
+public.get('/eventnews-view.html/',  (req, res)=>{
+  res.render('public/view-eventnews')
+})
+public.get('/facilities-view.html/',  (req, res)=>{
+  res.render('public/view-facilities')
+})
 
 
 // team sannvi 

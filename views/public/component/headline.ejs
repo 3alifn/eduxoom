@@ -1,0 +1,69 @@
+<% if (info_school.length>0) { %>
+    <div id="headline">
+      <script src="/app/marquee.min.js"></script>
+    
+      <div class="headlineMarquee row">
+          <div class="text-capitalize font-monospace col-12 m-auto alert bg-gradient-secondary text-light p-1 p-md-3 fs-5 "
+              id="headlineMarquee"></div>
+      </div>
+    
+      <script>
+          var myScroller1 = new SuperMarquee(
+              document.getElementById("headlineMarquee"),
+              {
+                  "content": `  <%=info_school[0].headline%>   |`
+              }
+          );
+    
+    
+          var lastTime = (new Date()).getTime(),
+              currentTime = 0,
+              counter = 0;
+    
+    
+          function loop() {
+              window.requestAnimationFrame(loop);
+              currentTime = (new Date()).getTime();
+              delta = (currentTime - lastTime) / 2000;
+          }
+    
+          loop();
+      </script>
+    </div>  
+    
+  <% } else {%>
+  
+    <div id="headline">
+      <script src="/app/marquee.min.js"></script>
+    
+      <div class="headlineMarquee row">
+          <div class="text-capitalize font-monospace col-12 m-auto alert bg-gradient-secondary text-light p-1 p-md-3 fs-5 "
+              id="headlineMarquee"></div>
+      </div>
+    
+      <script>
+          const myScroller1 = new SuperMarquee(
+              document.getElementById("headlineMarquee"),
+              {
+                  "content": `  বোয়ালমারী জর্জ একাডেমী বোয়ালমারীর একটি বিখ্যাত স্কুল |`
+              }
+          );
+    
+    
+          let lastTime = (new Date()).getTime(),
+              currentTime = 0,
+              counter = 0;
+    
+    
+          function loop() {
+              window.requestAnimationFrame(loop);
+              currentTime = (new Date()).getTime();
+              delta = (currentTime - lastTime) / 2000;
+          }
+    
+          loop();
+      </script>
+    </div>  
+    
+  
+    <% } %>

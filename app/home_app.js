@@ -33,9 +33,8 @@ exports.home_page = (req, res) => {
                                        
                                         sqlmap.query(`SELECT * FROM repository ORDER BY ID DESC`, (err_repo_have,info_repo_have)=>{
                                             if(err_repo_have) console.log(err_repo_have.sqlMessage);
-                                            res.render('public/home_page', {info_repo_have,info_repo_a, info_repo_e, info_repo_f, info_school, info_staff, info_headofschool, info_teacher, info_student, info_carousel })
-            
-            
+                                            res.render('public/component/home_page', {info_repo_have,info_repo_a, info_repo_e, info_repo_f, info_school, info_staff, info_headofschool, info_teacher, info_student, info_carousel })
+
             
                                         })
         

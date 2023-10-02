@@ -5,10 +5,47 @@
     margin-right: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 ::selection{
     background-color: #043F2E;
     color: white;
   }
+
+  .text-fill{
+    width: 250px;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+
+}
+
+.card-image{
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #FFF;
+    padding: 3px;
+}
+.avatar-circle{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #4070F4;
+}
+
+.text-three-line{
+        display: -webkit-box;
+        max-width: 400px;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+       }
+       .bg-card-color{
+        background-color: #4070F4 !important;
+      }
 
 .shadow-bl{
    box-shadow:  0 36px 60px rgba(0,0,0,.15);;
@@ -285,10 +322,8 @@ transition: all 2s !important;
 
 
 .bg-demo-img-color{
-    background: linear-gradient(-45deg, #ced4da, #a8b8d8, #627594, #ebeff4);
-    background-size: 400% 400%;
-    animation: bg-demo-img-placeholder 5s linear infinite;
-    border-radius: 10px;
+    background-color: #4070F4 !important;
+
 
   }
 
