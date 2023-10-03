@@ -22,13 +22,13 @@ exports.home_page = (req, res) => {
                         sqlmap.query(`SELECT COUNT(ID) as count FROM staff ORDER BY ID DESC`, (err_staff, info_staff) => {
                             if(err_staff) console.log(err_staff.sqlMessage);
     
-                            sqlmap.query(`SELECT * FROM repository WHERE datatype='eventnews' ORDER BY ID DESC LIMIT 1`, (err_repo_e,info_repo_e)=>{
+                            sqlmap.query(`SELECT * FROM repository WHERE datatype='eventnews' GROUP BY dataid ORDER BY ID DESC LIMIT 1`, (err_repo_e,info_repo_e)=>{
                                 if(err_repo_e) console.log(err_repo_e.sqlMessage);
                                 
-                                sqlmap.query(`SELECT * FROM repository WHERE datatype='facilities' ORDER BY ID DESC LIMIT 1`, (err_repo_f,info_repo_f)=>{
+                                sqlmap.query(`SELECT * FROM repository WHERE datatype='facilities' GROUP BY dataid ORDER BY ID DESC LIMIT 1`, (err_repo_f,info_repo_f)=>{
                                     if(err_repo_f) console.log(err_repo_f.sqlMessage);
                                     
-                                    sqlmap.query(`SELECT * FROM repository WHERE datatype='achievement' ORDER BY ID DESC LIMIT 1`, (err_repo_a,info_repo_a)=>{
+                                    sqlmap.query(`SELECT * FROM repository WHERE datatype='achievement' GROUP BY dataid ORDER BY ID DESC LIMIT 1`, (err_repo_a,info_repo_a)=>{
                                         if(err_repo_a) console.log(err_repo_a.sqlMessage);
                                        
                                         sqlmap.query(`SELECT * FROM repository ORDER BY ID DESC`, (err_repo_have,info_repo_have)=>{

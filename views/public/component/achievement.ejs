@@ -7,10 +7,7 @@
                 Finding our repository of achievement
             </p>
             <p style="line-height: 1.5;" class="text-center">
-                Best school known for their achievement and for best facilities which they provide, 
-                <br>
-                 Our school has all kind of facilities and many achievement.
-            </p>
+                Best school known for their reward and achievement. Click and explore our all reward and achievement that we won            </p>
         </div>
 <% if (info_repo_a.length>0) { %>
  
@@ -34,7 +31,7 @@
                             <code><%=info_repo_a[index].e_date%></code> <br>
                             <%=info_repo_a[index].description%>                         </p>
  
-                         <a href="/pu/achievement-view.html" class="button text-decoration-none">Read more</a>
+                         <a href="/pu/achievement-view/<%=info_repo_a[index].dataid%>" class="button text-decoration-none">Read more</a>
                      </div>
                  </div>
 
@@ -71,7 +68,7 @@
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
                         </p>
 
-                        <a href="/pu/achievement-view.html" class="button text-decoration-none">Read more</a>
+                        <a href="/pu/achievement-view/404" class="button text-decoration-none">Read more</a>
                     </div>
                 </div>
   
@@ -91,7 +88,7 @@
                              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
                          </p>
 
-                         <a href="/pu/achievement-view.html" class="button text-decoration-none">Read more</a>
+                         <a href="/pu/achievement-view/404" class="button text-decoration-none">Read more</a>
                      </div>
                  </div>
 
@@ -111,7 +108,7 @@
                              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
                          </p>
 
-                         <a href="/pu/achievement-view.html" class="button text-decoration-none">Read more</a>
+                         <a href="/pu/achievement-view/404" class="button text-decoration-none">Read more</a>
                      </div>
                  </div>
 
@@ -131,7 +128,7 @@
                              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
                          </p>
 
-                         <a href="/pu/facilities-view.html" class="button text-decoration-none">Read more</a>
+                         <a href="/pu/achievement-view/404" class="button text-decoration-none">Read more</a>
                      </div>
                  </div>
             </div>
@@ -146,7 +143,7 @@
 
 <% } %>
 <div class="d-flex p-2 m-1 justify-content-center">
-    <a class="page-link  fw-semibold link-primary text-decoration-underline" href="/pu/achievement.html">View more <i class="fa fa-angle-right"></i></a>
+    <a class="text-decoration-none text-center view-link link-hover fw-semibold link-hover  rounded-2 ps-5 pe-5" href="/pu/achievement-page">View more <i class="fa fa-angle-right"></i></a>
 </div>
 </div>
 

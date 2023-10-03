@@ -323,3 +323,47 @@ res.send({msg: 'Update successfully!', alert: 'success'})
 
 }
 
+
+
+exports.public_facilities_view= (req, res)=>{
+  const {dataid}= req.params;
+  sqlmap.query(`SELECT * FROM repository WHERE datatype='facilities' AND ID='${dataid}'`, (err, info_f)=>{
+    if(err) console.log(err.sqlMessage);
+    else res.render('public/facilities_view', {info_f})
+  })
+}
+
+
+exports.public_achievement_page= (req, res)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE datatype='achievement' GROUP BY dataid ORDER BY ID DESC`, (err, info_a)=>{
+    if(err) console.log(err.sqlMessage);
+    else res.render('public/achievement_page', {info_a})
+  })
+}
+
+exports.public_achievement_view= (req, res)=>{
+  const {dataid}= req.params;
+  sqlmap.query(`SELECT * FROM repository WHERE datatype='achievement' AND ID='${dataid}'`, (err, info_a)=>{
+    if(err) console.log(err.sqlMessage);
+    else res.render('public/achievement_view', {info_a})
+  })
+}
+
+
+exports.public_eventnews_page= (req, res)=>{
+  const {dataid}= req.params;
+  sqlmap.query(`SELECT * FROM repository WHERE datatype='eventnews' GROUP BY dataid ORDER BY ID DESC`, (err, info_e)=>{
+    if(err) console.log(err.sqlMessage);
+    else res.render('public/eventnews_page', {info_e})
+  })
+}
+
+
+exports.public_eventnews_view= (req, res)=>{
+  const {dataid}= req.params;
+  sqlmap.query(`SELECT * FROM repository WHERE datatype='eventnews' AND ID='${dataid}'`, (err, info_e)=>{
+    if(err) console.log(err.sqlMessage);
+    else res.render('public/eventnews_view', {info_e})
+  })
+}
+

@@ -17,6 +17,7 @@ const { pu_school_get, pu_headofschool_get, au_user_nav, au_user_profile_header_
 const { pu_headofschool_render } = require("../app/headofschool_app")
 const headofschool_app = require("../app/headofschool_app")
 const { public_staff_page } = require("../app/staff_app")
+const { admin_achievement_page, public_achievement_view, public_eventnews_page, public_eventnews_view, admin_facilities_view, public_facilities_view, public_achievement_page } = require("../app/repository")
 const public= express.Router()
 
 // class section settings...
@@ -39,18 +40,11 @@ public.get('/staff-page.html/', public_staff_page)
 
 
 //repository router
-public.get('/achievement.html/', (req, res)=>{
-  res.render('public/achievement')
-})
-public.get('/achievement-view.html/', (req, res)=>{
-  res.render('public/view-achievement')
-})
-public.get('/eventnews-view.html/',  (req, res)=>{
-  res.render('public/view-eventnews')
-})
-public.get('/facilities-view.html/',  (req, res)=>{
-  res.render('public/view-facilities')
-})
+public.get('/achievement-page/', public_achievement_page)
+public.get('/achievement-view/:dataid/', public_achievement_view)
+public.get('/eventnews-page/', public_eventnews_page)
+public.get('/eventnews-view/:dataid/', public_eventnews_view)
+public.get('/facilities-view/:dataid', public_facilities_view)
 
 
 // team sannvi 

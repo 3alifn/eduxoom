@@ -128,8 +128,14 @@ img {
 }
 
 /* modified css */
+.view-link{
+    background-color: lightcyan !important;
+   padding: 5px;
+
+}
 .text-muted{
-    font-weight: 500 !important;
+    font-weight: 400 !important;
+    color: rgba(56, 58, 60, 0.942) !important
 }
 .tooltipx{
     position: relative;

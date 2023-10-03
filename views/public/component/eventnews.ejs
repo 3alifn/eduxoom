@@ -1,4 +1,4 @@
-<facilites>
+<eventnews>
 
     <div id="repo-eventnews" class="row p-md-5 mb-5 mtx">
     
@@ -7,10 +7,7 @@
                 Finding our event and news
             </p>
             <p style="line-height: 1.5;" class="text-center">
-                Best school known for their achievement and for best facilities which they provide, 
-                <br>
-                 Our school has all kind of facilities and many achievement.
-            </p>
+                All news and event is necessary for school.You can see our all news and event here            </p>
         </div>
 <% if (info_repo_e.length>0) { %>
  
@@ -34,7 +31,7 @@
                             <code><%=info_repo_e[index].e_date%></code> <br>
                             <%=info_repo_e[index].description%>                         </p>
  
-                         <a href="/pu/eventnews-view.html" class="button text-decoration-none">Read more</a>
+                         <a href="/pu/eventnews-view/<%=info_repo_e[index].ID%>" class="button text-decoration-none">Read more</a>
                      </div>
                  </div>
 
@@ -71,7 +68,7 @@
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
                         </p>
 
-                        <a href="/pu/eventnews-view.html" class="button text-decoration-none">Read more</a>
+                        <a href="/pu/eventnews-view/404" class="button text-decoration-none">Read more</a>
                     </div>
                 </div>
   
@@ -91,7 +88,7 @@
                              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
                          </p>
 
-                         <a href="/pu/eventnews-view.html" class="button text-decoration-none">Read more</a>
+                         <a href="/pu/eventnews-view/404" class="button text-decoration-none">Read more</a>
                      </div>
                  </div>
 
@@ -111,7 +108,7 @@
                              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
                          </p>
 
-                         <a href="/pu/eventnews-view.html" class="button text-decoration-none">Read more</a>
+                         <a href="/pu/eventnews-view/404" class="button text-decoration-none">Read more</a>
                      </div>
                  </div>
 
@@ -131,7 +128,7 @@
                              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium aspernatur nam.
                          </p>
 
-                         <a href="/pu/facilities-view.html" class="button text-decoration-none">Read more</a>
+                         <a href="/pu/eventnews-view/404" class="button text-decoration-none">Read more</a>
                      </div>
                  </div>
             </div>
@@ -145,8 +142,8 @@
     </div> 
 
 <% } %>
-<div class="d-flex p-2 m-1 justify-content-center">
-    <a class="page-link  fw-semibold link-primary text-decoration-underline" href="/pu/eventnews.html">View more <i class="fa fa-angle-right"></i></a>
+<div class="d-flex p-2 m-1 justify-content-center ">
+    <a class="text-decoration-none text-center view-link link-hover fw-semibold link-hover  rounded-2 ps-5 pe-5" href="/pu/eventnews-page/">View more <i class="link-move fa fa-angle-right"></i></a>
 </div>
 </div>
 
@@ -155,4 +152,4 @@
 
  <!-- JavaScript -->
  <script src="app/swipperenv/script.js"></script>
-</facilites>
+</eventnews>

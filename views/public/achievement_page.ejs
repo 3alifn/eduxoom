@@ -1,0 +1,179 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Achievement</title>
+        <%- include("../component/metadata.html") %>
+
+    </head>
+
+ 
+<body onload="pageLoaded()">
+
+  <%- include("../component/header-nav.html") %>
+
+
+  <div class="row mt-5">
+    <div class="col-11  m-auto">
+        <p style="font-weight: 600; font-size: 1.9rem;" class="text-center  mb-4">
+            Finding our repository of achievement
+        </p>
+        <p style="line-height: 1.5;" class="text-center">
+          Best school known for their reward and achievement. Click and explore our all reward and achievement that we won        </p>
+    </div>
+
+</div>
+
+
+
+<% if (info_a.length>0) { %>
+
+
+  <div class="d-flex p-2 mt-5 mb-5 justify-content-center flex-wrap gap-2">
+
+   <% for( let index = 0; index < info_a.length; index++ ) { %>
+    <div class="shadowx">
+      <div class="bg-card-color rounded-bottom-3" style="height: 205px;">
+        <div class="image-content"
+          style="background-image: url('<%=info_a[index].image%>');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 200px;">
+
+        </div>
+      </div>
+
+      <div class="p-2">
+        <h2 class="text-muted"><%=info_a[index].title%></h2>
+        <code>20 aug 2023</code>
+        <p class=" text-three-line pt-1">
+          <%=info_a[index].description%>
+        </p>
+
+        <a href="/pu/achievement-view/<%=info_a[index].ID%>" class="float-end view-link rounded-2 mb-2 fw-semibold p-">Read more</a>
+      </div>
+    </div>
+   <% } %>
+
+
+
+  </div>
+
+ 
+<% } else {%>
+
+
+  <div class="d-flex p-2 mt-5 mb-5 justify-content-center flex-wrap gap-2">
+
+    <div class="shadowx">
+      <div class="bg-card-color rounded-bottom-3" style="height: 205px;">
+        <div class="image-content"
+          style="background-image: url('/image/demo/f1.png');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 200px;">
+
+        </div>
+      </div>
+
+      <div class="p-2">
+        <h2 class="text-muted">No title here</h2>
+        <code>20 aug 2023</code>
+        <p class=" text-three-line pt-1">
+          The lorem text the section that contains header with having open functionality. Lorem dolor sit amet
+          consectetur adipisicing elit.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus
+          quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium
+          aspernatur nam.
+        </p>
+
+        <a href="/pu/achievement-view/404" class="float-end view-link rounded-2 mb-2 fw-semibold p-">Read more</a>
+      </div>
+    </div>
+
+
+    <div class="shadowx">
+      <div class="bg-card-color rounded-bottom-3" style="height: 205px;">
+        <div class="image-content"
+          style="background-image: url('/image/demo/f1.png');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 200px;">
+
+        </div>
+      </div>
+
+      <div class="p-2">
+        <h2 class="text-muted">No title here</h2>
+        <code>20 aug 2023</code>
+        <p class=" text-three-line pt-1">
+          The lorem text the section that contains header with having open functionality. Lorem dolor sit amet
+          consectetur adipisicing elit.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus
+          quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium
+          aspernatur nam.
+        </p>
+
+        <a href="/pu/achievement-view/404" class="float-end view-link rounded-2 mb-2 fw-semibold p-">Read more</a>
+      </div>
+    </div>
+
+
+
+    <div class="shadowx">
+      <div class="bg-card-color rounded-bottom-3" style="height: 205px;">
+        <div class="image-content"
+          style="background-image: url('/image/demo/f2.png');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 200px;">
+
+        </div>
+      </div>
+
+      <div class="p-2">
+        <h2 class="text-muted">No title here</h2>
+        <code>20 aug 2023</code>
+        <p class=" text-three-line pt-1">
+          The lorem text the section that contains header with having open functionality. Lorem dolor sit amet
+          consectetur adipisicing elit.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus
+          quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium
+          aspernatur nam.
+        </p>
+
+        <a href="/pu/achievement-view/404" class="float-end view-link rounded-2 mb-2 fw-semibold p-">Read more</a>
+      </div>
+    </div>
+
+
+
+    <div class="shadowx">
+      <div class="bg-card-color rounded-bottom-3" style="height: 205px;">
+        <div class="image-content"
+          style="background-image: url('/image/demo/f2.png');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 200px;">
+
+        </div>
+      </div>
+
+      <div class="p-2">
+        <h2 class="text-muted">No title here</h2>
+        <code>20 aug 2023</code>
+        <p class=" text-three-line pt-1">
+          The lorem text the section that contains header with having open functionality. Lorem dolor sit amet
+          consectetur adipisicing elit.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore eaque quis mollitia unde eius temporibus
+          quisquam quae perferendis saepe tempore velit incidunt architecto, natus ab optio adipisci accusantium
+          aspernatur nam.
+        </p>
+
+        <a href="/pu/achievement-view/404" class="float-end view-link rounded-2 mb-2 fw-semibold p-">Read more</a>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+<% } %>
+
+
+<%- include("../component/footer-nav.html") %>
+
+</body>
+<script>
+    function pageLoaded(){
+   $('.page-loading-top').remove()
+  }
+</script>
+</html>
