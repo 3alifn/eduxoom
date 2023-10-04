@@ -24,9 +24,6 @@ teacher.all('*', (req, res, next)=>{
 })
 
 
-// student router...
-teacher.post("/student/info/", teacher_student_info)
-
 // self account........
 teacher.get("/dashboard", self_dashboard)
 teacher.get("/account", self_account)

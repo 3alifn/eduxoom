@@ -11,51 +11,59 @@
 
 </head>
 
-<style>
-    .hover-img:hover{
-
-        transition: all 1s;
-        transform: scale(1.2);
-        position: relative;
-        z-index: 1020;
-    }
-</style>
-
-
 <body onload="pageLoadingTop()">
  
     <%- include("../component/header-nav.html") %> 
     <%- include("../component/menu-nav.html") %> 
-    <%- include("../component/offcanvas-nav.html") %> 
 
-
-    <div  class="row shadowx p-2 mt-5 mbx" id="listDataPrint">
+<div  class="row shadowx p-2 mt-5 mbx" >
     
         <div class="col-11 m-auto">
             <p class="p-2 shadowx fw-semibold">Photos playlist</p>
         </div>
 
-        <% if(info.length==0) {%>
-            <div class="col-11 m-auto">
-                <p class="p-2 shadowx fw-semibold alert">No record</p>
-            </div>
-            <% } else {%>
- 
-    <% for( let index = 0; index < info.length; index++ ) { %>
-        <div class='col-6 col-md-3 m-0 m-md-auto p-2'>
-          
-            <a href="/pu/gallery/image/data/<%=info[index].data_id%>" class="nav-link fw-bold text-center">
-              <img height='200px' width='100%' class='bg-demo-img-color hover-img' src="/image/gallery/resized/<%=info[index].item_name%>" alt="404">
-             <%=info[index].item_title%>
-              </a>
-            </div>
-    <% } %>
-    <% } %>
-
    </div>
+
+<% if(info.length>0) {%>
+
+        <div class="d-flex  p-2 mt-5 mb-5 flex-wrap gap-1">
+
+            <% for( let index = 0; index < info.length; index++ ) { %>
+             <div class="shadowx flex-fill ">
+               <div class="bg-card-color-light rounded-3" style="height: 180px;">
+                 <div class="image-content rounded-3"
+                   style="background-image: url('/image/gallery/resized/<%=info[index].item_name%>');   background-size: cover;background-position: center; background-repeat:no-repeat; height: 100%; width: 100%;">
+         
+                 </div>
+               </div>
+         
+               <div class="p-2 mt-2 mb-4">
+                 <h5 class="fw-semibold text-three-line p-2"><%=info[index].item_title%></h5>
+
+                 <a href="/pu/gallery/image/data/<%=info[index].data_id%>" class="view-link rounded-2 mb-2 fw-semibold p-2">Open playlist</a>
+
+               </div>
+             </div>
+            <% } %>
+         
+         
+         
+           </div>
+    <% } else {%>
+
+        <div class="col-11 m-auto">
+            <p class="p-2 shadowx fw-semibold alert">No record</p>
+        </div>
+
+        <% } %>
+
+
+
+
 
 
 <%- include("../component/footer-nav.html") %> 
+<%- include("../component/___node.html") %> 
 
 
 </body>

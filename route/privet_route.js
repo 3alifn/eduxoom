@@ -65,21 +65,4 @@ privet.post('/transcript/report-get-checkout', privet_transcript_report_get_chec
 
 
 
-
-
-
-
-
-// // routine router........
-// privet.get("/routine/page", privet_routine_page)
-// privet.get("/routine/page/class/base", privet_routine_page_class_base)
-  
-
-
-privet.post("/info/student", privet_student_profile)
-
-      
-
-
-
 module.exports= privet;

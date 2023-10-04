@@ -46,7 +46,7 @@ exports.multer_upload_student= multer({
 })
 
 
-exports.teacher_student_info= (req, res)=>{
+exports.student_student_info= (req, res)=>{
   const {ID}= req.body;
   sqlmap.query(`SELECT * FROM students WHERE ID='${ID}'`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
@@ -1125,7 +1125,7 @@ exports.public_student_list= (req, res)=>{
   }
 
 
-exports.public_student_get= (req, res)=>{
+exports.public_student_pagination= (req, res)=>{
 
     const {className, sectionName, requestPageOffset}= req.body; const limit = 12; 
 
@@ -1143,22 +1143,30 @@ exports.public_student_get= (req, res)=>{
 
                 for (let index = 0; index < info.length; index++) {
                  
-                  orderData+=`<div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
-                    <div class="card ">
-                        <img class="bg-demo-img-color m-auto" width="100px" src="/image/student/${info[index].avatar}" alt="404">
-                        <div class="card-body">
-                            <h5 class="card-title"> ${info[index].name} </h5>
-                            <h6 class="card-title">Class Roll (${info[index].roll}) </h6>
-                            <button data-id="${info[index].ID}" title="See more..." class="modal-person-trigger btn"><i class=" bi bi-info-circle-fill"></i></button>
-                        </div>
-                    </div>
-                </div>`
+                  orderData+=` <div  class="flex-fill m-auto p-2 shadowx ">
+
+                  <div class="bg-card-color pt-3 pb-3 rounded-4">
+                      <div class="card-image m-auto">
+                          <img  class="avatar-circle" src="/image/teacher/${info[index].avatar}" alt="">
+                      </div>
+                  </div>
+                
+                    
+                  <div class="pb-3">
+                      <div class="card-body text-center p-2">
+                       <span class="fs-6 fw-semibold">${info[index].name}</span> <br>
+                       <span class="text-muted fw-semibold">${info[index].roll}</span> <br>
+                       <button onclick="get_profile_def('${info[index].ID}')" class="p-2 fw-semibold btn-link btn tap-to-open">Tap to open</button>
+                      </div>
+                  </div>
+                
+                  </div>`
                   
                 }
 
                 res.send({orderData})
               }
-              else res.send({nomore:'no more...'})
+              else res.send({nomore:'No more student here'})
 
         
   
@@ -1169,53 +1177,82 @@ exports.public_student_get= (req, res)=>{
   
 
 
+    exports.public_student_profile_get= (req, res)=>{
+      const {dataid}= req.body; 
+      sqlmap.query(`SELECT * FROM students WHERE ID="${dataid}"`, (err, info)=>{
+               
+      if(info.length>0){
+      let htmldata= `
+         <center>
+        <div class="bg-card-color pt-3  pb-3 rounded-top-5 rounded-start-5">
+            <div class="card-image">
+                <img class="avatar-circle" src="/image/student/${info[0].avatar}" alt="">
+            </div>
+        </div>
+      </center>
+      
+      <center>
+        
+        <div class=" pt-3 pb-3 rounded-bottom-5 rounded-end-5">
+            <div class="card-body text-start p-2">
+                   
+            <div class="d-flex text-muted ">
+            <div class="p-1 w-25">Student of</div>
+            <code class="p-1">:</code> <div class="p-1 w-75">${info[0].class} - ${info[0].section}</div>
+           </div>    
+           
 
+                <div class="d-flex text-muted ">
+                   <div class="p-1 w-25">Name</div>
+                   <code class="p-1">:</code><div class="p-1 w-75">${info[0].name}</div>
+                  </div>
 
-exports.privet_student_profile= (req, res)=>{
+                              
+                  <div class="d-flex text-muted ">
+                    <div class="p-1 w-25">Gender</div>
+                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].gender}</div>
+                   </div>
 
-
-    let ID= req.body.ID;
-  
-            sqlmap.query(`SELECT * FROM students WHERE ID="${ID}"`, (err, info)=>{
-       
-              if(info.length>0){
-  
-                let avatar= `${info[0].avatar}`
-
-                let html= `
+                   
+                   <div class="d-flex text-muted ">
+                    <div class="p-1 w-25">Roll</div>
+                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].roll}</div>
+                   </div>     
+                   
+                   
+                   <div class="d-flex text-muted ">
+                    <div class="p-1 w-25">SID</div>
+                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].student_id}</div>
+                   </div>
+            
+                  <div class="d-flex text-muted ">
+                    <div class="p-1 w-25">Religion</div>
+                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].religion}</div>
+                   </div>
+            
+                   <div class="d-flex text-muted ">
+                    <div class="p-1 w-25">Blood Group</div>
+                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].blood_group}</div>
+                   </div>
+            
+                   <div class="d-flex text-muted ">
+                    <div class="p-1 w-25">Admision date</div>
+                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].admission_date}</div>
+                   </div>
+            
+            </div>
+        </div>
+      </center>
+      <button data-dismiss="modal" class="btn float-end fw-semibold btn-link link-primary p-2 ms-auto mt-2 mb-b">Close</button>
+            
+       `
+      res.send({htmldata})
+        
+                      }
           
-                 <h5 class="card-title">${info[0].name} </h5>
-                 <p class="card-text badge border bg-light text-dark">Class: ${info[0].class}</p> 
-                 <p class="card-text badge border bg-light text-dark">Section: ${info[0].section}</p> 
-                 <p class="card-text badge border bg-light text-dark">Class Roll: ${info[0].roll}</p> 
-                 <p class="card-text badge border bg-light text-dark">student Id: ${info[0].student_id}</p> 
-                 <p class="card-text badge border bg-light text-dark">Reg: ${info[0].reg}</p> 
-                 <p class="card-text badge border bg-light text-dark">Email: ${info[0].email}</p> 
-                 <p class="card-text badge border bg-light text-dark">Contact: ${info[0].telephone}</p> 
-                 <p class="card-text badge border bg-light text-dark">Gender: ${info[0].gender}</p> 
-                 <p class="card-text badge border bg-light text-dark">Birth Date: ${info[0].birth_date}</p> 
-                 <p class="card-text badge border bg-light text-dark">Blood Group: ${info[0].blood_group}</p> 
-                 <hr>
-                 <strong>Extra Information</strong> <br>
-                 <p class="card-text badge border bg-light text-dark">Father Name: ${info[0].father_name}</p> 
-                 <p class="card-text badge border bg-light text-dark">Mother Name: ${info[0].mother_name}</p> 
-                 <p class="card-text badge border bg-light text-dark">Religion: ${info[0].religion}</p> 
-                 <p class="card-text badge border bg-light text-dark">Address: ${info[0].address}</p> 
-                 <p class="card-text badge border bg-light text-dark">Hobbies: ${info[0].hobbies}</p> 
-                 <p class="card-text badge border bg-light text-dark">Admission Date: ${info[0].admission_date}</p> 
-             
-                 
-
-                 `
-                
-                res.send({html, avatar})
-
-              }
-  
-                
-    })
-    }
-  
+                        
+            })
+   }
 
 
 

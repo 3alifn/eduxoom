@@ -6,7 +6,7 @@ const { public_notice_get, public_notice_download } = require("../app/notice_app
 const { join, self_verify_code } = require("../app/parent_app")
 const { public_rank_class_page, public_rank_page, public_rank_get, public_rank_get_class_base } = require("../app/rank_app")
 const { public_routine_page, public_routine_page_class_base, public_routine_download } = require("../app/routine_app")
-const { public_student_page, public_student_profile, public_student_list, self_join_student, self_student_verify_code, self_student_send_mail, public_student_get } = require("../app/student_app")
+const { public_student_page, public_student_profile, public_student_list, self_join_student, self_student_verify_code, self_student_send_mail, public_student_get, public_student_profile_get, public_student_paginationt, public_student_pagination } = require("../app/student_app")
 const { public_teacher_list, public_teacher_profile_get } = require("../app/teacher_app")
 const { app, sqlmap } = require("../server")
 const { public_team_saanvi_sent_message } = require("../app/team_saanvi_app")
@@ -88,20 +88,20 @@ public.get("/gallery/video/data/:dataid", public_gallery_video_data_get)
 // teacher router....
 
 public.get("/all/teacher",  public_teacher_list)
-public.post("/info/teacher", public_teacher_profile_get)
-
-
-
+public.post("/teacher/profile/get", public_teacher_profile_get)
 
 
 
 
 // student router.........
+public.get("/student/page", public_student_page)
 
 public.get("/all/student", public_student_list)
-public.post("/student/get-page", public_student_get)
 
-public.get("/student/page", public_student_page)
+public.post("/student/profile/get", public_student_profile_get)
+
+public.post("/student/pagination", public_student_pagination)
+
 
 
 

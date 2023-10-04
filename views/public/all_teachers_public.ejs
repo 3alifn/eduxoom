@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,122 +7,92 @@
     <%- include("../component/metadata.html") %> 
 
 </head>
-<style>
-    #teacherID a, #teacherID{
-        text-decoration: none;
-        color:black !important;
-    }
 
-    #teacherID .card:hover{
-       height: max-content !important;
-       
-    }
-
-
-</style>
 <body onload="pageLoadingTop()">
 
 <%- include("../component/header-nav.html") %> 
 <%- include("../component/menu-nav.html") %> 
-<%- include("../component/offcanvas-nav.html") %> 
    
 
 <div class="row mt-5 p-2 shadowx">
 
   <div class="col-11 m-auto">
-    <p class="p-2 shadowx fw-semibold">Our Teachers here</p>
-</div>
-
-  <div class="col-11 m-auto">
-    <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+    <p class="p-2 shadowx fw-semibold">Meet our school Teachers</p>
 </div>
 
 
 
 </div>
 
-      <div id="teacherID" class="row shadowx mt-5 mbx element">
 
-        
-        <% if(info.length==0) {%>
-          <div class="col-11 m-auto">
-              <p class="p-2 fw-semibold shadowx alert">No record</p>
-          </div>
-          <% } %>
 
- <% for(let i= 0; i<info.length; i++) {%>
 
-     
-    
-    <div  class="col-10 col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
-      
-          <div class="card ">
-              <img class="bg-demo-img-color m-auto" width="100px" src="/image/teacher/<%=info[i].avatar%>" alt="">
-              <div class="card-body">
-                  <h5 class="card-title"><%=info[i].name%> </h5>
-                  <h6 class="card-text"><%=info[i].position%></h6> 
-                  <h6 class="card-text">Index No: <%=info[i].index_number%></h6>
-                  <button data-id="<%=info[i].ID%>" title="information" class="modal-person-trigger btn"><i class="bi bi-info-circle-fill"></i></button>
+<div class="d-flex  mt-5 mbx row-gap-5 column-gap-2 flex-wrap ">
 
-              </div>
-       
+<% if (info.length>0) { %>
+ 
+  <% for( let index = 0; index < info.length; index++ ) { %>
+    <div  class="flex-fill m-auto p-2 shadowx ">
+
+      <div class="bg-card-color-light pt-3 pb-3 rounded-4">
+          <div class="card-image m-auto">
+              <img  class="avatar-circle" src="/image/teacher/<%=info[index].avatar%>" alt="">
           </div>
       </div>
-
-    <% } %>  
-
-        <!-- end div -->
-    </div>
     
+        
+      <div class="pb-3">
+          <div class="card-body text-center p-2">
+           <span class="fs-6 fw-semibold"><%=info[index].name%></span> <br>
+           <span class="text-muted fw-semibold"><%=info[index].position%></span> <br>
+           <button onclick="get_profile_def('<%=info[index].ID%>')" class="p-2 fw-semibold btn-link btn tap-to-open">Tap to open</button>
+          </div>
+      </div>
+    
+      </div>
+  <% } %>
+
+<% } else {%>
+
+  <div class="row mt-5 p-2 shadowx">
+
+    <div class="col-11 m-auto">
+      <p class="p-2 shadowx fw-semibold">No record here</p>
+  </div>
+
+  <% } %>
+
+</div>
+
+</div>
 
 
-    <%-include("../component/modal-person.html") %> 
-
+    <%-include("../component/profile-max-card.html") %> 
 
     <%- include("../component/footer-nav.html") %> 
+    <%- include("../component/___node.html") %> 
 
     
 <script>
     
-$(document).on("click", ".modal-person-trigger", (e)=>{
-  let dataID= e.currentTarget.attributes[0].value;
+function get_profile_def(dataid){
   $.ajax({
-  type: "post",
-  url: "/pu/info/teacher",
-  data: {dataID},
-  dataType: "JSON",
-
-  beforeSend: function(){
-    $(".modal-person-body").html(`<div class="card" aria-hidden="true">
-  <div class="card-body">
-    <h5 class="card-title placeholder-glow">
-      <span class="placeholder col-6"></span>
-    </h5>
-    <p class="card-text placeholder-glow">
-      <span class="placeholder col-7"></span>
-      <span class="placeholder col-4"></span>
-      <span class="placeholder col-4"></span>
-      <span class="placeholder col-6"></span>
-      <span class="placeholder col-8"></span>
-    </p>
-    <a class="btn btn-primary disabled placeholder col-6"></a>
-  </div>
-</div>`)
-  
-     $(".modal-person-btn").click()
-  },
-
-  success: function (info) {
-    $(".modal-person-body").html(info.html)
-     $(".modal-person-avatar").attr("src", `/image/teacher/${info.avatar}`)
-  
-     $(".modal-person-btn").click()
-  }
-});
-})
-
-
-
+    method: "post",
+    url: "/pu/teacher/profile/get",
+    data: {dataid},
+    dataType: "JSON",
+    beforeSend: function(){
+      _spin_pull()
+      $('.tap-to-open').addClass('opacity-25')
+    },
+    success: function (res) {
+      _spin_pop()
+      $('.tap-to-open').removeClass('opacity-25')
+      $('#profile-max-card-body').html(res.htmldata)
+      $('#profile-max-card-trigger').click()
+    }
+  });
+}
 
 
 </script>

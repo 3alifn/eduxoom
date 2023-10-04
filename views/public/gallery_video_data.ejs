@@ -10,17 +10,6 @@
 
 </head>
 
-    
-<style>
-
-  
-  .container img { width: 200px; height: 150px; float: left;  }
-  
-  .img-btn:hover{
-    cursor: pointer;
-  }
-  
-  </style>
 
 <body onload="pageLoadingTop()">
     
@@ -28,14 +17,13 @@
           
 <%- include("../component/header-nav.html") %>
 <%- include("../component/menu-nav.html") %>
-<%- include("../component/offcanvas-nav.html") %>
   
 
   
-            <div id="listDataPrint" class="row shadowx mt-b mbx">
+            <div  class="row shadowx mt-5 mbx">
               
               <div class="col-11 m-auto">
-                <p class="p-2 fw-semibold shadowx ">Our gallery videos</p>
+                <p class="p-2 fw-semibold shadowx ">Our gallery of <%=info[0].item_title %></p>
             </div>
     
             <% if(info.length==0) {%>
@@ -59,52 +47,13 @@
              
               
             </div>
-  
-  
-      
-      
-      <!-- Button trigger modal -->
-  
-      
-   <!-- Modal -->
-  <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
-      
-      <img  id="modal-img" class="bg-demo-img-color" height="250px" width="100%" src="" alt="loading...">
-      
-    </div>
-  </div>
-      
-  <button  id="modal-btn" type="button" class="btn d-none btn-lg" data-toggle="modal" data-target="#modelId">
-  </button>
 
-
-
-<%- include("../component/footer-nav.html") %>
-
-  
-  </body>
-  
-  
-  <script>
-  
-
-      $(document).on('click', '.img-btn', (event)=>{
-        const data= event.currentTarget.attributes[2].value;
-        
-        $("#modal-img").attr('src', data)
       
-        $("#modal-img").addClass('overlay-img')
-        $("#modal-btn").click()
+      <%- include("../component/footer-nav.html") %>
       
-      })
-      
-    
-  
-  
-  
-      
-  </script>
+
+</body>
+
       
 
 </html>

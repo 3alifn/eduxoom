@@ -27,14 +27,13 @@
           
 <%- include("../component/header-nav.html") %>
 <%- include("../component/menu-nav.html") %>
-<%- include("../component/offcanvas-nav.html") %>
 
   
-            <div id="listDataPrint" class="row shadowx mt-5 ps-2 pe-2 justify-content-start mbx d-flex">
+   <div  class="row shadowx mt-5 p-2 justify-content-start mbx">
           
                
         <div class="col-11 m-auto">
-          <p class="p-2 shadowx fw-semibold">Our gallery photos</p>
+          <p class="p-2 shadowx fw-semibold">Our gallery of <%=info[0].item_title%></p>
       </div>
 
       <% if(info.length==0) {%>
@@ -45,9 +44,9 @@
   
               <% for( let index = 0; index < info.length; index++ ) { %>
               
-                <div class='col-6 col-md-2  p-1 shadow-1'>
+                <div class='col-6 col-md-2  p-1 shadow-1' style="height: 180px;">
 
-                  <img style='display:block' class="bg-demo-img-color img-btn h-75 w-100"  src="/image/gallery/resized/<%=info[index].item_name%>">
+                  <img style='display:block' class="bg-card-color-light jbox-img h-100 w-100"  src="/image/gallery/resized/<%=info[index].item_name%>">
                     
                   </div>
 
@@ -56,53 +55,54 @@
               <% } %>
              
               
-            </div>
-  
-  
-      
-      
-      <!-- Button trigger modal -->
-  
-      
-   <!-- Modal -->
-  <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
-      
-      <img  id="modal-img" class="bg-demo-img-color" height="250px" width="100%" src="" alt="loading...">
-      
     </div>
-  </div>
-      
-  <button  id="modal-btn" type="button" class="btn d-none btn-lg" data-toggle="modal" data-target="#modelId">
-  </button>
-
-
-
-<%- include("../component/footer-nav.html") %>
-
   
+  
+      
+          <div class="jbox-container">
+              <div class="img-alt-text"></div>
+              
+              <img src="" />
+              <svg version="1.1" class="jbox-prev" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              viewBox="0 0 306 306" xml:space="preserve">
+                  <g>
+                      <g id="chevron-right">
+                          <polygon points="211.7,306 247.4,270.3 130.1,153 247.4,35.7 211.7,0 58.7,153" />
+                      </g>
+                  </g>
+              </svg>
+          
+              
+              <svg version="1.1" class="jbox-next" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              viewBox="0 0 306 306" xml:space="preserve">
+                  <g>
+                      <g id="chevron-right">
+                          <polygon points="94.35,0 58.65,35.7 175.95,153 58.65,270.3 94.35,306 247.35,153" />
+                      </g>
+                  </g>
+              </svg>
+              
+          
+              <svg version="1.1" class="jbox-close" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+                  <path d="M512,51.75L460.25,0L256,204.25L51.75,0L0,51.75L204.25,256L0,460.25L51.75,512L256,307.75L460.25,512L512,460.25
+          L307.75,256L512,51.75z" />
+              </svg>
+          
+          
+          </div>
+      
+      
+      <%- include("../component/footer-nav.html") %>
+      
+
+      <script src="/app/jBox-min.js"></script>
+   <link rel="stylesheet" href="/app/jBox.css">
+      <script>
+            var gallery = new jBox();
+
+      </script>
+      
   </body>
-  
-  
-  <script>
-  
-
-      $(document).on('click', '.img-btn', (event)=>{
-        const data= event.currentTarget.attributes[2].value;
-        
-        $("#modal-img").attr('src', data)
-      
-        $("#modal-img").addClass('overlay-img')
-        $("#modal-btn").click()
-      
-      })
-      
-    
-  
-  
-  
-      
-  </script>
-      
 
 </html>

@@ -1,5 +1,161 @@
 <body>
 
+  
+<!-- profile info mini card -->
+<div id="profile-min-card" class="d-flex p-2 row-gap-5 column-gap-2 flex-wrap ">
+
+  <div  class="flex-fill m-auto shadowx ">
+
+  <div class="bg-card-color pt-3 pb-3 rounded-4">
+      <div class="card-image m-auto">
+          <img  class="avatar-circle" src="./media/demo/profile1.png" alt="">
+      </div>
+  </div>
+
+    
+  <div class="pb-3">
+      <div class="card-body text-center p-2">
+       <span class="name fw-semibold fs-6">No name</span> <br>
+       <button data-toggle="modal" data-target="#profile-max-card" class="p-2 btn-link fw-semibold btn">Tap to open</button>
+      </div>
+  </div>
+
+  </div>
+
+
+  <div class="flex-fill shadowx ">
+
+    <div class="bg-card-color pt-3 pb-3 rounded-4">
+        <div class="card-image m-auto">
+            <img class="avatar-circle" src="./media/demo/profile1.png" alt="">
+        </div>
+    </div>
+  
+      
+    <div class="pb-3">
+        <div class="card-body text-center p-2">
+         <span class="name">No name</span> <br>
+         <button data-toggle="modal" data-target="#profileinfocard" class="p-2 btn-hover btn">Tap to open</button>
+        </div>
+    </div>
+  
+    </div>
+
+
+
+    <div class="flex-fill shadowx ">
+
+      <div class="bg-card-color pt-3 pb-3 rounded-4">
+          <div class="card-image m-auto">
+              <img class="avatar-circle" src="./media/demo/profile1.png" alt="">
+          </div>
+      </div>
+    
+        
+      <div class="pb-3">
+          <div class="card-body text-center p-2">
+           <span class="name">No name</span> <br>
+           <button data-toggle="modal" data-target="#profileinfocard" class="p-2 btn-hover btn">Tap to open</button>
+          </div>
+      </div>
+    
+      </div>
+
+
+      <div class="flex-fill shadowx ">
+
+        <div class="bg-card-color pt-3 pb-3 rounded-4">
+            <div class="card-image m-auto">
+                <img class="avatar-circle" src="./media/demo/profile1.png" alt="">
+            </div>
+        </div>
+      
+          
+        <div class="pb-3">
+            <div class="card-body text-center p-2">
+             <span class="name">No name</span> <br>
+             <button data-toggle="modal" data-target="#profileinfocard" class="p-2 btn-hover btn">Tap to open</button>
+            </div>
+        </div>
+      
+        </div>
+
+
+</div>
+
+<!-- profile info max card -->
+
+<div data-bs-backdrop="static" id="profle-max-card" class="row modal">
+  <div class="col-11 col-md-8 modal-dialog modal-content shadowx m-auto p-2 mt-5 position-relative">
+
+<center>
+  <div class="bg-card-color pt-3  pb-3 rounded-top-5 rounded-start-5">
+      <div class="card-image">
+          <img class="avatar-circle" src="./media/headmaster_img.png" alt="">
+      </div>
+  </div>
+</center>
+
+<center>
+  
+  <div class=" pt-3 pb-3 rounded-bottom-5 rounded-end-5">
+      <div class="card-body text-start p-2">
+    
+          <div class="d-flex text-muted ">
+             <div class="p-1 w-25">Name</div>
+             <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].name%></div>
+            </div>
+      
+            <div class="d-flex text-muted ">
+              <div class="p-1 w-25">Position</div>
+              <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].position%></div>
+             </div>
+      
+            <div class="d-flex text-muted ">
+              <div class="p-1 w-25">Gender</div>
+              <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].gender%></div>
+             </div>
+      
+             <div class="d-flex text-muted ">
+              <div class="p-1 w-25">Index no</div>
+              <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].index_number%></div>
+             </div>
+      
+             <div class="d-flex text-muted ">
+              <div class="p-1 w-25">Email</div>
+              <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].email%></div>
+             </div>
+      
+      
+             <div class="d-flex text-muted ">
+              <div class="p-1 w-25">Phone</div>
+              <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].phone%></div>
+             </div>
+      
+             <div class="d-flex text-muted ">
+              <div class="p-1 w-25">Age</div>
+              <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].age%></div>
+             </div>
+      
+             <div class="d-flex text-muted ">
+              <div class="p-1 w-25">Joining date</div>
+               <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].joining_date%></div>
+             </div>
+      
+      
+      
+      
+      
+      </div>
+  </div>
+</center>
+<button data-dismiss="modal" class="btn float-end fw-semibold btn-link link-primary p-2 ms-auto mt-2 mb-b">Close</button>
+      
+  </div>
+</div> 
+    
+
+
 
 
   <!-- grid and flex card  -->
@@ -147,146 +303,7 @@
   </div>
 </div> 
 
-  
-<!-- profile info mini card -->
 
-<div class="row container-md m-auto">
-
-  <div class="col-11 m-md-0 m-auto col-md-3  shadowx p-2 mt-2">
-  <div class="bg-card-color pt-3 pb-3 rounded-4">
-      <div class="card-image m-auto">
-          <img class="avatar-circle" src="./media/headmaster_img.png" alt="">
-      </div>
-  </div>
-
-    
-  <div class="pb-3">
-      <div class="card-body text-center p-2">
-       <span class="name">No name</span> <br>
-       <button data-toggle="modal" data-target="#profileinfcard" class="p-2 btn-hover btn">Tap to open</button>
-      </div>
-  </div>
-
-  </div>
-
-
-
-
-    
-  <div class="col-11 m-md-0 m-auto col-md-3 shadowx p-2 mt-2">
-    <div class="bg-card-color pt-3 pb-3 rounded-4">
-        <div class="card-image m-auto">
-            <img class="avatar-circle" src="./media/headmaster_img.png" alt="">
-        </div>
-    </div>
-  
-      
-    <div class="pb-3">
-        <div class="card-body text-center p-2">
-         <span class="name">No name</span> <br>
-         <button data-toggle="modal" data-target="#profileinfocard" class="p-2 btn-hover btn">Tap to open</button>
-        </div>
-    </div>
-  
-    </div>
-
-
-
-    
-  <div class="col-11 m-md-0 m-auto col-md-3  shadowx p-2 mt-2">
-    <div class="bg-card-color pt-3 pb-3 rounded-4">
-        <div class="card-image m-auto">
-            <img class="avatar-circle" src="./media/headmaster_img.png" alt="">
-        </div>
-    </div>
-  
-      
-    <div class="pb-3">
-        <div class="card-body text-center p-2">
-         <span class="name">No name</span> <br>
-         <button data-toggle="modal" data-target="#profileinfocard" class="p-2 btn-hover btn">Tap to open</button>
-        </div>
-    </div>
-  
-    </div>
-  
-
-</div>
-
-
-<!-- profile info max card -->
-
-<div id="profileinfcard" class="row modal">
-  <div class="col-11 col-md-8 modal-dialog modal-content shadowx m-auto p-2 mt-5 position-relative">
-
-<center>
-  <div class="bg-card-color pt-3  pb-3 rounded-top-5 rounded-start-5">
-      <div class="card-image">
-          <img class="avatar-circle" src="./media/headmaster_img.png" alt="">
-      </div>
-  </div>
-</center>
-
-<center>
-  <span class=" position-absolute rounded-top-5 bg-light"
-   style="height: 50px; width: 50px;  
-   margin-top: -20px; z-index: 1090; right: 0; transform: scale(1.2);"></span>
-
-  <div class=" pt-3 pb-3 rounded-bottom-5 rounded-end-5">
-      <div class="card-body text-start p-2">
-    
-          <div class="d-flex text-muted ">
-             <div class="p-1 w-25">Name</div>
-             <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].name%></div>
-            </div>
-      
-            <div class="d-flex text-muted ">
-              <div class="p-1 w-25">Position</div>
-              <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].position%></div>
-             </div>
-      
-            <div class="d-flex text-muted ">
-              <div class="p-1 w-25">Gender</div>
-              <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].gender%></div>
-             </div>
-      
-             <div class="d-flex text-muted ">
-              <div class="p-1 w-25">Index no</div>
-              <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].index_number%></div>
-             </div>
-      
-             <div class="d-flex text-muted ">
-              <div class="p-1 w-25">Email</div>
-              <code class="p-1">:</code> <div class="p-1 w-75"><%=info[index].email%></div>
-             </div>
-      
-      
-             <div class="d-flex text-muted ">
-              <div class="p-1 w-25">Phone</div>
-              <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].phone%></div>
-             </div>
-      
-             <div class="d-flex text-muted ">
-              <div class="p-1 w-25">Age</div>
-              <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].age%></div>
-             </div>
-      
-             <div class="d-flex text-muted ">
-              <div class="p-1 w-25">Joining date</div>
-               <code class="p-1">:</code><div class="p-1 w-75"><%=info[index].joining_date%></div>
-             </div>
-      
-      
-      
-      
-      
-      </div>
-  </div>
-</center>
-
-  </div>
-</div> 
-    
     
     
     
