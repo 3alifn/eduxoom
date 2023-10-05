@@ -3,7 +3,7 @@ const {app, sqlmap}= require("../server");
 exports.admin_dashboard_tsa_lookup=(req, res)=>{
     sqlmap.query(`SELECT COUNT(ID) AS tAll, 
     COUNT(CASE WHEN gender="Female" THEN 1 END) AS tFemale,
-    COUNT(CASE WHEN gender="Male" THEN 1 END ) AS tMale FROM teachers`, (err, info)=>{
+    COUNT(CASE WHEN gender="Male" THEN 1 END ) AS tMale FROM teachers WHERE domain='${req.hostname}'`, (err, info)=>{
             if(err) console.log(err.sqlMessage);
             else {
             const countTeacher= info[0].tAll;
@@ -14,7 +14,7 @@ exports.admin_dashboard_tsa_lookup=(req, res)=>{
 
               sqlmap.query(`SELECT COUNT(ID) AS staffAll, 
               COUNT(CASE WHEN gender="Female" THEN 1 END) AS staffFemale,
-              COUNT(CASE WHEN gender="Male" THEN 1 END ) AS staffMale FROM staff`, (err, info)=>{
+              COUNT(CASE WHEN gender="Male" THEN 1 END ) AS staffMale FROM staff WHERE domain='${req.hostname}'`, (err, info)=>{
                       if(err) console.log(err.sqlMessage);
                       else {
                       const countStaff= info[0].staffAll;
@@ -25,7 +25,7 @@ exports.admin_dashboard_tsa_lookup=(req, res)=>{
                     
                         sqlmap.query(`SELECT COUNT(ID) AS sAll, 
                         COUNT(CASE WHEN gender="Female" THEN 1 END) AS sFemale,
-                        COUNT(CASE WHEN gender="Male" THEN 1 END ) AS sMale FROM students`, (err, info)=>{
+                        COUNT(CASE WHEN gender="Male" THEN 1 END ) AS sMale FROM students WHERE domain='${req.hostname}'`, (err, info)=>{
                                 if(err) console.log(err.sqlMessage);
                                 else {
                                 const countStudent= info[0].sAll;

@@ -40,7 +40,7 @@ exports.uploadNotice= multer({
 
 exports.admin_notice_get= (req, res)=>{  
 
-let sql="SELECT * FROM notice ORDER BY ID DESC"
+let sql=`SELECT * FROM notice WHERE domain='${req.hostname}' ORDER BY ID DESC`
 sqlmap.query(sql, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     else 
@@ -84,7 +84,8 @@ exports.admin_notice_post= (req, res)=>{
 
     if(req.file) var attachmentNotice= req.file.filename;
     else var attachmentNotice= "demo.pdf"
-    let sql= `INSERT INTO notice (session, title, description, attachment)VALUES('${session}', "${title}",  "${description}", "${attachmentNotice}")`
+    let sql= `INSERT INTO notice (domain, session, title, description, attachment)
+    VALUES('${req.hostname}', '${session}', "${title}",  "${description}", "${attachmentNotice}")`
     sqlmap.query(sql, (err, next)=>{
         if(err) console.log(err.sqlMessage);
         else
@@ -97,7 +98,7 @@ exports.admin_notice_post= (req, res)=>{
 
 
 exports.public_notice_get= (req, res)=>{
-    let sql="SELECT * FROM notice ORDER BY ID DESC"
+    let sql=`SELECT * FROM notice WHERE domain='${req.hostname}' ORDER BY ID DESC`
     sqlmap.query(sql, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else 
@@ -144,13 +145,13 @@ exports.admin_notice_delete= (req, res)=>{
 
     let {ID} =req.body;
 
-    sqlmap.query(`SELECT * FROM notice WHERE ID IN (${ID.toString()})`, (errInfo, findInfo)=>{
+    sqlmap.query(`SELECT * FROM notice WHERE domain='${req.hostname}' AND  ID IN (${ID.toString()})`, (errInfo, findInfo)=>{
         if(errInfo) console.log("data not found!")
         
         else {
 
             
-    sqlmap.query(`DELETE FROM notice WHERE ID IN (${ID.toString()})`, (err, next)=>{
+    sqlmap.query(`DELETE FROM notice WHERE domain='${req.hostname}' AND  ID IN (${ID.toString()})`, (err, next)=>{
         if(err) console.log(err.sqlMessage);
         else
         {
@@ -181,7 +182,7 @@ exports.admin_notice_delete= (req, res)=>{
 exports.public_notice_download= (req, res)=>{
     let {id} =req.query;
 
-    let sql= `SELECT attachment FROM notice WHERE ID=${id}`
+    let sql= `SELECT attachment FROM notice WHERE domain='${req.hostname}' AND  ID=${id}`
     sqlmap.query(sql, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else
@@ -205,7 +206,7 @@ exports.public_notice_download= (req, res)=>{
 exports.admin_notice_download= (req, res)=>{
     let {id} =req.query;
 
-    let sql= `SELECT attachment FROM notice WHERE ID=${id}`
+    let sql= `SELECT attachment FROM notice WHERE domain='${req.hostname}' AND  ID=${id}`
     sqlmap.query(sql, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else

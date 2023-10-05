@@ -39,7 +39,7 @@ module.exports = {
 
     pu_headofschool_view_page: (req, res) => {
 
-        sqlmap.query(`SELECT * FROM headofschool GROUP BY position ORDER BY ID DESC`, (err, info) => {
+        sqlmap.query(`SELECT * FROM headofschool WHERE domain='${req.hostname}' GROUP BY position ORDER BY ID DESC`, (err, info) => {
             if (err) console.log(err.sqlMessage);
             else res.render('public/headofschool', {info})
         })
@@ -49,7 +49,7 @@ module.exports = {
 
     admin_headofschool_page: (req, res) => {
 
-        sqlmap.query(`SELECT * FROM headofschool ORDER BY ID DESC`, (err, info) => {
+        sqlmap.query(`SELECT * FROM headofschool WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info) => {
             if (err) console.log(err.sqlMessage);
             else res.render('admin/headofschool', { info })
         })
@@ -63,11 +63,11 @@ module.exports = {
         const randomString= Math.random()*90000;
 
         if(haveimage==undefined || haveimage=='') var image= position+randomString+'.png'; else var image=haveimage;
-              sqlmap.query(`SELECT * FROM headofschool WHERE ID='${dataid}'`, (errcheck, infocheck)=>{
+              sqlmap.query(`SELECT * FROM headofschool WHERE domain='${req.hostname}' AND  ID='${dataid}'`, (errcheck, infocheck)=>{
                 if(errcheck) console.log(errcheck.sqlMessage);
                 if(infocheck.length==undefined||infocheck.length==0){
-                    sqlmap.query(`INSERT INTO headofschool (position, name, message, image)
-                    VALUES( '${position}', '${name}','${message}', '${image}')`, (err, next) => {
+                    sqlmap.query(`INSERT INTO headofschool (domain, position, name, message, image)
+                    VALUES( '${req.hostname}', '${position}', '${name}','${message}', '${image}')`, (err, next) => {
                         if (err) console.log(err.sqlMessage);
                         else res.redirect('/admin/setup/headofschool')
     
@@ -75,7 +75,7 @@ module.exports = {
                 } 
                 
             else {
-                    sqlmap.query(`UPDATE headofschool SET position='${position}', name='${name}', message='${message}', image='${image}' WHERE ID='${dataid}'`, (errN, nextN) => {
+                    sqlmap.query(`UPDATE headofschool SET position='${position}', name='${name}', message='${message}', image='${image}' WHERE domain='${req.hostname}' AND  ID='${dataid}'`, (errN, nextN) => {
                         if (errN) console.log(errN.sqlMessage+"- update issued");
                        else res.redirect('/admin/setup/headofschool')
     
@@ -116,7 +116,7 @@ module.exports = {
 
     admin_headofschool_rm: (req, res)=>{
         const {dataid}=req.body;
-        sqlmap.query(`DELETE FROM headofschool WHERE ID=${dataid}`, (err, next)=>{
+        sqlmap.query(`DELETE FROM headofschool WHERE domain='${req.hostname}' AND  ID=${dataid}`, (err, next)=>{
             if(err) console.log(err.sqlMessage);
             else res.send({msg: 'Deleted!'})
         })

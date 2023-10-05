@@ -13,7 +13,7 @@ var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|
 
 exports.teacher_bi_info= (req, res)=>{
     const {ID}= req.body;
-sqlmap.query(`SELECT catagory_name FROM bi_catagory WHERE ID=${ID}`, (err, info)=>{
+sqlmap.query(`SELECT catagory_name FROM bi_catagory WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     const data= `<p>${info[0].catagory_name}</p>`
     res.send({data})
@@ -25,7 +25,8 @@ exports.admin_bi_catagory_post= (req, res)=>{
   
     for (let index = 0; index < get.catagory_name.length; index++) {
        const randomString= randomBytes(10).toString('hex');
-        sqlmap.query(`INSERT INTO bi_catagory (catagory_name, catagory_code)VALUES('${get.catagory_name[index]}', '${randomString}')`, (err, post)=>{
+        sqlmap.query(`INSERT INTO bi_catagory (domain, catagory_name, catagory_code)
+        VALUES('${req.hostname}', '${get.catagory_name[index]}', '${randomString}')`, (err, post)=>{
             if(err) console.log(err.sqlMessage);
             
         })
@@ -38,7 +39,7 @@ res.send({msg: 'Adding successfully!'})
 
 exports.admin_bi_catagory_get= (req, res)=>{
 
-    sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_name ORDER BY ID`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         let tbody_data= '';
         for (let index = 0; index < info.length; index++) {
@@ -72,7 +73,7 @@ exports.admin_bi_catagory_get= (req, res)=>{
 
 exports.admin_bi_catagory_update_post= (req, res)=>{
     const {catagory_id, catagory_name}= req.body;
-    sqlmap.query(`UPDATE bi_catagory SET catagory_name='${catagory_name}' WHERE ID=${catagory_id}`, (err, done)=>{
+    sqlmap.query(`UPDATE bi_catagory SET catagory_name='${catagory_name}' WHERE domain='${req.hostname}' AND  ID=${catagory_id}`, (err, done)=>{
         if(err)console.log(err.sqlMessage);
         else res.send({msg: 'successfully!'})
     })
@@ -84,7 +85,7 @@ exports.admin_bi_catagory_update_post= (req, res)=>{
 exports.admin_bi_catagory_delete= (req, res)=>{
 const {catagory_id}= req.body;
 
-sqlmap.query(`DELETE FROM bi_catagory WHERE ID=${catagory_id}`, (err, done)=>{
+sqlmap.query(`DELETE FROM bi_catagory WHERE domain='${req.hostname}' AND  ID=${catagory_id}`, (err, done)=>{
     if(err) console.log(err.sqlMessage);
     else res.send({msg: 'successfully!'})
 })
@@ -100,17 +101,17 @@ exports.teacher_bi_page_mark_get= (req, res)=>{
     const teacher_pdsid= req.session.pdsId; 
     const {className, sectionName, page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit=20; 
 
-    sqlmap.query(`SELECT * FROM bi_catagory ORDER BY ID`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' ORDER BY ID`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
 
-        sqlmap.query(`SELECT COUNT(student_id) as student_row FROM students WHERE class='${className}' AND section='${sectionName}'`
+        sqlmap.query(`SELECT COUNT(student_id) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
        ,(err_row, count_row)=>{
          if(err_row) console.log(err_row.sqlMessage);
         const student_row= count_row[0].student_row;
         const pagination= student_row / limit 
         if(Math.ceil(pagination)==page) var nextbtnstatus= 'disabled'; else nextbtnstatus=''
         if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus=''
-        sqlmap.query(`SELECT ID, student_id, name, avatar, roll FROM students WHERE class='${className}' AND section='${sectionName}'
+        sqlmap.query(`SELECT ID, student_id, name, avatar, roll FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
          ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`
         ,(errStudent, infoStudentData)=>{
     
@@ -140,7 +141,7 @@ exports.teacher_bi_report_get= ( req , res)=>{
     sqlmap.query(`SELECT * FROM bi_catagory ORDER BY ID`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
 
-        sqlmap.query(`SELECT COUNT(student_id) as student_row FROM bi_mark WHERE class='${className}' AND section='${sectionName}' AND teacher_pdsid='${teacher_pdsid}' GROUP BY student_id`
+        sqlmap.query(`SELECT COUNT(student_id) as student_row FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_pdsid='${teacher_pdsid}' GROUP BY student_id`
        ,(err_row, count_row)=>{
          if(err_row) console.log(err_row.sqlMessage);
          if(count_row.length>0){
@@ -148,7 +149,7 @@ exports.teacher_bi_report_get= ( req , res)=>{
             const pagination= student_row / limit 
             if(Math.ceil(pagination)==page) var nextbtnstatus= 'disabled'; else nextbtnstatus=''
             if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus='null'
-            sqlmap.query(`SELECT teacher_pdsid, student_id, name, avatar, roll FROM bi_mark WHERE class='${className}' AND section='${sectionName}'
+            sqlmap.query(`SELECT teacher_pdsid, student_id, name, avatar, roll FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
             AND teacher_pdsid=${teacher_pdsid} GROUP BY student_id ORDER BY ID LIMIT ${limit} OFFSET ${offset*limit}`
             ,(errStudent, infoStudentData)=>{
         if(infoStudentData.length>0){ 
@@ -175,13 +176,13 @@ exports.teacher_bi_mark_post= (req, res)=>{
     const teacher_pdsid= req.session.pdsId;
     const session= new Date().getUTCFullYear();
     const {className,sectionName, bi, student_id, roll, name, avatar, catagory, checkout, bg_color}= req.body;
-    sqlmap.query(`SELECT student_id FROM bi_mark WHERE teacher_pdsid='${teacher_pdsid}' AND class='${className}' AND section='${sectionName}' AND student_id=${student_id} AND catagory='${catagory}'`,
+    sqlmap.query(`SELECT student_id FROM bi_mark WHERE domain='${req.hostname}' AND  teacher_pdsid='${teacher_pdsid}' AND class='${className}' AND section='${sectionName}' AND student_id=${student_id} AND catagory='${catagory}'`,
      (errCheck, infoCheck)=>{
         if(errCheck) console.log(errCheck.sqlMessage);
         if(infoCheck===undefined || infoCheck.length===0){
 
-            sqlmap.query(`INSERT INTO bi_mark (session, class, section, teacher_pdsid, student_id, roll, name, avatar, catagory, bi, checkout, bg_color)
-            VALUES(${session}, '${className}', '${sectionName}', '${teacher_pdsid}',${student_id}, ${roll}, '${name}', '${avatar}', '${catagory}', ${bi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
+            sqlmap.query(`INSERT INTO bi_mark (domain, session, class, section, teacher_pdsid, student_id, roll, name, avatar, catagory, bi, checkout, bg_color)
+            VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${teacher_pdsid}',${student_id}, ${roll}, '${name}', '${avatar}', '${catagory}', ${bi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
                 if(errPost) console.log(errPost.sqlMessage);
                 else { 
 
@@ -205,7 +206,7 @@ exports.teacher_bi_checkout= (req, res)=>{
     const teacher_pdsid= req.session.pdsId;
 
     const {className, sectionName, checkout}= req.body;
-    sqlmap.query(`SELECT checkout, bg_color FROM bi_mark WHERE class='${className}' AND section='${sectionName}' AND teacher_pdsid='${teacher_pdsid}' ORDER BY ID`, (errFind, info_checkout)=>{
+    sqlmap.query(`SELECT checkout, bg_color FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_pdsid='${teacher_pdsid}' ORDER BY ID`, (errFind, info_checkout)=>{
         if(errFind) console.log(errFind.sqlMessage);
         res.send({info_checkout})
     })
@@ -219,7 +220,7 @@ exports.teacher_bi_report_self_checkout= (req, res)=>{
     const teacher_pdsid= req.session.pdsId;
 
     const {className, sectionName}= req.body;
-    sqlmap.query(`SELECT checkout, bg_color, bi FROM bi_mark WHERE class='${className}' AND section='${sectionName}' AND teacher_pdsid='${teacher_pdsid}'`, (errFind, info_checkout)=>{
+    sqlmap.query(`SELECT checkout, bg_color, bi FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_pdsid='${teacher_pdsid}'`, (errFind, info_checkout)=>{
         if(errFind) console.log(errFind.sqlMessage);
         else {  
             
@@ -233,12 +234,12 @@ exports.teacher_bi_report_self_checkout= (req, res)=>{
 const teacher_bi_transcript_post= ( teacher_pdsid, roll,  className, sectionName, catagory, bi, student_id, name, checkout )=>{
     const session= new Date().getUTCFullYear();
 
-    sqlmap.query(`SELECT teacher_pdsid FROM bi_transcript WHERE teacher_pdsid=${teacher_pdsid} AND student_id='${student_id}' AND class='${className}' AND section='${sectionName}' AND catagory='${catagory}'`
+    sqlmap.query(`SELECT teacher_pdsid FROM bi_transcript WHERE domain='${req.hostname}' AND  teacher_pdsid=${teacher_pdsid} AND student_id='${student_id}' AND class='${className}' AND section='${sectionName}' AND catagory='${catagory}'`
     , (errCheck, infoCheck)=>{
         if(errCheck) console.log(errCheck.sqlMessage);
         if(infoCheck==undefined||infoCheck.length===0){
-            sqlmap.query(`INSERT INTO bi_transcript (session, class, section, teacher_pdsid, student_id, roll, name, catagory, bi, checkout) 
-            VALUES(${session}, '${className}', '${sectionName}', '${teacher_pdsid}',${student_id}, '${roll}', '${name}', '${catagory}', '${bi}', '${checkout}')`, (errPost, nextPost)=>{
+            sqlmap.query(`INSERT INTO bi_transcript (domain, session, class, section, teacher_pdsid, student_id, roll, name, catagory, bi, checkout) 
+            VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${teacher_pdsid}',${student_id}, '${roll}', '${name}', '${catagory}', '${bi}', '${checkout}')`, (errPost, nextPost)=>{
                 if(errPost) console.log(errPost.sqlMessage);
                 console.log('bi_transcript_makeing!');
             })
@@ -255,16 +256,16 @@ const teacher_bi_transcript_post= ( teacher_pdsid, roll,  className, sectionName
 
 const teacher_bi_transcript_post_update= (className, sectionName, student_id)=>{
 
-    sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_code ORDER BY ID`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_code ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
     for (let index = 0; index < infoCatagory.length; index++) {
-        sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =1`,(err_bi_danger, info_bi_danger)=>{
+        sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =1`,(err_bi_danger, info_bi_danger)=>{
             if(err_bi_danger) console.log(err_bi_danger.sqlMessage);
             
-            sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =2`,(err_bi_warning, info_bi_warning)=>{
+            sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =2`,(err_bi_warning, info_bi_warning)=>{
                 if(err_bi_warning) console.log(err_bi_warning.sqlMessage);
         
-                sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =3`,(err_bi_success, info_bi_success)=>{
+                sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =3`,(err_bi_success, info_bi_success)=>{
         
         if(err_bi_success) console.log(err_bi_success.sqlMessage);
         
@@ -282,7 +283,7 @@ const teacher_bi_transcript_post_update= (className, sectionName, student_id)=>{
             var bg_color= 'bg-danger'; var bi_point= 1;
           }
         
-         sqlmap.query(`UPDATE bi_transcript SET bi_point='${bi_point}', bg_color='${bg_color}' WHERE student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}'`
+         sqlmap.query(`UPDATE bi_transcript SET bi_point='${bi_point}', bg_color='${bg_color}' WHERE domain='${req.hostname}' AND  student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}'`
          ,(errUpdate, infoUpdate)=>{
         
             if(errUpdate) console.log(errUpdate.sqlMessage);
@@ -309,9 +310,9 @@ exports.privet_bi_transcript_report_checkout=(req, res)=>{
     const {className,sectionName, student_id}= req.body;
     teacher_bi_transcript_post_update(className, sectionName, student_id)
 
-    sqlmap.query(`SELECT * FROM bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
-    sqlmap.query(`SELECT student_id, catagory, checkout, bg_color, bi_point FROM bi_transcript WHERE class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`,
+    sqlmap.query(`SELECT student_id, catagory, checkout, bg_color, bi_point FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`,
     (err_find_class, info_checkout)=>{
         if(err_find_class) console.log(err_find_class.sqlMessage);
 

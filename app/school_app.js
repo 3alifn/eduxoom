@@ -36,7 +36,7 @@ module.exports = {
 
     pu_aboutus_render: (req, res)=>{
         
-        sqlmap.query(`SELECT * FROM school_settings`, (err, info) => {
+        sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (err, info) => {
             if (err) console.log(err.sqlMessage);
             res.render('public/about-us', {info})
 
@@ -46,7 +46,7 @@ module.exports = {
 
     pu_contactus_render: (req, res)=>{
         
-        sqlmap.query(`SELECT * FROM school_settings`, (err, info) => {
+        sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (err, info) => {
             if (err) console.log(err.sqlMessage);
             res.render('public/contact-us', {info})
 
@@ -56,7 +56,7 @@ module.exports = {
 
     admin_school_page: (req, res) => {
 
-        sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (err, info) => {
+        sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}' ORDER BY ID DESC LIMIT 1`, (err, info) => {
             if (err) console.log(err.sqlMessage);
             else res.render('admin/school_page', { info })
         })
@@ -67,12 +67,12 @@ module.exports = {
 
     admin_school_post: (req, res) => {
         const { eiin, name, email, phone, address, headline, about, fb_link } = req.body;
-        sqlmap.query(`SELECT * FROM school_settings ORDER BY ID DESC LIMIT 1`, (errHave, infoHave) => {
+        sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}' ORDER BY ID DESC LIMIT 1`, (errHave, infoHave) => {
             if (errHave) console.log(errHave.sqlMessage);
             if (infoHave.length == 0 || infoHave == undefined) {
 
-                sqlmap.query(`INSERT INTO school_settings (eiin, name, email, phone, address, headline, about, fb_link)
-                VALUES( '${eiin}', '${name}','${email}', '${phone}', '${address}', '${headline}', '${about}', '${fb_link}')`, (err, next) => {
+                sqlmap.query(`INSERT INTO school_settings (domain, eiin, name, email, phone, address, headline, about, fb_link)
+                VALUES('${req.hostname}', '${eiin}', '${name}','${email}', '${phone}', '${address}', '${headline}', '${about}', '${fb_link}')`, (err, next) => {
                     if (err) console.log(err.sqlMessage);
                     else res.send({ msg: 'Updated' })
 
@@ -81,7 +81,7 @@ module.exports = {
 
             } else {
                 sqlmap.query(`UPDATE school_settings SET eiin='${eiin}', name='${name}', about="${about}", fb_link='${fb_link}', 
-                headline='${headline}', address='${address}', email='${email}', phone='${phone}'`, (err, next) => {
+                headline='${headline}', address='${address}', email='${email}', phone='${phone}' WHERE domain='${req.hostname}'`, (err, next) => {
                     if (err) console.log(err.sqlMessage);
                     else res.send({ msg: ' Updated' })
                 })
@@ -126,16 +126,16 @@ module.exports = {
         }
 
 
-        sqlmap.query(`SELECT * FROM school_settings`, (err, info)=>{
+        sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (err, info)=>{
             if(info.length>0){
                 
-        sqlmap.query(`UPDATE school_settings SET  ${imgname}="${imgname+randomString+'.png'}"`, (err, next)=>{
+        sqlmap.query(`UPDATE school_settings SET  ${imgname}="${imgname+randomString+'.png'}" WHERE domain='${req.hostname}'`, (err, next)=>{
             if(err) console.log(err.sqlMessage);
             else console.log('updated');
         })
             } else {
 
-                sqlmap.query(`INSERT INTO school_settings (${imgname}) VALUES("${imgname+randomString+'.png'}")`, (err, next)=>{
+                sqlmap.query(`INSERT INTO school_settings (domain, ${imgname}) VALUES('${req.hostname}',"${imgname+randomString+'.png'}")`, (err, next)=>{
                     if(err) console.log(err.sqlMessage);
                     else console.log('inserted');
 

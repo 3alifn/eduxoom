@@ -23,11 +23,11 @@ exports.authentication_check = (req, res)=>{
     const {userRole, username, password}= req.query;
      const hashPassword= createHmac('md5', 'pipilikapipra').update(username+password).digest('hex');
 
-   if(userRole=='parents')  var findBashQuery= `SELECT * FROM ${userRole} WHERE permission='allow' AND  email="${username}" AND password="${hashPassword}"`
+   if(userRole=='parents')  var findBashQuery= `SELECT * FROM ${userRole} WHERE domain='${req.hostname}' AND  permission='allow' AND  email="${username}" AND password="${hashPassword}"`
 
-   else if(userRole=='students') var findBashQuery= `SELECT * FROM ${userRole} WHERE  email="${username}" AND (password="${hashPassword}" OR password="${password}")`
+   else if(userRole=='students') var findBashQuery= `SELECT * FROM ${userRole} WHERE domain='${req.hostname}' AND   email="${username}" AND (password="${hashPassword}" OR password="${password}")`
 
-   else if(userRole=='teachers') var findBashQuery= `SELECT * FROM ${userRole} WHERE email="${username}" AND password="${hashPassword}"`
+   else if(userRole=='teachers') var findBashQuery= `SELECT * FROM ${userRole} WHERE domain='${req.hostname}' AND  email="${username}" AND password="${hashPassword}"`
 
 
  sqlmap.query(findBashQuery, (err, info)=>{
@@ -117,7 +117,7 @@ exports.forgot_password= (req, res)=>{
 
    let userRole= req.body.userRole;
    let username= req.body.username;
-   let sql= `SELECT email FROM ${userRole} WHERE email="${username}"`
+   let sql= `SELECT email FROM ${userRole} WHERE domain='${req.hostname}' AND  email="${username}"`
    sqlmap.query(sql, (err, info)=>{
     if(err) console.log(err.sqlMessage);
 
@@ -220,7 +220,7 @@ exports.reset_password= (req, res)=>{
     let password= req.body.password;
     const hashPassword= createHmac('md5', 'pipilikapipra').update(username+password).digest('hex');
 
-    let sql= `UPDATE ${userRole} SET password= "${hashPassword}" WHERE email="${username}"`
+    let sql= `UPDATE ${userRole} SET password= "${hashPassword}" WHERE domain='${req.hostname}' AND  email="${username}"`
     sqlmap.query(sql, (err, next)=>{
   
       if(err) console.log(err.sqlMessage);

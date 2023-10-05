@@ -4,72 +4,6 @@ const app = express()
 
 
 
-
-
-
-// exports.public_routine_download= (req, res)=>{
-
-
-//     let className=req.query.className
-//     let sectionName=req.query.sectionName
-
- 
-
-
-//     let sqlSun= `SELECT * FROM routine WHERE class="${className}"  AND day='ররিবার'  ORDER BY period_table `
-//     let sqlMon= `SELECT * FROM routine WHERE class="${className}"  AND day='সোমবার'  ORDER BY period_table `
-//     let sqlTue= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='মঙ্গলবার'  ORDER BY period_table `
-//     let sqlWed= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বুধবার'  ORDER BY period_table `
-//     let sqlThu= `SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}" AND day='বৃহস্পতিবার'  ORDER BY period_table `
- 
-//     sqlmap.query(`SELECT * FROM routine WHERE class="${className}" AND section="${sectionName}"`, (err, info)=>{
-//         if(err) console.log(err.sqlMessage);
-
-//         else 
-//         {
-
-//             sqlmap.query(sqlSun, (errSun, infoSun)=>{
-
-//                 sqlmap.query(sqlMon, (errMon, infoMon)=>{
-        
-//                     sqlmap.query(sqlTue, (errTue, infoTue)=>{
-        
-//                         sqlmap.query(sqlWed, (errWed, infoWed)=>{
-        
-//                             sqlmap.query(sqlThu, (errThu, infoThu)=>{
-       
-                            
-//                                     res.render("public/routine_page_download", { infoSun, infoMon, infoTue, infoWed, infoThu})
-                       
-                
-//                             })
-               
-              
-                
-//                         })
-              
-                
-//                     })
-              
-                
-//                 })
-              
-                
-//             })
-        
-
-//         }
-//     })
- 
-// }
-
-
-
-
-
-
-
-
 exports.admin_routine_post= (req, res)=>{
 
     let {className, subject, day, periodTable,  teacherName}=req.body
@@ -85,16 +19,16 @@ exports.admin_routine_post= (req, res)=>{
  
 
 
- sqlmap.query(`SELECT * FROM routine WHERE class='${className}'  AND day="${day}" AND subject="${subject}" AND (period_table="${periodTableX}" OR period_time="${periodTime}")`,(checkErr, checkInfo)=>{
+ sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class='${className}'  AND day="${day}" AND subject="${subject}" AND (period_table="${periodTableX}" OR period_time="${periodTime}")`,(checkErr, checkInfo)=>{
 
    if(checkErr) console.log(checkErr.sqlMessage);
 
    if(checkInfo.length==0){
-    sqlmap.query(`SELECT * FROM teachers WHERE index_number='${teacherIndex}'`,(errT, infoT)=>{
+    sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  index_number='${teacherIndex}'`,(errT, infoT)=>{
 
-        sqlmap.query(`INSERT INTO routine (class, day, period_table, subject, period_time, teacher_name, teacher_index, teacher_avatar) 
+        sqlmap.query(`INSERT INTO routine (domain, class, day, period_table, subject, period_time, teacher_name, teacher_index, teacher_avatar) 
         VALUES
-         ("${className}", "${day}", "${periodTableX}", "${subject}", "${periodTime}", "${infoT[0].name}", "${infoT[0].index_number}", "${infoT[0].avatar}")`, (err, next)=>{
+         ('${req.hostname}', "${className}", "${day}", "${periodTableX}", "${subject}", "${periodTime}", "${infoT[0].name}", "${infoT[0].index_number}", "${infoT[0].avatar}")`, (err, next)=>{
     
             if(err) console.log(err.sqlMessage);
             else res.send({msg: "Class Routine Created!", alert: 'text-success'})
@@ -132,13 +66,13 @@ exports.admin_routine_page= (req, res)=>{
     }
     
     
-        let sqlSun= `SELECT * FROM routine WHERE class="${className}"  AND day='ররিবার'  ORDER BY period_table `
-        let sqlMon= `SELECT * FROM routine WHERE class="${className}"  AND day='সোমবার'  ORDER BY period_table `
-        let sqlTue= `SELECT * FROM routine WHERE class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
-        let sqlWed= `SELECT * FROM routine WHERE class="${className}"  AND day='বুধবার'  ORDER BY period_table `
-        let sqlThu= `SELECT * FROM routine WHERE class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
+        let sqlSun= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='ররিবার'  ORDER BY period_table `
+        let sqlMon= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='সোমবার'  ORDER BY period_table `
+        let sqlTue= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
+        let sqlWed= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বুধবার'  ORDER BY period_table `
+        let sqlThu= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
      
-        sqlmap.query(`SELECT * FROM routine WHERE class="${className}" `, (err, info)=>{
+        sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}" `, (err, info)=>{
             if(err) console.log(err.sqlMessage);
     
             else 
@@ -191,7 +125,7 @@ exports.admin_routine_delete= (req, res)=>{
 
     let {dataID}=req.body;
 
-    let sql= `DELETE FROM routine WHERE ID="${dataID}"`
+    let sql= `DELETE FROM routine WHERE domain='${req.hostname}' AND  ID="${dataID}"`
     sqlmap.query(sql, (err, next)=>{
 
         if(err) console.log(err.sqlMessage);
@@ -207,13 +141,13 @@ exports.public_routine_page= (req, res)=>{
     let className=req.query.className==undefined?"SIX":req.query.className;
 
 
-    let sqlSun= `SELECT * FROM routine WHERE class="${className}"  AND day='ররিবার'  ORDER BY period_table `
-    let sqlMon= `SELECT * FROM routine WHERE class="${className}"  AND day='সোমবার'  ORDER BY period_table `
-    let sqlTue= `SELECT * FROM routine WHERE class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
-    let sqlWed= `SELECT * FROM routine WHERE class="${className}"  AND day='বুধবার'  ORDER BY period_table `
-    let sqlThu= `SELECT * FROM routine WHERE class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
+    let sqlSun= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='ররিবার'  ORDER BY period_table `
+    let sqlMon= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='সোমবার'  ORDER BY period_table `
+    let sqlTue= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
+    let sqlWed= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বুধবার'  ORDER BY period_table `
+    let sqlThu= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
  
-    sqlmap.query(`SELECT * FROM routine WHERE class="${className}" `, (err, info)=>{
+    sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}" `, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 
@@ -261,13 +195,13 @@ exports.public_routine_page_class_base= (req, res)=>{
 
      var className= req.query.classBase;
 
-    let sqlSun= `SELECT * FROM routine WHERE class="${className}"  AND day='ররিবার'  ORDER BY period_table `
-    let sqlMon= `SELECT * FROM routine WHERE class="${className}"  AND day='সোমবার'  ORDER BY period_table `
-    let sqlTue= `SELECT * FROM routine WHERE class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
-    let sqlWed= `SELECT * FROM routine WHERE class="${className}"  AND day='বুধবার'  ORDER BY period_table `
-    let sqlThu= `SELECT * FROM routine WHERE class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
+    let sqlSun= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='ররিবার'  ORDER BY period_table `
+    let sqlMon= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='সোমবার'  ORDER BY period_table `
+    let sqlTue= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
+    let sqlWed= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বুধবার'  ORDER BY period_table `
+    let sqlThu= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
  
-    sqlmap.query(`SELECT * FROM routine WHERE class="${className}" `, (err, info)=>{
+    sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}" `, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 
@@ -323,7 +257,7 @@ exports.public_routine_page_class_base= (req, res)=>{
 exports.admin_subject_dynamic_get= (req, res)=>{
     let {className}= req.body;
 
-    sqlmap.query(`SELECT subject FROM subject WHERE class="${className}" GROUP BY subject ORDER BY ID DESC`, (err, info)=>{
+    sqlmap.query(`SELECT subject FROM subject WHERE domain='${req.hostname}' AND  class="${className}" GROUP BY subject ORDER BY ID DESC`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 
@@ -361,7 +295,7 @@ exports.admin_teacher_dynamic_get= (req, res)=>{
 
 
 
-    sqlmap.query(`SELECT * FROM teachers ORDER BY ID DESC`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 
@@ -400,7 +334,7 @@ exports.admin_teacher_dynamic_get= (req, res)=>{
 exports.admin_ptlist_dynamic_get= (req, res)=>{
     let {className, sectionName}= req.body;
 
-    sqlmap.query(`SELECT period_time FROM subject ORDER BY period_time`, (err, info)=>{
+    sqlmap.query(`SELECT period_time FROM subject WHERE domain='${req.hostname}' ORDER BY period_time`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 

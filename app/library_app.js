@@ -46,7 +46,8 @@ exports.admin_library_post = (req, res)=>{
     if(req.file) var filenameBook= req.file.filename;
     else  var filenameBook= "book_image.png"
 
-    let sql= `INSERT INTO library (book_name, book_author, book_copy, description, book_image) VALUES ("${bookName}", "${authorName}", "${bookCopy}", "${description}", "${filenameBook}")`
+    let sql= `INSERT INTO library (domain, book_name, book_author, book_copy, description, book_image) 
+    VALUES ('${req.hostname}', "${bookName}", "${authorName}", "${bookCopy}", "${description}", "${filenameBook}")`
 
     sqlmap.query(sql, (err, next)=>{
   
@@ -67,7 +68,7 @@ exports.admin_library_post = (req, res)=>{
 
 exports.admin_library_get= (req, res)=>{
 
-    let sql= `SELECT * FROM library ORDER BY ID DESC`
+    let sql= `SELECT * FROM library WHERE domain='${req.hostname}' ORDER BY ID DESC`
     sqlmap.query(sql, (err, info)=>{
 
  if(err) console.log(err.sqlMessage);
@@ -113,13 +114,13 @@ let filepathBook= path.dirname(__dirname)
 
     const {ID} = req.body;
 
-    sqlmap.query(`SELECT * FROM library WHERE ID IN (${ID.toString()})`, (errInfo, findInfo)=>{
+    sqlmap.query(`SELECT * FROM library WHERE domain='${req.hostname}' AND  ID IN (${ID.toString()})`, (errInfo, findInfo)=>{
       if(errInfo) console.log("data not found!")
       
       else {
   
           
-  sqlmap.query(`DELETE FROM library WHERE ID IN (${ID.toString()})`, (err, next)=>{
+  sqlmap.query(`DELETE FROM library WHERE domain='${req.hostname}' AND  ID IN (${ID.toString()})`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
       else
       {
@@ -154,7 +155,7 @@ exports.admin_library_update_page = (req, res)=>{
 
   let {ID}= req.query.id;
 
- let sql= `SELECT * FROM library`
+ let sql= `SELECT * FROM library WHERE domain='${req.hostname}'`
   sqlmap.query(sql, (err, info)=>{
     if(err) console.log(err.sqlMessage);
 
@@ -169,7 +170,7 @@ exports.admin_library_update_page = (req, res)=>{
 exports.admin_library_update= (req, res)=>{
 
   let {ID, bookName, bookAuthor,  bookCopy, description}= req.body;
-  let sql= `UPDATE library SET book_name="${bookName}", book_author="${bookAuthor}",  book_copy="${bookCopy}", description="${description}" WHERE ID="${ID}"`
+  let sql= `UPDATE library SET book_name="${bookName}", book_author="${bookAuthor}",  book_copy="${bookCopy}", description="${description}" WHERE domain='${req.hostname}' AND  ID="${ID}"`
   sqlmap.query(sql, (err, next)=>{
 
     if(err) console.log(err.sqlMessage);
@@ -182,7 +183,7 @@ exports.admin_library_update= (req, res)=>{
 
 exports.public_library_get= (req, res)=>{
 
-    let sql= `SELECT * FROM library ORDER BY ID DESC`
+    let sql= `SELECT * FROM library WHERE domain='${req.hostname}' ORDER BY ID DESC`
     sqlmap.query(sql, (err, info)=>{
 
  if(err) console.log(err.sqlMessage);

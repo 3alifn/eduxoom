@@ -57,11 +57,12 @@ if(req.file) var attachmentApplication= req.file.filename;
 else var attachmentApplication= "demo.pdf"
 
 
-sqlmap.query(`SELECT * FROM students WHERE student_id=${student_id}`, (errMain, infoMain)=>{
+sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  student_id=${student_id}`, (errMain, infoMain)=>{
 if(errMain) console.log(errMain.sqlMessage+"+++");
 
 sqlmap.query(
   `INSERT INTO application (
+    domain,
     subject,
      comment, 
      attachment,
@@ -73,6 +74,7 @@ sqlmap.query(
       avatar
       )
    VALUES (
+    "${req.hostname}",
     "${subject}",
      "${comment}",
       "${attachmentApplication}", 
@@ -106,7 +108,7 @@ sqlmap.query(
 exports.student_application_get = (req,res)=>{
   let student_id= req.session.student_id
 
-let sql = `SELECT * FROM  application WHERE student_id=${student_id} ORDER BY ID DESC`
+let sql = `SELECT * FROM  application WHERE domain='${req.hostname}' AND  student_id=${student_id} ORDER BY ID DESC`
 sqlmap.query(sql,(err,info)=>{
   if(err) console.log(err.sqlMessage);
 
@@ -150,7 +152,7 @@ exports.admin_application_download= (req, res)=>{
 
 let ID=  req.query.id
 
-let sql= `SELECT attachment FROM  application WHERE ID="${ID}"`
+let sql= `SELECT attachment FROM  application WHERE domain='${req.hostname}' AND  ID="${ID}"`
 
 sqlmap.query(sql, (err, info)=>{
 
@@ -173,7 +175,7 @@ exports.student_application_download= (req, res)=>{
 
 let ID=  req.query.id
 
-let sql= `SELECT attachment FROM  application WHERE ID="${ID}"`
+let sql= `SELECT attachment FROM  application WHERE domain='${req.hostname}' AND  ID="${ID}"`
 
 sqlmap.query(sql, (err, info)=>{
 
@@ -193,7 +195,7 @@ res.download(`./public/docs/application/${info[0].attachment}`)
 
 exports.admin_application_get= (req,res)=>{
 
-let sql = `SELECT * FROM  application ORDER BY ID DESC`
+let sql = `SELECT * FROM  application WHERE domain='${req.hostname}' ORDER BY ID DESC`
 sqlmap.query(sql,(err,info)=>{
   if(err) console.log(err.sqlMessage);
 
@@ -248,7 +250,7 @@ sqlmap.query(sql,(err,info)=>{
 exports.admin_application_replay= (req, res)=>{
 
 let {ID, replay}= req.body;
-let sql= `UPDATE  application SET replay="${replay}" WHERE ID=${ID}`
+let sql= `UPDATE  application SET replay="${replay}" WHERE domain='${req.hostname}' AND  ID=${ID}`
 sqlmap.query(sql, (err, next)=>{
 req.flash("alert", "success")
 req.flash("msg", "Replay Sent!")

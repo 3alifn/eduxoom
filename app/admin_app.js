@@ -50,7 +50,7 @@ admin_login: (req, res)=>{
     const {hashUsername, hashPassword}= req.body;
     const hashPassword__= createHmac('md5', 'pipilikapipra').update(hashPassword).digest('hex');
 
-    sqlmap.query(`SELECT * FROM user_admin WHERE hash_username='${hashUsername}' AND hash_password='${hashPassword__}'`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM user_admin WHERE domain='${req.hostname}' AND   hash_username='${hashUsername}' AND hash_password='${hashPassword__}'`, (err, info)=>{
 
         if(info.length>0){
           
@@ -89,7 +89,7 @@ admin_login: (req, res)=>{
 dashboard: (req, res)=>{
 
     const {hashUsername, hashPassword}= req.body;
-    sqlmap.query(`SELECT * FROM user_admin WHERE hash_username='${hashUsername}' AND hash_password='${hashPassword}'`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM user_admin WHERE domain='${req.hostname}' AND  hash_username='${hashUsername}' AND hash_password='${hashPassword}'`, (err, info)=>{
         if( req.session.hashUser=='hashAdmin'){
 
             res.render("admin/dashboard")
@@ -113,7 +113,7 @@ self_account: (req, res)=>{
 
     if(req.session.hashUser=='hashAdmin'){
       
-      let sql= `SELECT * FROM user_admin`
+      let sql= `SELECT * FROM user_admin WHERE domain='${req.hostname}'`
   
       sqlmap.query(sql, (err, info)=>{
   
@@ -134,7 +134,7 @@ self_account: (req, res)=>{
 self_info_update: (req, res) =>{
   
   let {hash_name}= req.body;
-  let sql=   `UPDATE user_admin SET hash_name="${hash_name}"`
+  let sql=   `UPDATE user_admin SET hash_name="${hash_name}" WHERE domain='${req.hostname}'`
   sqlmap.query(sql, (err, info)=>{
   
   if(err) console.log(err.sqlMessage);
@@ -164,7 +164,7 @@ self_password_update: (req, res)=>{
       const hashPassword= createHmac('md5', 'pipilikapipra').update(hash_password).digest('hex');  
       const pastHashPassword= createHmac('md5', 'pipilikapipra').update(pastPassword).digest('hex');  
     
-       sqlmap.query(`SELECT hash_password FROM user_admin`, (errPass, infoPass)=>{
+       sqlmap.query(`SELECT hash_password FROM user_admin WHERE domain='${req.hostname}'`, (errPass, infoPass)=>{
     
         if(errPass) console.log(errPass.sqlMessage);
         else{
@@ -172,7 +172,7 @@ self_password_update: (req, res)=>{
           if( pastHashPassword==infoPass[0].hash_password)
     {
     
-      sqlmap.query( `UPDATE user_admin SET hash_password="${hashPassword}"`, (err, info) =>{
+      sqlmap.query( `UPDATE user_admin SET hash_password="${hashPassword}" WHERE domain='${req.hostname}'`, (err, info) =>{
     
         if(err) 
         {
@@ -218,7 +218,7 @@ self_password_update: (req, res)=>{
   
 //   self_avatar_upload:(req, res, next)=>{
   
-//   sqlmap.query(`UPDATE user_admin SET hash_avatar="${req.file.filename}"`, (err, next)=>{
+//   sqlmap.query(`UPDATE user_admin SET hash_avatar="${req.file.filename}" WHERE domain='${req.hostname}'`, (err, next)=>{
   
   
 //     if(err) console.log(err.message);
@@ -236,7 +236,7 @@ self_password_update: (req, res)=>{
   
 self_email_update: (req, res)=>{
 
-  let sql= `UPDATE user_admin SET hash_username="${req.body.hash_username}"`
+  let sql= `UPDATE user_admin SET hash_username="${req.body.hash_username}" WHERE domain='${req.hostname}'`
   
   sqlmap.query(sql, (err, info) =>{
   

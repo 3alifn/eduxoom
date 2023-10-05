@@ -58,7 +58,7 @@ exports.admin_teacher_join= async (req, res)=>{
 
 
 
-  sqlmap.query(`SELECT * FROM teachers WHERE email="${email}" OR index_number="${index_number}" OR index_number="${index_number_}"`, (err_, info_)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  email="${email}" OR index_number="${index_number}" OR index_number="${index_number_}"`, (err_, info_)=>{
  
    if(err_) console.log(err_.sqlMessage);
 
@@ -68,9 +68,9 @@ exports.admin_teacher_join= async (req, res)=>{
    else  
   {
 
-  let sql= `INSERT INTO teachers (religion, name, gender, pds_id, index_number, position, group_special,  telephone, email, password, joining_date, avatar) 
+  let sql= `INSERT INTO teachers (domain, religion, name, gender, pds_id, index_number, position, group_special,  telephone, email, password, joining_date, avatar) 
   VALUES 
-  ("${religion}", "${name}", "${gender}", "${pdsId_}", "${index_number_}", "${position}", "${groupSpecial}", "${telephone}", "${email}", "${hashPassword}", "${joiningDate}",  "${avatar_png}")`
+  ('${req.hostname}', "${religion}", "${name}", "${gender}", "${pdsId_}", "${index_number_}", "${position}", "${groupSpecial}", "${telephone}", "${email}", "${hashPassword}", "${joiningDate}",  "${avatar_png}")`
 
   sqlmap.query(sql, (err_sub, info_sub)=>{
 
@@ -133,7 +133,7 @@ exports.admin_teacher_config= (req, res)=>{
 
   let classNameData= className.toString().replaceAll(",", " $%& ");
 
-   sqlmap.query(`UPDATE teachers SET class="${classNameData}" WHERE ID=${ID}`, (err, next)=>{
+   sqlmap.query(`UPDATE teachers SET class="${classNameData}" WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, next)=>{
  
      if(err) console.log(err.sqlMessage);
 
@@ -151,15 +151,15 @@ exports.admin_teacher_config= (req, res)=>{
 
 exports.admin_config_subject= (req, res)=>{
 
-  sqlmap.query(`SELECT subject, section FROM subject WHERE class="Ten" ORDER BY section`, (err10, info10)=>{
+  sqlmap.query(`SELECT subject, section FROM subject WHERE domain='${req.hostname}' AND  class="Ten" ORDER BY section`, (err10, info10)=>{
 
-    sqlmap.query(`SELECT subject, section FROM subject WHERE class="Nine" ORDER BY section`, (err9, info9)=>{
+    sqlmap.query(`SELECT subject, section FROM subject WHERE domain='${req.hostname}' AND  class="Nine" ORDER BY section`, (err9, info9)=>{
 
-      sqlmap.query(`SELECT subject, section FROM subject WHERE class="Eight" ORDER BY section`, (err8, info8)=>{
+      sqlmap.query(`SELECT subject, section FROM subject WHERE domain='${req.hostname}' AND  class="Eight" ORDER BY section`, (err8, info8)=>{
 
-        sqlmap.query(`SELECT subject, section FROM subject WHERE class="Seven" ORDER BY section`, (err7, info7)=>{
+        sqlmap.query(`SELECT subject, section FROM subject WHERE domain='${req.hostname}' AND  class="Seven" ORDER BY section`, (err7, info7)=>{
 
-          sqlmap.query(`SELECT subject, section FROM subject WHERE class="Six" ORDER BY section`, (err6, info6)=>{
+          sqlmap.query(`SELECT subject, section FROM subject WHERE domain='${req.hostname}' AND  class="Six" ORDER BY section`, (err6, info6)=>{
 
             let list10= "";
 
@@ -282,7 +282,7 @@ exports.admin_teacher_get= (req, res)=>{
 exports.admin_teacher_delete= (req, res)=>{
   let ID= req.body.ID
 
-  sqlmap.query(`DELETE FROM teachers WHERE ID=${ID}`, (err, next)=>{
+  sqlmap.query(`DELETE FROM teachers WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, next)=>{
     if(err) console.log(err.sqlMessage);
     else res.send({msg: "Delete From Teacher List!"})
   })
@@ -304,7 +304,7 @@ exports.admin_teacher_update_page= (req, res)=>{
   let ID= req.body.ID
 
 
-  sqlmap.query(`SELECT * FROM teachers WHERE ID=${ID}`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     else 
     {
@@ -378,11 +378,11 @@ exports.admin_teacher_update= (req, res)=>{
 
   let {name, pdsId, index_number, ID, position, joiningDate}= req.body;
 
-  sqlmap.query(`SELECT * FROM teachers WHERE pds_id=${pdsId} OR index_number="${index_number}"`, (errF, infoF)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  pds_id=${pdsId} OR index_number="${index_number}"`, (errF, infoF)=>{
     if(errF) console.log(errF.sqlMessage);
   else {
 
-        sqlmap.query(`UPDATE teachers SET name="${name}", pds_id="${pdsId}", index_number="${index_number}", position='${position}', joining_date='${joiningDate}' WHERE ID="${ID}"`, (err, next)=>{
+        sqlmap.query(`UPDATE teachers SET name="${name}", pds_id="${pdsId}", index_number="${index_number}", position='${position}', joining_date='${joiningDate}' WHERE domain='${req.hostname}' AND  ID="${ID}"`, (err, next)=>{
           if(err) res.send({msg: "PDSID or index_number. Already Joined!", alert: "alert-danger text-danger"})
 
           else res.send({msg: "Save Changes Successfully!", alert: "alert-success text-success"})
@@ -401,7 +401,7 @@ exports.admin_teacher_update= (req, res)=>{
 
 
 exports.self_dashboard= (req, res)=>{
-    let sql= `SELECT name, class, section, student_id, ID, avatar FROM students  WHERE class="Ten"  ORDER BY ID DESC`
+    let sql= `SELECT name, class, section, student_id, ID, avatar FROM students  WHERE domain='${req.hostname}' AND  class="Ten"  ORDER BY ID DESC`
 
     sqlmap.query(sql, (err, info)=>{
 
@@ -418,7 +418,7 @@ exports.self_dashboard= (req, res)=>{
 
 exports.self_account = (req, res)=>{
     let ID= req.session.userid;
-    let sql= `SELECT * FROM teachers WHERE ID="${ID}"`
+    let sql= `SELECT * FROM teachers WHERE domain='${req.hostname}' AND  ID="${ID}"`
 
     sqlmap.query(sql, (err, info)=>{
 
@@ -440,7 +440,7 @@ exports.self_account = (req, res)=>{
 
   exports.self_avatar_upload =  async (req, res, next)=>{
 
-    sqlmap.query(`UPDATE teachers SET avatar="${req.file.filename}" WHERE ID="${req.session.userid}"`, (err, next)=>{
+    sqlmap.query(`UPDATE teachers SET avatar="${req.file.filename}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (err, next)=>{
   
       if(err) console.log(err.message);
    
@@ -484,7 +484,7 @@ exports.self_account = (req, res)=>{
 
 exports.public_teacher_list= (req, res)=>{
 
-            sqlmap.query(`SELECT * FROM teachers ORDER BY ID`, (err, info)=>{
+            sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
              if(err) console.log(err.sqlMessage);
   
               else res.render("public/all_teachers_public", {info})
@@ -495,7 +495,7 @@ exports.public_teacher_list= (req, res)=>{
 
 exports.public_teacher_profile_get= (req, res)=>{
 const {dataid}= req.body; 
-sqlmap.query(`SELECT * FROM teachers WHERE ID="${dataid}"`, (err, info)=>{
+sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  ID="${dataid}"`, (err, info)=>{
          
 if(info.length>0){
 let htmldata= `
@@ -582,7 +582,7 @@ res.send({htmldata})
 exports.self_info_update= (req, res) =>{
   if(req.session.user=='teacher'){
         let {name, telephone, gender, birthDate, religion, address, bloodGroup, educationQualification}= req.body;
-      let sql=   `UPDATE teachers SET education_qualification="${educationQualification}",  name="${name}", telephone="${telephone}", gender="${gender}", birth_date="${birthDate}", gender="${gender}",  religion="${religion}", address="${address}" WHERE ID="${req.session.userid}"`
+      let sql=   `UPDATE teachers SET education_qualification="${educationQualification}",  name="${name}", telephone="${telephone}", gender="${gender}", birth_date="${birthDate}", gender="${gender}",  religion="${religion}", address="${address}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
       sqlmap.query(sql, (err, info)=>{
       
       if(err) console.log(err.sqlMessage);
@@ -612,10 +612,10 @@ exports.self_password_update= (req, res)=>{
     const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
     const oldPassword= createHmac('md5', 'pipilikapipra').update(email+pastPassword).digest('hex');
  
-            let sql= `UPDATE teachers SET password="${hashPassword}" WHERE ID="${req.session.userid}"`
+            let sql= `UPDATE teachers SET password="${hashPassword}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
       
       
-         sqlmap.query(`SELECT password FROM teachers WHERE ID="${req.session.userid}"`, (errPass, infoPass)=>{
+         sqlmap.query(`SELECT password FROM teachers WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (errPass, infoPass)=>{
       
           if(errPass) console.log(errPass.sqlMessage);
           else{
@@ -671,7 +671,7 @@ exports.self_email_update_page= (req, res)=>{
   if(req.session.user=='teacher'){
   let {username}= req.body;
          
-  sqlmap.query(`SELECT email FROM teachers WHERE email="${username}"`, (errMain, infoMain)=>{
+  sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
   
     if(infoMain.length>0)
     {
@@ -758,7 +758,7 @@ exports.self_email_update= (req, res)=>{
         if(req.body.verifyCode==req.session.userVerifyCode)
         {
       
-      let sql= `UPDATE teachers SET email="${req.session.username}" WHERE ID="${req.session.userid}"`
+      let sql= `UPDATE teachers SET email="${req.session.username}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
       
       sqlmap.query(sql, (err, info) =>{
       
@@ -799,7 +799,7 @@ exports.self_email_update= (req, res)=>{
 
 exports.self_close_account= (req, res)=>{
   if(req.session.user=='teacher'){
-        // sqlmap.query(`DELETE  FROM teachers WHERE ID="${req.body.dataID}"`, (err, info)=>{
+        // sqlmap.query(`DELETE  FROM teachers WHERE domain='${req.hostname}' AND  ID="${req.body.dataID}"`, (err, info)=>{
       
         //   if(err) res.end("you are restricted! can't close your account")
            
@@ -821,7 +821,7 @@ exports.self_social_update= (req, res)=>{
   if(req.session.user=='teacher'){
         let {facebookLink}=req.body;
         console.log(req.body);
-          sqlmap.query(`UPDATE teachers SET facebook_link="${facebookLink}"  WHERE ID="${req.session.userid}"`, (err, info)=>{
+          sqlmap.query(`UPDATE teachers SET facebook_link="${facebookLink}"  WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (err, info)=>{
         
             if(err) console.log(err.sqlMessage);
              

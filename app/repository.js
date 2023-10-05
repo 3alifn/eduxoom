@@ -111,7 +111,8 @@ exports.admin_repository_post= async(req, res)=>{
   
   
  for (let index=0; index < req.files.length; index++) {
-  sqlmap.query(`INSERT INTO repository (dataid, datatype, title, e_date, description, image )VALUES('${dataid}','${datatype}', '${title}', '${e_date}', '${description}', '${req.files[index].filename}')`, (err, next)=>{
+  sqlmap.query(`INSERT INTO repository (domain, dataid, datatype, title, e_date, description, image )
+  VALUES('${req.hostname}', '${dataid}','${datatype}', '${title}', '${e_date}', '${description}', '${req.files[index].filename}')`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
   })
 }
@@ -124,7 +125,7 @@ res.send({msg: 'Post successfully!', alert: 'success'})
 
 exports.admin_repository_get= (req, res)=>{
   const {datatype}= req.body;
-  sqlmap.query(`SELECT * FROM repository WHERE datatype='${datatype}' GROUP BY dataid ORDER BY e_date DESC`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='${datatype}' GROUP BY dataid ORDER BY e_date DESC`, (err, info)=>{
         if(info.length>0){
 
       let tabledata= '';
@@ -175,7 +176,7 @@ exports.admin_repository_get= (req, res)=>{
 exports.admin_repository_update_page=(req, res)=>{
   const {datatype, dataid}= req.params;
   // console.log(dataid, dataid);
-sqlmap.query(`SELECT * FROM repository WHERE datatype='${datatype}' AND dataid='${dataid}'`,(err, info)=>{
+sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='${datatype}' AND dataid='${dataid}'`,(err, info)=>{
   if(err) console.log(err.sqlMessage);
   else {
     res.render('admin/repository_update', {info})
@@ -191,13 +192,13 @@ if(dataid==undefined){
 
 }
 else {
-  sqlmap.query(`SELECT * FROM repository WHERE dataid IN (${dataid})`, (errInfo, findInfo)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  dataid IN (${dataid})`, (errInfo, findInfo)=>{
       if(errInfo) console.log("data not found!")
       
       else {
   
           
-  sqlmap.query(`DELETE FROM repository WHERE dataid IN (${dataid})`, (err, next)=>{
+  sqlmap.query(`DELETE FROM repository WHERE domain='${req.hostname}' AND  dataid IN (${dataid})`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
       else
       {
@@ -234,13 +235,13 @@ if(dataid==undefined){
 
 }
 else {
-  sqlmap.query(`SELECT * FROM repository WHERE ID IN (${dataid})`, (errInfo, findInfo)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
       if(errInfo) console.log("data not found!")
       
       else {
   
           
-  sqlmap.query(`DELETE FROM repository WHERE ID IN (${dataid})`, (err, next)=>{
+  sqlmap.query(`DELETE FROM repository WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
       else
       {
@@ -271,7 +272,7 @@ else {
 
 exports.admin_repository_update_post= (req, res)=>{
   const {datatype, dataid, title, e_date, description}= req.body;
-sqlmap.query(`UPDATE repository SET title='${title}', e_date='${e_date}', description='${description}' WHERE dataid='${dataid}'`, (err, update)=>{
+sqlmap.query(`UPDATE repository SET title='${title}', e_date='${e_date}', description='${description}' WHERE domain='${req.hostname}' AND  dataid='${dataid}'`, (err, update)=>{
   if(err) console.log(err.sqlMessage);
   else res.send({alert: 'alert-success', msg: 'Updated!'})
 })
@@ -313,7 +314,8 @@ exports.admin_repository_img_update_post= async(req, res)=>{
   
   
  for (let index=0; index < req.files.length; index++) {
-  sqlmap.query(`INSERT INTO repository (dataid, datatype, title, e_date, description, image )VALUES('${dataid}','${datatype}', '${title}', '${e_date}', '${description}', '${req.files[index].filename}')`, (err, next)=>{
+  sqlmap.query(`INSERT INTO repository (domain, dataid, datatype, title, e_date, description, image )
+  VALUES('${req.hostname}', '${dataid}','${datatype}', '${title}', '${e_date}', '${description}', '${req.files[index].filename}')`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
   })
 }
@@ -327,7 +329,7 @@ res.send({msg: 'Update successfully!', alert: 'success'})
 
 exports.public_facilities_view= (req, res)=>{
   const {dataid}= req.params;
-  sqlmap.query(`SELECT * FROM repository WHERE datatype='facilities' AND ID='${dataid}'`, (err, info_f)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='facilities' AND ID='${dataid}'`, (err, info_f)=>{
     if(err) console.log(err.sqlMessage);
     else res.render('public/facilities_view', {info_f})
   })
@@ -335,7 +337,7 @@ exports.public_facilities_view= (req, res)=>{
 
 
 exports.public_achievement_page= (req, res)=>{
-  sqlmap.query(`SELECT * FROM repository WHERE datatype='achievement' GROUP BY dataid ORDER BY ID DESC`, (err, info_a)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='achievement' GROUP BY dataid ORDER BY ID DESC`, (err, info_a)=>{
     if(err) console.log(err.sqlMessage);
     else res.render('public/achievement_page', {info_a})
   })
@@ -343,7 +345,7 @@ exports.public_achievement_page= (req, res)=>{
 
 exports.public_achievement_view= (req, res)=>{
   const {dataid}= req.params;
-  sqlmap.query(`SELECT * FROM repository WHERE datatype='achievement' AND ID='${dataid}'`, (err, info_a)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='achievement' AND ID='${dataid}'`, (err, info_a)=>{
     if(err) console.log(err.sqlMessage);
     else res.render('public/achievement_view', {info_a})
   })
@@ -352,7 +354,7 @@ exports.public_achievement_view= (req, res)=>{
 
 exports.public_eventnews_page= (req, res)=>{
   const {dataid}= req.params;
-  sqlmap.query(`SELECT * FROM repository WHERE datatype='eventnews' GROUP BY dataid ORDER BY ID DESC`, (err, info_e)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='eventnews' GROUP BY dataid ORDER BY ID DESC`, (err, info_e)=>{
     if(err) console.log(err.sqlMessage);
     else res.render('public/eventnews_page', {info_e})
   })
@@ -361,7 +363,7 @@ exports.public_eventnews_page= (req, res)=>{
 
 exports.public_eventnews_view= (req, res)=>{
   const {dataid}= req.params;
-  sqlmap.query(`SELECT * FROM repository WHERE datatype='eventnews' AND ID='${dataid}'`, (err, info_e)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='eventnews' AND ID='${dataid}'`, (err, info_e)=>{
     if(err) console.log(err.sqlMessage);
     else res.render('public/eventnews_view', {info_e})
   })

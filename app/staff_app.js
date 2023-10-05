@@ -32,7 +32,7 @@ exports.multer_upload_staff= multer({
 
 
 exports.public_staff_page= (req, res)=>{
-    sqlmap.query(`SELECT * FROM staff ORDER BY ID DESC`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM staff WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
         if(err) console.log(sqlmap);
         else res.render('public/staff_page', {info})
     })
@@ -40,7 +40,7 @@ exports.public_staff_page= (req, res)=>{
 
 
 exports.admin_staff_get=(req, res)=>{
-    sqlmap.query(`SELECT * FROM staff ORDER BY ID DESC`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM staff WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else {
             var tabledata= '';
@@ -115,8 +115,8 @@ exports.admin_staff_post= async(req, res)=>{
             }
      }
 
-     sqlmap.query(`INSERT INTO staff (name, position, gender, index_number, age, email, phone, address, joining_date, image )
-     VALUES('${name}','${position}', '${gender}', '${index_number}', '${age}', '${email}', '${phone}', '${address}', '${joining_date}', '${req.file.filename}')`, (err, next)=>{
+     sqlmap.query(`INSERT INTO staff (domain, name, position, gender, index_number, age, email, phone, address, joining_date, image )
+     VALUES('${req.hostname}', '${name}','${position}', '${gender}', '${index_number}', '${age}', '${email}', '${phone}', '${address}', '${joining_date}', '${req.file.filename}')`, (err, next)=>{
          if(err) console.log(err.sqlMessage);
          else   res.send({msg: 'Added!', alert: 'success'})
      })
@@ -129,7 +129,7 @@ exports.admin_staff_post= async(req, res)=>{
 
 exports.admin_staff_penbox_pull=(req, res)=>{
     const {dataid}= req.body; 
-    sqlmap.query(`SELECT * FROM staff WHERE ID=${dataid}`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM staff WHERE domain='${req.hostname}' AND  ID=${dataid}`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else {
 
@@ -237,7 +237,8 @@ var penboxdata=
   exports.admin_staff_penbox_push=(req, res)=>{
     const {dataid, name, position, index_number, gender, age, email, phone, address, joining_date}= req.body;
     sqlmap.query(`UPDATE staff SET name='${name}', position='${position}', index_number='${index_number}',
-    gender='${gender}', age='${age}', email='${email}', phone='${phone}', address='${address}', joining_date='${joining_date}'`,
+    gender='${gender}', age='${age}', email='${email}', phone='${phone}', address='${address}', joining_date='${joining_date}'
+    WHERE domain='${req.hostname}' AND ID='${dataid}'`,
     (err, update)=>{
         if(err) console.log(err.sqlMessage);
         else res.send({aler: 'alert-success', msg: 'Update successfully!'})
@@ -257,13 +258,13 @@ exports.admin_staff_rm= (req, res)=>{
 
   }
   else {
-    sqlmap.query(`SELECT * FROM staff WHERE ID IN (${dataid})`, (errInfo, findInfo)=>{
+    sqlmap.query(`SELECT * FROM staff WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
         if(errInfo) console.log("data not found!")
         
         else {
     
             
-    sqlmap.query(`DELETE FROM staff WHERE ID IN (${dataid})`, (err, next)=>{
+    sqlmap.query(`DELETE FROM staff WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
         if(err) console.log(err.sqlMessage);
         else
         {

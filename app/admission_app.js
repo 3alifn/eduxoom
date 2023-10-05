@@ -34,9 +34,9 @@ exports.public_admission_post = (req, res) => {
  let session= new Date().getUTCFullYear();
     let findDate= new Date().toLocaleDateString();
   sqlmap.query(`
-  INSERT INTO admission (session, find_date, comment, name, avatar, dob_number, birth_date, gender, father_name, mother_name, blood_group, religion, telephone, email, guardian_name, address, hobbies, last_education, roll, reg, board, passing_year, join_group) 
+  INSERT INTO admission (domain, session, find_date, comment, name, avatar, dob_number, birth_date, gender, father_name, mother_name, blood_group, religion, telephone, email, guardian_name, address, hobbies, last_education, roll, reg, board, passing_year, join_group) 
      
-  VALUES ( '${session}', "${findDate}", "${comment}", "${data[0]}", "${avatar}", "${data[1]}","${data[2]}","${data[3]}","${data[4]}","${data[5]}", "${data[6]}","${data[7]}", "${data[8]}","${data[9]}","${data[10]}","${data[11]}","${data[12]}","${lastEducation}", "${roll}", "${regNumber}", "${Board}", "${passingYear}", "${joinGroup}")
+  VALUES ('${req.hostname}', '${session}', "${findDate}", "${comment}", "${data[0]}", "${avatar}", "${data[1]}","${data[2]}","${data[3]}","${data[4]}","${data[5]}", "${data[6]}","${data[7]}", "${data[8]}","${data[9]}","${data[10]}","${data[11]}","${data[12]}","${lastEducation}", "${roll}", "${regNumber}", "${Board}", "${passingYear}", "${joinGroup}")
 
   `, (err, next) => {
 
@@ -69,7 +69,7 @@ exports.admin_admission_page= (req, res)=>{
 
 
 
-    sqlmap.query(`SELECT * FROM admission ORDER BY ID DESC`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM admission WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
 
       if(info.length>0){
       
@@ -93,7 +93,7 @@ exports.admin_admission_info= (req, res)=>{
 
   let ID= req.body.dataID;
 
-          sqlmap.query(`SELECT * FROM admission WHERE ID="${ID}"`, (err, info)=>{
+          sqlmap.query(`SELECT * FROM admission WHERE domain='${req.hostname}' AND  ID="${ID}"`, (err, info)=>{
      
           
 
@@ -192,7 +192,7 @@ exports.admin_admission_reject = (req, res) => {
 
   const{ID, email} = req.body;
 
-  sqlmap.query(`DELETE FROM admission WHERE ID=${ID}`, (err, info) => {
+  sqlmap.query(`DELETE FROM admission WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, info) => {
 
     if (err) console.log(err.sqlMessage);
     else {

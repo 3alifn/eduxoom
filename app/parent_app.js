@@ -37,11 +37,11 @@ exports.join= (req, res)=>{
 
   function todoJoinParent(){
  
-    sqlmap.query(`SELECT student_id FROM students WHERE student_id='${student_id}'`, (errStudent, infoStudent)=>{
+    sqlmap.query(`SELECT student_id FROM students WHERE domain='${req.hostname}' AND  student_id='${student_id}'`, (errStudent, infoStudent)=>{
       if(errStudent) console.log(errStudent.sqlMessage);
       if(infoStudent.length>0){
 
-        sqlmap.query(`SELECT email FROM parents WHERE email="${email}"`, (errMain, infoMain)=>{
+        sqlmap.query(`SELECT email FROM parents WHERE domain='${req.hostname}' AND  email="${email}"`, (errMain, infoMain)=>{
  
           if(errMain) console.log(errMain.sqlMessage);
       
@@ -202,8 +202,8 @@ exports.self_verify_code= (req, res)=>{
   
     const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
   
-    sqlmap.query(`INSERT INTO parents (session, class, section, name, telephone, student_id, email, password, gender) 
-    VALUES ('${session}', "${className}", "${sectionName}", "${name}","${telephone}", "${student_id}", "${email}", "${hashPassword}", "${gender}")`, (err)=>{
+    sqlmap.query(`INSERT INTO parents (domain, session, class, section, name, telephone, student_id, email, password, gender) 
+    VALUES (${req.hostname}', ${session}', "${className}", "${sectionName}", "${name}","${telephone}", "${student_id}", "${email}", "${hashPassword}", "${gender}")`, (err)=>{
   
       if(err) console.log(err.sqlMessage);
   
@@ -248,13 +248,13 @@ exports.self_verify_code= (req, res)=>{
 
 exports.self_close_account= (req, res)=>{
 
-      sqlmap.query(`DELETE  FROM parents WHERE ID="${req.body.dataID}"`, (err, info)=>{
+      sqlmap.query(`DELETE  FROM parents WHERE domain='${req.hostname}' AND  ID="${req.body.dataID}"`, (err, info)=>{
     
         if(err) res.end("you are restricted! can't close your account")
          
         else 
         {
-          sqlmap.query(`DELETE FROM attendance WHERE ID="${req.body.dataID}"`, (err_sub, info_sub)=>{
+          sqlmap.query(`DELETE FROM attendance WHERE domain='${req.hostname}' AND  ID="${req.body.dataID}"`, (err_sub, info_sub)=>{
      
             if(err_sub) console.log(err_sub.sqlMessage);
             else res.send({msg: 'closed!'})
@@ -277,7 +277,7 @@ exports.self_close_account= (req, res)=>{
 exports.self_dashboard= (req, res)=>{
 
     let ID= req.session.userid;
-    let sql= `SELECT * FROM parents WHERE ID="${ID}"`
+    let sql= `SELECT * FROM parents WHERE domain='${req.hostname}' AND  ID="${ID}"`
 
     sqlmap.query(sql, (err, info)=>{
 
@@ -300,7 +300,7 @@ exports.self_dashboard= (req, res)=>{
 exports.self_account= (req, res)=>{
 
     let ID= req.session.userid;
-    let sql= `SELECT * FROM parents WHERE ID="${ID}"`
+    let sql= `SELECT * FROM parents WHERE domain='${req.hostname}' AND  ID="${ID}"`
 
     sqlmap.query(sql, (err, info)=>{
 
@@ -320,7 +320,7 @@ exports.self_account= (req, res)=>{
 exports.self_info_update= (req, res) =>{
 
 let {name, telephone, gender, relation}= req.body;
-let sql=   `UPDATE parents SET name="${name}", gender='${gender}', telephone="${telephone}", relation="${relation}" WHERE ID="${req.session.userid}"`
+let sql=   `UPDATE parents SET name="${name}", gender='${gender}', telephone="${telephone}", relation="${relation}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
 sqlmap.query(sql, (err, info)=>{
 
 if(err) console.log(err.sqlMessage);
@@ -349,10 +349,10 @@ exports.self_password_update= (req, res)=>{
   const oldPassword= createHmac('md5', 'pipilikapipra').update(email+pastPassword).digest('hex');
 
 
-      const sql= `UPDATE parents SET password="${hashPassword}" WHERE ID="${req.session.userid}"`
+      const sql= `UPDATE parents SET password="${hashPassword}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
 
 
-   sqlmap.query(`SELECT password FROM parents WHERE ID="${req.session.userid}"`, (errPass, infoPass)=>{
+   sqlmap.query(`SELECT password FROM parents WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (errPass, infoPass)=>{
 
     if(errPass) console.log(errPass.sqlMessage);
     else{
@@ -406,7 +406,7 @@ else
 exports.self_avatar_upload= async(req, res, next)=>{
 
 
-sqlmap.query(`UPDATE parents SET avatar="${req.file.filename}" WHERE ID="${req.session.userid}"`, (err, next)=>{
+sqlmap.query(`UPDATE parents SET avatar="${req.file.filename}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (err, next)=>{
 
 
   if(err) console.log(err.message);
@@ -453,7 +453,7 @@ exports.self_email_update= (req, res)=>{
 if(req.body.verifyCode==req.session.userVerifyCode)
 {
 
-let sql= `UPDATE parents SET email="${req.session.username}" WHERE ID="${req.session.userid}"`
+let sql= `UPDATE parents SET email="${req.session.username}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
 
 sqlmap.query(sql, (err, info) =>{
 
@@ -494,7 +494,7 @@ exports.self_email_update_page= (req, res)=>{
 
 let {username}= req.body;
        
-sqlmap.query(`SELECT email FROM parents WHERE email="${username}"`, (errMain, infoMain)=>{
+sqlmap.query(`SELECT email FROM parents WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
 
   if(infoMain.length>0)
   {
@@ -572,7 +572,7 @@ sqlmap.query(`SELECT email FROM parents WHERE email="${username}"`, (errMain, in
 exports.admin_parent_get= (req, res)=>{
   let {className, sectionName}= req.body;
 
-  sqlmap.query(`SELECT * FROM parents WHERE permission='allow' AND class='${className}' AND section='${sectionName}'`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.hostname}' AND  permission='allow' AND class='${className}' AND section='${sectionName}'`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     
     let listData= '';
@@ -607,7 +607,7 @@ exports.admin_parent_get= (req, res)=>{
 exports.admin_parent_profile= (req, res)=>{
   let {ID}= req.body;
   
-  sqlmap.query(`SELECT * FROM parents WHERE permission='allow' AND ID='${ID}'`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.hostname}' AND  permission='allow' AND ID='${ID}'`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     if(info.length>0){
   
@@ -641,7 +641,7 @@ exports.admin_parent_delete= (req, res)=>{
   let {ID}= req.body;
     
   console.log(ID);
-  sqlmap.query(`DELETE FROM parents permission='allow' AND WHERE ID=${ID}`, (err, next)=>{
+  sqlmap.query(`DELETE FROM parents permission='allow' AND WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, next)=>{
     if(err) console.log(err.sqlMessage);
     else res.send({msg: 'Deleted! successfully!', alert: 'success'})
   })

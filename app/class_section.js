@@ -7,7 +7,7 @@ const {sqlmap}= require('../server');
 
 exports.admin_class_section_main_post=(req, res)=>{
   const {className, at_status}= req.body;
-  sqlmap.query( `UPDATE class_section SET class_status='${at_status}' WHERE class='${className}'`, (err, next)=>{
+  sqlmap.query( `UPDATE class_section SET class_status='${at_status}' WHERE domain='${req.hostname}' AND  class='${className}'`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
       else res.send({msg: 'updated...'})
   })
@@ -16,7 +16,7 @@ exports.admin_class_section_main_post=(req, res)=>{
 
 exports.admin_class_section_post=(req, res)=>{
     const {elementid, at_status}= req.body;
-    sqlmap.query( `UPDATE class_section SET at_status='${at_status}' WHERE ID=${elementid}`, (err, next)=>{
+    sqlmap.query( `UPDATE class_section SET at_status='${at_status}' WHERE domain='${req.hostname}' AND  ID=${elementid}`, (err, next)=>{
         if(err) console.log(err.sqlMessage);
         else res.send({msg: 'updated...'})
     })
@@ -25,8 +25,8 @@ exports.admin_class_section_post=(req, res)=>{
 
 exports.admin_class_section_get= (req, res)=>{
     
-    sqlmap.query(`SELECT * FROM class_section GROUP BY class ORDER BY ID`, (err, infomain)=>{
-    sqlmap.query(`SELECT * FROM class_section ORDER BY ID`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM class_section WHERE domain='${req.hostname}' GROUP BY class ORDER BY ID`, (err, infomain)=>{
+    sqlmap.query(`SELECT * FROM class_section WHERE domain='${req.hostname}' ORDER BY ID`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         
@@ -96,8 +96,8 @@ exports.admin_class_section_get= (req, res)=>{
 
 exports.pu_class_secton_rm=(req, res)=>{
 
-    sqlmap.query(`SELECT * FROM class_section WHERE class_status='off' GROUP BY class ORDER BY ID`, (err, cls)=>{
-    sqlmap.query(`SELECT * FROM class_section WHERE at_status='off'`, (err, clss)=>{
+    sqlmap.query(`SELECT * FROM class_section WHERE domain='${req.hostname}' AND  class_status='off' GROUP BY class ORDER BY ID`, (err, cls)=>{
+    sqlmap.query(`SELECT * FROM class_section WHERE domain='${req.hostname}' AND  at_status='off'`, (err, clss)=>{
         if(err) console.log(err.sqlMessage);
         else res.send({cls, clss})
         
