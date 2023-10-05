@@ -1,9 +1,10 @@
 const express = require("express")
 const app = express()
 
-const { sqlmap, nodemailer } = require("../server")
+const { sqlmap, nodemailer, createHmac } = require("../server")
 
 exports.public_admission_step1 = (req, res) => {
+
 
   res.render("public/admission_form_public", { pastAdmission: true, nextAdmission: false, data: false, msg: req.flash("msg"), alert: req.flash("alert") })
 

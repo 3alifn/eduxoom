@@ -5,6 +5,9 @@ const app = express()
 
 
 exports.home_page = (req, res) => {
+
+    var uuid= req.hostname;
+    req.session.uuid= req.hostname;
     sqlmap.query(`SELECT * FROM school_settings`, (err_school, info_school) => {
         if (err_school) console.log(err_school);
         sqlmap.query(`SELECT COUNT(ID) as count FROM teachers`, (err_teacher, info_teacher) => {
@@ -33,7 +36,10 @@ exports.home_page = (req, res) => {
                                        
                                         sqlmap.query(`SELECT * FROM repository ORDER BY ID DESC`, (err_repo_have,info_repo_have)=>{
                                             if(err_repo_have) console.log(err_repo_have.sqlMessage);
-                                            res.render('public/component/home_page', {info_repo_have,info_repo_a, info_repo_e, info_repo_f, info_school, info_staff, info_headofschool, info_teacher, info_student, info_carousel })
+                                           else {
+                                 
+                                             res.render('public/component/home_page', {info_repo_have,info_repo_a, info_repo_e, info_repo_f, info_school, info_staff, info_headofschool, info_teacher, info_student, info_carousel })
+                                           }
 
             
                                         })

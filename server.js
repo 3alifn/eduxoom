@@ -44,7 +44,7 @@ app.use(cors())
 
 
 const sessionStore= new mysqlStore({
-  expiration: 86400000,
+  expiration: 86400000*7,
   createDatabaseTable: true,
   schema: {
     tableName: "authentication_session",
@@ -66,7 +66,7 @@ const sessionStore= new mysqlStore({
     saveUninitialized: true,
     name: "saanvi-abc",
     cookie: {
-      secure: false, httpOnly: true, maxAge: 86400000, 
+      secure: false, httpOnly: true, maxAge: 86400000*7, 
     }
 }))
 
