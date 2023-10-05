@@ -200,7 +200,7 @@ exports.admin_config_subject= (req, res)=>{
 
 exports.admin_teacher_get= (req, res)=>{
 
-          sqlmap.query(`SELECT * FROM teachers ORDER BY ID DESC`, (err, info)=>{
+          sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
      
             if(info.length>0){
 

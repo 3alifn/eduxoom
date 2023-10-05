@@ -10,58 +10,62 @@ exports.home_page = (req, res) => {
     req.session.uuid= req.hostname;
     sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (err_school, info_school) => {
         if (err_school) console.log(err_school);
-        sqlmap.query(`SELECT COUNT(ID) as count FROM teachers WHERE domain='${req.hostname}'`, (err_teacher, info_teacher) => {
-            if (err_teacher) console.log(err_teacher.sqlMessage);
-
-            sqlmap.query(`SELECT COUNT(ID) as count FROM students WHERE domain='${req.hostname}'`, (err_student, info_student) => {
-                if (err_student) console.log(err_student.sqlMessage);
-
-                sqlmap.query(`SELECT * FROM headofschool WHERE domain='${req.hostname}'`, (err_headofschool, info_headofschool) => {
-                    if (err_headofschool) console.log(err_headofschool.sqlMessage);
-
-
-                    sqlmap.query(`SELECT * FROM carousel WHERE domain='${req.hostname}' ORDER BY ID DESC LIMIT 5`, (err_carousel, info_carousel) => {
-                        if(err_carousel) console.log(err_carousel.sqlMessage);
-                        sqlmap.query(`SELECT COUNT(ID) as count FROM staff WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err_staff, info_staff) => {
-                            if(err_staff) console.log(err_staff.sqlMessage);
+        if(info_school.length>0){
+            sqlmap.query(`SELECT COUNT(ID) as count FROM teachers WHERE domain='${req.hostname}'`, (err_teacher, info_teacher) => {
+                if (err_teacher) console.log(err_teacher.sqlMessage);
     
-                            sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='eventnews' GROUP BY dataid ORDER BY ID DESC LIMIT 1`, (err_repo_e,info_repo_e)=>{
-                                if(err_repo_e) console.log(err_repo_e.sqlMessage);
-                                
-                                sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='facilities' GROUP BY dataid ORDER BY ID DESC LIMIT 1`, (err_repo_f,info_repo_f)=>{
-                                    if(err_repo_f) console.log(err_repo_f.sqlMessage);
+                sqlmap.query(`SELECT COUNT(ID) as count FROM students WHERE domain='${req.hostname}'`, (err_student, info_student) => {
+                    if (err_student) console.log(err_student.sqlMessage);
+    
+                    sqlmap.query(`SELECT * FROM headofschool WHERE domain='${req.hostname}'`, (err_headofschool, info_headofschool) => {
+                        if (err_headofschool) console.log(err_headofschool.sqlMessage);
+    
+    
+                        sqlmap.query(`SELECT * FROM carousel WHERE domain='${req.hostname}' ORDER BY ID DESC LIMIT 5`, (err_carousel, info_carousel) => {
+                            if(err_carousel) console.log(err_carousel.sqlMessage);
+                            sqlmap.query(`SELECT COUNT(ID) as count FROM staff WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err_staff, info_staff) => {
+                                if(err_staff) console.log(err_staff.sqlMessage);
+        
+                                sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='eventnews' GROUP BY dataid ORDER BY ID DESC LIMIT 1`, (err_repo_e,info_repo_e)=>{
+                                    if(err_repo_e) console.log(err_repo_e.sqlMessage);
                                     
-                                    sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='achievement' GROUP BY dataid ORDER BY ID DESC LIMIT 1`, (err_repo_a,info_repo_a)=>{
-                                        if(err_repo_a) console.log(err_repo_a.sqlMessage);
-                                       
-                                        sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err_repo_have,info_repo_have)=>{
-                                            if(err_repo_have) console.log(err_repo_have.sqlMessage);
-                                           else {
-                                 
-                                             res.render('public/component/home_page', {info_repo_have,info_repo_a, info_repo_e, info_repo_f, info_school, info_staff, info_headofschool, info_teacher, info_student, info_carousel })
-                                           }
-
+                                    sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='facilities' GROUP BY dataid ORDER BY ID DESC LIMIT 1`, (err_repo_f,info_repo_f)=>{
+                                        if(err_repo_f) console.log(err_repo_f.sqlMessage);
+                                        
+                                        sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='achievement' GROUP BY dataid ORDER BY ID DESC LIMIT 1`, (err_repo_a,info_repo_a)=>{
+                                            if(err_repo_a) console.log(err_repo_a.sqlMessage);
+                                           
+                                            sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err_repo_have,info_repo_have)=>{
+                                                if(err_repo_have) console.log(err_repo_have.sqlMessage);
+                                               else {
+                                     
+                                                 res.render('public/component/home_page', {info_repo_have,info_repo_a, info_repo_e, info_repo_f, info_school, info_staff, info_headofschool, info_teacher, info_student, info_carousel })
+                                               }
+    
+                
+                                            })
             
                                         })
         
+        
                                     })
+            
     
     
                                 })
         
-
-
                             })
     
                         })
-
+    
                     })
-
+    
                 })
-
+    
             })
-
-        })
+        } else {
+            res.send(`<center><h1 style='background-color: black; color: white; padding: 5px; margin-top: 50px'>School not bulid yet! Please build your sechool from school settings</h1></center`)
+        }
     })
 }
 

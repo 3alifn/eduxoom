@@ -110,9 +110,9 @@ exports.public_notice_get= (req, res)=>{
                  html+= 
                  `           
 <div class="row">
-<div class="col-11 col-md-8 m-auto">
+<div class="col-11 col-md-8 shadowx m-auto">
 
-    <a class="text-truncate btn-hover shadowx d-md-flex justify-content-between  p-3 mt-2 fs-6 fw-semibold page-link" target="_blank" href="/docs/notice/${info[key].attachment}">
+    <a class="text-truncate btn-hover  d-md-flex justify-content-between  p-3 mt-2 fs-6 fw-semibold page-link" target="_blank" href="/docs/notice/${info[key].attachment}">
      <i class="bi bi-download p-2">${info[key].at_date.toString().substring(0, 25)} |</i> 
 
     <span class="text-truncate p-2">${info[key].description}</span>

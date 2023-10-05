@@ -250,31 +250,30 @@ transition: all 2s !important;
 }
 
 
-#footer{
-    background-color: #043F2E;
-    width: 100% !important;
-}
 
 #footer ul li{
     color: white;
-    padding: 8px;
     list-style: none !important;
     font-size: 14px;
     font-weight: 600;
     font-family: sans-serif;
 }
 
-#footer  a:hover{
+#footer li a:hover, #legal a:hover{
     color: #C8F169 !important;
     text-decoration: underline !important;
 
    
 }
 
-#legal a:hover{
-    color: #C8F169 !important;
-   
+#legal a{
+    color: white;
+    list-style: none !important;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: sans-serif;
 }
+
 
 
 
