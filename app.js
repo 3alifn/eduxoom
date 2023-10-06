@@ -20,7 +20,15 @@ sqlmap.query(`SELECT lics FROM client_area WHERE domain='${req.hostname}' AND at
   if(errllc) console.log(errllc.sqlMessage);
   if(infollc.length>0){
 
-    next()
+    sqlmap.query(`SELECT ID FROM user_admin WHERE domain='${req.hostname}'`, (err, admin)=>{
+      if(err) console.log(err.sqlMessage);
+      if(admin.length>0){
+        next()
+      } else {
+        res.render('ini/lics')
+      }
+    })
+    
   } else {
     res.render('ini/lics')
   }

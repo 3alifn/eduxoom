@@ -37,11 +37,12 @@ admin.post("/login", admin_app.admin_login)
 admin.all('*', (req, res, next)=>{
   if(req.session.hashUser=='hashAdmin')  next();
     
-
-     
    else {
-  req.session.destroy()
-    res.end("sorry! you are unauthorized! please try again...");
+    
+    req.flash("alert", "danger")
+    req.flash("msg", "Authontication Falied!")
+
+    res.redirect("/admin")
    }
 
 })

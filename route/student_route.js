@@ -12,9 +12,8 @@ student.all('*', (req, res, next)=>{
 
        
     else {
-      req.session.destroy()
-        res.end("sorry! you are unauthorized! please try again...");
-  }
+      res.redirect('/au/signout/')
+    }
 
 
 })
