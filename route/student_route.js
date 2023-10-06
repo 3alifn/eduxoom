@@ -11,12 +11,10 @@ student.all('*', (req, res, next)=>{
       
 
        
-    else  {
-      req.flash("alert", "primary")
-      req.flash("msg", "Student login required!")
-
-      res.redirect("/au/singin/page")
-    }
+    else {
+      req.session.destroy()
+        res.end("sorry! you are unauthorized! please try again...");
+  }
 
 
 })

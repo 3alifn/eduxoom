@@ -1,13 +1,11 @@
 const express = require("express")
-const { sqlmap , session} = require("../server")
+const { sqlmap , session, sessionStore} = require("../server")
 const app = express()
 
 
 
 exports.home_page = (req, res) => {
 
-    var uuid= req.hostname;
-    req.session.uuid= req.hostname;
     sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (err_school, info_school) => {
         if (err_school) console.log(err_school);
         if(info_school.length>0){
@@ -64,7 +62,8 @@ exports.home_page = (req, res) => {
     
             })
         } else {
-            res.send(`<center><h1 style='background-color: black; color: white; padding: 5px; margin-top: 50px'>School not bulid yet! Please build your sechool from school settings</h1></center`)
+            // res.render('public/404')
+            res.redirect('/admin/setup/school-settings/')
         }
     })
 }

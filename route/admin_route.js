@@ -1,5 +1,6 @@
 const express= require("express")
 const admin_app = require("../app/admin_app")
+const {sessionStore, session} = require("../server")
 const { admin_admission_page, admin_admission_accept, admin_admission_reject, admin_admission_info } = require("../app/admission_app")
 const { admin_application_get, admin_application_replay, admin_application_download } = require("../app/appllication_app")
 const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_gallery_list_data, admin_gallery_list_data_delete, admin_gallery_image, admin_gallery_video, admin_gallery_data_delete, admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete, admin_gallery_image_get, admin_gallery_image_delete, admin_gallery_image_data_get, admin_gallery_image_data_delete, admin_gallery_image_data_post, admin_gallery_video_get, admin_gallery_video_data_get, admin_gallery_video_data_delete, admin_gallery_video_delete, admin_gallery_video_data_post } = require("../app/gallery_app")
@@ -26,6 +27,7 @@ const admin= express.Router()
 
 
 admin.get("/", (req, res)=>{
+
   res.render("admin/admin_login_page", {msg: req.flash("msg"), alert: req.flash("alert")})
 })
 
@@ -33,16 +35,16 @@ admin.post("/login", admin_app.admin_login)
 
 
 admin.all('*', (req, res, next)=>{
- 
-
-  if(req.session.hashUser=='hashAdmin')  next()
+  if(req.session.hashUser=='hashAdmin')  next();
     
 
      
-   else res.end("sorry! you are unauthorized!");
+   else {
+  req.session.destroy()
+    res.end("sorry! you are unauthorized! please try again...");
+   }
 
 })
-
 
 
 // dashboard lookup

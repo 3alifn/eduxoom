@@ -59,16 +59,17 @@ const sessionStore= new mysqlStore({
 
   app.use(cookieParser('nocookie'));
   app.use( session({
-    key: 'auth',
+    key: 'codeabc',
     secret: 'pipilikiapipra',
     store: sessionStore,
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     name: "saanvi-abc",
     cookie: {
       secure: false, httpOnly: true, maxAge: 86400000*7, 
     }
 }))
+
 
 
 
@@ -88,6 +89,6 @@ app.listen(process.env.listen_port || 30)
 module.exports= {
 app, express, mysql, session, cookieParser, flash, bodyParser,
  sqlmap, multer, nodemailer, dotenv, cors, randomBytes,
-  createHmac, fs, path, ejs,
+  createHmac, fs, path, ejs, sessionStore,
 }
 

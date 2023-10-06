@@ -1,5 +1,5 @@
 
-const { app, express, mysql ,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs } = require("./server")
+const { app, express, mysql , sessionStore,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs } = require("./server")
 app.locals.data = require('./app/admission_app');
 
 const { MulterError } = require("multer")
@@ -11,8 +11,24 @@ const parent = require("./route/parent_route")
 const  authentication= require("./route/auhentication_route");
 const { home_page } = require("./app/home_app");
 const admin = require("./route/admin_route");
+const ini = require("./route/ini_route");
 
+app.get('*', (req, res, next)=>{
+  app.set('domain', req.hostname)
+ session.domain={hostname: req.hostname, lics: createHmac('md5', 'pipilikapipra').update(req.hostname).digest('hex') };
+sqlmap.query(`SELECT lics FROM client_area WHERE domain='${req.hostname}' AND at_status='actived' ORDER BY ID DESC LIMIT 1`, (errllc, infollc)=>{
+  if(errllc) console.log(errllc.sqlMessage);
+  if(infollc.length>0){
+
+    next()
+  } else {
+    res.render('ini/lics')
+  }
+})
+
+})
 app.get("/", home_page)
+app.use('/ini', ini)
 app.use("/pu", public)
 app.use("/privet", privet)
 app.use("/admin", admin)
@@ -20,6 +36,7 @@ app.use("/student", student)
 app.use("/teacher", teacher)
 app.use("/parent", parent)
 app.use("/au", authentication)
+
 
 
 app.use((err, req, res, next)=>{

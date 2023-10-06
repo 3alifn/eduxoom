@@ -55,12 +55,11 @@ admin_login: (req, res)=>{
         if(info.length>0){
           
             if(info[0].hash_username===hashUsername && info[0].hash_password===hashPassword__){
-
+                 
                 req.session.hashUser= 'hashAdmin'
                 req.session.hashUsername= hashUsername;
                 req.session.hashPassword= hashPassword__;
                 req.session.userAccess= "privet";
-
                 res.redirect("/admin/dashboard")
 
             }
@@ -101,7 +100,7 @@ dashboard: (req, res)=>{
             req.flash("alert", "danger")
             req.flash("msg", "Authontication Falied!")
 
-            res.redirect("/cpanel/admin/login")
+            res.redirect("/admin")
         }
 
     })

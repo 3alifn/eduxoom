@@ -15,11 +15,10 @@ teacher.all('*', (req, res, next)=>{
       
 
        
-     else {
-        req.flash("alert", "primary")
-        req.flash("msg", "Teacher login required!")
-        res.redirect("/au/singin/page")
-     } 
+    else {
+      req.session.destroy()
+        res.end("sorry! you are unauthorized! please try again...");
+  }
 
 })
 

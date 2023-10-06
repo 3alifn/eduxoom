@@ -11,7 +11,10 @@ parent.all('*', (req, res, next)=>{
       
 
        
-     else   res.end("sorry! you are unauthorized!");
+    else {
+        req.session.destroy()
+          res.end("sorry! you are unauthorized! please try again...");
+    }
 
 })
 

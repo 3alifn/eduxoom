@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>licsense</title>
+  <%- include("../component/metadata.html") %> 
+
+</head>
+
+<style>
+.relative-loader{
+width: 100%;
+height: 4px;
+background-color: white;
+position: fixed;
+top: 0 !important;
+
+
+}.absolute-loader{
+width: 1%;
+height: 100%;
+background-color: blueviolet;
+position: absolute;
+border-radius: 100px;
+top: 0 !important;
+animation-name: page-loader;
+animation-duration: 3s;
+animation-iteration-count: 1;
+animation-fill-mode: forwards;
+animation-timing-function:cubic-bezier(1, 0, 0, 1)
+}
+
+@keyframes page-loader {
+  from{
+    width: 10%;
+  } to{
+    width: 90%;
+
+  }
+}
+
+</style>
+<body onload="pageLoadingTop()" style="background-color: white; color: lightslategray;">
+
+
+  <div class="row container pt-5">
+    <div class="col-10 m-auto text-center mtx mbx">
+     <code class="fs-5 text-center fw-semibold font-monospace">
+      School not ready for use yet now! Please build first and enter your lics key...
+     </code>
+    
+     <form id="lics" class="lics" action="#" method="post">
+      <div class="input-group mt-5">
+        
+        <input autocomplete="off" id="lisctext" class="p-2 w-75 rounded-start form-dev" required type="text" name="lics" placeholder="Enter licsense key">
+        <input id="submitbtn" class="p-2 w-25 bg-go fw-semibold rounded-end form-dev" type="submit" value="Build">
+  
+      </div>
+     </form>
+  
+    </div>
+  </div>
+  <%- include("../component/___node.html") %> 
+
+</body>
+
+<script>
+  $('#lics').on('submit', (event)=>{
+    event.preventDefault();
+    $.ajax({
+      method: "post",
+      url: "/ini/lics/checkout/",
+      data: $('#lics').serialize(),
+      dataType: "JSON",
+      beforeSend: function(){
+      $('body').prepend(`
+<div class="relative-loader">
+<div class="absolute-loader"></div>
+</div>`)
+$('.container').addClass('opacity-25')
+       $('#submitbtn').addClass('btn disabled')
+      },
+      success: function (res) {
+       if(res.status==200){
+        setTimeout(() => {
+        window.location.replace('/admin/')
+       }, 5000);
+       } else {
+         _msg_pull(res.alert, res.msg, false)
+         $('.container').removeClass('opacity-25')
+       }
+      }
+    });
+  })
+</script>
+
+</html>
