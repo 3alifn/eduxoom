@@ -1,8 +1,4 @@
-const express = require("express")
-const app = express()
-
-
-const { sqlmap } = require("../server")
+const {app, express, sqlmap, session } = require("../server")
 
 
 exports.public_rank_class_page= (req, res)=>{

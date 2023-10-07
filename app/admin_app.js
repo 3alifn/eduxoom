@@ -1,13 +1,4 @@
-const express = require("express")
-const app = express()
-const dotenv= require("dotenv").config()
-const nodemailer= require("nodemailer")
-const mysql = require("mysql")
-const { sqlmap, multer, createHmac } = require("../server")
-
-
-
-
+const {app, express, dotenv, nodemailer, mysql, sqlmap, multer, createHmac, session } = require("../server")
 
 
 
@@ -86,6 +77,8 @@ admin_login: (req, res)=>{
 
 
 dashboard: (req, res)=>{
+  console.log(session);
+
 res.render("admin/dashboard")
 }
 

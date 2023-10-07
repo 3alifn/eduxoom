@@ -1,8 +1,4 @@
-const express = require("express")
-const { sqlmap , session, sessionStore} = require("../server")
-const app = express()
-
-
+const {app, express, sqlmap , session} = require("../server")
 
 exports.home_page = (req, res) => {
 

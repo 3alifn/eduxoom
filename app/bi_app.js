@@ -1,9 +1,4 @@
-const express = require("express")
-const app = express()
-const dotenv= require("dotenv").config()
-const nodemailer= require("nodemailer")
-const mysql = require("mysql")
-const { sqlmap, multer, session, createHmac, randomBytes} = require("../server")
+const {app, express, dotenv, nodemailer, mysql, sqlmap, multer, session, createHmac, randomBytes} = require("../server")
 var regexTelephone= /^01[0-9]*$/
 var regexNumber= /^[0-9]*$/
 var regexString= /^[A-Za-z .-_]*$/

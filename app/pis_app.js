@@ -1,7 +1,4 @@
-const express = require("express")
-const app = express()
-
-const { sqlmap } = require("../server")
+const {app, express, sqlmap, session } = require("../server")
 
 
 exports.teacher_pis_page_mark_get= (req, res)=>{

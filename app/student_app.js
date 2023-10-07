@@ -1,6 +1,4 @@
-const express = require("express")
-const app = express()
-const {sqlmap, nodemailer, multer, createHmac, fs, path}= require("../server")
+const {app, express, sqlmap, session, nodemailer, multer, createHmac, fs, path}= require("../server")
 const sharp= require("sharp")
 
 var regexTelephone= /^01[0-9]*$/

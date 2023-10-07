@@ -1,9 +1,4 @@
-const express = require("express")
-const app = express()
-const dotenv= require("dotenv").config()
-const nodemailer= require("nodemailer")
-const mysql = require("mysql")
-const { session, createHmac} = require("../server")
+const {app, express, dotenv, nodemailer, mysql, session, createHmac} = require("../server")
 
 
 const sqlmap= mysql.createConnection({
@@ -105,7 +100,7 @@ exports.authentication_404=  (req, res)=>{
     }
 
 exports.signout =  (req, res)=>{
-    req.session.destroy()
+    // req.session.destroy()
     res.render("authentication/signin_page")
     }
 

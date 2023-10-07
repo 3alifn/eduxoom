@@ -1,10 +1,5 @@
-const express = require("express");
-const {sqlmap, nodemailer, multer, createHmac, path, fs}= require("../server")
+const {app, express, sqlmap, session, nodemailer, multer, createHmac, path, fs}= require("../server")
 const sharp= require("sharp")
-
-const app = express()
-
-
 const multer_location= multer.diskStorage({
   destination: (req, file, cb)=>{
    cb(null, "./public/image/")

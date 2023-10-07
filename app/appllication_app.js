@@ -1,11 +1,4 @@
-
-
-const express = require("express")
-const app = express()
-const {sqlmap, nodemailer, multer}= require("../server")
-
-
-
+const {app, express, sqlmap, nodemailer, multer, session}= require("../server")
 
 const locationApplication= multer.diskStorage({
     destination: (req, file, cb)=>{

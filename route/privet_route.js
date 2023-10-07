@@ -1,8 +1,6 @@
-
-const express= require("express");
+const {app, express, session}=require('../server') 
 const { privet_routine_get, admin_routine_page, privet_routine_page, privet_routine_page_class_base } = require("../app/routine_app");
 const { privet_student_profile } = require("../app/student_app");
-const { app } = require("../server");
 const { privet_pic_report_student_get, privet_pic_report_get, privet_pic_report_get_checkout } = require("../app/pic_app");
 const {  privet_pis_report_student_get, privet_pis_report_get, privet_pis_report_get_checkout } = require("../app/pis_app");
 const {  privet_transcript_subject_get, privet_transcript_student_get, privet_transcript_report_card_get_half, privet_transcript_report_card_get_full, privet_transcript_report_card_get_final, privet_transcript_report_student_get, privet_transcript_report_get, privet_transcript_report_get_checkout, privet_bi_report_checkout } = require("../app/transcript_app");
