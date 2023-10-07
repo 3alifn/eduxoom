@@ -65,10 +65,10 @@ admin_login: (req, res)=>{
             }
 
             else {
-              req.flash("alert", "danger")
-              req.flash("msg", "Authontication Falied!")
+              req.flash("alert", "info")
+              req.flash("msg", "Detect some issue, please clear browser cookie and try again!")
   
-              res.redirect("/admin")
+              res.redirect("/admin/panel")
 
             }
         } 
@@ -78,7 +78,7 @@ admin_login: (req, res)=>{
             req.flash("alert", "danger")
             req.flash("msg", "Authontication Falied!")
 
-            res.redirect("/admin/")
+            res.redirect("/admin/panel")
         }
 
     })
@@ -86,31 +86,13 @@ admin_login: (req, res)=>{
 
 
 dashboard: (req, res)=>{
-
-    const {hashUsername, hashPassword}= req.body;
-    sqlmap.query(`SELECT * FROM user_admin WHERE domain='${req.hostname}' AND  hash_username='${hashUsername}' AND hash_password='${hashPassword}'`, (err, info)=>{
-        if( req.session.hashUser=='hashAdmin'){
-
-            res.render("admin/dashboard")
-           
-        } 
-
-        else {
-
-            req.flash("alert", "danger")
-            req.flash("msg", "Authontication Falied!")
-
-            res.redirect("/admin")
-        }
-
-    })
+res.render("admin/dashboard")
 }
 
 ,
 
 self_account: (req, res)=>{
 
-    if(req.session.hashUser=='hashAdmin'){
       
       let sql= `SELECT * FROM user_admin WHERE domain='${req.hostname}'`
   
@@ -121,7 +103,6 @@ self_account: (req, res)=>{
   
       })
   
-    } 
 
 
 }

@@ -3,7 +3,6 @@ const {app, sqlmap, createHmac, randomBytes, session}= require('../server');
 module.exports= {
     lics_checkout: (req, res)=>{
         const {lics}= req.body;
-        console.log(lics);
         sqlmap.query(`SELECT domain, lics FROM ___ini WHERE domain='${req.hostname}' AND lics='${lics}' AND at_status=${true}`, (errllc,infollc)=>{
             if(errllc) console.log(errllc.sql);
             if(infollc.length>0){

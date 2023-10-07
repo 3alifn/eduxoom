@@ -24,9 +24,7 @@ const { admin_dashboard_tsa_lookup } = require("../app/dashboard_app")
 const { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, admin_staff_penbox_pull, admin_staff_penbox_push } = require("../app/staff_app")
 const admin= express.Router()
 
-
-
-admin.get("/", (req, res)=>{
+admin.get("/panel", (req, res)=>{
 
   res.render("admin/admin_login_page", {msg: req.flash("msg"), alert: req.flash("alert")})
 })
@@ -42,7 +40,7 @@ admin.all('*', (req, res, next)=>{
     req.flash("alert", "danger")
     req.flash("msg", "Authontication Falied!")
 
-    res.redirect("/admin")
+    res.redirect("/admin/panel")
    }
 
 })
