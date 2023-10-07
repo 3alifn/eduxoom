@@ -8,7 +8,7 @@ exports.home_page = (req, res) => {
 
     sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (err_school, info_school) => {
         if (err_school) console.log(err_school);
-        if(info_school.length>0){
+        // if(info_school.length>0){
             sqlmap.query(`SELECT COUNT(ID) as count FROM teachers WHERE domain='${req.hostname}'`, (err_teacher, info_teacher) => {
                 if (err_teacher) console.log(err_teacher.sqlMessage);
     
@@ -61,10 +61,7 @@ exports.home_page = (req, res) => {
                 })
     
             })
-        } else {
-            // res.render('public/404')
-            res.redirect('/admin/setup/school-settings/')
-        }
+        // }
     })
 }
 

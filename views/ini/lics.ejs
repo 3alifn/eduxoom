@@ -45,7 +45,7 @@ animation-timing-function:cubic-bezier(1, 0, 0, 1)
 
   <div class="row container pt-5">
     <div class="col-10 m-auto text-center mtx mbx">
-     <code class="fs-5 text-center fw-semibold font-monospace">
+     <code id="resmsg" class="fs-5 text-center fw-semibold font-monospace">
       School not ready for use yet now! Please build first and enter your lics key...
      </code>
     
@@ -74,20 +74,30 @@ animation-timing-function:cubic-bezier(1, 0, 0, 1)
       dataType: "JSON",
       beforeSend: function(){
       $('body').prepend(`
-<div class="relative-loader">
+<div id="page-loader" class="relative-loader">
 <div class="absolute-loader"></div>
 </div>`)
 $('.container').addClass('opacity-25')
        $('#submitbtn').addClass('btn disabled')
       },
       success: function (res) {
-       if(res.status==200){
+       if(res.status==true){
+        $('.container').removeClass('opacity-25')
+        $('#resmsg').text(res.msg)
+        $('#resmsg').fadeOut('slow')
+        $('#resmsg').fadeIn('slow')
+           
         setTimeout(() => {
         window.location.replace('/admin/')
        }, 5000);
        } else {
-         _msg_pull(res.alert, res.msg, false)
          $('.container').removeClass('opacity-25')
+         $('#resmsg').text(res.msg)
+         $('#page-loader').remove()
+         $('#submitbtn').addClass('btn disabled')
+
+
+
        }
       }
     });

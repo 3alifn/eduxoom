@@ -194,7 +194,7 @@ Open photos
   <div class="col-12 mt-1 col-md-4  p-2 shadow-sm border bg-light rounded" style="height: 150px;">
 
       <h5 class="text-center mt-4"> <i class="bi bi-house"></i> Address </h5>
-      <Address class="text-center"><%=info_school[0].address%></Address>
+      <Address class="text-center"><%=info_school[0]==undefined?'No address':info_school[0].address%></Address>
 
   </div>
 
@@ -202,7 +202,7 @@ Open photos
 
   <div class="col-12 mt-1 col-md-4  p-2  bg-light rounded border  shadow-sm" style="height: 150px;">
       <h5 class="text-center mt-4"> <i class="bi bi-envelope"></i> Email </h5>
-      <Address class="text-center"><%=info_school[0].email%></Address>
+      <Address class="text-center"><%=info_school[0]==undefined?'No address':info_school[0].email%></Address>
 
   </div>
 
@@ -211,7 +211,7 @@ Open photos
 
   <div class="col-12 mt-1 col-md-4  p-2  bg-light rounded border shadow-sm " style="height: 150px;">
       <h5 class="text-center mt-4"> <i class="bi bi-telephone"></i> Phone </h5>
-      <Address class="text-center">+<%=info_school[0].phone%></Address>
+      <Address class="text-center"><%=info_school[0]==undefined?'No address':info_school[0].phone%></Address>
 
   </div>
 

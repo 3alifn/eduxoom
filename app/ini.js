@@ -4,23 +4,23 @@ module.exports= {
     lics_checkout: (req, res)=>{
         const {lics}= req.body;
         console.log(lics);
-        sqlmap.query(`SELECT lics FROM client_area WHERE domain='${req.hostname}' AND lics='${lics}' AND at_status='actived'`, (errllc,infollc)=>{
+        sqlmap.query(`SELECT domain, lics FROM ___ini WHERE domain='${req.hostname}' AND lics='${lics}' AND at_status=${true}`, (errllc,infollc)=>{
             if(errllc) console.log(errllc.sql);
             if(infollc.length>0){
 
-                sqlmap.query(`INSERT INTO user_admin (domain)VALUES('${req.hostname}')`, (errI, infoI)=>{
-                    if(errI) console.log(errI.sqlMessage);
+                sqlmap.query(`UPDATE ___ini SET checkout=${true} WHERE domain='${req.hostname}'`, (errup, update)=>{
+                    if(errup) console.log(errup.sqlMessage);
                     else {
                          init_class_section(req.hostname)
                          init_subject(req.hostname)
                         init_bi_catagory(req.hostname)
-                        res.send({status: 200, msg: 'Activation Accepted', alert: 'alert-success'})
+                        res.send({status: true, msg: 'WELCOME TO SAANVI ABC', alert: 'alert-success'})
 
                     }
                 })
 
             } else {
-                res.send({status: 404, msg: 'Activation Declined', alert: 'alert-info'})
+                res.send({status: false, msg: 'Invalid Lics key!', alert: 'alert-warning'})
 
             }
         });
@@ -34,7 +34,9 @@ module.exports= {
                     sqlmap.query(`INSERT INTO class_section (domain, class, section)
                     VALUES('${domain}', '${info[index].class}', '${info[index].section}')`, (erri, infoi)=>{
                         if(erri) console.log(erri.sqlMessage);
-                        else console.log('class_section updated...');
+                        else {
+                            if(info.length==index+1) console.log('class_section_updated');
+                        }
                     })
                 }
                  
@@ -54,7 +56,10 @@ module.exports= {
                     sqlmap.query(`INSERT INTO subject (domain, class, subject, subject_code)
                     VALUES('${domain}', '${info[index].class}', '${info[index].subject}', '${randomString}')`, (erri, infoi)=>{
                         if(erri) console.log(erri.sqlMessage);
-                        else console.log('subject updated...');
+                       else {
+                        if(info.length==index+1) console.log('subject_updated');
+
+                       } 
                     })
                 }
                  
@@ -75,7 +80,9 @@ module.exports= {
                     sqlmap.query(`INSERT INTO bi_catagory (domain, catagory_name, catagory_code)
                     VALUES('${domain}', '${info[index].catagory_name}', '${randomString}')`, (erri, infoi)=>{
                         if(erri) console.log(erri.sqlMessage);
-                        else console.log('bi_catagory updated...');
+                        else {
+                            if(info.length==index+1) console.log('bi_catagory');
+                        }
                     })
     
                 }

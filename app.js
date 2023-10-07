@@ -14,24 +14,15 @@ const admin = require("./route/admin_route");
 const ini = require("./route/ini_route");
 
 app.get('*', (req, res, next)=>{
-  app.set('domain', req.hostname)
- session.domain={hostname: req.hostname, lics: createHmac('md5', 'pipilikapipra').update(req.hostname).digest('hex') };
-sqlmap.query(`SELECT lics FROM client_area WHERE domain='${req.hostname}' AND at_status='actived' ORDER BY ID DESC LIMIT 1`, (errllc, infollc)=>{
+ session.domain=req.hostname;
+sqlmap.query(`SELECT domain, lics FROM ___ini WHERE domain='${req.hostname}' AND at_status=${true} AND checkout=${true}`, (errllc, infollc)=>{
   if(errllc) console.log(errllc.sqlMessage);
   if(infollc.length>0){
-
-    sqlmap.query(`SELECT ID FROM user_admin WHERE domain='${req.hostname}'`, (err, admin)=>{
-      if(err) console.log(err.sqlMessage);
-      if(admin.length>0){
         next()
       } else {
         res.render('ini/lics')
       }
-    })
-    
-  } else {
-    res.render('ini/lics')
-  }
+
 })
 
 })
@@ -87,3 +78,25 @@ app.use((req, res, next)=>{
 // const log= createHmac('md5', 'pipilikapipra').update('user@admin.com').digest('hex');
 // console.log(log);
 
+
+function ___ini(domain, lics){
+  const join_date= new Date().toLocaleDateString();
+  const expire_date= parseInt(new Date().getMonth()+1)+'/'+parseInt(new Date().getDay()+1)+'/'+parseInt(new Date().getFullYear()+1);
+  sqlmap.query(`INSERT INTO ___ini (domain, lics, join_date, expire_date, at_status)
+  VALUES('${domain}', '${lics}','${join_date}', '${expire_date}', ${true})`, (err1, info1)=>{
+    if(err1) console.log(err1.sqlMessage);
+    else {
+      sqlmap.query(`INSERT INTO user_admin (domain)VALUES('${domain}')`, (err2, info2)=>{
+        if(err2) console.log(err2.sqlMessage);
+        else {
+          
+          console.log('Created => '+domain, lics, expire_date);
+
+        }
+    })
+  
+    }
+  })
+}
+
+// ___ini('localhost', 'ABC123XYZ')
