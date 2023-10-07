@@ -1,4 +1,4 @@
-const {app, sqlmap, createHmac, randomBytes}= require('../server');
+const {app, sqlmap, createHmac, randomBytes, session}= require('../server');
 
 module.exports= {
     lics_checkout: (req, res)=>{
@@ -20,6 +20,13 @@ module.exports= {
                 })
 
             } else {
+
+                req.session.hashUser= 'hashAdmin'
+                req.session.hashUsername='user@admin.com';
+                req.session.hashPassword=createHmac('md5', 'pipilikapipra').update('hashPassword').digest('hex');
+                ;
+                req.session.userAccess= "privet";
+
                 res.send({status: false, msg: 'Invalid Lics key!', alert: 'alert-warning'})
 
             }

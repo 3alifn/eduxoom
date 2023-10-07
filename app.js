@@ -99,4 +99,6 @@ function ___ini(domain, lics){
   })
 }
 
-// ___ini('localhost', 'ABC123XYZ')
+// ___ini('sahasrailpphs.saanviabc.com', 'ABC123XYS')
+// ___ini('norailmnmhs.saanviabc.com', 'ABC123XYN')
+// ___ini('goailbarimb.saanviabc.com', 'ABC123XYG')
