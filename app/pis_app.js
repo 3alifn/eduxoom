@@ -46,8 +46,8 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
 exports.teacher_pis_mark_post= (req, res)=>{
   const teacher_pdsid= req.session.pdsId; 
   const session= new Date().getUTCFullYear();
+  const domain= req.hostname;
   const {className,sectionName, pi, student_id, roll, name, avatar, chapter, subject, checkout, bg_color}= req.body;
-
   sqlmap.query(`SELECT student_id, pi FROM pic_mark WHERE domain='${req.hostname}' AND   class='${className}' AND section='${sectionName}' AND student_id=${student_id} AND subject='${subject}' AND chapter='${chapter}'`, (err_pic, info_pic)=>{
     if(err_pic) console.log(err_pic.sqlMessage);
     if(info_pic.length>0){
@@ -62,7 +62,7 @@ exports.teacher_pis_mark_post= (req, res)=>{
                  if(errPost) console.log(errPost.sqlMessage);
                  else { 
    
-                   todo_transcipt( className, teacher_pdsid, roll, sectionName,  student_id, subject, chapter, name, avatar, pi, pic_pi, checkout)
+                   todo_transcipt(domain, className, teacher_pdsid, roll, sectionName,  student_id, subject, chapter, name, avatar, pi, pic_pi, checkout)
                      
                      res.send({msg: 'success'}) 
    
@@ -185,11 +185,11 @@ exports.privet_pis_report_get_checkout= (req, res)=>{
 
 
 
-function todo_transcipt(className, teacher_pdsid, roll, sectionName,  student_id, subject, chapter, name, avatar, pi, pic_pi, checkout){
+function todo_transcipt(domain, className, teacher_pdsid, roll, sectionName,  student_id, subject, chapter, name, avatar, pi, pic_pi, checkout){
   const session= new Date().getUTCFullYear(); 
   if(chapter=='A1' || chapter=='A2' || chapter=='A3' || chapter=='A4' || chapter=='A5' || chapter=='A6') var transciptName= 'half'; else var transciptName= 'full';
   if(pi>pic_pi) var final_pi= pi; else var final_pi=  pic_pi; if(final_pi==1) var bg_color= 'bg-danger'; else if(final_pi==2) var bg_color='bg-warning'; else bg_color='bg-success';
-  sqlmap.query(`SELECT subject, chapter, student_id, roll FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND 
+  sqlmap.query(`SELECT subject, chapter, student_id, roll FROM transcript_report WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND 
   subject='${subject}' AND chapter='${chapter}' AND student_id=${student_id}`, (err_find, info_find)=>{
     if(err_find) console.log(err_find.sqlMessage);
     if(info_find.length==0 || info_find==undefined){
@@ -197,7 +197,7 @@ function todo_transcipt(className, teacher_pdsid, roll, sectionName,  student_id
     
       sqlmap.query(`INSERT INTO transcript_report (domain, session, class, section, subject, chapter,
         teacher_pdsid, student_id, roll, name,  transcript_name, pi, bg_color, checkout, avatar)
-      VALUES('${req.hostname}', ${session},'${className}', '${sectionName}', '${subject}', '${chapter}', '${teacher_pdsid}',
+      VALUES('${domain}', ${session},'${className}', '${sectionName}', '${subject}', '${chapter}', '${teacher_pdsid}',
     '${student_id}', '${roll}', '${name}',  '${transciptName}', '${final_pi}', '${bg_color}', '${checkout}',  '${avatar}')`, (errTranscipt, todoTranscipt)=>{
      if(errTranscipt) console.log(errTranscipt.sqlMessage);
      else console.log('transcipt inserted!.');

@@ -77,9 +77,7 @@ admin_login: (req, res)=>{
 
 
 dashboard: (req, res)=>{
-  console.log(session);
-
-res.render("admin/dashboard")
+  res.render("admin/dashboard")
 }
 
 ,

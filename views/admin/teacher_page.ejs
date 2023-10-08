@@ -8,48 +8,25 @@
     <title>Teacher settings</title>
     <%- include("../component/metadata.html") %> 
 
-
-
-    <style>
-    .chosen-container-active{
-     width: 100% !important;
-   }
-   
-   .search-field{
-     width: 100% !important;
-   }
-   
-   ul.chosen-choices{
-     width: 300px !important;
-   }
-    </style>
-
-
 </head>
 
 <body onload="pageLoadingTop()">
   <%- include("../component/admin-header-nav.html") %> 
   <%- include("../component/admin-menu-nav.html") %> 
+  <%-include("../component/modal-trigger.html") %> 
+
+  <main id="main-content" class="p-2 main-content mt-5">
 
 
-  <div id="main-content" class="p-2 main-content mt-5">
-
-
-  <div class="col">
+  <content>
     
-
-      
-    <%-include("../component/modal-trigger.html") %> 
-
-
-
 <!-- Button trigger modal -->
 <div class="row">
   <div class="col mt-5 ms-5">
-    <button title="ADD" type="button" class="btn " data-toggle="modal" data-target="#modelId_form">
-    <img width="30px" src="/icon/file/icons8-add-list-48.png" alt="">
+    <button title="ADD" type="button" class="btn btn-link" data-toggle="modal" data-target="#modelId_form">
+    ADD
     </button>
-    <span title="Refresh" class=" btn" onclick="window.location.reload()"><img width="30px" src="/icon/file/icons8-refresh-64.png" alt=""></span>
+    <span title="Refresh" class=" btn btn-link" onclick="window.location.reload()">Refresh</span>
 
   </div>
 </div>
@@ -75,7 +52,7 @@
               
                               <label>
                                 <span class="file_append">
-                                  <img id="getImg" src="/image/teacher/male_avatar.png" width="200px" height="100px" alt="IMG" style="cursor: pointer;"> 
+                                  <img id="getImg" src="/image/demo/male_avatar.png" width="200px" height="100px" alt="IMG" style="cursor: pointer;"> 
 
                                 </span>
                                 <input class="file"  style="display: none" type="file" name="avatar" id="fileItem">
@@ -280,9 +257,9 @@
   </div>
 </div>
 
-  </div>
+</content>
 
-</div>
+</main>
 <%- include("../component/___node.html") %> 
 <script src="/app/___noviewport.js"></script>
 

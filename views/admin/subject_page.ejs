@@ -37,13 +37,16 @@
 
 <%- include("../component/admin-header-nav.html") %> 
 <%- include("../component/admin-menu-nav.html") %> 
+      
+<%-include("../component/modal-trigger.html") %> 
 
 
-<div id="main-content" class="p-2 main-content mt-5">
+
+<main id="main-content" class="p-2 main-content mt-5">
 
 
 
-        <div class="col">
+<content>
 
 
             
@@ -53,19 +56,15 @@
 
     <p></p>
 
-      
-    <%-include("../component/modal-trigger.html") %> 
-
 
 
 <!-- Button trigger modal -->
-<button type="button" class="btn " data-toggle="modal" data-target="#modelId_form">
-<span title="ADD" class=" input-group-text"><img width="30px" src="/icon/file/icons8-add-file-48.png" alt=""></span>
-
+<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modelId_form">
+ADD
 </button>
 
 
-    <span title="Refresh" class=" btn" onclick="window.location.reload()"><img width="30px" src="/icon/file/icons8-refresh-64.png" alt=""></span>
+    <span title="Refresh" class=" btn" onclick="window.location.reload()">Refresh</span>
 
     <center>
         <div class="btn-group bg-secondary ">
@@ -184,9 +183,9 @@
 <% } %> 
 </div>
 
-        </div>
+</content>
 
-    </div>
+    </main>
 
 
 <script>
