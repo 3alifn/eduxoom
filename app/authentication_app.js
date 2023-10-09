@@ -16,7 +16,7 @@ const sqlmap= mysql.createConnection({
 exports.authentication_check = (req, res)=>{
 
     const {userRole, username, password}= req.query;
-     const hashPassword= createHmac('md5', 'pipilikapipra').update(username+password).digest('hex');
+     const hashPassword= createHmac('md5', 'pipilikapipra').update(password).digest('hex');
 
    if(userRole=='parents')  var findBashQuery= `SELECT * FROM ${userRole} WHERE domain='${req.hostname}' AND  permission='allow' AND  email="${username}" AND password="${hashPassword}"`
 
@@ -213,7 +213,7 @@ exports.reset_password= (req, res)=>{
     let username= req.session.username;
     let userRole= req.session.user;
     let password= req.body.password;
-    const hashPassword= createHmac('md5', 'pipilikapipra').update(username+password).digest('hex');
+    const hashPassword= createHmac('md5', 'pipilikapipra').update(password).digest('hex');
 
     let sql= `UPDATE ${userRole} SET password= "${hashPassword}" WHERE domain='${req.hostname}' AND  email="${username}"`
     sqlmap.query(sql, (err, next)=>{

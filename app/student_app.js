@@ -8,43 +8,36 @@ var regexPassword= /^[a-zA-Z0-9!@#$%&*]*$/
 var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/ 
 
 
-
-const multer_location= multer.diskStorage({
-  destination: (req, file, cb)=>{
-   cb(null, "./public/image/")
-  } ,
-
-  filename: (req, file, cb)=>{
-
-    cb(null, new Date().getTime()+"_"+file.originalname)
+const multer_location = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, "./public/image/student/")
   },
-  
+
+  filename: (req, file, cb) => {
+
+      cb(null, new Date().getTime() + "_" + file.originalname)
+  },
+
 })
-
-
-
 
 exports.multer_upload_student= multer({
   storage: multer_location,
 
-  limits: {fileSize: 1024*1024},
-  fileFilter: (req, file, cb)=>{
+  limits: { fileSize: 1024 * 1024 * 2 },
+  fileFilter: (req, file, cb) => {
+      if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
+          cb(null, true)
+      }
+      else {
+          cb(new Error("file extension allow only png or jpeg"))
+      }
 
-    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg")
-    {
-      cb(null, true)
-    } 
-    else 
-    {
-        cb(new Error("file extension allow only png or jpeg"))
-    }
-    
   }
 
 })
 
 
-exports.student_student_info= (req, res)=>{
+exports.teacher_student_info= (req, res)=>{
   const {ID}= req.body;
   sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  ID='${ID}'`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
@@ -59,87 +52,6 @@ exports.student_student_info= (req, res)=>{
 }
 
 
-
-exports.admin_student_join= async (req, res)=>{
-
-  let {religion,  telephone, classNameX,  student_id, roll, name, fname, mname, gender, address, bloodGroup, password, birthDate}= req.body;
-  student_id==undefined? student_id= Math.floor(Math.random()*900000) : student_id=student_id;
-  let tempData= classNameX.split(' $%& ');
-  var className= tempData[0];
-  var sectionName= tempData[1];
-  var email = student_id+'@abc.com';
-  var session= new Date().getUTCFullYear();
-
-  const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
-
-
-  if(req.file) var avatarName= req.file.filename;
-   else if(gender=="Male") var avatarName= "male_avatar.png"
-    else avatarName= "female_avatar.png";
-
-
-  sqlmap.query(`SELECT  student_id, roll FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND (student_id="${student_id}" OR roll=${roll})`, (err_, info_)=>{
- 
-   if(err_) console.log(err_.sqlMessage);
-
-   else 
-   {
-  if(info_.length>0) res.send({msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger"})
-   else  
-  {
-
-  sqlmap.query(`INSERT INTO students (domain, session, religion, name, email, telephone, student_id, roll, class, section, father_name, mother_name, gender, address, blood_group, birth_date, password, avatar)
-  VALUES ('${req.hostname}',${session}, "${religion}", "${name}","${email}", "${telephone}", "${student_id}", ${roll}, "${className}", "${sectionName}", "${fname}", "${mname}", "${gender}", "${address}", "${bloodGroup}", 
-  "${birthDate}", "${hashPassword}", "${avatarName}")`, (err_sub, info_sub)=>{
-
-    if(err_sub) {console.log(err_sub.sqlMessage); res.send({msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger"});}
-
-
-        else res.send({msg: "Student Join Successfully!", alert: "alert-success text-success"})
-
-  })
-
-    }
-   }
-
-   
-  })
-
-  if(req.file){
-    
-    if(req.file.size<524288){
-
-      await sharp(req.file.path)
-       .jpeg({ quality: 50 })
-       .toFile(
-           path.resolve(path.resolve(req.file.destination, 'student', avatarName))
-       )
-
-  fs.unlinkSync(req.file.path)
-  
-    
-      }
-  
-    
-    else {
-      await sharp(req.file.path)
-      .jpeg({ quality: 20 })
-      .toFile(
-        path.resolve(path.resolve(req.file.destination, 'student', avatarName))
-        )
-    
-      fs.unlinkSync(req.file.path)
-    
-      
-        }
-  }
-
-
-}
-
-
-
-
 exports.admin_student_join_quick= (req, res)=>{
 
   const {classNameX, roll, name, gender}= req.body;
@@ -147,6 +59,7 @@ exports.admin_student_join_quick= (req, res)=>{
   const className= tempData[0];
   const sectionName= tempData[1];
   const session= new Date().getUTCFullYear();
+  const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
 
 
  var message= [];
@@ -170,7 +83,7 @@ for (let index = 0; index < name.length; index++) {
  
    sqlmap.query(`INSERT INTO students (domain, session, name, email, student_id, roll, class, section, gender, password, avatar)
    VALUES ('${req.hostname}', ${session}, "${name[index]}","${student_id+'@abc.com'}", "${student_id}", '${roll[index]}', "${className}", "${sectionName}","${gender[index]}", 
-  "password", "${avatarName}")`, (err_sub, info_sub)=>{
+  '${hashPassword}', "${avatarName}")`, (err_sub, info_sub)=>{
  
      if(err_sub) {console.log(err_sub.sqlMessage); res.send({msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger"});}
  
@@ -197,325 +110,77 @@ res.redirect('/admin/student/page')
 
 
 
+exports.admin_student_post= async(req, res)=>{
+  var uuid= createHmac('md5', 'pipilikapipra').update(new Date().toLocaleString()).digest('hex').toUpperCase()
+  var {classNameX, name, roll, gender, fname, mname, emailx,  birth_date, blood_group, religion, phone, address, admission_date}= req.body;
+  const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
+  const domain= req.hostname;
+  var student_id= Math.floor(Math.random()*900000);
+  let tempData= classNameX.split(' $%& ');
+  var className= tempData[0];
+  var sectionName= tempData[1];
+  if(emailx==undefined) var email= student_id+'@abc.com'; else var email= emailx;
+  var session= new Date().getUTCFullYear();
+  if(req.file){
+    var avatar_png= req.file.filename;
+
+   }
+
+   else {
+    if(gender=="Female") var avatar_png= "female_avatar.png"
+    else var avatar_png= "male_avatar.png"
+   }
 
 
 
-exports.admin_student_update_form = (req, res) => {
+   sqlmap.query(`SELECT ID FROM students WHERE domain='${domain}' AND class='${className}' AND section='${sectionName}' AND (student_id='${student_id}' OR email='${email}')`, 
+   (err_check, info_check)=>{
+    if(info_check.length>0){
+     
+      res.send({msg: 'Invalid information! student_id or roll already exists', alert: 'alert-danger'})
 
-  let ID= req.body.ID;
-
-  sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
-
-  let listData= `
-  <div class="row">
-    <div class="col-10 m-auto">
-            <center>
-              
-                <label>
-                    <img id="getImg" src="/image/student/${info[0].avatar}" width="200px" height="100px" alt="Tap & Select IMG" style="cursor: pointer;"> 
-                    <input  style="display: none" type="file" name="avatar" value='${info[0].avatar}' id="fileItem">
-                </label>
-                <br> <br>
-              <strong>Student Information</strong>
-            </center>     
-  
-            <input required type="hidden" name="ID" value="${info[0].ID}">
-
-  <p></p>
-           
-  
-            <div class=" input-group"> 
-                <span class=" input-group-text"><i class=" fa-solid fa-people-line"></i></span>
-  
-                
-                <select onclick='loopClass()' name="classBase" id="" class=" form-select form-self" required>
-  
-                <option selected value="${info[0].class}-${info[0].section}">${info[0].class} - ${info[0].section}</option>
-
-  
-                <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
-                <option class="status_Six_A" value="Six-A">ষষ্ঠ - ক</option>
-                <option class="status_Six_B" value="Six-B">ষষ্ঠ - খ</option>
-                <option class="status_Six_C" value="Six-C">ষষ্ঠ - গ</option>
-               </optgroup>
-      
-      
-                            
-               <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
-                <option class="status_Seven_A" value="Seven-A">সপ্তম - ক</option>
-                <option class="status_Seven_B" value="Seven-B">সপ্তম - খ</option>
-                <option class="status_Seven_C" value="Seven-C">সপ্তম - গ</option>
-               </optgroup>
-               
-      
-      
-               <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
-                <option class="status_Eight_A" value="Eight-A">অষ্টম - ক</option>
-                <option class="status_Eight_B" value="Eight-B">অষ্টম - খ</option>
-                <option class="status_Eight_C" value="Eight-C">অষ্টম - গ</option>
-               </optgroup>
-      
-                
-      
-                        
-                 <optgroup class="status_Nine" label="নবম শ্রেণী">
-                  <option class="status_Nine_A" value="Nine-A">নবম - ক</option>
-                  <option class="status_Nine_B" value="Nine-B">নবম - খ</option>
-                  <option class="status_Nine_c" value="Nine-C">নবম - গ</option>
-                 </optgroup>
-           
-                  <optgroup class="status_Ten" label="দশম শ্রেণী">
-                     <option class="status_Ten_A" value="Ten-A">দশম - ক</option>
-                     
-                     <option class="status_Ten_B" value="Ten-B">দশম - খ</option>
-                     <option class="status_Ten_C" value="Ten-C">দশম - গ</option>
-                    </optgroup>
-            
-                   
-                   </select>
-                 </div>
-  
-  <p></p>
-          
-            <div class=" input-group"> 
-                <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
-                <input disabled patternoff="^[0-9]*$" type="tel" placeholder="Student ID" name="student_id" value="${info[0].student_id}" class="form-control form-self" required>
-  
-                <div  class="valid-feedback"></div>
-                <div id="" class="invalid-feedback">Enter a valid student id</div>
-          
-            </div>
-        
-  
-            <p></p>
-  
-  
-        <div class=" input-group"> 
-            <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
-            <input disabled patternoff="^[0-9]*$" type="tel" placeholder="Student Roll" name="roll" value="${info[0].roll}" class="form-control form-self" required> 
-  
-                
-      <div  class="valid-feedback"></div>
-      <div id="" class="invalid-feedback">Enter a valid roll</div>
-  
-        </div>
-  
-        <p></p>
-  
-        <div class=" input-group"> 
-            <span class=" input-group-text"><i class=" fa fa-user"></i></span>
-            <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Student Name" name="name" value="${info[0].name}" class="form-control form-self" required>
-  
-            <div  class="valid-feedback"></div>
-            <div id="" class="invalid-feedback">Enter a valid name</div>
-           
-        </div>
-  
-        <p></p>
-  
-        
-        <div>
-          <label for="male"> <span class="btn btn-light shadow"><input ${info[0].gender=='Male'? 'checked': null} class="form-check-input " type="radio" id="male" value="Male" checked name="gender" > Male </span> </label> 
-          <label for="female">  <span class="btn btn-light shadow"><input ${info[0].gender=='Female'? 'checked': null} class="form-check-input " type="radio" value="Female" id="female"  name="gender" > Female </span> </label>
-        </div>
-
-
-  
-        <p></p>
-  
-  
-        <div class=" input-group"> 
-            <span class=" input-group-text"><i class=" fa fa-male"></i></span>
-            <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Father Name" name="fname" value="${info[0].father_name}" class="form-control form-self" >
-  
-            <div  class="valid-feedback"></div>
-            <div id="" class="invalid-feedback">Enter a valid name</div>
-  
-        </div>
-  
-        <p></p>
-  
-  
-        <div class=" input-group"> 
-            <span class=" input-group-text"><i class=" fa fa-female"></i></span>
-            <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Mother Name" name="mname" value="${info[0].mother_name}" class="form-control form-self" >
-  
-            <div  class="valid-feedback"></div>
-            <div id="" class="invalid-feedback">Enter a valid name</div>
-  
-        </div>
-  
-        <p></p>
-  
-  
-  
-        <div class=" input-group"> 
-            <span class=" input-group-text"><i class="fa-sharp fa-solid fa-at"></i></span>
-            <input disabled type="email" placeholder="enter email" name="email" value="${info[0].email}" class="form-control form-self" required> 
-        </div>
-        
-        
-        <p></p>
-  
-  
-          
-    <div class=" input-group">
-  
-      <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-contact-48.png" alt=""></span>
-    
-    
-      <input patternoff="^01[0-9]*$" maxlength="11" type="tel" placeholder="01XXXXXXXX" value="${info[0].telephone}" name="telephone"  class="form-self form-control form-self" >  
-      <div  class="valid-feedback"></div>
-      <div id="" class="invalid-feedback">Enter contact number</div>
-    
-    </div>
-  
-      <p></p>
-  
-  
-        
-        <div class=" input-group"> 
-            <span class=" input-group-text"><i class="fa-sharp fa-solid fa-location-dot"></i></span>
-            <input type="text" placeholder="Gunbaha, Boalmari-Faridpur" name="address" value="${info[0].address}" class="form-control form-self" > 
-  
-            <div  class="valid-feedback"></div>
-            <div id="" class="invalid-feedback">Required address</div>
-      
-        </div>
-  
-        <p></p>
-  
-  
-  
-        <div class="input-group">
-            <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-praying-man-48.png" alt=""></span>
-          <select class="form-self form-select form-self" name="religion" id="" >
-          
-            <option disabled  value="">Select Religion</option>
-            <option value="Islam">Islam</option>
-            <option value="Hinduism">Hinduism</option>
-            <option value="Christianity">Christianity</option>
-            <option value="Buddhism">Buddhism</option>
-        <option value="Others">Others</option>
-
-        <option selected value="${info[0].religion}">${info[0].religion}</option>
-
-      </select>
-          
-          
-          </div>
-  
-          <p></p>
-  
-        
-     <div class="input-group">
-  
-        <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-blood-48.png" alt=""></span>
-  
-      <select name="bloodGroup" class="form-select form-self" id="" >
-        <option  disabled value="">Select Blood Group</option>
-  
-        <optgroup label="Positive"> 
-      
-          <option  value="A+ve">A+ve</option>
-          <option value="B+ve">B+ve</option>
-          <option value="O+ve">O+ve</option>
-          <option value="AB+ve">AB+ve</option>
-      
-          </optgroup> 
-          
-          <optgroup label="Negative"> 
-          <option  value="A-ve">A-ve</option>
-          <option value="B-ve">B-ve</option>
-          <option value="O-ve">O-ve</option>
-          <option value="AB-ve">AB-ve</option>
-      
-          </optgroup>
-      
-          <option selected value="${info[0].blood_group}">${info[0].blood_group}</option>
-
-      
-      </select>
-     </div>
-          
-  
-     <p></p>
-  
-  
-          <div class=" input-group">
-            <span class=" input-group-text"><i class="fa-sharp fa-solid fa-lock"></i></span>
-            <input id="password" type="password" placeholder="temp password" name="password" value="password" class="form-control form-self" required>
-            <span id="eye-hide" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye-slash"></i></span>
-            <span style="display: none;" id="eye-show" class="btn input-group-text"><i class="fa-sharp fa-solid fa-eye"></i></span>
-  
-  
-        </div>
-  
-        <p></p>
-  
-          
-        <div class=" input-group"> 
-            <span class=" input-group-text"><i class="fa-sharp fa-solid fa-birthday-cake"></i></span>
-            <input type="date"  name="birthDate"  value="${info[0].birth_date}" class=" form-control form-self" >
-        </div>
-  
-        
-        <p></p>
-  
-        
-        <center>
-          <button id="submitupdatebtn" class=" btn bg-secondary text-light fw-bold w-50 btn-dev rounded">Save & Changes</button>
-        </center>
-  
-        
-  
-        <p></p>
-    </div>
-  </div>
-  
-  `
-
-    res.send({listData})
-
-  })
-
-
-}
-
-
-
-
-
-
-exports.admin_student_update_post= (req, res)=>{
-
-  let {ID, religion, avatar, telephone, classBase,  student_id, roll, name, fname, mname, gender, address, bloodGroup, password, birthDate}= req.body;
- 
-  let tempClass= classBase.split("-");
-  let className= tempClass[0]
-  let sectionName= tempClass[1]
-
-  if(req.files.length>0) var avatarName= req.files[0].filename;
-   else if(gender=="Male") var avatarName= "male_avatar.png"
-    else avatarName= "female_avatar.png";
-
-
- 
-   sqlmap.query(`
-    UPDATE students SET religion= "${religion}", name="${name}",  telephone="${telephone}", 
-    class="${className}", section="${sectionName}", father_name="${fname}", 
-   mother_name="${mname}", gender="${gender}", address="${address}", blood_group="${bloodGroup}", 
-   birth_date="${birthDate}",  avatar="${avatarName}" WHERE domain='${req.hostname}' AND  ID=${ID}`, (err_sub, info_sub)=>{
- 
-     if(err_sub) console.log(err_sub.sqlMessage);
- 
- 
-         else res.send({msg: "Student Update Successfully!", alert: "alert-success text-success"})
- 
+    } else {
+      join_student_def()
+    }
    })
- 
 
+
+  async function join_student_def(){
+    if(req.file){
+      if(req.file.size<1048576){
+          const { filename: image } = req.file;
+    
+        await sharp(req.file.path)
+        .jpeg({ quality: 50 })
+        .toFile(
+            path.resolve(path.resolve(req.file.destination, 'resized',image))
+        )
+        fs.unlinkSync(req.file.path)
+    
+        }
+    
+        else {
+    
+          
+          await sharp(req.file.path)
+          .jpeg({ quality: 50 })
+          .toFile(
+              path.resolve(path.resolve(req.file.destination, 'resized', image))
+          )
+    
+      fs.unlinkSync(req.file.path)
+        
+          }
+   }
+
+    sqlmap.query(`INSERT INTO students (domain, uuid, session, class, section, name, roll, gender, father_name, mother_name, birth_date, blood_group,
+     religion, email, phone, address, admission_date, password, avatar )
+    VALUES('${req.hostname}', '${uuid}', '${session}', '${className}', '${section}', '${name}','${roll}', '${gender}', '${fname}', '${mname}', '${birth_date}', '${blood_group}',
+     '${religion}', '${email}', '${phone}', '${address}', '${admission_date}', '${hashPassword}', '${avatar_png}')`, (err, next)=>{
+        if(err) console.log(err.sqlMessage);
+        else   res.send({msg: 'Student join successfully!', alert: 'success'})
+    })
+   }
 
 
 
@@ -523,145 +188,321 @@ exports.admin_student_update_post= (req, res)=>{
 }
 
 
+exports.admin_student_get=(req, res)=>{
+  const {class_name, section_name, limit}=req.body;
+  sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}'  ORDER BY roll LIMIT ${limit}`, (err, info)=>{
+      if(err) console.log(err.sqlMessage);
+      else {
+          var tabledata= '';
+          for (let index = 0; index < info.length; index++) {
+            
+              tabledata+=`
 
-
-
-exports.admin_student_get= (req, res)=>{
-
-  let {className, sectionName}= req.body;
-
-  sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' ORDER BY roll`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
-
-    else 
-    {
-      let list= '';
-
-      for (let i = 0; i < info.length; i++) {
+              <tr>
+                      <td class="p-3"> 
+                      <input class="shadowx checkout form-check-input" type="checkbox" value="${info[index].ID}" name="dataid[]" id=""></td>
+                      <td class="">
+                      <span class="badge text-dark bg-light">
+                        <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/image/teacher/resized/${info[index].avatar}" alt="">
+                        </span>
+                        <span class="badge text-dark bg-light">${info[index].name}</span>
+                      </td>
       
-        list += `
-        
-       <tr>
-       <td><span class='badge text-dark bg-light'>${info[i].roll}</span></td>
-       <td><span class='badge text-dark bg-light'>${info[i].name}</span></td>
-       <td><span class='badge text-dark bg-light'> 
-       <img data-id="${info[i].ID}" title='See more...' class="modal-trigger-trigger" style='cursor: pointer'  src="/image/student/${info[i].avatar}" alt="404" width="30px" >
-       </span></td>
+                      <td class="">
+                      <span class="badge text-dark bg-light">${info[index].roll}</span>
+                      </td>
       
+                      <td class="fw-semibold text-muted">
+                        <div class="dropdown">
+                          <button data-bs-toggle="dropdown" class="btn btn-link dropdown-toggle shadowx"> <i
+                              class="bi bi-three-dots-vertical"></i></button>
+                          <div class="dropdown-menu">
+                            <button type='button' onclick='_penbox_pull(${info[index].ID})' class="btn  dropdown-item btn-link p-2"><i class="bi bi-pen p-1"></i>view and edit</button>
+                            <button type='button' onclick='_delbox_push(${info[index].ID})' class="btn dropdown-item btn-link p-2"><i class="bi bi-trash p-1"></i>delete forever</button>
+                          </div>
+                        </div>
+                      </td>
       
-       <td><input type="checkbox" name="ID[]" id="" value="${info[i].ID}"></td>
-       <td><span data-id="${info[i].ID}"  class="btn editDef"> <i class="fa-solid fa-pen"></i> </span> </td>
+                    </tr>
+               
+                 
+              `     
+
+          }
+             res.send({tabledata})
+
+      }
+  })
+}
+
+
+exports.admin_student_penbox_pull=(req, res)=>{
+  const {dataid}= req.body; 
+  sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  ID=${dataid}`, (err, info)=>{
+      if(err) console.log(err.sqlMessage);
+      else {
+
+var penboxdata=
+`
+<div id="penboxform" data-bs-backdrop="static" class="row modal  p-2 mt-5">
+
+<div class="  modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+
+<form id="penboxdata" class="penboxdata" method="post" action="#" onsubmit="return false">
+<div class=" card shadowx">
+ 
   
-      </tr>
+   <div class='p-2 bg-card-color-light d-flex justify-content-center'>
+   <img style="width: 100px; height: 100px" class="avatar-circle bg-card-color shadowx" src="/image/teacher/resized/${info[0].avatar}" alt="">
 
-        `
+   </div>
+
+  <div class="card-body fw-semibold">
+  
+  <div class="d-flex text-muted m-2">
+  <div class="p-1 w-25">Class & Section 
+  </div>
+  <code class='pe-1'>*</code>
+  
+  <select required name="classNameX" class="form-dev w-75 p-1 ">
+           
+  <option value="" selected disabled>শ্রেণী নির্বাচন করুন</option>
+
+  <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
+    <option class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
+    <option class="status_Six_B" value="Six $%& B">ষষ্ঠ - খ</option>
+    <option class="status_Six_C" value="Six $%& C">ষষ্ঠ - গ</option>
+   </optgroup>
+
+
+                
+   <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
+    <option class="status_Seven_A" value="Seven $%& A">সপ্তম - ক</option>
+    <option class="status_Seven_B" value="Seven $%& B">সপ্তম - খ</option>
+    <option class="status_Seven_C" value="Seven $%& C">সপ্তম - গ</option>
+   </optgroup>
+   
+
+
+   <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
+    <option class="status_Eight_A" value="Eight $%& A">অষ্টম - ক</option>
+    <option class="status_Eight_B" value="Eight $%& B">অষ্টম - খ</option>
+    <option class="status_Eight_C" value="Eight $%& C">অষ্টম - গ</option>
+   </optgroup>
+
+    
+
+            
+     <optgroup class="status_Nine" label="নবম শ্রেণী">
+      <option class="status_Nine_A" value="Nine $%& A">নবম - ক</option>
+      <option class="status_Nine_B" value="Nine $%& B">নবম - খ</option>
+      <option class="status_Nine_c" value="Nine $%& C">নবম - গ</option>
+     </optgroup>
+
+      <optgroup class="status_Ten" label="দশম শ্রেণী">
+         <option class="status_Ten_A" value="Ten $%& A">দশম - ক</option>
+         
+         <option class="status_Ten_B" value="Ten $%& B">দশম - খ</option>
+         <option class="status_Ten_C" value="Ten $%& C">দশম - গ</option>
+        </optgroup>
+
+
+    
+ 
+ </select>
+ </div>
+
+
+    <div class="d-flex text-muted m-2">
+       <div class="p-1 w-25">Name </div>
+       <code class='pe-1'>*</code>  <input class="form-dev w-75 p-1" required type="text" value="${info[0].name}" placeholder="enter name" name="name" id="">
+      </div>
+
+
+      <div class="d-flex p-2 justify-content-between align-items-center">
+      <p class="w-25 fw-semibold m-auto">Gender </p>
+      <code class='pe-1'>*</code> <span class="w-75">
+        Male <input value="Male" class="form-check-input shadowx ms-2 me-2" ${info[0].gender=='Male'?'checked':null} type="radio" name="gender" id="">
+        Female <input value="Female" class="form-check-input shadowx ms-2" ${info[0].gender=='Female'?'checked':null} type="radio" name="gender" id="">
+    
+      </span>
+    
+    </div>
+
+      
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Father name</div>
+      <code class='pe-1'>-</code>
+       <input class="form-dev w-75 p-1" type="text" value="${info[0].father_name}" placeholder="enter father name" name="fname" id="">
+     </div>
+      
+       
+     <div class="d-flex text-muted m-2">
+     <div class="p-1 w-25">Mother name</div>
+     <code class='pe-1'>-</code>
+      <input  class="form-dev w-75 p-1" type="text" value="${info[0].mother_name}" placeholder="enter mother name" name="mname" id="">
+    </div>
+
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Email</div>
+      <code class='pe-1'>*</code>
+        <input required class="form-dev w-75 p-1"  type="email" value="${info[0].email}" placeholder="example@mail.com" name="email" id="">
+     </div>
+
+
+
+
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Phone</div>
+      <code class='pe-1'>-</code>
+        <input class="form-dev w-75 p-1"  type="phone" value="${info[0].phone}" placeholder="enter phone no" name="phone" id="">
+     </div>
+
+
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Birth date</div>
+      <code class='pe-1'>-</code>
+        <input class="form-dev w-75 p-1" type="date" value="${info[0].birth_date}" placeholder="enter date of birth" name="birth_date" id="">
+     </div>  
+
+     
+     
+    <div class="d-flex text-muted m-2">
+    <div class="p-1 w-25">Blood group</div>
+    <code class='pe-1'>-</code>
+     <input class="form-dev w-75 p-1" type="text" value="${info[0].blood_group}" placeholder="enter blood group" name="blood_group" id="">
+   </div>  
+   
+     
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Religion</div>
+      <code class='pe-1'>-</code>
+       <input class="form-dev w-75 p-1" type="text" value="${info[0].religion}" placeholder="enter religion" name="religion" id="">
+     </div>
+
+
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Address</div>
+      <code class='pe-1'>-</code>
+      <input class="form-dev w-75 p-1" type="text" value="${info[0].address}" placeholder="enter address" name="address" id="">
+     </div>
+
+
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Admission date</div>
+      <code class='pe-1'>-</code>
+         <input class="form-dev w-75 p-1"  type="date" value="${info[0].admission_date}"  name="admission_date" id="">
+     </div>
+
+           
+    <div class="d-flex justify-content-between text-muted m-2">
+    <button type="button" data-bs-dismiss="modal" class="btn btn-link ">Close</button>
+
+     <input  class="btn  text-primary submitbtn nav-fill btn-hover shadowx"  type="submit" value="Save and changes" id="">
+
+   </div>
+
+
+</div>
+</div>
+</form>
+</div>
+</div>
+`
+res.send({penboxdata})
+
+      }
+  })
+}
+
+
+
+exports.admin_student_penbox_push=(req, res)=>{
+  const {dataid, classNameX, name, roll, gender, fname, mname,  birth_date, blood_group, religion, phone, email, address, admission_date}= req.body;
+  const domain= req.hostname;
+  let tempData= classNameX.split(' $%& ');
+  var className= tempData[0];
+  var sectionName= tempData[1];
+  sqlmap.query(`SELECT ID FROM students WHERE domain='${domain}' AND class='${className}' AND section='${sectionName}' AND ( email='${email}' OR phone='${phone}')`, 
+  (err_check, info_check)=>{
+    if(info_check.length==0){
+
+      update_student_def()
 
     }
+  else if(info_check.length==1 && info_check[0].ID==dataid){
+      update_student_def()
+   }
+    else {
 
+     res.send({msg: 'Invalid information! phone or email already exists', alert: 'alert-danger'})
+   }
+  })
 
-    res.send({list})
-
-  }
-
-
-})
-
-
-}
-
-
-
-
-
-
-
-exports.admin_student_get_class_base= (req, res)=>{
-
- 
-
-  let {className, sectionName}=  req.body;
-
-  sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' ORDER BY roll`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
-
-    else 
-    {
-      let list= '';
-
-      for (let i = 0; i < info.length; i++) {
-      
-        list += `
-        
-       <tr>
-       <td><span class='badge text-dark bg-light'>${info[i].roll}</span></td>
-       <td><span class='badge text-dark bg-light'>${info[i].name}</span></td>
-       <td><span class='badge text-dark bg-light'> 
-       <img data-id="${info[i].ID}" class="modal-trigger-trigger" style='cursor: pointer'  src="/image/student/${info[i].avatar}" alt="404" width="30px" >
-       </span></td>
-      
-      
-       <td><input type="checkbox" name="ID[]" id="" value="${info[i].ID}"></td>
-       <td><span data-id="${info[i].ID}"  class="btn editDef"> <i class="fa-solid fa-pen"></i> </span> </td>
-      </tr>
-
-        `
-
-    }
-
-
-    res.send({list})
-
-  }
-
-
-})
-
+function update_student_def(){
+  sqlmap.query(`UPDATE students SET class='${className}', '${sectionName}', name='${name}', roll='${roll}', gender='${gender}',
+  father_name='${fname}', mother_name='${mname}', birth_date='${birth_date}', blood_group='${blood_group}', religion='${religion}', email='${email}', phone='${phone}', address='${address}', admission_date='${admission_date}'
+  WHERE domain='${req.hostname}' AND ID='${dataid}'`,
+  (err, update)=>{
+      if(err) console.log(err.sqlMessage);
+      else res.send({alert: 'alert-success', msg: 'Update successfully!'})
+  })
+ }
   
-
-
- 
 }
 
 
 
 
+exports.admin_student_rm= (req, res)=>{
 
-exports.admin_student_import_quick= (req, res)=>{
+  const {dataid}= req.body; 
 
-
+if(dataid==undefined){
+    res.send({msg: "Data not found!", alert: "alert-info"})
 
 }
-
-
-
-
-
-exports.admin_student_delete= (req, res)=>{
-
-
-  let ID=  req.body.ID;
-
-
- if(ID==undefined) res.send({msg: "Pls select before delete!", alert: "alert-danger text-danger"})
- else 
- {
-   let sql= `DELETE FROM students WHERE domain='${req.hostname}' AND  ID IN (${ID.toString()})`
-  sqlmap.query(sql, (err, next)=>{
- 
-   if(err) console.log(err.sqlMessage);
-   else res.send({msg: "Deleted! Successfully", alert: "alert-danger text-danger"})
+else {
+  sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
+      if(errInfo) console.log("data not found!")
+      
+      else {
+  
+          
+  sqlmap.query(`DELETE FROM students WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
+      if(err) console.log(err.sqlMessage);
+      else
+      {
+  
+         for (const index in findInfo) {
+          fs.unlink(`./public/image/student/resized/${findInfo[index].avatar}`, function (errDelete) {
+              if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
+  
+              
+            
+            });
+         }
+  
+         res.send({msg: "Data Deleted! Successfully!", alert: "alert-success"})
+          
+      }
   })
   
- }
-
- 
+      }
+  
+  })
 }
 
 
 
 
-
-
+}
 
 
 
@@ -745,8 +586,8 @@ exports.self_password_update= (req, res)=>{
 
   const { password, pastPassword}= req.body;
   const email= req.session.userEmail
-  const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
-  const oldPassword= createHmac('md5', 'pipilikapipra').update(email+pastPassword).digest('hex');
+  const hashPassword= createHmac('md5', 'pipilikapipra').update(password).digest('hex');
+  const oldPassword= createHmac('md5', 'pipilikapipra').update(pastPassword).digest('hex');
 
    sqlmap.query(`SELECT password FROM students WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (errPass, infoPass)=>{
 
@@ -1184,7 +1025,7 @@ exports.public_student_pagination= (req, res)=>{
          <center>
         <div class="bg-card-color pt-3  pb-3 rounded-top-5 rounded-start-5">
             <div class="card-image">
-                <img class="avatar-circle" src="/image/student/${info[0].avatar}" alt="">
+                <img class="avatar-circle" src="/image/student/resized/${info[0].avatar}" alt="">
             </div>
         </div>
       </center>

@@ -1,46 +1,41 @@
 const {app, express, sqlmap, session, nodemailer, multer, createHmac, path, fs}= require("../server")
 const sharp= require("sharp")
-const multer_location= multer.diskStorage({
-  destination: (req, file, cb)=>{
-   cb(null, "./public/image/")
-  } ,
 
-  filename: (req, file, cb)=>{
-
-    cb(null, new Date().getTime()+"_"+file.originalname)
+const multer_location = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, "./public/image/teacher/")
   },
-  
+
+  filename: (req, file, cb) => {
+
+      cb(null, new Date().getTime() + "_" + file.originalname)
+  },
+
 })
 
 exports.multer_upload_teacher= multer({
   storage: multer_location,
 
-  limits: {fileSize: 1024*1024},
-  fileFilter: (req, file, cb)=>{
+  limits: { fileSize: 1024 * 1024 * 2 },
+  fileFilter: (req, file, cb) => {
+      if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
+          cb(null, true)
+      }
+      else {
+          cb(new Error("file extension allow only png or jpeg"))
+      }
 
-    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg")
-    {
-      cb(null, true)
-    } 
-    else 
-    {
-        cb(new Error("file extension allow only png or jpeg"))
-    }
-    
   }
 
 })
 
 
 
-
-exports.admin_teacher_join= async (req, res)=>{
-
-  let {religion, name, email,  gender, pdsId, index_number, position, groupSpecial,  telephone, password,  joiningDate, bloodGroup}= req.body;
-   if(pdsId==undefined || pdsId=='') var pdsId_= Math.floor(Math.random()*900000); else var pdsId_=  pdsId
-   if(index_number==undefined || index_number=='') var index_number_= 'N'+Math.floor(Math.random()*900000); else var index_number_=  index_number;
-   const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
-
+exports.admin_teacher_post= async(req, res)=>{
+  var uuid= createHmac('md5', 'pipilikapipra').update(new Date().toLocaleString()).digest('hex').toUpperCase()
+  const {name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date}= req.body;
+  const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
+  const domain= req.hostname;
   if(req.file){
     var avatar_png= req.file.filename;
 
@@ -53,93 +48,325 @@ exports.admin_teacher_join= async (req, res)=>{
 
 
 
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  email="${email}" OR index_number="${index_number}" OR index_number="${index_number_}"`, (err_, info_)=>{
- 
-   if(err_) console.log(err_.sqlMessage);
-
-   else 
-   {
-    if(info_.length>0) res.send({msg: "Email or PDSID or index_number. Already Joined!", alert: "alert-danger text-danger"})
-   else  
-  {
-
-  let sql= `INSERT INTO teachers (domain, religion, name, gender, pds_id, index_number, position, group_special,  telephone, email, password, joining_date, avatar) 
-  VALUES 
-  ('${req.hostname}', "${religion}", "${name}", "${gender}", "${pdsId_}", "${index_number_}", "${position}", "${groupSpecial}", "${telephone}", "${email}", "${hashPassword}", "${joiningDate}",  "${avatar_png}")`
-
-  sqlmap.query(sql, (err_sub, info_sub)=>{
-
-    if(err_sub) console.log(err_sub.sqlMessage+ "Insert");
-
- 
-     else res.send({msg: "Teacher Join Successfully!", alert: "alert-success text-success"})
+   sqlmap.query(`SELECT ID FROM teachers WHERE domain='${domain}' AND (index_number='${index_number}' OR email='${email}' OR phone='${phone}')`, 
+   (err_check, info_check)=>{
+    if(info_check.length>0){
      
-    
-  })
+      res.send({msg: 'Invalid information! index_number or phone or email already exists', alert: 'alert-danger'})
 
+    } else {
+      join_teacher_def()
     }
+   })
+
+
+  async function join_teacher_def(){
+    if(req.file){
+      if(req.file.size<1048576){
+          const { filename: image } = req.file;
+    
+        await sharp(req.file.path)
+        .jpeg({ quality: 50 })
+        .toFile(
+            path.resolve(path.resolve(req.file.destination, 'resized',image))
+        )
+        fs.unlinkSync(req.file.path)
+    
+        }
+    
+        else {
+    
+          
+          await sharp(req.file.path)
+          .jpeg({ quality: 50 })
+          .toFile(
+              path.resolve(path.resolve(req.file.destination, 'resized', image))
+          )
+    
+      fs.unlinkSync(req.file.path)
+        
+          }
    }
 
+    sqlmap.query(`INSERT INTO teachers (domain, uuid, name, position, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar )
+    VALUES('${req.hostname}', '${uuid}', '${name}','${position}', '${gender}', '${index_number}', '${pds_id}', '${birth_date}', '${blood_group}',
+    '${religion}', '${email}', '${phone}', '${address}', '${joining_date}', '${hashPassword}', '${avatar_png}')`, (err, next)=>{
+        if(err) console.log(err.sqlMessage);
+        else   res.send({msg: 'Teacher join successfully!', alert: 'success'})
+    })
+   }
+
+
+
+
+}
+
+
+exports.admin_teacher_get=(req, res)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
+      if(err) console.log(err.sqlMessage);
+      else {
+          var tabledata= '';
+          for (let index = 0; index < info.length; index++) {
+            
+              tabledata+=`
+
+              <tr>
+                      <td class="p-3"> 
+                      <input class="shadowx checkout form-check-input" type="checkbox" value="${info[index].ID}" name="dataid[]" id=""></td>
+                      <td class="">
+                      <span class="badge text-dark bg-light">
+                        <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/image/teacher/resized/${info[index].avatar}" alt="">
+                        </span>
+                        <span class="badge text-dark bg-light">${info[index].name}</span>
+                      </td>
+      
+                      <td class="">
+                      <span class="badge text-dark bg-light">${info[index].position}</span>
+                      </td>
+      
+                      <td class="fw-semibold text-muted">
+                        <div class="dropdown">
+                          <button data-bs-toggle="dropdown" class="btn btn-link dropdown-toggle shadowx"> <i
+                              class="bi bi-three-dots-vertical"></i></button>
+                          <div class="dropdown-menu">
+                            <button type='button' onclick='_penbox_pull(${info[index].ID})' class="btn  dropdown-item btn-link p-2"><i class="bi bi-pen p-1"></i>view and edit</button>
+                            <button type='button' onclick='_delbox_push(${info[index].ID})' class="btn dropdown-item btn-link p-2"><i class="bi bi-trash p-1"></i>delete forever</button>
+                          </div>
+                        </div>
+                      </td>
+      
+                    </tr>
+               
+                 
+              `     
+
+          }
+             res.send({tabledata})
+
+      }
+  })
+}
+
+
+exports.admin_teacher_penbox_pull=(req, res)=>{
+  const {dataid}= req.body; 
+  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  ID=${dataid}`, (err, info)=>{
+      if(err) console.log(err.sqlMessage);
+      else {
+
+var penboxdata=
+html`
+<div id="penboxform" data-bs-backdrop="static" class="row modal  p-2 mt-5">
+
+<div class="  modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+
+<form id="penboxdata" class="penboxdata" method="post" action="#" onsubmit="return false">
+<div class=" card shadowx">
+ 
+  
+   <div class='p-2 bg-card-color-light d-flex justify-content-center'>
+   <img style="width: 100px; height: 100px" class="avatar-circle bg-card-color shadowx" src="/image/teacher/resized/${info[0].avatar}" alt="">
+
+   </div>
+
+  <div class="card-body fw-semibold">
+  
+  <div class="d-flex text-muted m-2">
+  <input required type="hidden" name="dataid" value='${info[0].ID}'>
+     <div class="p-1 w-25">Position</div>
+     <code class='pe-1'>*</code>
+       <input class="form-dev w-75 p-1" required type="text" value="${info[0].position}" placeholder="Gateman" name="position" id="">
+    </div>
+
+    <div class="d-flex text-muted m-2">
+       <div class="p-1 w-25">Name </div>
+       <code class='pe-1'>*</code>
+        <input class="form-dev w-75 p-1" required type="text" value="${info[0].name}" placeholder="enter name" name="name" id="">
+      </div>
+
+
+      <div class="d-flex p-2 justify-content-between align-items-center">
+      <p class="w-25 fw-semibold m-auto">Gender </p>
+      <code class='pe-1'>*</code> <span class="w-75">
+        Male <input value="Male" class="form-check-input shadowx ms-2 me-2" ${info[0].gender=='Male'?'checked':null} type="radio" name="gender" id="">
+        Female <input value="Female" class="form-check-input shadowx ms-2" ${info[0].gender=='Female'?'checked':null} type="radio" name="gender" id="">
+    
+      </span>
+    
+    </div>
+
+      
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Index No </div>
+      <code class='pe-1'>*</code>
+        <input required class="form-dev w-75 p-1" type="text" value="${info[0].index_number}" placeholder="enter index no" name="index_number" id="">
+     </div>
+      
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">PDSID No</div>
+      <code class='pe-1'>-</code>
+          <input class="form-dev w-75 p-1" type="number" value="${info[0].pds_id}" placeholder="enter pdsid no" name="pds_id" id="">
+     </div>
+
+
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Email</div>
+      <code class='pe-1'>*</code>
+       <input required class="form-dev w-75 p-1"  type="email" value="${info[0].email}" placeholder="example@mail.com" name="email" id="">
+     </div>
+
+
+
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Phone</div>
+      <code class='pe-1'>*</code>
+        <input required required class="form-dev w-75 p-1"  type="phone" value="${info[0].phone}" placeholder="enter phone no" name="phone" id="">
+     </div>
+
+
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Birth date</div>
+      <code class='pe-1'>-</code>
+       <input class="form-dev w-75 p-1" type="date" value="${info[0].birth_date}" placeholder="enter date of birth" name="birth_date" id="">
+     </div>  
+
+     
+     
+    <div class="d-flex text-muted m-2">
+    <div class="p-1 w-25">Blood group</div>
+    <code class='pe-1'>-</code>
+     <input class="form-dev w-75 p-1" type="text" value="${info[0].blood_group}" placeholder="enter blood group" name="blood_group" id="">
+   </div>  
    
+     
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Religion</div>
+      <code class='pe-1'>-</code>
+       <input class="form-dev w-75 p-1" type="text" value="${info[0].religion}" placeholder="enter religion" name="religion" id="">
+     </div>
+
+
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Address</div>
+      <code class='pe-1'>*</code>
+        <input class="form-dev w-75 p-1" type="text" value="${info[0].address}" placeholder="enter address" name="address" id="">
+     </div>
+
+
+     
+    <div class="d-flex text-muted m-2">
+      <div class="p-1 w-25">Joining date</div>
+      <code class='pe-1'>-</code>
+        <input class="form-dev w-75 p-1"  type="date" value="${info[0].joining_date}"  name="joining_date" id="">
+     </div>
+
+           
+    <div class="d-flex justify-content-between text-muted m-2">
+    <button type="button" data-bs-dismiss="modal" class="btn btn-link ">Close</button>
+
+     <input  class="btn  text-primary submitbtn nav-fill btn-hover shadowx"  type="submit" value="Save and changes" id="">
+
+   </div>
+
+
+</div>
+</div>
+</form>
+</div>
+</div>
+`
+res.send({penboxdata})
+
+      }
+  })
+}
+
+
+
+exports.admin_teacher_penbox_push=(req, res)=>{
+  const {dataid, name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date}= req.body;
+  const domain= req.hostname;
+
+  sqlmap.query(`SELECT ID FROM teachers WHERE domain='${domain}' AND (index_number='${index_number}' OR email='${email}' OR phone='${phone}')`, 
+  (err_check, info_check)=>{
+    if(info_check.length==0){
+
+      update_teacher_def()
+
+    }
+  else if(info_check.length==1 && info_check[0].ID==dataid){
+      update_teacher_def()
+   }
+    else {
+
+     res.send({msg: 'Invalid information! index_number or phone or email already exists', alert: 'alert-danger'})
+   }
   })
 
-
-  if(req.file){
-    
-   if(req.file.size<524288){
-
-    await sharp(req.file.path)
-     .jpeg({ quality: 50 })
-     .toFile(
-         path.resolve(path.resolve(req.file.destination, 'teacher', avatar_png))
-     )
-
-fs.unlinkSync(req.file.path)
-
+function update_teacher_def(){
+  sqlmap.query(`UPDATE teachers SET name='${name}', position='${position}', index_number='${index_number}',
+  gender='${gender}', birth_date='${birth_date}', pds_id='${pds_id}', blood_group='${blood_group}', religion='${religion}', email='${email}', phone='${phone}', address='${address}', joining_date='${joining_date}'
+  WHERE domain='${req.hostname}' AND ID='${dataid}'`,
+  (err, update)=>{
+      if(err) console.log(err.sqlMessage);
+      else res.send({alert: 'alert-success', msg: 'Update successfully!'})
+  })
+ }
   
-    }
-
-  
-  else {
-    await sharp(req.file.path)
-    .jpeg({ quality: 20 })
-    .toFile(
-      path.resolve(path.resolve(req.file.destination, 'teacher', avatar_png))
-      )
-  
-    fs.unlinkSync(req.file.path)
-  
-    
-      }
-  }
-
 }
 
 
 
 
+exports.admin_teacher_rm= (req, res)=>{
 
+  const {dataid}= req.body; 
 
+if(dataid==undefined){
+    res.send({msg: "Data not found!", alert: "alert-info"})
 
-exports.admin_teacher_config= (req, res)=>{
-
-
-  let {className, ID}= req.body;
-
-  let classNameData= className.toString().replaceAll(",", " $%& ");
-
-   sqlmap.query(`UPDATE teachers SET class="${classNameData}" WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, next)=>{
- 
-     if(err) console.log(err.sqlMessage);
-
-      else res.send({msg: "Teacher Config Successfully!", alert: "alert-success text-success"})
+}
+else {
+  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
+      if(errInfo) console.log("data not found!")
       
-       })
-
+      else {
   
-    }
-    
+          
+  sqlmap.query(`DELETE FROM teachers WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
+      if(err) console.log(err.sqlMessage);
+      else
+      {
+  
+         for (const index in findInfo) {
+          fs.unlink(`./public/image/teacher/resized/${findInfo[index].avatar}`, function (errDelete) {
+              if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
+  
+              
+            
+            });
+         }
+  
+         res.send({msg: "Data Deleted! Successfully!", alert: "alert-success"})
+          
+      }
+  })
+  
+      }
+  
+  })
+}
 
+
+
+
+}
 
 
 
@@ -187,207 +414,6 @@ exports.admin_config_subject= (req, res)=>{
 
   })
 }
-
-
-
-
-
-
-exports.admin_teacher_get= (req, res)=>{
-
-          sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
-     
-            if(info.length>0){
-
-              let list= "";
-              for (let i in info) {
-              list+= `    <div class="col-11 border col-md-4 mt-3 m-auto m-md-0 mt-md-3 ">
-              <span class=" alert-dark ms-3">
-              <span data-id="${info[i].ID}" onclick='_delbox_pull(${info[i].ID})' title="Delete" class="btn del_def "> <i class=" fa fa-trash"></i></span>
-              <span data-id="${info[i].ID}" title="Edit" class="btn edit_def "> <i class=" fa fa-edit"></i></span>
-     
-              </span>
-
-              <ul class="list-group list-unstyled">
-                                  
-                  
-                  <li class="list-group-item-secondary">
-                  <img class='rounded' width="100px" src="/image/teacher/${info[i].avatar}" alt="">
-                      <span class=" badge bg-light border text-dark">${info[i].name}</span>  <p></p>
-                      <span class=" badge bg-light border text-dark">${info[i].position}</span>  <p></p>
-                      <span class=" badge bg-light border text-dark">${info[i].email}</span>
-                  
-                  </li>
-          
-                       
-                  <li class="list-group-item-secondary">
-                      <span class=" badge bg-light border text-dark">Contact: ${info[i].telephone}</span>  <p></p>
-                      <span class=" badge bg-light border text-dark">PDSID: ${info[i].pds_id}</span>  <p></p>
-                      <span class=" badge bg-light border text-dark">index_number: ${info[i].index_number}</span>
-
-                     
-                  </li> 
-                
-
-                  
-                  <li class="list-group-item-secondary">
-                      <span class=" badge bg-light border text-dark">Birth Date: ${info[i].birth_date}</span>  <p></p>
-                     
-                      <span class=" badge bg-light border text-primary">Joining Date: ${info[i].joining_date}</span>
-                      <p></p>
-                  </li> 
-                  
-                  <li class="list-group-item-secondary">
-                  <span class=" badge bg-light border text-dark">Gender: ${info[i].gender}</span>  <p></p>
-                  <span class=" badge bg-light border text-dark">Religion: ${info[i].religion}</span> 
-                      <p></p>
-                  </li>
-          
-
-                  
-                  <li class="list-group-item-secondary">
-                  <span class=" badge bg-light border text-dark">Address: ${info[i].address}</span> <p></p>
-                      <p></p>
-                  </li>
-           
-              </ul>
-          
-              </div>
-           
-              
-          `
-
-
-              }
-
-               res.send({list})
-
-                
-            }
-
-      else res.send({list: "No Teacher Found!"})
-    })
-  }
-
-
-
-
-
-
-exports.admin_teacher_delete= (req, res)=>{
-  let ID= req.body.ID
-
-  sqlmap.query(`DELETE FROM teachers WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, next)=>{
-    if(err) console.log(err.sqlMessage);
-    else res.send({msg: "Delete From Teacher List!"})
-  })
-
-
-  
-
-}
-
-
-
-
-
-
-
-
-
-exports.admin_teacher_update_page= (req, res)=>{
-  let ID= req.body.ID
-
-
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
-    else 
-    {
-
-
-     let list=`   <form id="editTeacherList" method="post" class="">
-     <input  type="hidden"  name="ID" value="${info[0].ID}" class="form-control" required>
-
-     <center>
-       <img src="/photos/${info[0].avatar}" height="70px" alt=""> <br>
-       <strong>Teacher Information</strong>
-     </center>     
-   
-     <div class=" input-group"> 
-     <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
-     <input  type="number" placeholder="enter pds id" name="pdsId" value="${info[0].pds_id}" class="form-control" required>
- </div>
-
-
-
- <div class=" input-group"> 
-     <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
-     <input type="text" placeholder="enter index no." name="index_number" value="${info[0].index_number}" class="form-control" required> 
- </div>
-
- 
- <div class=" input-group"> 
-     <span class=" input-group-text"><i class=" fa fa-user-circle"></i></span>
-     <input type="text" placeholder="enter name" name="name" value="${info[0].name}" class="form-control" required>
- </div>
- <p></p>
-
-
- 
- <div class=" input-group"> 
-     <span class=" input-group-text">Position</span>
-     <input type="text" placeholder="enter index no." name="position" value="${info[0].position}" class="form-control" required> 
- </div>
-
-
- <div class=" input-group"> 
- <span class=" input-group-text">Joining</span>
- <input type="text" placeholder="09-09-2002" name="joiningDate" value="${info[0].joining_date}" class="form-control" required>
-</div>
-<p></p>
-
-
-
-
- <center>
-   <button id="submitbtn" class="text-light btn-self w-50 rounded">Update</button>
- </center>
- <p></p>
- </form>
-
- `
-
-      res.send({list})
-      }
-
-  })
-}
-
-
-
-
-
-
-
-exports.admin_teacher_update= (req, res)=>{
-
-  let {name, pdsId, index_number, ID, position, joiningDate}= req.body;
-
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  pds_id=${pdsId} OR index_number="${index_number}"`, (errF, infoF)=>{
-    if(errF) console.log(errF.sqlMessage);
-  else {
-
-        sqlmap.query(`UPDATE teachers SET name="${name}", pds_id="${pdsId}", index_number="${index_number}", position='${position}', joining_date='${joiningDate}' WHERE domain='${req.hostname}' AND  ID="${ID}"`, (err, next)=>{
-          if(err) res.send({msg: "PDSID or index_number. Already Joined!", alert: "alert-danger text-danger"})
-
-          else res.send({msg: "Save Changes Successfully!", alert: "alert-success text-success"})
-        })
-      
-    }
-  })
-
-}
-
 
 
 
@@ -497,7 +523,7 @@ let htmldata= `
    <center>
   <div class="bg-card-color-light pt-3  pb-3 rounded-top-5 rounded-start-5">
       <div class="card-image">
-          <img class="avatar-circle" src="/image/teacher/${info[0].avatar}" alt="">
+          <img class="avatar-circle" src="/image/teacher/resized/${info[0].avatar}" alt="">
       </div>
   </div>
 </center>
@@ -604,8 +630,8 @@ exports.self_info_update= (req, res) =>{
 exports.self_password_update= (req, res)=>{
     const {password, pastPassword}= req.body;
     const email= req.session.userEmail
-    const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
-    const oldPassword= createHmac('md5', 'pipilikapipra').update(email+pastPassword).digest('hex');
+    const hashPassword= createHmac('md5', 'pipilikapipra').update(password).digest('hex');
+    const oldPassword= createHmac('md5', 'pipilikapipra').update(pastPassword).digest('hex');
  
             let sql= `UPDATE teachers SET password="${hashPassword}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
       

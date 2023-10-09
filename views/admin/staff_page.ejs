@@ -38,14 +38,14 @@
           class="btn link-success shadowx btn-go fw-500">Create a new data</button>
       </div>
       <p></p>
-      <div class="col-md-8 col-12 m-auto">
+      <div class="col-md-10 col-12 m-auto">
 
         <div class="d-flex justify-content-between">
           <select disabled style="width: 100px; outline: none;" class="form-dev shadowx p-0" name="" id="">
-            <option  selected value="15">15</option>
+            <option   value="15">15</option>
             <option value="50">50</option>
             <option value="100">100</option>
-            <option value="All">All</option>
+            <option selected value="All">All</option>
           </select>
 
           <input id="search" style="width: 200px; outline: none;" class="ps-2 form-dev p-0 shadowx" type="search"
@@ -90,13 +90,6 @@
     <div class="col-md-10 modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
 
       <form  id="formdata" action="#" method="post">
-
-          <div class="d-flex justify-content-end p-2">
-            <button type="button" data-bs-dismiss="modal" class="btn btn-close bg-light "></button>
-
-          </div>
-
-    
             <div class="col-11">
               <p class="p-2 text-muted text-center fw-semibold fs-5">My create form</p>
             </div>
@@ -165,7 +158,7 @@
 
 
             <div class="d-flex  p-2 justify-content-between align-items-center">
-              <p class="w-25 fw-semibold m-auto">Photo</p>
+              <p class="w-25 fw-semibold m-auto">Photo <code>*</code></p>
               <input required name="image" class="w-75 shadowx form-dev form-control-sm" type="file"
                 id="">
             </div>
@@ -181,7 +174,8 @@
 
             </div>        
 
-            <div class="d-flex justify-content-end p-2 mb-2">
+            <div class="d-flex justify-content-between p-2 mb-2">
+              <button type="button" data-bs-dismiss="modal" class="btn btn-link">Close</button>
               <button class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and save</button>
             </div>
 

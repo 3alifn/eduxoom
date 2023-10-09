@@ -8,1023 +8,649 @@
     <%- include("../component/metadata.html") %> 
 
   </head>
->
-
-
 
 <body onload="pageLoadingTop()">
 
  <%- include("../component/admin-header-nav.html") %> 
  <%- include("../component/admin-menu-nav.html") %> 
- <%-include("../component/modal-trigger.html") %> 
- <%- include("../component/modal-person.html") %> 
+
 
  <main id="main-content" class="p-2 main-content mt-5">
-
-
-  <content >
-
-
-    
-
-
-    
-    <p></p>
    
    
+  <% if( typeof msg!=typeof alifn && msg.length>0) {%>
    
-    <% if( typeof msg!=typeof alifn && msg.length>0) {%>
-   
-     <%-include("../component/toast-ejs") %> 
-   
-        <% } else { %>
-          <%=null %> 
-          <% } %> 
-   
-   
-          <!-- Button trigger modal -->
-   <div class="row">
-     <div class="col mt-5 ms-5">
-       <button title="ADD" type="button" class="btn btn-link" data-toggle="modal" data-target="#modelId_form"> 
-         ADD
-     </button>
-     </div>
-   </div>
-   
-   
-   
-   <!-- Modal -->
-   <div class="modal fade mt-5" id="modelId_form" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-       <div class="modal-dialog" role="document">
-           <div class="modal-content">
-               <div class="modal-header">
-                   <h5 class="modal-title">Student Entry</h5>
-                       <button type="button" class="close todo-student-form-close" data-dismiss="modal" aria-label="Close">
-                           <span aria-hidden="true">&times;</span>
-                       </button>
-               </div>
-               <div class="modal-body">
-               
-             
-   <div class="row">
-     <div class="col-10 m-auto">
-         <form id="studentForm" method="post" class="" novalidate>
-             <center>
-               
-                 <label>
-                   <span class="file_append">
-                     <img class="bg-demo-img-color" id="getImg" src="/image/default/male_avatar.png" width="200px" height="100px" alt="Tap & Select IMG" style="cursor: pointer;"> 
-   
-                   </span>
-                     <input class="file" style="display: none" accept=".jpg,.png" type="file" name="avatar" id="fileItem">
-                 </label>
-                 <br> <br>
-               <strong>Student Information</strong>
-             </center>     
-   
-   
-   <p></p>
-           
-   
-             <div class=" input-group"> 
-                 <span class=" input-group-text"><i class=" fa-solid fa-people-line"></i></span>
-   
-                  <select required name="classNameX" class=" form-control">
-           
-                   <option value="" selected disabled>শ্রেণী নির্বাচন করুন</option>
-           
-                   <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
-                     <option class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
-                     <option class="status_Six_B" value="Six $%& B">ষষ্ঠ - খ</option>
-                     <option class="status_Six_C" value="Six $%& C">ষষ্ঠ - গ</option>
-                    </optgroup>
-           
-           
-                                 
-                    <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
-                     <option class="status_Seven_A" value="Seven $%& A">সপ্তম - ক</option>
-                     <option class="status_Seven_B" value="Seven $%& B">সপ্তম - খ</option>
-                     <option class="status_Seven_C" value="Seven $%& C">সপ্তম - গ</option>
-                    </optgroup>
-                    
-           
-           
-                    <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
-                     <option class="status_Eight_A" value="Eight $%& A">অষ্টম - ক</option>
-                     <option class="status_Eight_B" value="Eight $%& B">অষ্টম - খ</option>
-                     <option class="status_Eight_C" value="Eight $%& C">অষ্টম - গ</option>
-                    </optgroup>
-           
-                     
-           
-                             
-                      <optgroup class="status_Nine" label="নবম শ্রেণী">
-                       <option class="status_Nine_A" value="Nine $%& A">নবম - ক</option>
-                       <option class="status_Nine_B" value="Nine $%& B">নবম - খ</option>
-                       <option class="status_Nine_c" value="Nine $%& C">নবম - গ</option>
-                      </optgroup>
-                
-                       <optgroup class="status_Ten" label="দশম শ্রেণী">
-                          <option class="status_Ten_A" value="Ten $%& A">দশম - ক</option>
-                          
-                          <option class="status_Ten_B" value="Ten $%& B">দশম - খ</option>
-                          <option class="status_Ten_C" value="Ten $%& C">দশম - গ</option>
-                         </optgroup>
-                 
-           
-                     
-                  
-                  </select>
-   
-                  <div  class="valid-feedback"></div>
-                  <div id="" class="invalid-feedback">Select Class & Section</div>
-            
-   
-                  </div>
-   
-   <p></p>
-           
-             <div class=" input-group"> 
-                 <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
-                 <input patternoff="^[0-9]*$" type="number" placeholder="Student ID" name="student_id" value="" class="form-control form-self" disabled>
-   
-                 <div  class="valid-feedback"></div>
-                 <div id="" class="invalid-feedback">Enter a valid student id</div>
-           
-             </div>
-         
-   
-             <p></p>
-   
-   
-   
-         <div class=" input-group"> 
-             <span class=" input-group-text"><i class=" fa fa-id-card"></i></span>
-             <input patternoff="^[0-9]*$" type="number" placeholder="Student Roll" name="roll" value="" class="form-control form-self" required> 
-   
-                 
-       <div  class="valid-feedback"></div>
-       <div id="" class="invalid-feedback">Enter a valid roll</div>
-   
-         </div>
-   
-         <p></p>
-   
-         <div class=" input-group"> 
-             <span class=" input-group-text"><i class=" fa fa-user"></i></span>
-             <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Student Name" name="name" value="" class="form-control form-self" required>
-   
-             <div  class="valid-feedback"></div>
-             <div id="" class="invalid-feedback">Enter a valid name</div>
-            
-         </div>
-   
-         <p></p>
-   
-         
-         <div>
-           <label for="male2"> <span class="btn btn-light shadow"><input class="form-check-input " type="radio" id="male2" value="Male" checked name="gender" > Male </span> </label> 
-           <label for="female2">  <span class="btn btn-light shadow"><input class="form-check-input " type="radio" value="Female" id="female2"  name="gender" > Female </span> </label>
-         </div>
-   
-         <p></p>
-   
-         
-   
-         <div class=" input-group"> 
-             <span class=" input-group-text"><i class=" fa fa-male"></i></span>
-             <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Father Name" name="fname" value="" class="form-control form-self">
-   
-             <div  class="valid-feedback"></div>
-             <div id="" class="invalid-feedback">Enter a valid name</div>
-   
-         </div>
-   
-         <p></p>
-   
-   
-         <div class=" input-group"> 
-             <span class=" input-group-text"><i class=" fa fa-female"></i></span>
-             <input patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Mother Name" name="mname" value="" class="form-control form-self">
-   
-             <div  class="valid-feedback"></div>
-             <div id="" class="invalid-feedback">Enter a valid name</div>
-   
-         </div>
-   
-         <p></p>
-   
-   
-   
-         <div class=" input-group"> 
-             <span class=" input-group-text"><i class="fa-sharp fa-solid fa-at"></i></span>
-             <input disabled type="email" placeholder="enter email" name="email" value="student@abc.com" class="form-control form-self"> 
-         </div>
-         
-         
-         <p></p>
-   
-   
-           
-     <div class=" input-group">
-   
-       <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-contact-48.png" alt=""></span>
-     
-     
-       <input patternoff="^01[0-9]*$" maxlength="11" type="tel" placeholder="01XXXXXXXX" name="telephone"  class="form-self form-control form-self" >  
-       <div  class="valid-feedback"></div>
-       <div id="" class="invalid-feedback">Enter contact number</div>
-     
-     </div>
-   
-       <p></p>
-   
-   
-         
-         <div class=" input-group"> 
-             <span class=" input-group-text"><i class="fa-sharp fa-solid fa-location-dot"></i></span>
-             <input type="text" placeholder="Gunbaha, Boalmari-Faridpur" name="address" value="" class="form-control form-self"> 
-   
-             <div  class="valid-feedback"></div>
-             <div id="" class="invalid-feedback">Required address</div>
-       
-         </div>
-   
-         <p></p>
-   
-   
-   
-         <div class="input-group">
-             <span class=" input-group-text "><img width="30px" src="/icon/user/icons8-praying-man-48.png" alt=""></span>
-       <select class="form-self form-select form-self" name="religion" id="" required>
-           
-             <option disabled selected value="">Select Religion</option>
-             <option value="Islam">Islam</option>
-             <option value="Hinduism">Hinduism</option>
-             <option value="Christianity">Christianity</option>
-             <option value="Buddhism">Buddhism</option>
-         <option value="Others">Others</option>
-       </select>
-           
-       <div  class="valid-feedback"></div>
-       <div id="" class="invalid-feedback">Select Religion</div>
-      
-           
-           </div>
-   
-           <p></p>
-   
-         
-      <div class="input-group">
-   
-         <span class=" input-group-text"><img width="30px" src="/icon/user/icons8-blood-48.png" alt=""></span>
-   
-       <select name="bloodGroup" class="form-select form-self" id="" >
-         <option selected disabled value="">Select Blood Group</option>
-   
-         <optgroup label="Positive"> 
-       
-           <option  value="A+ve">A+ve</option>
-           <option value="B+ve">B+ve</option>
-           <option value="O+ve">O+ve</option>
-           <option value="AB+ve">AB+ve</option>
-       
-           </optgroup> 
-           
-           <optgroup label="Negative"> 
-           <option  value="A-ve">A-ve</option>
-           <option value="B-ve">B-ve</option>
-           <option value="O-ve">O-ve</option>
-           <option value="AB-ve">AB-ve</option>
-       
+    <%-include("../component/toast-ejs") %> 
+  
+       <% } else { %>
+         <%=null %> 
+         <% } %> 
+<quick>
+  
+  <div class="row mt-5"  id="">
+    <center><h5>Quick Setup</h5></center>
+    <form action="/admin/student/join/quick" method="post">
+  
+    <div class="col-10 m-auto mt-2 mb-2">
+         <select required name="classNameX" id="" class=" form-dev p-1">
+          
+          <option value="" selected disabled>শ্রেণী নির্বাচন করুন</option>
+  
+          <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
+            <option class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
+            <option class="status_Six_B" value="Six $%& B">ষষ্ঠ - খ</option>
+            <option class="status_Six_C" value="Six $%& C">ষষ্ঠ - গ</option>
            </optgroup>
-       
-       
-       </select>
-      </div>
+  
+  
+                        
+           <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
+            <option class="status_Seven_A" value="Seven $%& A">সপ্তম - ক</option>
+            <option class="status_Seven_B" value="Seven $%& B">সপ্তম - খ</option>
+            <option class="status_Seven_C" value="Seven $%& C">সপ্তম - গ</option>
+           </optgroup>
            
-   
-      <p></p>
-   
-   
-           <div class=" input-group">
-             <span class=" input-group-text"><i class="fa-sharp fa-solid fa-lock"></i></span>
-             <input id="password" type="password" placeholder="temp password" name="password" value="password" class="form-control form-self" required>
-             <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text"><i class="bi bi-eye-slash-fill"></i></span>
-             <span  style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text"><i class="bi bi-eye-fill"></i></span>
-   
-   
-         </div>
-   
-         <p></p>
-   
-           
-         <div class=" input-group"> 
-             <span class=" input-group-text"><i class="fa-sharp fa-solid fa-birthday-cake"></i></span>
-             <input type="date"  name="birthDate"  value="2009-09-09" class=" form-control form-self" required>
-         </div>
-   
-         
-         <p></p>
-   
-         
-         <center>
-           <button id="submitbtn" class=" btn bg-secondary text-light fw-bold w-50 btn-dev rounded">Join</button>
-         </center>
-   
-         
-   
-         <p></p>
-         </form>
-     </div>
-   </div>
-     
-               </div>
-         
-           </div>
-       </div>
-   </div>
-   
-   
-   
-   
-   
-   <div style="display: none;" class="row ">
-     <div class="col mt-5 ms-5">
-       <button id="modelId_update_form_btn" title="ADD" type="button" class="btn " data-toggle="modal" data-target="#modelId_update_form"> 
-         Demo
-     </button>
-     </div>
-   </div>
-   
-   
-   
-   
-   
-   
-   <!-- Modal -->
-   <div class="modal fade mt-5" id="modelId_update_form" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-     <div class="modal-dialog" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title">Student Update Form</h5>
-                     <button type="button" class="close modelId_update_form_close" data-dismiss="modal" aria-label="Close">
-                         <span aria-hidden="true">&times;</span>
-                     </button>
-             </div>
-             <form id="studentUpdateForm" method="post" class="" >
-   
-             <div id="studentUpdateFormData" class="modal-body">
-             
-               
-   
-   
-             </div>
-       </form>
-         </div>
-     </div>
-   </div>
-   
-   
-   
-   
-   
-   
-   
-         
-   <div class="row"  id="">
-     <center><h5>Quick Setup</h5></center>
-     <form action="/admin/student/join/quick" method="post">
-   
-     <div class="col-10 m-auto mt-2 mb-2">
-       <div class=" input-group"> 
-         <span class=" input-group-text">Class</span>
-   
-        
-          <select required name="classNameX" id="" class=" form-control">
-           
-           <option value="" selected disabled>শ্রেণী নির্বাচন করুন</option>
-   
-           <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
-             <option class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
-             <option class="status_Six_B" value="Six $%& B">ষষ্ঠ - খ</option>
-             <option class="status_Six_C" value="Six $%& C">ষষ্ঠ - গ</option>
-            </optgroup>
-   
-   
-                         
-            <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
-             <option class="status_Seven_A" value="Seven $%& A">সপ্তম - ক</option>
-             <option class="status_Seven_B" value="Seven $%& B">সপ্তম - খ</option>
-             <option class="status_Seven_C" value="Seven $%& C">সপ্তম - গ</option>
-            </optgroup>
+  
+  
+           <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
+            <option class="status_Eight_A" value="Eight $%& A">অষ্টম - ক</option>
+            <option class="status_Eight_B" value="Eight $%& B">অষ্টম - খ</option>
+            <option class="status_Eight_C" value="Eight $%& C">অষ্টম - গ</option>
+           </optgroup>
+  
             
-   
-   
-            <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
-             <option class="status_Eight_A" value="Eight $%& A">অষ্টম - ক</option>
-             <option class="status_Eight_B" value="Eight $%& B">অষ্টম - খ</option>
-             <option class="status_Eight_C" value="Eight $%& C">অষ্টম - গ</option>
-            </optgroup>
-   
-             
-   
-                     
-              <optgroup class="status_Nine" label="নবম শ্রেণী">
-               <option class="status_Nine_A" value="Nine $%& A">নবম - ক</option>
-               <option class="status_Nine_B" value="Nine $%& B">নবম - খ</option>
-               <option class="status_Nine_c" value="Nine $%& C">নবম - গ</option>
-              </optgroup>
+  
+                    
+             <optgroup class="status_Nine" label="নবম শ্রেণী">
+              <option class="status_Nine_A" value="Nine $%& A">নবম - ক</option>
+              <option class="status_Nine_B" value="Nine $%& B">নবম - খ</option>
+              <option class="status_Nine_c" value="Nine $%& C">নবম - গ</option>
+             </optgroup>
+       
+              <optgroup class="status_Ten" label="দশম শ্রেণী">
+                 <option class="status_Ten_A" value="Ten $%& A">দশম - ক</option>
+                 
+                 <option class="status_Ten_B" value="Ten $%& B">দশম - খ</option>
+                 <option class="status_Ten_C" value="Ten $%& C">দশম - গ</option>
+                </optgroup>
         
-               <optgroup class="status_Ten" label="দশম শ্রেণী">
-                  <option class="status_Ten_A" value="Ten $%& A">দশম - ক</option>
-                  
-                  <option class="status_Ten_B" value="Ten $%& B">দশম - খ</option>
-                  <option class="status_Ten_C" value="Ten $%& C">দশম - গ</option>
-                 </optgroup>
+  
+            
          
-   
-             
-          
-          </select>
-   
-   
-          <div  class="valid-feedback"></div>
-          <div id="" class="invalid-feedback">Select Class & Section</div>
-    
-   
-          </div>
-     </div>
-   
-   <div class="col-12 col-md-11 m-auto" > 
-   <table class="studentAppend table table-borderless">
-   
-     <thead class="border border-dark p-2 m-2">
-        
-    <tr>
-     <th>
-       <input autocomplete="on" patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Name" name="name[]" value="" class="form-control " required>
-     </th>
-     <th>
-       <input patternoff="^[0-9]*$" type="number" placeholder="Roll" name="roll[]" value="" class="form-control " required> 
-     </th>
-   
-     
-     <th>
-       <select name="gender[]" class="form-select" id="" required>
-         <option value="Female">Female</option>
-         <option value="Male">Male</option>
-       </select>
-       </th>
-   
-     
-       <th>
-         <button type="button" class="btn btn-light addItemQuick" title="ADD" ><i class="bi bi-plus-circle-fill text-primary"></i></button>
-         <button type="button" disabled class="btn btn-light removeItemQuick" title="Remove" ><i class="bi bi-x-circle-fill text-danger"></i></button>
-     
-       </th>
-   
-   
-    </tr>
-   
-     </thead>
-     
-   </table>
-   
-   </div>
-   
-   <div class="col-6 col-md-3 m-auto ">
-     <input class="btn btn-light w-100 btn-self border border-dark submitbtn"  type="submit" value="Join">
-   
-   </div>
-   </form>
-   
-   </div>
-   
-   
-   
-   
-   
-   
-   <script>
-   
-   (function(){
-     $.ajax({
-       type: "get",
-       url: "/pu/class/section/rm",
-       data: {},
-       dataType: "JSON",
-       success: function (res) {
-   
-        for (let index = 0; index < res.cls.length; index++) {
-   
-         $(".status_"+res.cls[index].class).remove()
-           
-        }
-   
-        for (let index = 0; index < res.clss.length; index++) {
-   
-           $(".status_"+res.clss[index].class+'_'+res.clss[index].section).remove()
-           
-        }
-       }
-     });
-   
-     }())
-   
-   
-   $(document).on("click", ".addItemQuick", (e) => {
-    
-    $(".studentAppend").append(` 
-    
+         </select>
+    </div>
+  
+  <div class="col-12 col-md-11 m-auto" > 
+  <table class="studentAppend table table-borderless">
+  
     <thead class="border border-dark p-2 m-2">
-        
-        <tr>
-         <th>
-           <input autocomplete="on" patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Name" name="name[]" value="" class="form-control " required>
-         </th>
-         <th>
-           <input patternoff="^[0-9]*$" type="number" placeholder="Roll" name="roll[]" value="" class="form-control " required> 
-         </th>
        
-         
-         <th>
-           <select name="gender[]" class="form-select" id="" required>
-             <option value="Female">Female</option>
-             <option value="Male">Male</option>
-           </select>
-           </th>
-       
-         
-           <th>
-             <button type="button" class="btn btn-light addItemQuick" title="ADD" ><i class="bi bi-plus-circle-fill text-primary"></i></button>
-             <button type="button" class="btn btn-light removeItemQuick" title="Remove" ><i class="bi bi-x-circle-fill text-danger"></i></button>
-         
-           </th>
-       
-       
-        </tr>
-       
-         </thead>
+   <tr>
+    <th>
+      <input autocomplete="on" patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Name" name="name[]" value="" class="form-dev p-1" required>
+    </th>
+    <th>
+      <input patternoff="^[0-9]*$" type="number" placeholder="Roll" name="roll[]" value="" class="form-dev p-1 " required> 
+    </th>
+  
     
-    `)
+    <th>
+      <select name="gender[]" class="form-dev p-1" id="" required>
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+      </select>
+      </th>
+  
     
-    })
+      <th>
+        <button type="button" class="btn btn-light addItemQuick" title="ADD" ><i class="bi bi-plus-circle-fill text-primary"></i></button>
+        <button type="button" disabled class="btn btn-light removeItemQuick" title="Remove" ><i class="bi bi-x-circle-fill text-danger"></i></button>
+    
+      </th>
+  
+  
+   </tr>
+  
+    </thead>
+    
+  </table>
+  
+  </div>
+  
+  <div class="col-6 col-md-3 m-auto ">
+    <input class="btn btn-primary w-100 submitbtn"  type="submit" value="Join">
+  
+  </div>
+  </form>
+  
+  </div>
+  
+ 
+  <script>
+ 
+  $(document).on("click", ".addItemQuick", (e) => {
    
-        $(document).on("click", ".removeItemQuick", (e)=>{
-             let thisItem= e.currentTarget.parentElement.parentElement.parentElement;
-             $(thisItem).remove()
-          
-             
-         })
-        
+   $(".studentAppend").append(` 
    
-   </script>
-   
-   
-   
-   
-           
-   
-   
-   
-   
-   
-   <div class="row">
-       <div class="col-10 col-md-6 mb-2 mt-2 m-auto">
-           <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+   <thead class="border border-dark p-2 m-2">
        
-       </div>
-   
-       </div>
-    
-   
-   
-       <div class="row">
-           
-       <div class="col-10 col-md-6 m-auto">
-   
-          <select required name="classBase" id="classBase" class="form-self">
-           
-           <option value=""  disabled >শ্রেণী নির্বাচন করুন</option>
-   
-           <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
-             <option selected class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
-             <option class="status_Six_B" value="Six $%& B">ষষ্ঠ - খ</option>
-             <option class="status_Six_C" value="Six $%& C">ষষ্ঠ - গ</option>
-            </optgroup>
-   
-   
-                         
-            <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
-             <option class="status_Seven_A" value="Seven $%& A">সপ্তম - ক</option>
-             <option class="status_Seven_B" value="Seven $%& B">সপ্তম - খ</option>
-             <option class="status_Seven_C" value="Seven $%& C">সপ্তম - গ</option>
-            </optgroup>
-            
-   
-   
-            <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
-             <option class="status_Eight_A" value="Eight $%& A">অষ্টম - ক</option>
-             <option class="status_Eight_B" value="Eight $%& B">অষ্টম - খ</option>
-             <option class="status_Eight_C" value="Eight $%& C">অষ্টম - গ</option>
-            </optgroup>
-   
-             
-   
-                     
-              <optgroup class="status_Nine" label="নবম শ্রেণী">
-               <option class="status_Nine_A" value="Nine $%& A">নবম - ক</option>
-               <option class="status_Nine_B" value="Nine $%& B">নবম - খ</option>
-               <option class="status_Nine_c" value="Nine $%& C">নবম - গ</option>
-              </optgroup>
+       <tr>
+        <th>
+          <input autocomplete="on" patternoff="^[A-Za-z .-_]*$" type="text" placeholder="Name" name="name[]" value="" class="form-control " required>
+        </th>
+        <th>
+          <input patternoff="^[0-9]*$" type="number" placeholder="Roll" name="roll[]" value="" class="form-control " required> 
+        </th>
+      
         
-               <optgroup class="status_Ten" label="দশম শ্রেণী">
-                  <option class="status_Ten_A" value="Ten $%& A">দশম - ক</option>
-                  
-                  <option class="status_Ten_B" value="Ten $%& B">দশম - খ</option>
-                  <option class="status_Ten_C" value="Ten $%& C">দশম - গ</option>
-                 </optgroup>
-         
-   
-             
-          
+        <th>
+          <select name="gender[]" class="form-select" id="" required>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
           </select>
+          </th>
+      
+        
+          <th>
+            <button type="button" class="btn btn-light addItemQuick" title="ADD" ><i class="bi bi-plus-circle-fill text-primary"></i></button>
+            <button type="button" class="btn btn-light removeItemQuick" title="Remove" ><i class="bi bi-x-circle-fill text-danger"></i></button>
+        
+          </th>
+      
+      
+       </tr>
+      
+        </thead>
    
-       </div>
-       </div>
-     
+   `)
    
-     </content>
-   
-   <form action="" method="post" id="deleteStudent">
-       <center>
-   
-   
-           <button class=" btn btn-link float-end" onclick="_delbox_pull()" type="button"  >
-              Delete
-           </button> 
-       </center>
-   <table class="table  table-hover container" id="table" >
-       <thead class="" id="thead">
-           <tr>
-               
-     
-               <th class=" text-dark">Roll</th>
-               <th class=" text-dark">Name</th>
-               <th class=" text-dark">Avatar</th>
-               <th class=" text-dark"><input type="checkbox" class="check-mark" ></th>
-               <th class=" text-dark">Edit</th>
-               <th></th>
-           
+   })
+  
+       $(document).on("click", ".removeItemQuick", (e)=>{
+            let thisItem= e.currentTarget.parentElement.parentElement.parentElement;
+            $(thisItem).remove()
+         
+            
+        })
        
-           </tr>
-       </thead>
-       <tbody class="check-mark-area">
-   
-       </tbody>
-   
-   
-   </table>
-   </form>
+  
+  </script>
+</quick>
+
+
+
+<content>
+  <div class="row m-2 mt-5 shadowx text-center">
+    <div class="col-11 m-auto">
+
+      <p class="p-2 text-muted fw-semibold fs-5">Our student settings</p>
+
+    </div>
+  </div>
+
+
+  <div id="tabledata" class="row shadow p-2 mt-5">
+    
+    <div class="col-auto ms-auto me-2">
+      <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
+        class="btn link-success shadowx btn-go fw-500">Create a new data</button>
+    </div>
+    <p></p>
+    <div class="col-md-11 col-12 m-auto">
+
+      <div class="d-flex justify-content-between">
+        <select  style="width: 100px; outline: none;" class="order-tabledata form-dev shadowx p-0" name="" id="">
+          <option selected value="30">30</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option selected value="All">All</option>
+        </select>
+
+        <input id="search" style="width: 200px; outline: none;" class="ps-2 form-dev p-0 shadowx" type="search"
+          placeholder="search">
+
+      </div>
+
+      <form class="w-100 overflow-auto" id="formcheckout" action="#" method="get" onsubmit="return false">
+      <table  class="table text-nowrap mt-1 mbx shadowx table-borderless">
+        <thead>
+          <tr>
+            <th class="p-3"> <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id=""></th>
+            <th class="fw-semibold text-muted">Name</th>
+            <th class="fw-semibold text-muted">Roll</th>
+            <th class="fw-semibold text-muted">Action</th>
+          </tr>
+        </thead>
+        <tbody id="tbodydata" class="check-mark-area">
+
+         <tr>
+          <td colspan="3" ><span class="text-center shadowx alert-info">Loading...</span></td>
+         </tr>
+
+      <tfoot>
+           
+        <tr>
+          <td class="shadowx"> <button type="submit" class="bi shadowx  btnpop bi-trash-fill btn btn-outline-danger"></button></td>
+        </tr>
+
+      </tfoot>
+
+        </tbody>
+      </table>
+    </form>
+    </div>
+  </div>
+
+
+
+  <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
+
+  <div class="col-md-10 modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+
+    <form  id="formdata" action="#" method="post">
+          <div class="col-11 pt-2">
+            <p class="p-2 text-muted text-center fw-semibold fs-5">My create form</p>
+          </div>
+
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Class & Section</p>
+
+                <code class="pe-1">*</code> 
+                <select required name="classNameX" class="w-75 shadowx form-dev form-control-sm" id="">
+          
+                  <option value="" selected disabled>শ্রেণী নির্বাচন করুন</option>
+          
+                  <optgroup class="status_Six" label="ষষ্ঠ শ্রেণী">
+                    <option class="status_Six_A" value="Six $%& A">ষষ্ঠ - ক</option>
+                    <option class="status_Six_B" value="Six $%& B">ষষ্ঠ - খ</option>
+                    <option class="status_Six_C" value="Six $%& C">ষষ্ঠ - গ</option>
+                   </optgroup>
+          
+          
+                                
+                   <optgroup class="status_Seven" label="সপ্তম শ্রেণী">
+                    <option class="status_Seven_A" value="Seven $%& A">সপ্তম - ক</option>
+                    <option class="status_Seven_B" value="Seven $%& B">সপ্তম - খ</option>
+                    <option class="status_Seven_C" value="Seven $%& C">সপ্তম - গ</option>
+                   </optgroup>
+                   
+          
+          
+                   <optgroup class="status_Eight" label="অষ্টম শ্রেণী">
+                    <option class="status_Eight_A" value="Eight $%& A">অষ্টম - ক</option>
+                    <option class="status_Eight_B" value="Eight $%& B">অষ্টম - খ</option>
+                    <option class="status_Eight_C" value="Eight $%& C">অষ্টম - গ</option>
+                   </optgroup>
+          
+                    
+          
+                            
+                     <optgroup class="status_Nine" label="নবম শ্রেণী">
+                      <option class="status_Nine_A" value="Nine $%& A">নবম - ক</option>
+                      <option class="status_Nine_B" value="Nine $%& B">নবম - খ</option>
+                      <option class="status_Nine_c" value="Nine $%& C">নবম - গ</option>
+                     </optgroup>
+               
+                      <optgroup class="status_Ten" label="দশম শ্রেণী">
+                         <option class="status_Ten_A" value="Ten $%& A">দশম - ক</option>
+                         
+                         <option class="status_Ten_B" value="Ten $%& B">দশম - খ</option>
+                         <option class="status_Ten_C" value="Ten $%& C">দশম - গ</option>
+                        </optgroup>
+                
+          
+                    
+                 
+                 </select>
+       
+
+          </div> 
+          
+          
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Name</p>
+            <code class="pe-1">*</code> 
+            
+            <input required name="name" class="w-75 shadowx form-dev form-control-sm" placeholder="enter name" type="text">
+          </div>
+
+          <div class="d-flex p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Gender</p>
+            <code class="pe-1">*</code>  
+              <span class="w-75">
+              Male <input value="Male" class="form-check-input shadowx ms-2 me-2" checked type="radio" name="gender" id="">
+              Female <input value="Female" class="form-check-input shadowx ms-2" type="radio" name="gender" id="">
+          
+            </span>
+          
+          </div>
+
+          
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+             
+            <p class="w-25 fw-semibold m-auto">Sstudent roll</p>
+            <code class="pe-1">*</code> 
+            <input name="roll" class="w-75 shadowx form-dev form-control-sm" placeholder="enter roll" type="number">
+           </div>
+ 
+
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Auto SID</p>
+            <code class="pe-1">*</code>  
+              <input readonly name="sid" class="w-75 shadowx form-dev form-control-sm" placeholder="123456" type="number">
+          </div>
+
+
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Email</p>
+            <code class="pe-1">*</code>  
+            <input required name="emailx" class="w-75 shadowx form-dev form-control-sm" placeholder="example@gmai.com" type="email">
+          </div>
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Default password</p>
+            <code class="pe-1">*</code>  
+             <input readonly required  name="password" class="w-75 shadowx form-dev form-control-sm" value="password@abc" placeholder="password@abc" type="text">
+          </div>
+
+          
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Phone </p>
+            <code class="pe-1">*</code>  
+            <input required maxlength="11" name="phone" class="w-75 shadowx form-dev form-control-sm" placeholder="01XXXXXXXX" type="number">
+          </div>
+          
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Birth date</p>
+            <code class="pe-1">-</code>  
+              <input  name="birth_date" class="w-75 shadowx form-dev form-control-sm" type="date">
+          </div>
+
+          
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Blood group</p>
+
+            <code class="pe-1">-</code>  
+               <select name="blood_group" class="w-75 shadowx form-dev form-control-sm" id="" >
+              <option selected disabled value="">Blood Group</option>
+        
+              <optgroup label="Positive"> 
+            
+                <option  value="A+ve">A+ve</option>
+                <option value="B+ve">B+ve</option>
+                <option value="O+ve">O+ve</option>
+                <option value="AB+ve">AB+ve</option>
+            
+                </optgroup> 
+                
+                <optgroup label="Negative"> 
+                <option  value="A-ve">A-ve</option>
+                <option value="B-ve">B-ve</option>
+                <option value="O-ve">O-ve</option>
+                <option value="AB-ve">AB-ve</option>
+            
+                </optgroup>
+            
+            
+            </select> 
+          
+          </div>
+
+
+
+      <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Religion</p>
+
+            <code class="pe-1">-</code>  
+            
+            <select class="w-75 shadowx form-dev form-control-sm" name="religion" id="">
+       
+              <option disabled selected value="">Select Religion</option>
+              <option value="Islam">Islam</option>
+              <option value="Hinduism">Hinduism</option>
+              <option value="Christianity">Christianity</option>
+              <option value="Buddhism">Buddhism</option>
+          <option value="Others">Others</option>
+        </select>
+          </div>
+
+      
+
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Address</p>
+            <code class="pe-1">-</code>  
+             <input  name="address" class="w-75 shadowx form-dev form-control-sm" placeholder="enter address" type="text">
+          </div>
+
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Admit date</p>
+            <code class="pe-1">-</code>  
+               <input  name="admission_date" class="w-75 shadowx form-dev form-control-sm" type="date">
+          </div>
+
+          
+
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Photo</p>
+            <code class="pe-1">*</code>  
+              <input required name="images" class="w-75 shadowx images form-dev form-control-sm" type="file"
+              id="">
+          </div>
+
+
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto"></p>
+
+            <div class="images_append w-75">
+
+
+            </div>
+
+          </div>        
+
+          <div class="d-flex justify-content-between p-2 mb-2">
+            <button type="button" data-bs-dismiss="modal" class="btn btn-link">Close</button>
+            <button class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and save</button>
+          </div>
+
+    </form>
+
+  </div>
+
+
+  </div>
+
+</content>
+
+
+
+
+
 
  </main>
 
-<%- include("../component/___node.html") %> 
-<script src="/app/___noviewport.js"></script>
-</body>
+ <%-include("../component/___node.html") %>
+ <script src="/app/___noviewport.js"></script>
+ 
+ <button style="display: none;" type="button" data-bs-toggle="modal" data-bs-target="#penboxform" id="penboxmodalbtn"
+ class="btn link-success shadowx btn-go fw-500"></button>
+ 
+ <div class="penboxformappend">
+ 
+ </div>
 
+</body>
 
 <script>
 
-  
-noview.port({
-input_class: 'file',
- append_class: 'file_append', 
- file_type: 'image', 
- max_kb_size: 1024,
- multiple: false,
-  })
-
-
-function defform(){
-  
-  const forms = document.querySelectorAll('#studentForm')
-
-
-  Array.from(forms).forEach(form => {
-
-    form.addEventListener('submit', event => {
- 
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-
-      }
-
-      else {
-        event.preventDefault()
-
-        todoStudent()
-    
-      }
-
-
-
-      form.classList.add('was-validated')
-    })
-  })
-}
-
-defform()
-
-
-
-
-
-
-$(document).on("click", ".editDef", (e)=>{
-  let ID= e.currentTarget.attributes[0].value;
-  $.ajax({
-  type: "post",
-  url: "/admin/student/update/form",
-  data: {ID},
-  dataType: "JSON",
-  beforeSend: function(){
-
-
-  },
-  success: function (info) {
-     
-    $("#studentUpdateFormData").html(info.listData)
-    $("#modelId_update_form_btn").click()
-
-}
-})
-
-})
-
-
-
-
-$(document).on("click", ".modal-trigger-trigger", (e)=>{
-  let ID= e.currentTarget.attributes[0].value;
-  $.ajax({
-  type: "post",
-  url: "/privet/info/student",
-  data: {ID},
-  dataType: "JSON",
-
-  beforeSend: function(){
-    $(".modal-person-body").html(`<div class="card" aria-hidden="true">
-  <div class="card-body">
-    <h5 class="card-title placeholder-glow">
-      <span class="placeholder col-6"></span>
-    </h5>
-    <p class="card-text placeholder-glow">
-      <span class="placeholder col-7"></span>
-      <span class="placeholder col-4"></span>
-      <span class="placeholder col-4"></span>
-      <span class="placeholder col-6"></span>
-      <span class="placeholder col-8"></span>
-    </p>
-    <a class="btn btn-primary disabled placeholder col-6"></a>
-  </div> 
-</div>`)
-  
-     $(".modal-person-btn").click()
-  },
-
-  success: function (info) {
-    
-      $(".modal-person-body").html(info.html)
-     $(".modal-person-avatar").attr("src", `/image/student/${info.avatar}`)
-  
-     $(".modal-person-btn").click()
-  }
-});
-})
-
-    
-
-function todoStudent(){
-  var formdata = new FormData($('form')[0]);
-  $.ajax({
-    method: "post",
-    url: "/admin/student/join",
-    data: formdata, 
-    mimeTypes:"multipart/form-data",
-    contentType: false,
-    cache: false,
-    processData: false,   
-    dataType: "JSON",
-    beforeSend: function(){
-      $("#submitbtn").addClass("disabled")
-      _spin_pull()
-    },
-    success: function (info) {
-      $("#submitbtn").removeClass("disabled")
-
-      _spin_pop()
-  _msg_pull('alert-success', 'Student added...')
-      loadDisplay()
-
-    }
-  });
-
-    }
-    
-
-
-
-
-
-$("#studentUpdateForm").on("submit", (e)=>{
-  e.preventDefault()
-  var formdata = new FormData($('form')[1]);
-  $.ajax({
-    method: "post",
-    url: "/admin/student/update/post",
-    data: formdata, 
-    mimeTypes:"multipart/form-data",
-    contentType: false,
-    cache: false,
-    processData: false,   
-    dataType: "JSON",
-    beforeSend: function(){
-      $("#submitupdatebtn").addClass("disabled")
-      _spin_pull()
-
-    },
-    success: function (info) {
-
-
-      _msg_pull('alert-success', 'Student added...')
-      loadDisplay()
-     _spin_pop()
-
-    $('.modelId_update_form_close').click()
-      
-    }
-  });
-
-})
-
-
-
-
-$('#eye-hide').click(()=>{
-    $('#password').attr('type', "text")
-    $('#eye-hide').css({'display': 'none'})
-    $('#eye-show').css({'display': 'block'})
-})
-
-
-$('#eye-show').click(()=>{
-    $('#password').attr('type', "password")
-    $('#eye-hide').css({'display': 'block'})
-    $('#eye-show').css({'display': 'none'})
-})
-
-
-
-
-$(document).ready(function(){
-  $("#search").keyup(function() {
-    var value = $(this).val().toLowerCase();
-    $("tbody tr").filter(function() {
-       
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-     
-    });
-  });
-});
-
-
-
-
-
-function _delbox_push(){
-    $.ajax({
-        method: "post",
-        url: "/admin/student/delete",
-        data: $("#deleteStudent").serialize(),
-        dataType: "JSON",
-        beforeSend: function (){
-          _spin_pull()
-        },
-        success: function (info) {
-          _msg_pull('alert-success', 'Student deleted...')
-        _spin_pop()
-        loadDisplay()
-        
-
-            
-        }
-    });
-
- 
-}
-
-
-
-
-
-$("#classBase").on("click", ()=>{
-    let value= $("#classBase").val().split(" $%& ");
-    let className= value[0];
-    let sectionName= value[1];
-
-    $.ajax({
-        type: "post",
-        url: "/admin/student/get/class/base",
-        data: {className, sectionName},
-        dataType: "JSON",
-        success: function (info) {
-            
-            $("tbody").html(info.list)
-
-        }
-    });
-})
-
-
-function loadDisplay(){
-  let value= $("#classBase").val().split(" $%& ");
-    let className= value[0];
-    let sectionName= value[1];
-    $.ajax({
-        type: "post",
-        url: "/admin/student/get/class/base",
-        data: {className, sectionName},
-        dataType: "JSON",
-        beforeSend: function(){
-          _spin_pull()
-        },
-        success: function (info) {
-            
-            $("tbody").html(info.list)
-            _spin_pop()
-
-        }
-    });
-}
-
-loadDisplay()
-
-
-
-function loopClass(){
-  (function(){
-  $.ajax({
-    type: "get",
-    url: "/pu/class/section/rm",
-    data: {},
-    dataType: "JSON",
-    success: function (res) {
-
-     for (let index = 0; index < res.cls.length; index++) {
-
-      $(".status_"+res.cls[index].class).remove()
-        
-     }
-
-     for (let index = 0; index < res.clss.length; index++) {
-
-        $(".status_"+res.clss[index].class+'_'+res.clss[index].section).remove()
-        
-     }
-    }
-  });
-
-  }())
-}
-
-
+   
 (function(){
-  $.ajax({
-    type: "get",
-    url: "/pu/class/section/rm",
-    data: {},
-    dataType: "JSON",
-    success: function (res) {
+    $.ajax({
+      type: "get",
+      url: "/pu/class/section/rm",
+      data: {},
+      dataType: "JSON",
+      success: function (res) {
+  
+       for (let index = 0; index < res.cls.length; index++) {
+  
+        $(".status_"+res.cls[index].class).remove()
+          
+       }
+  
+       for (let index = 0; index < res.clss.length; index++) {
+  
+          $(".status_"+res.clss[index].class+'_'+res.clss[index].section).remove()
+          
+       }
+      }
+    });
+  
+    }())
+  
 
-     for (let index = 0; index < res.cls.length; index++) {
+  $(document).ready(function(){
+      $("#search").keyup(function() {
+        var value = $(this).val().toLowerCase();
+        $("#tabledata tbody tr").filter(function() {
+           
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+         
+        });
+      });
+    });
+    
+    
+noview.port({
+        input_class: 'images',
+        append_class: 'images_append',
+        file_type: 'image',
+        max_kb_size: 1024,
+        multiple: true,
+    
+    
+      })
+    
 
-      $(".status_"+res.cls[index].class).remove()
-        
-     }
+$('.order-tabledata').on('change', ()=>{
+  tabledata($('.order-tabledata').val())
+})
 
-     for (let index = 0; index < res.clss.length; index++) {
 
-        $(".status_"+res.clss[index].class+'_'+res.clss[index].section).remove()
-        
-     }
+    function tabledata(limit){
+      const class_name= 'Six';
+      const section_name= 'A';
+      $.ajax({
+        method: "post",
+        url: "/admin/student/get/pull",
+        data: {class_name, section_name, limit},
+        dataType: "JSON",
+        success: function (res) {
+          $('#tabledata tbody').html(res.tabledata)
+        }
+      });
     }
-  });
+    
+    tabledata(30)
+    
+    $('#formdata').on('submit', (event)=>{
+    event.preventDefault();
+    let formdata = new FormData($("#formdata")[0])
+    $.ajax({
+      method: "post",
+      url: "/admin/setup/student/post",
+      data: formdata,
+      dataType: "JSON",
+      mimeType: 'multipart/form-data',
+      cache: false,
+      processData: false,
+      contentType: false,
+      beforeSend: function(){
+    $('.submitbtn').addClass('disabled')
+      },
+      success: function (res) {
+        _msg_pull(res.alert, res.msg)
+        tabledata()
+        $('.submitbtn').removeClass('disabled')
+    
+      }
+    });
+    })
+    
+    
+    $('#formcheckout').on('submit', (event)=>{
+      event.preventDefault()
+      // const dataid= $('#formcheckout').serialize()
+      $.ajax({
+      method: "post",
+      url: "/admin/student/rm/pop",
+      data: $('#formcheckout').serialize(),
+      dataType: "JSON",
+      success: function (response) {
+        _msg_pull(response.alert, response.msg)
+        tabledata()
+      }
+    });
+    })
+    
+    
+    function _delbox_push(dataid){
+    $.ajax({
+      method: "post",
+      url: "/admin/student/rm/pop",
+      data: {dataid},
+      dataType: "JSON",
+      success: function (response) {
+        _msg_pull('alert-danger', 'Delete successfully!')
+        tabledata()
+      }
+    });
+     
+    }
+    
+    
+    function _penbox_pull(dataid){
+    $.ajax({
+      method: "post",
+      url: "/admin/student/penbox/pull",
+      data: {dataid},
+      dataType: "JSON",
+      success: function (res) {
+    
+        $('.penboxformappend').html(res.penboxdata)
+        $('#penboxmodalbtn').click()
+        
+      }
+    });
+    }
+    
+    
+    $(document).on('submit','#penboxdata', (event)=>{
+      event.preventDefault();
+      $.ajax({
+        method: "post",
+        url: "/admin/student/penbox/push",
+        data: $('.penboxdata').serialize(),
+        dataType: "JSON",
+        success: function (res) {
+          _msg_pull(res.alert, res.msg)
+          tabledata()
+        }
+      });
+    
+    })
+    
+    
+  </script>
+  
 
-  }())
-
-</script>
 
 </html>

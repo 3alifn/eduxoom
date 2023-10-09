@@ -7,12 +7,12 @@ const { admin_library_update, admin_library_update_page, admin_library_delete, a
 const { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_delete, admin_notice_download } = require("../app/notice_app")
 const { admin_parent_get, admin_parent_delete, admin_parent_profile } = require("../app/parent_app")
 const { admin_routine_post, admin_routine_delete, admin_subject_dynamic_get, admin_teacher_dynamic_get, admin_ptlist_dynamic_get, admin_routine_page, admin_routine_get } = require("../app/routine_app")
-const { admin_student_import, admin_student_get, admin_student_get_class_base, admin_student_delete, multer_upload_student, admin_student_join, admin_student_copy_get, admin_student_copy_post, admin_student_copy_delete, admin_student_copy_profile, admin_student_update_post, admin_student_update_form, admin_student_join_quick, admin_student_import_quick } = require("../app/student_app")
+const { admin_student_import, admin_student_get, admin_student_get_class_base, admin_student_delete, multer_upload_student, admin_student_join, admin_student_copy_get, admin_student_copy_post, admin_student_copy_delete, admin_student_copy_profile, admin_student_update_post, admin_student_update_form, admin_student_join_quick, admin_student_import_quick, admin_student_post, admin_student_penbox_pull, admin_student_penbox_push, admin_student_rm } = require("../app/student_app")
 const { admin_subject_list, admin_subject_select_teacher, admin_subject_set_time, admin_subject_delete, admin_subject_post } = require("../app/subject_app")
-const { admin_teacher_get, admin_teacher_delete, admin_teacher_update, admin_teacher_update_page, admin_teacher_config, join, admin_config_subject, admin_teacher_join, multer_upload_teacher } = require("../app/teacher_app")
+const { admin_teacher_get, admin_teacher_delete, admin_teacher_update, admin_teacher_update_page, admin_teacher_config, join, admin_config_subject, admin_teacher_join, multer_upload_teacher, admin_teacher_penbox_pull, admin_teacher_penbox_push, admin_teacher_rm, admin_teacher_post } = require("../app/teacher_app")
 const { admin_transcript_student_get, admin_transcript_student_final_card, admin_transcript_student_final_card_init, admin_transcript_final_card_init, admin_transcript_final_card_mark, admin_transcript_final_card_accept_student_list, admin_transcript_final_card_waiting_student_list, admin_transcript_final_card_drop_student_list, admin_transcript_final_card_passed_student_list, admin_transcript_final_card_passed_result, admin_transcript_final_card_drop_result, admin_transcript_report_page, admin_transcript_report_student_get, privet_transcript_report_get, admin_transcript_report_get, admin_transcript_report_get_checkout, admin_transcript_pdf_page, admin_transcript_pdf_checkout, admin_bi_transcript_pdf_checkout, admin_transcript_pdf_get } = require("../app/transcript_app")
 const { render } = require("ejs")
-const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_post, admin_bi_catagory_delete } = require("../app/bi_app")
+const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_post, admin_bi_catagory_delete, teacher_bi_mark_post } = require("../app/bi_app")
 const { multer_upload_school_settings, admin_school_post, admin_school_get, admin_school_headmaster_post, admin_school_headmaster_get, admin_school_president_post, admin_school_president_get, admin_school_secretary_post, admin_school_secretary_get } = require("../app/school_app")
 const school_app = require("../app/school_app")
 const { admin_class_section_get, admin_class_section_post, admin_class_section_main_post } = require("../app/class_section")
@@ -222,12 +222,15 @@ admin.post('/carousel/delete', admin_carousel_delete)
 
 
 // teacher router.........
-admin.post("/teacher/get", admin_teacher_get)
-admin.post("/teacher/join", multer_upload_teacher.single("avatar"), admin_teacher_join)
-admin.post("/teacher/config", admin_teacher_config)
-admin.post("/teacher/delete", admin_teacher_delete)
-admin.post("/teacher/update/page", admin_teacher_update_page)
-admin.post("/teacher/update", admin_teacher_update)
+admin.post("/teacher/get/pull", admin_teacher_get)
+admin.post("/setup/teacher/post/", multer_upload_teacher.single("images"), admin_teacher_post)
+admin.post("/teacher/penbox/pull", admin_teacher_penbox_pull)
+admin.post("/teacher/penbox/push", admin_teacher_penbox_push)
+admin.post("/teacher/rm/pop", admin_teacher_rm)
+
+
+
+
 
 
 // student router..........
@@ -236,18 +239,12 @@ admin.get("/student/page", (req, res)=>{
   res.render("admin/student_page", {msg: req.flash('msg'), alert: req.flash('alert')})
   // res.render("admin/student_page", {msg: 'getto', alert: 'primary'})
 })
-
-
-
-admin.post("/student/get", admin_student_get)
-
-admin.post("/student/import/quick", admin_student_import_quick)
-admin.post("/student/get/class/base", admin_student_get_class_base)
-admin.post("/student/delete", admin_student_delete)
-admin.post("/student/join", multer_upload_student.single("avatar"), admin_student_join)
-admin.post("/student/update/post", multer_upload_student.any("avatar"), admin_student_update_post)
-admin.post("/student/update/form", admin_student_update_form)
 admin.post("/student/join/quick", admin_student_join_quick)
+admin.post("/student/get/pull", admin_student_get)
+admin.post("/setup/student/post/", multer_upload_student.single("images"), admin_student_post)
+admin.post("/student/penbox/pull", admin_student_penbox_pull)
+admin.post("/student/penbox/push", admin_student_penbox_push)
+admin.post("/student/rm/pop", admin_student_rm)
 
 
 

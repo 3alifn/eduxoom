@@ -103,5 +103,5 @@ function ___ini(domain, lics){
 // ___ini('norailmnmhs.saanviabc.com', 'ABC123XYN')
 // ___ini('goailbarimb.saanviabc.com', 'ABC123XYG')
 
-// var uuid= createHmac('md5', 'pipilikapipra').update(new Date().toLocaleString()).digest('base64url').toUpperCase()
+// var uuid= createHmac('md5', 'pipilikapipra').update(new Date().toLocaleString()).digest('hex').toUpperCase()
 // console.log(uuid);

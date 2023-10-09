@@ -52,11 +52,20 @@ exports.admin_staff_get=(req, res)=>{
                         <td class="p-3"> <input class="shadowx checkout form-check-input" type="checkbox" value="${info[index].ID}" name="dataid[]" id=""></td>
                         <td class="fw-semibold text-muted">
         
-                          <img class="shadowx" style="width: 60px; height: 40px;" src="/image/staff/resized/${info[index].image}" alt="">
+                          <img class="shadowx avatar-circle bg-card-color-light" style="width: 40px; height: 40px;" src="/image/staff/resized/${info[index].image}" alt="">
+                          <span class="badge text-dark bg-light">
+
                           ${info[index].name}
+
+                          </span>
                         </td>
         
-                        <td class="fw-semibold text-muted">${info[index].position}</td>
+                        <td class="fw-semibold text-muted">
+                        <span class="badge text-dark bg-light">
+
+                        ${info[index].position}
+                        </span>
+                        </td>
         
                         <td class="fw-semibold text-muted">
                           <div class="dropdown">
@@ -138,16 +147,14 @@ var penboxdata=
 <div id="penboxform" data-bs-backdrop="static" class="row modal  p-2 mt-5">
 
 <div class="  modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
-<div class="d-flex justify-content-end p-2">
-<button type="button" data-bs-dismiss="modal" class="btn btn-close bg-light "></button>
 
-</div>
 <form id="penboxdata" class="penboxdata" method="post" action="#" onsubmit="return false">
   <div class=" card shadowx">
    
-    <center class=" p-2">
-      <img style="width: 150px; height: 120px" class=" shadowx float-start " src="/image/staff/resized/${info[0].image}" alt="">
-    </center>
+  <div class='p-2 bg-card-color-light d-flex justify-content-center'>
+   <img style="width: 100px; height: 100px" class="avatar-circle bg-card-color shadowx" src="/image/teacher/resized/${info[0].avatar}" alt="">
+
+   </div>
 
     <div class="card-body fw-semibold">
     
@@ -176,7 +183,7 @@ var penboxdata=
         
       <div class="d-flex text-muted m-2">
         <div class="p-1 w-25">Index No</div>
-         <input class="form-dev w-75 p-1" type="number" value="${info[0].index_number}" placeholder="enter index no" name="index_number" id="">
+         <input class="form-dev w-75 p-1" type="text" value="${info[0].index_number}" placeholder="enter index no" name="index_number" id="">
        </div>
 
 
@@ -215,9 +222,13 @@ var penboxdata=
        </div>
 
              
-      <div class="d-flex justify-content-end text-muted m-2">
-       <input  class="btn  text-primary submitbtn nav-fill btn-hover shadowx"  type="submit" value="Save and changes" id="">
-     </div>
+            
+       <div class="d-flex justify-content-between text-muted m-2">
+       <button type="button" data-bs-dismiss="modal" class="btn btn-link ">Close</button>
+   
+        <input  class="btn  text-primary submitbtn nav-fill btn-hover shadowx"  type="submit" value="Save and changes" id="">
+   
+      </div>
 
 
 </div>

@@ -197,7 +197,7 @@ exports.self_verify_code= (req, res)=>{
   
    if(userAuthentication==true) {
   
-    const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
+    const hashPassword= createHmac('md5', 'pipilikapipra').update(password).digest('hex');
   
     sqlmap.query(`INSERT INTO parents (domain, session, class, section, name, telephone, student_id, email, password, gender) 
     VALUES (${req.hostname}', ${session}', "${className}", "${sectionName}", "${name}","${telephone}", "${student_id}", "${email}", "${hashPassword}", "${gender}")`, (err)=>{
@@ -342,8 +342,8 @@ exports.self_password_update= (req, res)=>{
 
   const {password, pastPassword}= req.body;
   const email= req.session.userEmail
-  const hashPassword= createHmac('md5', 'pipilikapipra').update(email+password).digest('hex');
-  const oldPassword= createHmac('md5', 'pipilikapipra').update(email+pastPassword).digest('hex');
+  const hashPassword= createHmac('md5', 'pipilikapipra').update(password).digest('hex');
+  const oldPassword= createHmac('md5', 'pipilikapipra').update(pastPassword).digest('hex');
 
 
       const sql= `UPDATE parents SET password="${hashPassword}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
