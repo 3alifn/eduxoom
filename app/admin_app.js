@@ -48,6 +48,7 @@ admin_login: (req, res)=>{
             if(info[0].hash_username===hashUsername && info[0].hash_password===hashPassword__){
                  
                 req.session.hashUser= 'hashAdmin'
+                req.session.admin_uuid= info[0].admin_uuid;
                 req.session.hashUsername= hashUsername;
                 req.session.hashPassword= hashPassword__;
                 req.session.userAccess= "privet";

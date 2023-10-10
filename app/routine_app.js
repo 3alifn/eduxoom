@@ -334,7 +334,7 @@ exports.admin_teacher_dynamic_get= (req, res)=>{
 exports.admin_ptlist_dynamic_get= (req, res)=>{
     let {className, sectionName}= req.body;
 
-    sqlmap.query(`SELECT period_time FROM subject WHERE domain='${req.hostname}' ORDER BY period_time`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' ORDER BY period_time`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 

@@ -4,8 +4,8 @@ const {app, express,  sqlmap , fs} = require("../server");
 exports.privet_transcript_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
 
-  sqlmap.query(`SELECT student_id, name, roll, avatar FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-   GROUP BY student_id  ORDER BY roll`
+  sqlmap.query(`SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+   GROUP BY student_uuid  ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
       const infoStudent= infoStudentData;
@@ -22,18 +22,18 @@ exports.privet_transcript_report_student_get= ( req , res)=>{
 
 
 
-const teacher_bi_transcript_post_update= (domain, className, sectionName, student_id)=>{
+const teacher_bi_transcript_post_update= (domain, className, sectionName, student_uuid)=>{
 
   sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${domain}' GROUP BY catagory_code ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
   for (let index = 0; index < infoCatagory.length; index++) {
-      sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =1`,(err_bi_danger, info_bi_danger)=>{
+      sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =1`,(err_bi_danger, info_bi_danger)=>{
           if(err_bi_danger) console.log(err_bi_danger.sqlMessage);
           
-          sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =2`,(err_bi_warning, info_bi_warning)=>{
+          sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =2`,(err_bi_warning, info_bi_warning)=>{
               if(err_bi_warning) console.log(err_bi_warning.sqlMessage);
       
-              sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =3`,(err_bi_success, info_bi_success)=>{
+              sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =3`,(err_bi_success, info_bi_success)=>{
       
       if(err_bi_success) console.log(err_bi_success.sqlMessage);
       
@@ -51,7 +51,7 @@ const teacher_bi_transcript_post_update= (domain, className, sectionName, studen
           var bg_color= 'bg-danger'; var bi_point= 1;
         }
       
-       sqlmap.query(`UPDATE bi_transcript SET bi_point='${bi_point}', bg_color='${bg_color}' WHERE domain='${domain}' AND  student_id='${student_id}' AND catagory='${infoCatagory[index].catagory_code}'`
+       sqlmap.query(`UPDATE bi_transcript SET bi_point='${bi_point}', bg_color='${bg_color}' WHERE domain='${domain}' AND  student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}'`
        ,(errUpdate, infoUpdate)=>{
       
           if(errUpdate) console.log(errUpdate.sqlMessage);
@@ -74,30 +74,30 @@ const teacher_bi_transcript_post_update= (domain, className, sectionName, studen
 
 
 exports.privet_transcript_report_get= ( req , res)=>{
-  const {className, sectionName, student_id}= req.params;
-  teacher_bi_transcript_post_update(className, sectionName, student_id)
+  const {className, sectionName, student_uuid}= req.params;
+  teacher_bi_transcript_post_update(className, sectionName, student_uuid)
 
   sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
   sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
 
-    sqlmap.query(`SELECT student_id, name, avatar, pi, bg_color, roll FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-    AND student_id='${student_id}'`
+    sqlmap.query(`SELECT * FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+    AND student_uuid='${student_uuid}'`
     ,(errStudent, infoStudent)=>{
 
-  sqlmap.query(`SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-   AND student_id='${student_id}' AND transcript_name='half'`
+  sqlmap.query(`SELECT * FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+   AND student_uuid='${student_uuid}' AND transcript_name='half'`
   ,(errStudentHalf, infoStudentHalf)=>{
 
 if(errStudentHalf) console.log(errStudentHalf.sqlMessage);
 
-sqlmap.query(`SELECT student_id, name, avatar, pi, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-AND student_id='${student_id}' AND transcript_name='full'`
+sqlmap.query(`SELECT * FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+AND student_uuid='${student_uuid}' AND transcript_name='full'`
    ,(errStudentFull, infoStudentFull)=>{
  if(errStudent) console.log(errStudent.sqlMessage);
 
   if(infoStudentHalf || infoStudentFull){
-      res.render('transcript/transcript-page-report-get-privet', {infoStudentHalf, infoStudentFull, infoCatagory, infoStudent, infoSubject, student_id, className, sectionName})
+      res.render('transcript/transcript-page-report-get-privet', {infoStudentHalf, infoStudentFull, infoCatagory, infoStudent, infoSubject, student_uuid, className, sectionName})
   }
   else res.send('<center><h1>student not found!</h1></center>')
 
@@ -114,8 +114,8 @@ AND student_id='${student_id}' AND transcript_name='full'`
 
 exports.privet_transcript_report_get_checkout= (req, res)=>{
 
-  const {className, sectionName, student_id}= req.body;
-  sqlmap.query(`SELECT pi, checkout, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  student_id='${student_id}' AND class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
+  const {className, sectionName, student_uuid}= req.body;
+  sqlmap.query(`SELECT pi, checkout, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' ORDER BY student_uuid`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
           res.send({info_checkout}) 
@@ -125,8 +125,8 @@ exports.privet_transcript_report_get_checkout= (req, res)=>{
 
 exports.admin_transcript_report_get_checkout= (req, res)=>{
 
-  const {className, sectionName, student_id}= req.body;
-  sqlmap.query(`SELECT pi, checkout, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  student_id='${student_id}' AND class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
+  const {className, sectionName, student_uuid}= req.body;
+  sqlmap.query(`SELECT pi, checkout, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' ORDER BY student_uuid`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
           res.send({info_checkout}) 
@@ -140,8 +140,8 @@ exports.admin_transcript_report_get_checkout= (req, res)=>{
 exports.admin_transcript_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
 
-  sqlmap.query(`SELECT student_id, name, roll, avatar FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-  GROUP BY student_id  ORDER BY roll`
+  sqlmap.query(`SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+  GROUP BY student_uuid  ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
       const infoStudent= infoStudentData;
@@ -159,15 +159,15 @@ exports.admin_transcript_report_student_get= ( req , res)=>{
 
 
 exports.admin_transcript_report_get= ( req , res)=>{
-  var {className, sectionName, student_id}= req.params; 
-  const {student_offset}= req.query; const init_student= student_id;
-  if(student_offset==undefined) var offset= 0; if(student_id=='auto') var offset= student_offset;  
-  if(student_id=='auto')   var findStudent= `SELECT student_id, name, avatar, pi, roll, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'  GROUP BY student_id  ORDER BY ID DESC LIMIT 1 OFFSET ${offset}`
-  else  var findStudent= `SELECT student_id, name, avatar, pi, roll, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`
+  var {className, sectionName, student_uuid}= req.params; 
+  const {student_offset}= req.query; const init_student= student_uuid;
+  if(student_offset==undefined) var offset= 0; if(student_uuid=='auto') var offset= student_offset;  
+  if(student_uuid=='auto')   var findStudent= `SELECT student_uuid, name, avatar, pi, roll, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'  GROUP BY student_uuid  ORDER BY ID DESC LIMIT 1 OFFSET ${offset}`
+  else  var findStudent= `SELECT student_uuid, name, avatar, pi, roll, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'`
   sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
 sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
-sqlmap.query(`SELECT student_id FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' GROUP BY student_id`, (err_row, info_row)=>{
+sqlmap.query(`SELECT student_uuid FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' GROUP BY student_uuid`, (err_row, info_row)=>{
  if(err_row) console.log(err_row.sqlMessage);
 
 sqlmap.query( findStudent,(errStudent, infoStudent)=>{
@@ -175,10 +175,10 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
 
   if(infoStudent.length>0){  
     
-    const student_id= infoStudent[0].student_id; 
+    const student_uuid= infoStudent[0].student_uuid; 
     if(info_row.length==parseInt(offset)+1) var btnstatus= 'disabled'; else var btnstatus=''; if(init_student=='auto') var offsetPlus= parseInt(offset)+1; else var offsetPlus= 0;  
-    teacher_bi_transcript_post_update(className, sectionName, student_id)
-      res.render('admin/transcript-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_id, className, sectionName})
+    teacher_bi_transcript_post_update(className, sectionName, student_uuid)
+      res.render('admin/transcript-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName})
   }
   else res.send('<center><h1>student not found!</h1></center>')
 
@@ -200,7 +200,7 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
 
 exports.admin_transcript_pdf_page= ( req , res)=>{
   const {className, sectionName}= req.params; 
-  sqlmap.query(`SELECT student_id, roll FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' GROUP BY student_id ORDER BY ID`, (err, getStudent)=>{
+  sqlmap.query(`SELECT student_uuid, roll FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' GROUP BY student_uuid ORDER BY ID`, (err, getStudent)=>{
     if(err) console.log(err.sqlMessage);
     if(getStudent.length>0){
       res.render('admin/transcript-pdf-page', {className, sectionName, getStudent})
@@ -214,10 +214,10 @@ exports.admin_transcript_pdf_page= ( req , res)=>{
 
 
 exports.admin_transcript_pdf_get= ( req , res)=>{
-  const {className, sectionName, student_id}= req.body; 
-  teacher_bi_transcript_post_update(className, sectionName, student_id)
+  const {className, sectionName, student_uuid}= req.body; 
+  teacher_bi_transcript_post_update(className, sectionName, student_uuid)
 
-  const findStudent= `SELECT student_id, name, avatar, roll, pi, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_id='${student_id}'`
+  const findStudent= `SELECT student_uuid, name, avatar, roll, pi, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'`
   sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
 sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
@@ -294,7 +294,7 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
 
  for( let index = 0; index <infoCatagory.length; index++ ) { 
 bi_perfomance+= `<td > 
-    <div class="form-check checkout_${infoStudent[0].student_id}${infoCatagory[index].catagory_code} fs-3 p-0 m-0">
+    <div class="form-check checkout_${infoStudent[0].student_uuid}${infoCatagory[index].catagory_code} fs-3 p-0 m-0">
   
     <i class="bi bi-square"></i>           
 
@@ -360,7 +360,7 @@ for( let i = 0; i < infoSubject.length; i++ ) {
   for( let index = 0; index <infoChapter.length; index++ ) { 
     transcript_report+= `<td > 
     
-      <div class="form-check checkout_${student_id}${infoSubject[i].subject_code}${infoChapter[index]} fs-3 p-0 m-0">
+      <div class="form-check checkout_${student_uuid}${infoSubject[i].subject_code}${infoChapter[index]} fs-3 p-0 m-0">
                   
       <i class="bi bi-square"></i>           
                    
@@ -394,7 +394,7 @@ report_card+=student_card; report_card+=bi_perfomance; report_card+=transcript_r
 
 report_card+=`</div></div>`
 
-      res.send ({infoStudent, infoCatagory, infoSubject, student_id, className, sectionName, report_card})
+      res.send ({infoStudent, infoCatagory, infoSubject, student_uuid, className, sectionName, report_card})
 
   }
 
@@ -412,7 +412,7 @@ report_card+=`</div></div>`
 exports.admin_transcript_pdf_checkout= (req, res)=>{
  
   const {className, sectionName}= req.body;
-  sqlmap.query(`SELECT pi, checkout, roll, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
+  sqlmap.query(`SELECT pi, checkout, roll, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' ORDER BY student_uuid`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
           res.send({info_checkout}) 
@@ -426,7 +426,7 @@ exports.admin_bi_transcript_pdf_checkout= (req, res)=>{
 
   const {className, sectionName}= req.body;
   
-  sqlmap.query(`SELECT bi, checkout, bi_point, bg_color FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' ORDER BY student_id`, (errFind, info_checkout)=>{
+  sqlmap.query(`SELECT bi, checkout, bi_point, bg_color FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' ORDER BY student_uuid`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
           res.send({info_checkout}) 
@@ -439,19 +439,19 @@ exports.admin_bi_transcript_pdf_checkout= (req, res)=>{
 
 
 exports.admin_transcript_final_card_passed_result= (req, res)=>{
-  const {className, sectionName, student_id} = req.body;
+  const {className, sectionName, student_uuid} = req.body;
   const session= new Date().getUTCFullYear();
   const at_status= 'passed'
-  sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  student_id=${student_id} AND class='${className}' AND section='${sectionName}' ORDER BY roll`,(errStudent, infoStudent)=>{
+  sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' ORDER BY roll`,(errStudent, infoStudent)=>{
     if(errStudent) console.log(errStudent.sqlMessage);
 
-    sqlmap.query(`INSERT INTO transcript_origin (domain, session, class, section, student_id, name, roll, at_status, avatar)
-    VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', ${student_id}, '${infoStudent[0].name}', ${infoStudent[0].roll}, '${at_status}', '${infoStudent[0].avatar}')`
+    sqlmap.query(`INSERT INTO transcript_origin (domain, session, class, section, student_uuid, name, roll, at_status, avatar)
+    VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${student_uuid}', '${infoStudent[0].name}', ${infoStudent[0].roll}, '${at_status}', '${infoStudent[0].avatar}')`
     , (errUp, infoUp)=>{
      if(errUp) console.log(errUp.sqlMessage);
  
     else {
-      sqlmap.query(`UPDATE transcript_report SET at_status='finished' WHERE domain='${req.hostname}' AND  class='${className}' AND student_id=${student_id}`, (errUpdate, nextUpdate)=>{
+      sqlmap.query(`UPDATE transcript_report SET at_status='finished' WHERE domain='${req.hostname}' AND  class='${className}' AND student_uuid=${student_uuid}`, (errUpdate, nextUpdate)=>{
         if(errUpdate) console.log(errUpdate.sqlMessage);
   
         res.send({alert: 'success', msg: 'উক্ত ছাত্রকে উত্তীর্ন করা হয়েছে!'})
@@ -470,19 +470,19 @@ exports.admin_transcript_final_card_passed_result= (req, res)=>{
 
 
 exports.admin_transcript_final_card_drop_result= (req, res)=>{
-  const {className, sectionName, student_id} = req.body;
+  const {className, sectionName, student_uuid} = req.body;
   const session= new Date().getUTCFullYear();
   const at_status= 'dropped'
 
-  sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  student_id=${student_id} AND class='${className}' AND section='${sectionName}' ORDER BY roll`,(errStudent, infoStudent)=>{
+  sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' ORDER BY roll`,(errStudent, infoStudent)=>{
     if(errStudent) console.log(errStudent.sqlMessage);
 
-    sqlmap.query(`INSERT INTO transcript_origin (domain, session, class, section, student_id, name, roll, at_status, avatar)
-    VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', ${student_id}, '${infoStudent[0].name}', '${infoStudent[0].roll}', '${at_status}', '${infoStudent[0].avatar}')`
+    sqlmap.query(`INSERT INTO transcript_origin (domain, session, class, section, student_uuid, name, roll, at_status, avatar)
+    VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${student_uuid}', '${infoStudent[0].name}', '${infoStudent[0].roll}', '${at_status}', '${infoStudent[0].avatar}')`
     , (errUp, infoUp)=>{
      if(errUp) console.log(errUp.sqlMessage);
  
-     sqlmap.query(`UPDATE transcript_report SET at_status='finished' WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_id=${student_id}`, (errUpdate, nextUpdate)=>{
+     sqlmap.query(`UPDATE transcript_report SET at_status='finished' WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'`, (errUpdate, nextUpdate)=>{
       if(errUpdate) console.log(errUpdate.sqlMessage);
 
       res.send({alert: 'success', msg: 'উক্ত ছাত্রকে অনউত্তীর্ন করা হয়েছে!'})
@@ -502,7 +502,7 @@ exports.admin_transcript_final_card_drop_result= (req, res)=>{
 
 exports.admin_transcript_final_card_passed_student_list= (req, res)=>{
   const {className, sectionName} = req.params
-  sqlmap.query(`SELECT * FROM transcript_origin WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND at_status='passed' GROUP BY student_id  ORDER BY ID DESC`,(errStudent, infoStudent)=>{
+  sqlmap.query(`SELECT * FROM transcript_origin WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND at_status='passed' GROUP BY student_uuid  ORDER BY ID DESC`,(errStudent, infoStudent)=>{
     if(errStudent) console.log(errStudent.sqlMessage);
 
     
@@ -525,7 +525,7 @@ exports.admin_transcript_final_card_passed_student_list= (req, res)=>{
 exports.admin_transcript_final_card_drop_student_list= (req, res)=>{
 
   const {className, sectionName} = req.params;
-  sqlmap.query(`SELECT * FROM transcript_origin WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND at_status='dropped' GROUP BY student_id  ORDER BY ID DESC`,(errStudent, infoStudent)=>{
+  sqlmap.query(`SELECT * FROM transcript_origin WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND at_status='dropped' GROUP BY student_uuid  ORDER BY ID DESC`,(errStudent, infoStudent)=>{
     if(errStudent) console.log(errStudent.sqlMessage);
 
     
@@ -549,7 +549,7 @@ exports.admin_transcript_final_card_waiting_student_list= (req, res)=>{
   const {className, sectionName} = req.params;
 
 
-  sqlmap.query(`SELECT * FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND at_status='incomplete' GROUP BY student_id  ORDER BY ID DESC`,(errStudent, infoStudent)=>{
+  sqlmap.query(`SELECT * FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND at_status='incomplete' GROUP BY student_uuid  ORDER BY ID DESC`,(errStudent, infoStudent)=>{
     if(errStudent) console.log(errStudent.sqlMessage);
 
     

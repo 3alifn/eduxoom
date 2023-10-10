@@ -41,7 +41,7 @@
     
 
 <div id="btnSection" class="mb-2 btn-section-bottom">
-  <center> <input class="student_id" type="hidden" value="<%=student_id%>" name="">
+  <center> <input class="student_uuid" type="hidden" value="<%=student_uuid%>" name="">
    <button  class="btn droppedResult btn-danger">অনউত্তীর্ণ</button> 
    <button  class="btn passedResult btn-success">উত্তীর্ণ</button> 
    <a href="/admin/transcript/report-get/<%=className%>/<%=sectionName%>/auto?student_offset=<%=offsetPlus%>" class="btn <%=btnstatus%> btn-primary">পর্রবতী</a> 
@@ -113,7 +113,7 @@
 
           <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
               <td > 
-                  <div class="form-check checkout_<%=infoStudent[0].student_id%><%=infoCatagory[index].catagory_code%> fs-3 p-0 m-0">
+                  <div class="form-check checkout_<%=infoStudent[0].student_uuid%><%=infoCatagory[index].catagory_code%> fs-3 p-0 m-0">
               
                     <i class="bi bi-square"></i>           
 
@@ -166,7 +166,7 @@
 <% for( let index = 0; index <infoChapter.length; index++ ) { %>
     <td > 
 
-        <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> fs-3 p-0 m-0">
+        <div class="form-check checkout_<%=student_uuid%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> fs-3 p-0 m-0">
                     
           <i class="bi bi-square"></i>           
        
@@ -212,14 +212,14 @@
 
 const className= '<%=className%>'
 const sectionName= '<%=sectionName%>'
-const student_id= '<%=student_id%>'
+const student_uuid= '<%=student_uuid%>'
 _spin_pull()
   setTimeout(() => {
 var element = document.getElementById('printArea');
 
    var opt = {
         margin: 1,
-        filename: `Transcript-${className}-${sectionName}-${-student_id}.pdf`,
+        filename: `Transcript-${className}-${sectionName}-${-student_uuid}.pdf`,
         html2canvas: {
            scale: 2
         },
@@ -248,11 +248,11 @@ var element = document.getElementById('printArea');
 function student_checkout_class() {
  const className= '<%=className%>'
  const sectionName= '<%=sectionName%>'
- const student_id= '<%=student_id%>'
+ const student_uuid= '<%=student_uuid%>'
     $.ajax({
         method: "post",
         url: "/privet/transcript/report-get-checkout",
-        data: {className, sectionName, student_id},
+        data: {className, sectionName, student_uuid},
         dataType: "JSON",
         success: function (response) {
          
@@ -269,11 +269,11 @@ student_checkout_class()
 function bi_checkout_class() {
  const className= '<%=className%>'
  const sectionName= '<%=sectionName%>'
- const student_id= '<%=student_id%>'
+ const student_uuid= '<%=student_uuid%>'
     $.ajax({
         method: "post",
         url: "/privet/bi/transcript-report-checkout",
-        data: {className, sectionName, student_id},
+        data: {className, sectionName, student_uuid},
         dataType: "JSON",
         success: function (response) {
             for (const key in response.info_checkout) {
@@ -293,11 +293,11 @@ bi_checkout_class()
 $(document).on('click', '.passedResult', ()=>{
     const className=  `<%=className%>`;
     const sectionName= `<%=sectionName%>`;
-    const student_id= $('.student_id').val()
+    const student_uuid= $('.student_uuid').val()
     $.ajax({
         method: "post",
         url: "/admin/transcript/final-card-passed-result",
-        data: {className, sectionName, student_id},
+        data: {className, sectionName, student_uuid},
         dataType: "JSON",
         beforeSend: function(){
  $('.droppedResult').addClass('disabled')
@@ -326,11 +326,11 @@ $('.toast-msg').html(`<img src="/image/default/loading-load.gif" width="100px" c
 $(document).on('click', '.droppedResult', ()=>{
     const className=  `<%=className%>`;
     const sectionName= `<%=sectionName%>`;
-    const student_id= $('.student_id').val()
+    const student_uuid= $('.student_uuid').val()
     $.ajax({
         method: "post",
         url: "/admin/transcript/final-card-drop-result",
-        data: {className, sectionName, student_id},
+        data: {className, sectionName, student_uuid},
         dataType: "JSON",
         beforeSend: function(){
 $('.passedResult').addClass('disabled')

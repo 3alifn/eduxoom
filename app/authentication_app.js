@@ -36,9 +36,8 @@ exports.authentication_check = (req, res)=>{
 
             {
                 req.session.userid= info[0].ID;
-      
-               
-                req.session.user= "student"
+                req.session.user= "student";
+                req.session.student_uuid= info[0].student_uuid;
                 req.session.userAccess= "privet"
                 req.session.className= info[0].class;
                 req.session.sectionName= info[0].section;
@@ -53,6 +52,7 @@ exports.authentication_check = (req, res)=>{
             {
 
                 req.session.userid= info[0].ID;
+                req.session.teacher_uuid= info[0].teacher_uuid;
                 req.session.user= "teacher"
                 req.session.userAccess= "privet"
                 req.session.userName= info[0].name;
@@ -68,8 +68,8 @@ exports.authentication_check = (req, res)=>{
 
             else if(info.length> 0 && userRole=="parents" )
             {
-
-                req.session.userid= info[0].ID;
+              req.session.userid= info[0].ID;
+              req.session.parent_uuid= info[0].parent_uuid;
                 req.session.user= "parent"
                 req.session.userAccess= "privet"
                 req.session.userName= info[0].name;

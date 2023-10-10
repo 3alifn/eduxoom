@@ -156,7 +156,7 @@ exports.admin_teacher_penbox_pull=(req, res)=>{
       else {
 
 var penboxdata=
-html`
+`
 <div id="penboxform" data-bs-backdrop="static" class="row modal  p-2 mt-5">
 
 <div class="  modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
@@ -438,8 +438,9 @@ exports.self_dashboard= (req, res)=>{
 
 
 exports.self_account = (req, res)=>{
-    let ID= req.session.userid;
-    let sql= `SELECT * FROM teachers WHERE domain='${req.hostname}' AND  ID="${ID}"`
+  const teacher_uuid= req.session.teacher_uuid;
+
+    let sql= `SELECT * FROM teachers WHERE domain='${req.hostname}' AND  teacher_uuid="${teacher_uuid}"`
 
     sqlmap.query(sql, (err, info)=>{
 
@@ -460,8 +461,9 @@ exports.self_account = (req, res)=>{
 
 
   exports.self_avatar_upload =  async (req, res, next)=>{
+    const teacher_uuid= req.session.teacher_uuid;
 
-    sqlmap.query(`UPDATE teachers SET avatar="${req.file.filename}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (err, next)=>{
+    sqlmap.query(`UPDATE teachers SET avatar="${req.file.filename}" WHERE domain='${req.hostname}' AND  teacher_uuid="${teacher_uuid}"`, (err, next)=>{
   
       if(err) console.log(err.message);
    
@@ -601,23 +603,22 @@ res.send({htmldata})
 
 
 exports.self_info_update= (req, res) =>{
-  if(req.session.user=='teacher'){
+  const teacher_uuid= req.session.teacher_uuid;
         let {name, telephone, gender, birthDate, religion, address, bloodGroup, educationQualification}= req.body;
-      let sql=   `UPDATE teachers SET education_qualification="${educationQualification}",  name="${name}", telephone="${telephone}", gender="${gender}", birth_date="${birthDate}", gender="${gender}",  religion="${religion}", address="${address}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
+      let sql=   `UPDATE teachers SET education_qualification="${educationQualification}",  name="${name}", telephone="${telephone}", gender="${gender}", birth_date="${birthDate}", gender="${gender}",  religion="${religion}", address="${address}" WHERE domain='${req.hostname}' AND  teacher_uuid="${teacher_uuid}"`
       sqlmap.query(sql, (err, info)=>{
       
       if(err) console.log(err.sqlMessage);
       
       else {
         req.flash("msg", "Profile Updated Successfully!")
-        req.flash("alert", "success")
+        req.flash("alert", "alert-success")
         res.redirect("/teacher/account")
       }
       
       
       })
       
-      }
       }
       
       
@@ -632,11 +633,12 @@ exports.self_password_update= (req, res)=>{
     const email= req.session.userEmail
     const hashPassword= createHmac('md5', 'pipilikapipra').update(password).digest('hex');
     const oldPassword= createHmac('md5', 'pipilikapipra').update(pastPassword).digest('hex');
- 
-            let sql= `UPDATE teachers SET password="${hashPassword}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
+    const teacher_uuid= req.session.teacher_uuid;
+
+            let sql= `UPDATE teachers SET password="${hashPassword}" WHERE domain='${req.hostname}' AND  teacher_uuid="${teacher_uuid}"`
       
       
-         sqlmap.query(`SELECT password FROM teachers WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (errPass, infoPass)=>{
+         sqlmap.query(`SELECT password FROM teachers WHERE domain='${req.hostname}' AND  teacher_uuid="${teacher_uuid}"`, (errPass, infoPass)=>{
       
           if(errPass) console.log(errPass.sqlMessage);
           else{
@@ -649,7 +651,7 @@ exports.self_password_update= (req, res)=>{
           if(err) 
           {
             req.flash("msg", "Change Failed!")
-            req.flash("alert", "danger")
+            req.flash("alert", "alert-danger")
             res.redirect("/teacher/account")
       
           }
@@ -658,7 +660,7 @@ exports.self_password_update= (req, res)=>{
           {
           
             req.flash("msg", "Changed! Successfully...")
-            req.flash("alert", "success")
+            req.flash("alert", "alert-success")
             res.redirect("/teacher/account")
           }
         })
@@ -668,7 +670,7 @@ exports.self_password_update= (req, res)=>{
       else 
       {
         req.flash("msg", "Current Password Not Matched!")
-        req.flash("alert", "danger")
+        req.flash("alert", "alert-danger")
         res.redirect("/teacher/account")
       }
       
@@ -689,7 +691,6 @@ exports.self_password_update= (req, res)=>{
 
 
 exports.self_email_update_page= (req, res)=>{
-  if(req.session.user=='teacher'){
   let {username}= req.body;
          
   sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
@@ -698,7 +699,7 @@ exports.self_email_update_page= (req, res)=>{
     {
 
       req.flash("msg", "username already exists!")
-      req.flash("alert", "danger")
+      req.flash("alert", "alert-danger")
       res.redirect("/teacher/account")
 
     }
@@ -749,7 +750,7 @@ exports.self_email_update_page= (req, res)=>{
       req.session.username= username
 
       req.flash("msg", "Verification Code Sent!")
-      req.flash("alert", "success")
+      req.flash("alert", "alert-success")
 
       res.render("authentication/username_update_page", {user: "teacher", msg: req.flash("msg"), alert: req.flash("alert")})
 
@@ -764,7 +765,6 @@ exports.self_email_update_page= (req, res)=>{
 
   })
 }
-}
   
 
 
@@ -775,11 +775,12 @@ exports.self_email_update_page= (req, res)=>{
       
       
 exports.self_email_update= (req, res)=>{
-  if(req.session.user=='teacher'){
+  const teacher_uuid= req.session.teacher_uuid;
+
         if(req.body.verifyCode==req.session.userVerifyCode)
         {
       
-      let sql= `UPDATE teachers SET email="${req.session.username}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
+      let sql= `UPDATE teachers SET email="${req.session.username}" WHERE domain='${req.hostname}' AND  teacher_uuid="${teacher_uuid}"`
       
       sqlmap.query(sql, (err, info) =>{
       
@@ -794,7 +795,7 @@ exports.self_email_update= (req, res)=>{
         {
         
           req.flash("msg", "Changed! Successfully...")
-          req.flash("alert", "success")
+          req.flash("alert", "alert-success")
           res.redirect("/teacher/account")
         }
       })
@@ -804,11 +805,10 @@ exports.self_email_update= (req, res)=>{
         else 
         {
           req.flash("msg", "Authontication Falied!")
-          req.flash("alert", "danger")
+          req.flash("alert", "alert-danger")
           res.render("authentication/username_update_page", {user: "teacher", msg: req.flash("msg"), alert: req.flash("alert")})
         }
       
-      }
       }
 
 
@@ -839,20 +839,19 @@ exports.self_close_account= (req, res)=>{
 
 
 exports.self_social_update= (req, res)=>{
-  if(req.session.user=='teacher'){
         let {facebookLink}=req.body;
-        console.log(req.body);
-          sqlmap.query(`UPDATE teachers SET facebook_link="${facebookLink}"  WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (err, info)=>{
+        const teacher_uuid= req.session.teacher_uuid;
+
+          sqlmap.query(`UPDATE teachers SET facebook_link="${facebookLink}"  WHERE domain='${req.hostname}' AND  teacher_uuid="${teacher_uuid}"`, (err, info)=>{
         
             if(err) console.log(err.sqlMessage);
              
             else 
             {
-              req.flash("alert", "success")
+              req.flash("alert", "alert-success")
               req.flash("msg", "Social Link Updated...")
               res.redirect("/teacher/account")
             }
           })
         
-        }
         }

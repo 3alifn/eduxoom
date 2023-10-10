@@ -14,7 +14,7 @@ exports.teacher_pic_page_mark_get= (req, res)=>{
 
  if(page==1) var offset=0; else var offset=page-1; const limit=20; 
 
- sqlmap.query(`SELECT COUNT(student_id) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
+ sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
  ,(err_row, count_row)=>{
    if(err_row) console.log(err_row.sqlMessage);
   const student_row= count_row[0].student_row;
@@ -23,10 +23,10 @@ exports.teacher_pic_page_mark_get= (req, res)=>{
   if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus=''
 
  
-      sqlmap.query(`SELECT ID, student_id, name, avatar, roll FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'  ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
+      sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'  ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
       (errStudent, infoStudentData)=>{
   
-        sqlmap.query(`SELECT subject_code, subject FROM subject WHERE domain='${req.hostname}' AND  class='${className}' AND subject='${subject}'`
+        sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' AND subject='${subject}'`
         , (errSubjectCode, infoSubjectCode)=>{
          const subject_code= infoSubjectCode[0].subject_code;
       if(infoStudentData){
@@ -47,16 +47,16 @@ exports.teacher_pic_page_mark_get= (req, res)=>{
 
 
 exports.teacher_pic_mark_post= (req, res)=>{
-  const teacher_pdsid= req.session.pdsId;
+  const teacher_uuid= req.session.teacher_uuid;
   const session= new Date().getUTCFullYear();
-  const {className,sectionName, pi, student_id, roll, name, avatar, chapter, subject, checkout, bg_color}= req.body;
-  sqlmap.query(`SELECT student_id FROM pic_mark WHERE domain='${req.hostname}' AND   class='${className}' AND section='${sectionName}' AND student_id=${student_id} AND subject='${subject}' AND chapter='${chapter}'`,
+  const {className,sectionName, pi, student_uuid, roll, name, avatar, chapter, subject, checkout, bg_color}= req.body;
+  sqlmap.query(`SELECT * FROM pic_mark WHERE domain='${req.hostname}' AND   class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND subject='${subject}' AND chapter='${chapter}'`,
    (errCheck, infoCheck)=>{
       if(errCheck) console.log(errCheck.sqlMessage);
       if(infoCheck===undefined || infoCheck.length===0){
 
-          sqlmap.query(`INSERT INTO pic_mark (domain, session, class, section, student_id, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
-          VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}',  ${student_id}, '${subject}', ${roll}, '${name}', '${avatar}', '${chapter}', ${pi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
+          sqlmap.query(`INSERT INTO pic_mark (domain, session, class, section, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
+          VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}',  '${student_uuid}', '${subject}', ${roll}, '${name}', '${avatar}', '${chapter}', ${pi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
               if(errPost) console.log(errPost.sqlMessage);
               else { 
                   
@@ -73,10 +73,10 @@ exports.teacher_pic_mark_post= (req, res)=>{
 
 
 exports.teacher_pic_mark_checkout= (req, res)=>{
-  const teacher_pdsid= req.session.pdsId;
+  const teacher_uuid= req.session.teacher_uuid;
 
   const {className, sectionName, subject}= req.body;
-  sqlmap.query(`SELECT checkout, bg_color FROM pic_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='${subject}'`, (errFind, info_checkout)=>{
+  sqlmap.query(`SELECT * FROM pic_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='${subject}'`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       res.send({info_checkout})
   })
@@ -90,7 +90,7 @@ exports.teacher_pic_subject_get=(req, res)=>{
 
    const {className}= req.body;
  
-     sqlmap.query( `SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY ID DESC`, (err, info)=>{
+     sqlmap.query( `SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY ID DESC`, (err, info)=>{
  
        if (err) console.log(err.sqlMessage);
  
@@ -117,8 +117,8 @@ exports.teacher_pic_subject_get=(req, res)=>{
  exports.privet_pic_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
 
-  sqlmap.query(`SELECT ID, student_id, name, roll, avatar FROM pic_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-   GROUP BY student_id ORDER BY roll`
+  sqlmap.query(`SELECT * FROM pic_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+   GROUP BY student_uuid ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
       const infoStudent= infoStudentData;
@@ -135,15 +135,15 @@ exports.teacher_pic_subject_get=(req, res)=>{
 
 
 exports.privet_pic_report_get= ( req , res)=>{
-  const {className, sectionName, student_id}= req.params;
+  const {className, sectionName, student_uuid}= req.params;
 
   sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
-  sqlmap.query(`SELECT student_id, name, avatar, pi, roll, bg_color FROM pic_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-   AND student_id='${student_id}' ORDER BY roll`
+  sqlmap.query(`SELECT * FROM pic_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+   AND student_uuid='${student_uuid}' ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData){
       const infoStudent= infoStudentData;
-      res.render('pic/pic-page-report-get-privet', {infoStudent, infoSubject, student_id, className, sectionName})
+      res.render('pic/pic-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName})
   }
   else res.send('<center><h1>student not found!</h1></center>')
 
@@ -160,8 +160,8 @@ exports.privet_pic_report_get= ( req , res)=>{
 
 exports.privet_pic_report_get_checkout= (req, res)=>{
 
-  const {className, sectionName, student_id}= req.body;
-  sqlmap.query(`SELECT checkout, bg_color FROM pic_mark WHERE domain='${req.hostname}' AND  student_id='${student_id}' AND class='${className}' AND section='${sectionName}' ORDER BY roll`, (errFind, info_checkout)=>{
+  const {className, sectionName, student_uuid}= req.body;
+  sqlmap.query(`SELECT * FROM pic_mark WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' ORDER BY roll`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
           

@@ -194,7 +194,7 @@ exports.self_verify_code= (req, res)=>{
    let userAuthentication= userInputData.every((input)=>{
       return input==true
    })
-  
+  z
    if(userAuthentication==true) {
   
     const hashPassword= createHmac('md5', 'pipilikapipra').update(password).digest('hex');
@@ -245,13 +245,13 @@ exports.self_verify_code= (req, res)=>{
 
 exports.self_close_account= (req, res)=>{
 
-      sqlmap.query(`DELETE  FROM parents WHERE domain='${req.hostname}' AND  ID="${req.body.dataID}"`, (err, info)=>{
+      sqlmap.query(`DELETE  FROM parents WHERE domain='${req.hostname}' AND  parent_uuid="${req.session.parent_uuid}"`, (err, info)=>{
     
         if(err) res.end("you are restricted! can't close your account")
          
         else 
         {
-          sqlmap.query(`DELETE FROM attendance WHERE domain='${req.hostname}' AND  ID="${req.body.dataID}"`, (err_sub, info_sub)=>{
+          sqlmap.query(`DELETE FROM attendance WHERE domain='${req.hostname}' AND  parent_uuid="${req.session.parent_uuid}"`, (err_sub, info_sub)=>{
      
             if(err_sub) console.log(err_sub.sqlMessage);
             else res.send({msg: 'closed!'})
@@ -273,8 +273,8 @@ exports.self_close_account= (req, res)=>{
 
 exports.self_dashboard= (req, res)=>{
 
-    let ID= req.session.userid;
-    let sql= `SELECT * FROM parents WHERE domain='${req.hostname}' AND  ID="${ID}"`
+    let parent_uuid= req.session.parent_uuid;
+    let sql= `SELECT * FROM parents WHERE domain='${req.hostname}' AND  parent_uuid="${parent_uuid}"`
 
     sqlmap.query(sql, (err, info)=>{
 
@@ -296,8 +296,8 @@ exports.self_dashboard= (req, res)=>{
 
 exports.self_account= (req, res)=>{
 
-    let ID= req.session.userid;
-    let sql= `SELECT * FROM parents WHERE domain='${req.hostname}' AND  ID="${ID}"`
+    let parent_uuid= req.session.parent_uuid;
+    let sql= `SELECT * FROM parents WHERE domain='${req.hostname}' AND  parent_uuid="${parent_uuid}"`
 
     sqlmap.query(sql, (err, info)=>{
 
@@ -317,7 +317,7 @@ exports.self_account= (req, res)=>{
 exports.self_info_update= (req, res) =>{
 
 let {name, telephone, gender, relation}= req.body;
-let sql=   `UPDATE parents SET name="${name}", gender='${gender}', telephone="${telephone}", relation="${relation}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
+let sql=   `UPDATE parents SET name="${name}", gender='${gender}', telephone="${telephone}", relation="${relation}" WHERE domain='${req.hostname}' AND  parent_uuid="${req.session.parent_uuid}"`
 sqlmap.query(sql, (err, info)=>{
 
 if(err) console.log(err.sqlMessage);
@@ -346,10 +346,10 @@ exports.self_password_update= (req, res)=>{
   const oldPassword= createHmac('md5', 'pipilikapipra').update(pastPassword).digest('hex');
 
 
-      const sql= `UPDATE parents SET password="${hashPassword}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
+      const sql= `UPDATE parents SET password="${hashPassword}" WHERE domain='${req.hostname}' AND  parent_uuid="${req.session.parent_uuid}"`
 
 
-   sqlmap.query(`SELECT password FROM parents WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (errPass, infoPass)=>{
+   sqlmap.query(`SELECT password FROM parents WHERE domain='${req.hostname}' AND  parent_uuid="${req.session.parent_uuid}"`, (errPass, infoPass)=>{
 
     if(errPass) console.log(errPass.sqlMessage);
     else{
@@ -403,7 +403,7 @@ else
 exports.self_avatar_upload= async(req, res, next)=>{
 
 
-sqlmap.query(`UPDATE parents SET avatar="${req.file.filename}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`, (err, next)=>{
+sqlmap.query(`UPDATE parents SET avatar="${req.file.filename}" WHERE domain='${req.hostname}' AND  parent_uuid="${req.session.parent_uuid}"`, (err, next)=>{
 
 
   if(err) console.log(err.message);
@@ -450,7 +450,7 @@ exports.self_email_update= (req, res)=>{
 if(req.body.verifyCode==req.session.userVerifyCode)
 {
 
-let sql= `UPDATE parents SET email="${req.session.username}" WHERE domain='${req.hostname}' AND  ID="${req.session.userid}"`
+let sql= `UPDATE parents SET email="${req.session.username}" WHERE domain='${req.hostname}' AND  parent_uuid="${req.session.parent_uuid}"`
 
 sqlmap.query(sql, (err, info) =>{
 
@@ -602,9 +602,9 @@ exports.admin_parent_get= (req, res)=>{
 
 
 exports.admin_parent_profile= (req, res)=>{
-  let {ID}= req.body;
+  let parent_uuid= req.session.parent_uuid;
   
-  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.hostname}' AND  permission='allow' AND ID='${ID}'`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.hostname}' AND  permission='allow' AND parent_uuid='${parent_uuid}'`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     if(info.length>0){
   
@@ -635,10 +635,9 @@ exports.admin_parent_profile= (req, res)=>{
 
 
 exports.admin_parent_delete= (req, res)=>{
-  let {ID}= req.body;
+const parent_uuid= req.session.parent_uuid;
     
-  console.log(ID);
-  sqlmap.query(`DELETE FROM parents permission='allow' AND WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, next)=>{
+  sqlmap.query(`DELETE FROM parents permission='allow' AND WHERE domain='${req.hostname}' AND  parent_uuid='${parent_uuid}'`, (err, next)=>{
     if(err) console.log(err.sqlMessage);
     else res.send({msg: 'Deleted! successfully!', alert: 'success'})
   })

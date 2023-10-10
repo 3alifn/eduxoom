@@ -41,16 +41,14 @@ exports.multer_upload_docs= multer({
   
 
 exports.student_application_post =  (req, res)=>{
-
-
 let  {subject, comment}= req.body;
-let student_id= req.session.student_id;
+let student_uuid= req.session.student_uuid;
 
 if(req.file) var attachmentApplication= req.file.filename;
 else var attachmentApplication= "demo.pdf"
 
 
-sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  student_id=${student_id}`, (errMain, infoMain)=>{
+sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}'`, (errMain, infoMain)=>{
 if(errMain) console.log(errMain.sqlMessage+"+++");
 
 sqlmap.query(
@@ -60,7 +58,7 @@ sqlmap.query(
      comment, 
      attachment,
       name, 
-      student_id, 
+      student_uuid, 
       roll, 
       class, 
       section, 
@@ -72,7 +70,7 @@ sqlmap.query(
      "${comment}",
       "${attachmentApplication}", 
       "${infoMain[0].name}", 
-       "${infoMain[0].student_id}",
+       "${infoMain[0].student_uuid}",
     "${infoMain[0].roll}", 
     "${infoMain[0].class}",
      "${infoMain[0].section}", 
@@ -99,9 +97,9 @@ sqlmap.query(
 
 
 exports.student_application_get = (req,res)=>{
-  let student_id= req.session.student_id
+  let student_uuid= req.session.student_uuid
 
-let sql = `SELECT * FROM  application WHERE domain='${req.hostname}' AND  student_id=${student_id} ORDER BY ID DESC`
+let sql = `SELECT * FROM  application WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' ORDER BY ID DESC`
 sqlmap.query(sql,(err,info)=>{
   if(err) console.log(err.sqlMessage);
 

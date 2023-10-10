@@ -79,13 +79,13 @@
                 <% for( let index = 0; index <infoChapter.length; index++ ) { %>
                     <td > 
                          <i><%=infoChapter[index]%></i> <br>
-                        <small class="badge bg-light text-dark"><%=infoStudent[i].name%> - <%=infoStudent[i].roll%> <i data-id="<%=infoStudent[i].student_id%>"  title="profile" onclick="infoStudent('<%=infoStudent[i].ID%>')" class="bi bi-info-circle btn p-0 infoStudent"></i></small> 
-                        <div class="form-check checkout_<%=infoStudent[i].student_id%><%=subject_code%><%=infoChapter[index]%> m-0 p-0 form-switch d-flex btn ">
+                        <small class="badge bg-light text-dark"><%=infoStudent[i].name%> - <%=infoStudent[i].roll%> <i data-id="<%=infoStudent[i].student_uuid%>"  title="profile" onclick="infoStudent('<%=infoStudent[i].ID%>')" class="bi bi-info-circle btn p-0 infoStudent"></i></small> 
+                        <div class="form-check checkout_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%> m-0 p-0 form-switch d-flex btn ">
                     
                                      
-                                 <span class="p-2 fs-5  border-end checked_<%=infoStudent[i].student_id%><%=subject_code%><%=infoChapter[index]%>bg-danger">&#9726; <input value="1" data-id="<%=infoStudent[i].student_id%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"  data-checkout="<%=infoStudent[i].student_id%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index]%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_id%>N<%=index%>" id=""> </span>
-                                 <span class="p-2 fs-5 border-end checked_<%=infoStudent[i].student_id%><%=subject_code%><%=infoChapter[index]%>bg-warning">&#9673; <input value="2" data-id="<%=infoStudent[i].student_id%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"  data-checkout="<%=infoStudent[i].student_id%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index]%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_id%>N<%=index%>" id=""> </span>
-                                 <span class="p-2 fs-5 checked_<%=infoStudent[i].student_id%><%=subject_code%><%=infoChapter[index]%>bg-success">&#9650; <input value="3" data-id="<%=infoStudent[i].student_id%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>" data-checkout="<%=infoStudent[i].student_id%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index]%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_id%>N<%=index%>" id=""> </span>
+                                 <span class="p-2 fs-5  border-end checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>bg-danger">&#9726; <input value="1" data-id="<%=infoStudent[i].student_uuid%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"  data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index]%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
+                                 <span class="p-2 fs-5 border-end checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>bg-warning">&#9673; <input value="2" data-id="<%=infoStudent[i].student_uuid%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"  data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index]%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
+                                 <span class="p-2 fs-5 checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>bg-success">&#9650; <input value="3" data-id="<%=infoStudent[i].student_uuid%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>" data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index]%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
                     
                         
                         </div>
@@ -200,7 +200,7 @@ const className= '<%=className%>'
 const sectionName= '<%=sectionName%>'
 const subject= '<%=subject%>'
    const pi= event.currentTarget.attributes[0].value;
-   const student_id= event.currentTarget.attributes[1].value;
+   const student_uuid= event.currentTarget.attributes[1].value;
    const name= event.currentTarget.attributes[2].value;
    const avatar= event.currentTarget.attributes[3].value;
    const checkout= event.currentTarget.attributes[4].value;
@@ -212,7 +212,7 @@ const subject= '<%=subject%>'
 $.ajax({
     method: "post",
     url: "/teacher/pic/mark-post",
-    data: { className, sectionName, pi, student_id, roll, name, avatar, subject, chapter, checkout, bg_color},
+    data: { className, sectionName, pi, student_uuid, roll, name, avatar, subject, chapter, checkout, bg_color},
     beforeSend: ()=>{
      
     },

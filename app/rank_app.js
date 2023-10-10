@@ -184,7 +184,7 @@ exports.teacher_rank_mark_page_class_base= (req, res)=>{
 exports.teacher_rank_mark_post= (req, res)=>{
 
   let defaultNumber= 1;
-  let teacher_id= req.session.userid;
+  let teacher_uuid= req.session.uuid;
   let session= new Date().getUTCFullYear();
 
   let findDate = new Date().toLocaleDateString();
@@ -256,7 +256,7 @@ exports.teacher_rank_mark_post= (req, res)=>{
           
           if(errInsert) console.log(errInsert);
 
-            sqlmap.query(`SELECT poient, at_date FROM student_rank WHERE domain='${req.hostname}' AND  student_id= ${info[0].student_id} ORDER BY poient DESC`, (err3, info3)=>{
+            sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_id= ${info[0].student_id} ORDER BY poient DESC`, (err3, info3)=>{
               if(err3) console.log(err3.sqlMessage);
        
               else 
@@ -320,7 +320,7 @@ exports.teacher_rank_mark_post_attendance = (req, res) => {
             if(err2) console.log(err2.sqlMessage + "fooooooooo");
     
                  
-              sqlmap.query(`SELECT poient FROM student_rank WHERE domain='${req.hostname}' AND  student_id=${info[i].student_id} ORDER BY poient DESC LIMIT 1`, (err3, info3)=>{
+              sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_id=${info[i].student_id} ORDER BY poient DESC LIMIT 1`, (err3, info3)=>{
                 if(err3) console.log(err3.sqlMessage);
       
                   sqlmap.query(`UPDATE student_rank SET poient=${parseFloat(info3[0].poient)+parseFloat(3.333)} WHERE domain='${req.hostname}' AND  student_id=${info[i].student_id}`, (err4, info4)=>{

@@ -70,12 +70,12 @@
                 <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
                     <td > 
                         <small class="badge bg-light text-dark"><%=infoStudent[i].name%></small> 
-                        <div class="form-check checkout_<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%> m-0 p-0 form-switch d-flex btn ">
+                        <div class="form-check checkout_<%=infoStudent[i].student_uuid%><%=infoCatagory[index].catagory_code%> m-0 p-0 form-switch d-flex btn ">
                     
                                      
-                                 <span class="p-2 fs-5  border-end checked_<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%>bg-danger">&#9726; <input value="1"   class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_id%>N<%=index%>" id=""> </span>
-                                 <span class="p-2 fs-5 border-end checked_<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%>bg-warning">&#9673; <input value="2"  class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_id%>N<%=index%>" id=""> </span>
-                                 <span class="p-2 fs-5 checked_<%=infoStudent[i].student_id%><%=infoCatagory[index].catagory_code%>bg-success">&#9650; <input value="3" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_id%>N<%=index%>" id=""> </span>
+                                 <span class="p-2 fs-5  border-end checked_<%=infoStudent[i].student_uuid%><%=infoCatagory[index].catagory_code%>bg-danger">&#9726; <input value="1"   class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
+                                 <span class="p-2 fs-5 border-end checked_<%=infoStudent[i].student_uuid%><%=infoCatagory[index].catagory_code%>bg-warning">&#9673; <input value="2"  class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
+                                 <span class="p-2 fs-5 checked_<%=infoStudent[i].student_uuid%><%=infoCatagory[index].catagory_code%>bg-success">&#9650; <input value="3" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
                     
                         
                         </div>

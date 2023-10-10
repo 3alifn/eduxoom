@@ -109,7 +109,7 @@ admin.get('/transcript/report-init-page', (req, res)=>{
   res.render('admin/transcript-page-report-init')
 })
 admin.get('/transcript/report-page-student-get/:className/:sectionName/', admin_transcript_report_student_get)
-admin.get('/transcript/report-get/:className/:sectionName/:student_id', admin_transcript_report_get)
+admin.get('/transcript/report-get/:className/:sectionName/:student_uuid', admin_transcript_report_get)
 admin.post('/transcript/report-get-checkout', admin_transcript_report_get_checkout)
 
 

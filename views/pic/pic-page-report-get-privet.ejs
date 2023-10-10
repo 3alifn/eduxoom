@@ -90,12 +90,12 @@
     <td > 
        <i><%=infoChapter[index]%></i> <br>
 
-        <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> m-0 p-0 form-switch d-flex btn ">
+        <div class="form-check checkout_<%=student_uuid%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> m-0 p-0 form-switch d-flex btn ">
                     
                                      
-                    <span class="p-2 fs-5  border-end checked_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%>bg-danger">&#9726; <input value="1"   class="form-check-input m-0 p-2" type="radio" name="<%=infoSubject[i].subject%><%=infoChapter[index]%>" id=""> </span>
-                    <span class="p-2 fs-5 border-end checked_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%>bg-warning">&#9673; <input value="2"  class="form-check-input m-0 p-2" type="radio" name="<%=infoSubject[i].subject%><%=infoChapter[index]%>" id=""> </span>
-                    <span class="p-2 fs-5 checked_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapter[index]%>bg-success">&#9650; <input value="3" class="form-check-input m-0 p-2" type="radio" name="<%=infoSubject[i].subject%><%=infoChapter[index]%>" id=""> </span>
+                    <span class="p-2 fs-5  border-end checked_<%=student_uuid%><%=infoSubject[i].subject_code%><%=infoChapter[index]%>bg-danger">&#9726; <input value="1"   class="form-check-input m-0 p-2" type="radio" name="<%=infoSubject[i].subject%><%=infoChapter[index]%>" id=""> </span>
+                    <span class="p-2 fs-5 border-end checked_<%=student_uuid%><%=infoSubject[i].subject_code%><%=infoChapter[index]%>bg-warning">&#9673; <input value="2"  class="form-check-input m-0 p-2" type="radio" name="<%=infoSubject[i].subject%><%=infoChapter[index]%>" id=""> </span>
+                    <span class="p-2 fs-5 checked_<%=student_uuid%><%=infoSubject[i].subject_code%><%=infoChapter[index]%>bg-success">&#9650; <input value="3" class="form-check-input m-0 p-2" type="radio" name="<%=infoSubject[i].subject%><%=infoChapter[index]%>" id=""> </span>
        
            
            </div>
@@ -137,11 +137,11 @@
   function student_checkout_class() {
  const className= '<%=className%>'
  const sectionName= '<%=sectionName%>'
- const student_id= '<%=student_id%>'
+ const student_uuid= '<%=student_uuid%>'
     $.ajax({
         method: "post",
         url: "/privet/pic/report-get-checkout",
-        data: {className, sectionName, student_id},
+        data: {className, sectionName, student_uuid},
         dataType: "JSON",
         success: function (response) {
          

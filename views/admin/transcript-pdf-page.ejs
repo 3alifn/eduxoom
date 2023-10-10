@@ -30,7 +30,7 @@
 
 
 <% for( let index = 0; index < getStudent.length; index++ ) { %>
-  <input class="getStudent<%=index%>" value="<%=getStudent[index].student_id%>" type="hidden" name="">
+  <input class="getStudent<%=index%>" value="<%=getStudent[index].student_uuid%>" type="hidden" name="">
 
 <% } %>
 
@@ -83,7 +83,7 @@ function transcript_pdf_get(){
  const sectionName= '<%=sectionName%>'
  var getLength= `<%=getStudent.length%>`
 for (let index = 0; index < getLength; index++) {
- const student_id= $('.getStudent'+index).val();
+ const student_uuid= $('.getStudent'+index).val();
  if(getLength==index+1) {
   _spin_pop()
   $('.printAreaBtn').removeClass('disabled')
@@ -93,7 +93,7 @@ for (let index = 0; index < getLength; index++) {
   $.ajax({
     type: "post",
     url: "/admin/transcript/pdf-get",
-    data: {className, sectionName, student_id},
+    data: {className, sectionName, student_uuid},
     dataType: "JSON",
     success: function (res) {
       $('.appenddata').append(res.report_card);
