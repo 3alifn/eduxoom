@@ -258,6 +258,7 @@
   
               <div class="d-flex justify-content-between p-2 mb-2">
                 <button type="button" data-bs-dismiss="modal" class="btn btn-link">Close</button>
+                <input style="display: none;" type="reset" value="Reset" class="formreset btn btn-link">
                 <button class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and save</button>
               </div>
   
@@ -302,7 +303,7 @@ $(document).ready(function(){
       append_class: 'images_append',
       file_type: 'image',
       max_kb_size: 1024,
-      multiple: true,
+      multiple: false,
   
   
     })
@@ -340,7 +341,9 @@ $(document).ready(function(){
       _msg_pull(res.alert, res.msg)
       tabledata()
       $('.submitbtn').removeClass('disabled')
-  
+       if(res.status==200){
+        $('.formreset').click()
+       }
     }
   });
   })

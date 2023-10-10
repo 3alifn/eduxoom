@@ -32,7 +32,7 @@ exports.multer_upload_teacher= multer({
 
 
 exports.admin_teacher_post= async(req, res)=>{
-  var uuid= createHmac('md5', 'pipilikapipra').update(new Date().toLocaleString()).digest('hex').toUpperCase()
+  var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
   const {name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
   const domain= req.hostname;
@@ -52,7 +52,7 @@ exports.admin_teacher_post= async(req, res)=>{
    (err_check, info_check)=>{
     if(info_check.length>0){
      
-      res.send({msg: 'Invalid information! index_number or phone or email already exists', alert: 'alert-danger'})
+      res.send({status: 503, msg: 'Invalid information! index_number or phone or email already exists', alert: 'alert-danger'})
 
     } else {
       join_teacher_def()
@@ -88,11 +88,11 @@ exports.admin_teacher_post= async(req, res)=>{
           }
    }
 
-    sqlmap.query(`INSERT INTO teachers (domain, uuid, name, position, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar )
+    sqlmap.query(`INSERT INTO teachers (domain, teacher_uuid, name, position, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar )
     VALUES('${req.hostname}', '${uuid}', '${name}','${position}', '${gender}', '${index_number}', '${pds_id}', '${birth_date}', '${blood_group}',
     '${religion}', '${email}', '${phone}', '${address}', '${joining_date}', '${hashPassword}', '${avatar_png}')`, (err, next)=>{
         if(err) console.log(err.sqlMessage);
-        else   res.send({msg: 'Teacher join successfully!', alert: 'success'})
+        else   res.send({status: 200, msg: 'Teacher join successfully!', alert: 'alert-success'})
     })
    }
 

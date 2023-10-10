@@ -389,7 +389,7 @@
 
           <div class="d-flex  p-2 justify-content-between align-items-center">
             <p class="w-25 fw-semibold m-auto">Auto SID</p>
-            <code class="pe-1">*</code>  
+            <code class="pe-1">-</code>  
               <input readonly name="sid" class="w-75 shadowx form-dev form-control-sm" placeholder="123456" type="number">
           </div>
 
@@ -397,8 +397,8 @@
 
           <div class="d-flex  p-2 justify-content-between align-items-center">
             <p class="w-25 fw-semibold m-auto">Email</p>
-            <code class="pe-1">*</code>  
-            <input required name="emailx" class="w-75 shadowx form-dev form-control-sm" placeholder="example@gmai.com" type="email">
+            <code class="pe-1">-</code>  
+            <input  name="emailx" class="w-75 shadowx form-dev form-control-sm" placeholder="example@abc.com" type="email">
           </div>
 
           <div class="d-flex  p-2 justify-content-between align-items-center">
@@ -508,6 +508,8 @@
 
           <div class="d-flex justify-content-between p-2 mb-2">
             <button type="button" data-bs-dismiss="modal" class="btn btn-link">Close</button>
+            <input style="display: none;" type="reset" value="Reset" class="formreset btn btn-link">
+
             <button class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and save</button>
           </div>
 
@@ -645,6 +647,9 @@ $('.class-base').on('change', ()=>{
         tabledata()
         $('.submitbtn').removeClass('disabled')
         _spin_pop()
+        if(res.status==200){
+        $('.formreset').click()
+       }
       }
     });
     })

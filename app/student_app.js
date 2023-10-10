@@ -53,20 +53,16 @@ exports.teacher_student_info= (req, res)=>{
 
 
 exports.admin_student_join_quick= (req, res)=>{
-  const student_uuid= req.session.student_uuid;
   const {classNameX, roll, name, gender}= req.body;
   const tempData= classNameX.split(' $%& ');
   const className= tempData[0];
   const sectionName= tempData[1];
   const session= new Date().getUTCFullYear();
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
-  var uuid= createHmac('md5', 'pipilikapipra').update(new Date().toLocaleString()).digest('hex').toUpperCase()
-
 
  var message= [];
 for (let index = 0; index < name.length; index++) {
-  var uuid= createHmac('md5', 'pipilikapipra').update(new Date().toLocaleString()).digest('hex').toUpperCase()
-
+ 
   if(gender[index]=="Male") var avatarName= "male_avatar.png"
   else avatarName= "female_avatar.png";
 
@@ -81,18 +77,19 @@ for (let index = 0; index < name.length; index++) {
     req.flash('alert', 'danger')
    }
     else  {
-      
-    let student_id= Math.floor(Math.random()*900000);
- 
-   sqlmap.query(`INSERT INTO students (domain, uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
-   VALUES ('${req.hostname}', '${uuid}' ${session}, "${name[index]}","${student_id+'@abc.com'}", "${student_id}", '${roll[index]}', "${className}", "${sectionName}","${gender[index]}", 
+      var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
+      var student_id= Math.floor(Math.random()*900000);
+
+   sqlmap.query(`INSERT INTO students (domain, student_uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
+   VALUES ('${req.hostname}', '${uuid}', ${session}, "${name[index]}","${student_id+'@abc.com'}", "${student_id}", '${roll[index]}', "${className}", "${sectionName}","${gender[index]}", 
   '${hashPassword}', "${avatarName}")`, (err_sub, info_sub)=>{
  
      if(err_sub) {console.log(err_sub.sqlMessage); res.send({msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger"});}
  
  
-      else {console.log(student_id+[index]); message.unshift('Students Joined!');
-      req.flash('msg', 'adding=>'+roll[index])
+      else {
+      message.unshift('Students Joined!');
+    req.flash('msg', 'adding=>'+roll[index])
      req.flash('alert', 'success')
   }
    })
@@ -105,16 +102,16 @@ for (let index = 0; index < name.length; index++) {
 
 }
 
-
 setTimeout(() => {
 res.redirect('/admin/student/page')
-}, 1000);
+}, 3000);
+
 }
 
 
 
 exports.admin_student_post= async(req, res)=>{
-  var uuid= createHmac('md5', 'pipilikapipra').update(new Date().toLocaleString()).digest('hex').toUpperCase()
+  var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
   var {classNameX, name, roll, gender, fname, mname, emailx,  birth_date, blood_group, religion, phone, address, admission_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
   const domain= req.hostname;
@@ -140,7 +137,7 @@ exports.admin_student_post= async(req, res)=>{
    (err_check, info_check)=>{
     if(info_check.length>0){
      
-      res.send({msg: 'Invalid information! email or student_id already exists', alert: 'alert-danger'})
+      res.send({status: 503, msg: 'Invalid information! email or student_id already exists', alert: 'alert-danger'})
 
     } else {
       join_student_def()
@@ -176,12 +173,12 @@ exports.admin_student_post= async(req, res)=>{
           }
    }
 
-    sqlmap.query(`INSERT INTO students (domain, uuid, session, class, section, name, student_id, roll, gender, father_name, mother_name, birth_date, blood_group,
+    sqlmap.query(`INSERT INTO students (domain, student_uuid, session, class, section, name, student_id, roll, gender, father_name, mother_name, birth_date, blood_group,
      religion, email, phone, address, admission_date, password, avatar )
     VALUES('${req.hostname}', '${uuid}', '${session}', '${className}', '${sectionName}', '${name}','${student_id}', '${roll}', '${gender}', '${fname}', '${mname}', '${birth_date}', '${blood_group}',
      '${religion}', '${email}', '${phone}', '${address}', '${admission_date}', '${hashPassword}', '${avatar_png}')`, (err, next)=>{
         if(err) console.log(err.sqlMessage);
-        else   res.send({msg: 'Student join successfully!', alert: 'alert-success'})
+        else   res.send({status: 200, msg: 'Student join successfully!', alert: 'alert-success'})
     })
    }
 
