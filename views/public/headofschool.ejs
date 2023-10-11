@@ -26,7 +26,7 @@
       <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
         <div class="d-flex  justify-content-around align-items-center">
           <div class="card-image">
-            <img class="avatar-circle" src="/image/default/resized/<%=info[index].image%>" alt="">
+            <img class="avatar-circle" src="/image/headofschool/resized/<%=info[index].image%>" alt="">
             
         </div>
        
@@ -191,7 +191,7 @@ $.ajax({
   dataType: "JSON",
   success: function (res) {
 
-      $(".append-logo").attr( 'src', `/image/default/resized/${res.info_school[0].logo}`)
+      $(".append-logo").attr( 'src', `/image/headofschool/resized/${res.info_school[0].logo}`)
   }
 });
 }())

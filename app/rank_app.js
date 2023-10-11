@@ -126,7 +126,7 @@ exports.teacher_rank_mark_page_class_base= (req, res)=>{
           html+= 
           ` <ul class="list-group mt-2" id="list">
           <li class="list-group-item list-group-item-light shadow">
-          <img src="/image/student/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
+          <img src="/image/student/resized/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
        
               <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
               <span class=" badge bg-light text-dark">${info[i].name}</span>
@@ -391,7 +391,7 @@ exports.public_rank_get= (req, res)=>{
                         <li class="list-group-item list-group-item-primary ">
                    
                           <span class="badge bg-primary">Rank: ${parseInt(i)+parseInt(1)}</span>  
-                          <img src="/image/student/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
+                          <img src="/image/student/resized/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
                      
                             <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
                             <span class=" badge bg-light text-dark">${info[i].name} (${info[i].roll})</span>
@@ -475,7 +475,7 @@ exports.public_rank_get_class_base= (req, res)=>{
                        <li class="list-group-item list-group-item-primary ">
                   
                          <span class="badge bg-primary">Rank: ${parseInt(i)+parseInt(1)}</span>  
-                         <img src="/image/student/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
+                         <img src="/image/student/resized/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
                     
                            <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
                            <span class=" badge bg-light text-muted">${info[i].name} (${info[i].roll}) </span>

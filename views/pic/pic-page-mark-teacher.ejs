@@ -72,7 +72,7 @@
                  <tr>
                
   
-                <td><img width="90px" class="bg-demo-img-color" src="/image/student/<%=infoStudent[i].avatar%>" alt="">
+                <td><img width="90px" class="bg-demo-img-color" src="/image/student/resized/<%=infoStudent[i].avatar%>" alt="">
                     <small><%=infoStudent[i].roll%> - <%=infoStudent[i].name%> </small> 
                 </td>
     
@@ -154,7 +154,7 @@ $.ajax({
   dataType: "JSON",
   success: function (res) {
     
-    $('.card-mini-avatar').attr('src', `/image/student/${res.avatar}`)
+    $('.card-mini-avatar').attr('src', `/image/student/resized/${res.avatar}`)
     $('.card-mini-body').html(res.data)
     $('.card-mini-trigger').click()
   }

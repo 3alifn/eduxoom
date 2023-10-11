@@ -477,7 +477,7 @@ exports.self_account = (req, res)=>{
       await sharp(req.file.path)
        .jpeg({ quality: 50 })
        .toFile(
-           path.resolve(path.resolve(req.file.destination, 'teacher', req.file.filename))
+           path.resolve(path.resolve(req.file.destination, 'resized', req.file.filename))
        )
 
   fs.unlinkSync(req.file.path)
@@ -490,7 +490,7 @@ exports.self_account = (req, res)=>{
       await sharp(req.file.path)
       .jpeg({ quality: 20 })
       .toFile(
-        path.resolve(path.resolve(req.file.destination, 'teacher', req.file.filename))
+        path.resolve(path.resolve(req.file.destination, 'resized', req.file.filename))
         )
     
       fs.unlinkSync(req.file.path)

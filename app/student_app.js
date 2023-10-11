@@ -658,7 +658,7 @@ exports.self_avatar_upload= async (req, res, next)=>{
     await sharp(req.file.path)
      .jpeg({ quality: 50 })
      .toFile(
-         path.resolve(path.resolve(req.file.destination, 'student', req.file.filename))
+         path.resolve(path.resolve(req.file.destination, 'resized', req.file.filename))
      )
 
 fs.unlinkSync(req.file.path)
@@ -671,7 +671,7 @@ fs.unlinkSync(req.file.path)
     await sharp(req.file.path)
     .jpeg({ quality: 20 })
     .toFile(
-      path.resolve(path.resolve(req.file.destination, 'student', req.file.filename))
+      path.resolve(path.resolve(req.file.destination, 'resized', req.file.filename))
       )
   
     fs.unlinkSync(req.file.path)
@@ -1001,7 +1001,7 @@ exports.public_student_pagination= (req, res)=>{
 
                   <div class="bg-card-color pt-3 pb-3 rounded-4">
                       <div class="card-image m-auto">
-                          <img  class="avatar-circle" src="/image/teacher/${info[index].avatar}" alt="">
+                          <img  class="avatar-circle" src="/image/teacher/resized/${info[index].avatar}" alt="">
                       </div>
                   </div>
                 
@@ -1197,7 +1197,7 @@ exports.student_rank_get_class_base= (req, res)=>{
                            <li class="list-group-item list-group-item-primary ">
                       
                              <span class="badge bg-primary">Rank: ${parseInt(i)+parseInt(1)}</span>  
-                             <img src="/image/student/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
+                             <img src="/image/student/resized/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
                         
                                <span class=" badge bg-light text-dark">${info[i].name}</span>
                                <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
@@ -1302,7 +1302,7 @@ exports.student_parent_get= (req, res)=>{
 
 
              
-         <span class=" input-group-text "><img width="50px" src="/image/parent/${info[i].avatar}" alt="404"></span>
+         <span class=" input-group-text "><img width="50px" src="/image/parent/resized/${info[i].avatar}" alt="404"></span>
          <input disabled readonly type="text" class= "form-control form-self" value="${info[i].email} -  ${info[i].name}">
 
             </div>

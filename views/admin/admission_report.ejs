@@ -40,7 +40,7 @@
      <div  class="col-12 col-md-3 mt-2 text-center">
        
            <div class="card ">
-               <img class="card-img-to m-auto" width="100px" src="/image/student/<%=info[i].avatar==undefined?'male_avatar.png':info[i].avatar%>" alt="404">
+               <img class="card-img-to m-auto" width="100px" src="/image/student/resized/<%=info[i].avatar==undefined?'male_avatar.png':info[i].avatar%>" alt="404">
                <div class="card-body">
                    <h5 class="card-title"><%=info[i].name%> </h5>
                    <h6 class="card-text">Last Education: <%=info[i].last_education%></h6> 
@@ -137,7 +137,7 @@
   success: function (info) {
     
       $(".modal-person-body").html(info.html)
-     $(".modal-person-avatar").attr("src", `/image/admission/${info.avatar}`)
+     $(".modal-person-avatar").attr("src", `/image/admission/resized/${info.avatar}`)
   
      $(".modal-person-btn").click()
   }

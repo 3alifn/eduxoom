@@ -134,7 +134,7 @@ exports.join= (req, res)=>{
 
 const multer_location= multer.diskStorage({
   destination: (req, file, cb)=>{
-   cb(null, "./public/image/")
+   cb(null, "./public/image/parent/")
   } ,
 
   filename: (req, file, cb)=>{
@@ -417,7 +417,7 @@ sqlmap.query(`UPDATE parents SET avatar="${req.file.filename}" WHERE domain='${r
     await sharp(req.file.path)
      .jpeg({ quality: 50 })
      .toFile(
-         path.resolve(path.resolve(req.file.destination, 'parent', req.file.filename))
+         path.resolve(path.resolve(req.file.destination, 'resized', req.file.filename))
      )
 
 fs.unlinkSync(req.file.path)
@@ -430,7 +430,7 @@ fs.unlinkSync(req.file.path)
     await sharp(req.file.path)
     .jpeg({ quality: 20 })
     .toFile(
-      path.resolve(path.resolve(req.file.destination, 'parent', req.file.filename))
+      path.resolve(path.resolve(req.file.destination, 'resized', req.file.filename))
       )
   
     fs.unlinkSync(req.file.path)
@@ -581,7 +581,7 @@ exports.admin_parent_get= (req, res)=>{
       <td><span class='badge text-dark bg-light'>${info[i].student_id}</span></td>
 
       <td><span class='badge text-dark bg-light'> 
-      <img data-id="${info[i].ID}" title='Info' class="modal-person-trigger" style='cursor: pointer'  src="/image/parent/${info[i].avatar}" alt="404" width="30px" >
+      <img data-id="${info[i].ID}" title='Info' class="modal-person-trigger" style='cursor: pointer'  src="/image/parent/resized/${info[i].avatar}" alt="404" width="30px" >
       </span>
 
       </td>

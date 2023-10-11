@@ -37,7 +37,7 @@
 
       <div class="bg-card-color pt-3 pb-3 rounded-4">
           <div class="card-image m-auto">
-              <img  class="avatar-circle" src="/image/student/<%=info[index].avatar%>" alt="">
+              <img  class="avatar-circle" src="/image/student/resized/<%=info[index].avatar%>" alt="">
           </div>
       </div>
     
@@ -128,7 +128,7 @@ function pullPaginationOrder(){
     function callingAjax(){
         $.ajax({
             method: 'post',
-            url: `/pu/student/pagination/`,
+            url: `/pu/student/resized/pagination/`,
             data: {className, sectionName,  requestPageOffset},
             dataType: "JSON",
            beforeSend:function(){

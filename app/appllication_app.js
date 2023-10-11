@@ -202,7 +202,7 @@ sqlmap.query(sql,(err,info)=>{
 
            <li class="list-group-item mt-1 list-group-item-secondary"><a class=" btn-link text-dark page-link" href="/admin/application/download?id=${info[i].ID}">${info[i].subject} <span class="badge bg-light text-danger">${info[i].at_date.toString().substring(0, 25)}</span></a> 
            <br>
-           <img src="/image/student/${info[0].avatar}" height="40px" class=" rounded"  width="40px" alt="404"> <br>
+           <img src="/image/student/resized/${info[0].avatar}" height="40px" class=" rounded"  width="40px" alt="404"> <br>
     
    
            <span class=" badge bg-light text-dark">${info[0].class} - ${info[0].section}</span>

@@ -162,7 +162,7 @@ $(document).on("click", ".modal-person-trigger", (e)=>{
   success: function (info) {
     
       $(".modal-person-body").html(info.html)
-     $(".modal-person-avatar").attr("src", `/image/parent/${info.avatar}`)
+     $(".modal-person-avatar").attr("src", `/image/parent/resized/${info.avatar}`)
   
      $(".modal-person-btn").click()
   }

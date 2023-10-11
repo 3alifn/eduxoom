@@ -149,7 +149,7 @@ $.ajax({
   dataType: "JSON",
   success: function (res) {
     
-    $('.card-mini-avatar').attr('src', `/image/student/${res.avatar}`)
+    $('.card-mini-avatar').attr('src', `/image/student/resized/${res.avatar}`)
     $('.card-mini-body').html(res.data)
     $('.card-mini-trigger').click()
   }
