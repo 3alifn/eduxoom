@@ -39,6 +39,88 @@ exports.public_staff_page= (req, res)=>{
 }
 
 
+
+exports.public_staff_profile_get= (req, res)=>{
+  const {dataid}= req.body; 
+  sqlmap.query(`SELECT * FROM staff WHERE domain='${req.hostname}' AND  ID="${dataid}"`, (err, info)=>{
+           
+  if(info.length>0){
+  let htmldata= `
+     <center>
+    <div class="bg-card-color-light pt-3  pb-3 rounded-top-5 rounded-start-5">
+        <div class="card-image">
+            <img class="avatar-circle" src="/image/staff/resized/${info[0].avatar}" alt="">
+        </div>
+    </div>
+  </center>
+  
+  <center>
+    
+    <div class="ps-2 pt-3 pb-3 rounded-bottom-5 rounded-end-5">
+        <div class="card-body text-start p-2">
+      
+            <div class="d-flex text-muted ">
+               <div class="p-1 w-25">Name</div>
+               <code class="p-1">:</code><div class="p-1 w-75">${info[0].name}</div>
+              </div>    
+              
+              <div class="d-flex text-muted ">
+               <div class="p-1 w-25">Age</div>
+               <code class="p-1">:</code><div class="p-1 w-75">${info[0].age}</div>
+              </div>
+        
+              <div class="d-flex text-muted ">
+                <div class="p-1 w-25">Position</div>
+                <code class="p-1">:</code> <div class="p-1 w-75">${info[0].position}</div>
+               </div>
+        
+              <div class="d-flex text-muted ">
+                <div class="p-1 w-25">Gender</div>
+                <code class="p-1">:</code> <div class="p-1 w-75">${info[0].gender}</div>
+               </div>
+        
+               <div class="d-flex text-muted ">
+                <div class="p-1 w-25">Index no</div>
+                <code class="p-1">:</code> <div class="p-1 w-75">${info[0].index_number}</div>
+               </div>
+        
+               <div class="d-flex text-muted ">
+                <div class="p-1 w-25">Email</div>
+                <code class="p-1">:</code> <div class="p-1 w-75">${info[0].email}</div>
+               </div>
+        
+        
+               <div class="d-flex text-muted ">
+                <div class="p-1 w-25">Phone</div>
+                <code class="p-1">:</code><div class="p-1 w-75">${info[0].phone}</div>
+               </div>
+        
+               <div class="d-flex text-muted ">
+                <div class="p-1 w-25">Joining date</div>
+                <code class="p-1">:</code><div class="p-1 w-75">${info[0].joining_date}</div>
+               </div>      
+              
+      
+        
+        </div>
+    </div>
+  </center>
+  <button data-dismiss="modal" class="btn float-end fw-semibold btn-link link-primary p-2 ms-auto mt-2 mb-b">Close</button>
+        
+   `
+  res.send({htmldata})
+    
+                  }
+      
+                    
+        })
+        }
+      
+
+
+
+
+
 exports.admin_staff_get=(req, res)=>{
     sqlmap.query(`SELECT * FROM staff WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
         if(err) console.log(err.sqlMessage);

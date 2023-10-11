@@ -13,86 +13,62 @@
   <%- include("../component/header-nav.html") %>
   <%- include("../component/menu-nav.html") %>
 
-    <div id="headofschool" class="row mt-3 mb-5">
-        <h1 class="fw-semibold text-center p-2 ">Our staff here</h1>
-      <p class="text-center fw-semibold mb-3">Meet our school staff</p>
-
- <div class="row penboxdata">
-
-    <% if(info.length>0) {%>
-        <% for( let index = 0; index < info.length; index++ ) { %>
- 
-            <div class="col-md-4 mt-2 p-2 col-11  card shadowx">
-             
-              <center class=" p-2">
-                <img style="width: 150px;" class=" shadowx float-start " src="/image/staff/resized/<%=info[index].image%>" alt="">
-              </center>
-          
-              <div class="card-body fw-semibold">
-          
-                <div class="d-flex text-muted ">
-                   <div class="p-1 w-25">Name:</div>
-                    <div class="p-1 w-75"><%=info[index].name%></div>
-                  </div>
-    
-                  <div class="d-flex text-muted ">
-                    <div class="p-1 w-25">Position:</div>
-                     <div class="p-1 w-75"><%=info[index].position%></div>
-                   </div>
-          
-                  <div class="d-flex text-muted ">
-                    <div class="p-1 w-25">Gender:</div>
-                     <div class="p-1 w-75"><%=info[index].gender%></div>
-                   </div>
-           
-                   <div class="d-flex text-muted ">
-                    <div class="p-1 w-25">Index no:</div>
-                     <div class="p-1 w-75"><%=info[index].index_number%></div>
-                   </div>
-    
-                   <div class="d-flex text-muted ">
-                    <div class="p-1 w-25">Email:</div>
-                     <div class="p-1 w-75"><%=info[index].email%></div>
-                   </div>
-           
-    
-                   <div class="d-flex text-muted ">
-                    <div class="p-1 w-25">Phone:</div>
-                     <div class="p-1 w-75"><%=info[index].phone%></div>
-                   </div>
-    
-                   <div class="d-flex text-muted ">
-                    <div class="p-1 w-25">Age:</div>
-                     <div class="p-1 w-75"><%=info[index].age%></div>
-                   </div>
-    
-                   <div class="d-flex text-muted ">
-                    <div class="p-1 w-25">Joining date:</div>
-                     <div class="p-1 w-75"><%=info[index].joining_date%></div>
-                   </div>
-           
-           
-           
-           
-    
-          </div>
-          </div>
-          
-    
-     <% } %>
-        <% } else {%> 
-            <div class="col-11 m-auto">
-                <p class="p-2 fw-semibold shadowx alert">No record</p>
+  <div class="row mt-5 p-2 shadowx">
+    <div class="col-11 m-auto">
+      <p class="p-2 shadowx fw-semibold">Meet our school staff</p>
+  </div>
+  
+  
+  
+  </div>
+  
+  
+  
+  
+  <div class="d-flex  mt-5 mbx row-gap-5 column-gap-2 flex-wrap ">
+  
+  <% if (info.length>0) { %>
+   
+    <% for( let index = 0; index < info.length; index++ ) { %>
+      <div  class="flex-fill m-auto p-2 shadowx ">
+  
+        <div class="bg-card-color-light pt-3 pb-3 rounded-4">
+            <div class="card-image m-auto">
+                <img  class="avatar-circle" src="/image/staff/resized/<%=info[index].avatar%>" alt="">
             </div>
-            <% } %>
-
-</div>
-
-</div>
-
-        
+        </div>
+      
           
-    <%- include("../component/footer-nav.html") %>
+        <div class="pb-3">
+            <div class="card-body text-center p-2">
+             <span class="fs-6 fw-semibold"><%=info[index].name%></span> <br>
+             <span class="text-muted fw-semibold"><%=info[index].position%></span> <br>
+             <button onclick="get_profile_def('<%=info[index].ID%>')" class="p-2 fw-semibold btn-link btn tap-to-open">Tap to open</button>
+            </div>
+        </div>
+      
+        </div>
+    <% } %>
+  
+  <% } else {%>
+  
+    <div class="row mt-5 p-2 shadowx">
+  
+      <div class="col-11 m-auto">
+        <p class="p-2 shadowx fw-semibold">No record here</p>
+    </div>
+  
+    <% } %>
+  
+  </div>
+  
+  </div>
+  
+  
+      <%-include("../component/profile-max-card.html") %> 
+  
+      <%- include("../component/footer-nav.html") %> 
+      <%- include("../component/___node.html") %> 
 
 </body>
 
@@ -103,18 +79,24 @@ function pageLoaded(){
   }
 
 
-  (function(){
-$.ajax({
-  method: "get",
-  url: "/pu/headofschool/get/",
-  data: {},
-  dataType: "JSON",
-  success: function (res) {
-
-      $(".append-logo").attr( 'src', `/image/default/resized/${res.info_school[0].logo}`)
+  function get_profile_def(dataid){
+    $.ajax({
+      method: "post",
+      url: "/pu/staff/profile/get",
+      data: {dataid},
+      dataType: "JSON",
+      beforeSend: function(){
+        _spin_pull()
+        $('.tap-to-open').addClass('opacity-25')
+      },
+      success: function (res) {
+        _spin_pop()
+        $('.tap-to-open').removeClass('opacity-25')
+        $('#profile-max-card-body').html(res.htmldata)
+        $('#profile-max-card-trigger').click()
+      }
+    });
   }
-});
-}())
   
 </script>
 

@@ -16,7 +16,7 @@ const { public_library_get } = require("../app/library_app")
 const { pu_school_get, pu_headofschool_get, au_user_nav, au_user_profile_header_nav } = require("../app/home_app")
 const { pu_headofschool_render } = require("../app/headofschool_app")
 const headofschool_app = require("../app/headofschool_app")
-const { public_staff_page } = require("../app/staff_app")
+const { public_staff_page, public_staff_profile_get } = require("../app/staff_app")
 const { admin_achievement_page, public_achievement_view, public_eventnews_page, public_eventnews_view, admin_facilities_view, public_facilities_view, public_achievement_page } = require("../app/repository")
 const public= express.Router()
 
@@ -35,6 +35,9 @@ public.get('/about-us.html/', school_app.pu_aboutus_render)
 public.get('/contact-us.html/', school_app.pu_contactus_render)
 public.get('/headofschool.html/', headofschool_app.pu_headofschool_view_page)
 public.get('/staff-page.html/', public_staff_page)
+public.post("/staff/profile/get", public_staff_profile_get)
+
+
 
 
 
