@@ -71,7 +71,7 @@
  
            <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
                <td> 
-                   <div class="form-check checkout_<%=infoStudent[0].student_id%><%=infoCatagory[index].catagory_code%> p-0 m-0 fs-3">
+                   <div class="form-check checkout_<%=infoStudent[0].student_uuid%><%=infoCatagory[index].catagory_code%> p-0 m-0 fs-3">
                
                     <i class="bi bi-square"></i>           
                          
@@ -126,7 +126,7 @@
 <% for( let index = 0; index <infoChapterHalf.length; index++ ) { %>
    <td > 
 
-       <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapterHalf[index]%> fs-3 p-0 m-0">
+       <div class="form-check checkout_<%=student_uuid%><%=infoSubject[i].subject_code%><%=infoChapterHalf[index]%> fs-3 p-0 m-0">
                    
         <i class="bi bi-square"></i>           
          
@@ -191,7 +191,7 @@
 <% for( let index = 0; index <infoChapterFull.length; index++ ) { %>
    <td > 
 
-       <div class="form-check checkout_<%=student_id%><%=infoSubject[i].subject_code%><%=infoChapterFull[index]%> fs-3 p-0 m-0">
+       <div class="form-check checkout_<%=student_uuid%><%=infoSubject[i].subject_code%><%=infoChapterFull[index]%> fs-3 p-0 m-0">
                    
         <i class="bi bi-square"></i>           
                      
@@ -240,11 +240,11 @@
 function student_checkout_class() {
  const className= '<%=className%>'
  const sectionName= '<%=sectionName%>'
- const student_id= '<%=student_id%>'
+ const student_uuid= '<%=student_uuid%>'
     $.ajax({
         method: "post",
         url: "/privet/transcript/report-get-checkout",
-        data: {className, sectionName, student_id},
+        data: {className, sectionName, student_uuid},
         dataType: "JSON",
         success: function (response) {
          
@@ -264,11 +264,11 @@ student_checkout_class()
 function bi_checkout_class() {
  const className= '<%=className%>'
  const sectionName= '<%=sectionName%>'
- const student_id= '<%=student_id%>'
+ const student_uuid= '<%=student_uuid%>'
     $.ajax({
         method: "post",
         url: "/privet/bi/transcript-report-checkout",
-        data: {className, sectionName, student_id},
+        data: {className, sectionName, student_uuid},
         dataType: "JSON",
         success: function (response) {
             for (const key in response.info_checkout) { 

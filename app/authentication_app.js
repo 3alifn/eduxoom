@@ -100,7 +100,7 @@ exports.authentication_404=  (req, res)=>{
     }
 
 exports.signout =  (req, res)=>{
-    // req.session.destroy()
+    req.session.destroy()
     res.render("authentication/signin_page")
     }
 

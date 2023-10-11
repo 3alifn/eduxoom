@@ -134,29 +134,29 @@ exports.teacher_rank_mark_page_class_base= (req, res)=>{
               <span class=" badge bg-light text-muted">${info[i].roll} </span>
       <hr> <span class=" btn btn-default">Behavior</span> <br>
               <div class=" btn-group btn-group-sm ">
-              <button data-id="weak_B" data-id2="${info[i].ID}" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#x2730;</button>
+              <button data-id="weak_B" data-id2="${info[i].student_uuid}" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#x2730;</button>
 
-              <button data-id="good_B" data-id2="${info[i].ID}" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#x2730;&#x2730;</button>
-              <button data-id="excellent_B" data-id2="${info[i].ID}" id="excellent" class="def  btn fs-3 btn-success bg-light text-success ">&#x2730;&#x2730;&#x2730;</button>
+              <button data-id="good_B" data-id2="${info[i].student_uuid}" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#x2730;&#x2730;</button>
+              <button data-id="excellent_B" data-id2="${info[i].student_uuid}" id="excellent" class="def  btn fs-3 btn-success bg-light text-success ">&#x2730;&#x2730;&#x2730;</button>
 
          </div>
 
          <hr>  <span class=" btn btn-default">Uniform</span> <br>
          <div class=" btn-group btn-group-sm ">
              
-             <button data-id="weak_U" data-id2="${info[i].ID}" id="weak" class="def  btn fs-3 btn-danger bg-light  text-danger ">&#10026;</button>
-             <button data-id="good_U" data-id2="${info[i].ID}" id="good" class="def  btn btn-primary fs-3 bg-light text-primary">&#10026;&#10026;</button>
-              <button data-id="excellent_U" data-id2="${info[i].ID}" id="excellent" class="def fs-3 btn btn-success bg-light text-success ">&#10026;&#10026;&#10026;</button>
+             <button data-id="weak_U" data-id2="${info[i].student_uuid}" id="weak" class="def  btn fs-3 btn-danger bg-light  text-danger ">&#10026;</button>
+             <button data-id="good_U" data-id2="${info[i].student_uuid}" id="good" class="def  btn btn-primary fs-3 bg-light text-primary">&#10026;&#10026;</button>
+              <button data-id="excellent_U" data-id2="${info[i].student_uuid}" id="excellent" class="def fs-3 btn btn-success bg-light text-success ">&#10026;&#10026;&#10026;</button>
          </div>
  
 
          <hr> <span class=" btn btn-default">Study</span> <br>
          <div class=" btn-group btn-group-sm ">
           
-             <button data-id="weak_S" data-id2="${info[i].ID}" id="weak" class="def  btn fs-3 btn-danger bg-light text-danger ">&#10030;</button>
+             <button data-id="weak_S" data-id2="${info[i].student_uuid}" id="weak" class="def  btn fs-3 btn-danger bg-light text-danger ">&#10030;</button>
 
-              <button data-id="good_S" data-id2="${info[i].ID}" id="good" class="def   btn fs-3 btn-primary bg-light text-primary">&#10030;&#10030;</button>
-              <button data-id="excellent_S" data-id2="${info[i].ID}" id="excellent" class="def  btn fs-3 btn-success bg-light text-success ">&#10030;&#10030;&#10030;</button>
+              <button data-id="good_S" data-id2="${info[i].student_uuid}" id="good" class="def   btn fs-3 btn-primary bg-light text-primary">&#10030;&#10030;</button>
+              <button data-id="excellent_S" data-id2="${info[i].student_uuid}" id="excellent" class="def  btn fs-3 btn-success bg-light text-success ">&#10030;&#10030;&#10030;</button>
 
               </div>
            </li>
@@ -184,14 +184,14 @@ exports.teacher_rank_mark_page_class_base= (req, res)=>{
 exports.teacher_rank_mark_post= (req, res)=>{
 
   let defaultNumber= 1;
-  let teacher_uuid= req.session.uuid;
+  let teacher_uuid= req.session.teacher_uuid;
   let session= new Date().getUTCFullYear();
 
   let findDate = new Date().toLocaleDateString();
 
 
     let today= new Date().toLocaleDateString();
-    let {ID, mark} = req.body;
+    let {student_uuid, mark} = req.body;
 
 
     if(mark=='good_B' || mark=='weak_B' || mark=='excellent_B')
@@ -215,12 +215,12 @@ exports.teacher_rank_mark_post= (req, res)=>{
 
 
 
-   sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_uuid=${ID} AND today="${today}" AND teacher_id=${teacher_id} AND ${markColumnName}=1 `, (err0, info0)=>{
+   sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND today="${today}" AND teacher_uuid='${teacher_uuid}' AND ${markColumnName}=1 `, (err0, info0)=>{
     if(err0) console.log(err0.sqlMessage);
     if(info0.length==0)
     {
 
-      sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, info)=>{
+      sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  student_uuid=${student_uuid}`, (err, info)=>{
             
         if(err) console.log(err.sqlMessage);
   
@@ -228,10 +228,9 @@ exports.teacher_rank_mark_post= (req, res)=>{
           domain,
           session,
           find_date, 
-          teacher_id, 
+          teacher_uuid, 
           today, 
           student_uuid,
-           student_id,
             roll, 
             name, 
             class, 
@@ -242,10 +241,9 @@ exports.teacher_rank_mark_post= (req, res)=>{
       VALUES
         ('${req.hostname}',${session},
           "${findDate}",
-          ${teacher_id},
+          ${teacher_uuid},
           "${today}",
-          ${ID},
-          ${info[0].student_id},
+          ${info[0].student_uuid},
           ${info[0].roll},
           "${info[0].name}",
           "${info[0].class}",
@@ -256,12 +254,12 @@ exports.teacher_rank_mark_post= (req, res)=>{
           
           if(errInsert) console.log(errInsert);
 
-            sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_id= ${info[0].student_id} ORDER BY poient DESC`, (err3, info3)=>{
+            sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_uuid= ${info[0].student_uuid} ORDER BY poient DESC`, (err3, info3)=>{
               if(err3) console.log(err3.sqlMessage);
        
               else 
               {
-                sqlmap.query(`UPDATE student_rank SET poient=${ info[0].poient==undefined? 1 : parseFloat(info3[0].poient)+parseFloat(mark=='good_U'||mark=='good_S'||mark=='good_U'?1.555: mark=='excellent_U'||mark=='excellent_B'||mark=='excellent_S'? 2.555 : 0.555)} WHERE domain='${req.hostname}' AND  student_id=${info[0].student_id}`, (err4, info4)=>{
+                sqlmap.query(`UPDATE student_rank SET poient=${ info[0].poient==undefined? 1 : parseFloat(info3[0].poient)+parseFloat(mark=='good_U'||mark=='good_S'||mark=='good_U'?1.555: mark=='excellent_U'||mark=='excellent_B'||mark=='excellent_S'? 2.555 : 0.555)} WHERE domain='${req.hostname}' AND  student_uuid=${info[0].student_uuid}`, (err4, info4)=>{
     
                   if(err4) console.log(err4.sqlMessage);
         
@@ -307,23 +305,23 @@ exports.teacher_rank_mark_post_attendance = (req, res) => {
   
         for (let i = 0; i < info.length; i++) {
        
-          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_id=${info[i].student_id} AND find_date='${findDate}'`, (errCheck, infoCheck)=>{
+          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_uuid=${info[i].student_uuid} AND find_date='${findDate}'`, (errCheck, infoCheck)=>{
             if(errCheck) console.log(errCheck.sqlMessage);
             // console.log(infoCheck.length);
 
             if(infoCheck.length==0){
 
               
-          sqlmap.query( `INSERT INTO student_rank (domain,session, find_date ,today, name,  student_uuid, student_id, roll, class, section, avatar, present) 
-          VALUES ('${req.hostname}', ${session}, "${findDate}", "${today}",  "${info[i].name}", "${info[i].student_uuid}", "${info[i].student_id}", "${info[i].roll}", "${info[i].class}",  "${info[i].section}", "${info[i].avatar}", 1)`, (err2, info2)=>{
+          sqlmap.query( `INSERT INTO student_rank (domain,session, find_date ,today, name,  student_uuid, student_uuid, roll, class, section, avatar, present) 
+          VALUES ('${req.hostname}', ${session}, "${findDate}", "${today}",  "${info[i].name}", "${info[i].student_uuid}", "${info[i].student_uuid}", "${info[i].roll}", "${info[i].class}",  "${info[i].section}", "${info[i].avatar}", 1)`, (err2, info2)=>{
 
             if(err2) console.log(err2.sqlMessage + "fooooooooo");
     
                  
-              sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_id=${info[i].student_id} ORDER BY poient DESC LIMIT 1`, (err3, info3)=>{
+              sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_uuid=${info[i].student_uuid} ORDER BY poient DESC LIMIT 1`, (err3, info3)=>{
                 if(err3) console.log(err3.sqlMessage);
       
-                  sqlmap.query(`UPDATE student_rank SET poient=${parseFloat(info3[0].poient)+parseFloat(3.333)} WHERE domain='${req.hostname}' AND  student_id=${info[i].student_id}`, (err4, info4)=>{
+                  sqlmap.query(`UPDATE student_rank SET poient=${parseFloat(info3[0].poient)+parseFloat(3.333)} WHERE domain='${req.hostname}' AND  student_uuid=${info[i].student_uuid}`, (err4, info4)=>{
       
                     if(err4) console.log(err4.sqlMessage);
           
@@ -363,7 +361,7 @@ exports.public_rank_get= (req, res)=>{
 
 //  let yearName= new Date().getFullYear()
 
-     let sql= `SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY student_id ORDER BY poient DESC`
+     let sql= `SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY student_uuid ORDER BY poient DESC`
      sqlmap.query(sql, (err, info)=>{
 
     
@@ -373,7 +371,7 @@ exports.public_rank_get= (req, res)=>{
        else
        {
 
-        sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY student_id ORDER BY poient DESC`, (errS, infoS)=>{
+        sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY student_uuid ORDER BY poient DESC`, (errS, infoS)=>{
             if(errS) console.log(errS.sqlMessage);
 
 
@@ -448,7 +446,7 @@ exports.public_rank_get= (req, res)=>{
 
 exports.public_rank_get_class_base= (req, res)=>{
 
-    let sql= `SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${req.body.className}" GROUP BY student_id ORDER BY poient DESC`
+    let sql= `SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${req.body.className}" GROUP BY student_uuid ORDER BY poient DESC`
     sqlmap.query(sql, (err, info)=>{
 
 
@@ -457,7 +455,7 @@ exports.public_rank_get_class_base= (req, res)=>{
       else
       {
 
-       sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE domain='${req.hostname}' AND  class="${req.body.className}" GROUP BY student_id ORDER BY poient DESC`, (errS, infoS)=>{
+       sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE domain='${req.hostname}' AND  class="${req.body.className}" GROUP BY student_uuid ORDER BY poient DESC`, (errS, infoS)=>{
            if(errS) console.log(errS.sqlMessage);
 
 

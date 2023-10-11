@@ -61,29 +61,29 @@
             <hr> <span class=" btn-lg  badge bg-light text-dark">Behavior</span> <br>
                     <div class=" btn-group btn-group-sm ">
 
-                        <button data-id="weak_B" data-id2="<%=info[i].ID%>" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#x2730;</button>
+                        <button data-id="weak_B" data-id2="<%=info[i].student_uuid%>" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#x2730;</button>
 
-                        <button data-id="good_B" data-id2="<%=info[i].ID%>" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#x2730;&#x2730;</button>
-                        <button data-id="excellent_B" data-id2="<%=info[i].ID%>" id="excellent" class="def  btn btn-success fs-3 bg-light text-success ">&#x2730;&#x2730;&#x2730;</button>
+                        <button data-id="good_B" data-id2="<%=info[i].student_uuid%>" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#x2730;&#x2730;</button>
+                        <button data-id="excellent_B" data-id2="<%=info[i].student_uuid%>" id="excellent" class="def  btn btn-success fs-3 bg-light text-success ">&#x2730;&#x2730;&#x2730;</button>
 
                    </div>
 
                    <hr>  <span class=" btn-lg  badge bg-light text-dark">Uniform</span> <br>
                    <div class=" btn-group btn-group-sm ">
                        
-                       <button data-id="weak_U" data-id2="<%=info[i].ID%>" id="weak" class="def  btn btn-danger fs-3 bg-light  text-danger ">&#10026;</button>
-                       <button data-id="good_U" data-id2="<%=info[i].ID%>" id="good" class="def  btn btn-primary fs-3 bg-light text-primary">&#10026;&#10026;</button>
-                        <button data-id="excellent_U" data-id2="<%=info[i].ID%>" id="excellent" class="def  btn btn-success fs-3 bg-light text-success ">&#10026;&#10026;&#10026;</button>
+                       <button data-id="weak_U" data-id2="<%=info[i].student_uuid%>" id="weak" class="def  btn btn-danger fs-3 bg-light  text-danger ">&#10026;</button>
+                       <button data-id="good_U" data-id2="<%=info[i].student_uuid%>" id="good" class="def  btn btn-primary fs-3 bg-light text-primary">&#10026;&#10026;</button>
+                        <button data-id="excellent_U" data-id2="<%=info[i].student_uuid%>" id="excellent" class="def  btn btn-success fs-3 bg-light text-success ">&#10026;&#10026;&#10026;</button>
                    </div>
            
 
                    <hr> <span class=" btn-lg  badge bg-light text-dark">Study</span> <br>
                    <div class=" btn-group btn-group-sm ">
                     
-                       <button data-id="weak_S" data-id2="<%=info[i].ID%>" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#10030;</button>
+                       <button data-id="weak_S" data-id2="<%=info[i].student_uuid%>" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#10030;</button>
 
-                        <button data-id="good_S" data-id2="<%=info[i].ID%>" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#10030;&#10030;</button>
-                        <button data-id="excellent_S" data-id2="<%=info[i].ID%>" id="excellent" class="def  btn btn-success fs-3  bg-light text-success ">&#10030;&#10030;&#10030;</button>
+                        <button data-id="good_S" data-id2="<%=info[i].student_uuid%>" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#10030;&#10030;</button>
+                        <button data-id="excellent_S" data-id2="<%=info[i].student_uuid%>" id="excellent" class="def  btn btn-success fs-3  bg-light text-success ">&#10030;&#10030;&#10030;</button>
 
                     </div>
                  </li>
@@ -135,14 +135,14 @@ $(btn).addClass("btn-light")
 
 
 $(document).on("click", ".def",(e)=>{
- let ID =  e.currentTarget.attributes[1].value
+ let student_uuid =  e.currentTarget.attributes[1].value
  let mark =  e.currentTarget.attributes[0].value
  let btn= e.currentTarget
 
 $.ajax({
     method: "post",
     url: "/teacher/rank/post",
-    data: {ID, mark},
+    data: {student_uuid, mark},
     dataType: "JSON",
     beforeSend: function(){
         $(btn).addClass("btn")

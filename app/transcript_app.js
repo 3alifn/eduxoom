@@ -9,7 +9,6 @@ exports.privet_transcript_report_student_get= ( req , res)=>{
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
       const infoStudent= infoStudentData;
-      console.log(infoStudent[0].roll);
       res.render('transcript/transcript-page-report-student-privet', {infoStudent, className, sectionName})
   }
   else res.send('<center><h1>student not found!</h1></center>')

@@ -532,7 +532,7 @@ let htmldata= `
 
 <center>
   
-  <div class=" pt-3 pb-3 rounded-bottom-5 rounded-end-5">
+  <div class="ps-2 pt-3 pb-3 rounded-bottom-5 rounded-end-5">
       <div class="card-body text-start p-2">
     
           <div class="d-flex text-muted ">

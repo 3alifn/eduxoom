@@ -59,7 +59,7 @@ exports.teacher_pis_mark_post= (req, res)=>{
          if(infoCheck===undefined || infoCheck.length===0){
    
              sqlmap.query(`INSERT INTO pis_mark (domain, session, class, section, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
-             VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}',  '
+             VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}',
              '${student_uuid}', '${subject}', ${roll}, '${name}', '${avatar}', '${chapter}', ${pi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
                  if(errPost) console.log(errPost.sqlMessage);
                  else { 

@@ -9,10 +9,11 @@ exports.admin_subject_post= (req, res)=>{
 
     let { className, subjectName }=req.body;
 
-    
+    const session= new Date().getUTCFullYear();
+
     for (let i = 0; i < subjectName.length; i++) {
     const randomString= randomBytes(10).toString('hex');
-     sqlmap.query(`INSERT INTO subject (domain, class, subject, subject_code) VALUES ('${req.hostname}', "${className}", "${subjectName[i]}", "${randomString}")`, (err, next)=>{
+     sqlmap.query(`INSERT INTO subject (session, domain, class, subject, subject_code) VALUES (${session},'${req.hostname}', "${className}", "${subjectName[i]}", "${randomString}")`, (err, next)=>{
  
        if (err) console.log(err.sqlMessage);
  

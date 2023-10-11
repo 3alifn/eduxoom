@@ -84,10 +84,11 @@ sqlmap.connect((err, res) => {
 
 
 app.listen(process.env.listen_port || 30)
+var mysession=new Date().getUTCFullYear();
 
 
 module.exports= {
-app, express, mysql, session, cookieParser, flash, bodyParser,
+app, express, mysession, mysql, session, cookieParser, flash, bodyParser,
  sqlmap, multer, nodemailer, dotenv, cors, randomBytes,
   createHmac, fs, path, ejs, sessionStore,
 }

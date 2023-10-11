@@ -1,7 +1,7 @@
 
 const { app, express, mysql , sessionStore,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs } = require("./server")
 app.locals.data = require('./app/admission_app');
-
+const myini= require('./myini');
 const { MulterError } = require("multer")
 const public = require("./route/public_route")
 const privet = require("./route/privet_route")
@@ -16,6 +16,7 @@ const { query } = require("express");
 
 app.get('*', (req, res, next)=>{
  session.domain=req.hostname;
+ app.set('domain', req.hostname);
 sqlmap.query(`SELECT domain, lics FROM ___ini WHERE domain='${req.hostname}' AND at_status=${true} AND checkout=${true}`, (errllc, infollc)=>{
   if(errllc) console.log(errllc.sqlMessage);
   if(infollc.length>0){
@@ -76,34 +77,5 @@ app.use((req, res, next)=>{
 })
 
 
-// const log= createHmac('md5', 'pipilikapipra').update('user@admin.com').digest('hex');
-// console.log(log);
 
-
-function ___ini(domain, lics){
-  const join_date= new Date().toLocaleDateString();
-  const expire_date= parseInt(new Date().getMonth()+1)+'/'+parseInt(new Date().getDay()+1)+'/'+parseInt(new Date().getFullYear()+1);
-  sqlmap.query(`INSERT INTO ___ini (domain, lics, join_date, expire_date, at_status)
-  VALUES('${domain}', '${lics}','${join_date}', '${expire_date}', ${true})`, (err1, info1)=>{
-    if(err1) console.log(err1.sqlMessage);
-    else {
-      sqlmap.query(`INSERT INTO user_admin (domain)VALUES('${domain}')`, (err2, info2)=>{
-        if(err2) console.log(err2.sqlMessage);
-        else {
-          
-          console.log('Created => '+domain, lics, expire_date);
-
-        }
-    })
-  
-    }
-  })
-}
-
-// ___ini('sahasrailpphs.saanviabc.com', 'ABC123XYS')
-// ___ini('norailmnmhs.saanviabc.com', 'ABC123XYN')
-// ___ini('goailbarimb.saanviabc.com', 'ABC123XYG')
-
-
-// var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
 

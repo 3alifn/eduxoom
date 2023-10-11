@@ -53,6 +53,7 @@ if(errMain) console.log(errMain.sqlMessage+"+++");
 
 sqlmap.query(
   `INSERT INTO application (
+    session,
     domain,
     subject,
      comment, 
@@ -65,6 +66,7 @@ sqlmap.query(
       avatar
       )
    VALUES (
+    ${session},
     "${req.hostname}",
     "${subject}",
      "${comment}",
@@ -98,8 +100,8 @@ sqlmap.query(
 
 exports.student_application_get = (req,res)=>{
   let student_uuid= req.session.student_uuid
-
-let sql = `SELECT * FROM  application WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' ORDER BY ID DESC`
+  const session= new Date().getUTCFullYear();
+  let sql = `SELECT * FROM  application WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' ORDER BY ID DESC`
 sqlmap.query(sql,(err,info)=>{
   if(err) console.log(err.sqlMessage);
 

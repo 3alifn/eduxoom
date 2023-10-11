@@ -38,7 +38,7 @@ exports.multer_upload_student= multer({
 
 
 exports.teacher_student_info= (req, res)=>{
-  const student_uuid= req.session.student_uuid;
+  const {student_uuid}= req.body;
   sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}'`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     const avatar= info[0].avatar
@@ -1047,7 +1047,7 @@ exports.public_student_pagination= (req, res)=>{
       
       <center>
         
-        <div class=" pt-3 pb-3 rounded-bottom-5 rounded-end-5">
+        <div class="ps-2 pt-3 pb-3 rounded-bottom-5 rounded-end-5">
             <div class="card-body text-start p-2">
                    
             <div class="d-flex text-muted ">

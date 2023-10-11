@@ -65,12 +65,13 @@ $(document).ready(function(){
        
        <div  class="col-10 col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
          
-             <div class="card ">
+             <div class="card pt-2" style="height: 200px; overflow: hidden;">
                 <a class="page-link" href="/admin/transcript/report-get/<%=className%>/<%=sectionName%>/<%=infoStudent[i].student_uuid%>">
 
                  <img class="bg-demo-img-color m-auto" width="100px" src="/image/student/<%=infoStudent[i].avatar%>" alt="404"> 
                  <div class="card-body">
-                     <h6 class="card-title"><%=infoStudent[i].name%> - <%=infoStudent[i].roll%> </h6>    
+                  <h6 class="text-muted"><%=infoStudent[i].roll%> </h6>    
+                     <h6 class="text-muted"><%=infoStudent[i].name%> </h6>    
                  </div>
                  </a>          
              </div>

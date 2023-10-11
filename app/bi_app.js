@@ -19,11 +19,12 @@ sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' AND  ID=$
 
 exports.admin_bi_catagory_post= (req, res)=>{
     const get= req.body;
-  
+    const session= new Date().getUTCFullYear();
+
     for (let index = 0; index < get.catagory_name.length; index++) {
        const randomString= randomBytes(10).toString('hex');
-        sqlmap.query(`INSERT INTO bi_catagory (domain, catagory_name, catagory_code)
-        VALUES('${req.hostname}', '${get.catagory_name[index]}', '${randomString}')`, (err, post)=>{
+        sqlmap.query(`INSERT INTO bi_catagory (session, domain, catagory_name, catagory_code)
+        VALUES(${session}', ${req.hostname}', '${get.catagory_name[index]}', '${randomString}')`, (err, post)=>{
             if(err) console.log(err.sqlMessage);
             
         })
@@ -36,7 +37,7 @@ res.send({msg: 'Adding successfully!'})
 
 exports.admin_bi_catagory_get= (req, res)=>{
 
-    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_code ORDER BY ID`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         let tbody_data= '';
         for (let index = 0; index < info.length; index++) {
@@ -98,7 +99,7 @@ exports.teacher_bi_page_mark_get= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid; 
     const {className, sectionName, page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit=20; 
 
-    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' ORDER BY ID`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
 
         sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
@@ -204,7 +205,7 @@ exports.teacher_bi_checkout= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid;
 
     const {className, sectionName, checkout}= req.body;
-    sqlmap.query(`SELECT * WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}' ORDER BY ID`, (errFind, info_checkout)=>{
+    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}' ORDER BY ID`, (errFind, info_checkout)=>{
         if(errFind) console.log(errFind.sqlMessage);
         res.send({info_checkout})
     })
@@ -254,7 +255,7 @@ const teacher_bi_transcript_post= ( domain, teacher_uuid, roll,  className, sect
 
 const teacher_bi_transcript_post_update= (domain, className, sectionName, student_uuid)=>{
 
-    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${domain}' GROUP BY catagory_code ORDER BY ID`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${domain}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
     for (let index = 0; index < infoCatagory.length; index++) {
         sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =1`,(err_bi_danger, info_bi_danger)=>{

@@ -1,13 +1,8 @@
-const express = require("express")
-const app = express()
-
-const { sqlmap, nodemailer, createHmac } = require("../server")
+const {app, express, sqlmap, nodemailer, createHmac, mysession } = require("../server")
 
 exports.public_admission_step1 = (req, res) => {
-
-
+  console.log(mysession);
   res.render("public/admission_form_public", { pastAdmission: true, nextAdmission: false, data: false, msg: req.flash("msg"), alert: req.flash("alert") })
-
 
 }
 
@@ -31,7 +26,7 @@ exports.public_admission_post = (req, res) => {
   let { lastEducation, roll, regNumber, Board, passingYear, joinGroup, comment } = req.body;
   let data = req.body.pastData.split("$%&");
  if(data[3]=='Male') var avatar= 'male_avatar.png'; else var avatar= 'female_avatar.png'; 
- let session= new Date().getUTCFullYear();
+ const session= new Date().getUTCFullYear();
     let findDate= new Date().toLocaleDateString();
   sqlmap.query(`
   INSERT INTO admission (domain, session, find_date, comment, name, avatar, dob_number, birth_date, gender, father_name, mother_name, blood_group, religion, telephone, email, guardian_name, address, hobbies, last_education, roll, reg, board, passing_year, join_group) 
