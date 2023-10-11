@@ -30,8 +30,8 @@
 <div class="row mt-5 p-2 shadowx" id="printResult">
   
   <center>
-    <img src="/image/default/resized/logo.png" width="50px" alt=""> <br>
-    <b class="school-name"> </b> <br>
+    <img class="append-logo" src="/image/default/resized/logo.png" width="50px" alt=""> <br>
+    <b class="append-name"> </b> <br>
 
     
     <img width="60px" class="bg-demo-img-color" src="/image/student/resized/<%=infoStudent[0].avatar%>" alt="">
@@ -218,10 +218,25 @@
 <%- include("../component/___node.html") %> 
 
 </body>
-
 <script src= "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
-
 <script>
+
+(function(){
+  $.ajax({
+    method: "get",
+    url: "/pu/school/get/",
+    data: {},
+    dataType: "JSON",
+    success: function (res) {
+
+      $(".append-name").text(res.info_school[0].name)
+      $(".append-logo").attr( 'src', `/image/default/resized/${res.info_school[0].logo}`)
+
+  
+    }
+  });
+  }())
+
 
 
 

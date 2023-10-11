@@ -11,7 +11,7 @@ exports.privet_transcript_report_student_get= ( req , res)=>{
       const infoStudent= infoStudentData;
       res.render('transcript/transcript-page-report-student-privet', {infoStudent, className, sectionName})
   }
-  else res.send('<center><h1>student not found!</h1></center>')
+  else res.redirect('/pages/empty.html')
 
 
   })
@@ -98,7 +98,7 @@ AND student_uuid='${student_uuid}' AND transcript_name='full'`
   if(infoStudentHalf || infoStudentFull){
       res.render('transcript/transcript-page-report-get-privet', {infoStudentHalf, infoStudentFull, infoCatagory, infoStudent, infoSubject, student_uuid, className, sectionName})
   }
-  else res.send('<center><h1>student not found!</h1></center>')
+  else res.redirect('/pages/empty.html')
 
 
   })
@@ -146,7 +146,7 @@ exports.admin_transcript_report_student_get= ( req , res)=>{
       const infoStudent= infoStudentData;
       res.render('admin/transcript-page-report-student', {infoStudent, className, sectionName})
   }
-  else res.send('<center><h1>student not found!</h1></center>')
+  else res.redirect('/pages/empty.html')
 
 
   })
@@ -179,7 +179,7 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
     teacher_bi_transcript_post_update(className, sectionName, student_uuid)
       res.render('admin/transcript-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName})
   }
-  else res.send('<center><h1>student not found!</h1></center>')
+  else res.redirect('/pages/empty.html')
 
 
   })

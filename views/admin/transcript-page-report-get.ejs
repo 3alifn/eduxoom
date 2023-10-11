@@ -59,9 +59,9 @@
     <div class=" row">
      
        <div class="card col-12 col-md-8 p-2">
-        <img class=" m-auto" width="60px" src="/image/default/resized/logo.png" alt="">
+        <img class="append-logo m-auto" width="60px" src="/image/default/resized/logo.png" alt="">
           <center>
-            <h4 class="card-text school-name"></h4>
+            <h4 class="card-text append-name"></h4>
           <h6 class="card-text">Transcript Report</h6>
           </center>
        </div>  
@@ -201,6 +201,21 @@
 
 <script>
 
+(function(){
+  $.ajax({
+    method: "get",
+    url: "/pu/school/get/",
+    data: {},
+    dataType: "JSON",
+    success: function (res) {
+
+      $(".append-name").text(res.info_school[0].name)
+      $(".append-logo").attr( 'src', `/image/default/resized/${res.info_school[0].logo}`)
+
+  
+    }
+  });
+  }())
   
 
   function printArea(todo){
@@ -300,21 +315,11 @@ $(document).on('click', '.passedResult', ()=>{
         data: {className, sectionName, student_uuid},
         dataType: "JSON",
         beforeSend: function(){
- $('.droppedResult').addClass('disabled')
-
-$('.passedResult').addClass('disabled')
-
-
-$('.toast-msg').html(`<img src="/image/default/loading-load.gif" width="100px" class=" bg-dark" alt="">
-        <span>Processing...</span>`)
-        $('.toast').addClass('show');
-
+           
         },
         success: function (info) {
 
-      
-         $('.toast-btn').click()
-            
+                _msg_pull('alert-success', 'Action submitted!')
         }
     });
 })

@@ -33,7 +33,7 @@ exports.teacher_pic_page_mark_get= (req, res)=>{
           const infoStudent= infoStudentData;
           res.render('pic/pic-page-mark-teacher', {infoStudent, className, sectionName, subject, subject_code, pagination, page, nextbtnstatus, prevbtnstatus})
       }
-      else res.send('<center><h1>student not found!</h1></center>')
+      else res.redirect('/pages/empty.html')
   
   
       })
@@ -124,7 +124,7 @@ exports.teacher_pic_subject_get=(req, res)=>{
       const infoStudent= infoStudentData;
       res.render('pic/pic-page-report-student-privet', {infoStudent, className, sectionName})
   }
-  else res.send('<center><h1>student not found!</h1></center>')
+  else res.redirect('/pages/empty.html')
 
 
   })
@@ -145,7 +145,7 @@ exports.privet_pic_report_get= ( req , res)=>{
       const infoStudent= infoStudentData;
       res.render('pic/pic-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName})
   }
-  else res.send('<center><h1>student not found!</h1></center>')
+  else res.redirect('/pages/empty.html')
 
 
   })

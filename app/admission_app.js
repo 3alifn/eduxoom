@@ -73,7 +73,7 @@ exports.admin_admission_page= (req, res)=>{
           
       }
 
-    else res.send("<center><h1>No data found!</h1></center>")
+    else res.redirect('/pages/empty.html')
 })
 
   

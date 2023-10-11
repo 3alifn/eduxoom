@@ -141,6 +141,7 @@ exports.public_routine_page= (req, res)=>{
     let className=req.query.className==undefined?"SIX":req.query.className;
 
 
+    let sqlAll= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='ররিবার' OR day='সোমবার' OR day='মঙ্গলবার' OR day='বুধবার' OR day='বৃহস্পতিবার'`
     let sqlSun= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='ররিবার'  ORDER BY period_table `
     let sqlMon= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='সোমবার'  ORDER BY period_table `
     let sqlTue= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
@@ -153,6 +154,7 @@ exports.public_routine_page= (req, res)=>{
         else 
         {
 
+            sqlmap.query(sqlAll, (errAll, infoAll)=>{
             sqlmap.query(sqlSun, (errSun, infoSun)=>{
 
                 sqlmap.query(sqlMon, (errMon, infoMon)=>{
@@ -162,9 +164,15 @@ exports.public_routine_page= (req, res)=>{
                         sqlmap.query(sqlWed, (errWed, infoWed)=>{
         
                             sqlmap.query(sqlThu, (errThu, infoThu)=>{
-       
-                            
+                                   
+                                if(infoAll.length>0) {
                                     res.render("public/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu, info})
+                                }
+                                else {
+                                    res.redirect('/pages/empty.html')
+                                }
+                            
+                                    
                        
                 
                             })
@@ -177,6 +185,8 @@ exports.public_routine_page= (req, res)=>{
                     })
               
                 
+                })
+
                 })
               
                 

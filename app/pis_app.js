@@ -32,7 +32,7 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
           const infoStudent= infoStudentData;
           res.render('pis/pis-page-mark-teacher', {infoStudent, className, sectionName, subject, subject_code, pagination, page, nextbtnstatus, prevbtnstatus})
       }
-      else res.send('<center><h1>student not found!</h1></center>')
+      else res.redirect('/pages/empty.html')
   
   
       })
@@ -137,7 +137,8 @@ exports.teacher_pis_subject_get=(req, res)=>{
       const infoStudent= infoStudentData;
       res.render('pis/pis-page-report-student-privet', {infoStudent, className, sectionName})
   }
-  else res.send('<center><h1>student not found!</h1></center>')
+  else res.redirect('/pages/empty.html')
+
 
 
   })
@@ -158,7 +159,7 @@ exports.privet_pis_report_get= ( req , res)=>{
       const infoStudent= infoStudentData;
       res.render('pis/pis-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName})
   }
-  else res.send('<center><h1>student not found!</h1></center>')
+  else res.redirect('/pages/empty.html')
 
 
   })

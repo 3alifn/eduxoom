@@ -164,8 +164,6 @@ res.download(`./public/docs/application/${info[0].attachment}`)
 
 exports.student_application_download= (req, res)=>{
 
-
-
 let ID=  req.query.id
 
 let sql= `SELECT attachment FROM  application WHERE domain='${req.hostname}' AND  ID="${ID}"`

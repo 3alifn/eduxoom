@@ -118,7 +118,7 @@ exports.teacher_bi_page_mark_get= (req, res)=>{
      
             res.render('bi/bi-page-mark-teacher', {infoStudent, infoCatagory, pagination, page, nextbtnstatus, prevbtnstatus, className, sectionName, teacher_uuid})
         }
-        else res.send('<center><h1>student not found!</h1></center>')
+        else res.redirect('/pages/empty.html')
     
     
         })
@@ -154,11 +154,12 @@ exports.teacher_bi_report_get= ( req , res)=>{
             const infoStudent= infoStudentData;
             res.render('bi/bi-page-report-teacher',{infoStudent, infoCatagory,pagination, page, nextbtnstatus, prevbtnstatus, className, sectionName, teacher_uuid})
         }
-        else res.send('<center><h1>student not found!</h1></center>')
+        else res.redirect('/pages/empty.html')
     
     
         })
-         } else res.send('<center><h1>student not found!</h1></center>')
+         }   else res.redirect('/pages/empty.html')
+
     }) 
     })
 

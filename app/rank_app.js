@@ -27,7 +27,7 @@ exports.public_rank_class_page= (req, res)=>{
       
           if(infoSix.length==0 && infoSeven.length==0 && infoEight.length==0 && infoNine.length==0 && infoTen.length==0){
 
-            res.send("<center><h2>No record</h2></center>")
+            res.redirect('/pages/empty.html')
 
           }
     
