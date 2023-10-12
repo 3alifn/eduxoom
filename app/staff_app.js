@@ -115,10 +115,6 @@ exports.public_staff_profile_get= (req, res)=>{
                     
         })
         }
-      
-
-
-
 
 
 exports.admin_staff_get=(req, res)=>{
@@ -172,6 +168,47 @@ exports.admin_staff_get=(req, res)=>{
     })
 }
 
+
+exports.admin_staff_img_post= async(req, res)=>{
+
+  const {dataid}= req.body;
+
+   if(req.file){
+      if(req.file.size<1048576){
+          const { filename: image } = req.file;
+    
+        await sharp(req.file.path)
+        .jpeg({ quality: 50 })
+        .toFile(
+            path.resolve(path.resolve(req.file.destination, 'resized',image))
+        )
+        fs.unlinkSync(req.file.path)
+    
+        }
+    
+        else {
+    
+          
+          await sharp(req.file.path)
+          .jpeg({ quality: 50 })
+          .toFile(
+              path.resolve(path.resolve(req.file.destination, 'resized', image))
+          )
+    
+      fs.unlinkSync(req.file.path)
+        
+          }
+   }
+
+   sqlmap.query(`UPDATE staff SET image='${req.file.filename}' WHERE domain='${req.hostname}' AND ID=${dataid}`, (err, next)=>{
+       if(err) console.log(err.sqlMessage);
+       else   res.send({msg: 'Update successfully!', alert: 'alert-success'})
+   })
+
+
+
+
+}
 
 
 
@@ -230,14 +267,29 @@ var penboxdata=
 
 <div class="  modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
 
+<form id="avatarform" action="#" method="post">
+  <div class='pt-2 pb-2 bg-card-color-light d-flex justify-content-center'>
+    <div>
+    <span  class="avatar-append">
+    <img style="width: 100px; height: 100px" class="avatar-circle bg-card-color shadowx" src="/image/staff/resized/${info[0].image}" alt="">
+
+    </span>
+      <label  title="Change profile" class="btn btn-link"> <i class="bi bi-pen fs-5"></i>
+        <input required type="file" name='image' class="avatar-file" style="display: none;">     
+        <input type="hidden" name='dataid' value="${info[0].ID}">     
+      </label>
+    </div>
+  
+     </div>
+  
+     <div class=" d-flex align-items-center justify-content-center">
+      <button class="btn btn-link me-5">Update</button>
+    </div>
+</form>
+
 <form id="penboxdata" class="penboxdata" method="post" action="#" onsubmit="return false">
   <div class=" card shadowx">
    
-  <div class='p-2 bg-card-color-light d-flex justify-content-center'>
-   <img style="width: 100px; height: 100px" class="avatar-circle bg-card-color shadowx" src="/image/teacher/resized/${info[0].avatar}" alt="">
-
-   </div>
-
     <div class="card-body fw-semibold">
     
     <div class="d-flex text-muted m-2">
@@ -318,6 +370,46 @@ var penboxdata=
 </form>
 </div>
 </div>
+<script>
+  noview.port({
+    input_class: 'avatar-file',
+    append_class: 'avatar-append',
+    file_type: 'image',
+    max_kb_size: 1024,
+    multiple: false,
+
+
+  })
+
+  $('.avatar-file').on('change', ()=>{
+    $('.avatar-append img').addClass('rounded-circle')
+  })
+
+
+  $('#avatarform').on('submit', (event)=>{
+    const formdata = new FormData($("#avatarform")[0])
+    event.preventDefault();
+    $.ajax({
+      method: "post",
+      url: "/admin/staff/img/post",
+      data: formdata,
+      dataType: "JSON",
+      mimeType: 'multipart/form-data',
+      cache: false,
+      processData: false,
+      contentType: false,
+      beforeSend: function(){
+         _spin_pull()
+      },
+      success: function (res) {
+        _msg_pull(res.alert, res.msg)
+        _spin_pop()
+
+      }
+    });
+  })
+
+</script>
 `
  res.send({penboxdata})
 

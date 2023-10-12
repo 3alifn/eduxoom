@@ -207,7 +207,6 @@ class="btn link-success shadowx btn-go fw-500">Create a new data</button>
 </body>
 <script>
 
-
 $(document).ready(function(){
   $("#search").keyup(function() {
     var value = $(this).val().toLowerCase();
@@ -225,7 +224,7 @@ noview.port({
     append_class: 'images_append',
     file_type: 'image',
     max_kb_size: 1024,
-    multiple: true,
+    multiple: false,
 
 
   })
@@ -246,7 +245,7 @@ tabledata()
 
 $('#formdata').on('submit', (event)=>{
 event.preventDefault();
-let formdata = new FormData($("form")[1])
+let formdata = new FormData($("#formdata")[0])
 $.ajax({
   method: "post",
   url: "/admin/setup/staff/post",

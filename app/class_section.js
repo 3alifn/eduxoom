@@ -26,7 +26,7 @@ exports.admin_class_section_post=(req, res)=>{
 exports.admin_class_section_get= (req, res)=>{
     
     sqlmap.query(`SELECT * FROM class_section WHERE domain='${req.hostname}' GROUP BY class ORDER BY ID`, (err, infomain)=>{
-    sqlmap.query(`SELECT * FROM class_section WHERE domain='${req.hostname}' ORDER BY ID`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM class_section WHERE domain='${req.hostname}' ORDER BY ID LIMIT 15`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         

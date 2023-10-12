@@ -36,35 +36,40 @@
 
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">EIIN</p>
-                <input value="<%=info[0]==undefined?null:info[0].eiin%>" name="eiin" class="w-75 shadowx form-dev form-control-sm" placeholder="enter eiin number"
+                <code class="pe-1">*</code> 
+                 <input value="<%=info[0]==undefined?null:info[0].eiin%>" name="eiin" class="w-75 shadowx form-dev form-control-sm" placeholder="enter eiin number"
                   type="number" id="">
               </div>
 
 
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">Name</p>
-                <input value="<%=info[0]==undefined?null:info[0].name%>" required name="name" class="w-75 shadowx form-dev form-control-sm"
+                <code class="pe-1">*</code> 
+                  <input value="<%=info[0]==undefined?null:info[0].name%>" required name="name" class="w-75 shadowx form-dev form-control-sm"
                   placeholder="enter school name" type="text" id="">
               </div>
 
 
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">Email</p>
-                <input required value="<%=info[0]==undefined?null:info[0].email%>" name="email" class="w-75 shadowx form-dev form-control-sm"
+                <code class="pe-1">*</code> 
+                  <input required value="<%=info[0]==undefined?null:info[0].email%>" name="email" class="w-75 shadowx form-dev form-control-sm"
                   placeholder="enter email address" type="email" id="">
               </div>
 
 
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">Phone</p>
-                <input maxlength="11" value="<%=info[0]==undefined?null:info[0].phone%>" required name="phone" class="w-75 shadowx form-dev form-control-sm"
+                <code class="pe-1">*</code> 
+                 <input  maxlength="11" value="<%=info[0]==undefined?null:info[0].phone%>" required name="phone" class="w-75 shadowx form-dev form-control-sm"
                   placeholder="enter phone number" type="tel" id="">
               </div>
 
 
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">Facebook</p>
-                <input value="<%=info[0]==undefined?null:info[0].fb_link%>" name="fb_link" class="w-75 shadowx form-dev form-control-sm" placeholder="enter facebook url"
+                <code class="pe-1">-</code> 
+                  <input value="<%=info[0]==undefined?null:info[0].fb_link%>" name="fb_link" class="w-75 shadowx form-dev form-control-sm" placeholder="enter facebook url"
                   type="text" id="">
               </div>
 
@@ -73,7 +78,8 @@
                 <p class="w-25  fw-semibold m-auto">Address</p>
                 <span class="w-75">
 
-                  <textarea required name="address" class="form-dev shadowx" style="width: 100%;"
+                  <code class="pe-1">*</code> 
+                    <textarea required name="address" class="form-dev shadowx" style="width: 100%;"
                     placeholder="tell us your school address" id="" cols="40" rows="5"><%=info[0]==undefined?null:info[0].address%></textarea>
 
                 </span>
@@ -85,7 +91,8 @@
                 <p class="w-25  fw-semibold m-auto">Headline</p>
                 <span class="w-75">
 
-                  <textarea required name="headline" class="form-dev shadowx" style="width: 100%;"
+                  <code class="pe-1">*</code> 
+                      <textarea required name="headline" class="form-dev shadowx" style="width: 100%;"
                     placeholder="tell us your headline" id="" cols="40" rows="5"><%=info[0]==undefined?null:info[0].headline%></textarea>
                    
                 </span>
@@ -98,7 +105,8 @@
                 <p class="w-25  fw-semibold m-auto">About</p>
                 <span class="w-75">
 
-                  <textarea required name="about" class="form-dev shadowx" style="width: 100%;"
+                  <code class="pe-1">*</code> 
+                      <textarea required name="about" class="form-dev shadowx" style="width: 100%;"
                     placeholder="tell us something about your school" id="" cols="40" rows="5"><%=info[0]==undefined?null:info[0].about%></textarea>
 
                 </span>
@@ -109,7 +117,8 @@
 
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">Logo</p>
-                <input data-id="logo" value="<%=info[0]==undefined?null:info[0].logo%>"  name="image" class="w-75 pushImage logo shadowx  form-dev form-control-sm"
+                <code class="pe-1">*</code> 
+                      <input data-id="logo" value="<%=info[0]==undefined?null:info[0].logo%>"  name="image" class="w-75 pushImage logo shadowx  form-dev form-control-sm"
                   type="file" id="">
               </div>
 
@@ -130,7 +139,8 @@
 
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">Main photo</p>
-                <input data-id="main_img" value="<%=info[0]==undefined?null:info[0].main_img%>"  name="image" class="w-75 pushImage main_img shadowx form-dev form-control-sm"
+                <code class="pe-1">*</code> 
+                   <input data-id="main_img" value="<%=info[0]==undefined?null:info[0].main_img%>"  name="image" class="w-75 pushImage main_img shadowx form-dev form-control-sm"
                   type="file" id="">
               </div>
 
