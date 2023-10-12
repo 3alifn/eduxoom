@@ -635,11 +635,47 @@ exports.admin_parent_profile= (req, res)=>{
 
 
 exports.admin_parent_delete= (req, res)=>{
-const parent_uuid= req.session.parent_uuid;
+  const {dataid}= req.body; 
+
+if(dataid==undefined){
+    res.send({msg: "Data not found!", alert: "alert-info"})
+
+}
+else {
+  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
+      if(errInfo) console.log("data not found!")
+      
+      else {
+  
+          
+  sqlmap.query(`DELETE FROM parents WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
+      if(err) console.log(err.sqlMessage);
+      else
+      {
+        for (const index in findInfo) {
+          if(findInfo[index].image=='male_avatar.png' || findInfo[index].image=='female_avatar.png'){
+             console.log('no delete default png');
+          } else{
+
+            fs.unlink(`./public/image/parent/resized/${findInfo[index].avatar}`, function (errDelete) {
+              if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
+         
+            
+            });
+          }
+
     
-  sqlmap.query(`DELETE FROM parents permission='allow' AND WHERE domain='${req.hostname}' AND  parent_uuid='${parent_uuid}'`, (err, next)=>{
-    if(err) console.log(err.sqlMessage);
-    else res.send({msg: 'Deleted! successfully!', alert: 'success'})
+         }
+  
+         res.send({msg: "Data Deleted! Successfully!", alert: "alert-success"})
+          
+      }
   })
+  
+      }
+  
+  })
+}
+
 }
 

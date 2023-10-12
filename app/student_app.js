@@ -119,7 +119,7 @@ exports.admin_student_post= async(req, res)=>{
   let tempData= classNameX.split(' $%& ');
   var className= tempData[0];
   var sectionName= tempData[1];
-  if(emailx==undefined) var email= student_id+'@abc.com'; else var email= emailx;
+  if(emailx==undefined || emailx=='') var email= student_id+'@abc.com'; else var email= emailx;
   var session= new Date().getUTCFullYear();
   if(req.file){
     var avatar_png= req.file.filename;
@@ -177,8 +177,11 @@ exports.admin_student_post= async(req, res)=>{
      religion, email, phone, address, admission_date, password, avatar )
     VALUES('${req.hostname}', '${uuid}', '${session}', '${className}', '${sectionName}', '${name}','${student_id}', '${roll}', '${gender}', '${fname}', '${mname}', '${birth_date}', '${blood_group}',
      '${religion}', '${email}', '${phone}', '${address}', '${admission_date}', '${hashPassword}', '${avatar_png}')`, (err, next)=>{
-        if(err) console.log(err.sqlMessage);
-        else   res.send({status: 200, msg: 'Student join successfully!', alert: 'alert-success'})
+        if(err) console.log(err.sqlMessage+'__join_bug');
+        else {
+          console.log('joined');
+          res.send({status: 200, msg: 'Student join successfully!', alert: 'alert-success'})
+        }
     })
    }
 
@@ -591,14 +594,21 @@ else {
       if(err) console.log(err.sqlMessage);
       else
       {
+
   
          for (const index in findInfo) {
-          fs.unlink(`./public/image/student/resized/${findInfo[index].avatar}`, function (errDelete) {
+          if(findInfo[index].avatar=='male_avatar.png' || findInfo[index].avatar=='female_avatar.png'){
+             console.log('no delete default png');
+          } else{
+        
+            fs.unlink(`./public/image/student/resized/${findInfo[index].avatar}`, function (errDelete) {
               if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
-  
-              
+         
             
             });
+          }
+
+    
          }
   
          res.send({msg: "Data Deleted! Successfully!", alert: "alert-success"})

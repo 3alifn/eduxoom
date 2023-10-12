@@ -442,14 +442,19 @@ else {
       if(err) console.log(err.sqlMessage);
       else
       {
-  
-         for (const index in findInfo) {
-          fs.unlink(`./public/image/teacher/resized/${findInfo[index].avatar}`, function (errDelete) {
+        for (const index in findInfo) {
+          if(findInfo[index].avatar=='male_avatar.png' || findInfo[index].avatar=='female_avatar.png'){
+             console.log('no delete default png');
+          } else{
+
+            fs.unlink(`./public/image/teacher/resized/${findInfo[index].avatar}`, function (errDelete) {
               if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
-  
-              
+         
             
             });
+          }
+
+    
          }
   
          res.send({msg: "Data Deleted! Successfully!", alert: "alert-success"})

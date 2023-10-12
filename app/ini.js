@@ -36,14 +36,22 @@ module.exports= {
             sqlmap.query(`SELECT class, section FROM ini_class_section WHERE domain='localhost'`, (err, info)=>{
                 if(err) console.log(err.sqlMessage);
                 for (let index = 0; index < info.length; index++) {
-    
-                    sqlmap.query(`INSERT INTO class_section (domain, class, section)
-                    VALUES('${domain}', '${info[index].class}', '${info[index].section}')`, (erri, infoi)=>{
-                        if(erri) console.log(erri.sqlMessage);
-                        else {
-                            if(info.length==index+1) console.log('class_section_updated');
-                        }
+
+                    sqlmap.query(`SELECT class, section FROM class_section WHERE domain='${req.hostname}' AND class='${info[index].class}' AND section='${info[index].section}'`, (errcs, have_cs)=>{
+                        if(errcs) console.log(errcs.sqlMessage);
+                        if(have_cs.length==0){
+   
+                            sqlmap.query(`INSERT INTO class_section (domain, class, section)
+                            VALUES('${domain}', '${info[index].class}', '${info[index].section}')`, (erri, infoi)=>{
+                                if(erri) console.log(erri.sqlMessage);
+                                else {
+                                    if(info.length==index+1) console.log('class_section_updated');
+                                }
+                            })
+
+                        } else console.log('class and section already exits');
                     })
+ 
                 }
                  
             })
@@ -59,14 +67,23 @@ module.exports= {
                 if(err) console.log(err.sqlMessage);
                 for (let index = 0; index < info.length; index++) {
                     const randomString= randomBytes(10).toString('hex');
-                    sqlmap.query(`INSERT INTO subject (domain, class, subject, subject_code)
-                    VALUES('${domain}', '${info[index].class}', '${info[index].subject}', '${randomString}')`, (erri, infoi)=>{
-                        if(erri) console.log(erri.sqlMessage);
-                       else {
-                        if(info.length==index+1) console.log('subject_updated');
 
-                       } 
+                    sqlmap.query(`SELECT subject FROM subject WHERE domain='${req.hostname}' AND subject='${info[index].subject}'`, (errh, have_subject)=>{
+                        if(errh) console.log(errh.sqlMessage);
+                        if(have_subject.length==0){
+
+                            sqlmap.query(`INSERT INTO subject (domain, class, subject, subject_code)
+                            VALUES('${domain}', '${info[index].class}', '${info[index].subject}', '${randomString}')`, (erri, infoi)=>{
+                                if(erri) console.log(erri.sqlMessage);
+                               else {
+                                if(info.length==index+1) console.log('subject_updated');
+        
+                               } 
+                            })
+
+                        } else console.log('subject already exits');
                     })
+                  
                 }
                  
             })
@@ -83,13 +100,21 @@ module.exports= {
                 for (let index = 0; index < info.length; index++) {
                     const randomString= randomBytes(10).toString('hex');
 
-                    sqlmap.query(`INSERT INTO bi_catagory (domain, catagory_name, catagory_code)
-                    VALUES('${domain}', '${info[index].catagory_name}', '${randomString}')`, (erri, infoi)=>{
-                        if(erri) console.log(erri.sqlMessage);
-                        else {
-                            if(info.length==index+1) console.log('bi_catagory');
-                        }
+                    sqlmap.query(`SELECT catagory_name FROM bi_catagory WHERE domain='${req.hostname}' AND catagory_name='${info[index].catagory_name}'`, (errbi, have_bi)=>{
+                        if(errbi) console.log(errbi.sqlMessage);
+                        if(have_bi.length==0){
+
+                            sqlmap.query(`INSERT INTO bi_catagory (domain, catagory_name, catagory_code)
+                            VALUES('${domain}', '${info[index].catagory_name}', '${randomString}')`, (erri, infoi)=>{
+                                if(erri) console.log(erri.sqlMessage);
+                                else {
+                                    if(info.length==index+1) console.log('bi_catagory');
+                                }
+                            })
+
+                        } else console.log('bi catagory already exits');
                     })
+                    
     
                 }
                  

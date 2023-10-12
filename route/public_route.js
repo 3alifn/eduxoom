@@ -17,7 +17,7 @@ const { pu_school_get, pu_headofschool_get, au_user_nav, au_user_profile_header_
 const { pu_headofschool_render } = require("../app/headofschool_app")
 const headofschool_app = require("../app/headofschool_app")
 const { public_staff_page, public_staff_profile_get } = require("../app/staff_app")
-const { admin_achievement_page, public_achievement_view, public_eventnews_page, public_eventnews_view, admin_facilities_view, public_facilities_view, public_achievement_page } = require("../app/repository")
+const { admin_achievement_page, public_achievement_view, public_eventnews_page, public_eventnews_view, admin_facilities_view, public_facilities_view, public_achievement_page, public_facilities_page } = require("../app/repository")
 const public= express.Router()
 
 // class section settings...
@@ -43,6 +43,7 @@ public.post("/staff/profile/get", public_staff_profile_get)
 
 
 //repository router
+public.get('/facilities-page/', public_facilities_page)
 public.get('/achievement-page/', public_achievement_page)
 public.get('/achievement-view/:dataid/', public_achievement_view)
 public.get('/eventnews-page/', public_eventnews_page)

@@ -326,6 +326,13 @@ res.send({msg: 'Update successfully!', alert: 'success'})
 }
 
 
+exports.public_facilities_page= (req, res)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='facilities' GROUP BY dataid ORDER BY ID DESC`, (err, info_f)=>{
+    if(err) console.log(err.sqlMessage);
+    else res.render('public/facilities_page', {info_f})
+  })
+}
+
 
 exports.public_facilities_view= (req, res)=>{
   const {dataid}= req.params;

@@ -455,12 +455,17 @@ exports.admin_staff_rm= (req, res)=>{
         {
     
            for (const index in findInfo) {
-            fs.unlink(`./public/image/staff/resized/${findInfo[index].image}`, function (errDelete) {
+            if(findInfo[index].image=='male_avatar.png' || findInfo[index].image=='female_avatar.png'){
+
+            } else{
+              fs.unlink(`./public/image/staff/resized/${findInfo[index].image}`, function (errDelete) {
                 if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
-    
+                
                 
               
               });
+            }
+          
            }
     
            res.send({msg: "Data Deleted! Successfully!", alert: "alert-success"})

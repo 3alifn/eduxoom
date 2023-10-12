@@ -385,6 +385,22 @@
             <input name="roll" class="w-75 shadowx form-dev form-control-sm" placeholder="enter roll" type="number">
            </div>
  
+           <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Father name</p>
+            <code class="pe-1">-</code> 
+            
+            <input  name="fname" class="w-75 shadowx form-dev form-control-sm" placeholder="father name" type="text">
+          </div>
+
+          
+          <div class="d-flex  p-2 justify-content-between align-items-center">
+            <p class="w-25 fw-semibold m-auto">Mother name</p>
+            <code class="pe-1">-</code> 
+            
+            <input  name="mname" class="w-75 shadowx form-dev form-control-sm" placeholder="mother name" type="text">
+          </div>
+
+
 
 
           <div class="d-flex  p-2 justify-content-between align-items-center">
@@ -628,6 +644,9 @@ $('.class-base').on('change', ()=>{
     tabledata(15, 'Six', 'A')
     
     $('#formdata').on('submit', (event)=>{
+      const tempData= $('.class-base').val().split(' $%& ');
+     const class_name= tempData[0];
+     const section_name= tempData[1];
     event.preventDefault();
     let formdata = new FormData($("#formdata")[0])
     $.ajax({
@@ -644,18 +663,25 @@ $('.class-base').on('change', ()=>{
       },
       success: function (res) {
         _msg_pull(res.alert, res.msg)
-        tabledata()
+        tabledata($('.order-tabledata').val(), class_name, section_name)     
+
         $('.submitbtn').removeClass('disabled')
         _spin_pop()
         if(res.status==200){
         $('.formreset').click()
        }
       }
+
+      
     });
     })
     
     
     $('#formcheckout').on('submit', (event)=>{
+      const tempData= $('.class-base').val().split(' $%& ');
+     const class_name= tempData[0];
+     const section_name= tempData[1];
+   
       event.preventDefault()
       // const dataid= $('#formcheckout').serialize()
       $.ajax({
@@ -665,13 +691,17 @@ $('.class-base').on('change', ()=>{
       dataType: "JSON",
       success: function (response) {
         _msg_pull(response.alert, response.msg)
-        tabledata()
+        tabledata($('.order-tabledata').val(), class_name, section_name)     
+      
       }
     });
     })
     
     
     function _delbox_push(dataid){
+      const tempData= $('.class-base').val().split(' $%& ');
+     const class_name= tempData[0];
+     const section_name= tempData[1];
     $.ajax({
       method: "post",
       url: "/admin/student/rm/pop",
@@ -679,7 +709,9 @@ $('.class-base').on('change', ()=>{
       dataType: "JSON",
       success: function (response) {
         _msg_pull('alert-danger', 'Delete successfully!')
-        tabledata()
+      tabledata($('.order-tabledata').val(), class_name, section_name)    
+
+
       }
     });
      
@@ -711,7 +743,6 @@ $('.class-base').on('change', ()=>{
         dataType: "JSON",
         success: function (res) {
           _msg_pull(res.alert, res.msg)
-          tabledata()
           _spin_pop()
 
         }
