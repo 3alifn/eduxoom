@@ -89,9 +89,7 @@
     <input class="form-dev " type="text" value="<%=info[0].hash_name%>" name="hash_name"  id="name" placeholder="Enter Name" required>
     <p></p>
     
-    <center>
-        <button class=" btn-dev w-50">Save Change</button>
-        </center>
+    <button  class="btn btn-primary p-1 mb-2">Save Change</button>
 
              </div>
     
@@ -114,7 +112,7 @@
                             <label for="email">New email address </label>
                             <input class="form-dev " type="email" name="hash_username"  id="newemail" placeholder="<%=info[0].hash_username%>" required>
                             <p></p>
-                            <button id="emailUpdate" style="color:rgb(255, 255, 255) ; background-color: blueviolet;" class="btn btn-outline-light">Update</button>
+                            <button  class="btn btn-primary p-1">Save Change</button>
                           <p></p>
                             <hr>
                           <p></p>
@@ -138,7 +136,7 @@
                    <p></p>
                           
             
-                            <button  style="color:rgb(255, 255, 255) ; background-color: blueviolet;" class="btn btn-outline-light">Save Change</button>
+                            <button  class="btn btn-primary p-1">Save Change</button>
                         <p></p>
             
                </div>
@@ -156,12 +154,7 @@
 <script>
 
 
-$("#file").on("change", ()=>{
-  $("#formFile").submit()
-
-})
-
-    </script>
+</script>
     
     <%- include("../component/___node.html") %> 
 

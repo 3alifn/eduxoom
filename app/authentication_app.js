@@ -14,23 +14,19 @@ const sqlmap= mysql.createConnection({
 
 
 exports.authentication_check = (req, res)=>{
-
-    const {userRole, username, password}= req.query;
+    const {userRole, username, password}= req.body;
      const hashPassword= createHmac('md5', 'pipilikapipra').update(password).digest('hex');
-
    if(userRole=='parents')  var findBashQuery= `SELECT * FROM ${userRole} WHERE domain='${req.hostname}' AND  permission='allow' AND  email="${username}" AND password="${hashPassword}"`
 
-   else if(userRole=='students') var findBashQuery= `SELECT * FROM ${userRole} WHERE domain='${req.hostname}' AND   email="${username}" AND (password="${hashPassword}" OR password="${password}")`
+   else if(userRole=='students') var findBashQuery= `SELECT * FROM ${userRole} WHERE domain='${req.hostname}' AND   email="${username}" AND password="${hashPassword}"`
 
    else if(userRole=='teachers') var findBashQuery= `SELECT * FROM ${userRole} WHERE domain='${req.hostname}' AND  email="${username}" AND password="${hashPassword}"`
-
 
  sqlmap.query(findBashQuery, (err, info)=>{
 
         if(err) console.log(err.sqlMessage);
 
         else {
-          
 
             if(info.length> 0 && userRole=="students" )
 
@@ -45,11 +41,12 @@ exports.authentication_check = (req, res)=>{
                 req.session.userEmail= info[0].email;
                 req.session.student_id= info[0].student_id;
 
-                res.redirect("/student/dashboard")
+                res.send({status: 200, route: '/student/dashboard/', alert: 'alert-success', msg: 'Sign in successfully!'})
+                
             } 
 
             else if(info.length> 0 && userRole=="teachers" )
-            {
+            { 
 
                 req.session.userid= info[0].ID;
                 req.session.teacher_uuid= info[0].teacher_uuid;
@@ -57,10 +54,9 @@ exports.authentication_check = (req, res)=>{
                 req.session.userAccess= "privet"
                 req.session.userName= info[0].name;
                 req.session.userEmail= info[0].email;
-                req.session.className= info[0].class;
-                req.session.pdsId= info[0].pds_id;
                 req.session.index= info[0].index_number;
-               res.redirect("/teacher/dashboard")
+
+                res.send({status: 200, route: '/teacher/dashboard/', alert: 'alert-success', msg: 'Sign in successfully!'})
 
             } 
 
@@ -77,15 +73,16 @@ exports.authentication_check = (req, res)=>{
                 req.session.student_id= info[0].student_id;             
 
 
-               res.redirect("/parent/dashboard")
+                res.send({status: 200,route: '/parent/dashboard/', alert: 'alert-success', msg: 'Sign in successfully!'})
 
             } 
 
             else 
             {
-                req.flash("alert", "danger")
-                req.flash("msg", "Authontication Failed!")
-                res.redirect("/au/404")
+
+              res.send({status: 404,route: '/au/404/', alert: 'alert-danger', msg: 'Authentication failed!'})
+
+                
             }
         }
 

@@ -8,7 +8,7 @@ authentication.get("/signin/page", (req, res)=>{
   res.render("authentication/signin_page", {msg: req.flash("msg"), alert: req.flash("alert")})
 })
 
-authentication.get("/logger", authentication_check)
+authentication.post("/logger", authentication_check)
 authentication.get("/signout", signout)
 authentication.get("/404", authentication_404)
 authentication.get("/forgot/password", (req, res)=>{

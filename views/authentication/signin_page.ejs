@@ -12,30 +12,19 @@
 
 </head>
 <style>
-    .row .card-body{
-    background-color: #F5F4F8 !important;
 
-    color: #754FFE ;
-}
 </style>
 <body onload="pageLoadingTop()">
   
    <!-- section 1............ -->
    <div id="section1">
-    <div class="row mt-5 mbx p-2 shadowx">
+    <div class="row mt-5 mbx p-2 pb-5">
         <div class="col-lg-3 col-md-2 col-sm-1"></div>
      <div class="col-lg-5 col-md-8 col-sm-10">
-      
-      <% if( typeof msg!=typeof alifn && msg.length>0) {%>
-
-     <%-include("../component/toast-ejs") %> 
-
-        <% } else { %>
-          <%=null %> 
-          <% } %> 
-         <form action="/au/logger" class="form container" method="get">
+        
+         <form id="formau" action="#" class="form container">
  
-             <img src="/image/school/user.png" height="70px" alt="">
+             <img src="/image/school//user.png" height="70px" alt="">
  
              <h3>Sign in</h3>
  
@@ -77,18 +66,15 @@
 
             </div>
 
-
-
-
-             <p></p>
  
-             <center>
-                 <button class=" btn-self w-50">Sign in</button>
-             </center> <hr>
-               <!-- socal media links -->
-               <center>
-                <span class=""> <a href="/au/forgot/password" id="signIn_link">Forgot Password <img width="20px" src="/icons/user/icons8-forgot-password-48.png" alt=""></a>  </span>
-               </center>
+            <div class=" p-2 mt-2 mb-2 ">
+
+                <center><button id="submitbtn" class=" btn-self w-50">Sign in</button></center>
+            
+                <center class="pt-3"> <a href="/au/forgot/password" id="signIn_link">Forgot Password <img width="20px" src="/icons/user/icons8-forgot-password-48.png" alt=""></a>  </center>
+            
+               
+            </div>
             
          </form>
          <p></p>
@@ -101,7 +87,35 @@
      </div>
 
 
+     <%- include("../component/___node.html") %>
+
 <script>
+
+
+$('#formau').on('submit', (event)=>{
+event.preventDefault();
+$.ajax({
+    method: "post",
+    url: "/au/logger",
+    data: $('#formau').serialize(),
+    dataType: "JSON",
+    beforeSend: function(){
+       $('#submitbtn').addClass('disabled');
+    },
+    success: function (res) {
+        $('#submitbtn').removeClass('disabled');
+        if(res.status==404){
+            _msg_pull(res.alert, res.msg)
+        } else if(res.status==200){
+            window.location.replace(res.route);
+        } else {};
+        
+    }
+});
+})
+
+
+
     
 $('#eye-hide').click(()=>{
     $('#password').attr('type', "text")
@@ -118,7 +132,6 @@ $('#eye-show').click(()=>{
 
 </script>
       
-<%- include("../component/___node.html") %> 
 
 </body>
 </html>

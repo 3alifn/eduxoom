@@ -311,7 +311,7 @@ var penboxdata=
      </div>
   
      <div class=" d-flex align-items-center justify-content-center">
-      <button class="btn btn-link me-5">Update</button>
+      <button class="btn btn-link me-5">Update photo</button>
     </div>
 </form>
 <form id="penboxdata" class="penboxdata" method="post" action="#" onsubmit="return false">

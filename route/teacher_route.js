@@ -6,15 +6,11 @@ const { teacher_rank_mark_post, teacher_rank_mark_page_class_base, teacher_rank_
 const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update, self_email_update_page, self_social_update, self_close_account, self_avatar_upload, multer_upload, multer_upload_teacher } = require("../app/teacher_app");
 const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, teacher_bi_report_get,  teacher_bi_checkout, teacher_bi_report_self_checkout, teacher_bi_info } = require("../app/bi_app");
 const { teacher_student_info } = require("../app/student_app");
+const { Cookie } = require('express-session');
 const teacher= express.Router()
 
 teacher.all('*', (req, res, next)=>{
-
-
     if(req.session.user=='teacher')  next()
-      
-
-       
     else {
       res.redirect('/au/signout/')
    }

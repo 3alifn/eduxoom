@@ -220,7 +220,7 @@ var penboxdata=
      </div>
   
      <div class=" d-flex align-items-center justify-content-center">
-      <button class="btn btn-link me-5">Update</button>
+      <button class="btn btn-link me-5">Update photo</button>
     </div>
 </form>
 
@@ -529,8 +529,8 @@ exports.self_dashboard= (req, res)=>{
     let sql= `SELECT name, class, section, student_id, ID, avatar FROM students  WHERE domain='${req.hostname}' AND  class="Ten"  ORDER BY ID DESC`
 
     sqlmap.query(sql, (err, info)=>{
-
-      res.render("teacher/dashboard_page", {info})
+      if(err) console.log(err.sqlMessage);
+     else res.render("teacher/dashboard_page", {info})
 
 
     })
