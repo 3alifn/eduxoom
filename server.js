@@ -44,7 +44,7 @@ app.use(cors())
 
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
 const sessionStore= new mysqlStore({
-  expiration: 86400000*3,
+  expiration: 86400000*30,
   createDatabaseTable: true,
   schema: {
     tableName: "authentication_session",
@@ -61,11 +61,11 @@ const sessionStore= new mysqlStore({
     key: 'codeabc',
     secret: 'pipilikiapipra',
     store: sessionStore,
-    resave: true,
+    resave: false,
     saveUninitialized: false,
     name: cookiename,
     cookie: {
-      secure: false, httpOnly: true, maxAge: 86400000*3, 
+      secure: false, httpOnly: true, maxAge: 86400000*30, 
     }
 }))
 

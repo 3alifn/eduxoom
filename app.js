@@ -15,8 +15,6 @@ const ini = require("./route/ini_route");
 const { query } = require("express");
 
 app.get('*', (req, res, next)=>{
- session.domain=req.hostname;
- app.set('domain', req.hostname);
 sqlmap.query(`SELECT domain, lics FROM ___ini WHERE domain='${req.hostname}' AND at_status=${true} AND checkout=${true}`, (errllc, infollc)=>{
   if(errllc) console.log(errllc.sqlMessage);
   if(infollc.length>0){

@@ -31,7 +31,7 @@
         </a>
         
         <div class="p-2  tooltipx btn-hover bg-light btn  rounded">
-          <img height="30pc" width="30px" src="/image/default/male_avatar.png" alt="">
+          <img class="append-user-avatar rounded-circle" style="transform: scale(1.3);" height="40pc" width="40px" src="/image/default/male_avatar.png" alt="">
           
           <div class="tooltipy  bg-light shadow ps-5 pe-5 pt-3 pb-3">
              <a class="nav-link mt-1 btn-hover rounded p-1 append-user-profile" href="#">My profile</a>
@@ -61,6 +61,7 @@ function user_nav(){
         data: {},
         dataType: "JSON",
         success: function (res) {
+            $('.append-user-avatar').attr('src',res.avatar)
             $('.append-user-profile').attr('href',res.profile)
             $('.append-user-dashboard').attr('href',res.dashboard)
         }

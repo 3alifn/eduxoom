@@ -3,7 +3,7 @@ const {app, express, session}=require('../server')
 const { teacher_pic_subject_get,  teacher_pic_page_mark_get, teacher_pic_mark_post, teacher_pic_mark_checkout } = require("../app/pic_app");
 const {  teacher_pis_subject_get,  teacher_pis_page_mark_get, teacher_pis_mark_post, teacher_pis_mark_checkout } = require("../app/pis_app");
 const { teacher_rank_mark_post, teacher_rank_mark_page_class_base, teacher_rank_mark_page, teacher_rank_mark_post_attendance } = require("../app/rank_app");
-const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update, self_email_update_page, self_social_update, self_close_account, self_avatar_upload, multer_upload, multer_upload_teacher } = require("../app/teacher_app");
+const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update, self_email_update_page, self_social_update, self_close_account, self_avatar_upload, multer_upload, multer_upload_teacher, self_img_post, self_penbox_push, self_email_update_pull, self_email_update_push, self_password_update_push } = require("../app/teacher_app");
 const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, teacher_bi_report_get,  teacher_bi_checkout, teacher_bi_report_self_checkout, teacher_bi_info } = require("../app/bi_app");
 const { teacher_student_info } = require("../app/student_app");
 const { Cookie } = require('express-session');
@@ -25,15 +25,12 @@ teacher.post("/student/info", teacher_student_info)
 // self account........
 teacher.get("/dashboard", self_dashboard)
 teacher.get("/account", self_account)
+teacher.post("/self/penbox/push", self_penbox_push)
+teacher.post('/self/img/post', multer_upload_teacher.single('image'),self_img_post)
 
-teacher.post("/info/update", self_info_update)
-teacher.post("/password/update", self_password_update)
-teacher.post("/email/update/page", self_email_update_page)
-teacher.post("/email/update", self_email_update)
-teacher.post("/social", self_social_update)
-teacher.post("/close/account", self_close_account)
-
-teacher.post("/avatar/upload",  multer_upload_teacher.single("avatar"), self_avatar_upload)
+teacher.post("/self/password/update/push", self_password_update_push)
+teacher.post("/self/email/update/pull", self_email_update_pull)
+teacher.post("/self/email/update/push", self_email_update_push)
 
 
 

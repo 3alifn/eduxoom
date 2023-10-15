@@ -1,23 +1,66 @@
 
-
-
-    <!-- Button trigger modal -->
-    <button style="display: none;"  type="button" class="btn  card-text-trigger" data-bs-toggle="modal" data-bs-target="#card-text">
-      card text 
-    </button>
-    
+<card>
+  <!-- Button trigger modal -->
+  <button style="display: none;"  type="button" class="btn  card-mini-trigger" data-bs-toggle="modal" data-bs-target="#card-mini">
+   card mini 
+ </button>
+ 
 <!-- Modal -->
-<div class="modal fade" id="card-text" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content m-auto ">
-        
-        <div class="ms-2 mt-1 card-text-body text-center">
-          
-         
-        </div>
+<div class="modal" id="card-mini" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >
+<div class="modal-dialog modal-dialog-centered">
+ <div class="modal-content m-auto " style="width: max-content;">
 
-        <button type="button" class="btn btn-light card-text-cancel" data-bs-dismiss="modal">Close</button>
-    </div>
-  </div>
+
+     <center>
+       <img class="card-mini-avatar rounded bg-card-color card-demo-color" width="250px" height="200px" src="#" alt="">
+
+     </center>
+     
+     <div class="ms-2 mt-1 card-mini-body">
+       
+      
+ 
+    
+     </div>
+
+     <button type="button" class="btn btn-light card-mini-cancel" data-bs-dismiss="modal">Close</button>
+ </div>
+</div>
 </div>
 
+
+
+
+
+
+
+ <!-- Button trigger modal -->
+ <button style="display: none;"  type="button" class="btn  card-text-trigger" data-bs-toggle="modal" data-bs-target="#card-text">
+   card text 
+ </button>
+ 
+<!-- Modal -->
+<div class="modal fade" id="card-text" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >
+<div class="modal-dialog modal-dialog-centered">
+ <div class="modal-content m-auto ">
+     
+     <div class="ms-2 mt-1 card-text-body text-center">
+       
+      
+     </div>
+
+     <button type="button" class="btn btn-light card-text-cancel" data-bs-dismiss="modal">Close</button>
+ </div>
+</div>
+</div>
+
+<script>
+function card_mini_trigger(){
+ $('.card-mini-trigger').click
+ ()
+}  function card_mini_trigger(){
+ $('.card-text-trigger').click
+ ()
+}
+</script>
+</card>

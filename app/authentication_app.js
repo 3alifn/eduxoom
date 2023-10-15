@@ -33,12 +33,14 @@ exports.authentication_check = (req, res)=>{
             {
                 req.session.userid= info[0].ID;
                 req.session.user= "student";
+                req.session.avatar= `/image/student/resized/${info[0].avatar}`;
                 req.session.student_uuid= info[0].student_uuid;
                 req.session.userAccess= "privet"
                 req.session.className= info[0].class;
                 req.session.sectionName= info[0].section;
                 req.session.userName= info[0].name;
                 req.session.userEmail= info[0].email;
+                req.session.usermail= info[0].email;
                 req.session.student_id= info[0].student_id;
 
                 res.send({status: 200, route: '/student/dashboard/', alert: 'alert-success', msg: 'Sign in successfully!'})
@@ -51,9 +53,12 @@ exports.authentication_check = (req, res)=>{
                 req.session.userid= info[0].ID;
                 req.session.teacher_uuid= info[0].teacher_uuid;
                 req.session.user= "teacher"
+                req.session.avatar= `/image/teacher/resized/${info[0].avatar}`;
+
                 req.session.userAccess= "privet"
                 req.session.userName= info[0].name;
                 req.session.userEmail= info[0].email;
+                req.session.usermail= info[0].email;
                 req.session.index= info[0].index_number;
 
                 res.send({status: 200, route: '/teacher/dashboard/', alert: 'alert-success', msg: 'Sign in successfully!'})
@@ -67,6 +72,8 @@ exports.authentication_check = (req, res)=>{
               req.session.userid= info[0].ID;
               req.session.parent_uuid= info[0].parent_uuid;
                 req.session.user= "parent"
+                req.session.avatar= `/image/parent/resized/${info[0].avatar}`;
+
                 req.session.userAccess= "privet"
                 req.session.userName= info[0].name;
                 req.session.userEmail= info[0].email;             
@@ -232,29 +239,30 @@ exports.reset_password= (req, res)=>{
 
 
 exports.au_user_header_nav= (req, res)=>{
+  const avatar= req.session.avatar;
   
     if(req.session.userAccess==='privet'){
   
       if(req.session.hashUser=='hashAdmin'){
-        res.send({profile: '/admin/account/', dashboard: '/admin/dashboard/'})
+        res.send({profile: '/admin/account/', dashboard: '/admin/dashboard/', avatar:avatar})
 
       }
   
       else if(req.session.user=='teacher') {
     
-        res.send({profile: '/teacher/account/', dashboard: '/teacher/dashboard/'})
+        res.send({profile: '/teacher/account/', dashboard: '/teacher/dashboard/', avatar:avatar})
 
       }
   
       else if(req.session.user=='student'){
   
-        res.send({profile: '/student/account/', dashboard: '/student/dashboard/'})
+        res.send({profile: '/student/account/', dashboard: '/student/dashboard/', avatar:avatar})
 
         
       }
   
       else if(req.session.user=='parent'){
-        res.send({profile: '/parent/account/', dashboard: '/parent/dashboard/'})
+        res.send({profile: '/parent/account/', dashboard: '/parent/dashboard/', avatar:avatar})
 
       }
      

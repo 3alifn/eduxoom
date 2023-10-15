@@ -323,3 +323,33 @@
         
         
 </div>
+
+<mycard>
+  
+     <!-- Button trigger modal -->
+     <button style="display: none;"  type="button" class="btn  mycard-pull" data-bs-toggle="modal" data-bs-target="#mycard"></button>
+    
+     <!-- Modal -->
+     <div class="modal" id="mycard" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >
+       <div class="modal-dialog modal-dialog-centered">
+         <div  class="modal-content modal-append m-auto mycard-content" style="width: max-content;">
+     
+
+     
+     
+         </div>
+       </div>
+     </div>
+     
+     <script>
+       function mycard_pull(){
+         $('.mycard-pull').click()
+       }    function mycard_pop(){
+         $('.mycard-pop').click()
+       } 
+        function mycard_content(content){
+         $('.mycard-content').html(content)
+       } 
+     
+     </script>
+</mycard>

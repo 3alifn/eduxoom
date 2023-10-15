@@ -1,6 +1,6 @@
 const {app, express, session}=require('../server') 
 const { dashboard } = require("../app/admin_app");
-const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update_page, self_email_update, self_close_account, multer_upload, self_avatar_upload } = require("../app/parent_app");
+const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update_page, self_email_update, self_close_account, self_avatar_upload, multer_upload_parent, self_penbox_push, self_password_update_push, self_email_update_pull, self_email_update_push, self_img_post } = require("../app/parent_app");
 const parent= express.Router()
 parent.all('*', (req, res, next)=>{
 
@@ -20,15 +20,12 @@ parent.all('*', (req, res, next)=>{
 
 parent.get("/dashboard", self_dashboard)
 parent.get("/account", self_account)
-parent.post("/info/update", self_info_update)
-parent.post("/password/update", self_password_update)
-parent.post("/email/update/page", self_email_update_page)
+parent.post("/self/penbox/push", self_penbox_push)
+parent.post('/self/img/post', multer_upload_parent.single('image'),self_img_post)
 
-parent.post("/email/update", self_email_update)
-parent.post("/close/my/account", self_close_account)
-
-parent.post("/avatar/upload", multer_upload.single("avatar"), self_avatar_upload)
-
+parent.post("/self/password/update/push", self_password_update_push)
+parent.post("/self/email/update/pull", self_email_update_pull)
+parent.post("/self/email/update/push", self_email_update_push)
 
 
 
