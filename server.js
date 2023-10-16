@@ -19,7 +19,7 @@ const cors= require("cors")
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.set('trust proxy', 1) // trust first proxy
 app.enable("trust proxy", true)
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
@@ -28,7 +28,11 @@ app.use(express.static("./public/"))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(flash());
-app.use(cors())
+app.use(cors({
+  origin: true,
+  credentials: true,
+  optionsSuccessStatus: 200
+}))
 
 
   const sqlmap = mysql.createConnection({
@@ -44,7 +48,7 @@ app.use(cors())
 
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
 const sessionStore= new mysqlStore({
-  expiration: 86400000*30,
+  expiration: 86400000*7,
   createDatabaseTable: true,
   schema: {
     tableName: "authentication_session",
@@ -56,16 +60,16 @@ const sessionStore= new mysqlStore({
   }
  }, sqlmap)
 
-  app.use(cookieParser('nocookie'));
+  app.use(cookieParser('pipilikiapipra'));
   app.use( session({
-    key: 'codeabc',
+    key: 'saanviabc',
     secret: 'pipilikiapipra',
     store: sessionStore,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     name: cookiename,
     cookie: {
-      secure: false, httpOnly: true, maxAge: 86400000*30, 
+     path: '/', secure: false, httpOnly: true, maxAge: null, 
     }
 }))
 

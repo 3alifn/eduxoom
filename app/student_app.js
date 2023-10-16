@@ -767,9 +767,8 @@ exports.self_account= (req, res)=>{
     exports.self_email_update_pull= (req, res)=>{
       const {username}= req.body;
     var randHashCode= Math.ceil(Math.random()*900000);
-    req.app.set('temp_code', randHashCode)
-    req.app.set('username', username)
-    console.log(req.app.get('temp_code'));
+  req.session.username=username; 
+req.session.temp_code=randHashCode;
     
     sqlmap.query(`SELECT email FROM students WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
      if(errMain) console.log(errMain.sqlMessage);
@@ -830,11 +829,18 @@ exports.self_account= (req, res)=>{
         </div>
       </form>`
     
+     
+  setTimeout(()=>{
+    req.session.temp_code=false;
+    }, 5*60000)
+
+    req.session.save((err) => {
+      if (err) {
+          console.log('Error saving session: ', err);
+      } else {
         res.send({htmldata})
-    
-        setTimeout(()=>{
-          req.session.destroy()
-          }, 5*60000)
+      }
+  });
     
       }
           
@@ -847,36 +853,6 @@ exports.self_account= (req, res)=>{
     
     })
     
-    var htmldata= ` <form id="formemailpush" action="#" method="post">
-                   
-                   
-    <div class="card p-2">
-      <div class="card-body">
-        <h5 class="card-title fw-semibold p-2 font-monospace">Verification code sent!</h5>
-        <p class="card-text p-2"><input required class="form-self w-100 p-2" type="text" placeholder="enter verification code" name="verifyCode" id=""></p>
-      </div>
-    
-      <div class="d-flex justify-content-between p-2">
-       <button type="button" class="btn btn-link p-2 mycard-pop" data-bs-dismiss="modal">Close</button>
-    
-       <button type="submit" class="btn btn-link p-2">Submit </button>
-    
-      </div>
-    </div>
-    </form>
-    
-    <script>
-    function mycard_pop(){
-      $('.mycard-pop').click()
-    }
-    </script>
-    `
-    
-    res.send({htmldata})
-    
-    setTimeout(()=>{
-         req.app.set('temp_code', null)
-       }, 5*60000)
       
     }
     
@@ -886,13 +862,9 @@ exports.self_account= (req, res)=>{
         
     exports.self_email_update_push= (req, res)=>{
     const userid= req.session.userid;
-     const temp_code= req.app.get('temp_code');
-     const username= req.app.get('username');
      const {verifyCode}= req.body;
-    // console.log(temp_code);
-      setTimeout(()=>{
-        req.app.set('temp_code', null)
-      }, 5*60000)
+     const username=req.session.username; 
+     const temp_code=req.session.temp_code;
     
           if(verifyCode==temp_code){
         sqlmap.query(`UPDATE students SET email="${username}" WHERE domain='${req.hostname}' AND  ID=${userid}`, (err, info) =>{
