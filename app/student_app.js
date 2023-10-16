@@ -772,7 +772,7 @@ req.session.temp_code=randHashCode;
     
     sqlmap.query(`SELECT email FROM students WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
      if(errMain) console.log(errMain.sqlMessage);
-      if(infoMain.length>0) res.send({alert: 'alert-info', msg: 'Username already exists!'})
+     if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
     
       else {
     
@@ -866,21 +866,28 @@ req.session.temp_code=randHashCode;
      const username=req.session.username; 
      const temp_code=req.session.temp_code;
     
-          if(verifyCode==temp_code){
-        sqlmap.query(`UPDATE students SET email="${username}" WHERE domain='${req.hostname}' AND  ID=${userid}`, (err, info) =>{
-        
-          if(err) res.send({alert: 'alert-info', msg: 'Something Wrong! please try again!'})
-        
-          else res.send({status:true, alert: 'alert-success', msg: 'Email updated succesfully!'})
-        })
-        
-          }
-        
-          else res.send({status: false, alert: 'alert-info', msg: 'Authontication Falied!'})
-    
-        
+
+     if(verifyCode==temp_code){
+      sqlmap.query(`SELECT email FROM students WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
+        if(errMain) console.log(errMain.sqlMessage);
+         if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
+         else {
+      
+          sqlmap.query(`UPDATE students SET email="${username}" WHERE domain='${req.hostname}' AND  ID=${userid}`, (err, info) =>{
+          
+            if(err) res.send({alert: 'alert-info', msg: 'Something Wrong! please try again!'})
+          
+            else res.send({alert: 'alert-success', msg: 'Email updated succesfully!'})
+          })
+      
+      
         }
-    
+      })
+      }
+       else res.send({alert: 'alert-info', msg: 'Invalid verified code!'})
+      }
+      
+      
 
 
 

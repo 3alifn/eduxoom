@@ -168,7 +168,7 @@ req.session.temp_code=randHashCode;
 
 sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
  if(errMain) console.log(errMain.sqlMessage);
-  if(infoMain.length>0) res.send({alert: 'alert-info', msg: 'Username already exists!'})
+  if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
 
   else {
 
@@ -258,6 +258,7 @@ sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.hostname}' AND  ema
     
 exports.self_email_update_push= (req, res)=>{
  const {verifyCode}= req.body;
+const userid= req.session.userid;
 const username=req.session.username; 
 const temp_code=req.session.temp_code;
 
