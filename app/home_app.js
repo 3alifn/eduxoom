@@ -23,7 +23,7 @@ exports.home_page = (req, res) => {
                                 sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='eventnews' GROUP BY dataid ORDER BY ID DESC LIMIT 6`, (err_repo_e,info_repo_e)=>{
                                     if(err_repo_e) console.log(err_repo_e.sqlMessage);
                                     
-                                    sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='facilities' GROUP BY dataid ORDER BY ID DESC`, (err_repo_f,info_repo_f)=>{
+                                    sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='facilities' GROUP BY dataid ORDER BY ID DESC LIMIT 6`, (err_repo_f,info_repo_f)=>{
                                         if(err_repo_f) console.log(err_repo_f.sqlMessage);
                                         
                                         sqlmap.query(`SELECT * FROM repository WHERE domain='${req.hostname}' AND  datatype='achievement' GROUP BY dataid ORDER BY ID DESC LIMIT 6`, (err_repo_a,info_repo_a)=>{

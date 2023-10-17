@@ -1,4 +1,3 @@
-
 <html lang="en">
 
 <head>
@@ -6,333 +5,211 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
     <title>Subject settings</title>
-  
-
-
-<%- include("../component/metadata.html") %> 
+    <%- include("../component/metadata.html") %>
 
 </head>
 
-
-<style>
-    .chosen-container-active{
-     width: 300px !important;
-   }
-   
-   .search-field{
-     width: 300px !important;
-   }
-   
-   ul.chosen-choices{
-     width: 300px !important;
-   } 
-   
-   .chosen-container{
-     width: 300px !important;
-   }
-    </style>
-
-
 <body onload="pageLoadingTop()">
 
-<%- include("../component/admin-header-nav.html") %> 
-<%- include("../component/admin-menu-nav.html") %> 
-      
-<%-include("../component/modal-trigger.html") %> 
+    <%- include("../component/admin-header-nav.html") %>
+        <%- include("../component/admin-menu-nav.html") %>
+
+            <main id="main-content" class="p-2 main-content mt-5">
+
+                <content>
+                    <div class="row mt-5">
+
+                        <div class="col-md-8 m-auto col-11">
+                            <div class="col-md-8 m-auto mb-2 col-11">
+                                <div class="d-flex justify-content-end me-2">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
+                                        class="btn link-success shadowx btn-go fw-500">Create a new subject</button>
+                                </div>
+
+                            <div class="d-flex p-2 m-1 shadowx fw-semibold">
+                                <button onclick="find_class('Six')"
+                                    class="btn-status btn-primary rounded-0 flex-fill btn link-light fw-semibold">SIX</button>
+                                <button onclick="find_class('Seven')"
+                                    class="btn-status flex-fill rounded-0 btn link-primary fw-semibold">SEVEN</button>
+                                <button onclick="find_class('Eight')"
+                                    class="btn-status flex-fill rounded-0 btn link-primary fw-semibold">Eight</button>
+                                <button onclick="find_class('Nine')"
+                                    class="btn-status flex-fill rounded-0 btn link-primary fw-semibold">Nine</button>
+                                <button onclick="find_class('Ten')"
+                                    class="btn-status flex-fill rounded-0 btn link-primary fw-semibold">Ten</button>
+                            </div>
+
+                            <form id="formcheckout" action="#" method="post">
+
+                            <div class="d-flex p-2 m-1 shadowx fw-semibold">
+                                    <input class="check-mark shadowx form-check-input" type="checkbox" value="checkout" name="checkout" id="">
+                                    <button type="submit" name="" class="btn btn-link p-0 fw-semibold ps-2">Delete
+                                        forever</button>
+                            </div>
+
+                            <div id="elementdata" class="check-mark-area">
 
 
 
-<main id="main-content" class="p-2 main-content mt-5">
+                        </div>
+                         </form>
 
-
-
-<content>
-
-
-            
-    <center>
-        <legend class="containe alert alert-dark">Manage Subject</legend>
-    </center>
-
-    <p></p>
-
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modelId_form">
-ADD
-</button>
-
-
-    <span title="Refresh" class=" btn" onclick="window.location.reload()">Refresh</span>
-
-    <center>
-        <div class="btn-group bg-secondary ">
-            <a href="/admin/subject/page?className=Six" class=" btn btn-default "><span class=" badge bg-light text-danger">Six</span></a>
-            <a href="/admin/subject/page?className=Seven" class=" btn btn-default "><span class=" badge bg-light text-danger">Seven</span></a>
-            <a href="/admin/subject/page?className=Eight" class=" btn btn-default "><span class=" badge bg-light text-danger">Eight</span></a>
-            <a href="/admin/subject/page?className=Nine" class=" btn btn-default "><span class=" badge bg-light text-danger">Nine</span></a>
-            <a href="/admin/subject/page?className=Ten" class=" btn btn-default "><span class=" badge bg-light text-danger">Ten</span></a>
-       
-          </div>
-    </center>
-
-<!-- Modal -->
-<div class="modal fade mt-5" id="modelId_form" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-                <div class="modal-header">
-                        <h5 class="modal-title">Subject List</h5>
-                            <button type="button" class="close close-post" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        </div>
                     </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-               
-                    
-<form id="formSubject" method="post">
 
-    <div id="" class="row mt-2">
+                    <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
 
+                        <div
+                            class="col-md-10 modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
 
-        <div class="col-11  m-auto bg-light shadow">
-
-            <select class="m-1 form-dev" name="className" id="" required>
-                <option  disabled value="">Select Class</option>
-
-                <option selected value="Six">Six</option>
-                <option value="Seven">Seven</option>
-                <option value="Eight">Eight</option>
-                <option value="Nine">Nine</option>
-                <option  value="Ten">Ten</option>
-            </select>
+                            <form id="formdata" action="#" method="post">
+                                <div class="col-11">
+                                    <p class="p-2 text-muted text-center fw-semibold fs-5">My create form</p>
+                                </div>
 
 
+                                <div class="d-flex  p-2 justify-content-between align-items-center">
+                                    <select required name="class_name" class="w-100 shadowx form-dev form-control-sm"
+                                        id="">
+                                        <option disabled selected value="">Choose class</option>
+                                        <option value="Six">Six</option>
+                                        <option value="Seven">Seven</option>
+                                        <option value="Eight">Eight</option>
+                                        <option value="Nine">Nine</option>
+                                        <option value="Ten">Ten</option>
+                                    </select>
 
-            <select title="Select Teachers" class=" m-1 form-dev" name="teacherName" id="dynamicTeacher" disabled>
-                <option selected disabled value="">Select Teacher</option>
-                
-             
-                
-             </select>
-
-            <div class="input-group">
-                <input class="m-1 form-control " type="text" name="subjectName[]" value=""
-                    placeholder="Subject Name:" id="" required> 
-
-                <span type="button" class="addItem input-group-text btn "><i
-                        class="fa-sharp fa-solid fa-plus"></i></span>
-              
-            </div>
+                                </div>
 
 
+                                <span class="append-form">
+                                    <div class="d-flex  p-2 justify-content-center align-items-center">
+                                        <input required type="text" class="flex-fill shadowx form-dev form-control-sm"
+                                            placeholder="enter subject name" name="subject_name[]">
+                                        
+                                            <div class="d-flex justify-content-between">
+                                            <button type="button" title="add more"
+                                                class="fs-5 addItem btn link-primary fw-semibold">+</button>
+                                            <button type="button" title="remove"
+                                                class="fs-5 disabled removeItem btn link-primary fw-semibold">-</button>
+
+                                        </div>
+
+                                    </div>
+                                </span>
 
 
-        </div>
+                                <div class="d-flex justify-content-between p-2 mb-2">
+                                    <button type="button" data-bs-dismiss="modal" class="btn btn-link">Close</button>
+                                    <button class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and
+                                        save</button>
+                                </div>
+
+                            </form>
+
+                        </div>
 
 
+                    </div>
+                </content>
 
-    </div>
+            </main>
 
-
-        <div class="row"> 
-            <div class="col-4 col-md-2 m-auto">
-                <button id="onsubmit" type="submit" class="mt-2 btn-dev fw-bold rounded w-100">save</button>
-            </div>
-        </div>
-   
-
-</form>
-
-
-
-                </div>
-            </div>
-        
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-<div id="list" class="row container">
-   
-   <%  for (const i in info) { %> 
-  
-     <div class="col-11 col-md-6 mt-2 border">
-     
-
-
-        <ul class="list-group list-unstyled">
-            <li class="list-group-item-secondary">
-                
-                <strong class="  badge bg-light text-dark"><%=info[i].subject%></strong>
-                <span class="badge bg-light text-dark"><%=info[i].class%></span> <p></p>
-                <span data-id="<%=info[i].ID%>" class=" del_def btn " title="Delete"> <i class=" fa fa-trash"></i></span>
-
-            </li>
-        
-        </ul>
-  
-    </div>
-<% } %> 
-</div>
-
-</content>
-
-    </main>
-
+<%- include("../component/___node.html") %>
+</body>
 
 <script>
 
+$('.btn-status').on('click', (event) => {
+        $('.btn-status').removeClass('btn-primary link-light')
+        $(event.target).addClass('btn-primary link-light')
+    })
+
+    function find_class(class_name) {
+        $.ajax({
+            method: "post",
+            url: "/admin/subject/get",
+            data: { class_name },
+            dataType: "JSON",
+            success: function (res) {
+                $('#elementdata').html(res.htmldata);
 
 
-function dynamicTeacher(){
-
-    $.ajax({
-    method: "POST",
-    url: "/admin/dynamic/teacher",
-    data: {},
-    dataType: "JSON",
-    success: function (info) {
-
-        $("#dynamicTeacher").html(info.html);
-    
-
-       
-        
+            }
+        });
     }
-});
 
-}
-
-// dynamicTeacher()
-
-
-$(document).ready(function(){
-  $(".sectionDef").click(function(e) {
-    let btn=  e.currentTarget;
-    $(".sectionDef").removeClass("btn-light")
-var value= e.currentTarget.attributes[0].value;
-$(btn).addClass("btn-light")
-    
-    $(".list-group").filter(function() {
-       
-      $(this).toggle($(this).text().indexOf(value) > -1)
-     
-    });
-  });
-});
-
-
+    find_class('Six')
 
 
 $(document).on("click", ".addItem", (e) => {
 
-$("#formSubject").append(`
-<div id="" class="row "  >
-<div   class="col-11  m-auto shadow  bg-light ">
+$(".append-form").append(` 
+<div class="d-flex  p-2 justify-content-center align-items-center">  
+            <input required  type="text" class="flex-fill shadowx form-dev form-control-sm" placeholder="enter subject name" name="subject_name[]">
+          <div class="d-flex justify-content-between">
+              <button type="button" title="add more" class="fs-5 addItem btn link-primary fw-semibold">+</button>
+              <button type="button" title="remove" class="fs-5 removeItem btn link-primary fw-semibold">-</button>
 
+          </div>
 
-
-<div class="input-group">
-<input class="m-1 form-control " type="text" name="subjectName[]" value="" placeholder="Subject Name:" id="" required> 
-
-<span type="button"  class="addItem input-group-text btn "><i class="fa-sharp fa-solid fa-plus"></i></span>
-<span type="button"  class="removeItemE input-group-text btn "><i class="fa-sharp fa-solid fa-xmark"></i></span>
-</div>
-
-
-
-</div>
-</div>
+ </div> 
 `)
 
-})
+    })
 
 
 
-$(document).on("click", ".removeItemE", (e)=>{
-    let thisItem= e.currentTarget.previousSibling.parentElement
-    
-    $(thisItem).remove()
- 
-    
-})
+$(document).on("click", ".removeItem", (e) => {
+        let thisItem = e.currentTarget.parentElement.parentElement
+
+        $(thisItem).remove()
+
+
+    })
 
 
 
-$(document).on("click", ".del_def", (e)=>{
-let ID= e.currentTarget.attributes[0].value;
+$("#formdata").on('submit', (event) => {
+        event.preventDefault();
+        $.ajax({
+            method: "post",
+            url: "/admin/subject/post",
+            data: $("#formdata").serialize(),
+            dataType: "JSON",
 
-$('.modal-trigger-trigger').click()
-$('.modal-trigger-body').text('are you want to delete?').addClass('alert alert-danger fw-bolder')
+            beforeSend: function () {
+                $(".submitbtn").addClass('disabled')
 
-$(".modal-trigger-ok").on("click", ()=>{
-    $.ajax({
-    type: "post",
-    url: "/admin/subject/delete",
-    data: {ID},
-    dataType: "JSON",
-    success: function (info) {
+            },
 
-$(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
+            success: function (res) {
+                $(".submitbtn").removeClass('disabled')
 
-$('.toast').addClass('show')
+               _msg_pull(res.alert, res.msg)
 
-        window.location.reload()
+               find_class('Six')
 
-    }
+            }
+        });
+
+    })
+
+$('#formcheckout').on('submit', (event)=>{
+  event.preventDefault()
+  $.ajax({
+  method: "post",
+  url: "/admin/subject/rm",
+  data: $('#formcheckout').serialize(),
+  dataType: "JSON",
+  success: function (res) {
+    _msg_pull(res.alert, res.msg)
+    find_class('Six')
+  }
 });
 })
 
-})
-
-
-
-
-$("#formSubject").on('submit', (e)=>{
-    e.preventDefault();
-
-    $.ajax({
-        method: "post",
-        url: "/admin/subject/post",
-        data: $("#formSubject").serialize(),
-        dataType: "JSON",
-
-        beforeSend: function(){
-            $("#onsubmit").addClass('disabled')
-         
-        },
-
-        success: function (info) {
-$("#onsubmit").removeClass('disabled')
-        
-$(".toast-msg").html(info.msg).addClass('alert alert-danger fw-bolder')
-
-$('.toast').addClass('show')
-$('.close-post').click()
-
-        
-            
-        }
-    });
-
-})
-
-
-
-
-
-
 
 </script>
-<%- include("../component/___node.html") %> 
 
-</body>
 </html>

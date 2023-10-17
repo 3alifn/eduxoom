@@ -19,7 +19,7 @@ const multer_location = multer.diskStorage({
 
 
 module.exports = {
-    multer_upload_school_settings: multer({
+    multer_upload_headofschool: multer({
         storage: multer_location,
 
         limits: { fileSize: 1024 * 1024 * 2 },

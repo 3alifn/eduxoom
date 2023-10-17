@@ -20,6 +20,10 @@ function ___ini(domain, lics){
     })
   }
   
+  // const randomString= randomBytes(10).toString('hex');
+
+  // console.log(randomString);
+
 //   const log= createHmac('md5', 'pipilikapipra').update('user@admin.com').digest('hex');
 //   console.log(log);
   

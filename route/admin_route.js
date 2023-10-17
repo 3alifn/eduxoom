@@ -6,9 +6,9 @@ const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_galle
 const { admin_library_update, admin_library_update_page, admin_library_delete, admin_library_get, admin_library_post, upload_library_image } = require("../app/library_app")
 const { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_delete, admin_notice_download } = require("../app/notice_app")
 const { admin_parent_get, admin_parent_delete, admin_parent_profile } = require("../app/parent_app")
-const { admin_routine_post, admin_routine_delete, admin_subject_dynamic_get, admin_teacher_dynamic_get, admin_ptlist_dynamic_get, admin_routine_page, admin_routine_get } = require("../app/routine_app")
+const { admin_routine_post, admin_routine_delete, admin_subject_dynamic_get, admin_teacher_dynamic_get, admin_ptlist_dynamic_get, admin_routine_page, admin_routine_get, admin_routine_rm } = require("../app/routine_app")
 const { admin_student_import, admin_student_get, admin_student_get_class_base, admin_student_delete, multer_upload_student, admin_student_join, admin_student_copy_get, admin_student_copy_post, admin_student_copy_delete, admin_student_copy_profile, admin_student_update_post, admin_student_update_form, admin_student_join_quick, admin_student_import_quick, admin_student_post, admin_student_penbox_pull, admin_student_penbox_push, admin_student_rm, admin_student_img_post } = require("../app/student_app")
-const { admin_subject_list, admin_subject_select_teacher, admin_subject_set_time, admin_subject_delete, admin_subject_post } = require("../app/subject_app")
+const { admin_subject_list, admin_subject_select_teacher, admin_subject_set_time, admin_subject_delete, admin_subject_post, admin_subject_get, admin_subject_rm } = require("../app/subject_app")
 const { admin_teacher_get, admin_teacher_delete, admin_teacher_update, admin_teacher_update_page, admin_teacher_config, join, admin_config_subject, admin_teacher_join, multer_upload_teacher, admin_teacher_penbox_pull, admin_teacher_penbox_push, admin_teacher_rm, admin_teacher_post, admin_teacher_img_post } = require("../app/teacher_app")
 const { admin_transcript_student_get, admin_transcript_student_final_card, admin_transcript_student_final_card_init, admin_transcript_final_card_init, admin_transcript_final_card_mark, admin_transcript_final_card_accept_student_list, admin_transcript_final_card_waiting_student_list, admin_transcript_final_card_drop_student_list, admin_transcript_final_card_passed_student_list, admin_transcript_final_card_passed_result, admin_transcript_final_card_drop_result, admin_transcript_report_page, admin_transcript_report_student_get, privet_transcript_report_get, admin_transcript_report_get, admin_transcript_report_get_checkout, admin_transcript_pdf_page, admin_transcript_pdf_checkout, admin_bi_transcript_pdf_checkout, admin_transcript_pdf_get } = require("../app/transcript_app")
 const { render } = require("ejs")
@@ -27,7 +27,7 @@ admin.get("/panel", (req, res)=>{
   res.render("admin/admin_login_page", {msg: req.flash("msg"), alert: req.flash("alert")})
 })
 
-admin.post("/login", admin_app.admin_login)
+admin.post("/logger", admin_app.admin_logger)
 
 
 admin.all('*', (req, res, next)=>{
@@ -89,7 +89,7 @@ admin.post('/repository/img/update/post/', multer_upload_repository.any('images'
 
 // setup headofschool
 admin.get('/setup/headofschool/', headofschool_app.admin_headofschool_page)
-admin.post('/setup/headofschool/post', multer_upload_school_settings.single('image'),headofschool_app.admin_headofschool_post)
+admin.post('/setup/headofschool/post', headofschool_app.multer_upload_headofschool.single('image'),headofschool_app.admin_headofschool_post)
 admin.post('/headofschool/rm', headofschool_app.admin_headofschool_rm)
 
 
@@ -305,25 +305,28 @@ admin.post("/library/update", admin_library_update)
 
 // // class routine.......
 
-admin.get("/routine/page", admin_routine_page)
+admin.get("/routine/page", (req, res)=>{
+  res.render('admin/routine_page')
+})
 
-admin.post("/routine/post", admin_routine_post )
-admin.post("/routine/delete", admin_routine_delete )
+admin.post("/routine/get", admin_routine_get )
+admin.post("/routine/post", admin_routine_post)
+admin.post("/routine/rm", admin_routine_rm )
 
-admin.post("/dynamic/subject", admin_subject_dynamic_get)
-admin.post("/dynamic/teacher", admin_teacher_dynamic_get)
-admin.post("/dynamic/ptlist", admin_ptlist_dynamic_get)
+admin.post("/dynamic/subject/get", admin_subject_dynamic_get)
+admin.post("/dynamic/teacher/get", admin_teacher_dynamic_get)
 
 
 
 
 
 // // subject router...........
-admin.get("/subject/page", admin_subject_list)
+admin.get("/subject/page", (req, res)=>{
+  res.render("admin/subject_page")
+})
+admin.post("/subject/get", admin_subject_get)
 admin.post("/subject/post", admin_subject_post)
-admin.post("/subject/delete", admin_subject_delete)
-admin.post("/subject/set/time", admin_subject_set_time)
-admin.post("/subject/select/teacher", admin_subject_select_teacher)
+admin.post("/subject/rm", admin_subject_rm)
 
 
 // // admission router.......

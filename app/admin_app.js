@@ -36,7 +36,7 @@ module.exports = {
 
 
     
-admin_login: (req, res)=>{
+admin_logger: (req, res)=>{
 
     const {hashUsername, hashPassword}= req.body;
     const hashPassword__= createHmac('md5', 'pipilikapipra').update(hashPassword).digest('hex');
@@ -52,26 +52,17 @@ admin_login: (req, res)=>{
                 req.session.hashUsername= hashUsername;
                 req.session.hashPassword= hashPassword__;
                 req.session.userAccess= "privet";
-                res.redirect("/admin/dashboard")
+                res.send({status: 200, route: '/admin/dashboard/', alert: 'alert-success', msg: 'Sign in successfully!'})
 
             }
 
-            else {
-              req.flash("alert", "info")
-              req.flash("msg", "Detect some issue, please clear browser cookie and try again!")
-  
-              res.redirect("/admin/panel")
+            else res.send({status: 503, alert: 'alert-warning', msg: 'Detect some issue, please clear browser cookie and try again!'})
 
             }
-        } 
+        
 
-        else {
+        else res.send({status: 404, alert: 'alert-info', msg: 'Authentication failed!'})
 
-            req.flash("alert", "danger")
-            req.flash("msg", "Authontication Falied!")
-
-            res.redirect("/admin/panel")
-        }
 
     })
 },

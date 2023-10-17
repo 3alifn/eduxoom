@@ -1,37 +1,33 @@
-const express = require("express")
-const { sqlmap, multer } = require("../server")
-const app = express()
-
+const {express, app, sqlmap, multer } = require("../server")
 
 
 exports.admin_routine_post= (req, res)=>{
 
-    let {className, subject, day, periodTable,  teacherName}=req.body
-
- let teacherTemp= teacherName.split("$%&")
+    const {class_name, subject_name, day_name, periodTable,  teacher_name}=req.body
+ let teacherTemp= teacher_name.split("$%&")
  
- let teacherIndex= teacherTemp[1]
+ let teacher_uuid= teacherTemp[1]
 
   let periodTemp= periodTable.split("$%&")
  
  let periodTableX= periodTemp[0]
  let periodTime= periodTemp[1]
  
+console.log(teacher_name);
 
-
- sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class='${className}'  AND day="${day}" AND subject="${subject}" AND (period_table="${periodTableX}" OR period_time="${periodTime}")`,(checkErr, checkInfo)=>{
+ sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class='${class_name}'  AND day="${day_name}" AND subject="${subject_name}" AND period_table="${periodTableX}"`,(checkErr, checkInfo)=>{
 
    if(checkErr) console.log(checkErr.sqlMessage);
 
    if(checkInfo.length==0){
-    sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  index_number='${teacherIndex}'`,(errT, infoT)=>{
+    sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  teacher_uuid='${teacher_uuid}'`,(errT, infoT)=>{
 
-        sqlmap.query(`INSERT INTO routine (domain, class, day, period_table, subject, period_time, teacher_name, teacher_index, teacher_avatar) 
+        sqlmap.query(`INSERT INTO routine (domain, class, day, period_table, subject, period_time, teacher_name, teacher_uuid, teacher_avatar) 
         VALUES
-         ('${req.hostname}', "${className}", "${day}", "${periodTableX}", "${subject}", "${periodTime}", "${infoT[0].name}", "${infoT[0].index_number}", "${infoT[0].avatar}")`, (err, next)=>{
+         ('${req.hostname}', "${class_name}", "${day_name}", "${periodTableX}", "${subject_name}", "${periodTime}", "${infoT[0].name}", "${infoT[0].teacher_uuid}", "${infoT[0].avatar}")`, (err, next)=>{
     
-            if(err) console.log(err.sqlMessage);
-            else res.send({msg: "Class Routine Created!", alert: 'text-success'})
+            if(err) console.log(err.sqlMessage); 
+            else res.send({msg: "Class Routine Created!", alert: 'alert-success'})
     
         })
     
@@ -40,7 +36,7 @@ exports.admin_routine_post= (req, res)=>{
      })
    }
 
-   else res.send({msg: "Class Routine Already Created!", alert: 'text-warning'})
+   else res.send({msg: "Class Routine Already Created!", alert: 'alert-warning'})
 
 
  })
@@ -50,90 +46,69 @@ exports.admin_routine_post= (req, res)=>{
     }
 
 
-
-
-    
-
-exports.admin_routine_page= (req, res)=>{
-
-
-    if(req.query.classBase==undefined) {
-        var className="Six";
-    }
-    else {
-        var className= req.query.classBase;
-
-    }
-    
-    
-        let sqlSun= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='ররিবার'  ORDER BY period_table `
-        let sqlMon= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='সোমবার'  ORDER BY period_table `
-        let sqlTue= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
-        let sqlWed= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বুধবার'  ORDER BY period_table `
-        let sqlThu= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
-     
-        sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}" `, (err, info)=>{
-            if(err) console.log(err.sqlMessage);
-    
-            else 
-            {
-    
-                sqlmap.query(sqlSun, (errSun, infoSun)=>{
-
-    
-                    sqlmap.query(sqlMon, (errMon, infoMon)=>{
-            
-                        sqlmap.query(sqlTue, (errTue, infoTue)=>{
-            
-                            sqlmap.query(sqlWed, (errWed, infoWed)=>{
-            
-                                sqlmap.query(sqlThu, (errThu, infoThu)=>{
-           
-                                
-                                        res.render("admin/routine_page", { infoSun, infoMon, infoTue, infoWed, infoThu})
-                           
+exports.admin_routine_get= (req, res)=>{
+        const {class_name, day_name}= req.body; 
+                sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${class_name}"  AND day='${day_name}'  ORDER BY period_table`, (err, info)=>{
+                    if (err) console.log(err.sqlMessage);
                     
-                                })
-                   
+                   if(info.length>0){ 
+    
+                    var htmldata= ``;
+                    for (const index in info) { 
+                        htmldata+=
+                        `   
+                          <div class="card shadowx bg-card-color-light m-1  pb-2">
+                        <input  class=" shadowx ms-2 p-2 form-check-input" value="${info[index].ID}" type="checkbox" name="dataid[]" id="">
                   
-                    
-                            })
+                        <div class="d-flex flex-column mb-3 p-2  justify-content-center align-items-center  fw-semibold">
+                         <img class="avatar-circle ms-2 mb-2  bg-card-color-light" style="width: 90px; height: 90px;" src="/image/teacher/resized/${info[index].avatar}" alt="">
+                         <p class="flex-fill p-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].teacher_name}</p>
+                        </div>
                   
-                    
-                        })
+                        <div class="d-flex ps-2 pe-2 flex-wrap fw-semibold justify-content-center">
+                          
+                          <p class="flex-fill p-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].class} - ${info[index].day} - ${info[index].period_table}</p>
+                          <p class="flex-fill p-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].subject} - ${info[index].period_time}</p>
                   
-                    
-                    })
+                        </div>
+                      
+                        </div>
+                      `
+                        }
+                        res.send({htmldata})
+                   }
                   
-                    
                 })
             
-    
-            }
-        })
+     }
      
-    }
+
+
+
+
+
+exports.admin_routine_rm= (req, res)=>{
+        const {dataid}= req.body;
+      if(dataid==undefined){
+          res.send({msg: "Data not found!", alert: "alert-info"})
+    
+      }
+      else {            
+        sqlmap.query(`DELETE FROM routine WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
+            if(err) console.log(err.sqlMessage);
+            else  res.send({msg: "Data Deleted! Successfully!", alert: "alert-success"})
+                
+        })
+        
+        
+      }
+      
+      
+      
+      
+      }
     
 
-
-
-
-
-
-
-exports.admin_routine_delete= (req, res)=>{
-
-    let {dataID}=req.body;
-
-    let sql= `DELETE FROM routine WHERE domain='${req.hostname}' AND  ID="${dataID}"`
-    sqlmap.query(sql, (err, next)=>{
-
-        if(err) console.log(err.sqlMessage);
-        else res.send({msg: "Deleted! Successfully"})
-
-    })
-
-}
 
 
 exports.public_routine_page= (req, res)=>{
@@ -260,109 +235,54 @@ exports.public_routine_page_class_base= (req, res)=>{
 
 
 
-
-
-
-
 exports.admin_subject_dynamic_get= (req, res)=>{
-    let {className}= req.body;
+    const {class_name}= req.body;
 
-    sqlmap.query(`SELECT subject FROM subject WHERE domain='${req.hostname}' AND  class="${className}" GROUP BY subject ORDER BY ID DESC`, (err, info)=>{
+    sqlmap.query(`SELECT subject FROM subject WHERE domain='${req.hostname}' AND  class="${class_name}" GROUP BY subject ORDER BY subject`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 
         {
-            let html= "";
+            let htmldata= "";
 
             for (i in info) {
                
-                html+= `]
-                
-                <option  value="${info[i].subject}">${info[i].subject}</option>
-            `
+                htmldata+= `<option  value="${info[i].subject}">${info[i].subject}</option>`
 
         }
 
     
 
-        res.send({html})
+        res.send({htmldata})
 
         }
 
         
     })
 }
-
-
-
-
 
 
 
 
 exports.admin_teacher_dynamic_get= (req, res)=>{
-    // let {className, subjectName}= req.body;
 
-
-
-    sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY name`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 
         {
-            let html= `
-            <option selected disabled value="">Select Teacher</option>
+            let htmldata= `
+            <option selected disabled value="">Choose a teacher</option>
             `;
 
             for (i in info) {
                
-                html+= `
-                
-                <option  value="${info[i].name+"$%&"+info[i].index_number}">${info[i].name+"-"+info[i].index_number}</option>
-            `
+                htmldata+= `<option  value="${info[i].name+"$%&"+info[i].teacher_uuid}">${info[i].name+"-"+info[i].index_number}</option>`
 
         }
 
 
-        res.send({html})
-
-        }
-
-        
-    })
-}
-
-
-
-
-
-
-
-
-
-
-exports.admin_ptlist_dynamic_get= (req, res)=>{
-    let {className, sectionName}= req.body;
-
-    sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' ORDER BY period_time`, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
-
-        else 
-        {
-            let ptlist= "";
-
-            for (i in info) {
-               
-                ptlist+= `
-                
-                <option  value="${info[i].period_time}">${info[i].period_time}</option>
-            `
-
-        }
-
-    
-
-        res.send({ptlist})
+        res.send({htmldata})
 
         }
 

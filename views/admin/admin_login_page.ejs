@@ -12,23 +12,12 @@
 </head>
 
 <body onload="pageLoadingTop()">
-    
-    <% if( typeof msg!=typeof alifn && msg.length>0) {%>
-
-       <center>
-        <%-include("../component/toast-ejs") %> 
-       </center>
-   
-           <% } else { %>
-             <%=null %> 
-             <% } %> 
-  
 
 <div class="row p-2">
     
     <div class="col-11 m-auto shadowx p-3 pb-5 mt-5 mb-5 col-md-6 m-auto ">
         
-        <form action="/admin/login" method="post">
+        <form id="formau" action="#" method="post">
 
 
         <span class="pb-3 fw-semibold fs-5">Admin Login</span> 
@@ -54,7 +43,7 @@
         <p></p>
         
        <center>
-        <button class=" btn-self w-50">Login</button>
+        <button id="submitbtn" type="submit" class=" btn-self w-50">Login</button>
        </center>
 
          
@@ -64,9 +53,37 @@
     </div>
 </div>
 
+<%- include("../component/___node.html") %> 
 
 
 <script>
+
+
+$('#formau').on('submit', (event)=>{
+event.preventDefault();
+$.ajax({
+    method: "post",
+    url: "/admin/logger/",
+    data: $('#formau').serialize(),
+    dataType: "JSON",
+    beforeSend: function(){
+       $('#submitbtn').addClass('disabled');
+    },
+    success: function (res) {
+        $('#submitbtn').removeClass('disabled');
+        if(res.status==404){
+            _msg_pull(res.alert, res.msg)
+        } else if(res.status==200){
+            window.location.replace(res.route);
+        } else {};
+        
+    }
+});
+})
+
+
+
+
 $('#eye-hide').click(()=>{
     $('#password').attr('type', "text")
     $('#eye-hide').css({'display': 'none'})
@@ -78,8 +95,6 @@ $('#eye-show').click(()=>{
     $('#eye-hide').css({'display': 'block'})
     $('#eye-show').css({'display': 'none'})
 })
-
-
 
 
 </script>

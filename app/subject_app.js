@@ -1,42 +1,41 @@
-
-const express = require("express")
-const app = express()
-
-const { sqlmap, randomBytes } = require("../server");
-// const { infoTeacher } = require("./teachers.manage");
+const {express, app, sqlmap, randomBytes } = require("../server");
 
 exports.admin_subject_post= (req, res)=>{
-
-    let { className, subjectName }=req.body;
-
-    const session= new Date().getUTCFullYear();
-
-    for (let i = 0; i < subjectName.length; i++) {
+    const { class_name, subject_name }=req.body; 
+    for (let i = 0; i < subject_name.length; i++) {
     const randomString= randomBytes(10).toString('hex');
-     sqlmap.query(`INSERT INTO subject (session, domain, class, subject, subject_code) VALUES (${session},'${req.hostname}', "${className}", "${subjectName[i]}", "${randomString}")`, (err, next)=>{
+     sqlmap.query(`INSERT INTO subject (domain, class, subject, subject_code) VALUES ('${req.hostname}', "${class_name}", "${subject_name[i]}", "${randomString}")`, (err, next)=>{
  
        if (err) console.log(err.sqlMessage);
- 
  
      })
  
    }
  
-    res.send({msg: 'Subject Added! Successfully', alert:'text-success'})
+    res.send({msg: 'Subject Added! Successfully', alert:'alert-success'})
  
  
  }
 
 
 
-exports.admin_subject_list= (req, res)=>{
-
-    let {className}= req.query; 
- 
-
-            sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class="${className}" ORDER BY ID DESC`, (err, info)=>{
+exports.admin_subject_get= (req, res)=>{
+    const {class_name}= req.body; 
+            sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class="${class_name}" ORDER BY subject`, (err, info)=>{
                 if (err) console.log(err.sqlMessage);
-                else res.render("admin/subject_page", {info, msg: req.flash("msg"), alert: req.flash("alert")})
+                
+               if(info.length>0){ 
+
+                var htmldata= ``;
+                for (const index in info) { 
+                    htmldata+=
+                    `<div class="d-flex p-2 m-1 shadowx fw-semibold">
+                    <input  class=" shadowx form-check-input" value="${info[index].ID}" type="checkbox" name="dataid[]" id="">
+                    <p class="ps-2">${info[index].subject}</p>
+                  </div>`
+                    }
+                    res.send({htmldata})
+               }
               
             })
         
@@ -45,85 +44,26 @@ exports.admin_subject_list= (req, res)=>{
 
 
 
+ exports.admin_subject_rm= (req, res)=>{
+    const {dataid}= req.body;
+  if(dataid==undefined){
+      res.send({msg: "Data not found!", alert: "alert-info"})
 
-exports.admin_subject_delete = (req, res)=>{
-
-    let {ID}= req.body;
-
-    sqlmap.query(`DELETE FROM subject WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, next)=>{
+  }
+  else {            
+    sqlmap.query(`DELETE FROM subject WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
         if(err) console.log(err.sqlMessage);
-        else res.send({msg: "Subject Deleted!"})
-    })
-
-}
-
-
-
-
-
-exports.admin_subject_select_teacher = (req, res)=>{
-
-    let {teacherIndex, className, sectionName, subjectName, ID}= req.body;
-
- 
-
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  index_number=(${teacherIndex}) ORDER BY ID DESC`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
-    else 
-    {
-
-
-                sqlmap.query(`UPDATE  subject SET teacher_name="${info[0].name}", teacher_index="${info[0].index_number}" WHERE domain='${req.hostname}' AND  ID=${ID}`, (errLast, nextLast)=>{
-
-                    if(errLast) console.log(errLast.sqlMessage);
-
-                    else 
-                    {
-
-
-                        
-                req.flash("msg", "Teacher Selection Successfully!")
-                req.flash("alert", "success")
-                res.redirect("/admin/subject/page?className=Ten")
+        else  res.send({msg: "Data Deleted! Successfully!", alert: "alert-success"})
             
-
-
-                    }
-
-                })
-
-
-
-    }
-  })
-
+    })
+    
+    
+  }
   
-
-}
-
-
-
-
-exports.admin_subject_set_time= (req, res)=>{
-    let {ID, periodTime}= req.body;
-
-
-
-    // sqlmap.query(`UPDATE subject SET period_time="${periodTime}" WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, next)=>{
-    //     if(err) console.log(err.sqlMessage);
-     
-
-    //     else 
-    //     {
-    //         req.flash("msg", "Teacher Selection Successfully!")
-    //         req.flash("alert", "success")
-    //         res.redirect("/admin/subject/page?className=Ten")
-
-    //     }
-    // })
-}
-
-
+  
+  
+  
+  }
 
 
 
