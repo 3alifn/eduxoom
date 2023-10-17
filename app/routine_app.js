@@ -13,7 +13,6 @@ exports.admin_routine_post= (req, res)=>{
  let periodTableX= periodTemp[0]
  let periodTime= periodTemp[1]
  
-console.log(teacher_name);
 
  sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class='${class_name}'  AND day="${day_name}" AND subject="${subject_name}" AND period_table="${periodTableX}"`,(checkErr, checkInfo)=>{
 
@@ -57,22 +56,24 @@ exports.admin_routine_get= (req, res)=>{
                     for (const index in info) { 
                         htmldata+=
                         `   
-                          <div class="card shadowx bg-card-color-light m-1  pb-2">
-                        <input  class=" shadowx ms-2 p-2 form-check-input" value="${info[index].ID}" type="checkbox" name="dataid[]" id="">
-                  
-                        <div class="d-flex flex-column mb-3 p-2  justify-content-center align-items-center  fw-semibold">
-                         <img class="avatar-circle ms-2 mb-2  bg-card-color-light" style="width: 90px; height: 90px;" src="/image/teacher/resized/${info[index].avatar}" alt="">
-                         <p class="flex-fill p-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].teacher_name}</p>
-                        </div>
-                  
-                        <div class="d-flex ps-2 pe-2 flex-wrap fw-semibold justify-content-center">
-                          
-                          <p class="flex-fill p-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].class} - ${info[index].day} - ${info[index].period_table}</p>
-                          <p class="flex-fill p-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].subject} - ${info[index].period_time}</p>
-                  
-                        </div>
-                      
-                        </div>
+                        <div class="col-md-6 col-10 flex-fill p-2 m-auto">
+                        <div class="card shadowx bg-card-color-light mt-2  pb-2">
+                          <input  class=" shadowx ms-2 p-2 form-check-input" value="${info[index].ID}" type="checkbox" name="dataid[]" id="">
+                    
+                          <div class="d-flex ps-2 pe-2 justify-content-center align-items-center  fw-semibold">
+                           <img class="avatar-circle ms-2 mb-2  bg-card-color-light" style="width: 60px; height: 60px;" src="/image/teacher/resized/${info[index].avatar}" alt="">
+                           <p class="flex-fill p-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].teacher_name}</p>
+                          </div>
+                    
+                          <div class="d-flex ps-2 pe-2 flex-wrap fw-semibold justify-content-center">
+                            
+                            <p class="flex-fill p-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].class} - ${info[index].day} - ${info[index].period_table}</p>
+                            <p class="flex-fill p-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].subject} - ${info[index].period_time}</p>
+                    
+                          </div>
+                        
+                          </div>
+                      </div>
                       `
                         }
                         res.send({htmldata})

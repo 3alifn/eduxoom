@@ -69,7 +69,7 @@ const sessionStore= new mysqlStore({
     saveUninitialized: false,
     name: cookiename,
     cookie: {
-     path: '/', secure: false, httpOnly: true, maxAge:  false, 
+     path: '/', secure: false, httpOnly: true, maxAge:  null, 
     }
 }))
 

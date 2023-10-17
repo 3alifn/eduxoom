@@ -5,7 +5,7 @@ const authentication= express.Router()
 
 
 authentication.get("/signin/page", (req, res)=>{
-  res.render("authentication/signin_page", {msg: req.flash("msg"), alert: req.flash("alert")})
+  res.render("authentication/signin_page")
 })
 
 authentication.post("/logger", authentication_check)

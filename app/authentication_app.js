@@ -104,8 +104,13 @@ exports.authentication_404=  (req, res)=>{
     }
 
 exports.signout =  (req, res)=>{
-    req.session.destroy()
-    res.render("authentication/signin_page")
+    req.session.destroy((err)=>{
+      req.session= null;
+      // res.clearCookie('nocookie', {path: '/'})
+      if(err) console.log(err);
+      else res.render("authentication/signin_page")
+    })
+    
     }
 
 

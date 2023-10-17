@@ -23,8 +23,8 @@ const { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, 
 const admin= express.Router()
 
 admin.get("/panel", (req, res)=>{
-
-  res.render("admin/admin_login_page", {msg: req.flash("msg"), alert: req.flash("alert")})
+ console.log(req.session);
+  res.render("admin/admin_login_page")
 })
 
 admin.post("/logger", admin_app.admin_logger)
