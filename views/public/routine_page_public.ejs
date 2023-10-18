@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,67 +7,24 @@
     <title>Class Routine</title>
     <%- include("../component/metadata.html") %> 
 
-
 </head>
 <style>
+  .active-class, .status-class:hover{
+    border-bottom: 3px solid rgb(13,110,253);
+  }
 
-
-
-@media only screen and (max-width: 678px){
-
-
-}
-
-
-.Container{
-			/* height: 150px;
-			width: 250px; */
-			overflow-y: auto;
-			border-radius: 5px;
-			margin: 0 auto;
-		}
-		
-		.Content{
-			width: 300px;
-			color: white;
-			text-align: center;
-		}
-		
-		.Flipped, .Flipped .Content{
-			transform: rotateX(180deg);
-		}
-		
-		/* Designing for scroll-bar */
-		::-webkit-scrollbar {
-			width: 5px;
-		}
-	
-		/* Track */
-		::-webkit-scrollbar-track {
-			background: gainsboro;
-			border-radius: 5px;
-		}
-	
-		/* Handle */
-		::-webkit-scrollbar-thumb {
-			background: rgb(140, 49, 49);
-			border-radius: 5px;
-		}
-	
-		/* Handle on hover */
-		::-webkit-scrollbar-thumb:hover {
-			background: #691a1a;
-		}
+  .active-section, .status-section:hover{
+    border-bottom: 3px solid rgb(13,110,253);
+  }
+  .active-day:hover, input[name='day_name']:checked{
+    border-bottom: 3px solid rgb(13,110,253);
+  }
 
 </style>
 <body onload="pageLoadingTop()">
 
   <%- include("../component/header-nav.html") %> 
-  <%- include("../component/menu-nav.html") %> 
-  <%- include("../component/offcanvas-nav.html") %> 
-  
-
-
+  <%- include("../component/menu-nav.html") %>   
   
 <div class="row mt-5 p-2 mbx shadowx">
   
@@ -78,313 +32,129 @@
     <p class="p-2 shadowx fw-semibold">Our class routine here</p>
 </div>
 
+<div class="row mt-2 mb-2">
+  <div class="col-md-8 m-auto shadowx col-12" style="overflow: auto;">
 
-  <div class="col-10 col-md-6 m-auto">
+    <div class="d-flex p-2 m-1  fw-semibold">
+      <label class="flex-fill rounded-0 active-day btn link-primary fw-semibold" for="sunday">
+        <input onclick="get_day('ররিবার')" id="sunday" checked value="ররিবার" type="radio" name="day_name" class="flex-fill p-2 link-primary form-check-input fw-semibold"></input>
+        Sunday
+      </label>
 
-     <form id="classBaseForm" action="/pu/routine/page/class/base" method="get">
-      <select name="classBase" id="classBase" class="w-100 form-self">
-        
-        <option selected value=""  disabled>শ্রেণী নির্বাচন করুন</option>
+      <label class="flex-fill rounded-0 active-day btn link-primary fw-semibold" for="monday">
+        <input onclick="get_day('সোমবার')" id="monday"  value="সোমবার" type="radio" name="day_name" class="flex-fill p-2 link-primary form-check-input fw-semibold"></input>
+        Monday
+      </label>
 
-          <option  class="status_Six" value="Six">ষষ্ঠ</option>               
-          <option class="status_Seven_A" value="Seven">সপ্তম</option>
 
-          <option class="status_Eight" value="Eight">অষ্টম</option>
-          
-            <option class="status_Nine" value="Nine">নবম</option>
+      <label class="flex-fill rounded-0 active-day btn link-primary fw-semibold" for="tuesday">
+        <input onclick="get_day('মঙ্গলবার')"  id="tuesday"  value="মঙ্গলবার" type="radio" name="day_name" class="flex-fill p-2 link-primary form-check-input fw-semibold"></input>
+        Tuesday
+      </label>
 
-               <option class="status_Ten" value="Ten">দশম</option>
-            
+      <label class="flex-fill rounded-0 active-day btn link-primary fw-semibold" for="wednesday">
+        <input onclick="get_day('বুধবার')" id="wednesday"  value="বুধবার" type="radio" name="day_name" class="flex-fill p-2 link-primary form-check-input fw-semibold"></input>
+        Wednesday
+      </label>
 
-       </select>
-     </form>
+      <label class="flex-fill rounded-0 active-day btn link-primary fw-semibold" for="thusday">
+        <input onclick="get_day('বৃহস্পতিবার')" id="thusday"  value="বৃহস্পতিবার" type="radio" name="day_name" class="flex-fill p-2 link-primary form-check-input fw-semibold"></input>
+        Thusday
+      </label>
+      
+    </div>  
+
+
+      <div class="d-flex p-2 m-1  fw-semibold">
+      <button onclick="get_class('Six')" class="status-class active-class flex-fill btn rounded-0 link-primary fw-semibold">SIX</button>
+      <button onclick="get_class('Seven')" class="status-class flex-fill btn rounded-0 link-primary fw-semibold">SEVEN</button>
+      <button onclick="get_class('Eight')" class="status-class flex-fill btn rounded-0 link-primary fw-semibold">Eight</button>
+      <button onclick="get_class('Nine')" class="status-class flex-fill btn rounded-0 link-primary fw-semibold">Nine</button>
+      <button onclick="get_class('Ten')" class="status-class flex-fill btn rounded-0 link-primary fw-semibold">Ten</button>
+    </div>  
+
+     
 
   </div>
-  </div>
-
- 
-  <div class="row shadowx mbx" id="listDataId">
-    <!-- <span onclick="printRoutine()" class="btn  text-primary w-50 float-start">Save Routine</span> -->
-
-   
-  <% if(info.length==0) {%>
-      <div class="col-11 m-auto">
-          <p class="p-2 shadowx fw-semibold alert">No record</p>
-      </div>
-      <% } %>
-
-    <div class="col-11 m-auto Container Flipped  overflow-scroll d-flex"  id="routineTable" >
-      
-      
-
-      <ul class="list-group Content" style="width: max-content; display: inline-block">
-        <li class="list-group-item text-center text-light shadow bg-secondary">
-          ররিবার
-        </li>
-          
-       
-      
-          <% for(let i=0; i<infoSun.length; i++) {%> 
-
-
-          <li class="list-group-item border-dark">
-           
-            <center>
-
-              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoSun[i].class%> - <%=infoSun[i].period_table%>  </span>
-           
-              <span class="badge bg-light text-danger">  <%=infoSun[i].subject%> - <%=infoSun[i].period_time%>   </span> 
-              <br> 
-              <span class="badge bg-light text-primary ">
-                <img width="50px" height="40px" src="/image/teacher/resized/<%=infoSun[i].teacher_avatar%>" alt="">
-                <br> <br>
-                <%=infoSun[i].teacher_name%> 
-               </span>
-
-            </center>
-
-
-          </li>
+  
+  <script>
+    $('.status-class').on('click', (event)=>{
+      $('.status-class').removeClass('active-class')
+      $(event.target).addClass('active-class')
+    })  
     
-            <br>
+    // $('.status-section').on('click', (event)=>{
+    //   $('.status-section').removeClass('active-section')
+    //   $(event.target).addClass('active-section')
+    // })  
+    
+    // var active_day= $('input[name="day_name"]:checked').val();
+    // var active_class= $('.active-class').text();
+    // var active_section= $('.active-section').text();
 
+  </script>
+</div>
 
-            
-            <% } %> 
 
-         
-        </li>
-      </ul>
-      
+<div  id="norecord">
+  
+<div id="elementdata" class="d-flex flex-wrap row-gap-3 column-gap-2 justify-content-center">
 
 
+</div>
+</div>
 
-      <ul class="list-group Content" style="width: max-content; display: inline-block;" >
-        <li class="list-group-item text-center text-light shadow bg-secondary">
-          সোমবার
-        </li>
-          
-          <% for(let i=0; i<infoMon.length; i++) {%> 
 
-          <li class="list-group-item border-dark">
-           
-          <center>
-
-              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoMon[i].class%> - <%=infoMon[i].period_table%>  </span>
-           
-              <span class="badge bg-light text-danger">  <%=infoMon[i].subject%> - <%=infoMon[i].period_time%>   </span> 
-              <br> 
-              <span class="badge bg-light text-primary ">
-                <img width="50px" height="40px" src="/image/teacher/resized/<%=infoMon[i].teacher_avatar%>" alt="">
-                <br> <br>
-                <%=infoMon[i].teacher_name%> 
-               </span>
-               
-            </center>
-
-          </li>
-       <br>
-
-            <% } %> 
-
-
-
-      </ul>
-
-
-
-      <ul class="list-group Content" style="width: max-content; display: inline-block;" >
-        <li class="list-group-item text-center text-light shadow bg-secondary">
-          মঙ্গলবার
-        </li>
-          
-          <% for(let i=0; i<infoTue.length; i++) {%> 
-
-          <li class="list-group-item border-dark">
-           
-            <center>
-
-              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoTue[i].class%> - <%=infoTue[i].period_table%>  </span>
-           
-              <span class="badge bg-light text-danger">  <%=infoTue[i].subject%> - <%=infoTue[i].period_time%>   </span> 
-              <br> 
-              <span class="badge bg-light text-primary ">
-                <img width="50px" height="40px" src="/image/teacher/resized/<%=infoTue[i].teacher_avatar%>" alt="">
-                <br> <br>
-                <%=infoTue[i].teacher_name%> 
-               </span>
-               
-            </center>
-
-          </li>
-        <br>
-
-
-            <% } %> 
-
-
-        
-      </ul>
-
-
-
-
-
-
-      <ul class="list-group Content" style="width: max-content; display: inline-block;" >
-        <li class="list-group-item text-center text-light shadow bg-secondary">
-          বুধবার
-        </li>
-
-          <% for(let i=0; i<infoWed.length; i++) {%> 
-
-          <li class="list-group-item border-dark">
-           
-            <center>
-
-              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoWed[i].class%> - <%=infoWed[i].period_table%>  </span>
-           
-              <span class="badge bg-light text-danger">  <%=infoWed[i].subject%> - <%=infoWed[i].period_time%>   </span> 
-              <br> 
-              <span class="badge bg-light text-primary ">
-                <img width="50px" height="40px" src="/image/teacher/resized/<%=infoWed[i].teacher_avatar%>" alt="">
-                <br> <br>
-                <%=infoWed[i].teacher_name%> 
-               </span>
-               
-            </center>
-          </li>
-
-       <br>
-
-
-            <% } %> 
-      </ul>
-
-
-
-
-
-
-      <ul class="list-group Content" style="width: max-content; display: inline-block;" >
-        <li class="list-group-item text-center text-light shadow bg-secondary">
-          বৃহস্পতিবার
-        </li>
-          
-          <% for(let i=0; i<infoThu.length; i++) {%> 
-
-          <li class="list-group-item border-dark">
-            <center>
-
-              <span class="badge bg-light text-secondary" style="display: block;"> <%=infoThu[i].class%> - <%=infoThu[i].period_table%>  </span>
-           
-              <span class="badge bg-light text-danger">  <%=infoThu[i].subject%> - <%=infoThu[i].period_time%>   </span> 
-              <br> 
-              <span class="badge bg-light text-primary ">
-                <img width="50px" height="40px" src="/image/teacher/resized/<%=infoThu[i].teacher_avatar%>" alt="">
-                <br> <br>
-                <%=infoThu[i].teacher_name%> 
-               </span>
-               
-            </center>
-          </li>
-  <br>
-
-
-            <% } %> 
-      </ul>
-
-
-
-
-
-
-      <ul class="list-group Content" style="width: max-content; display: inline-block;" >
-        <li class="list-group-item text-center text-light shadow bg-secondary">
-          শুক্রবার
-        </li>
-
-          <% for(let i=0; i<infoSun.length; i++) {%> 
-
-          <li class="list-group-item border-danger">
-           
-           
-            <strong class=' text-dark bg-light'>বন্ধ &#128274</strong>
-
-            <center>
-
-              <span class="badge bg-light text-secondary" style="display: block;"> </span>
-           
-              <span class="badge bg-light text-danger">   </span> 
-              <br> 
-              <span class="badge bg-light text-danger ">
-        
-
-               <h1><i style="height: 40px; width: 50px;" class="fas  fa-school-lock"></i> </h1>
-               </span>
-            </center>
-          </li>
-      <br>
-          
-
-            <% } %> 
-      </ul>
-
-
-
-
-
-      <ul class="list-group Content" style="width: max-content; display: inline-block;" >
-        <li class="list-group-item text-center text-light shadow bg-secondary">
-          শনিবার
-        </li>
-          
-          <% for(let i=0; i<infoSun.length; i++) {%> 
-
-          <li class="list-group-item border-danger">
-           
-           
-         
-            <strong class=' text-dark bg-light'>বন্ধ &#128274</strong>
-
-            <center>
-
-              <span class="badge bg-light text-secondary" style="display: block;"> </span>
-           
-              <span class="badge bg-light text-danger">   </span> 
-              <br> 
-              <span class="badge bg-light text-danger ">
-        
-
-               <h1><i style="height: 40px; width: 50px;" class="fas  fa-school-lock"></i> </h1>
-               </span>
-            </center>
-          </li>
-      <br>
-
-            <% } %> 
-      </ul>
-
-
-
-
-    </div>
-   
-  </div>
-
+</div>
 
   <%- include("../component/footer-nav.html") %> 
+  <%- include("../component/___node.html") %> 
 
 
 <script>
 
+    
+function get_class(class_name){
+  const day_name= $('input[name="day_name"]:checked').val();
+$.ajax({
+  method: "GET",
+  url: "/pu/routine/get/",
+  data: {class_name, day_name},
+  dataType: "JSON",
+  beforeSend: function(){
+  _spin_pull();
+  },
+  success: function (res) {
+  _spin_pop()
+  if(res.status==true){
+    $('#elementdata').html(res.htmldata)
+  } else  $('#norecord').html(res.htmldata)
+  }
+});
+}
+
+get_class('Six')
+
+function get_day(day_name){
+ const class_name= $('.active-class').text();
+ $.ajax({
+  method: "GET",
+  url: "/pu/routine/get/",
+  data: {class_name, day_name},
+  dataType: "JSON",
+  beforeSend: function(){
+  _spin_pull();
+  },
+  success: function (res) {
+  _spin_pop()
+  if(res.status==true){
+    $('#elementdata').html(res.htmldata)
+  } else  $('#norecord').html(res.htmldata)
+  }
+});
+}
 
 
-$("#classBase").on("change", ()=>{
-  
-  $("#classBaseForm").submit()
-
-})
 
 
 (function(){

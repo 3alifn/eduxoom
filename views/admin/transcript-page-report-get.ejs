@@ -59,7 +59,7 @@
     <div class=" row">
      
        <div class="card col-12 col-md-8 p-2">
-        <img class="append-logo m-auto" width="60px" src="/image/default/resized/logo.png" alt="">
+        <img class="append-logo m-auto" width="60px" src="/image/demo/logo.png" alt="">
           <center>
             <h4 class="card-text append-name"></h4>
           <h6 class="card-text">Transcript Report</h6>
@@ -209,13 +209,14 @@
     dataType: "JSON",
     success: function (res) {
 
-      $(".append-name").text(res.info_school[0].name)
-      $(".append-logo").attr( 'src', `/image/default/resized/${res.info_school[0].logo}`)
+      $(".append-name").text(res.info_school[0]==undefined?null:res.info_school[0].name)
+      $(".append-logo").attr( 'href', `/image/default/resized/${res.info_school[0]==undefined?null:res.info_school[0].logo}`)
 
   
     }
   });
   }())
+    
   
 
   function printArea(todo){

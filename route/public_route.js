@@ -5,7 +5,7 @@ const { public_gallery_video, public_gallery_image, public_gallery_video_list, p
 const { public_notice_get, public_notice_download } = require("../app/notice_app")
 const { join, self_verify_code } = require("../app/parent_app")
 const { public_rank_class_page, public_rank_page, public_rank_get, public_rank_get_class_base } = require("../app/rank_app")
-const { public_routine_page, public_routine_page_class_base, public_routine_download } = require("../app/routine_app")
+const { public_routine_page, public_routine_page_class_base, public_routine_download, public_routine_get } = require("../app/routine_app")
 const { public_student_page, public_student_profile, public_student_list, self_join_student, self_student_verify_code, self_student_send_mail, public_student_get, public_student_profile_get, public_student_paginationt, public_student_pagination } = require("../app/student_app")
 const { public_teacher_list, public_teacher_profile_get } = require("../app/teacher_app")
 const { app, sqlmap } = require("../server")
@@ -158,9 +158,11 @@ public.get("/notice/download/", public_notice_download)
 // result router......
 
 // routine router......
-public.get("/routine/page/", public_routine_page)
-public.get("/routine/page/class/base", public_routine_page_class_base)
-// public.get("/routine/download/", public_routine_download)
+public.get("/routine/page/", (req, res)=>{
+  res.render('public/routine_page_public')
+})
+
+public.get("/routine/get/", public_routine_get)
 
 
   

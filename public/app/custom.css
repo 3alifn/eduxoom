@@ -11,6 +11,18 @@
     color: white;
   }
 
+  .active-class, .status-class:hover{
+    border-bottom: 3px solid rgb(13,110,253);
+  }
+
+  .active-section, .status-section:hover{
+    border-bottom: 3px solid rgb(13,110,253);
+  }
+  .active-day:hover, input[name='day_name']:checked{
+    border-bottom: 3px solid rgb(13,110,253);
+  }
+
+
   .text-fill{
     width: 250px;
      white-space: nowrap;

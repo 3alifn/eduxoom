@@ -61,7 +61,7 @@ exports.admin_routine_get= (req, res)=>{
                           <input  class=" shadowx ms-2 p-2 form-check-input" value="${info[index].ID}" type="checkbox" name="dataid[]" id="">
                     
                           <div class="d-flex ps-2 pe-2 justify-content-center align-items-center  fw-semibold">
-                           <img class="avatar-circle ms-2 mb-2  bg-card-color-light" style="width: 60px; height: 60px;" src="/image/teacher/resized/${info[index].avatar}" alt="">
+                           <img class="avatar-circle ms-2 mb-2  bg-card-color-light" style="width: 60px; height: 60px;" src="/image/teacher/resized/${info[index].teacher_avatar}" alt="">
                            <p class="flex-fill p-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].teacher_name}</p>
                           </div>
                     
@@ -112,126 +112,50 @@ exports.admin_routine_rm= (req, res)=>{
 
 
 
-exports.public_routine_page= (req, res)=>{
-
-    let className=req.query.className==undefined?"SIX":req.query.className;
-
-
-    let sqlAll= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='ররিবার' OR day='সোমবার' OR day='মঙ্গলবার' OR day='বুধবার' OR day='বৃহস্পতিবার'`
-    let sqlSun= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='ররিবার'  ORDER BY period_table `
-    let sqlMon= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='সোমবার'  ORDER BY period_table `
-    let sqlTue= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
-    let sqlWed= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বুধবার'  ORDER BY period_table `
-    let sqlThu= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
- 
-    sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}" `, (err, info)=>{
+exports.public_routine_get= (req, res)=>{
+ const {class_name, day_name}= req.query; 
+const sql= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${class_name}"  AND day='day_name' ORDER BY period_table`
+    sqlmap.query(sql, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
-        else 
-        {
-
-            sqlmap.query(sqlAll, (errAll, infoAll)=>{
-            sqlmap.query(sqlSun, (errSun, infoSun)=>{
-
-                sqlmap.query(sqlMon, (errMon, infoMon)=>{
+       if(info.length>0){
+        let htmldata= '';
+        for (let index = 0; index < info.length; index++) {
+            htmldata+=`
+            <div class="flex-fill" style="width: 250px;">
+            <div class="card shadowx bg-card-color-light p-2 ">
         
-                    sqlmap.query(sqlTue, (errTue, infoTue)=>{
+              <span class="badge ms-2 mt-2 bg-primary float-start" style="width: max-content;">${info[index].period_table}</span>
+      
+              <div class="d-flex flex-column ps-2 pt-2 pe-2 justify-content-center align-items-center  fw-semibold">
+               <img class="avatar-circle  bg-card-color-light" style="width: 90px; height: 90px;" src="/image/teacher/resized/${info[index].teacher_avatar}" alt="">
+               <p class="flex-fill p-2 rounded shadowx text-primary fs-6 m-1 ">${info[index].teacher_name}</p>
+      
+              </div>
         
-                        sqlmap.query(sqlWed, (errWed, infoWed)=>{
-        
-                            sqlmap.query(sqlThu, (errThu, infoThu)=>{
-                                   
-                                if(infoAll.length>0) {
-                                    res.render("public/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu, info})
-                                }
-                                else {
-                                    res.redirect('/pages/empty.html')
-                                }
-                            
-                                    
-                       
-                
-                            })
-               
-              
-                
-                        })
-              
-                
-                    })
-              
-                
-                })
-
-                })
-              
-                
-            })
-        
-
+              <div class="d-flex ps-2 pe-2 flex-wrap fw-semibold justify-content-center ">
+                <p class="flex-fill p-2 rounded text-dark text-center fs-6 m-1 bg-light">  ${info[index].class} - ${info[index].day} 
+                <p class="flex-fill p-2 rounded text-dark text-center fs-6 m-1 bg-light">  ${info[index].subject} - ${info[index].period_time} 
+                </p>
+      
+              </div>
+              </div>
+          </div>
+            `
+            
         }
+        res.send({status: true, htmldata})
+       }  else {
+        let htmldata=`
+        <div class="col-11 m-auto">
+        <p class="p-2 shadowx fw-semibold">No record here!</p>
+       </div>`
+        res.send({status: false, htmldata})
+       }
+
     })
  
 }
-
-
-
-
-exports.public_routine_page_class_base= (req, res)=>{
-
-     var className= req.query.classBase;
-
-    let sqlSun= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='ররিবার'  ORDER BY period_table `
-    let sqlMon= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='সোমবার'  ORDER BY period_table `
-    let sqlTue= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='মঙ্গলবার'  ORDER BY period_table `
-    let sqlWed= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বুধবার'  ORDER BY period_table `
-    let sqlThu= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}"  AND day='বৃহস্পতিবার'  ORDER BY period_table `
- 
-    sqlmap.query(`SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${className}" `, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
-
-        else 
-        {
-
-            sqlmap.query(sqlSun, (errSun, infoSun)=>{
-
-                sqlmap.query(sqlMon, (errMon, infoMon)=>{
-        
-                    sqlmap.query(sqlTue, (errTue, infoTue)=>{
-        
-                        sqlmap.query(sqlWed, (errWed, infoWed)=>{
-        
-                            sqlmap.query(sqlThu, (errThu, infoThu)=>{
-        
-               
-                             
-                                    
-                            
-                                    res.render("public/routine_page_public", { infoSun, infoMon, infoTue, infoWed, infoThu, info})
-                          
-              
-                
-                            })
-               
-              
-                
-                        })
-              
-                
-                    })
-              
-                
-                })
-              
-                
-            })
-        
-
-        }
-    })
- 
-}
-
 
 
 

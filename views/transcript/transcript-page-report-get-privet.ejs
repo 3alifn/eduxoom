@@ -30,7 +30,7 @@
 <div class="row mt-5 p-2 shadowx" id="printResult">
   
   <center>
-    <img class="append-logo" src="/image/default/resized/logo.png" width="50px" alt=""> <br>
+    <img class="append-logo" src="/image/demo/logo.png" width="50px" alt=""> <br>
     <b class="append-name"> </b> <br>
 
     
@@ -229,13 +229,14 @@
     dataType: "JSON",
     success: function (res) {
 
-      $(".append-name").text(res.info_school[0].name)
-      $(".append-logo").attr( 'src', `/image/default/resized/${res.info_school[0].logo}`)
+      $(".append-name").text(res.info_school[0]==undefined?null:res.info_school[0].name)
+      $(".append-logo").attr( 'href', `/image/default/resized/${res.info_school[0]==undefined?null:res.info_school[0].logo}`)
 
   
     }
   });
   }())
+    
 
 
 

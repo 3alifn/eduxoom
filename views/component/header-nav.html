@@ -50,19 +50,6 @@
 
 <script>
 
- function user_nav(){
-    $.ajax({
-        method: "get",
-        url: "/pu/user/profile/header-nav/",
-        data: {},
-        dataType: "JSON",
-        success: function (res) {
-            $('.append-user').html(res.data)
-            
-        }
-    });
-
- } user_nav()
 
  (function(){
   $.ajax({
@@ -79,6 +66,20 @@
     }
   });
   }())
+
+$(document).ready(function(){
+    $.ajax({
+        method: "get",
+        url: "/pu/user/profile/header-nav/",
+        data: {},
+        dataType: "JSON",
+        success: function (res) {
+            $('.append-user').html(res.data)
+            
+        }
+    });
+})
+
 
 </script>
     

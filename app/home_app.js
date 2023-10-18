@@ -65,7 +65,11 @@ exports.home_page = (req, res) => {
 exports.pu_school_get = (req, res) => {
     sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (err_school, info_school) => {
         if (err_school) console.log(err_school);
-        else res.send({ info_school })
+        else {
+            if(info_school.length>0){
+                res.send({ info_school })
+            }
+        }
     })
 }
 
@@ -80,7 +84,7 @@ exports.pu_headofschool_get = (req, res) => {
 exports.au_user_profile_header_nav= (req, res)=>{
   
     if(req.session.userAccess==='privet'){
-     let data= '';
+     var data= '';
       if(req.session.hashUser=='hashAdmin'){
 
          data+=`
@@ -135,7 +139,8 @@ exports.au_user_profile_header_nav= (req, res)=>{
                <a class="nav-link mt-1 btn-hover  text-dark rounded p-1" href="/au/signout/">Sign out</a>
             </div>
             `
-      }
+      }  else data+=null;
+
       res.send({data})
      
     }
