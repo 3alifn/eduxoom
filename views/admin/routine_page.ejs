@@ -10,52 +10,18 @@
 
   </head>
   <style>
-    
-    
-    .Container{
-          /* height: 150px;
-          width: 250px; */
-          overflow-y: auto;
-          border-radius: 5px;
-          margin: 0 auto;
-        }
-        
-        .Content{
-          width: 300px;
-          color: white;
-          textlign: center;
-        }
-        
-        .Flipped, .Flipped .Content{
-          transform: rotateX(180deg);
-        }
-        
-        /* Designing for scrollar */
-        ::-webkit-scrollbar {
-          width: 5px;
-        }
-      
-        /* Track */
-        ::-webkit-scrollbar-track {
-          background: gainsboro;
-          border-radius: 5px;
-        }
-      
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-          background: rgb(140, 49, 49);
-          border-radius: 5px;
-        }
-      
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-          background: #691a1a;
-        }
-    
-    
-    
-   </style>
-
+    .active-class, .status-class:hover{
+      border-bottom: 3px solid rgb(13,110,253);
+    }
+  
+    .active-section, .status-section:hover{
+      border-bottom: 3px solid rgb(13,110,253);
+    }
+    .active-day:hover, input[name='day_name']:checked{
+      border-bottom: 3px solid rgb(13,110,253);
+    }
+  
+  </style>
 <body onload="pageLoadingTop()">
 
  <%- include("../component/admin-header-nav.html") %> 
@@ -64,36 +30,63 @@
 
  <main id="main-content" class="p-2 main-content mt-5">
   <content>
-      <div class="row mt-5">
 
-          <div class="col-12 m-auto mb-2">
-              <div class="d-flex justify-content-end me-2">
-                  <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
-                      class="btn link-success shadowx btn-go fw-500">Create a new routine</button>
-              </div>
+    <div class="row mt-5 mb-2">
+      <div class="col-12 m-auto mb-2">
+        <div class="d-flex justify-content-end me-2">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
+                class="btn link-success shadowx btn-go fw-500">Create a new routine</button>
+        </div>
 
-              <div class="d-flex p-2 m-1 shadowx fw-semibold">
-                <input checked value="ররিবার" type="radio" name="day_name" class="radiobtn btn-primary flex-fill btn link-primary fw-semibold">ররিবার</input>
-                <input value="সোমবার" type="radio" name="day_name" class="radiobtn btn-primary flex-fill btn link-primary fw-semibold">সোমবার</input>
-                <input value="মঙ্গলবার" type="radio" name="day_name" class="radiobtn btn-primary flex-fill btn link-primary fw-semibold">মঙ্গলবার</input>
-                <input value="বুধবার" type="radio" name="day_name" class="radiobtn btn-primary flex-fill btn link-primary fw-semibold">বুধবার</input>
-                <input value="বৃহস্পতিবার" type="radio" name="day_name" class="radiobtn btn-primary flex-fill btn link-primary fw-semibold">বৃহস্পতিবার</input>
-              </div>  
+      </div>
 
-              <div class="d-flex p-2 m-1 shadowx fw-semibold">
-                  <button onclick="find_class('Six')"
-                      class="getdata btn-status btn-primary rounded-0 flex-fill btn link-light fw-semibold">SIX</button>
-                  <button onclick="find_class('Seven')"
-                      class="btn-status flex-fill rounded-0 btn link-primary fw-semibold">SEVEN</button>
-                  <button onclick="find_class('Eight')"
-                      class="btn-status flex-fill rounded-0 btn link-primary fw-semibold">Eight</button>
-                  <button onclick="find_class('Nine')"
-                      class="btn-status flex-fill rounded-0 btn link-primary fw-semibold">Nine</button>
-                  <button onclick="find_class('Ten')"
-                      class="btn-status flex-fill rounded-0 btn link-primary fw-semibold">Ten</button>
-              </div>
-
-            </div>
+      <div class="col-md-11 mb-2 m-auto shadowx p-2 col-12" style="overflow: auto;">
+    
+        <div class="d-flex p-2 m-1 border  fw-semibold">
+          <label class="flex-fill rounded-0 active-day btn link-primary fw-semibold" for="sunday">
+            <input onclick="get_day('ররিবার')" id="sunday" checked value="ররিবার" type="radio" name="day_name" class="flex-fill p-2 link-primary form-check-input fw-semibold"></input>
+            Sunday
+          </label>
+    
+          <label class="flex-fill rounded-0 active-day btn link-primary fw-semibold" for="monday">
+            <input onclick="get_day('সোমবার')" id="monday"  value="সোমবার" type="radio" name="day_name" class="flex-fill p-2 link-primary form-check-input fw-semibold"></input>
+            Monday
+          </label>
+    
+    
+          <label class="flex-fill rounded-0 active-day btn link-primary fw-semibold" for="tuesday">
+            <input onclick="get_day('মঙ্গলবার')"  id="tuesday"  value="মঙ্গলবার" type="radio" name="day_name" class="flex-fill p-2 link-primary form-check-input fw-semibold"></input>
+            Tuesday
+          </label>
+    
+          <label class="flex-fill rounded-0 active-day btn link-primary fw-semibold" for="wednesday">
+            <input onclick="get_day('বুধবার')" id="wednesday"  value="বুধবার" type="radio" name="day_name" class="flex-fill p-2 link-primary form-check-input fw-semibold"></input>
+            Wednesday
+          </label>
+    
+          <label class="flex-fill rounded-0 active-day btn link-primary fw-semibold" for="thusday">
+            <input onclick="get_day('বৃহস্পতিবার')" id="thusday"  value="বৃহস্পতিবার" type="radio" name="day_name" class="flex-fill p-2 link-primary form-check-input fw-semibold"></input>
+            Thusday
+          </label>
+          
+        </div>  
+    
+    
+          <div class="d-flex border p-2 m-1  fw-semibold">
+          <button onclick="get_class('Six')" class="status-class active-class flex-fill btn rounded-0 link-primary fw-semibold">SIX</button>
+          <button onclick="get_class('Seven')" class="status-class flex-fill btn rounded-0 link-primary fw-semibold">SEVEN</button>
+          <button onclick="get_class('Eight')" class="status-class flex-fill btn rounded-0 link-primary fw-semibold">Eight</button>
+          <button onclick="get_class('Nine')" class="status-class flex-fill btn rounded-0 link-primary fw-semibold">Nine</button>
+          <button onclick="get_class('Ten')" class="status-class flex-fill btn rounded-0 link-primary fw-semibold">Ten</button>
+        </div>  
+    
+        <div class="d-flex border p-2 m-1 fw-semibold">
+          <button onclick="get_section('A')" class="status-section active-section flex-fill btn rounded-0 link-primary fw-semibold">A</button>
+          <button onclick="get_section('B')" class="status-section flex-fill btn rounded-0 link-primary fw-semibold">B</button>
+          <button onclick="get_section('C')" class="status-section flex-fill btn rounded-0 link-primary fw-semibold">C</button>
+        </div>  
+    
+      </div>
 
               <form id="formcheckout" action="#" method="post">
 
@@ -139,6 +132,21 @@
                       </select>
 
                   </div>
+
+                  
+                  <div class="d-flex  p-2 justify-content-between align-items-center">
+                    <code class="pe-1">*</code> 
+                        <select required name="section_name" class="w-100 shadowx form-dev form-control-sm"
+                          id="choosesection">
+                          <option disabled selected value="">Choose a section</option>
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                          <option value="C">C</option>
+
+                      </select>
+
+                  </div>
+
 
 
                   
@@ -213,50 +221,24 @@
 
 </body>
 <script>
+  $('.status-class').on('click', (event)=>{
+    $('.status-class').removeClass('active-class')
+    $(event.target).addClass('active-class')
+  })  
+  
+  $('.status-section').on('click', (event)=>{
+    $('.status-section').removeClass('active-section')
+    $(event.target).addClass('active-section')
+  })  
+  
+  // var active_day= $('input[name="day_name"]:checked').val();
+  // var active_class= $('.active-class').text();
+  // var active_section= $('.active-section').text();
 
-$('.btn-status').on('click', (event) => {
-        $('.btn-status').removeClass('btn-primary getdata link-light')
-        $(event.target).addClass('btn-primary getdata link-light')
-    })
-
-
-$('.radiobtn').on('change', ()=>{
-      var class_name=$('.getdata').html();
-      var day_name= $('input[name="day_name"]:checked').val();
-
-      
-      $.ajax({
-            method: "post",
-            url: "/admin/routine/get",
-            data: { class_name, day_name},
-            dataType: "JSON",
-            success: function (res) {
-            $('#elementdata').html(res.htmldata);
+</script>
+<script>
 
 
-            }
-        });
-      
-    })
-
-
-function find_class(class_name) {
-  var day_name= $('input[name="day_name"]:checked').val();
-
-        $.ajax({
-            method: "post",
-            url: "/admin/routine/get",
-            data: { class_name, day_name},
-            dataType: "JSON",
-            success: function (res) {
-            $('#elementdata').html(res.htmldata);
-
-
-            }
-        });
-    }
-
-find_class('Six')
 
 
 $('#formcheckout').on('submit', (event)=>{
@@ -268,10 +250,78 @@ $('#formcheckout').on('submit', (event)=>{
   dataType: "JSON",
   success: function (res) {
     _msg_pull(res.alert, res.msg)
-    find_class('Six')
+    get_class('Six')
   }
 });
 })
+
+
+
+function get_class(class_name){
+  const day_name= $('input[name="day_name"]:checked').val();
+  const section_name= $('.active-section').text();
+$.ajax({
+  method: "POST",
+  url: "/admin/routine/get/",
+  data: {class_name,section_name, day_name},
+  dataType: "JSON",
+  beforeSend: function(){
+  _spin_pull();
+  },
+  success: function (res) {
+  _spin_pop()
+  if(res.status==true){
+    $('#elementdata').html(res.htmldata)
+  } else  $('#norecord').html(res.htmldata)
+  }
+});
+}
+
+get_class('Six')
+
+function get_section(section_name){
+  const day_name= $('input[name="day_name"]:checked').val();
+  const class_name= $('.active-class').text();
+
+$.ajax({
+  method: "POST",
+  url: "/admin/routine/get/",
+  data: {class_name, section_name, day_name},
+  dataType: "JSON",
+  beforeSend: function(){
+  _spin_pull();
+  },
+  success: function (res) {
+  _spin_pop()
+  if(res.status==true){
+    $('#elementdata').html(res.htmldata)
+  } else  $('#norecord').html(res.htmldata)
+  }
+});
+}
+
+
+function get_day(day_name){
+ const class_name= $('.active-class').text();
+ const section_name= $('.active-section').text();
+
+ $.ajax({
+  method: "POST",
+  url: "/admin/routine/get/",
+  data: {class_name, section_name, day_name},
+  dataType: "JSON",
+  beforeSend: function(){
+  _spin_pull();
+  },
+  success: function (res) {
+  _spin_pop()
+  if(res.status==true){
+    $('#elementdata').html(res.htmldata)
+  } else  $('#norecord').html(res.htmldata)
+  }
+});
+}
+
 
 
 
