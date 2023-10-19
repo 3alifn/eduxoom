@@ -2,15 +2,17 @@ const {app, sqlmap, createHmac, randomBytes, session}= require('../server');
 
 module.exports= {
 
-    ini_dll_push: (req, res)=>{
-           const {ini_key, domain, lics}= req.body;
+    ini_terminal_push: (req, res)=>{ 
+           var {ini_key, domain, lics}= req.body;
+           var domain= domain.trim()
+           var lics= lics.trim()
            if(lics=='AUTO') var new_lics= randomBytes(10).toString('hex').toUpperCase()
            else var new_lics= lics;
-        console.log(ini_key, domain, new_lics);
+        // console.log(ini_key, domain, new_lics);
             const join_date= new Date().toLocaleDateString();
             const expire_date= parseInt(new Date().getMonth()+1)+'/'+parseInt(new Date().getDay()+1)+'/'+parseInt(new Date().getFullYear()+1);
-            if(ini_key=='$dreamofbillion$') {
-                function ___ini_dll(domain, new_lics){
+            if(ini_key=='$dream$billion$') {
+                // function ___ini_dll(domain, new_lics){
                     sqlmap.query(`SELECT domain FROM ___ini WHERE domain='${domain}'`, (err, have)=>{
                         if(err) console.log(err.sqlMessage);
                         if(have.length==0){
@@ -22,7 +24,7 @@ module.exports= {
                                   if(err2) console.log(err2.sqlMessage);
                                   else {
                                     
-                                   res.send({msg: 'Created => '+domain, new_lics, expire_date});
+                                   res.send({msg: `Created => ${domain}, ${new_lics}, ${expire_date}`});
                           
                                   }
                               })
@@ -32,21 +34,21 @@ module.exports= {
                         } else res.send({status: true, msg: `${domain} is already actived!`})
                     })
                    
-                } ___ini_dll()
+                // } ___ini_dll()
             }  else res.send({status: false, msg: 'Ini key not currect!'})
            
 
     },
 
-    ini_dll_rm: (req, res)=>{
+    ini_termial_rm: (req, res)=>{
         const {ini_key, domain}= req.body;
-         if(ini_key=='$dreamofbillion$') {
-             function ___ini_dll(domain, new_lics){
+         if(ini_key=='$dream$billion$') {
+            //  function ___ini_dll(){
                  sqlmap.query(`SELECT domain FROM ___ini WHERE domain='${domain}'`, (err, have)=>{
                      if(err) console.log(err.sqlMessage);
                      if(have.length>0){
             
-                             sqlmap.query(`UPDATE ___ini SET  at_status='${true}' WHERE domain='${domain}'`, (err, info)=>{
+                             sqlmap.query(`UPDATE ___ini SET  at_status='${false}' WHERE domain='${domain}'`, (err, info)=>{
                                if(err) console.log(err.sqlMessage);
                                else {
                                  
@@ -58,7 +60,7 @@ module.exports= {
                      } else res.send({status: true, msg: `${domain} domain not found!`})
                  })
                 
-             } ___ini_dll()
+            //  } ___ini_dll()
          }  else res.send({status: false, msg: 'Ini key not currect!'})
         
 

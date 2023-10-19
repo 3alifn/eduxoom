@@ -1,0 +1,227 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TERMINAL</title>
+  <%- include("../component/metadata.html") %> 
+</head>
+<style>
+  .terminal *{
+    color: #1ff042 !important;
+    text-shadow: 0 0 2px rgba(31, 240, 66, 0.75);
+  }
+
+
+@include keyframes(cursor-blink) {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+body{
+  background-color: black;
+}
+
+.ini_key{
+	box-shadow: 1px 1px 1px rgba(#1ff042,0.65), -1px -1px 1px rgba(#1ff042,0.65), 1px -1px 1px rgba(#1ff042,0.65), -1px 1px 1px rgba(#1ff042,0.65);
+	color: #1ff042;
+	text-shadow: 0 0 2px rgba(#1ff042,0.75);
+}
+
+.ini_key input{
+	outline: none; width: 100%; background-color: black; color: #1ff042; border: none; 
+}
+
+.formdata{
+	position: relative;
+	top: 0;
+	left: 0;
+
+	z-index: 1;
+	background-color: black;
+	transition: opacity 300ms ease-out;
+	background-position: center center;
+	background-repeat: no-repeat;
+	.dJAX_internal{
+		opacity: 0.0;
+	}
+
+
+}
+
+.terminal{
+	position: relative;
+	padding: 1rem;
+
+	.prompt{
+		color: #1ff042;
+		display: block;
+		font-family: 'AndaleMono', monospace;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-size: 0.9em;
+		letter-spacing: 0.15em;
+		white-space: pre-wrap;
+		text-shadow: 0 0 2px rgba(#1ff042,0.75);
+		line-height: 1;
+		margin-bottom: 0.75em;
+
+		&:before {
+			content: '> ';
+			display: inline-block;
+		}
+	}
+
+	.prompt-msg{
+		display: inline-block;
+		&:before {
+			content: '>_';
+			display: inline-block;
+		}
+		&:after {
+			display: inline-block;
+			vertical-align: -0.15em;
+			width: 0.75em;
+			height: 1em;
+			margin-left: 5px;
+			background: #1ff042;
+			box-shadow: 1px 1px 1px rgba(#1ff042,0.65), -1px -1px 1px rgba(#1ff042,0.65), 1px -1px 1px rgba(#1ff042,0.65), -1px 1px 1px rgba(#1ff042,0.65);
+			@include animation(cursor-blink 1.25s steps(1) infinite);
+			content: '';
+		}
+	}
+}
+
+</style>
+<body onload="pageLoadingTop()">
+
+  <div class="row mt-2 pt-5 pb-2">
+    <div class="col-11 m-auto ">
+     <!-- <form action="#"> -->
+      <code class="fw-bold ini_key text-center">Enter Ini key</code>
+      <code class="text-center ini_key">
+        <input class="p-2" autocomplete="off" autofocus  type="password" placeholder="*************" name="password" value="" id="ini_key">
+      </code>
+
+     <!-- </form>     -->
+
+</div>
+  </div>
+
+<div id="focus" style="padding-top:2rem;padding-bottom: 5rem;" class="row mt-3">
+<div class="col-11 m-auto">
+  <form action="#" class="formdata">
+    <input  style="opacity: 0;" autocomplete="off"  type="text" class="input">
+    <input class="reset" type="reset" style="display: none;">
+  </form>
+
+  <div class="terminal">
+      <p class="prompt">Enter a domain with lics key; "domain.saanviabc.com $ ABC-123-XYZ"</p>
+      <p class="prompt-msg text-uppercase">
+        <code class="ps-2 fs-5 fw-bold"></code>
+      </p>
+  </div>
+</div>
+  </div>
+
+
+</body>
+
+
+<script>
+    var inputelem= $('.input');
+    var msgy='<p class="fs-6 fw-semibold">$ WELCOME TO SAANVI ABC</p>'
+    var err_msg= '<p class="fs-6 fw-semibold">$ Ops! unaccepted command! for help => --help</p>'
+    var help_msg= '<p class="fs-6 fw-semibold">$ for add => SAANVI ADD INI DOMAIN.SAANVIABC.COM $ ABC-123-XYZ <br> for remove => SAANVI REM INI DOMAIN.SAANVIABC.COM</p>'
+  
+inputelem.focus();
+$('#focus').on('click', function(e){
+  inputelem.focus();
+});
+
+inputelem.on('keyup', function(e){
+  $('.prompt-msg code').text(inputelem.val().toUpperCase());
+});
+
+    $('.formdata').on('submit', (event)=>{
+  event.preventDefault();
+  var inputdata= $('.input').val().toUpperCase();
+  var ini_key= $('#ini_key').val();
+  const ini_cmd=(inputdata.slice(0,14));
+
+  if(inputdata=='--HELP'){
+    $('.prompt-msg').append(help_msg)
+
+  } 
+
+  else if(ini_cmd=='SAANVI ADD INI'){
+  const ini_data= (inputdata).split('SAANVI ADD INI ');
+  const ini_data_arr= ini_data[1].split('$');
+  const ini_domain= ini_data_arr[0].toLowerCase();
+  const ini_lics= ini_data_arr[1];
+  ini_add_def(ini_key, ini_domain, ini_lics);
+
+  }   
+  
+  else if(ini_cmd=='SAANVI REM INI'){
+  const ini_data= (inputdata).split('SAANVI REM INI ');
+  const ini_data_arr= ini_data[1].split('$');
+  const ini_domain= ini_data_arr[0].toLowerCase();
+  const ini_lics= ini_data_arr[1];
+  ini_rem_def(ini_key, ini_domain, ini_lics);
+
+  }  
+else $('.prompt-msg').append(err_msg)
+
+
+
+})
+
+function ini_add_def(ini_key, domain, lics){
+  $.ajax({
+    method: "post",
+    url: "/ini/terminal/push",
+    data: {ini_key, domain, lics},
+    dataType: "JSON",
+    success: function (res) {
+  $('.prompt-msg').append(`<p class="fs-6 fw-semibold">$ ${res.msg}</p>`)
+      
+  $('.prompt-msg').removeClass('prompt-msg');
+$('.terminal').append(`<p class="prompt-msg text-uppercase"><code class="ps-2 fs-5 fw-bold"></code></p>`)
+$('.reset').click()
+    }
+  });
+
+}
+
+function ini_rem_def(ini_key, domain){
+  $.ajax({
+    method: "post",
+    url: "/ini/terminal/rm",
+    data: {ini_key, domain},
+    dataType: "JSON",
+    success: function (res) {
+  $('.prompt-msg').append(`<p class="fs-6 fw-semibold">$ ${res.msg}</p>`)
+      
+  $('.prompt-msg').removeClass('prompt-msg');
+$('.terminal').append(`<p class="prompt-msg text-uppercase"><code class="ps-2 fs-5 fw-bold"></code></p>`)
+$('.reset').click()
+    }
+  });
+
+}
+
+
+
+
+
+
+</script>
+
+</html>
