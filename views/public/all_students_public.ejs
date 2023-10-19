@@ -131,135 +131,13 @@ function pullPaginationOrder(){
             url: `/pu/student/resized/pagination/`,
             data: {className, sectionName,  requestPageOffset},
             dataType: "JSON",
-           beforeSend:function(){
-  $('.pullPaginationOrder').addClass('disabled')
-  
-  $('.demoCard').html(`
-  
-  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
-          <div class="card" aria-hidden="true">
-            <img class='bg-demo-img-color' src="./demo.png" class="card-img-top" alt="loading...">
-            <div class="card-body">
-              <h5 class="card-title placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </h5>
-              <p class="card-text placeholder-glow">
-                <span class="placeholder col-7"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-6"></span>
-                <span class="placeholder col-8"></span>
-              </p>
-              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-            </div>
-          </div>
-        </div>
-          
-  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
-          <div class="card" aria-hidden="true">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </h5>
-              <p class="card-text placeholder-glow">
-                <span class="placeholder col-7"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-6"></span>
-                <span class="placeholder col-8"></span>
-              </p>
-              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-            </div>
-          </div>
-        </div>
-          
-  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
-          <div class="card" aria-hidden="true">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </h5>
-              <p class="card-text placeholder-glow">
-                <span class="placeholder col-7"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-6"></span>
-                <span class="placeholder col-8"></span>
-              </p>
-              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-            </div>
-          </div>
-        </div>
-          
-  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
-          <div class="card" aria-hidden="true">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </h5>
-              <p class="card-text placeholder-glow">
-                <span class="placeholder col-7"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-6"></span>
-                <span class="placeholder col-8"></span>
-              </p>
-              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-            </div>
-          </div>
-        </div>
-          
-  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
-          <div class="card" aria-hidden="true">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </h5>
-              <p class="card-text placeholder-glow">
-                <span class="placeholder col-7"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-6"></span>
-                <span class="placeholder col-8"></span>
-              </p>
-              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-            </div>
-          </div>
-        </div>
-          
-  <div  class="col-10  col-md-2 mt-2 mt-md-1 m-auto m-md-0 text-center">
-          <div class="card" aria-hidden="true">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </h5>
-              <p class="card-text placeholder-glow">
-                <span class="placeholder col-7"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-6"></span>
-                <span class="placeholder col-8"></span>
-              </p>
-              <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-            </div>
-          </div>
-        </div>
-        
-        `)
-           },
+
             success: function (response) {
            if(response.orderData){
-            $('.demoCard').html('');
-              $('.element').append(response.orderData)
+             $('.element').append(response.orderData)
           $('.pullPaginationOrder').removeClass('disabled')
            }
            else {
-            $('.demoCard').remove();
 
           $('.pullPaginationOrder').text('No more student here').addClass('disabled')
            }
