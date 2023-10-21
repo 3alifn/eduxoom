@@ -50,7 +50,7 @@ sqlmap.query(sql, (err, info)=>{
             for (const key in info) {
              html+= `
              <li class="list-group-item list-group-item-light shadow p-2 mt-2">
-             <a class="float-start text-decoration-none" target="_blank" href="/pu/notice/view/${info[key].ID}">${info[key].at_date.toString().substring(0, 25)} | <i class="bi bi-download"></i></a>
+             <a class="float-start text-decoration-none" href="/pu/notice/view/${info[key].ID}">${info[key].at_date.toString().substring(0, 25)} | <i class="bi bi-download"></i></a>
              <span class="float-end">${info[key].title} <i class='btn btn-close'  onclick="_delbox_pull(${info[key].ID})"></i></span>
              <span class="d-none">${info[key].at_date.toLocaleString('en-ZA')}</span>
 
@@ -81,22 +81,22 @@ exports.admin_notice_post= (req, res)=>{
     const {title, notice_date, description}=req.body;
     const session= new Date().getUTCFullYear();
     var find_date= new Date().toLocaleDateString()
-
+    const attachment_type=req.file.mimetype;
     if(req.file) var attachment= req.file.filename;
     else var attachment= "demo.pdf"
     if(notice_date==undefined || notice_date=='') {
-        var sql= `INSERT INTO notice (domain, session, find_date, title, description, attachment)
-    VALUES('${req.hostname}', '${session}', "${find_date}", "${title}",  "${description}", "${attachment}")`
+        var sql= `INSERT INTO notice (domain, session, find_date, title, attachment_type, description, attachment)
+    VALUES('${req.hostname}', '${session}', "${find_date}", "${title}", "${attachment_type}",  "${description}", "${attachment}")`
     } else {
-        var sql= `INSERT INTO notice (domain, session, find_date, at_date, title, description, attachment)
-    VALUES('${req.hostname}', '${session}', "${find_date}", "${notice_date}", "${title}",  "${description}", "${attachment}")`
+        var sql= `INSERT INTO notice (domain, session, find_date, at_date, title, attachment_type, description, attachment)
+    VALUES('${req.hostname}', '${session}', "${find_date}", "${notice_date}", "${title}", "${attachment_type}",  "${description}", "${attachment}")`
     }
     
     sqlmap.query(sql, (err, next)=>{
         if(err) console.log(err.sqlMessage);
         else
         {
-            res.send({msg: "Notice Added Successfully!", alert: 'text-success'})
+            res.send({msg: "Notice Added Successfully!", alert: 'alert-success'})
         }
     })
 
@@ -146,7 +146,6 @@ exports.admin_notice_rm= (req, res)=>{
 
 
 
-
 exports.public_notice_get= (req, res)=>{
     let sql=`SELECT * FROM notice WHERE domain='${req.hostname}' ORDER BY ID DESC`
     sqlmap.query(sql, (err, info)=>{
@@ -162,9 +161,10 @@ exports.public_notice_get= (req, res)=>{
 <div class="row">
 <div class="col-11 col-md-8 shadowx m-auto">
 
-    <a class="text-truncate btn-hover  d-md-flex justify-content-between  p-3 mt-2 fs-6 fw-semibold page-link" target="_blank" 
+    <a class="text-truncate btn-hover p-3 mt-2 fs-6 fw-semibold page-link"
     href="/pu/notice/view/${info[key].ID}">
-     <i class="bi bi-download p-2">${info[key].at_date.toString().substring(0, 25)} |</i> 
+     ${info[key].at_date.toString().substring(0, 25)} |
+     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio fugiat tempore sapiente. Animi iste, excepturi quasi, fugiat sequi praesentium unde rerum facere velit deserunt soluta, doloremque dolorum eius possimus corrupti!
 
     <span class="text-truncate p-2">${info[key].description}</span>
 
@@ -195,7 +195,7 @@ res.send({html: html})
 
 exports.public_notice_view= (req, res)=>{
     const {dataid}= req.params;
-    const sql= `SELECT attachment FROM notice WHERE domain='${req.hostname}' AND  ID=${dataid}`
+    const sql= `SELECT * FROM notice WHERE domain='${req.hostname}' AND  ID=${dataid}`
     sqlmap.query(sql, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else
