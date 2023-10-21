@@ -81,9 +81,10 @@ exports.admin_notice_post= (req, res)=>{
     const {title, notice_date, description}=req.body;
     const session= new Date().getUTCFullYear();
     var find_date= new Date().toLocaleDateString()
-    const attachment_type=req.file.mimetype;
     if(req.file) var attachment= req.file.filename;
-    else var attachment= "demo.pdf"
+    else var attachment= "demo.pdf" 
+    if(req.file) var attachment_type=req.file.mimetype;
+    else var attachment_type='text';
     if(notice_date==undefined || notice_date=='') {
         var sql= `INSERT INTO notice (domain, session, find_date, title, attachment_type, description, attachment)
     VALUES('${req.hostname}', '${session}', "${find_date}", "${title}", "${attachment_type}",  "${description}", "${attachment}")`
