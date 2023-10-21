@@ -334,7 +334,7 @@ exports.admin_teacher_img_post= async(req, res)=>{
 
 
 exports.admin_teacher_post= async(req, res)=>{
-  var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
+  var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
   const {name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
   const domain= req.hostname;

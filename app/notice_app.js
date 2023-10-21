@@ -50,8 +50,8 @@ sqlmap.query(sql, (err, info)=>{
             for (const key in info) {
              html+= `
              <li class="list-group-item list-group-item-light shadow p-2 mt-2">
-             <a class="float-start text-decoration-none" target="_blank" href="/docs/notice/${info[key].attachment}">${info[key].at_date.toString().substring(0, 25)} | <i class="bi bi-download"></i></a>
-             <span class="float-end">${info[key].description} <i class='btn btn-close'  onclick="_delbox_pull(${info[key].ID})"></i></span>
+             <a class="float-start text-decoration-none" target="_blank" href="/pu/notice/view/${info[key].ID}">${info[key].at_date.toString().substring(0, 25)} | <i class="bi bi-download"></i></a>
+             <span class="float-end">${info[key].title} <i class='btn btn-close'  onclick="_delbox_pull(${info[key].ID})"></i></span>
              <span class="d-none">${info[key].at_date.toLocaleString('en-ZA')}</span>
 
          </li>
@@ -63,7 +63,7 @@ sqlmap.query(sql, (err, info)=>{
 
         else 
         {
-            res.send({html: "<center><strong><h5>এখনো কোন নোটিশ পাওয়া যুক্ত করা হয়নি!</h5></strong></center>"})
+            res.send({html: "<center class='mt-5 fs-5'>No record</strong></center>"})
         }
     }
 
@@ -78,14 +78,20 @@ sqlmap.query(sql, (err, info)=>{
 
 
 exports.admin_notice_post= (req, res)=>{
+    const {title, notice_date, description}=req.body;
+    const session= new Date().getUTCFullYear();
+    var find_date= new Date().toLocaleDateString()
 
-    let {title, description}=req.body;
-    let session= new Date().getUTCFullYear();
-
-    if(req.file) var attachmentNotice= req.file.filename;
-    else var attachmentNotice= "demo.pdf"
-    let sql= `INSERT INTO notice (domain, session, title, description, attachment)
-    VALUES('${req.hostname}', '${session}', "${title}",  "${description}", "${attachmentNotice}")`
+    if(req.file) var attachment= req.file.filename;
+    else var attachment= "demo.pdf"
+    if(notice_date==undefined || notice_date=='') {
+        var sql= `INSERT INTO notice (domain, session, find_date, title, description, attachment)
+    VALUES('${req.hostname}', '${session}', "${find_date}", "${title}",  "${description}", "${attachment}")`
+    } else {
+        var sql= `INSERT INTO notice (domain, session, find_date, at_date, title, description, attachment)
+    VALUES('${req.hostname}', '${session}', "${find_date}", "${notice_date}", "${title}",  "${description}", "${attachment}")`
+    }
+    
     sqlmap.query(sql, (err, next)=>{
         if(err) console.log(err.sqlMessage);
         else
@@ -95,6 +101,50 @@ exports.admin_notice_post= (req, res)=>{
     })
 
 }
+
+
+
+
+
+exports.admin_notice_rm= (req, res)=>{
+
+    const {dataid} =req.body;
+
+    sqlmap.query(`SELECT * FROM notice WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
+        if(errInfo) console.log("data not found!")
+        
+        else {
+
+            
+    sqlmap.query(`DELETE FROM notice WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
+        if(err) console.log(err.sqlMessage);
+        else
+        {
+
+           for (const i in findInfo) {
+            fs.unlink(`./public/docs/notice/${findInfo[i].attachment}`, function (errDelete) {
+                if (errDelete) console.log(errDelete+"_"+"Notice Deleted! Not found file!");
+
+                
+              
+              });
+           }
+
+           res.send({msg: "Notice Deleted! Successfully!", alert: "alert-success"})
+            
+        }
+    })
+
+        }
+
+    })
+
+}
+
+
+
+
+
 
 
 exports.public_notice_get= (req, res)=>{
@@ -112,27 +162,30 @@ exports.public_notice_get= (req, res)=>{
 <div class="row">
 <div class="col-11 col-md-8 shadowx m-auto">
 
-    <a class="text-truncate btn-hover  d-md-flex justify-content-between  p-3 mt-2 fs-6 fw-semibold page-link" target="_blank" href="/docs/notice/${info[key].attachment}">
+    <a class="text-truncate btn-hover  d-md-flex justify-content-between  p-3 mt-2 fs-6 fw-semibold page-link" target="_blank" 
+    href="/pu/notice/view/${info[key].ID}">
      <i class="bi bi-download p-2">${info[key].at_date.toString().substring(0, 25)} |</i> 
 
     <span class="text-truncate p-2">${info[key].description}</span>
 
   </a>
 
-  <span class="d-none">${info[key].at_date.toLocaleString('en-ZA')}</span>
+  <span class="d-none">${info[key].find_date}</span>
 
 
 </div>
 </div>
 
-`                }
-
-                res.send({html: html})
+` 
+}
+   
+res.send({html: html})
+        
             }
 
             else 
             {
-                res.send({html: "<center><strong><h5>এখনো কোন নোটিশ পাওয়া যুক্ত করা হয়নি!</h5></strong></center>"})
+                res.send({html: "<center><strong><h5>No record</h5></strong></center>"})
             }
           
         }
@@ -140,89 +193,26 @@ exports.public_notice_get= (req, res)=>{
 }
 
 
-
-exports.admin_notice_delete= (req, res)=>{
-
-    let {ID} =req.body;
-
-    sqlmap.query(`SELECT * FROM notice WHERE domain='${req.hostname}' AND  ID IN (${ID.toString()})`, (errInfo, findInfo)=>{
-        if(errInfo) console.log("data not found!")
-        
-        else {
-
-            
-    sqlmap.query(`DELETE FROM notice WHERE domain='${req.hostname}' AND  ID IN (${ID.toString()})`, (err, next)=>{
-        if(err) console.log(err.sqlMessage);
-        else
-        {
-
-           for (const i in findInfo) {
-            fs.unlink(`./public/docs/notice/${findInfo[i].attachment}`, function (errDelete) {
-                if (errDelete) console.log(errDelete+"_"+"Notice Deleted! Not found file!");
-
-                
-              
-              });
-           }
-
-           res.send({msg: "Notice Deleted! Successfully!", alert: "success"})
-            
-        }
-    })
-
-        }
-
-    })
-
-}
-
-
-
-
-exports.public_notice_download= (req, res)=>{
-    let {id} =req.query;
-
-    let sql= `SELECT attachment FROM notice WHERE domain='${req.hostname}' AND  ID=${id}`
+exports.public_notice_view= (req, res)=>{
+    const {dataid}= req.params;
+    const sql= `SELECT attachment FROM notice WHERE domain='${req.hostname}' AND  ID=${dataid}`
     sqlmap.query(sql, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else
         {
             if(info.length>0)
             {
-                res.download(`./public/docs/notice/${info[0].attachment}`)
+                res.render('public/notice_view', {info})
                 
             }
             else 
             {
-                res.redirect("/pu/notice/page")
+                res.redirect("/pages/404.html")
             }
         }
     })
 }
 
-
-
-
-exports.admin_notice_download= (req, res)=>{
-    let {id} =req.query;
-
-    let sql= `SELECT attachment FROM notice WHERE domain='${req.hostname}' AND  ID=${id}`
-    sqlmap.query(sql, (err, info)=>{
-        if(err) console.log(err.sqlMessage);
-        else
-        {
-            if(info.length>0)
-            {
-                res.download(`./public/docs/notice/${info[0].attachment}`)
-                
-            }
-            else 
-            {
-                res.redirect("/admin/notice/page")
-            }
-        }
-    })
-}
 
 
 

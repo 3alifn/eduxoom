@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice view</title>
+    <%- include("../component/metadata.html") %>
+    
+    </head>
+<body onload="pageLoaded()">
+
+  <%- include("../component/header-nav.html") %>
+  <%- include("../component/menu-nav.html") %>
+
+
+
+    <div id="aboutusschool" class="row  mt-3 mb-3 p-2">
+        <h1 class="fw-semibold text-center p-2 ">Notice Area</h1>
+        <p class="text-center mb-3">Read our notice and know more about this information</p>
+        
+      
+        <div class="col-md-5 p-1 col-12 p-2">
+          <img width="100%" height="300px" class=" p-2 img-thumbnail bg-card-color-light append-image"  src="/docs/notice/<%=info[0].attachment%>" alt="">
+          <p class="append-name shadowx p-2 fw-semibold fs-5"></p>
+        </div>
+      
+        <div class="col-md-7 col-12  mt-md-0 mt-2">
+          <p class="fw-semibold p-2"><%=info[0].title%></p> 
+          <p class="p-2 shadowx " style="line-height: 1.9;">
+            
+            <br>
+             <%=info[0].description%>
+           </div>
+      
+      </div>
+
+      <%- include("../component/footer-nav.html") %>
+
+</body>
+
+
+
+<script>
+    function pageLoaded(){
+   $('.page-loading-top').remove()
+  }
+  
+ 
+</script>
+
+</html>

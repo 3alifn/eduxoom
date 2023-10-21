@@ -48,3 +48,6 @@ function ___ini(domain, lics){
   //     }
   //   }
   // })
+
+// var find_date= new Date('2023-10-21 11:56:35').toDateString()
+// console.log(find_date);

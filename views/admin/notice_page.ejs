@@ -16,68 +16,130 @@
     <%- include("../component/admin-header-nav.html") %>
         <%- include("../component/admin-menu-nav.html") %>
 
-        <div id="main-content" class="p-2 main-content mt-5">
-
-                <div class="col-auto mt-5" id="contentId">
+        <main id="main-content" class="p-2 main-content mt-5">
 
 
-                    <center>
-                        <legend class=" alert bg-light shadow ">Notice Board</legend>
-                    </center>
-
-                    <center>
-                        <button id="collapsebtn" class="w-50 btn-self"> <i class=" bi bi-arrow-up"></i>
-                        </button>
-                        <p></p>
-
-                        <form id="form" method="post" class=" ps-3 m-auto shadow bg-light"
-                            enctype="multipart/form-data">
-
-                                <input class=" form-dev shadowx" id="file" type="file" name="attachment">
-                            <p></p>
-                            <div class="p-2 mb-2"><label for=""></label>Comment</div>
-                            <textarea class=" form-dev" placeholder="What's on your mind" name="description" id="" cols="10"
-                                rows="5"></textarea>
-                            <p></p>
-                            <center>
-                                <button id="submitbtn" class="btn-self p-2 mb-2 w-50">Publish</button>
-                            </center>
-                        </form>
-                        <p></p>
-
-                        <div class="row">
-                            <div class="col-11 m-auto col-md-6">
-                                <input type="date" class="form-control" name="" id="findDate">
-
-                                <input class="mt-2 mb-2 form-control" type="search" name="" placeholder="search..."
-                                    id="search">
-
-                            </div>
-                        </div>
-
-                        <form action="#" method="post" id="dataForm">
-
-                            <div class="row">
-                                <div class="col-12 col-md-10 m-auto">
-
-                                    <ul id="noticedata" class="list-group">
-
-                        
-                                    </ul>
-
-
-                                </div>
-                            </div>
-                        </form>
-
-                </div>
-
-
-            </div>
-
-
+            <content>
+              <div class="row m-2 mt-5 shadowx text-center">
+                <div class="col-11 m-auto">
           
-
+                  <p class="p-2 text-muted fw-semibold fs-5">Notice settings</p>
+          
+                </div>
+              </div>
+          
+          
+              <div id="tabledata" class="row  p-2 mt-5">
+                
+                <div class="col-auto ms-auto me-2">
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
+                    class="btn link-success shadowx btn-go fw-500">Create a new notice</button>
+                </div>
+                <p></p>
+                <div class="col-md-10 col-12 m-auto">
+          
+                  <div class="d-flex justify-content-between">
+                    <select disabled style="width: 100px; outline: none;" class="form-dev shadowx p-0" name="" id="">
+                      <option   value="15">15</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                      <option selected value="All">All</option>
+                    </select>
+          
+                    <input id="search" style="width: 200px; outline: none;" class="ps-2 form-dev p-0 shadowx" type="search"
+                      placeholder="search">
+          
+                  </div>
+          
+                  <form id="formcheckout" action="#" method="get" onsubmit="return false">
+                    <div class="row">
+                        <div class="col-12 col-md-10 m-auto">
+        
+                            <ul id="noticedata" class="list-group">
+    
+                     </ul>
+        
+                    </div>
+                </form>
+                </div>
+              </div>
+          
+          
+          
+              <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
+          
+              <div class="col-md-10 modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+          
+                <form  id="formdata" action="#" method="post">
+        
+               
+                    <div class="d-flex justify-content-end p-2">
+                      <button type="button" data-bs-dismiss="modal" class="btn btn-close bg-light "></button>
+          
+                    </div>
+          
+              
+                      <div class="col-11">
+                        <p class="p-2 text-muted text-center fw-semibold fs-5">My notice form</p>
+                      </div>
+          
+                              
+          
+                      <div class="d-flex  p-2 justify-content-between align-items-center">
+                        <p class="w-25 fw-semibold">Notice date</p>
+                        <code class="p-1">-</code>
+                        <input type="datetime-local" value="" name="notice_date" class="w-75 shadowx form-dev form-control-sm" >
+                      </div>
+          
+                      
+                      <div class="d-flex  p-2 justify-content-between align-items-center">
+                        <p class="w-25 fw-semibold">Title </p>
+                        <code class="p-1">*</code> 
+                        <input required type="text" value=""  name="title" placeholder="title here" class="w-75 shadowx form-dev form-control-sm" >
+                      </div>
+  
+          
+                      <div class="d-flex  p-2 justify-content-between align-items-center">
+                        <p class="w-25 fw-semibold">Description</p>
+                        <code class="p-1">-</code>
+                       <textarea  name="description" placeholder="What's on your mind" class="w-75 shadowx form-dev form-control-sm" id="" cols="30" rows="5"></textarea>
+                      </div>
+  
+                      <div class="d-flex p-2 justify-content-between align-items-center">
+                        <p class="w-25 fw-semibold">Choose pdf or jpeg</p>
+                        <code class="p-1">-</code>
+                        <input name="attachment" type="file" class="w-75 shadowx form-dev form-control-sm"  id="">
+                      </div>
+                    
+          
+                      <div class="d-flex  p-2 justify-content-between align-items-center">
+                        <p class="w-25 fw-semibold"></p>
+          
+                        <div class="images_append w-75">
+          
+               
+                          
+                        </div>
+          
+                      </div>        
+          
+                      <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+                        <button type="submit" class="btn text-primary submitbtn nav-fill btn-hover shadowx">Create and publish</button>
+                      </div>
+          
+                </form>
+          
+              </div>
+          
+             </div>
+          
+            </content>
+          
+          
+                  <!-- end  -->
+          
+                </main>
+          
 
 <%- include("../component/___node.html") %>
 
@@ -85,12 +147,7 @@
 
 <script>
 
-    $('#collapsebtn').on('click', () => {
-        $('#form').toggle('slow')
-    })
-
-
-    $("#findDate").change(function (e) {
+$("#findDate").change(function (e) {
         let findDate = $("#findDate").val().replaceAll("-", "/");
 
         var value = findDate
@@ -101,8 +158,7 @@
         });
     });
 
-
-    $(document).ready(function () {
+$(document).ready(function () {
         $("#search").keyup(function () {
             var value = $(this).val().toLowerCase();
             $("#noticedata li").filter(function () {
@@ -114,9 +170,7 @@
     });
 
 
-
-
-    function displayLoad() {
+function noticedata() {
         $.ajax({
             type: "post",
             url: "/admin/notice/get",
@@ -133,12 +187,12 @@
         });
     }
 
-    displayLoad()
+noticedata()
 
 
-    $("#form").on("submit", (e) => {
+$("#formdata").on("submit", (e) => {
         e.preventDefault();
-        let formdata = new FormData($("form")[0])
+        const formdata = new FormData($("#formdata")[0])
         $.ajax({
             type: "post",
             url: "/admin/notice/post",
@@ -150,38 +204,49 @@
             dataType: "JSON",
             beforeSend: function(){
                 _spin_pull()
-            $("#submitbtn").addClass('disabled')
+            $(".submitbtn").addClass('disabled')
             },
-            success: function (info) {
+            success: function (res) {
 
-                displayLoad()
-                _msg_pull('alert-success', 'Adding notice file...')
+                noticedata()
+                _msg_pull(res.alert, res.msg)
                 _spin_pop()
-            $("#submitbtn").removeClass('disabled')
-
-
+            $(".submitbtn").removeClass('disabled')
 
             }
         });
     })
 
 
+$('#formcheckout').on('submit', (event)=>{
+  event.preventDefault()
+  // const dataid= $('#formcheckout').serialize()
+  $.ajax({
+  method: "post",
+  url: "/admin/notice/rm",
+  data: $('#formcheckout').serialize(),
+  dataType: "JSON",
+  success: function (response) {
+    _msg_pull(response.alert, response.msg)
+    noticedata()
+  }
+});
+})
 
 
-
-
-    function _delbox_push(ID) {
-        $.ajax({
-            method: "post",
-            url: "/admin/notice/delete",
-            data: {ID},
-            dataType: "JSON",
-            success: function (info) {
-                displayLoad()
-                _msg_pull('alert-success', 'Deleted...')
-            }
-        });
-    }
+function _delbox_push(dataid){
+$.ajax({
+  method: "post",
+  url: "/admin/notice/rm",
+  data: {dataid},
+  dataType: "JSON",
+  success: function (response) {
+    _msg_pull('alert-danger', 'Delete successfully!')
+    noticedata()
+  }
+});
+ 
+}
 
 
 

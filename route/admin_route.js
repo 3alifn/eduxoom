@@ -4,7 +4,7 @@ const { admin_admission_page, admin_admission_accept, admin_admission_reject, ad
 const { admin_application_get, admin_application_replay, admin_application_download } = require("../app/appllication_app")
 const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_gallery_list_data, admin_gallery_list_data_delete, admin_gallery_image, admin_gallery_video, admin_gallery_data_delete, admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete, admin_gallery_image_get, admin_gallery_image_delete, admin_gallery_image_data_get, admin_gallery_image_data_delete, admin_gallery_image_data_post, admin_gallery_video_get, admin_gallery_video_data_get, admin_gallery_video_data_delete, admin_gallery_video_delete, admin_gallery_video_data_post } = require("../app/gallery_app")
 const { admin_library_update, admin_library_update_page, admin_library_delete, admin_library_get, admin_library_post, upload_library_image } = require("../app/library_app")
-const { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_delete, admin_notice_download } = require("../app/notice_app")
+const { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_delete, admin_notice_download, admin_notice_rm } = require("../app/notice_app")
 const { admin_parent_get, admin_parent_delete, admin_parent_profile } = require("../app/parent_app")
 const { admin_routine_post, admin_routine_delete, admin_subject_dynamic_get, admin_teacher_dynamic_get, admin_ptlist_dynamic_get, admin_routine_page, admin_routine_get, admin_routine_rm } = require("../app/routine_app")
 const { admin_student_import, admin_student_get, admin_student_get_class_base, admin_student_delete, multer_upload_student, admin_student_join, admin_student_copy_get, admin_student_copy_post, admin_student_copy_delete, admin_student_copy_profile, admin_student_update_post, admin_student_update_form, admin_student_join_quick, admin_student_import_quick, admin_student_post, admin_student_penbox_pull, admin_student_penbox_push, admin_student_rm, admin_student_img_post } = require("../app/student_app")
@@ -23,7 +23,6 @@ const { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, 
 const admin= express.Router()
 
 admin.get("/panel", (req, res)=>{
- console.log(req.session);
   res.render("admin/admin_login_page")
 })
 
@@ -346,8 +345,7 @@ res.render("admin/notice_page")
 
 admin.post("/notice/get",  admin_notice_get)
 admin.post("/notice/post/", uploadNotice.single("attachment"), admin_notice_post)
-admin.post("/notice/delete/", admin_notice_delete)
-admin.get("/notice/download/", admin_notice_download)
+admin.post("/notice/rm/", admin_notice_rm)
 
 
 

@@ -77,7 +77,7 @@ for (let index = 0; index < name.length; index++) {
     req.flash('alert', 'danger')
    }
     else  {
-      var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
+      var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
       var student_id= Math.floor(Math.random()*900000);
 
    sqlmap.query(`INSERT INTO students (domain, student_uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
@@ -111,7 +111,7 @@ res.redirect('/admin/student/page')
 
 
 exports.admin_student_post= async(req, res)=>{
-  var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
+  var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
   var {classNameX, name, roll, gender, fname, mname, emailx,  birth_date, blood_group, religion, phone, address, admission_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
   const domain= req.hostname;

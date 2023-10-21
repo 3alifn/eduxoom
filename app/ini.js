@@ -24,7 +24,7 @@ module.exports= {
                                   if(err2) console.log(err2.sqlMessage);
                                   else {
                                     
-                                   res.send({msg: `Created => ${domain}, ${new_lics}, ${expire_date}`});
+                                   res.send({msg: `Created domain => ${domain}; lics => ${new_lics}; Expires => ${expire_date};`});
                           
                                   }
                               })
