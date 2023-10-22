@@ -59,7 +59,7 @@ body{
 	position: relative;
 	padding: 1rem;
 
-	.prompt{
+	.prompt-elem{
 		color: #1ff042;
 		display: block;
 		font-family: 'AndaleMono', monospace;
@@ -78,7 +78,7 @@ body{
 		}
 	}
 
-	.prompt-msg{
+	.prompt-elem-msg{
 		display: inline-block;
 		&:before {
 			content: '>_';
@@ -122,12 +122,15 @@ body{
   </form>
 
   <div class="terminal">
-      <p class="prompt">Enter a domain with lics key; "domain.saanviabc.com $ ABC-123-XYZ"</p>
-      <p class="prompt-msg text-uppercase">
+    <p class="prompt fw-bold">Enter a domain with lics key; "domain.saanviabc.com $ ABC-123-XYZ"</p
+      <div class="prompt-elem">
+      <p class="prompt-elem-msg text-uppercase">
         <code class="ps-2 fs-5 fw-bold"></code>
       </p>
   </div>
 </div>
+  </div>
+  
   </div>
 
 
@@ -138,7 +141,17 @@ body{
     var inputelem= $('.input');
     var msgy='<p class="fs-6 fw-semibold">$ WELCOME TO SAANVI ABC</p>'
     var err_msg= '<p class="fs-6 fw-semibold">$ Ops! unaccepted command! for help => --help</p>'
-    var help_msg= '<p class="fs-6 fw-semibold">$ for add => SAANVI ADD INI DOMAIN.SAANVIABC.COM $ ABC-123-XYZ <br> for remove => SAANVI REM INI DOMAIN.SAANVIABC.COM</p>'
+    var help_msg= `
+    <p class="fs-6 fw-semibold">$ COMMAND FOR CLEAR => CLS </p>
+    <p class="fs-6 fw-semibold">$ COMMAND FOR STATUS ALL => SAANVI GET ALL</p>
+    <p class="fs-6 fw-semibold">$ COMMAND FOR STATUS ACTIVE => SAANVI GET ACT</p>
+    <p class="fs-6 fw-semibold">$ COMMAND FOR STATUS DEACTIVED => SAANVI GET DEA</p>
+    <p class="fs-6 fw-semibold">$ COMMAND FOR ADD => SAANVI ADD INI DOMAINNAME.COM $ ABC-XYZ-123 / AUTO</p>
+    <p class="fs-6 fw-semibold">$ COMMAND FOR DEACTIVE => SAANVI DRE INI DOMAINNAME.COM</p>
+    <p class="fs-6 fw-semibold">$ COMMAND FOR RENUAL => SAANVI REN INI DOMAINNAME.COM</p>
+    <p class="fs-6 fw-semibold">$ COMMAND FOR REMOVE => SAANVI REM INI DOMAINNAME.COM</p>
+    
+    `
   
 inputelem.focus();
 $('#focus').on('click', function(e){
@@ -146,20 +159,43 @@ $('#focus').on('click', function(e){
 });
 
 inputelem.on('keyup', function(e){
-  $('.prompt-msg code').text(inputelem.val().toUpperCase());
+  $('.prompt-elem-msg code').text(inputelem.val().toUpperCase());
 });
 
-    $('.formdata').on('submit', (event)=>{
+  $('.formdata').on('submit', (event)=>{
   event.preventDefault();
   var inputdata= $('.input').val().toUpperCase();
   var ini_key= $('#ini_key').val();
   const ini_cmd=(inputdata.slice(0,14));
-
   if(inputdata=='--HELP'){
-    $('.prompt-msg').append(help_msg)
+    $('.prompt-elem-msg').append(help_msg)
 
+  }
+  
+  else if(inputdata=='CLS'){
+  $('.terminal').html(`
+  <p class="prompt fw-bold">Enter a domain with lics key; "domain.saanviabc.com $ ABC-123-XYZ"</p
+      <div class="prompt-elem">
+      <p class="prompt-elem-msg text-uppercase">
+        <code class="ps-2 fs-5 fw-bold"></code>
+      </p>
+`)
+$('.reset').click()
   } 
 
+  else if(ini_cmd=='SAANVI GET ALL'){
+  ini_get_def(ini_key, null);
+  } 
+
+  else if(ini_cmd=='SAANVI GET ACT'){
+  ini_get_def(ini_key, 1);
+  } 
+  
+  else if(ini_cmd=='SAANVI GET DEA'){
+  ini_get_def(ini_key, 0);
+  }   
+   
+  
   else if(ini_cmd=='SAANVI ADD INI'){
   const ini_data= (inputdata).split('SAANVI ADD INI ');
   const ini_data_arr= ini_data[1].split('$');
@@ -168,20 +204,62 @@ inputelem.on('keyup', function(e){
   ini_add_def(ini_key, ini_domain, ini_lics);
 
   }   
+   
+  else if(ini_cmd=='SAANVI REN INI'){
+  const ini_data= (inputdata).split('SAANVI REN INI ');
+  const ini_domain= ini_data[1].toLowerCase();
+  ini_ren_def(ini_key, ini_domain);
+
+  }   
+   
+  
+   else if(ini_cmd=='SAANVI DEA INI'){
+  const ini_data= (inputdata).split('SAANVI DEA INI ');
+  const ini_domain= ini_data[1].toLowerCase();
+  ini_dea_def(ini_key, ini_domain);
+  }   
   
   else if(ini_cmd=='SAANVI REM INI'){
   const ini_data= (inputdata).split('SAANVI REM INI ');
-  const ini_data_arr= ini_data[1].split('$');
-  const ini_domain= ini_data_arr[0].toLowerCase();
-  const ini_lics= ini_data_arr[1];
-  ini_rem_def(ini_key, ini_domain, ini_lics);
+  const ini_domain= ini_data[1].toLowerCase();
+  ini_rem_def(ini_key, ini_domain);
 
   }  
-else $('.prompt-msg').append(err_msg)
+else {
+  $('.prompt-elem-msg').append(err_msg)
+  $('.prompt-elem-msg').removeClass('prompt-elem-msg');
+$('.terminal').append(`
+<p class="prompt-elem-msg text-uppercase">
+        <code class="ps-2 fs-5 fw-bold"></code>
+</p>`)
+$('.reset').click()
+}
 
 
 
 })
+
+function ini_get_def(ini_key, status){
+  $.ajax({
+    method: "post",
+    url: "/ini/terminal/get",
+    data: {ini_key, status},
+    dataType: "JSON",
+    success: function (res) {
+      if(res.html==true){
+        $('.prompt-elem-msg').append(res.htmldata)
+
+      }else {
+        $('.prompt-elem-msg').append(`<p class="fs-6 fw-semibold">$ ${res.msg}</p>`)
+      }
+  $('.prompt-elem-msg').removeClass('prompt-elem-msg');
+$('.terminal').append(`<p class="prompt-elem-msg text-uppercase"><code class="ps-2 fs-5 fw-bold"></code></p>`)
+$('.reset').click()
+    }
+  });
+
+}
+
 
 function ini_add_def(ini_key, domain, lics){
   $.ajax({
@@ -190,10 +268,28 @@ function ini_add_def(ini_key, domain, lics){
     data: {ini_key, domain, lics},
     dataType: "JSON",
     success: function (res) {
-  $('.prompt-msg').append(`<p class="fs-6 fw-semibold">$ ${res.msg}</p>`)
+  $('.prompt-elem-msg').append(`<p class="fs-6 fw-semibold">$ ${res.msg}</p>`)
       
-  $('.prompt-msg').removeClass('prompt-msg');
-$('.terminal').append(`<p class="prompt-msg text-uppercase"><code class="ps-2 fs-5 fw-bold"></code></p>`)
+  $('.prompt-elem-msg').removeClass('prompt-elem-msg');
+$('.terminal').append(`<p class="prompt-elem-msg text-uppercase"><code class="ps-2 fs-5 fw-bold"></code></p>`)
+$('.reset').click()
+    }
+  });
+
+}
+
+
+function ini_dea_def(ini_key, domain){
+  $.ajax({
+    method: "post",
+    url: "/ini/terminal/dea",
+    data: {ini_key, domain},
+    dataType: "JSON",
+    success: function (res) {
+  $('.prompt-elem-msg').append(`<p class="fs-6 fw-semibold">$ ${res.msg}</p>`)
+      
+  $('.prompt-elem-msg').removeClass('prompt-elem-msg');
+$('.terminal').append(`<p class="prompt-elem-msg text-uppercase"><code class="ps-2 fs-5 fw-bold"></code></p>`)
 $('.reset').click()
     }
   });
@@ -207,10 +303,28 @@ function ini_rem_def(ini_key, domain){
     data: {ini_key, domain},
     dataType: "JSON",
     success: function (res) {
-  $('.prompt-msg').append(`<p class="fs-6 fw-semibold">$ ${res.msg}</p>`)
+  $('.prompt-elem-msg').append(`<p class="fs-6 fw-semibold">$ ${res.msg}</p>`)
       
-  $('.prompt-msg').removeClass('prompt-msg');
-$('.terminal').append(`<p class="prompt-msg text-uppercase"><code class="ps-2 fs-5 fw-bold"></code></p>`)
+  $('.prompt-elem-msg').removeClass('prompt-elem-msg');
+$('.terminal').append(`<p class="prompt-elem-msg text-uppercase"><code class="ps-2 fs-5 fw-bold"></code></p>`)
+$('.reset').click()
+    }
+  });
+
+}
+
+
+function ini_ren_def(ini_key, domain){
+  $.ajax({
+    method: "post",
+    url: "/ini/terminal/ren",
+    data: {ini_key, domain},
+    dataType: "JSON",
+    success: function (res) {
+  $('.prompt-elem-msg').append(`<p class="fs-6 fw-semibold">$ ${res.msg}</p>`)
+      
+  $('.prompt-elem-msg').removeClass('prompt-elem-msg');
+$('.terminal').append(`<p class="prompt-elem-msg text-uppercase"><code class="ps-2 fs-5 fw-bold"></code></p>`)
 $('.reset').click()
     }
   });

@@ -2,16 +2,46 @@ const {app, sqlmap, createHmac, randomBytes, session}= require('../server');
 
 module.exports= {
 
+
+    ini_termial_get: (req, res)=>{ 
+        const {ini_key, status}= req.body;
+        if(status=='') var sql= `SELECT * FROM ___ini ORDER BY ID DESC`
+        else var sql= `SELECT * FROM ___ini WHERE at_status=${status} ORDER BY ID DESC`
+         if(ini_key=='$dream$billion$') {
+                 sqlmap.query(sql, (err, info)=>{
+                     if(err) console.log(err.sqlMessage);
+                     if(info.length>0){
+                        if(err) console.log(err.sqlMessage);
+
+                                var htmldata=''
+                                for (let index = 0; index < info.length; index++) {
+                                    htmldata+=`<p class="fs-6 fw-semibold">  status : ${info[index].at_status==true?'actived':'deactived'} => ${info[index].domain} => ${info[index].lics} => ${info[index].join_date} => ${info[index].expire_date}</p>`
+                                    
+                                }
+
+                                 
+                                res.send({status: true, html:true, htmldata})
+                       
+                         
+                     } else res.send({status: true, msg: `domain not found!`})
+                 })
+                
+         }  else res.send({status: false, msg: 'Ini key not currect!'})
+        
+    
+    },
+
     ini_terminal_push: (req, res)=>{ 
            var {ini_key, domain, lics}= req.body;
            var domain= domain.trim()
            var lics= lics.trim()
            if(lics=='AUTO') var new_lics= randomBytes(10).toString('hex').toUpperCase()
            else var new_lics= lics;
-        // console.log(ini_key, domain, new_lics);
-            const join_date= new Date().toLocaleDateString();
-            const expire_date= parseInt(new Date().getMonth()+1)+'/'+parseInt(new Date().getDay()+1)+'/'+parseInt(new Date().getFullYear()+1);
-            if(ini_key=='$dream$billion$') {
+        const join_date_temp= new Date().toLocaleString().split(',');
+        const join_date= join_date_temp[0];
+        const expire_date= parseInt(new Date().getUTCDate())+'/'+parseInt(new Date().getUTCMonth()+1)+'/'+parseInt(new Date().getFullYear()+1);
+       
+       if(ini_key=='$dream$billion$') {
                 // function ___ini_dll(domain, new_lics){
                     sqlmap.query(`SELECT domain FROM ___ini WHERE domain='${domain}'`, (err, have)=>{
                         if(err) console.log(err.sqlMessage);
@@ -40,7 +70,7 @@ module.exports= {
 
     },
 
-    ini_termial_rm: (req, res)=>{
+    ini_termial_dea: (req, res)=>{
         const {ini_key, domain}= req.body;
          if(ini_key=='$dream$billion$') {
             //  function ___ini_dll(){
@@ -48,13 +78,40 @@ module.exports= {
                      if(err) console.log(err.sqlMessage);
                      if(have.length>0){
             
-                             sqlmap.query(`UPDATE ___ini SET  at_status='${false}' WHERE domain='${domain}'`, (err, info)=>{
+                             sqlmap.query(`UPDATE ___ini SET at_status='${false}' WHERE domain='${domain}'`, (err, info)=>{
                                if(err) console.log(err.sqlMessage);
-                               else {
-                                 
-                                res.send({status: true, msg: `${domain} is now deactived!`})
-                       
-                               }
+                              else res.send({status: true, msg: `${domain} is now deactived!`})
+                           })
+                         
+                     } else res.send({status: true, msg: `${domain} domain not found!`})
+                 })
+                
+            //  } ___ini_dll()
+         }  else res.send({status: false, msg: 'Ini key not currect!'})
+        
+
+ },   
+ 
+ 
+ 
+ ini_termial_rm: (req, res)=>{
+        const {ini_key, domain}= req.body;
+         if(ini_key=='$dream$billion$') {
+            //  function ___ini_dll(){
+                 sqlmap.query(`SELECT domain FROM ___ini WHERE domain='${domain}'`, (err, have)=>{
+                     if(err) console.log(err.sqlMessage);
+                     if(have.length>0){
+            
+                             sqlmap.query(`DELETE FROM ___ini WHERE domain='${domain}'`, (err, info)=>{
+                               if(err) console.log(err.sqlMessage);
+
+                               sqlmap.query(`DELETE FROM user_admin WHERE domain='${domain}'`, (err2, info2)=>{
+                                if(err2) console.log(err2.sqlMessage); 
+                                
+                                 res.send({status: true, msg: `${domain} is now removed!`})
+                                                                 
+                               
+                           })
                            })
                          
                      } else res.send({status: true, msg: `${domain} domain not found!`})
@@ -65,6 +122,33 @@ module.exports= {
         
 
  },
+
+
+ ini_termial_ren: (req, res)=>{
+    const {ini_key, domain}= req.body;
+     if(ini_key=='$dream$billion$') {
+        //  function ___ini_dll(){
+             sqlmap.query(`SELECT domain FROM ___ini WHERE domain='${domain}'`, (err, have)=>{
+                 if(err) console.log(err.sqlMessage);
+                 if(have.length>0){
+        
+                         sqlmap.query(`UPDATE ___ini SET at_status='1' WHERE domain='${domain}'`, (err, info)=>{
+                           if(err) console.log(err.sqlMessage);
+                           else {
+                             
+                            res.send({status: true, msg: `${domain} is now actived!`})
+                   
+                           }
+                       })
+                     
+                 } else res.send({status: true, msg: `${domain} domain not found!`})
+             })
+            
+        //  } ___ini_dll()
+     }  else res.send({status: false, msg: 'Ini key not currect!'})
+    
+
+},
 
     lics_checkout: (req, res)=>{
         const {lics}= req.body;
