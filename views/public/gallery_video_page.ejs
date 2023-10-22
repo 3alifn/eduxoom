@@ -18,39 +18,46 @@
     <%- include("../component/header-nav.html") %> 
     <%- include("../component/menu-nav.html") %> 
 
-  
+    <div  class="row p-2 mt-5 mbx" >
+    
+        <div class="col-11 m-auto">
+            <p class="p-2 shadowx fw-semibold">Our videos playlist</p>
+        </div>
+
+
+<% if(info.length>0) {%>
+
+  <div class="d-flex m-1 mb-5 row-gap-3 column-gap-1 justify-content-center  flex-wrap">
+
+            <% for( let index = 0; index < info.length; index++ ) { %>
+
+              <div  class="flex-fill shadowx  p-1 flex-md-grow-0 ms-3 ms-md-0 " >
+                <a href="/pu/gallery/video/data/<%=info[index].data_id%>" class="fs-3 p-2  page-link text-center text-three-line bg-light fw-semibold">
+                <div style="width: 300px; height: 300px;" class="d-flex justify-content-start flex-column">
+                 <iframe class='video-scope bg-card-color-light' src="<%=info[index].item_name.replace("watch?v=", "embed/")%>/iframe>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                 <span class="text-three-line pt-2">
+                  <%=info[index].item_title%>
  
-    <div  class="row shadowx p-2 mt-5 mbx" id="listDataPrint">
-
-        <div id="listDataPrint" class="row shadowx mt-b mbx">
-              
-            <div class="col-11 m-auto">
-              <p class="p-2 fw-semibold shadowx ">Video playlist</p>
-          </div>
-          
-        <% if(info.length==0) {%>
-            <div class="col-11 m-auto">
-                <p class="p-2 fw-semibold shadowx alert">No record</p>
-            </div>
+                 </span>
+                </div>
+                
+              </a>
+               </div>    
             <% } %>
+         
+         
+         
+           </div>
+    <% } else {%>
+
+        <div class="col-11 m-auto">
+            <p class="p-2 shadowx fw-semibold alert">No record</p>
+        </div>
+
+        <% } %>
 
 
-    <% for( let index = 0; index < info.length; index++ ) { %>
-
-        <div class="col-10 col-md-3 m-auto m-md-0 p-2">
-
-             <div class="card" id="">
-                 <iframe class='video-scope jbox-img card-img-top bg-demo-img-color' src="<%=info[index].item_name.replace("watch?v=", "embed/")%>/iframe>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                 <a  href="/pu/gallery/video/data/<%=info[index].data_id%>" class="btn pt-3 pb-3 btn-link fw-semibold"> 
-                    Open - <%=info[index].item_title%>
-                 </a>
-
-             </div>
-
-             </div>
-    <% } %>
-
-   </div>
+    </div>
 
 
    <%- include("../component/footer-nav.html") %> 

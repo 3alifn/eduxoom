@@ -19,35 +19,33 @@
 <%- include("../component/menu-nav.html") %>
   
 
-  
-            <div  class="row shadowx mt-5 mbx">
-              
-              <div class="col-11 m-auto">
-                <p class="p-2 fw-semibold shadowx ">Our gallery of <%=info[0].item_title %></p>
-            </div>
-    
-            <% if(info.length==0) {%>
-                <div class="col-11 m-auto">
-                    <p class="p-2 fw-semibold shadowx alert">No record</p>
-                </div>
-                <% } %>
-  
-              <% for( let index = 0; index < info.length; index++ ) { %>
-              
-                <div class="col-10 col-md-3 m-auto m-md-0 p-2">
+<div class="d-flex m-1  gap-1 justify-content-center mt-5 mb-5 flex-wrap">
+          
+               
+  <div class="col-11 m-auto">
+    <p class="p-2 shadowx fw-semibold"><span class="text-primary fw-bold">Our gallery of</span> <%=info[0].item_title%></p>
+</div>
 
-                    <div class="card" id="">
-                        <iframe class='video-scope card-img-top bg-demo-img-color' src="<%=info[index].item_name.replace("watch?v=", "embed/")%>/iframe>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<% if(info.length==0) {%>
+    <div class="col-11 m-auto">
+        <p class="p-2 fw-semibold shadowx alert">No record</p>
+    </div>
+    <% } else {%>
+
+        <% for( let index = 0; index < info.length; index++ ) { %>
+        
+              <div class="flex-fill flex-md-grow-0 " style="width: 220px; height: 200px;">
+                <iframe class='video-scope bg-card-color-light' src="<%=info[index].item_name.replace("watch?v=", "embed/")%>/iframe>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+              </div>
+            
+
+        <% } %>
+        
+        <% } %>
        
-                    </div>
-       
-                    </div>
-
-              <% } %>
-             
-              
-            </div>
-
+        
+</div>
       
       <%- include("../component/footer-nav.html") %>
       

@@ -11,15 +11,7 @@
 </head>
 
     
-<style>
-  
-  .container img { width: 200px; height: 150px; float: left;  }
-  
-  .img-btn:hover{
-    cursor: pointer;
-  }
-  
-  </style>
+
 
 <body onload="pageLoadingTop()">
     
@@ -29,12 +21,12 @@
 <%- include("../component/menu-nav.html") %>
 
   
-   <div  class="row shadowx mt-5 p-2 justify-content-start mbx">
+<div class="d-flex m-1  gap-1 justify-content-center mt-5 mb-5 flex-wrap">
           
                
         <div class="col-11 m-auto">
-          <p class="p-2 shadowx fw-semibold">Our gallery of <%=info[0].item_title%></p>
-      </div>
+            <p class="p-2 shadowx fw-semibold"><span class="text-primary fw-bold">Our gallery of</span> <%=info[0].item_title%></p>
+        </div>
 
       <% if(info.length==0) {%>
           <div class="col-11 m-auto">
@@ -44,11 +36,8 @@
   
               <% for( let index = 0; index < info.length; index++ ) { %>
               
-                <div class='col-6 col-md-2  p-1 shadow-1' style="height: 180px;">
-
-                  <img style='display:block' class="bg-card-color-light jbox-img h-100 w-100"  src="/image/gallery/resized/<%=info[index].item_name%>">
-                    
-                  </div>
+                    <div class="flex-fill flex-md-grow-0 " style="width: 220px; height: 200px;"><img class="h-100 w-100 bg-card-color-light jbox-img" src="/image/gallery/resized/<%=info[index].item_name%>" alt=""></div>
+                  
 
               <% } %>
               
