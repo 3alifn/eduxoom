@@ -97,3 +97,11 @@ function ___ini(domain, lics){
 //     console.log('updated');
 //   }
 // })
+
+// var get_position= ' Headmaster '.toLowerCase().trim();
+// if(get_position.indexOf('headmaster')==0) var order_value= 'A';
+// else if(get_position.indexOf('assistant headmaster')==0) var order_value= 'B';
+// else if(get_position.indexOf('assistant teacher')==0) var order_value= 'C';
+// else var order_value= 'D';
+
+// console.log(get_position ,order_value);

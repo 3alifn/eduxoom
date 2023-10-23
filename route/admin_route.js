@@ -87,9 +87,13 @@ admin.post('/repository/img/update/post/', multer_upload_repository.any('images'
 
 
 // setup headofschool
-admin.get('/setup/headofschool/', headofschool_app.admin_headofschool_page)
+admin.get('/setup/headofschool/', (req, res)=>{
+  res.render('admin/headofschool')
+})
+admin.post('/headofschool/get', headofschool_app.admin_headofschool_get)
 admin.post('/setup/headofschool/post', headofschool_app.multer_upload_headofschool.single('image'),headofschool_app.admin_headofschool_post)
 admin.post('/headofschool/rm', headofschool_app.admin_headofschool_rm)
+admin.post('/headofschool/update/', headofschool_app.multer_upload_headofschool.single('image'),headofschool_app.admin_headofschool_update)
 
 
 // setup staff settings

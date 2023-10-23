@@ -22,91 +22,17 @@
         <div class="row m-2 mt-5 shadowx text-center">
           <div class="col-11 m-auto">
 
-            <p class="p-2 text-muted fw-semibold fs-5">Setup head of school <button onclick="window.location.reload()" class="p-2 shadowx btn btn-light">Refresh</button></p>
+            <p class="p-2 text-muted fw-semibold fs-5">Setup head of school </p>
 
           </div>
         </div>
 
         <div id="headofschool" class="row  p-2 mt-1">
 
-          <div class="append-headofschool col-md-10 shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+          <div class=" col-md-10 shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
 
-            <% if(info.length>0) {%>
 
-              <% for( let index = 0; index < info.length; index++ ) { %>
-              
-                <form class="form_<%=info[index].ID%>" enctype="multipart/form-data" action="/admin/setup/headofschool/post" method="post">
-                  <div class="mt-1 p-2">
-                    <div class="col-12">
-                      <input value="<%=info[index].ID%>" type="hidden" name="dataid">
-                      <input value="<%=info[index].image%>" type="hidden" name="haveimage">
-                      <p class="p-2 text-muted text-center fw-semibold fs-5">
-                        Our honourable <code class="pe-1">*</code> 
-                         <input required placeholder="Headmaster" value="<%=info[index].position%>" class="form-dev p-0" name="position"
-                          list="positionList">
-                        <datalist id="positionList">
-                          <option value="Chairman">Chairman</option>
-                          <option value="Principal">Principal</option>
-                          <option value="President">President</option>
-                          <option value="Headmaster">Headmaster</option>
-    
-                        </datalist>
-    
-                      </p>
-    
-                      <div class="d-flex shadowx  overflow-auto text-muted fw-semibold justify-content-end">
-                        <button onclick="_delbox_pull('<%=info[index].ID%>')" type="button" class="page-link btn-go text-primary shadowx at_action border p-2">delete and reset</button>
-
-                        <button type="button"
-                          class=" createElement page-link btn-go text-primary shadowx  border p-2">create an another
-                          one</button>
-    
-                      </div>
-                    </div>
-    
-    
-    
-                    <div class="d-flex  p-2 justify-content-between align-items-center">
-                      <p class="w-25 fw-semibold m-auto">Name</p>
-                      <code class="pe-1">*</code>   <input  required value="<%=info[index].name%>" name="name" class="w-75 shadowx form-dev form-control-sm" placeholder="enter name"
-                        type="text" id="">
-                    </div>
-    
-    
-    
-                    <div class="d-flex p-2 justify-content-between align-items-center">
-                      <p class="w-25  fw-semibold m-auto">Message</p>
-                      <span class="w-75">
-    
-                       <code class="pe-1">*</code> <textarea required name="message" class="form-dev shadowx" style="width: 100%;" placeholder="message" id=""
-                          cols="40" rows="5"><%=info[index].message%></textarea>
-    
-                      </span>
-    
-                    </div>
-    
-    
-                    <div class="d-flex  p-2 justify-content-between align-items-center">
-                      <p class="w-25 fw-semibold m-auto">Photo</p>
-                      <code class="pe-1">*</code>    <img class="rounded-circle p-2 shadowx" src="/image/headofschool/resized/<%=info[index].image%>" height="50px" width="50px"
-                        alt="">
-                      <input  name="image" value="<%=info[index].image%>" class="w-75 ps-3 shadowx  form-dev form-control-sm" type="file"
-                        id="">
-                    </div>
-    
-                  </div>
-    
-                  <div class="d-flex justify-content-end p-2 mt-2 mb-2">
-                    <button type="submit" class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and
-                      publish</button>
-                  </div>
-    
-                </form>
-
-              <% } %>
-              <% } else {%>
-
-                <form class="form0" enctype="multipart/form-data" action="/admin/setup/headofschool/post" method="post">
+                <form id="formdata" class="formdata" action="#">
                   <div class="mt-1 p-2">
                     <div class="col-12">
                       <p class="p-2 text-muted text-center fw-semibold fs-5">
@@ -122,16 +48,21 @@
                         </datalist>
     
                       </p>
-    
-                      <div class="d-flex shadowx  overflow-auto text-muted fw-semibold justify-content-end">
-                        <button type="button"
-                          class=" createElement page-link btn-go text-primary shadowx  border p-2">create an another
-                          one</button>
-    
-                      </div>
+  
                     </div>
     
     
+                    <div class="d-flex p-2 justify-content-between align-items-center">
+                      <p class="w-25 fw-semibold m-auto">Gender</p>
+                      <code class="pe-1">*</code>  
+                        <span class="w-75">
+                        Male <input value="Male" class="form-check-input shadowx ms-2 me-2" checked type="radio" name="gender" id="">
+                        Female <input value="Female" class="form-check-input shadowx ms-2" type="radio" name="gender" id="">
+                    
+                      </span>
+                    
+                    </div>
+        
     
                     <div class="d-flex  p-2 justify-content-between align-items-center">
                       <p class="w-25 fw-semibold m-auto">Name</p>
@@ -140,6 +71,7 @@
                         type="text" id="">
                     </div>
     
+                    
     
     
                     <div class="d-flex p-2 justify-content-between align-items-center">
@@ -157,24 +89,26 @@
     
                     <div class="d-flex  p-2 justify-content-between align-items-center">
                       <p class="w-25 fw-semibold m-auto">Photo</p>
-                      <code class="pe-1">*</code> 
-                            <img class="rounded-circle p-2 shadowx" src="/image/headofschool/resized/male_avatar.png" height="50px" width="50px"
+                      <code class="pe-1">-</code> 
+                            <img class="rounded-circle p-2 shadowx" src="/image/headofschool/resized/male_avatar.png" height="100px" width="100px"
                         alt="">
-                      <input required name="image" class="w-75 ps-3 shadowx  form-dev form-control-sm" type="file"
+                      <input  name="image" class="w-75 ps-3 shadowx  form-dev form-control-sm" type="file"
                         id="">
                     </div>
     
                   </div>
     
                   <div class="d-flex justify-content-end p-2 mt-2 mb-2">
-                    <button type="submit" class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and
-                      publish</button>
+                    <input type="reset" value="reset" style="display: none;" class="formreset">
+                    <button type="submit" class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and publish</button>
                   </div>
     
                 </form>
 
-                <% } %>
 
+                <div class="listdata" id="listdata">
+
+                </div>
          
           </div>
 
@@ -194,87 +128,87 @@
 </body>
 
 <script>
-  var elemNumber = 0;
-  $(document).on('click', '.createElement', () => {
-    elemNumber += 1
-    $(event.target).addClass('disabled text-muted')
-    $('.append-headofschool').prepend(`
-  <form  class="form${elemNumber}" enctype="multipart/form-data" action="/admin/setup/headofschool/post" method="post">
-          <div class="mt-1 p-2">
-            <div class="col-12">
-              <input value="" type="hidden" name="haveimage">
+//   var elemNumber = 0;
+//   $(document).on('click', '.createElement', () => {
+//     elemNumber += 1
+//     $(event.target).addClass('disabled text-muted')
+//     $('.append-headofschool').prepend(`
+//   <form  class="form${elemNumber}" enctype="multipart/form-data" action="/admin/setup/headofschool/post" method="post">
+//           <div class="mt-1 p-2">
+//             <div class="col-12">
+//               <input value="" type="hidden" name="haveimage">
 
-              <p class="p-2 text-muted text-center fw-semibold fs-5">
-                Our honourable <code class="pe-1">*</code> 
-                 <input required placeholder="Headmaster" class="form-dev p-0" name="position" list="positionList">
-                <datalist  id="positionList">
-                  <option  value="Chairman">Chairman</option>
-                  <option value="Principal">Principal</option>
-                  <option value="President">President</option>
-                  <option value="Headmaster">Headmaster</option>
+//               <p class="p-2 text-muted text-center fw-semibold fs-5">
+//                 Our honourable <code class="pe-1">*</code> 
+//                  <input required placeholder="Headmaster" class="form-dev p-0" name="position" list="positionList">
+//                 <datalist  id="positionList">
+//                   <option  value="Chairman">Chairman</option>
+//                   <option value="Principal">Principal</option>
+//                   <option value="President">President</option>
+//                   <option value="Headmaster">Headmaster</option>
                     
-                </datalist>
+//                 </datalist>
   
-              </p> 
+//               </p> 
   
-              <div class="d-flex shadowx  overflow-auto text-muted fw-semibold justify-content-end">
-                <button type="button" class="page-link resetElement btn-go text-primary shadowx at_action border p-2">delete and reset</button>
+//               <div class="d-flex shadowx  overflow-auto text-muted fw-semibold justify-content-end">
+//                 <button type="button" class="page-link resetElement btn-go text-primary shadowx at_action border p-2">delete and reset</button>
   
-              <button type="button"  class=" createElement page-link btn-go text-primary shadowx  border p-2">create an another one</button>
+//               <button type="button"  class=" createElement page-link btn-go text-primary shadowx  border p-2">create an another one</button>
   
-              </div>
-            </div>
+//               </div>
+//             </div>
   
       
   
-            <div class="d-flex  p-2 justify-content-between align-items-center">
-              <p class="w-25 fw-semibold m-auto">Name</p>
-              <code class="pe-1">*</code> 
-                 <input required value=""  name="name"
-                class="w-75 shadowx form-dev form-control-sm" placeholder="enter name" type="text" id="">
-            </div>
+//             <div class="d-flex  p-2 justify-content-between align-items-center">
+//               <p class="w-25 fw-semibold m-auto">Name</p>
+//               <code class="pe-1">*</code> 
+//                  <input required value=""  name="name"
+//                 class="w-75 shadowx form-dev form-control-sm" placeholder="enter name" type="text" id="">
+//             </div>
   
   
   
-            <div class="d-flex p-2 justify-content-between align-items-center">
-              <p class="w-25  fw-semibold m-auto">Message</p>
-              <span class="w-75">
+//             <div class="d-flex p-2 justify-content-between align-items-center">
+//               <p class="w-25  fw-semibold m-auto">Message</p>
+//               <span class="w-75">
   
-                <code class="pe-1">*</code> 
-                    <textarea required name="message" class="form-dev shadowx" style="width: 100%;"
-                  placeholder="message" id="" cols="40"
-                  rows="5"></textarea>
+//                 <code class="pe-1">*</code> 
+//                     <textarea required name="message" class="form-dev shadowx" style="width: 100%;"
+//                   placeholder="message" id="" cols="40"
+//                   rows="5"></textarea>
   
-              </span>
+//               </span>
   
-            </div>
+//             </div>
   
   
-            <div class="d-flex  p-2 justify-content-between align-items-center">
-              <p class="w-25 fw-semibold m-auto">Photo</p>
-              <code class="pe-1">*</code> 
-                  <img class="rounded-circle p-2 shadowx" src="/image/headofschool/resized/male_avatar.png" height="50px" width="50px" alt="">
-              <input required name="image" class="w-75 ps-3 shadowx  form-dev form-control-sm" type="file" id="">
-            </div>
+//             <div class="d-flex  p-2 justify-content-between align-items-center">
+//               <p class="w-25 fw-semibold m-auto">Photo</p>
+//               <code class="pe-1">*</code> 
+//                   <img class="rounded-circle p-2 shadowx" src="/image/headofschool/resized/male_avatar.png" height="50px" width="50px" alt="">
+//               <input required name="image" class="w-75 ps-3 shadowx  form-dev form-control-sm" type="file" id="">
+//             </div>
   
-          </div>
+//           </div>
   
-          <div class="d-flex justify-content-end p-2 mt-2 mb-2">
-            <button type="submit" class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and publish</button>
-          </div>
+//           <div class="d-flex justify-content-end p-2 mt-2 mb-2">
+//             <button type="submit" class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and publish</button>
+//           </div>
   
-        </form>`
-    )
+//         </form>`
+//     )
 
-  })
+//   })
 
 
-$(document).on('click', '.resetElement', (event) => {
-    var elem = event.target.parentElement.parentElement.parentElement.parentElement;
+// $(document).on('click', '.resetElement', (event) => {
+//     var elem = event.target.parentElement.parentElement.parentElement.parentElement;
     
-      $(elem).remove()
+//       $(elem).remove()
 
-})
+// })
 
 function _delbox_push(dataid){
   $.ajax({
@@ -294,7 +228,72 @@ _spin_pull()
   });
 }
 
+function listdata(){
+    $.ajax({
+      method: "post",
+      url: "/admin/headofschool/get/",
+      data: {},
+      dataType: "JSON",
+      success: function (res) {
+        $('#listdata').html(res.listdata)
+      }
+    });
+  }
+  
+  listdata()
+  
+  $('#formdata').on('submit', (event)=>{
+  event.preventDefault();
+  let formdata = new FormData($("#formdata")[0])
+  $.ajax({
+    method: "post",
+    url: "/admin/setup/headofschool/post",
+    data: formdata,
+    dataType: "JSON",
+    mimeType: 'multipart/form-data',
+    cache: false,
+    processData: false,
+    contentType: false,
+    beforeSend: function(){
+  $('.submitbtn').addClass('disabled')
+    },
+    success: function (res) {
+      _msg_pull(res.alert, res.msg)
+      listdata()
+      $('.submitbtn').removeClass('disabled')
+       if(res.status==200){
+        $('.formreset').click()
+       }
+    }
+  });
+  })
+ 
 
+  // function updateform(form){
+  //                   alert(100)
+  //                   let formdata = new FormData('.updateform_0')[0]
+  //                   $.ajax({
+  //                     method: "post",
+  //                     url: "/admin/headofschool/update",
+  //                     data: formdata,
+  //                     dataType: "JSON",
+  //                     mimeType: 'multipart/form-data',
+  //                     cache: false,
+  //                     processData: false,
+  //                     contentType: false,
+  //                     beforeSend: function(){
+  //                   $('.submitbtn').addClass('disabled')
+  //                     },
+  //                     success: function (res) {
+  //                       _msg_pull(res.alert, res.msg)
+  //                       listdata()
+  //                       $('.submitbtn').removeClass('disabled')
+                       
+  //                     }
+  //                   });
+  //               }
+
+  
 
 </script>
 

@@ -338,6 +338,13 @@ exports.admin_teacher_post= async(req, res)=>{
   const {name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
   const domain= req.hostname;
+  var get_position= position.toLowerCase().trim();
+  if(get_position.indexOf('headmaster')==0) var order_value= 'A';
+  else if(get_position.indexOf('assistant headmaster')==0) var order_value= 'B';
+  else if(get_position.indexOf('assistant teacher')==0) var order_value= 'C';
+  else var order_value= 'D';
+  // console.log(get_position ,order_value);
+
   if(req.file){
     var avatar_png= req.file.filename;
 
@@ -390,22 +397,19 @@ exports.admin_teacher_post= async(req, res)=>{
           }
    }
 
-    sqlmap.query(`INSERT INTO teachers (domain, teacher_uuid, name, position, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar )
-    VALUES('${req.hostname}', '${uuid}', '${name}','${position}', '${gender}', '${index_number}', '${pds_id}', '${birth_date}', '${blood_group}',
+    sqlmap.query(`INSERT INTO teachers (domain, teacher_uuid, name, position, order_value, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar )
+    VALUES('${req.hostname}', '${uuid}', '${name}','${position}', '${order_value}', '${gender}', '${index_number}', '${pds_id}', '${birth_date}', '${blood_group}',
     '${religion}', '${email}', '${phone}', '${address}', '${joining_date}', '${hashPassword}', '${avatar_png}')`, (err, next)=>{
         if(err) console.log(err.sqlMessage);
         else   res.send({status: 200, msg: 'Teacher join successfully!', alert: 'alert-success'})
     })
    }
 
-
-
-
 }
 
 
 exports.admin_teacher_get=(req, res)=>{
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY order_value`, (err, info)=>{
       if(err) console.log(err.sqlMessage);
       else {
           var tabledata= '';
@@ -784,7 +788,7 @@ exports.admin_config_subject= (req, res)=>{
 
 exports.public_teacher_list= (req, res)=>{
 
-            sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
+            sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ORDER_VALUE`, (err, info)=>{
              if(err) console.log(err.sqlMessage);
   
               else res.render("public/all_teachers_public", {info})
@@ -812,48 +816,48 @@ let htmldata= `
   <div class="ps-2 pt-3 pb-3 rounded-bottom-5 rounded-end-5">
       <div class="card-body text-start p-2">
     
-          <div class="d-flex text-muted ">
+          <div class="d-flex fw-semibold ">
              <div class="p-1 w-25">Name</div>
              <code class="p-1">:</code><div class="p-1 w-75">${info[0].name}</div>
             </div>
       
-            <div class="d-flex text-muted ">
+            <div class="d-flex fw-semibold ">
               <div class="p-1 w-25">Position</div>
               <code class="p-1">:</code> <div class="p-1 w-75">${info[0].position}</div>
              </div>
       
-            <div class="d-flex text-muted ">
+            <div class="d-flex fw-semibold">
               <div class="p-1 w-25">Gender</div>
               <code class="p-1">:</code> <div class="p-1 w-75">${info[0].gender}</div>
              </div>
       
-             <div class="d-flex text-muted ">
+             <div class="d-flex fw-semibold ">
               <div class="p-1 w-25">Index no</div>
               <code class="p-1">:</code> <div class="p-1 w-75">${info[0].index_number}</div>
              </div>
       
-             <div class="d-flex text-muted ">
+             <div class="d-flex fw-semibold ">
               <div class="p-1 w-25">Email</div>
               <code class="p-1">:</code> <div class="p-1 w-75">${info[0].email}</div>
              </div>
       
       
-             <div class="d-flex text-muted ">
+             <div class="d-flex fw-semibold ">
               <div class="p-1 w-25">Phone</div>
               <code class="p-1">:</code><div class="p-1 w-75">${info[0].telephone}</div>
              </div>
       
-             <div class="d-flex text-muted ">
+             <div class="d-flex fw-semibold ">
               <div class="p-1 w-25">Birth date</div>
               <code class="p-1">:</code><div class="p-1 w-75">${info[0].birth_date}</div>
              </div>      
              
-             <div class="d-flex text-muted ">
+             <div class="d-flex fw-semibold">
               <div class="p-1 w-25">Religion</div>
               <code class="p-1">:</code><div class="p-1 w-75">${info[0].religion}</div>
              </div>
       
-             <div class="d-flex text-muted ">
+             <div class="d-flex fw-semibold ">
               <div class="p-1 w-25">Joining date</div>
                <code class="p-1">:</code><div class="p-1 w-75">${info[0].joining_date}</div>
              </div>

@@ -321,7 +321,7 @@ var penboxdata=
 
   <div class="card-body fw-semibold">
   
-  <div class="d-flex text-muted m-2">
+  <div class="d-flex fw-semiboldm-2">
   <div class="p-1 w-25">Class & Section 
   </div>
   <code class='pe-1'>*</code>
@@ -376,12 +376,12 @@ var penboxdata=
  </div>
 
 
-    <div class="d-flex text-muted m-2">
+    <div class="d-flex fw-semiboldm-2">
        <div class="p-1 w-25">Name </div>
        <code class='pe-1'>*</code>  <input class="form-dev w-75 p-1" required type="text" value="${info[0].name}" placeholder="enter name" name="name" id="">
       </div>
 
-      <div class="d-flex text-muted m-2">
+      <div class="d-flex fw-semiboldm-2">
       <div class="p-1 w-25">Student roll</div>
       <code class='pe-1'>*</code>
         <input class="form-dev w-75 p-1"  type="number" value="${info[0].roll}" placeholder="enter roll no" name="roll" id="">
@@ -399,21 +399,21 @@ var penboxdata=
     </div>
 
       
-    <div class="d-flex text-muted m-2">
+    <div class="d-flex fw-semiboldm-2">
       <div class="p-1 w-25">Father name</div>
       <code class='pe-1'>-</code>
        <input class="form-dev w-75 p-1" type="text" value="${info[0].father_name}" placeholder="enter father name" name="fname" id="">
      </div>
       
        
-     <div class="d-flex text-muted m-2">
+     <div class="d-flex fw-semiboldm-2">
      <div class="p-1 w-25">Mother name</div>
      <code class='pe-1'>-</code>
       <input  class="form-dev w-75 p-1" type="text" value="${info[0].mother_name}" placeholder="enter mother name" name="mname" id="">
     </div>
 
      
-    <div class="d-flex text-muted m-2">
+    <div class="d-flex fw-semiboldm-2">
       <div class="p-1 w-25">Email</div>
       <code class='pe-1'>*</code>
         <input required class="form-dev w-75 p-1"  type="email" value="${info[0].email}" placeholder="example@mail.com" name="email" id="">
@@ -423,7 +423,7 @@ var penboxdata=
 
 
      
-    <div class="d-flex text-muted m-2">
+    <div class="d-flex fw-semiboldm-2">
       <div class="p-1 w-25">Phone</div>
       <code class='pe-1'>-</code>
         <input class="form-dev w-75 p-1"  type="phone" value="${info[0].phone}" placeholder="enter phone no" name="phone" id="">
@@ -431,7 +431,7 @@ var penboxdata=
 
 
      
-    <div class="d-flex text-muted m-2">
+    <div class="d-flex fw-semiboldm-2">
       <div class="p-1 w-25">Birth date</div>
       <code class='pe-1'>-</code>
         <input class="form-dev w-75 p-1" type="date" value="${info[0].birth_date}" placeholder="enter date of birth" name="birth_date" id="">
@@ -439,7 +439,7 @@ var penboxdata=
 
      
      
-    <div class="d-flex text-muted m-2">
+    <div class="d-flex fw-semiboldm-2">
     <div class="p-1 w-25">Blood group</div>
     <code class='pe-1'>-</code>
      <input class="form-dev w-75 p-1" type="text" value="${info[0].blood_group}" placeholder="enter blood group" name="blood_group" id="">
@@ -447,7 +447,7 @@ var penboxdata=
    
      
      
-    <div class="d-flex text-muted m-2">
+    <div class="d-flex fw-semiboldm-2">
       <div class="p-1 w-25">Religion</div>
       <code class='pe-1'>-</code>
        <input class="form-dev w-75 p-1" type="text" value="${info[0].religion}" placeholder="enter religion" name="religion" id="">
@@ -455,7 +455,7 @@ var penboxdata=
 
 
      
-    <div class="d-flex text-muted m-2">
+    <div class="d-flex fw-semiboldm-2">
       <div class="p-1 w-25">Address</div>
       <code class='pe-1'>-</code>
       <input class="form-dev w-75 p-1" type="text" value="${info[0].address}" placeholder="enter address" name="address" id="">
@@ -463,7 +463,7 @@ var penboxdata=
 
 
      
-    <div class="d-flex text-muted m-2">
+    <div class="d-flex fw-semiboldm-2">
       <div class="p-1 w-25">Admission date</div>
       <code class='pe-1'>-</code>
          <input class="form-dev w-75 p-1"  type="date" value="${info[0].admission_date}"  name="admission_date" id="">
@@ -1135,46 +1135,46 @@ exports.public_student_pagination= (req, res)=>{
         <div class="ps-2 pt-3 pb-3 rounded-bottom-5 rounded-end-5">
             <div class="card-body text-start p-2">
                    
-            <div class="d-flex text-muted ">
+            <div class="d-flex fw-semibold">
             <div class="p-1 w-25">Student of</div>
             <code class="p-1">:</code> <div class="p-1 w-75">${info[0].class} - ${info[0].section}</div>
            </div>    
            
 
-                <div class="d-flex text-muted ">
+                <div class="d-flex fw-semibold">
                    <div class="p-1 w-25">Name</div>
                    <code class="p-1">:</code><div class="p-1 w-75">${info[0].name}</div>
                   </div>
 
                               
-                  <div class="d-flex text-muted ">
+                  <div class="d-flex fw-semibold">
                     <div class="p-1 w-25">Gender</div>
                     <code class="p-1">:</code> <div class="p-1 w-75">${info[0].gender}</div>
                    </div>
 
                    
-                   <div class="d-flex text-muted ">
+                   <div class="d-flex fw-semibold">
                     <div class="p-1 w-25">Roll</div>
                     <code class="p-1">:</code> <div class="p-1 w-75">${info[0].roll}</div>
                    </div>     
                    
                    
-                   <div class="d-flex text-muted ">
+                   <div class="d-flex fw-semibold">
                     <div class="p-1 w-25">SID</div>
                     <code class="p-1">:</code> <div class="p-1 w-75">${info[0].student_id}</div>
                    </div>
             
-                  <div class="d-flex text-muted ">
+                  <div class="d-flex fw-semibold">
                     <div class="p-1 w-25">Religion</div>
                     <code class="p-1">:</code> <div class="p-1 w-75">${info[0].religion}</div>
                    </div>
             
-                   <div class="d-flex text-muted ">
+                   <div class="d-flex fw-semibold">
                     <div class="p-1 w-25">Blood Group</div>
                     <code class="p-1">:</code> <div class="p-1 w-75">${info[0].blood_group}</div>
                    </div>
             
-                   <div class="d-flex text-muted ">
+                   <div class="d-flex fw-semibold">
                     <div class="p-1 w-25">Admision date</div>
                     <code class="p-1">:</code> <div class="p-1 w-75">${info[0].admission_date}</div>
                    </div>

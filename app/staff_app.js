@@ -59,43 +59,43 @@ exports.public_staff_profile_get= (req, res)=>{
     <div class="ps-2 pt-3 pb-3 rounded-bottom-5 rounded-end-5">
         <div class="card-body text-start p-2">
       
-            <div class="d-flex text-muted ">
+            <div class="d-flex fw-semibold ">
                <div class="p-1 w-25">Name</div>
                <code class="p-1">:</code><div class="p-1 w-75">${info[0].name}</div>
               </div>    
               
-              <div class="d-flex text-muted ">
+              <div class="d-flex fw-semibold ">
                <div class="p-1 w-25">Age</div>
                <code class="p-1">:</code><div class="p-1 w-75">${info[0].age}</div>
               </div>
         
-              <div class="d-flex text-muted ">
+              <div class="d-flex fw-semibold ">
                 <div class="p-1 w-25">Position</div>
                 <code class="p-1">:</code> <div class="p-1 w-75">${info[0].position}</div>
                </div>
         
-              <div class="d-flex text-muted ">
+              <div class="d-flex fw-semibold ">
                 <div class="p-1 w-25">Gender</div>
                 <code class="p-1">:</code> <div class="p-1 w-75">${info[0].gender}</div>
                </div>
         
-               <div class="d-flex text-muted ">
+               <div class="d-flex fw-semibold ">
                 <div class="p-1 w-25">Index no</div>
                 <code class="p-1">:</code> <div class="p-1 w-75">${info[0].index_number}</div>
                </div>
         
-               <div class="d-flex text-muted ">
+               <div class="d-flex fw-semibold ">
                 <div class="p-1 w-25">Email</div>
                 <code class="p-1">:</code> <div class="p-1 w-75">${info[0].email}</div>
                </div>
         
         
-               <div class="d-flex text-muted ">
+               <div class="d-flex fw-semibold ">
                 <div class="p-1 w-25">Phone</div>
                 <code class="p-1">:</code><div class="p-1 w-75">${info[0].phone}</div>
                </div>
         
-               <div class="d-flex text-muted ">
+               <div class="d-flex fw-semibold ">
                 <div class="p-1 w-25">Joining date</div>
                 <code class="p-1">:</code><div class="p-1 w-75">${info[0].joining_date}</div>
                </div>      
@@ -215,7 +215,18 @@ exports.admin_staff_img_post= async(req, res)=>{
 exports.admin_staff_post= async(req, res)=>{
 
     const {name, position, index_number, gender, age, email, phone, address, joining_date}= req.body;
+
+    if(req.file){
+      var avatar_png= req.file.filename;
   
+     }
+  
+     else {
+      if(gender=="Female") var avatar_png= "female_avatar.png"
+      else var avatar_png= "male_avatar.png"
+     }
+  
+
      if(req.file){
         if(req.file.size<1048576){
             const { filename: image } = req.file;
@@ -243,8 +254,9 @@ exports.admin_staff_post= async(req, res)=>{
             }
      }
 
+
      sqlmap.query(`INSERT INTO staff (domain, name, position, gender, index_number, age, email, phone, address, joining_date, image )
-     VALUES('${req.hostname}', '${name}','${position}', '${gender}', '${index_number}', '${age}', '${email}', '${phone}', '${address}', '${joining_date}', '${req.file.filename}')`, (err, next)=>{
+     VALUES('${req.hostname}', '${name}','${position}', '${gender}', '${index_number}', '${age}', '${email}', '${phone}', '${address}', '${joining_date}', '${avatar_png}')`, (err, next)=>{
          if(err) console.log(err.sqlMessage);
          else   res.send({msg: 'Added!', alert: 'success'})
      })
@@ -292,13 +304,13 @@ var penboxdata=
    
     <div class="card-body fw-semibold">
     
-    <div class="d-flex text-muted m-2">
+    <div class="d-flex fw-semibold m-2">
     <input required type="hidden" name="dataid" value='${info[0].ID}'>
        <div class="p-1 w-25">Position</div>
         <input class="form-dev w-75 p-1" required type="text" value="${info[0].position}" placeholder="Gateman" name="position" id="">
       </div>
 
-      <div class="d-flex text-muted m-2">
+      <div class="d-flex fw-semibold m-2">
          <div class="p-1 w-25">Name</div>
           <input class="form-dev w-75 p-1" required type="text" value="${info[0].name}" placeholder="enter name" name="name" id="">
         </div>
@@ -315,42 +327,42 @@ var penboxdata=
       </div>
 
         
-      <div class="d-flex text-muted m-2">
+      <div class="d-flex fw-semibold m-2">
         <div class="p-1 w-25">Index No</div>
          <input class="form-dev w-75 p-1" type="text" value="${info[0].index_number}" placeholder="enter index no" name="index_number" id="">
        </div>
 
 
        
-      <div class="d-flex text-muted m-2">
+      <div class="d-flex fw-semibold m-2">
         <div class="p-1 w-25">Email</div>
          <input class="form-dev w-75 p-1"  type="email" value="${info[0].email}" placeholder="example@mail.com" name="email" id="">
        </div>
 
 
        
-      <div class="d-flex text-muted m-2">
+      <div class="d-flex fw-semibold m-2">
         <div class="p-1 w-25">Phone</div>
          <input required class="form-dev w-75 p-1"  type="tel" value="${info[0].phone}" placeholder="enter phone no" name="phone" id="">
        </div>
 
 
        
-      <div class="d-flex text-muted m-2">
+      <div class="d-flex fw-semibold m-2">
         <div class="p-1 w-25">Age</div>
          <input class="form-dev w-75 p-1" type="number" value="${info[0].age}" placeholder="enter age" name="age" id="">
        </div>
 
 
        
-      <div class="d-flex text-muted m-2">
+      <div class="d-flex fw-semibold m-2">
         <div class="p-1 w-25">Address</div>
          <input class="form-dev w-75 p-1" type="text" value="${info[0].address}" placeholder="enter address" name="address" id="">
        </div>
 
 
        
-      <div class="d-flex text-muted m-2">
+      <div class="d-flex fw-semibold m-2">
         <div class="p-1 w-25">Joining date</div>
          <input class="form-dev w-75 p-1"  type="date" value="${info[0].joining_date}"  name="joining_date" id="">
        </div>
