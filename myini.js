@@ -56,3 +56,44 @@ function ___ini(domain, lics){
 // console.log(join_date);
 // const expire_date= parseInt(new Date().getUTCDate())+'/'+parseInt(new Date().getUTCMonth()+1)+'/'+parseInt(new Date().getFullYear()+1);
 // console.log(expire_date);
+
+
+
+// query for uuid and new primary id...
+
+// sqlmap.query(`select ID from students_r order by ID`, (err, info)=>{
+//   if(err) console.log(err.sqlMessage);
+//   for (let index = 0; index < info.length; index++) {
+//   var newid= 2001;
+//    var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
+
+//     sqlmap.query(`update students_r set ID='${newid+index}', student_uuid='${uuid}' where ID='${info[index].ID}'`, (err2, update)=>{
+//       if(err2) console.log(err2.sqlMessage);
+//       else {
+//         console.log('updated...');
+//       }
+//     })
+    
+//   }
+// })
+
+
+// query for move...
+
+// sqlmap.query(`INSERT INTO teachers SELECT * FROM teachers_b`, (err, move)=>{
+//   if(err) console.log(err.sqlMessage);
+//   else {
+//     console.log('moved...');
+//   }
+// })
+
+
+// query for demo password
+
+//  var password= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
+// sqlmap.query(`update students set password='${password}'`, (err, update)=>{
+//   if(err) console.log(err.sqlMessage);
+//   else {
+//     console.log('updated');
+//   }
+// })
