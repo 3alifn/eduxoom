@@ -201,7 +201,7 @@ exports.admin_carousel_post= async(req, res)=>{
   })
 }
 
-res.send({msg: 'Image Added!', alert: 'success'})
+res.send({msg: 'Image Added!', alert: 'alert-success'})
 
 
 }
@@ -221,18 +221,10 @@ exports.admin_carousel_get= (req, res)=>{
       for (const index in info) {
 
         listData+= `
-        <div class="col-6 col-md-3 p-2 ">
-          
-        <div class="card" id="">
-        
-           
-          <img class='card-img-top bg-demo-img-color' height='150px' width="100%" src="/image/carousel/resized/${info[index].item_name}" alt="404">
-          <span data-id="${info[index].ID}" onclick='_delbox_pull(${info[index].ID})' class='btn bi bi-trash-fill'></span>
+        <div class="flex-fill flex-md-grow-0 " style="width: 220px; height: 200px; position: relative;">
+        <img class="h-100 w-100 bg-card-color-light" src="/image/carousel/resized/${info[index].item_name}" alt="">
+        <span style="position: absolute; top: 1px; left:1px" onclick='_delbox_pull(${info[index].ID})' class='btn bi bi-trash-fill bg-light shadowx text-primary fw-semibold'></span>
         </div>
-                  
-         </div> 
-         
-           
         `       
       }
 
@@ -249,17 +241,17 @@ exports.admin_carousel_get= (req, res)=>{
 
 
 
-exports.admin_carousel_delete= (req, res)=>{
+exports.admin_carousel_rm= (req, res)=>{
 
-  let {ID}= req.body;
+  const {dataid}= req.body;
 
-  sqlmap.query(`SELECT * FROM carousel WHERE domain='${req.hostname}' AND  ID = ${ID}`, (errInfo, findInfo)=>{
+  sqlmap.query(`SELECT * FROM carousel WHERE domain='${req.hostname}' AND  ID = ${dataid}`, (errInfo, findInfo)=>{
     if(errInfo) console.log("data not found!")
     
     else {
 
         
-sqlmap.query(`DELETE FROM carousel WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, next)=>{
+sqlmap.query(`DELETE FROM carousel WHERE domain='${req.hostname}' AND  ID=${dataid}`, (err, next)=>{
     if(err) console.log(err.sqlMessage);
     else
     {
@@ -273,7 +265,7 @@ sqlmap.query(`DELETE FROM carousel WHERE domain='${req.hostname}' AND  ID=${ID}`
           });
        }
 
-       res.send({msg: "Data Deleted! Successfully!", alert: "success"})
+       res.send({msg: "Image Deleted! Successfully!", alert: "alert-success"})
         
     }
 })
@@ -291,16 +283,12 @@ sqlmap.query(`DELETE FROM carousel WHERE domain='${req.hostname}' AND  ID=${ID}`
 
 
 
-
-
-
-
 exports.admin_gallery_image_get= (req, res)=>{
 
-        var sqlgalleryGet= `SELECT * FROM gallery WHERE domain='${req.hostname}' AND  item_type='image' GROUP BY data_id ORDER BY ID DESC`
+    const sql= `SELECT * FROM gallery WHERE domain='${req.hostname}' AND  item_type='image' GROUP BY data_id ORDER BY ID DESC`
   
 
-    sqlmap.query(sqlgalleryGet, (err, info)=>{
+    sqlmap.query(sql, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         if(info){
@@ -308,13 +296,14 @@ exports.admin_gallery_image_get= (req, res)=>{
 
            for (let index = 0; index < info.length; index++) {
             listData+= `
-            <div class="col-10">
-            <div class="list-group">
+            <li class="p-1 w-100 fw-semibold view-link rounded m-1">
+            <input class="shadowx  form-check-input" type="checkbox"  value="${info[index].data_id}" name="dataid[]" id="">
 
-            <a href="/admin/gallery/image/data/${info[index].data_id}/${info[index].item_title}" class="list-group-item list-group-item-action"> 
-            <input <input style="transform: scale(1.5);"  type="checkbox" name="imageid" value="${info[index].data_id}"> <span class='ms-2'>${info[index].item_title}</span></a>
-            </div>
-         </div>
+            <a class="text-three-line  text-decoration-none" href="/admin/gallery/image/data/${info[index].data_id}/${info[index].item_title}" >
+            ${info[index].item_title}
+            </a>
+          </li>
+
             `
 
         }
@@ -332,7 +321,7 @@ exports.admin_gallery_image_get= (req, res)=>{
 
 
 exports.admin_gallery_image_post= async(req, res)=>{
-  let {itemTitle}= req.body;
+  let {item_title}= req.body;
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
 
@@ -369,24 +358,21 @@ exports.admin_gallery_image_post= async(req, res)=>{
   
  for (let index=0; index < req.files.length; index++) {
   sqlmap.query(`INSERT INTO gallery (domain, item_type, item_title, item_name, data_id)
-  VALUES('${req.hostname}', 'image', '${itemTitle}', '${req.files[index].filename}', '${randomString}')`, (err, next)=>{
+  VALUES('${req.hostname}', 'image', '${item_title}', '${req.files[index].filename}', '${randomString}')`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
       
   })
 
-
+  
   
  }
 
-
-//  console.log(itemTitle, dataId, );
-
-  res.send({msg: "gallery Added Successfully!", alert: "success"})
+  res.send({msg: "Gallery Added Successfully!", alert: "alert-success"})
 }
 
 
 exports.admin_gallery_image_data_post= async (req, res)=>{
-  let {itemTitle, dataId}= req.body;
+  const {item_title, dataid}= req.body;
 
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
@@ -421,7 +407,7 @@ exports.admin_gallery_image_data_post= async (req, res)=>{
 
  for (let index=0; index < req.files.length; index++) {
   sqlmap.query(`INSERT INTO gallery (domain, item_type, item_title, item_name, data_id)
-  VALUES('${req.hostname}', 'image', '${itemTitle}', '${req.files[index].filename}', '${dataId}')`, (err, next)=>{
+  VALUES('${req.hostname}', 'image', '${item_title}', '${req.files[index].filename}', '${dataid}')`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
       
   })
@@ -429,21 +415,21 @@ exports.admin_gallery_image_data_post= async (req, res)=>{
   
  }
 
-  res.send({msg: "gallery Added Successfully!", alert: "success"})
+  res.send({msg: "Gallery Added successfully!", alert: "alert-success"})
 
 }
 
 
 exports.admin_gallery_image_delete= (req, res)=>{
-  let dataId=  req.body.imageId;
+  let {dataid}=  req.body;
 
- sqlmap.query(`SELECT * FROM gallery WHERE domain='${req.hostname}' AND  data_id IN (${dataId})`, (errInfo, findInfo)=>{
+ sqlmap.query(`SELECT * FROM gallery WHERE domain='${req.hostname}' AND  data_id IN (${dataid})`, (errInfo, findInfo)=>{
      if(errInfo) console.log("data not found!")
      
      else {
  
          
- sqlmap.query(`DELETE FROM gallery WHERE domain='${req.hostname}' AND  data_id IN (${dataId})`, (err, next)=>{
+ sqlmap.query(`DELETE FROM gallery WHERE domain='${req.hostname}' AND  data_id IN (${dataid})`, (err, next)=>{
      if(err) console.log(err.sqlMessage);
      else
      {
@@ -457,7 +443,7 @@ exports.admin_gallery_image_delete= (req, res)=>{
            });
         }
  
-        res.send({msg: "Deleted! Successfully!", alert: "success"})
+        res.send({msg: "Deleted! Successfully!", alert: "alert-success"})
          
      }
  })
@@ -485,21 +471,17 @@ exports.admin_gallery_image_data_get= (req, res)=>{
            let listData= '';
 
            for (let index= 0; index < info.length; index++) {
-            listData+= `
-   
-                  <div class="col-10 col-md-3">
-          
-                  <div class="card" id="">
-                  <input value='${info[index].ID}' type="checkbox" name="imageid" style="position: absolute; height: 20px; width: 20px;" >
-                    <img class='card-img-top bg-demo-img-color' width="100%" height='140px' src="/image/gallery/resized/${info[index].item_name}" alt="...">
-                  </div>
-
-                   </div> 
-            `
+        
+          listData+= `
+        <div class="flex-fill flex-md-grow-0 " style="width: 220px; height: 200px; position: relative;">
+        <img class="h-100 w-100 bg-card-color-light jbox-img" src="/image/gallery/resized/${info[index].item_name}" alt="">
+        <input class='shadowx p-2 m-1 form-check-input' style="position: absolute; top: 1px; left:1px" value='${info[index].ID}' type="checkbox" name="dataid[]">
+        </div>
+        `    
 
         }
 
-        res.send({listData})
+        res.send({listData, title: info[0].item_title})
 
         }
 
@@ -509,15 +491,15 @@ exports.admin_gallery_image_data_get= (req, res)=>{
 
 
 exports.admin_gallery_image_data_delete= (req, res)=>{
-  let dataId=  req.body.imageId;
+  let {dataid}=  req.body;
 
- sqlmap.query(`SELECT * FROM gallery WHERE domain='${req.hostname}' AND  ID IN (${dataId})`, (errInfo, findInfo)=>{
+ sqlmap.query(`SELECT * FROM gallery WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
      if(errInfo) console.log("data not found!")
      
      else {
  
          
- sqlmap.query(`DELETE FROM gallery WHERE domain='${req.hostname}' AND  ID IN (${dataId})`, (err, next)=>{
+ sqlmap.query(`DELETE FROM gallery WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
      if(err) console.log(err.sqlMessage);
      else
      {
@@ -531,7 +513,7 @@ exports.admin_gallery_image_data_delete= (req, res)=>{
            });
         }
  
-        res.send({msg: "Deleted! Successfully!", alert: "success"})
+        res.send({msg: "Deleted! Successfully!", alert: "alert-success"})
          
      }
  })
@@ -547,79 +529,63 @@ exports.admin_gallery_image_data_delete= (req, res)=>{
 // admin gallery video part 
 
 exports.admin_gallery_video_post= (req, res)=>{
-  let {itemLink, itemTitle}= req.body;
-  let dataId=Math.random()*900000;
- for (let index = 0; index < itemLink.length; index++) {
+  let {item_link, item_title}= req.body;
+  let dataid=Math.random()*900000; 
+ for (let index = 0; index < item_link.length; index++) {
   sqlmap.query(`INSERT INTO gallery (domain, item_type, item_title, item_name, data_id)
-  VALUES('${req.hostname}', 'video', '${itemTitle}', '${itemLink[index].replaceAll("/watch?v=", "/embed/").replaceAll("//youtu.be/", "//youtube.com/embed/")}', '${dataId}')`, (err, next)=>{
+  VALUES('${req.hostname}', 'video', '${item_title}', '${item_link[index].replaceAll("/watch?v=", "/embed/").replaceAll("//youtu.be/", "//youtube.com/embed/")}', '${dataid}')`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
       
   })
  }
   
-
-  res.send({msg: "gallery Added Successfully!", alert: "success"})
+  res.send({msg: "Gallery Added Successfully!", alert: "alert-success"})
 }
 
 
 exports.admin_gallery_video_data_post= (req, res)=>{
-  let {itemLink, itemTitle, dataid}= req.body;
- for (let index = 0; index < itemLink.length; index++) {
+  let {item_link, item_title, dataid}= req.body;
+ for (let index = 0; index < item_link.length; index++) {
   sqlmap.query(`INSERT INTO gallery (domain, item_type, item_title, item_name, data_id)
-  VALUES('${req.hostname}', 'video', '${itemTitle}', '${itemLink[index].replaceAll("/watch?v=", "/embed/").replaceAll("//youtu.be/", "//youtube.com/embed/")}', '${dataid}')`, (err, next)=>{
+  VALUES('${req.hostname}', 'video', '${item_title}', '${item_link[index].replaceAll("/watch?v=", "/embed/").replaceAll("//youtu.be/", "//youtube.com/embed/")}', '${dataid}')`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
       
   })
  }
   
+  res.send({msg: "Gallery Added Successfully!", alert: "alert-success"})
 
-  res.send({msg: "gallery Added Successfully!", alert: "success"})
 }
 
 
 exports.admin_gallery_video_get= (req, res)=>{
-
-
   let sql= `SELECT * FROM gallery WHERE domain='${req.hostname}' AND  item_type='video' GROUP BY data_id ORDER BY ID DESC`
-
-
     sqlmap.query(sql, (err, info)=>{
         if(err) console.log(err.sqlMessage);
-
         if(info){
-        
            let listData= '';
-
            for (let index = 0; index < info.length; index++) {
             listData+= `
-          
-                  <div class="col-10">
-                  <div class="list-group">
-      
-                  <a href="/admin/gallery/video/data/${info[index].data_id}/${info[index].item_title}" class="list-group-item list-group-item-action"> 
-                  <input <input style="transform: scale(1.5);"  type="checkbox" name="imageid" value="${info[index].data_id}"> <span class='ms-2'>${info[index].item_title}</span>
-                  </a>
-                  </div>
-               </div>
+            <li class="p-1 w-100 fw-semibold view-link rounded m-1">
+            <input class="shadowx  form-check-input" type="checkbox"  value="${info[index].data_id}" name="dataid[]" id="">
+            <a class="text-three-line  text-decoration-none" href="/admin/gallery/video/data/${info[index].data_id}/${info[index].item_title}" >
+            ${info[index].item_title}
+            </a>
+          </li>
 
             `
-
         }
-
         res.send({listData})
 
         }
-
     })
-
 }
 
 
 exports.admin_gallery_video_data_get= (req, res)=>{
-  const dataid= req.body.dataid;
+  const {dataid}= req.body;
    let sql= `SELECT * FROM gallery WHERE domain='${req.hostname}' AND  item_type='video' AND data_id='${dataid}' ORDER BY ID DESC`
- 
- 
+
      sqlmap.query(sql, (err, info)=>{
          if(err) console.log(err.sqlMessage);
  
@@ -629,20 +595,15 @@ exports.admin_gallery_video_data_get= (req, res)=>{
  
             for (let index= 0; index < info.length; index++) {
              listData+= `
-    
-                   <div class="col-10 col-md-3">
-           
-                   <div class="card" id="">
-                   <input value='${info[index].ID}' type="checkbox" name="imageid" style="position: absolute; height: 20px; width: 20px;" >
-                    <iframe class='video-scope card-img-top bg-demo-img-color' src="${info[index].item_name.replace("watch?v=", "embed/")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                   </div>
- 
-                    </div> 
+             <div class="flex-fill flex-md-grow-0 " style="width: 220px; height: 200px; position: relative;">
+             <iframe class='video-scope h-100 w-100 bg-demo-img-color' src="${info[index].item_name.replace("watch?v=", "embed/")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+             <input class='shadowx p-2 m-1 form-check-input' style="position: absolute; top: 1px; left:1px" value='${info[index].ID}' type="checkbox" name="dataid[]">
+             </div>
              `
  
          }
  
-         res.send({listData})
+         res.send({listData, title: info[0].item_title})
  
          }
  
@@ -653,9 +614,8 @@ exports.admin_gallery_video_data_get= (req, res)=>{
 
 
  exports.admin_gallery_video_delete= (req, res)=>{
-  let dataId=  req.body.videoId;
-        console.log(dataId);
- sqlmap.query(`DELETE FROM gallery WHERE domain='${req.hostname}' AND  data_id IN (${dataId})`, (err, next)=>{
+  let {dataid}=  req.body;;
+ sqlmap.query(`DELETE FROM gallery WHERE domain='${req.hostname}' AND  data_id IN (${dataid})`, (err, next)=>{
      if(err) console.log(err.sqlMessage);
      else
      {
@@ -672,15 +632,15 @@ exports.admin_gallery_video_data_get= (req, res)=>{
 
 
  exports.admin_gallery_video_data_delete= (req, res)=>{
-  let dataId=  req.body.videoId;
+  let {dataid}=  req.body;
 
- sqlmap.query(`SELECT * FROM gallery WHERE domain='${req.hostname}' AND  ID IN (${dataId})`, (errInfo, findInfo)=>{
+ sqlmap.query(`SELECT * FROM gallery WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
      if(errInfo) console.log("data not found!")
      
      else {
  
          
- sqlmap.query(`DELETE FROM gallery WHERE domain='${req.hostname}' AND  ID IN (${dataId})`, (err, next)=>{
+ sqlmap.query(`DELETE FROM gallery WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
      if(err) console.log(err.sqlMessage);
      else
      {

@@ -2,7 +2,7 @@ const {app, express, session}=require('../server')
 const admin_app = require("../app/admin_app")
 const { admin_admission_page, admin_admission_accept, admin_admission_reject, admin_admission_info } = require("../app/admission_app")
 const { admin_application_get, admin_application_replay, admin_application_download } = require("../app/appllication_app")
-const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_gallery_list_data, admin_gallery_list_data_delete, admin_gallery_image, admin_gallery_video, admin_gallery_data_delete, admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete, admin_gallery_image_get, admin_gallery_image_delete, admin_gallery_image_data_get, admin_gallery_image_data_delete, admin_gallery_image_data_post, admin_gallery_video_get, admin_gallery_video_data_get, admin_gallery_video_data_delete, admin_gallery_video_delete, admin_gallery_video_data_post } = require("../app/gallery_app")
+const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_gallery_list_data, admin_gallery_list_data_delete, admin_gallery_image, admin_gallery_video, admin_gallery_data_delete, admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete, admin_gallery_image_get, admin_gallery_image_delete, admin_gallery_image_data_get, admin_gallery_image_data_delete, admin_gallery_image_data_post, admin_gallery_video_get, admin_gallery_video_data_get, admin_gallery_video_data_delete, admin_gallery_video_delete, admin_gallery_video_data_post, admin_carousel_rm } = require("../app/gallery_app")
 const { admin_library_update, admin_library_update_page, admin_library_delete, admin_library_get, admin_library_post, upload_library_image } = require("../app/library_app")
 const { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_delete, admin_notice_download, admin_notice_rm } = require("../app/notice_app")
 const { admin_parent_get, admin_parent_delete, admin_parent_profile } = require("../app/parent_app")
@@ -217,7 +217,7 @@ admin.get("/carousel/page", (req, res)=>{
 })
 admin.post('/carousel/get', admin_carousel_get)
 admin.post('/carousel/post', multer_upload_carousel.any('itemName'), admin_carousel_post)
-admin.post('/carousel/delete', admin_carousel_delete)
+admin.post('/carousel/rm', admin_carousel_rm)
 
 
 

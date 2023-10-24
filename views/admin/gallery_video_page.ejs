@@ -1,119 +1,137 @@
-
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" gallery="IE=edge">
-    <meta name="viewport" gallery="widtd=device-widtd, initial-scale=1.0">
-    <title>Video settings</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Gallery Videos</title>
     <%- include("../component/metadata.html") %> 
-
-
 </head>
+
 
 <body onload="pageLoadingTop()">
 
     <%- include("../component/admin-header-nav.html") %> 
     <%- include("../component/admin-menu-nav.html") %> 
   
-  
-    <div id="main-content" class="p-2 main-content mt-5">
-        <div class="col">
 
-    <%-include("../component/modal-trigger.html") %> 
+<div id="main-content" class="main-content p-2 mt-5">
 
-<hr>
-    
-<!-- Button trigger modal -->
-<center>
-    <h1>Gallery video </h1>
-    <button type="button" class="btn " data-toggle="modal" data-target="#modelvideo">ADD video</button>
-
-</center>
-
-
-<hr>
-
- <!-- Modal -->
- <div class="modal fade mt-5" id="modelvideo" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add video</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
-            <div class="modal-body">
-                
-                <form class="galleryVideoForm"  method="post">
-
-
-                    <input type="text" class=" form-self" name="itemTitle" placeholder="Item Title" id="" required> <p></p>
-                
-                    <input type="text" class=" form-self  " name="itemLink[]" placeholder="youtube embed link" id="" required> 
-                    <span type="button"  class="addItem input-group-text btn "><i class="fa-sharp fa-solid fa-plus"></i></span>
-                
-                    <center>
-                        <input id="submitVideo" class=" w-50 btn btn-primary" type="submit" value="ADD">
-                    </center>
-                <p></p>
-                </form>
-    
-
-            </div>
-        
+    <!-- listdata for fetch data -->
+    <div  class="row p-2 mt-5">
+        <div class="col-11 shadowx m-auto">
+          <p class="p-2  fw-semibold fs-3 ">Gallery playlist </p>
         </div>
-    </div>
- </div>
+   
 
+        <div class="col-md-10 shadowx col-12 p-1 m-auto">
+                  
+        <div class="d-flex justify-content-end me-2">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
+              class="btn link-success fw-semibold shadowx btn-go fw-500">Create a new playlist</button>
+          </div>
+          
+            <form id="formcheckout" action="#" method="get" onsubmit="return false">
+       
+                <ul class="d-flex flex-column list-unstyled  p-2">
+                    
+                  <li class="d-flex p-2 shadowx justify-content-start gap-2 align-items-center">
+                      <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id="">
+                      <button type="submit" class="bi shadowx p-1 ps-2 pe-2 checkoutpop bi-trash-fill btn btn-outline-warning">Delete forever</button>
+                  </li>
+                </ul>
 
-
-
-
-<div class="col-10">
-    <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-info"> 
-            <input style="transform: scale(1.5);" type="checkbox" class="check-mark">
-            <span class='ms-2'> Select Item </span>
-            <span class='float-end bi bi-trash-fill btn' onclick="_delbox_pull(1)">  </span>
-        </a>
-    </div>
- </div>
-
-
- <form action="#" class="galleryvideoDelete">
-
-    <div class="row check-mark-area" id="listDataPrint">
-        
-
-    </div>
-
-</form>
-
-
-</div>
-</div>
+                <div id="listdata" class="d-flex m-1 check-mark-area list-unstyled gap-1 justify-content-start mt-5 mb-5 flex-wrap">
+              
+                </div>
+      
+      
+            </form>
   
+        </div>
+      </div>
+      
+      <!-- openform for create data -->
+      <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
+      
+          <div style="transform: scale(1);" class="col-md-10 me-auto modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 ">
+      
+            <form  id="formdata" action="#" method="post">
+         <input type="reset" class="resetform" style="display: none;">
+     
+                  <div class="col-11">
+                    <p class="p-2 text-muted text-center fw-semibold fs-5">Youtube video embed link</p>
+                  </div>
+    
+                       
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                    <code class="p-1">*</code> 
+                    <input required type="text" value=""  name="item_title" placeholder="heading here" class="w-100 shadowx form-dev form-control-sm" >
+                  </div>  
+                  
+                  
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+
+                    <div class="append-link w-100 d-flex flex-column">
+                    <code class="p-1">*</code> 
+
+                        <div class="d-flex p-1 mt-2">
+                            <input style="width: 90%;" required type="text" name="item_link[]" placeholder="https://www.youtube.com/watch?v=5eeo25TC1IY" class=" shadowx form-dev form-control-sm" >
+                            <span title="add more" style="width: 10%;" class="btn text-primary  fw-bold bi bi-plus addonbtn"></span> <br>
+    
+                        </div>
+ 
+                      </div>
+
+
+
+                  </div>
+                
+        
+                  
+                  <div class="d-flex justify-content-between p-2 mt-2 mb-2">
+                    <button type="button" data-bs-dismiss="modal" class="btn text-primary fw-semibold nav-fill btn-hover shadowx">Close</button>
+                    <button type="submit" class="btn text-primary fw-semibold submitbtn nav-fill btn-hover shadowx">Create and update</button>
+                  </div>
+      
+            </form>
+      
+          </div>
+      
+        
+      </div>
+  
+</div>
+
+
+
+</body>
+
+
+
 <%-include("../component/___node.html") %> 
-<script src="/app/noviewport.js"></script>
+<script src="/app/___noviewport.js"></script>
 
 <script>
 
-$(".check-mark").click(function(){
-    $('.check-mark-area input:checkbox').not(this).prop('checked', this.checked);
-});
+
+$(document).on("click", ".addonbtn", (e)=>{
+   var elem= `   
+   <div class="d-flex p-1 mt-2">
+   <input style="width: 90%;" type="text" name="item_link[]" placeholder="https://www.youtube.com/watch?v=5eeo25TC1IY" class=" shadowx form-dev form-control-sm" >
+    <span title="remove" style="width: 10%;" class="btn text-primary  fw-bold bi bi-x rmbtn"></span> <br>
+     </div>`
+
+     $('.append-link').append(elem);
+
+})
 
 
-noview.port({
-   file_id: 'file',
-   append_id:  'file_append', 
-   file_type: 'video',
-   max_kb_size: 1024*100
-  })
-    
-function galleryvideoPull(){
-        
+$(document).on("click", ".rmbtn", (e)=>{
+    let thisItem= e.currentTarget.previousSibling.parentElement
+    $(thisItem).remove()   
+})
+
+function listdata(){
         $.ajax({
             method: "post",
             url: "/admin/gallery/video/get",
@@ -124,102 +142,64 @@ function galleryvideoPull(){
 
             },
             success: function (info) {
-    
-                $("#listDataPrint").html(info.listData)
-                _spin_pop()
+            _spin_pop()
+                $("#listdata").html(info.listData)
+                $("#title").html(info.title)
+            
             }
         });
+
+        
     
     }
 
-galleryvideoPull()
-    
-    
-
-function _delbox_push(ID){
-    
-    var videoIdLen= $(".galleryvideoDelete input:checked").length;
-    var videoId= []
-    for (let index = 0; index < videoIdLen; index++) {
-        videoId.push($(".galleryvideoDelete input:checked")[index].attributes[4].value);
-    }
-$.ajax({
-    type: "post",
-    url: "/admin/gallery/video/delete",
-    data: {videoId},
-    dataType: "JSON",
-    success: function (info) {
-       _msg_pull('alert-danger', 'video Deleted!',  null)
-       galleryvideoPull();
-
-    }
-});
-
-} 
+ listdata()
 
 
-
-
-$(document).on("click", ".addItem", (e) => {
-
-$(".galleryVideoForm").append(`
-<div id="" class="row "  >
-<div   class="col-11  m-auto shadow  bg-light ">
-
-
-<input type="text" class=" form-self" name="itemLink[]" placeholder="youtube embed link" id="">
-
-<span type="button"  class="addItem input-group-text btn "><i class="fa-sharp fa-solid fa-plus"></i></span>
-<span type="button"  class="removeItemE input-group-text btn "><i class="fa-sharp fa-solid fa-xmark"></i></span>
-
-
-
-</div>
-</div>
-`)
-
-})
-
-
-
-
-
-$(document).on("click", ".removeItemE", (e)=>{
-    let thisItem= e.currentTarget.previousSibling.parentElement
-    
-    $(thisItem).remove()
- 
-    
-})
-
-
-
-
-$(".galleryVideoForm").on('submit', (event)=>{
-      event.preventDefault()
-
+$("#formdata").on('submit', (event)=>{
+      event.preventDefault()  
         $.ajax({
-            method: "post",
+        method: "post",
             url: "/admin/gallery/video/post",
-            data: $(".galleryVideoForm").serialize(),
+            data: $("#formdata").serialize(),
             dataType: "JSON",
-            beforeSend: function(){
-      $("#submitVideo").addClass("btn disabled")
+        beforeSend: function(){
+      $(".submitbtn").addClass("disabled")
+      _spin_pull()
             },
-            success: function (info) {
-                $("#submitVideo").removeClass("disabled")
-                _msg_pull('alert-success', 'Youtube link added!',  null)
-                 galleryvideoPull();
-
+            success: function (res) {
+                _spin_pop()
+                _reset_form()
+                _msg_pull(res.alert, res.msg)
+                $(".submitbtn").removeClass("disabled")
+                listdata()
+                
     
             }
         });
     
     })
 
+  
+    
+$('#formcheckout').on('submit', (event)=>{
+  event.preventDefault()
+  // const dataid= $('#formcheckout').serialize()
+  $.ajax({
+  method: "post",
+  url: "/admin/gallery/video/delete",
+  data: $('#formcheckout').serialize(),
+  dataType: "JSON",
+  success: function (response) {
+    _msg_pull(response.alert, response.msg)
+    listdata()
+  }
+});
+})
+
+
 
 </script>
 
 
-</body>
 </html>

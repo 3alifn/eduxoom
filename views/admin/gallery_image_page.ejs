@@ -1,128 +1,132 @@
-
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
-    <title>Image settings</title>
+    <title>Gallery Photos</title>
     <%- include("../component/metadata.html") %> 
-
-
 </head>
+
 
 <body onload="pageLoadingTop()">
 
     <%- include("../component/admin-header-nav.html") %> 
     <%- include("../component/admin-menu-nav.html") %> 
   
-  
-    <div id="main-content" class="main-content p-2 mt-5">
-        <div class="col">
 
-    <%-include("../component/modal-trigger.html") %> 
+<div id="main-content" class="main-content p-2 mt-5">
 
-<hr>
-    
-<!-- Button trigger modal -->
-<center>
-    <h1>Gallery Image </h1>
-    <button type="button" class="btn " data-toggle="modal" data-target="#modelImage">ADD Image</button>
-
-</center>
-
-
-<hr>
-
- <!-- Modal -->
- <div class="modal fade mt-5" id="modelImage" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Image</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
-            <div class="modal-body">
-                
-                <p class="card-text">Image Size upto 2mb.</p>
-
-                <form class="galleryImageForm"  method="post">
- 
-                    <input class="form-self w-100" type="text" name="itemTitle" placeholder="Catagory name" required id="">
-                   
-                    <label for="file">
-                        <h5  class="btn btn-light">Select Image</h5>
-                    </label>
-                    <input id="file" type="file" class="d-none file form-self" name="itemName[]" multiple required> <p></p>
-   
-                 
-                    <center>
-                        <input id="submit" class=" mb-2 w-50 btn btn-primary" type="submit" value="ADD">
-                    </center>
-
-
-                    
-                </form >
-
-                <div class="row">
-                    <div class="progress mb-2">
-                        <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 10%;" ></div>
-                    </div>
-                    
-                    <div id="file_append" class="col-auto file_append">
-                   
-                    </div>
-                </div>
-
-            </div>
-        
+    <!-- listdata for fetch data -->
+    <div  class="row p-2 mt-5">
+        <div class="col-11 shadowx m-auto">
+          <p class="p-2  fw-semibold fs-3 ">Gallery albums </p>
         </div>
-    </div>
- </div>
+   
 
+        <div class="col-md-10 shadowx col-12 p-1 m-auto">
+                  
+        <div class="d-flex justify-content-end me-2">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
+              class="btn link-success fw-semibold shadowx btn-go fw-500">Create a new album</button>
+          </div>
+          
+            <form id="formcheckout" action="#" method="get" onsubmit="return false">
+       
+                <ul class="d-flex flex-column list-unstyled  p-2">
+                    
+                  <li class="d-flex p-2 shadowx justify-content-start gap-2 align-items-center">
+                      <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id="">
+                      <button type="submit" class="bi shadowx p-1 ps-2 pe-2 checkoutpop bi-trash-fill btn btn-outline-warning">Delete forever</button>
+                  </li>
+                </ul>
 
-<div class="col-10">
-    <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-info"> 
-            <input style="transform: scale(1.5);" type="checkbox" class="check-mark">
-            <span class='ms-2'> Select Item </span>
-            <span class='float-end bi bi-trash-fill btn' onclick="_delbox_pull(1)">  </span>
-        </a>
-    </div>
- </div>
-
-
- <form action="#" class="galleryImageDelete">
-
-    <div class="row check-mark-area" id="listDataPrint">
-        
-
-    </div>
-
-</form>
+                <div id="listdata" class="d-flex m-1 check-mark-area list-unstyled gap-1 justify-content-start mt-5 mb-5 flex-wrap">
+              
+                </div>
+      
+      
+            </form>
   
+        </div>
+      </div>
+      
+      <!-- openform for create data -->
+      <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
+      
+          <div style="transform: scale(1);" class="col-md-10 me-auto modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 ">
+      
+            <form  id="formdata" action="#" method="post">
+         <input type="reset" class="resetform" style="display: none;">
+     
+                  <div class="col-11">
+                    <p class="p-2 text-muted text-center fw-semibold fs-5">My create form</p>
+                  </div>
+    
+                       
+                <div class="d-flex  p-2 justify-content-between align-items-center">
+                    <p class="w-25 fw-semibold">Heading </p>
+                    <code class="p-1">*</code> 
+                    <input required type="text" value=""  name="item_title" placeholder="heading here" class="w-75 shadowx form-dev form-control-sm" >
+                  </div>
+
+                  <div class="d-flex p-2 justify-content-between align-items-center">
+                    <p class="w-25 fw-semibold">Photos</p>
+                    <code class="p-1">*</code>
+                    <input multiple required name="images" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
+                  </div>
+                
+      
+                  <div class="d-flex  p-2 justify-content-between align-items-center">
+                    <p class="w-25 fw-semibold"></p>
+      
+                    <div class="images_append w-75">
+      
+           
+                      
+                    </div>
+      
+                  </div>        
+      
+                  <div class="d-flex justify-content-start p-2 mt-2 mb-2">
+
+                    <div class="progressbar p-1 mb-2 bg-success" style="height: 5px;width: 5px;"></div>
+
+                  </div> 
+                  
+                  <div class="d-flex justify-content-between p-2 mt-2 mb-2">
+                    <button type="button" data-bs-dismiss="modal" class="btn text-primary fw-semibold nav-fill btn-hover shadowx">Close</button>
+                    <button type="submit" class="btn text-primary fw-semibold submitbtn nav-fill btn-hover shadowx">Create and update</button>
+                  </div>
+      
+            </form>
+      
+          </div>
+      
+        
+      </div>
+  
+</div>
+
+
+
+</body>
+
+
+
 <%-include("../component/___node.html") %> 
 <script src="/app/___noviewport.js"></script>
 
 <script>
 
-$(".check-mark").click(function(){
-    $('.check-mark-area input:checkbox').not(this).prop('checked', this.checked);
-});
-
-
 noview.port({
-input_class: 'file',
- append_class: 'file_append', 
+input_class: 'images',
+ append_class: 'images_append', 
  file_type: 'image', 
  max_kb_size: 1024,
  multiple: true,
   })
     
-function galleryImagePull(){
-        
+function listdata(){
         $.ajax({
             method: "post",
             url: "/admin/gallery/image/get",
@@ -133,23 +137,24 @@ function galleryImagePull(){
 
             },
             success: function (info) {
-    
-                $("#listDataPrint").html(info.listData)
-                _spin_pop()
+            _spin_pop()
+                $("#listdata").html(info.listData)
+                $("#title").html(info.title)
+            
             }
         });
+
+        
     
     }
 
-galleryImagePull()
-    
+ listdata()
 
 
-
-$(".galleryImageForm").on('submit', (event)=>{
+$("#formdata").on('submit', (event)=>{
       event.preventDefault()
-      let formdata = new FormData($("form")[0])
-      $('#progressbar').css({'width': 1+'%'}).text();
+      let formdata = new FormData($("#formdata")[0])
+    $('.progressbar').css({'width': 1+'%'}).text();
   
         $.ajax({
             xhr: function() {
@@ -159,13 +164,13 @@ $(".galleryImageForm").on('submit', (event)=>{
             if (evt.lengthComputable) {
                 var percentComplete = (evt.loaded / evt.total) * 100;
                 
-                    $('#progressbar').css({'width': percentComplete+'%'}).text(percentComplete+'%')
+                    $('.progressbar').addClass('d-block').css({'width': percentComplete+'%'}).text(percentComplete+'%')
                     
             }
         }, false);
         return xhr;
     },
-            method: "post",
+        method: "post",
             url: "/admin/gallery/image/post",
             data: formdata,
              mimeType: "multipart/form-data",
@@ -173,53 +178,43 @@ $(".galleryImageForm").on('submit', (event)=>{
               processData: false,
               contentType: false,
                dataType: "JSON",
-       
         beforeSend: function(){
-      $("#submit").addClass("btn disabled")
+      $(".submitbtn").addClass("disabled")
       _spin_pull()
             },
-            success: function (info) {
+            success: function (res) {
                 _spin_pop()
-                _msg_pull( 'alert-success', 'Image added...', null)
-                $("#submit").removeClass("disabled")
-                galleryImagePull()
+                _reset_form()
+                _msg_pull(res.alert, res.msg)
+                $(".submitbtn").removeClass("disabled")
+                listdata()
+                
     
             }
         });
-
+    
     })
 
-
-
-function _delbox_push(ID){
+  
     
-    var imageIdLen= $(".galleryImageDelete input:checked").length;
-    var imageId= []
-    for (let index = 0; index < imageIdLen; index++) {
-        imageId.push($(".galleryImageDelete input:checked")[index].attributes[4].value);
-    }
-$.ajax({
-    type: "post",
-    url: "/admin/gallery/image/delete",
-    data: {imageId},
-    dataType: "JSON",
-    success: function (info) {
-       _msg_pull('alert-danger', 'Image Deleted!',  null)
-       galleryImagePull();
-
-    }
+$('#formcheckout').on('submit', (event)=>{
+  event.preventDefault()
+  // const dataid= $('#formcheckout').serialize()
+  $.ajax({
+  method: "post",
+  url: "/admin/gallery/image/delete",
+  data: $('#formcheckout').serialize(),
+  dataType: "JSON",
+  success: function (response) {
+    _msg_pull(response.alert, response.msg)
+    listdata()
+  }
 });
-
-} 
-
-
+})
 
 
 
 </script>
 
 
-
-
-</body>
 </html>
