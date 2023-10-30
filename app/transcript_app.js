@@ -202,10 +202,17 @@ exports.admin_transcript_pdf_page= ( req , res)=>{
   sqlmap.query(`SELECT student_uuid, roll FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' GROUP BY student_uuid ORDER BY ID`, (err, getStudent)=>{
     if(err) console.log(err.sqlMessage);
     if(getStudent.length>0){
-      res.render('admin/transcript-pdf-page', {className, sectionName, getStudent})
+      sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
+        if(errs) console.log(errs.sqlMessage);
+      else {
+        if(school.length>0){
+          res.render('admin/transcript-pdf-page', {className, sectionName, getStudent, sname: school[0].name, slogo: school[0].logo})
+        } else  res.render('admin/transcript-pdf-page', {className, sectionName, getStudent, sname: 'no name', slogo: 'logo.png'})
+      }
+    })
 
     }
-    else res.send('<center><h1>Not Report Found</h1></center>')
+    else res.redirect('/pages/empty.html')
   })
 
 
@@ -213,7 +220,7 @@ exports.admin_transcript_pdf_page= ( req , res)=>{
 
 
 exports.admin_transcript_pdf_get= ( req , res)=>{
-  const {className, sectionName, student_uuid}= req.body; 
+  const {className, sectionName, student_uuid, sname, slogo}= req.body; 
   teacher_bi_transcript_post_update(className, sectionName, student_uuid)
 
   const findStudent= `SELECT student_uuid, name, avatar, roll, pi, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'`
@@ -226,31 +233,40 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
 
   if(infoStudent.length>0){  
     
-
-
-        
     var infoChapter= ['PI-1','PI-2','PI-3','PI-4','PI-5', 'PI-6','PI-7','PI-8','PI-9','PI-10','PI-11','PI-12']
 
-   var student_card= `<div class=" row">
-     
-   <div class="card col-12 col-md-8 p-2">
-    <img class=" m-auto" width="60px" src="/image/default/resized/logo.png" alt="">
-      <center>
-        <h4 class="card-text school-name"></h4>
-      <h6 class="card-text">Transcript Report</h6>
-      </center>
-   </div>  
+   var student_card= `
    
-   <div class="card col-12 col-md-4 p-2">
-    <img class=" m-auto" width="100px" src="/image/student/${infoStudent[0].avatar}" alt="">
-    <div class=" m-auto"> <br>
-      <h6 class="card-text text-capitalize">${infoStudent[0].name } - ${infoStudent[0].roll }</h6>
-    </div>
-    </div>
+   <div class="row mt-3 page-break">
 
-  
+   <div class="col-11  shadowx m-auto p-2  position-relative">
+   
+     <div class="bg-card-color text-light p-2 rounded-top-5 rounded-start-5">
+       
+       <div class="d-flex text-uppercase align-items- justify-content-between">
+ 
+         <div class="flex-fill d-flex align-items-center">
+           <img  class="avatar-circle school-logo" style="width: 50px; height: 50px; border-radius: 100%;" src="/image/default/resized/${slogo}" alt="">
+           <h4 class="text-uppercase p-1 school-name">${sname}</h4>
+        
+         </div>
+       
+       
+     
+         <div class="d-flex flex-fill flex-column align-items-center justify-content-center">
+           <img class="avatar-circle p-1" style="width: 100px; height: 100px;" src="/image/student/resized/${infoStudent[0].avatar}" alt="">
+           <h6 class="text-uppercase text-center">${className} - ${sectionName} - ${infoStudent[0].roll} <br> ${infoStudent[0].name}</h6>
+         </div>
 
-</div>`
+         
+       </div>
+
+     </div>
+
+   </div>
+
+
+`
 
 
 
@@ -264,7 +280,7 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
 
 
   <div class="col-auto m-auto ">
-<center><caption><b>BI Perfomance</b></caption></center>
+<center class='p-2'><caption><b>BI Perfomance</b></caption></center>
   <table class=" table table-bordered">
 
       <thead  class="infoCatagory">
@@ -391,7 +407,7 @@ let report_card= `
 
 report_card+=student_card; report_card+=bi_perfomance; report_card+=transcript_report;
 
-report_card+=`</div></div>`
+report_card+=`</div></div></div>`
 
       res.send ({infoStudent, infoCatagory, infoSubject, student_uuid, className, sectionName, report_card})
 

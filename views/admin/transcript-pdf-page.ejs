@@ -19,7 +19,11 @@
 </style>
 <body onload='pageLoadingTop()'>
 
-  <center><button onclick="printArea()" class="btn btn-light disabled printAreaBtn">Get now pdf <span class="spinner-grow spinner-grow-sm"></span></button></center>
+  <div class="d-flex p-2 justify-content-center m-2">
+    <button onclick="printArea()" class="btn view-link ps-3 pe-3 fw-semibold text-primary printAreaBtn">Download pdf record</button>
+  </div>
+
+
 <div class="appenddata" id="printArea">
     
 </div>
@@ -49,25 +53,29 @@ function printArea(todo){
 const className= '<%=className%>'
 const sectionName= '<%=sectionName%>'
 _spin_pull()
+_spin_bar_pull()
   setTimeout(() => {
 var element = document.getElementById('printArea');
 
-   var opt = {
-        margin: 1,
+   var options = {
+    image: { type: 'jpeg', quality: 1 },
+    margin: [0, 0, 0, 0], //top, left, buttom, right,
         filename: `Transcript-${className}-${sectionName}.pdf`,
-        html2canvas: {
-           scale: 3
-        },
-        jsPDF: {
-           unit: 'px',
-           format: [1000, 1085],
-           orientation: 'portrait'
-        }
+        image: {type: 'jpeg',quality: 0.90},
+            html2canvas: {dpi: 192, scale: 2, letterRendering: true},
+            pagebreak: {mode: 'avoid-all'},
+            jsPDF: {unit: 'pt', format: 'a4', orientation: 'portrait'},
+            pagebreak: { after: '.page-break' },
+            pagesplit: true,
+            compressPDF: true,
+         
+
      };
-        html2pdf().set(opt).from(element).save();
        _spin_pop()
+       _spin_bar_pop()
   _msg_pull('alert-success', 'Download Successfully...', false)
- 
+  $('.printAreaBtn').removeClass('disabled');
+  html2pdf().set(options).from(element).save();
 
 
   }, 3000);
@@ -81,19 +89,19 @@ function transcript_pdf_get(){
   _spin_pull()
   const className= '<%=className%>'
  const sectionName= '<%=sectionName%>'
+ const sname= '<%=sname%>'
+ const slogo= '<%=slogo%>'
  var getLength= `<%=getStudent.length%>`
 for (let index = 0; index < getLength; index++) {
  const student_uuid= $('.getStudent'+index).val();
  if(getLength==index+1) {
   _spin_pop()
-  $('.printAreaBtn').removeClass('disabled')
-  $('.printAreaBtn span').removeClass('spinner-grow')
 
  }
   $.ajax({
     type: "post",
     url: "/admin/transcript/pdf-get",
-    data: {className, sectionName, student_uuid},
+    data: {className, sectionName, student_uuid, sname, slogo},
     dataType: "JSON",
     success: function (res) {
       $('.appenddata').append(res.report_card);
