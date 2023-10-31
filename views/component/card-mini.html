@@ -12,18 +12,18 @@
 
 
      <center>
-       <img class="card-mini-avatar rounded bg-card-color card-demo-color" width="250px" height="200px" src="#" alt="">
+       <img class="card-mini-avatar rounded bg-card-color-light" width="200px" height="150px" src="#" alt="">
 
      </center>
      
-     <div class="ms-2 mt-1 card-mini-body">
+     <div class="ms-2 mt-1 card-mini-body fw-semibold">
        
       
  
     
      </div>
 
-     <button type="button" class="btn btn-light card-mini-cancel" data-bs-dismiss="modal">Close</button>
+     <button type="button" class="btn btn-link fw-semibold card-mini-cancel" data-bs-dismiss="modal">Close</button>
  </div>
 </div>
 </div>
@@ -40,7 +40,7 @@
  </button>
  
 <!-- Modal -->
-<div class="modal fade" id="card-text" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >
+<div class="modal" id="card-text" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >
 <div class="modal-dialog modal-dialog-centered">
  <div class="modal-content m-auto ">
      
@@ -49,7 +49,7 @@
       
      </div>
 
-     <button type="button" class="btn btn-light card-text-cancel" data-bs-dismiss="modal">Close</button>
+     <button type="button" class="btn btn-link fw-semibold card-text-cancel" data-bs-dismiss="modal">Close</button>
  </div>
 </div>
 </div>
@@ -59,6 +59,14 @@ function card_mini_trigger(){
  $('.card-mini-trigger').click
  ()
 }  function card_mini_trigger(){
+ $('.card-text-trigger').click
+ ()
+}
+
+function card_text_trigger(){
+ $('.card-mini-trigger').click
+ ()
+}  function card_text_trigger(){
  $('.card-text-trigger').click
  ()
 }

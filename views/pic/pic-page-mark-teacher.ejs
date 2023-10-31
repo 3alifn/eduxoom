@@ -37,7 +37,8 @@
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
             background: #432121;
-}</style>
+}
+</style>
 <body onload="pageLoadingTop()">
 
     <%- include("../component/user-header-nav.html") %> 
@@ -49,7 +50,7 @@
     <div class="col-10 col-md-6 mt-2 m-auto" >
         <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
     
-        <center>
+        <center class="p-2">
             <span class="bg-light badge fs-5 text-dark">PIC - <%=className%> - <%=sectionName%> - <%=subject%></span>
         </center>
 
@@ -70,15 +71,10 @@
 
                 <% for( let i = 0; i < infoStudent.length; i++ ) { %>
                  <tr>
-               
-  
-                <td><img width="90px" class="bg-demo-img-color" src="/image/student/resized/<%=infoStudent[i].avatar%>" alt="">
-                    <small><%=infoStudent[i].roll%> - <%=infoStudent[i].name%> </small> 
-                </td>
     
                 <% for( let index = 0; index <infoChapter.length; index++ ) { %>
                     <td > 
-                         <i><%=infoChapter[index]%></i> <br>
+                         <b><%=infoChapter[index]%></b> <br>
                         <small class="badge bg-light text-dark"><%=infoStudent[i].name%> - <%=infoStudent[i].roll%> <i data-id="<%=infoStudent[i].student_uuid%>"  title="profile" onclick="infoStudent('<%=infoStudent[i].student_uuid%>')" class="bi bi-info-circle btn p-0 infoStudent"></i></small> 
                         <div class="form-check checkout_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%> m-0 p-0 form-switch d-flex btn ">
                     
@@ -107,7 +103,7 @@
       
       <!--  pagination section -->
 
-<div class="row">
+<div class="row p-2">
   <div class="col-11 col-md-8 m-auto" style="position: relative; overflow-x: scroll;">
 
       <nav aria-label="...">

@@ -43,9 +43,10 @@ exports.teacher_student_info= (req, res)=>{
     if(err) console.log(err.sqlMessage);
     const avatar= info[0].avatar
     const data= `
-    <p>Name: ${info[0].name}</p>
-    <p>Roll: ${info[0].roll}</p>
-    <p>SID: ${info[0].student_id}</p>
+    <center class='p-2'>
+    <b>${info[0].name}</b> <br>
+    <b>( ${info[0].roll} )</b>
+    </center>
     `
     res.send({avatar, data})
   })

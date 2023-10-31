@@ -241,7 +241,7 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
 
    <div class="col-11  shadowx m-auto p-2  position-relative">
    
-     <div class="bg-card-color text-light p-2 rounded-top-5 rounded-start-5">
+     <div class="bg-card-color-light text-dark p-2 rounded-top-5 rounded-start-5">
        
        <div class="d-flex text-uppercase align-items- justify-content-between">
  

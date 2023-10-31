@@ -12,19 +12,26 @@
     
 </head>
 <style>
-  a{
-    text-decoration: none;
-  }
+    .row a
+    {
+        text-decoration: none;
+        
+    }
+    .row .card-body{
+        background-color: #F5F4F8 !important;
+    
+        color: #754FFE ;
+    }
 </style>
 <body onload="pageLoadingTop()">
     <%- include("../component/user-header-nav.html") %> 
     <%- include("../component/teacher-offcanvas-nav.html") %> 
 
-    <center>
-        <legend>BI report system</legend>
-    </center>
 
-    <div class="row mt-5 mbx p-2 shadowx" id="class_section_link">
+    <center class="mt-5 p-2">
+      <legend>BI report system</legend>
+  </center>
+    <div class="row mt-3 mbx p-2 shadowx" id="class_section_link">
 
         <center>
             <button id="classSixbtn" class="btn-self mt-3 dropdown-toggle w-50">ষষ্ঠ শ্রেণী</button>

@@ -45,16 +45,15 @@
     <%- include("../component/user-header-nav.html") %> 
     <%- include("../component/teacher-offcanvas-nav.html") %> 
     <%- include("../component/card-mini.html") %> 
-    <%- include("../component/card-text.html") %> 
 
 <!-- heading section -->
-<div class="row mt-5 mbx p-2 shadowx">
+<div class="row mt-5 p-2 shadowx">
   <div class="col-11 col-md-6 mt-2 m-auto">
         <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
     
     </div>
         
-    <center>
+    <center class="p-2">
         <span class="bg-light badge fs-5 text-dark"><%=className%> - <%=sectionName%></span>
     </center>
 
@@ -73,10 +72,6 @@
 <tr>
 
 
-        <td><img width="90px" class="bg-demo-img-color" src="/image/student/resized/<%=infoStudent[i].avatar%>" alt="">
-            <small><%=infoStudent[i].roll%> - <%=infoStudent[i].name%> </small> 
-        </td>
-
         <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
             <td > 
 
@@ -84,7 +79,7 @@
 
          <p></p>
                 
-              <small class="badge bg-light text-dark"><%=infoStudent[i].name%> - <%=infoStudent[i].roll%> <i title="profile" onclick="infoStudent('<%=infoStudent[i].ID%>')" class="bi bi-info-circle btn p-0 infoStudent"></i></small> 
+              <small class="badge bg-light text-dark"><%=infoStudent[i].name%> - <%=infoStudent[i].roll%> <i title="profile" onclick="infoStudent('<%=infoStudent[i].student_uuid%>')" class="bi bi-info-circle btn p-0 infoStudent"></i></small> 
               <div class="form-check checkout_<%=infoStudent[i].student_uuid%><%=infoCatagory[index].catagory_code%> m-0 p-0 form-switch d-flex btn ">
             
                              
@@ -138,7 +133,7 @@
       </div>
 
       
-      <%- include("../component/___node.html") %> 
+<%- include("../component/___node.html") %> 
 
 </body>
 <script>
@@ -149,7 +144,6 @@ $.ajax({
   data: {ID},
   dataType: "JSON",
   success: function (res) {
-    
     $('.card-text-body').html(res.data)
     $('.card-text-trigger').click()
   }
@@ -157,11 +151,11 @@ $.ajax({
 
     }
 
-    function infoStudent(ID){
+function infoStudent(student_uuid){
 $.ajax({
   type: "post",
   url: "/teacher/student/info/",
-  data: {ID},
+  data: {student_uuid},
   dataType: "JSON",
   success: function (res) {
     
