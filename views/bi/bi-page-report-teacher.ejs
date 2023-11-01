@@ -8,12 +8,39 @@
 
 </head>
 <style>
+   body {
+    overflow-x: hidden;
+  }
     thead th, tbody td{
     border-right: 1px solid black;
     }
     thead th{
     position:sticky; top: -1px;background: white; z-index: 1020;
   }
+
+      /* Designing for scroll-bar */
+      ::-webkit-scrollbar {
+            width: 5px;
+        }
+     
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: gainsboro;
+            border-radius: 5px;
+        }
+     
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background: #432121;
+
+        }
+     
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #432121;
+}
+
 </style>
 <body onload="pageLoadingTop()">
 
@@ -23,26 +50,24 @@
 
     <!-- heading section -->
     <div class="row mt-5 mbx p-2 shadowx">
+      <center>
+        <span class="bg-light badge fs-5 text-dark"><%=className%> - <%=sectionName%></span>
+    </center>
+    
       <div class="col-11 col-md-6 mt-2 m-auto">
         <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
     
     </div>
         
-    <center>
-        <span class="bg-light badge fs-5 text-dark"><%=className%> - <%=sectionName%></span>
-    </center>
+  
 
 </div>
 
-<div  style="width: 100%; overflow-x: scroll;">
-
-    <div class="row">
-
-        
-        <div   class="col-11 m-auto ">
+<div style="width: 98% !important; overflow: auto; transform: rotateX(180deg);" class="row mt-2 m-auto" >
 
 
-        <table class=" table table-bordered table-hover">
+  <table style="transform: rotateX(180deg);"  class="table table-hover">
+
 
             <thead  class="table-success ">          
                 <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
@@ -83,9 +108,7 @@
     
         </table>
     
-    
-        </div>
-      </div>
+   
       </div>
 
 

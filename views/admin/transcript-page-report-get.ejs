@@ -13,10 +13,9 @@
     vertical-align:baseline !important;
 }
   tbody, td, tfoot, th, thead, tr {
-    border-color: inherit;
+    border-color: black;
     border-style: solid;
-    border-width: 3 !important;
-    text-align: center;
+    border-width: 1 !important;
 }
 </style>
 <body onload='pageLoadingTop()'>
@@ -27,14 +26,16 @@
 
   <div id="main-content" class="p-2 main-content mt-5 row">
 
-    <div class="btn-section-top mt-3 mb-3">
-      <center>
-        <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"  class="  btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a> 
-        <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a> 
-        <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"  class="  btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a> 
-    
-        
-    </center>
+    <div class="btn-section-top mb-3">
+      <center class="mt-5  p-2 text-primary fw-semibold">
+        <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"
+          class="view-link p-0 ps-2 pe-2 btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a>
+        <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"
+          class="view-link p-0 ps-2 pe-2 btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a>
+        <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"
+          class="view-link p-0 ps-2 pe-2 btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a>
+
+      </center>
     </div>
 
 
@@ -42,37 +43,46 @@
 
 <div id="btnSection" class="mb-2 btn-section-bottom">
   <center> <input class="student_uuid" type="hidden" value="<%=student_uuid%>" name="">
-   <button  class="btn droppedResult btn-danger">অনউত্তীর্ণ</button> 
-   <button  class="btn passedResult btn-success">উত্তীর্ণ</button> 
-   <a href="/admin/transcript/report-get/<%=className%>/<%=sectionName%>/auto?student_offset=<%=offsetPlus%>" class="btn <%=btnstatus%> btn-primary">পর্রবতী</a> 
-
-   <button class="btn btn-light printAreaBtn" onclick="printArea()">Download</button>
+   <button  class="btn disabled p-0 ps-2 pe-2 droppedResult btn-danger">অনউত্তীর্ণ</button> 
+   <button  class="btn disabled p-0 ps-2 pe-2 passedResult btn-success">উত্তীর্ণ</button> 
+   <a href="/admin/transcript/report-get/<%=className%>/<%=sectionName%>/auto?student_offset=<%=offsetPlus%>" class="btn p-0 ps-2 pe-2 <%=btnstatus%> btn-primary">পর্রবতী</a> 
 
   </center>
 </div>
 
+<div class="d-flex p-2 justify-content-center m-2">
+  <button onclick="printArea()" class="btn view-link ps-3 pe-3 fw-semibold text-primary printAreaBtn">Download pdf record</button>
+</div>
 
     <div id="printArea">
-
-      
     
     <div class=" row">
      
-       <div class="card col-12 col-md-8 p-2">
-        <img class="append-logo m-auto" width="60px" src="/image/demo/logo.png" alt="">
-          <center>
-            <h4 class="card-text append-name"></h4>
-          <h6 class="card-text">Transcript Report</h6>
-          </center>
-       </div>  
-       
-       <div class="card col-12 col-md-4 p-2">
-        <img class=" m-auto" width="100px" src="/image/student/resized/<%=infoStudent[0].avatar%>" alt="">
-        <div class=" m-auto"> <br>
-          <h6 class="card-text text-capitalize"><%=infoStudent[0].name %> - <%=infoStudent[0].roll %></h6>
+      <div class="col-11  shadowx m-auto p-2  position-relative">
+   
+        <div class="bg-card-color-light text-dark p-2 rounded-top-5 rounded-start-5">
+          
+          <div class="d-flex text-uppercase align-items- justify-content-between">
+    
+            <div class="flex-fill d-flex align-items-center">
+              <img  class="avatar-circle school-logo" style="width: 50px; height: 50px; border-radius: 100%;" src="/image/default/resized/<%=slogo%>" alt="">
+              <h4 class="text-uppercase p-1 school-name"><%=sname%></h4>
+           
+            </div>
+          
+          
+        
+            <div class="d-flex flex-fill flex-column align-items-center justify-content-center">
+              <img class="avatar-circle p-1" style="width: 100px; height: 100px;" src="/image/student/resized/<%=infoStudent[0].avatar%>" alt="">
+              <h6 class="text-uppercase pt-2 text-center"><%=className%> - <%=sectionName%> - <%=infoStudent[0].roll%> <br> <%=infoStudent[0].name%></h6>
+            </div>
+   
+            
+          </div>
+   
         </div>
-        </div>
-
+   
+      </div>
       
   
     </div>
@@ -92,7 +102,7 @@
 
 
   <div class="col-auto m-auto ">
-<center><caption><b>BI Perfomance</b></caption>
+<center class="p-2"><caption><b>BI Perfomance</b></caption>
   </center>
   <table class=" table table-bordered">
 
@@ -201,64 +211,45 @@
 
 <script>
 
-(function(){
-  $.ajax({
-    method: "get",
-    url: "/pu/school/get/",
-    data: {},
-    dataType: "JSON",
-    success: function (res) {
-
-      $(".append-name").text(res.info_school[0]==undefined?null:res.info_school[0].name)
-      $(".append-logo").attr( 'href', `/image/default/resized/${res.info_school[0]==undefined?null:res.info_school[0].logo}`)
-
-  
-    }
-  });
-  }())
-    
-  
-
-  function printArea(todo){
+function printArea(todo){
  $('.printAreaBtn').addClass('disabled');
   $('.mainApp').css('overflow-x', 'visible');
   $('.btn-section-top').hide();
   $('.btn-section-bottom').hide();
-  
 
 const className= '<%=className%>'
 const sectionName= '<%=sectionName%>'
 const student_uuid= '<%=student_uuid%>'
+
 _spin_pull()
+_spin_bar_pull()
   setTimeout(() => {
 var element = document.getElementById('printArea');
 
-   var opt = {
-        margin: 1,
-        filename: `Transcript-${className}-${sectionName}-${-student_uuid}.pdf`,
-        html2canvas: {
-           scale: 2
-        },
-        jsPDF: {
-           unit: 'pt',
-           format: 'tabloid',
-           orientation: 'p'
-        }
+   var options = {
+    image: { type: 'jpeg', quality: 1 },
+    margin: [0, 0, 0, 0], //top, left, buttom, right,
+    filename: `Transcript-${className}-${sectionName}-${-student_uuid}.pdf`,
+        image: {type: 'jpeg',quality: 0.90},
+            html2canvas: {dpi: 192, scale: 2, letterRendering: true},
+            pagebreak: {mode: 'avoid-all'},
+            jsPDF: {unit: 'pt', format: 'a4', orientation: 'portrait'},          
+            compressPDF: true,
+         
+
      };
-        html2pdf().set(opt).from(element).save();
        _spin_pop()
+       _spin_bar_pop()
   _msg_pull('alert-success', 'Download Successfully...', false)
- 
-  setTimeout(() => {
+  $('.printAreaBtn').removeClass('disabled');
+  html2pdf().set(options).from(element).save();
   $('.btn-section-top').show()
   $('.btn-section-bottom').show()
-  }, 1000);
 
   }, 3000);
 
   
 }
-
 
 
 function student_checkout_class() {

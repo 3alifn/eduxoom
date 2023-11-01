@@ -96,7 +96,14 @@ AND student_uuid='${student_uuid}' AND transcript_name='full'`
  if(errStudent) console.log(errStudent.sqlMessage);
 
   if(infoStudentHalf || infoStudentFull){
-      res.render('transcript/transcript-page-report-get-privet', {infoStudentHalf, infoStudentFull, infoCatagory, infoStudent, infoSubject, student_uuid, className, sectionName})
+    sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
+      if(errs) console.log(errs.sqlMessage);
+    else {
+      if(school.length>0){
+        res.render('transcript/transcript-page-report-get-privet', {infoStudentHalf, infoStudentFull, infoCatagory, infoStudent, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
+      } else  res.render('transcript/transcript-page-report-get-privet', {infoStudentHalf, infoStudentFull, infoCatagory, infoStudent, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
+    }
+  })
   }
   else res.redirect('/pages/empty.html')
 
@@ -177,8 +184,18 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
     const student_uuid= infoStudent[0].student_uuid; 
     if(info_row.length==parseInt(offset)+1) var btnstatus= 'disabled'; else var btnstatus=''; if(init_student=='auto') var offsetPlus= parseInt(offset)+1; else var offsetPlus= 0;  
     teacher_bi_transcript_post_update(className, sectionName, student_uuid)
-      res.render('admin/transcript-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName})
-  }
+      
+ 
+      sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
+        if(errs) console.log(errs.sqlMessage);
+      else {
+        if(school.length>0){
+          res.render('admin/transcript-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
+        } else  res.render('admin/transcript-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
+      }
+    })
+ 
+    }
   else res.redirect('/pages/empty.html')
 
 
@@ -255,7 +272,7 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
      
          <div class="d-flex flex-fill flex-column align-items-center justify-content-center">
            <img class="avatar-circle p-1" style="width: 100px; height: 100px;" src="/image/student/resized/${infoStudent[0].avatar}" alt="">
-           <h6 class="text-uppercase text-center">${className} - ${sectionName} - ${infoStudent[0].roll} <br> ${infoStudent[0].name}</h6>
+           <h6 class="text-uppercase pt-2 text-center">${className} - ${sectionName} - ${infoStudent[0].roll} <br> ${infoStudent[0].name}</h6>
          </div>
 
          

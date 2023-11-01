@@ -143,7 +143,17 @@ exports.privet_pic_report_get= ( req , res)=>{
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData){
       const infoStudent= infoStudentData;
-      res.render('pic/pic-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName})
+
+      sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
+        if(errs) console.log(errs.sqlMessage);
+      else {
+        if(school.length>0){
+          res.render('pic/pic-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
+        } else  res.render('pic/pic-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
+      }
+    })
+
+      
   }
   else res.redirect('/pages/empty.html')
 

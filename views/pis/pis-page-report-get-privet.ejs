@@ -38,37 +38,40 @@
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
             background: #432121;
-}</style>
+}
+
+
+</style>
 <body onload="pageLoadingTop()">
   <%- include("../component/user-header-nav.html") %> 
   <%- include("../component/offcanvas-nav.html") %> 
 
- <p></p>
 
-    <center class="fw-semibold">
-     <h5> PIS Result Card</h5>  <small><%=infoStudent[0].roll%> - <%=infoStudent[0].name%> </small> 
-
-    </center>
+  <div class="row mt-5 mbx p-2 fw-semibold shadowx">
 
 
-  <div class="row p-2 shadowx">
-      <div class="col-10 col-md-6 mt-2 m-auto">
-         <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
-                 
-   </div>
-   <script>
-   
-   $(document).ready(function(){
-     $("#search").keyup(function() {
-       var value = $(this).val().toLowerCase();
-       $("tbody tr").filter(function() {
-          
-         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    <div class="col-11  shadowx m-auto p-2  position-relative">
+      <center>
+        <h4 class="p-2">PIS RESULT CARD</h4>
+      </center>
+
+      <div class="bg-card-color-light text-dark p-2 rounded-top-5 rounded-start-5">
         
-       });
-     });
-   });
-   </script>
+      
+        <div class="d-flex text-uppercase align-items- justify-content-center">
+      
+    
+          <div class="d-flex flex-fill flex-column align-items-center justify-content-center">
+            <img class="avatar-circle p-1" style="width: 100px; height: 100px;" src="/image/student/resized/<%=infoStudent[0].avatar%>" alt="">
+            <h6 class="text-uppercase pt-2 text-center"><%=className%> - <%=sectionName%> - <%=infoStudent[0].roll%> <br> <%=infoStudent[0].name%></h6>
+          </div>
+  
+          
+        </div>
+  
+      </div>
+  
+    </div>
   
   <div style="width: 98% !important; overflow: auto; transform: rotateX(180deg);" class="row mt-2 m-auto" >
 
@@ -103,7 +106,7 @@
 
 <% for( let index = 0; index <infoChapter.length; index++ ) { %>
     <td > 
-      <i><%=infoChapter[index]%></i> <br>
+      <b><%=infoChapter[index]%></b> <br>
 
         <div class="form-check checkout_<%=student_uuid%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> m-0 p-0 form-switch d-flex btn ">
                     
