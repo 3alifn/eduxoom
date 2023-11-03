@@ -264,7 +264,7 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
  
          <div class="flex-fill d-flex align-items-center">
            <img  class="avatar-circle school-logo" style="width: 50px; height: 50px; border-radius: 100%;" src="/image/default/resized/${slogo}" alt="">
-           <h4 class="text-uppercase p-1 school-name">${sname}</h4>
+           <h5 class="text-uppercase p-1 school-name">${sname}</h5>
         
          </div>
        
@@ -293,10 +293,10 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
 
  var bi_perfomance= `
 
-<div class="row" style="width: 100%; overflow-x: auto;">
+<div class="row p-2" style="width: 100%; overflow-x: auto;">
 
 
-  <div class="col-auto m-auto ">
+  <div class="col-11 p-2 m-auto ">
 <center class='p-2'><caption><b>BI Perfomance</b></caption></center>
   <table class=" table table-bordered">
 
@@ -354,8 +354,8 @@ bi_perfomance+= `<td >
 `
 
   
-var transcript_report= `<div class="row" style="width: 100%; overflow-x: auto;">
-  <div class="col-auto m-auto" id="mainApp">
+var transcript_report= `<div class="row p-2" style="width: 100%; overflow-x: auto;">
+  <div class="col-11 p-2 m-auto" id="mainApp">
 
   <center><caption clas><b>Transcript report</b></caption></center>
     <table class=" table table-bordered mt-2">
