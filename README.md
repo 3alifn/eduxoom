@@ -1,20 +1,23 @@
 # SAANVI S1
-
-# School management software
+## HIGH SCHOOL MANAGEMENT SOFTWARE
 ### code by 3alifn
 
-## Features
-
-### Teacher settings
-### Student settings
-### Parent settings
-### Library settings
-### Gallery settings
-### Routine settings
-### Subject settings
-### Notice settings
-### Admission system
-### Application system
-### Student Rank system
-### Transcript result system
+## Features of S1
+# teacher system
+# student system
+# parent system
+# library system
+# gallery system
+# routine system
+# subject system
+# notice system
+# admission system
+# application system
+# student rank system
+# transcript result (bi, pic, pis) system
+# reposiitory (achievement, facilities, event news)
+# head of school (governing body)
+# school settings
+# staff settings
+# task system => comming soon
 
