@@ -164,10 +164,11 @@ exports.public_notice_get= (req, res)=>{
 
     <a class="text-truncate btn-hover p-3 mt-2 fs-6 fw-semibold page-link"
     href="/pu/notice/view/${info[key].ID}">
-     ${info[key].at_date.toString().substring(0, 25)} |
-     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio fugiat tempore sapiente. Animi iste, excepturi quasi, fugiat sequi praesentium unde rerum facere velit deserunt soluta, doloremque dolorum eius possimus corrupti!
-
-    <span class="text-truncate p-2">${info[key].description}</span>
+    <span class="text-truncate text-danger p-2">${info[key].at_date.toString().substring(0, 25)}</span>
+    <br>
+    <span class="text-truncate text-primary p-2">${info[key].title}</span>
+    <br>
+    <small class="text-truncate p-2">${info[key].description}</small>
 
   </a>
 
