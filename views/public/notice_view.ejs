@@ -4,8 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notice view</title>
     <%- include("../component/metadata.html") %>
-    
-    </head>
+</head>
 <body onload="pageLoaded()">
 
   <%- include("../component/header-nav.html") %>
@@ -45,19 +44,20 @@
              </div>
 
           <% if(info[0].attachment_type=='application/pdf') {%>
-            <object
+            <object 
             data="/docs/notice/<%=info[0].attachment%>"
             type="application/pdf"
             width="100%"
             height="600px"
             aria-labelledby="PDF document"
+            
           >
        
           </object>
 
             <% } else {%>
-              <div class="col-md-5 p-1 col-12 p-2">
-                <a href="/docs/notice/<%=info[0].attachment%>">
+              <div  class="col-md-5 p-1 col-12 p-2">
+                <a download="false" href="/docs/notice/<%=info[0].attachment%>">
                   <img width="100%" height="300px" class=" p-2 img-thumbnail bg-card-color-light append-image"  src="/docs/notice/<%=info[0].attachment%>" alt="">
                 </a>
               </div>

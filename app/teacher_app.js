@@ -108,6 +108,7 @@ exports.self_img_post= async(req, res)=>{
      }
   
      sqlmap.query(`UPDATE teachers SET avatar='${req.file.filename}' WHERE domain='${req.hostname}' AND ID=${userid}`, (err, next)=>{
+      // console.log(req.file.filename);
          if(err) console.log(err.sqlMessage);
          else   res.send({msg: 'Update successfully!', alert: 'alert-success'})
      })

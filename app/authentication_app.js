@@ -33,7 +33,6 @@ exports.authentication_check = (req, res)=>{
             {
                 req.session.userid= info[0].ID;
                 req.session.user= "student";
-                req.session.avatar= `/image/student/resized/${info[0].avatar}`;
                 req.session.student_uuid= info[0].student_uuid;
                 req.session.userAccess= "privet"
                 req.session.className= info[0].class;
@@ -53,8 +52,6 @@ exports.authentication_check = (req, res)=>{
                 req.session.userid= info[0].ID;
                 req.session.teacher_uuid= info[0].teacher_uuid;
                 req.session.user= "teacher"
-                req.session.avatar= `/image/teacher/resized/${info[0].avatar}`;
-
                 req.session.userAccess= "privet"
                 req.session.userName= info[0].name;
                 req.session.userEmail= info[0].email;
@@ -72,7 +69,6 @@ exports.authentication_check = (req, res)=>{
               req.session.userid= info[0].ID;
               req.session.parent_uuid= info[0].parent_uuid;
                 req.session.user= "parent"
-                req.session.avatar= `/image/parent/resized/${info[0].avatar}`;
 
                 req.session.userAccess= "privet"
                 req.session.userName= info[0].name;
@@ -244,35 +240,42 @@ exports.reset_password= (req, res)=>{
 
 
 exports.au_user_header_nav= (req, res)=>{
-  const avatar= req.session.avatar;
-  
-    if(req.session.userAccess==='privet'){
-  
-      if(req.session.hashUser=='hashAdmin'){
-        res.send({profile: '/admin/account/', dashboard: '/admin/dashboard/', avatar:avatar})
+ var userType= req.session.user+'s';
+  sqlmap.query(`SELECT avatar FROM ${userType} WHERE ID=${req.session.userid}`, (err, info)=>{
+    if(err) console.log(err.sqlMessage);
+    else {
+      const avatar= info[0].avatar;
 
-      }
+      if(req.session.userAccess==='privet'){
   
-      else if(req.session.user=='teacher') {
+        if(req.session.hashUser=='hashAdmin'){
+          res.send({profile: '/admin/account/', dashboard: '/admin/dashboard/', avatar:'/image/admin/'+avatar})
+  
+        }
     
-        res.send({profile: '/teacher/account/', dashboard: '/teacher/dashboard/', avatar:avatar})
-
+        else if(req.session.user=='teacher') {
+      
+          res.send({profile: '/teacher/account/', dashboard: '/teacher/dashboard/', avatar:'/image/teacher/resized/'+avatar})
+  
+        }
+    
+        else if(req.session.user=='student'){
+    
+          res.send({profile: '/student/account/', dashboard: '/student/dashboard/', avatar:'/image/student/resized/'+avatar})
+  
+          
+        }
+    
+        else if(req.session.user=='parent'){
+          res.send({profile: '/parent/account/', dashboard: '/parent/dashboard/', avatar:'/image/parent/resized/'+avatar})
+  
+        }
+       
       }
   
-      else if(req.session.user=='student'){
-  
-        res.send({profile: '/student/account/', dashboard: '/student/dashboard/', avatar:avatar})
-
-        
-      }
-  
-      else if(req.session.user=='parent'){
-        res.send({profile: '/parent/account/', dashboard: '/parent/dashboard/', avatar:avatar})
-
-      }
-     
     }
-
+  })
+   
   }
 
 

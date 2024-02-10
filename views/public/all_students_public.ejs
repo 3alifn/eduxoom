@@ -28,7 +28,7 @@
 
 
 
-<div class="d-flex p-2 mt-5 mbx row-gap-5 justify-content-center column-gap-2 flex-wrap ">
+<div class="d-flex p-2 mt-5 mbx row-gap-5 element justify-content-center column-gap-2 flex-wrap ">
 
   <% if (info.length>0) { %>
    
@@ -123,14 +123,12 @@ window.onscroll = function(ev) {
 function pullPaginationOrder(){
   requestPageOffset++;
   callingAjax()
-
     function callingAjax(){
         $.ajax({
             method: 'post',
-            url: `/pu/student/resized/pagination/`,
+            url: `/pu/student/pagination/`,
             data: {className, sectionName,  requestPageOffset},
             dataType: "JSON",
-
             success: function (response) {
            if(response.orderData){
              $('.element').append(response.orderData)
