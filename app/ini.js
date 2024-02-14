@@ -26,7 +26,7 @@ module.exports= {
                      } else res.send({status: true, msg: `domain not found!`})
                  })
                 
-         }  else res.send({status: false, msg: 'Ini key not currect!'})
+         }  else res.send({status: false, msg: 'Ini key is not currect!'})
         
     
     },
@@ -65,7 +65,7 @@ module.exports= {
                     })
                    
                 // } ___ini_dll()
-            }  else res.send({status: false, msg: 'Ini key not currect!'})
+            }  else res.send({status: false, msg: 'Ini key is not currect!'})
            
 
     },
@@ -87,7 +87,7 @@ module.exports= {
                  })
                 
             //  } ___ini_dll()
-         }  else res.send({status: false, msg: 'Ini key not currect!'})
+         }  else res.send({status: false, msg: 'Ini key is not currect!'})
         
 
  },   
@@ -118,7 +118,7 @@ module.exports= {
                  })
                 
             //  } ___ini_dll()
-         }  else res.send({status: false, msg: 'Ini key not currect!'})
+         }  else res.send({status: false, msg: 'Ini key is not currect!'})
         
 
  },
@@ -145,7 +145,7 @@ module.exports= {
              })
             
         //  } ___ini_dll()
-     }  else res.send({status: false, msg: 'Ini key not currect!'})
+     }  else res.send({status: false, msg: 'Ini key is not currect!'})
     
 
 },
