@@ -11,7 +11,15 @@
 
 </head>
 
+<style>
+    .findcard:hover{
+    transform: scale(1.05);
 
+  }
+  .findcard{
+    transition: all 500ms;
+  }
+</style>
 
 <body onload="pageLoadingTop()">
  
@@ -31,7 +39,7 @@
 
             <% for( let index = 0; index < info.length; index++ ) { %>
 
-              <div  class="flex-fill shadowx  p-1 flex-md-grow-0 ms-3 ms-md-0 " >
+              <div  class="flex-fill findcard shadowx  p-1 flex-md-grow-0 ms-3 ms-md-0 " >
                 <a href="/pu/gallery/video/data/<%=info[index].data_id%>" class="fs-3 p-2  page-link text-center text-three-line bg-light fw-semibold">
                 <div style="width: 300px; height: 300px;" class="d-flex justify-content-start flex-column">
                  <iframe class='video-scope bg-card-color-light' src="<%=info[index].item_name.replace("watch?v=", "embed/")%>/iframe>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

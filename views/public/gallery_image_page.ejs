@@ -10,6 +10,16 @@
 
 </head>
 
+<style>
+    .findcard:hover{
+    transform: scale(1.05);
+
+  }
+  .findcard{
+    transition: all 500ms;
+  }
+</style>
+
 <body onload="pageLoadingTop()">
  
     <%- include("../component/header-nav.html") %> 
@@ -28,7 +38,7 @@
 
             <% for( let index = 0; index < info.length; index++ ) { %>
 
-              <div  class="flex-fill shadowx  p-1 flex-md-grow-0 ms-3 ms-md-0 " >
+              <div  class="flex-fill shadowx findcard p-1 flex-md-grow-0 ms-3 ms-md-0 " >
                 <a href="/pu/gallery/image/data/<%=info[index].data_id%>" class="fs-3 p-2  page-link text-center text-three-line bg-light fw-semibold">
                 <div style="width: 300px; height: 300px;" class="d-flex justify-content-start flex-column">
                  <img class="h-50 w-100" src="/image/gallery/resized/<%=info[index].item_name%>" alt="">

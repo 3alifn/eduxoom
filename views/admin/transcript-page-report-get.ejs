@@ -1,365 +1,1695 @@
-
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transcript Report</title>
-    <%- include("../component/metadata.html") %> 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcript Report</title>
+  <%- include("../component/metadata.html") %>
 
 </head>
 <style>
   table>thead {
-    vertical-align:baseline !important;
-}
-  tbody, td, tfoot, th, thead, tr {
+    vertical-align: baseline !important;
+  }
+
+  tbody,
+  td,
+  tfoot,
+  th,
+  thead,
+  tr {
     border-color: black;
     border-style: solid;
     border-width: 1 !important;
-}
+  }
+
+  .subject-title {
+    background-color: rgb(213, 207, 207);
+  }
 </style>
+
 <body onload='pageLoadingTop()'>
 
-  <%- include("../component/admin-header-nav.html") %> 
-  <%- include("../component/admin-menu-nav.html") %> 
+  <%- include("../component/admin-header-nav.html") %>
+    <%- include("../component/admin-menu-nav.html") %>
 
 
-  <div id="main-content" class="p-2 main-content mt-5 row">
+      <div id="main-content" class="p-2 main-content mt-5 row">
 
-    <div class="btn-section-top mb-3">
-      <center class="mt-5  p-2 text-primary fw-semibold">
-        <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"
-          class="view-link p-0 ps-2 pe-2 btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a>
-        <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"
-          class="view-link p-0 ps-2 pe-2 btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a>
-        <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"
-          class="view-link p-0 ps-2 pe-2 btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a>
+        <div class="btn-section-top mb-3">
+          <center class="mt-5  p-2 text-primary fw-semibold">
+            <a href="/admin/transcript/final-card-drop-student-list/<%=className%>/<%=sectionName%>"
+              class="view-link p-0 ps-2 pe-2 btn nav-link d-inline-block" title=''>অনউত্তীর্ণ তালিকা |</a>
+            <a href="/admin/transcript/final-card-passed-student-list/<%=className%>/<%=sectionName%>"
+              class="view-link p-0 ps-2 pe-2 btn  nav-link d-inline-block" title=' '>উত্তীর্ণ তালিকা |</a>
+            <a href="/admin/transcript/final-card-waiting-student-list/<%=className%>/<%=sectionName%>"
+              class="view-link p-0 ps-2 pe-2 btn  nav-link d-inline-block" title=' '>এখনো করা হয়নি! </a>
 
-      </center>
-    </div>
-
-
-    
-
-<div id="btnSection" class="mb-2 btn-section-bottom">
-  <center> <input class="student_uuid" type="hidden" value="<%=student_uuid%>" name="">
-   <button  class="btn disabled p-0 ps-2 pe-2 droppedResult btn-danger">অনউত্তীর্ণ</button> 
-   <button  class="btn disabled p-0 ps-2 pe-2 passedResult btn-success">উত্তীর্ণ</button> 
-   <a href="/admin/transcript/report-get/<%=className%>/<%=sectionName%>/auto?student_offset=<%=offsetPlus%>" class="btn p-0 ps-2 pe-2 <%=btnstatus%> btn-primary">পর্রবতী</a> 
-
-  </center>
-</div>
-
-<div class="d-flex p-2 justify-content-center m-2">
-  <button onclick="printArea()" class="btn view-link ps-3 pe-3 fw-semibold text-primary printAreaBtn">Download pdf record</button>
-</div>
-
-    <div id="printArea">
-    
-    <div class=" row">
-     
-      <div class="col-11  shadowx m-auto p-2  position-relative">
-   
-        <div class="bg-card-color-light text-dark p-2 rounded-top-5 rounded-start-5">
-          
-          <div class="d-flex text-uppercase align-items- justify-content-between">
-    
-            <div class="flex-fill d-flex align-items-center">
-              <img  class="avatar-circle school-logo" style="width: 50px; height: 50px; border-radius: 100%;" src="/image/default/resized/<%=slogo%>" alt="">
-              <h5 class="text-uppercase p-1 school-name"><%=sname%></h5>
-           
-            </div>
-          
-          
-        
-            <div class="d-flex flex-fill flex-column align-items-center justify-content-center">
-              <img class="avatar-circle p-1" style="width: 100px; height: 100px;" src="/image/student/resized/<%=infoStudent[0].avatar%>" alt="">
-              <h6 class="text-uppercase pt-2 text-center"><%=className%> - <%=sectionName%> - <%=infoStudent[0].roll%> <br> <%=infoStudent[0].name%></h6>
-            </div>
-   
-            
-          </div>
-   
+          </center>
         </div>
-   
-      </div>
-      
-  
-    </div>
 
 
 
 
-    <% const infoChapter= ['PI-1','PI-2','PI-3','PI-4','PI-5',
-    'PI-6','PI-7','PI-8','PI-9','PI-10','PI-11','PI-12'
- ]%>
+        <div id="btnSection" class="mb-2 btn-section-bottom">
+          <center> <input class="student_uuid" type="hidden" value="<%=student_uuid%>" name="">
+            <button class="btn disabled p-0 ps-2 pe-2 droppedResult btn-danger">অনউত্তীর্ণ</button>
+            <button class="btn disabled p-0 ps-2 pe-2 passedResult btn-success">উত্তীর্ণ</button>
+            <a href="/admin/transcript/report-get/<%=className%>/<%=sectionName%>/auto?student_offset=<%=offsetPlus%>"
+              class="btn p-0 ps-2 pe-2 <%=btnstatus%> btn-primary">পর্রবতী</a>
 
-<p></p>
+          </center>
+        </div>
+
+        <div class="d-flex p-2 justify-content-center m-2">
+          <button onclick="printArea()" class="btn view-link ps-3 pe-3 fw-semibold text-primary printAreaBtn">Download pdf record</button>
+        </div>
 
 
+        <div id="printArea">
 
-<div class="row p-2 mainApp" style="width: 100%; overflow-x: auto;">
-
-
-  <div class="col-11 p-2 m-auto ">
-<center class="p-2"><caption><b>BI Perfomance</b></caption>
-  </center>
-  <table class=" table table-bordered">
-
-      <thead  class="">
-
-          <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
-            <th><small style="font-size: smaller;">BI-<%=index+1%></small></th>
-
-          <% } %>
-
-      </thead>
+          <div class="row p-2 mainApp" style="width: 100%; overflow-x: auto;">
+            <div class="row ps-3 pe-3 gap-1 m-2" style="scale: 1.0;">
 
 
 
-      <tbody class="">
-
-           <tr>
-
-          <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
-              <td > 
-                  <div class="form-check checkout_<%=infoStudent[0].student_uuid%><%=infoCatagory[index].catagory_code%> fs-3 p-0 m-0">
               
-                    <i class="bi bi-square"></i>           
 
-                                                          
+              <identification>
+                <div class="d-flex m-2 ps-3 pe-3 justify-content-start">
+                  <div class="pe-2">প্রতিষ্ঠানের নাম</div>
+                  <div class="flex-fill" style="border-bottom: 2px dotted;">:</div>
+                </div>
+
+                <div class="d-flex m-2 ps-3 pe-3 justify-content-start">
+                  <div class="pe-2">শিক্ষার্থীর নাম</div>
+                  <div class="flex-fill" style="border-bottom: 2px dotted;">:</div>
+
+                  <div class="pe-2 ps-3">শিক্ষার্থীর আইডি</div>
+                  <div class="flex-fill" style="border-bottom: 2px dotted;">:</div>
+                </div>
+
+
+                <div class="d-flex m-2 ps-3 pe-3 justify-content-start">
+                  <div class="pe-2">শ্রেণি</div>
+                  <div class="flex-fill" style="border-bottom: 2px dotted;">:</div>
+
+                  <div class="pe-2 ps-3">শিক্ষাবর্ষ</div>
+                  <div class="flex-fill" style="border-bottom: 2px dotted;">:</div>
+                </div>
+              </identification>
+
+              <behaviour>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">আচরণিক নির্দেশক
+                </div>
+
+                <div class="d-flex flex-md-wrap justify-content-center">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: max-content; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">অংশগ্রহন ও যোগাযোগ
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
                   </div>
-          
-                  
-                 </td>
-          <% } %>
- 
-</tr>
-      </tbody>
 
 
-  </table>
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: max-content; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">নিষ্ঠা ও সততা</div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
 
 
-  </div>
-</div>
+                      </div>
 
-  
-<div class="row p-2 mainApp" style="width: 100%; overflow-x: auto;">
-  <div class="col-11 p-2 m-auto ">
-
-  <center><caption clas><b>Transcript report</b></caption></center>
-    <table class=" table table-bordered mt-2">
-   <thead class=""> 
-    <tr>
-      <th>Subject</th>
-
-   <% for( let index = 0; index <infoChapter.length; index++ ) { %>
-                    <th><%=infoChapter[index]%></th>
-    
-                  
-        <% } %>
-      
-
-      </tr>
-   </thead>
-
-  <tbody class="">
-
-<% for( let i = 0; i < infoSubject.length; i++ ) { %>
- <tr>
-
-<td>
-  <small style="font-size: smaller; font-weight: bold;"><%=infoSubject[i].subject%></small>
-</td>
-
-<% for( let index = 0; index <infoChapter.length; index++ ) { %>
-    <td > 
-
-        <div class="form-check checkout_<%=student_uuid%><%=infoSubject[i].subject_code%><%=infoChapter[index]%> fs-3 p-0 m-0">
-                    
-          <i class="bi bi-square"></i>           
-       
-           
-           </div>
-
-        
-       </td>
-<% } %>
-
-</tr>
-<% } %>
-</tbody>
+                    </div>
+                  </div>
 
 
-  
-  </table>
 
-  </div>
-</div> 
+                  <div class="d-flex m-1 p-1 boxcard">
 
-    </div>
+                    <div style="height: max-content; width: 250px; border: 2px solid black" class="">
 
-</div> 
-    
-<%- include("../component/___node.html") %> 
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">পারস্পারিক শ্রব্দা ও
+                        সহযোগিতা</div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+
+
+
+                <figure style="scale: 0.9;">
+                  <img style="height: auto; width: auto;" src="/image/demo/bi-demo-png.png" alt="">
+                </figure>
+
+              </behaviour>
+
+
+
+
+
+              <bangla>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">বাংলা</div>
+
+                <div class="d-flex flex-md-wrap justify-content-between">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">যোগাযোগ</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          পরিস্থিতি বিবেচনায় প্রমিত ভাষায় যোগাযোগ করেছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">ভাষারীতি</div>
+
+                      <div style="height: 100px;" class="text-center  p-1 border-bottom border-dark m border-2">
+                        <small>
+                          বিভিন্ন ধরনের লেখা পড়ে লেখকের দৃষ্টিভঙ্গি উপলব্ধি করেছে এবং নিজের বক্তব্য বোঝাতে বিভিন্ন
+                          অর্থবৈচিত্র্যমূলক বাক্য তৈরি করেছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">প্রয়োগিক যোগাযোগ</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          বিশ্লেষণাত্মক ভাষায় লিখতে পেরেছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">সৃজনশীল ও মননশীল
+                        প্রকাশ</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          সাহিত্যরস উপভোগ করে নিজের কল্পনা ও অনুভূতি সৃষ্টিশীল উপায়ে প্রকাশ করেছে
+
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">মানপবিক চিন্তন</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          কোনো ঘটনা বা বিষয় সম্পর্কে নিজের মত দিয়েছে ও অন্যের মতের গঠনমূলক সমালোচনা করেছে
+
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+              </bangla>
+
+
+
+              <english>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">English</div>
+
+                <div class="d-flex flex-md-wrap justify-content-between">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">Communication</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          Communicates with relevance to a given context
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">Linguistic norms</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          Uses appropriate vocabulary and expressions as required in the context
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">Democratic practice
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+
+                          Values democratic atmosphere
+                          in communication and participates accordingly
+
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">Creative expression
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          Comprehends and relates to literary texts
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+              </english>
+
+
+
+
+
+              <math>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">গণিত</div>
+
+                <div class="d-flex flex-md-wrap justify-content-between">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">যোগাযোগ</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">পরিস্থিতি
+                        বিবেচনায় প্রমিত ভাষায় যোগাযোগ করেছে</div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">সংখ্যা ও পরিমাণ</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+
+                          গাণিতিক সমস্যা সমাধানে যথাযথ ভাষা ও কৌশলের প্রয়োগ করেছে
+
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">জ্যামিতিক আকৃতি</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          নিয়মিত জ্যামিতিক আকৃতি চিনতে পেরেছে এবং সেগুলো পরিমাপ করতে পেরেছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">গাণিতিক সম্পর্ক
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          সমস্যা সমাধানে গাণিতিক যুক্তি ও সূত্র ব্যবহার করেছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">সম্ভাব্যতা বিশ্লেষণ
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          প্রাপ্ত তথ্য বিশ্লেষণ করে সমস্যা সমাধানের সম্ভাবনা যাচাই করে দেখেছে
+
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </math>
+
+
+
+
+              <science>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">বিজ্ঞান</div>
+
+                <div class="d-flex flex-md-wrap justify-content-between">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">
+                        বৈজ্ঞানিক অনুসন্ধান </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          বৈজ্ঞানিক অনুসন্ধানের ক্ষেত্রে তথ্য প্রমাণ ও বস্তুনিষ্ঠতার উপর জোর দিয়েছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">বস্তুর গঠন ও আচরণ
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+
+                        <small>
+
+                          পরিবেশের বিভিন্ন বস্তুর বাহ্যিক গঠন ও আচরণের সম্পর্ক অনুসন্ধান করেছে
+
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">বস্তু ও শক্তির
+                        মিথস্ক্রিয়া</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          বিভিন্ন প্রাকৃতিক ঘটনায় শক্তির স্থানান্তর অনুসন্ধান করেছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">স্থিতি ও পরিবর্তন
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          কোনো সিস্টেমে ঘটে চলা বিভিন্ন পরিবর্তনের মধ্য দিয়ে যে ভারসাম্যের সৃষ্টি হয় তা অনুসন্ধান
+                          করেছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">বিজ্ঞানলব্ধ সামাজিক
+                        মূল্যবোধ</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          মানুষ ও প্রকৃতির উপর প্রভাব বিবেচনায় নিয়ে বিজ্ঞান ও প্রযুক্তির ইতিবাচক প্রয়োগে সচেষ্ট
+                          হয়েছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </science>
+
+
+
+
+
+              <ict>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">ডিজিটাল প্রযুক্তি
+                </div>
+
+                <div class="d-flex flex-md-wrap justify-content-between">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">ডিজিটাল সাক্ষরতা</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          প্রযুক্তির সাহায্যে প্রয়োজনীয় তথ্য সংগ্রহ ও তথ্যের দায়িত্বশীল ব্যাবহার করতে পেরেছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">আইসিটি সক্ষমতা</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+
+                        <small>
+
+                          ব্যক্তিগত প্রয়োজনে ডিজিটাল মাধ্যম ব্যবহার করে জরুরি সেবা গ্রহণের জন্য যোগাযোগ করেছে
+
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">ডিজিটাল সলিউশন উদ্ভাবন
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          অ্যালগরিদম ব্যবহার করে প্রোগ্রাম তৈরি করেছে এবং বিভিন্ন ধরনের নেটওয়ার্কে তথ্য আদানপ্রদানের
+                          কৌশল ব্যাখ্যা
+                          করেছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom text-truncate border-dark border-2">আইসিটির
+                        নিরাপদ, নৈতিক ও দায়িত্বশীল ব্যবহার</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          সামাজিক রীতি-নীতি, ঝুঁকি ও নৈতিক দিক বিবেচনা করে ডিজিটাল প্রযুক্তি ব্যবহার করে ব্যক্তিগত
+                          যোগাযোগ করছে
+                        </small>
+                      </div>
+
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </ict>
+
+
+
+
+
+              <social-science>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">ইতিহাস ও সামাজিক
+                  বিজ্ঞান</div>
+
+                <div class="d-flex flex-md-wrap justify-content-between">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">আত্মপরিচয়</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+
+                          লিখিত ও অলিখিত উৎস থেকে তথ্য নিয়ে বিভিন্ন দৃষ্টিকোণ থেকে নিজের আত্মপরিচয় ও ইতিহাস অন্বেষণ
+                          করেছে
+
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">মুক্তিযুদ্ধের চেতনা
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+
+                          বিভিন্ন উৎস থেকে তথ্য নিয়ে মুক্তিযুদ্ধে সর্বস্তরের মানুষের অবদান অনুসন্ধান করেছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">প্রাকৃতিক ও সামাজিক
+                        কাঠামো</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+
+                          বিভিন্ন প্রেক্ষাপটে গড়ে ওঠা সামাজিক ও রাজনৈতিক কাঠামো কীভাবে মানুষের অবস্থান ও ভূমিকা
+                          নির্ধারণ করে তা অনুসন্ধান করেছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">সম্পদ ব্যবস্থাপনা
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          সময় ও অঞ্চলভেদে অর্থনৈতিক ব্যবস্থা কীভাবে গড়ে ওঠে তা অনুসন্ধান করেছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">পরিবর্তনশীলতায় ভূমিকা
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          সময় ও ভৌগোলিক অবস্থানের সাপেক্ষে সমাজের পরিবর্তন পর্যালোচনা করে নিজ প্রেক্ষাপটে দায়িত্বশীল
+                          আচরণ করেছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </social-science>
+
+
+
+
+              <jibon-jibika>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">জীবন ও জীবিকা
+                </div>
+
+                <div class="d-flex flex-md-wrap justify-content-between">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">আত্মউন্নয়ন</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          নিজের পছন্দ ও সক্ষমতা বিবেচনায় জীবনের লক্ষ্য নির্ধারণ করে দায়িত্বশীল কাজে নিজেকে সম্পৃক্ত
+                          করতে পেরেছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">ক্যারিয়ার প্ল্যানিং
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          পেশার পরিবর্তন এবং তার সংগে নতুন নতুন দক্ষতা অর্জনের প্রয়োজনীয়তা বুঝে তা অর্জনের জন্য নিজ
+                          প্রেক্ষাপটে সমস্যা সমাধানের চেষ্টা করেছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">পেশাগত দক্ষতা</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          নির্দিষ্ট পেশা সম্পর্কে মৌলিক ধারণা ও আগ্রহ প্রদর্শন করতে পেরেছে
+
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">ভবিষ্যৎ কর্মদক্ষতা
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+
+                          পেশায় ভবিষ্যৎ প্রযুক্তির প্রভাব জেনে অভিযোজনের প্রস্তুতি নিতে পারছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+              </jibon-jibika>
+
+
+
+              <dharma-shikkha>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">ধর্ম শিক্ষা</div>
+
+                <div class="d-flex flex-md-wrap justify-content-center">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">ধর্মীয় জ্ঞান</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          ধর্মের মৌলিক বিষয়সমূহ জানতে আগ্রহ প্রদর্শন করেছে
+
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">ধর্মীয় বিধিবিধান
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          ধর্মের বিধি-বিধান উপলব্ধি করে চর্চার চেষ্টা করেছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">ধর্মীয় মূল্যবোধ</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          ধর্মীয় শিক্ষায় উদ্বুদ্ধ হয়ে সকলের সংগে মিলেমিশে থেকেছে </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </dharma-shikkha>
+
+
+
+
+
+              <sastha-surakkha>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">স্বাস্থ্য সুরক্ষা
+                </div>
+
+                <div class="d-flex flex-md-wrap justify-content-center">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">আত্মপরিচর্যা</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          শারীরিক ও মানসিক পরিবর্তন উপলব্ধি করে নিজের দৈনন্দিন যত্ন ও পরিচর্যায় উদ্যোগী হয়েছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">আবেগিক বুদ্ধিমত্তা
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          কাউকে কষ্ট না নিয়ে নিজের সামর্থ্য ও সক্ষমতা অনুযায়ী কাজ করেছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">সামাজিক বুদ্ধিমত্তা
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          পারস্পরিক সম্পর্ক বজায় রাখতে পেরেছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </sastha-surakkha>
+
+
+
+
+
+              <shilpa-sangskriti>
+
+                <div class="subject-title mt-2 shadow-sm border  border-dark fw-bold p-1 text-center ">শিল্প ও সংস্কৃতি
+                </div>
+
+                <div class="d-flex flex-md-wrap justify-content-center">
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">পর্যবেক্ষণ ও রূপান্তর
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          প্রকৃতির রূপ ও ঘটনাপ্রবাহ নিজের মতো করে বিভিন্নভাবে প্রকাশের আগ্রহ প্রদর্শন করেছে
+
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">নান্দনিকতার বহুমাত্রিক
+                        প্রকাশ</div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          শিল্পকলার বিভিন্ন ধারার পরিবেশনা উপভোগ করতে পারছে এবং সম্পৃক্ত হতে আগ্রহ প্রকাশ করছে
+
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex m-1 p-1 boxcard">
+
+                    <div style="height: 165px; width: 250px; border: 2px solid black" class="">
+
+                      <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">যাপিত জীবনে নান্দনিকতা
+                      </div>
+
+                      <div style="height: 100px;" class="text-center p-1 border-bottom border-dark m border-2">
+                        <small>
+                          দৈনন্দিন কার্যক্রমে নান্দনিকতার প্রকাশ
+                          করছে
+                        </small>
+
+                      </div>
+                      <div class="d-flex" style="height: 28px;">
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark bg-secondary"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+                        <div class="flex-fill border border-dark"></div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+              </shilpa-sangskriti>
+
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <%- include("../component/___node.html") %>
 
 </body>
 
 
-<script src= "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
 
 <script>
 
-function printArea(todo){
- $('.printAreaBtn').addClass('disabled');
-  $('.mainApp').css('overflow-x', 'visible');
-  $('.btn-section-top').hide();
-  $('.btn-section-bottom').hide();
+  function printArea(todo) {
+    $('.printAreaBtn').addClass('disabled');
+    $('.mainApp').css('overflow-x', 'visible');
+    $('.btn-section-top').hide();
+    $('.btn-section-bottom').hide();
 
-const className= '<%=className%>'
-const sectionName= '<%=sectionName%>'
-const student_uuid= '<%=student_uuid%>'
+    const className = '<%=className%>'
+    const sectionName = '<%=sectionName%>'
+    const student_uuid = '<%=student_uuid%>'
 
-_spin_pull()
-_spin_bar_pull()
-  setTimeout(() => {
-var element = document.getElementById('printArea');
+    _spin_pull()
+    _spin_bar_pull()
+    setTimeout(() => {
+      var element = document.getElementById('printArea');
 
-   var options = {
-    image: { type: 'jpeg', quality: 1 },
-    margin: [0, 0, 0, 0], //top, left, buttom, right,
-    filename: `Transcript-${className}-${sectionName}-${-student_uuid}.pdf`,
-        image: {type: 'jpeg',quality: 0.90},
-            html2canvas: {dpi: 192, scale: 2, letterRendering: true},
-            pagebreak: {mode: 'avoid-all'},
-            jsPDF: {unit: 'pt', format: 'a4', orientation: 'portrait'},          
-            compressPDF: true,
-         
-
-     };
-       _spin_pop()
-       _spin_bar_pop()
-  _msg_pull('alert-success', 'Download Successfully...', false)
-  $('.printAreaBtn').removeClass('disabled');
-  html2pdf().set(options).from(element).save();
-  $('.btn-section-top').show()
-  $('.btn-section-bottom').show()
-
-  }, 3000);
-
-  
-}
+      var options = {
+        image: { type: 'jpeg', quality: 1 },
+        margin: [0, 0, 0, 0], //top, left, buttom, right,
+        filename: `Transcript-${className}-${sectionName}-${-student_uuid}.pdf`,
+        image: { type: 'jpeg', quality: 0.90 },
+        html2canvas: { dpi: 192, scale: 2, letterRendering: true },
+        pagebreak: { mode: 'avoid-all' },
+        jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' },
+        compressPDF: true,
 
 
-function student_checkout_class() {
- const className= '<%=className%>'
- const sectionName= '<%=sectionName%>'
- const student_uuid= '<%=student_uuid%>'
+      };
+      _spin_pop()
+      _spin_bar_pop()
+      _msg_pull('alert-success', 'Download Successfully...', false)
+      $('.printAreaBtn').removeClass('disabled');
+      html2pdf().set(options).from(element).save();
+      $('.btn-section-top').show()
+      $('.btn-section-bottom').show()
+
+    }, 3000);
+
+
+  }
+
+
+  function student_checkout_class() {
+    const className = '<%=className%>'
+    const sectionName = '<%=sectionName%>'
+    const student_uuid = '<%=student_uuid%>'
     $.ajax({
-        method: "post",
-        url: "/privet/transcript/report-get-checkout",
-        data: {className, sectionName, student_uuid},
-        dataType: "JSON",
-        success: function (response) {
-         
-            for (const key in response.info_checkout) {
-              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].pi==1?'<i class="bi bi-square-fill"></i>':response.info_checkout[key].pi==2?'<i class="bi bi-circle-fill"></i>':response.info_checkout[key].pi==3?'<i class="bi bi-triangle-fill"></i>':'<i class="bi bi-square"></i>');
-            }
+      method: "post",
+      url: "/privet/transcript/report-get-checkout",
+      data: { className, sectionName, student_uuid },
+      dataType: "JSON",
+      success: function (response) {
+
+        for (const key in response.info_checkout) {
+          $('.checkout_' + response.info_checkout[key].checkout).html(response.info_checkout[key].pi == 1 ? '<i class="bi bi-square-fill"></i>' : response.info_checkout[key].pi == 2 ? '<i class="bi bi-circle-fill"></i>' : response.info_checkout[key].pi == 3 ? '<i class="bi bi-triangle-fill"></i>' : '<i class="bi bi-square"></i>');
         }
+      }
     });
-    
-}
 
-student_checkout_class()
+  }
 
-function bi_checkout_class() {
- const className= '<%=className%>'
- const sectionName= '<%=sectionName%>'
- const student_uuid= '<%=student_uuid%>'
+  student_checkout_class()
+
+  function bi_checkout_class() {
+    const className = '<%=className%>'
+    const sectionName = '<%=sectionName%>'
+    const student_uuid = '<%=student_uuid%>'
     $.ajax({
-        method: "post",
-        url: "/privet/bi/transcript-report-checkout",
-        data: {className, sectionName, student_uuid},
-        dataType: "JSON",
-        success: function (response) {
-            for (const key in response.info_checkout) {
-              $('.checkout_'+response.info_checkout[key].checkout).html(response.info_checkout[key].bi_point==1?'<i class="bi bi-square-fill"></i>':response.info_checkout[key].bi_point==2?'<i class="bi bi-circle-fill"></i>':response.info_checkout[key].bi_point==3?'<i class="bi bi-triangle-fill"></i>':'<i class="bi bi-square"></i>');
+      method: "post",
+      url: "/privet/bi/transcript-report-checkout",
+      data: { className, sectionName, student_uuid },
+      dataType: "JSON",
+      success: function (response) {
+        for (const key in response.info_checkout) {
+          $('.checkout_' + response.info_checkout[key].checkout).html(response.info_checkout[key].bi_point == 1 ? '<i class="bi bi-square-fill"></i>' : response.info_checkout[key].bi_point == 2 ? '<i class="bi bi-circle-fill"></i>' : response.info_checkout[key].bi_point == 3 ? '<i class="bi bi-triangle-fill"></i>' : '<i class="bi bi-square"></i>');
 
 
-            }
         }
+      }
     });
-    
-}
 
-bi_checkout_class()
+  }
+
+  bi_checkout_class()
 
 
 
-$(document).on('click', '.passedResult', ()=>{
-    const className=  `<%=className%>`;
-    const sectionName= `<%=sectionName%>`;
-    const student_uuid= $('.student_uuid').val()
+  $(document).on('click', '.passedResult', () => {
+    const className = `<%=className%>`;
+    const sectionName = `<%=sectionName%>`;
+    const student_uuid = $('.student_uuid').val()
     $.ajax({
-        method: "post",
-        url: "/admin/transcript/final-card-passed-result",
-        data: {className, sectionName, student_uuid},
-        dataType: "JSON",
-        beforeSend: function(){
-           
-        },
-        success: function (info) {
+      method: "post",
+      url: "/admin/transcript/final-card-passed-result",
+      data: { className, sectionName, student_uuid },
+      dataType: "JSON",
+      beforeSend: function () {
 
-                _msg_pull('alert-success', 'Action submitted!')
-        }
+      },
+      success: function (info) {
+
+        _msg_pull('alert-success', 'Action submitted!')
+      }
     });
-})
+  })
 
 
 
 
 
-$(document).on('click', '.droppedResult', ()=>{
-    const className=  `<%=className%>`;
-    const sectionName= `<%=sectionName%>`;
-    const student_uuid= $('.student_uuid').val()
+  $(document).on('click', '.droppedResult', () => {
+    const className = `<%=className%>`;
+    const sectionName = `<%=sectionName%>`;
+    const student_uuid = $('.student_uuid').val()
     $.ajax({
-        method: "post",
-        url: "/admin/transcript/final-card-drop-result",
-        data: {className, sectionName, student_uuid},
-        dataType: "JSON",
-        beforeSend: function(){
-$('.passedResult').addClass('disabled')
-$('.droppedResult').addClass('disabled')
+      method: "post",
+      url: "/admin/transcript/final-card-drop-result",
+      data: { className, sectionName, student_uuid },
+      dataType: "JSON",
+      beforeSend: function () {
+        $('.passedResult').addClass('disabled')
+        $('.droppedResult').addClass('disabled')
 
-$('.toast-msg').html(`<img src="/image/default/loading-load.gif" width="100px" class=" bg-dark" alt="">
+        $('.toast-msg').html(`<img src="/image/default/loading-load.gif" width="100px" class=" bg-dark" alt="">
         <span>Processing...</span>`)
         $('.toast').addClass('show');
 
-        },
-        success: function (info) {
+      },
+      success: function (info) {
 
-      
-         $('.toast-btn').click()
-        }
+
+        $('.toast-btn').click()
+      }
     });
-})
+  })
 
 
 
 
-(function(){
-  $.ajax({
-    type: "get",
-    url: "/pu/school/info/get",
-    data: {},
-    dataType: "JSON",
-    success: function (response) {
-      $(".school-name").text(response.info[0].name)
-    }
-  });
-  }())
+    (function () {
+      $.ajax({
+        type: "get",
+        url: "/pu/school/info/get",
+        data: {},
+        dataType: "JSON",
+        success: function (response) {
+          $(".school-name").text(response.info[0].name)
+        }
+      });
+    }())
 
 
 
