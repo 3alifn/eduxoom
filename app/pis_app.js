@@ -209,7 +209,7 @@ function todo_transcipt(domain, className, teacher_uuid, roll, sectionName,  stu
       VALUES('${domain}', ${session},'${className}', '${sectionName}', '${subject}', '${chapter}', '${teacher_uuid}',
     '${student_uuid}', '${roll}', '${name}',  '${transciptName}', '${final_pi}', '${bg_color}', '${checkout}',  '${avatar}')`, (errTranscipt, todoTranscipt)=>{
      if(errTranscipt) console.log(errTranscipt.sqlMessage);
-     else console.log('transcipt inserted!.');
+    //  else console.log('transcipt inserted!.');
    })
 
     }

@@ -12,7 +12,7 @@ const { admin_subject_list, admin_subject_select_teacher, admin_subject_set_time
 const { admin_teacher_get, admin_teacher_delete, admin_teacher_update, admin_teacher_update_page, admin_teacher_config, join, admin_config_subject, admin_teacher_join, multer_upload_teacher, admin_teacher_penbox_pull, admin_teacher_penbox_push, admin_teacher_rm, admin_teacher_post, admin_teacher_img_post } = require("../app/teacher_app")
 const { admin_transcript_student_get, admin_transcript_student_final_card, admin_transcript_student_final_card_init, admin_transcript_final_card_init, admin_transcript_final_card_mark, admin_transcript_final_card_accept_student_list, admin_transcript_final_card_waiting_student_list, admin_transcript_final_card_drop_student_list, admin_transcript_final_card_passed_student_list, admin_transcript_final_card_passed_result, admin_transcript_final_card_drop_result, admin_transcript_report_page, admin_transcript_report_student_get, privet_transcript_report_get, admin_transcript_report_get, admin_transcript_report_get_checkout, admin_transcript_pdf_page, admin_transcript_pdf_checkout, admin_bi_transcript_pdf_checkout, admin_transcript_pdf_get } = require("../app/transcript_app")
 const { render } = require("ejs")
-const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_post, admin_bi_catagory_delete, teacher_bi_mark_post } = require("../app/bi_app")
+const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_post, admin_bi_catagory_delete, teacher_bi_mark_post, admin_bi_transcript_report_checkout } = require("../app/bi_app")
 const { multer_upload_school_settings, admin_school_post, admin_school_get, admin_school_headmaster_post, admin_school_headmaster_get, admin_school_president_post, admin_school_president_get, admin_school_secretary_post, admin_school_secretary_get } = require("../app/school_app")
 const school_app = require("../app/school_app")
 const { admin_class_section_get, admin_class_section_post, admin_class_section_main_post } = require("../app/class_section")
@@ -125,6 +125,10 @@ admin.get('/transcript/final-card-drop-student-list/:className/:sectionName', ad
 admin.post('/transcript/final-card-passed-result', admin_transcript_final_card_passed_result)
 admin.post('/transcript/final-card-drop-result', admin_transcript_final_card_drop_result)
 // bi trancript router...........
+
+// bi report card.........
+admin.post("/bi/transcript-report-checkout", admin_bi_transcript_report_checkout)
+
 
 
 // transcript pdf downloader

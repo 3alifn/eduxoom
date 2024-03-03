@@ -26,10 +26,6 @@ privet.all('*', (req, res, next)=>{
 
 
 
-// bi report card.........
-privet.post("/bi/transcript-report-checkout", privet_bi_transcript_report_checkout)
-
-
 
 // pic result report:
 privet.get('/pic/report-init-page', (req, res)=>{
