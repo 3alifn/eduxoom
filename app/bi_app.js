@@ -171,6 +171,84 @@ exports.teacher_bi_report_get= ( req , res)=>{
 
 
 
+
+var teacher_bi_transcript_post= ( domain, teacher_uuid, roll,  className, sectionName, bi_no, bi_group, catagory, bi, student_uuid, name, checkout )=>{
+    const session= new Date().getUTCFullYear();
+//   console.log(bi_group);
+    sqlmap.query(`SELECT * FROM bi_transcript WHERE domain='${domain}' AND  teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' AND catagory='${catagory}'`
+    , (errCheck, infoCheck)=>{
+        if(errCheck) console.log(errCheck.sqlMessage);
+        if(infoCheck==undefined||infoCheck.length===0){
+            sqlmap.query(`INSERT INTO bi_transcript (domain, session, class, section, bi_no, bi_group, teacher_uuid, student_uuid, roll, name, catagory, bi, checkout) 
+            VALUES('${domain}', ${session}, '${className}', '${sectionName}', '${bi_no}', '${bi_group}',  '${teacher_uuid}','${student_uuid}', '${roll}', '${name}', '${catagory}', '${bi}', '${checkout}')`, (errPost, nextPost)=>{
+                if(errPost) console.log(errPost.sqlMessage);
+                // console.log('bi_transcript_makeing!');
+            //     else {
+
+                teacher_bi_transcript_post_update= (domain, className,  sectionName, student_uuid, bi_group)
+                
+            // }
+            })
+        } else console.log('already none!');
+    })
+
+
+}
+
+
+
+var teacher_bi_transcript_post_update= (domain, className,  sectionName, student_uuid, bi_group,)=>{
+
+  console.log(bi_group);
+      sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${domain}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
+  
+      for (let index = 0; index < infoCatagory.length; index++) {
+          sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =-1`,(err_bi_danger, info_bi_danger)=>{
+              if(err_bi_danger) console.log(err_bi_danger.sqlMessage);
+              
+              sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =0`,(err_bi_warning, info_bi_warning)=>{
+                  if(err_bi_warning) console.log(err_bi_warning.sqlMessage);
+          
+                  sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =1`,(err_bi_success, info_bi_success)=>{
+          
+          if(err_bi_success) console.log(err_bi_success.sqlMessage);
+          
+            if(info_bi_success[0].bi>=info_bi_warning[0].bi && info_bi_success[0].bi>=info_bi_danger[0].bi){
+              var bg_color= 'bg-success' ; var bi_point= 1;
+              
+            }
+          
+           else if(info_bi_warning[0].bi>=info_bi_danger[0].bi){
+              var bg_color= 'bg-warning'; var bi_point= 0;
+              
+            }
+          
+            else {
+              var bg_color= 'bg-danger'; var bi_point= -1;
+            }
+          
+           sqlmap.query(`UPDATE bi_transcript SET bi_point='${bi_point}', bg_color='${bg_color}' WHERE domain='${domain}'  AND  student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}'`
+           ,(errUpdate, infoUpdate)=>{
+          
+              if(errUpdate) console.log(errUpdate.sqlMessage);
+              else console.log('updated with ajax...'+bi_point +' '+ bg_color);
+       
+           })
+          
+  
+                  })
+          
+              })
+          
+          })
+  
+  }
+  
+      })
+  
+  }
+
+
 exports.teacher_bi_mark_post= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid;
     const session= new Date().getUTCFullYear();
@@ -204,106 +282,8 @@ exports.teacher_bi_mark_post= (req, res)=>{
 }
 
 
-exports.teacher_bi_checkout= (req, res)=>{
-    const teacher_uuid= req.session.teacher_uuid;
-
-    const {className, sectionName, checkout}= req.body;
-    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}' ORDER BY ID`, (errFind, info_checkout)=>{
-        if(errFind) console.log(errFind.sqlMessage);
-        res.send({info_checkout})
-    })
-}
 
 
-
-
-
-exports.teacher_bi_report_self_checkout= (req, res)=>{
-    const teacher_uuid= req.session.teacher_uuid;
-
-    const {className, sectionName}= req.body;
-    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}'`, (errFind, info_checkout)=>{
-        if(errFind) console.log(errFind.sqlMessage);
-        else {  
-            
-            res.send({info_checkout}) 
-        }
-    })
-}
-
-
-
-const teacher_bi_transcript_post= ( domain, teacher_uuid, roll,  className, sectionName, bi_no, bi_group, catagory, bi, student_uuid, name, checkout )=>{
-    const session= new Date().getUTCFullYear();
-
-    sqlmap.query(`SELECT * FROM bi_transcript WHERE domain='${domain}' AND  teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' AND catagory='${catagory}'`
-    , (errCheck, infoCheck)=>{
-        if(errCheck) console.log(errCheck.sqlMessage);
-        if(infoCheck==undefined||infoCheck.length===0){
-            sqlmap.query(`INSERT INTO bi_transcript (domain, session, class, section, bi_no, bi_group, teacher_uuid, student_uuid, roll, name, catagory, bi, checkout) 
-            VALUES('${domain}', ${session}, '${className}', '${sectionName}', '${bi_no}', '${bi_group}',  '${teacher_uuid}','${student_uuid}', '${roll}', '${name}', '${catagory}', '${bi}', '${checkout}')`, (errPost, nextPost)=>{
-                if(errPost) console.log(errPost.sqlMessage);
-                // console.log('bi_transcript_makeing!');
-            })
-        } else console.log('already none!');
-    })
-
-
-}
-
-
-
-
-
-
-const teacher_bi_transcript_post_update= (domain, className, sectionName, student_uuid)=>{
-
-    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${domain}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
-
-    for (let index = 0; index < infoCatagory.length; index++) {
-        sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =-1`,(err_bi_danger, info_bi_danger)=>{
-            if(err_bi_danger) console.log(err_bi_danger.sqlMessage);
-            
-            sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =0`,(err_bi_warning, info_bi_warning)=>{
-                if(err_bi_warning) console.log(err_bi_warning.sqlMessage);
-        
-                sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =1`,(err_bi_success, info_bi_success)=>{
-        
-        if(err_bi_success) console.log(err_bi_success.sqlMessage);
-        
-          if(info_bi_success[0].bi>=info_bi_warning[0].bi && info_bi_success[0].bi>=info_bi_danger[0].bi){
-            var bg_color= 'bg-success' ; var bi_point= 1;
-            
-          }
-        
-         else if(info_bi_warning[0].bi>=info_bi_danger[0].bi){
-            var bg_color= 'bg-warning'; var bi_point= 0;
-            
-          }
-        
-          else {
-            var bg_color= 'bg-danger'; var bi_point= -1;
-          }
-        
-         sqlmap.query(`UPDATE bi_transcript SET bi_point='${bi_point}', bg_color='${bg_color}' WHERE domain='${domain}' AND  student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}'`
-         ,(errUpdate, infoUpdate)=>{
-        
-            if(errUpdate) console.log(errUpdate.sqlMessage);
-            // else console.log('updated with ajax...'+bi_point +' '+ bg_color);
-         })
-        
-
-                })
-        
-            })
-        
-        })
-
-}
-
-    })
-
-}
 
 
 
@@ -314,27 +294,65 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
 
     teacher_bi_transcript_post_update(domain, className, sectionName, student_uuid)
 
-
-
     sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
-
-    sqlmap.query(`SELECT *, COUNT(bi) as bi_count, SUM(bi) as bi_sum FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'
-    AND bi_group='group01'`,
+   
+        sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' 
+        AND student_uuid='${student_uuid}' AND bi_group='group01' GROUP BY bi_no ORDER BY ID DESC`,
     (errg01, infog01)=>{
         
-        sqlmap.query(`SELECT *, COUNT(bi) as bi_count, SUM(bi) as bi_sum FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'
-        AND bi_group='group02'`,
+        sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+         AND student_uuid='${student_uuid}' AND bi_group='group02' GROUP BY bi_no ORDER BY ID DESC`,
         (errg02, infog02)=>{
             
             
-            sqlmap.query(`SELECT *, COUNT(bi) as bi_count, SUM(bi) as bi_sum FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'
-            AND bi_group='group03'`,
+            sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' 
+            AND student_uuid='${student_uuid}' AND bi_group='group03' GROUP BY bi_no ORDER BY ID DESC`,
             (errg03, infog03)=>{
+           
+                if(infog01.length>0){
+                 var tempgp01= [];
+                 for (const key in infog01) {
+                    tempgp01.push((infog01[key].bi_point));
+                }
                 
-                const gp01v= (infog01[0].bi_sum/infog01[0].bi_count*100);
-                const gp02v= (infog02[0].bi_sum/infog02[0].bi_count*100);
-                const gp03v= (infog03[0].bi_sum/infog03[0].bi_count*100);
-        
+               var get_gp01=  tempgp01.reduce((a, b)=>{
+                   return a+=b;
+                })
+// ................
+                }
+                
+                if(infog02.length>0){
+                 var tempgp02= [];
+                 for (const key in infog02) {
+                    tempgp02.push((infog02[key].bi_point));
+                }
+                
+               var get_gp02=  tempgp02.reduce((a, b)=>{
+                   return a+=b;
+                })
+// .................
+                }
+
+                if(infog03.length>0){
+                 var tempgp03= [];
+                    
+                       
+       
+                for (const key in infog03) {
+                    tempgp03.push((infog03[key].bi_point));
+                }
+                
+               var get_gp03=  tempgp03.reduce((a, b)=>{
+                   return a+=b;
+                })
+               
+                }
+       
+
+                const gp01v= (((get_gp01)/4)*100);
+                const gp02v= (((get_gp02)/4)*100);
+                const gp03v= (((get_gp03)/2)*100);
+
                if(gp01v==100){
                 var gp01= 7;
                } 
@@ -358,7 +376,7 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
 
                } else {
 
-                var gp01= 0;
+                var gp01= null;
 
                }
 
@@ -387,7 +405,7 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
 
                } else {
 
-                var gp02= 0;
+                var gp02= null;
 
                }
 
@@ -418,11 +436,10 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
 
                } else {
 
-                var gp03= 0;
+                var gp03= null;
 
                }
 
-            //    console.log(gp01, gp02, gp03);
               res.send({gp01, gp02, gp03})
 
             })
@@ -434,6 +451,41 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
    
     })
 }
+
+
+
+
+
+
+
+
+exports.teacher_bi_checkout= (req, res)=>{
+    const teacher_uuid= req.session.teacher_uuid;
+
+    const {className, sectionName, checkout}= req.body;
+    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}' ORDER BY ID`, (errFind, info_checkout)=>{
+        if(errFind) console.log(errFind.sqlMessage);
+        res.send({info_checkout})
+    })
+}
+
+
+
+
+
+exports.teacher_bi_report_self_checkout= (req, res)=>{
+    const teacher_uuid= req.session.teacher_uuid;
+
+    const {className, sectionName}= req.body;
+    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}'`, (errFind, info_checkout)=>{
+        if(errFind) console.log(errFind.sqlMessage);
+        else {  
+            
+            res.send({info_checkout}) 
+        }
+    })
+}
+
 
 
 

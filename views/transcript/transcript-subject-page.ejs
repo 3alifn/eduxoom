@@ -1,0 +1,148 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcript report</title>
+  <%- include("../component/metadata.html") %>
+
+</head>
+<style>
+  thead th,
+  tbody td {
+    border-right: 1px solid black;
+  }
+
+  
+</style> 
+
+<body onload="pageLoadingTop()">
+
+  <%- include("../component/user-header-nav.html") %>
+    <%- include("../component/offcanvas-nav.html") %>
+
+    <main>
+      
+      <center class="p-3 mt-5">
+        <span class="bg-light badge fs-5 text-dark">
+          <%=class_name%> - <%=section_name%>
+        </span>
+      </center>
+
+
+      <div class="row p-2 mt-3 mb-5 settings-cards">
+
+        <div class="col-md-10 col-11 mt-3 mb-3 m-auto" style="overflow: auto; ">
+    
+          <div class="d-md-flex d-inline-flex flex-nowrap  shadow rounded-pill">
+    
+            <button onclick="component_class('Six')" style="font-weight: 600; width: 150px"
+              class="flex-md-fill rounded-start-pill  rounded-0 btn btn-light classSix  text-light bg-gradient-info activeMode">SIX</button>
+            <button onclick="component_class('Seven')" style="font-weight: 600; width: 200px;"
+              class="flex-md-fill btn  rounded-0 btn-light classSeven activeMode">SEVEN</button>
+            <button onclick="component_class('Eight')" style="font-weight: 600; width: 150px;"
+              class="flex-md-fill btn disabled rounded-0 btn-light classEight activeMode">EIGHT</button>
+            <button onclick="component_class('Nine')" style="font-weight: 600; width: 150px; "
+              class="flex-md-fill btn disabled rounded-0  btn-light ClassNine activeMode">NINE</button>
+            <button onclick="component_class('Ten')" style="font-weight: 600; width: 150px; "
+              class="flex-md-fill disabled rounded-end-pill btn rounded-0  btn-light classTen activeMode">NINE</button>
+    
+    
+          </div>
+    
+        </div>
+    
+        <code class="elem_data">
+    
+        <code class="english">
+        
+          <div class="col-md-7  col-11 m-auto  rounded">
+        
+            <span class="">
+        
+           <!-- Hover added -->
+           <div class="list-group  fw-semibold text-muted">
+            <a href="/privet/choose/subject/Six_English/" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+              <div class="d-flex align-items-center">
+                <span class="ps-1 text-muted">English</span>
+              </div>
+            </a>
+           </div>
+           
+            </span>
+        
+        </div>
+    
+      
+        </code>
+    
+    
+        </code>
+    
+    
+      </div>
+
+      
+      <script>
+    
+     function component_class(class_name){
+      const class_named= "<%=class_name%>"
+      const section_name= "<%=section_name%>"
+      const sid= "<%=sid%>"
+             $.ajax({
+               method: "post",
+               url: "/privet/finding/subject/",
+               data: {class_name, class_named, section_name, sid },
+               dataType: "JSON",
+               success: function (res) {
+             $('.activeMode').removeClass('bg-gradient-info').removeClass('text-light')
+             $('.class'+class_name).addClass('bg-gradient-info').addClass('text-light')
+             $('.class'+class_name).css('border', '3px dotted white')
+             $('.settings-data').hide()
+             $('.settings-data').fadeIn()
+             var htmldata= '';
+             for (const key in res.infoSubject) {
+               
+               htmldata+=`
+         <code class="subject-${res.infoSubject[key].subject}">
+         
+         <div class="col-md-7  col-11 m-auto  rounded">
+       
+           <span class="">
+       
+          <!-- Hover added -->
+          <div class="list-group  fw-semibold text-muted">
+           <a href="/privet/transcript/report-get/${class_named}/${section_name}/${sid}" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+             <div class="d-flex align-items-center">
+               <span class="ps-1 text-muted">${res.infoSubject[key].subject}</span>
+             </div>
+           </a>
+          </div>
+          
+           </span>
+       
+       </div>
+     
+     
+       </code>
+       `
+                     
+             }
+             $('.elem_data').html(htmldata)
+     
+               }
+             });
+        }
+     
+       </script>    
+
+
+    </main>
+
+      <%- include("../component/___node.html") %>
+
+</body>
+
+
+</html>

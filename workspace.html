@@ -1,42 +1,144 @@
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <!-- Font-awesome cdn -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./public/app/bootstrap.min.css">
-   <script src="./public/app/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- Font-awesome cdn -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./public/app/bootstrap.min.css">
+  <script src="./public/app/jquery.min.js"></script>
 </head>
-<style>
-  .subject-title{
-      background-color: rgb(213, 207, 207);
-  }
-</style>
+
 <body>
 
-           
+
+  <div class="row p-2 mt-3 mb-5 settings-cards">
+
+    <div class="col-md-10 col-11 mt-3 mb-3 m-auto" style="overflow: auto; ">
+
+      <div class="d-md-flex d-inline-flex flex-nowrap  shadow rounded-pill">
+
+        <button onclick="component_class('Six')" style="font-weight: 600; width: 150px"
+          class="flex-md-fill rounded-start-pill  rounded-0 btn btn-light classSix  text-light bg-gradient-info activeMode">SIX</button>
+        <button onclick="component_class('Seven')" style="font-weight: 600; width: 200px;"
+          class="flex-md-fill btn  rounded-0 btn-light classSeven activeMode">SEVEN</button>
+        <button onclick="component_class('Eight')" style="font-weight: 600; width: 150px;"
+          class="flex-md-fill btn disabled rounded-0 btn-light classEight activeMode">EIGHT</button>
+        <button onclick="component_class('Nine')" style="font-weight: 600; width: 150px; "
+          class="flex-md-fill btn disabled rounded-0  btn-light ClassNine activeMode">NINE</button>
+        <button onclick="component_class('Ten')" style="font-weight: 600; width: 150px; "
+          class="flex-md-fill disabled rounded-end-pill btn rounded-0  btn-light classTen activeMode">NINE</button>
 
 
+      </div>
 
+    </div>
 
-<script>
- var obelem= document.querySelector('.subjectArea');
- new IntersectionObserver((event)=>{
+    <code class="elem_data">
 
-  if(event[0].isIntersecting==true){
-   $('body').addClass('bg-danger')
-  } else {
-    $('body').removeClass('bg-danger')
-
-    console.log(event[0].isIntersecting);
-  }
-
-
- }, {threshold: 0.90}).observe(obelem);
-</script>
-
+    <code class="english">
     
+      <div class="col-md-7  col-11 m-auto  rounded">
+    
+        <span class="">
+    
+       <!-- Hover added -->
+       <div class="list-group  fw-semibold text-muted">
+        <a href="/privet/choose/subject/Six_English/" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+          <div class="d-flex align-items-center">
+            <span class="ps-1 text-muted">English</span>
+          </div>
+        </a>
+       </div>
+       
+        </span>
+    
+    </div>
+
+  
+    </code>
+
+
+    </code>
+
+
+  </div>
+
+
+
+
+  <script>
+
+   function component_class(className){
+        $.ajax({
+          method: "post",
+          url: "/privet/finding/subject/",
+          data: {className},
+          dataType: "JSON",
+          success: function (res) {
+
+        $('.activeMode').removeClass('bg-gradient-info').removeClass('text-light')
+        $('.class'+elem).addClass('bg-gradient-info').addClass('text-light')
+        $('.class'+elem).css('border', '3px dotted white')
+        $('.settings-data').hide()
+        $('.settings-data').fadeIn()
+        var htmldata= '';
+        for (const key in res.infoSubject) {
+          
+          htmldata+=`
+    <code class="subject-${res.infoSubject[key].subject}">
+    
+    <div class="col-md-7  col-11 m-auto  rounded">
+  
+      <span class="">
+  
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="/privet/choose/subject/Six_${res.infoSubject[key].subject}/" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <span class="ps-1 text-muted">${res.infoSubject[key].subject}</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+  
+  </div>
+
+
+  </code>
+  `
+                
+        }
+
+        $('.settings-data').html(res.data)
+
+          }
+        });
+   }
+
+  </script>
+
+  <script>
+    const elem = document.querySelector('.elem');
+
+    new IntersectionObserver((event) => {
+
+      if (event[0].isIntersecting == true) {
+        $('.elem div').removeClass('bg-dark').addClass('bg-danger')
+      } else {
+        $('.elem div').removeClass('bg-danger').addClass('bg-dark')
+
+      }
+
+    }, { threshold: 0.9 }).observe(elem)
+
+  </script>
+
 </body>
+
 </html>

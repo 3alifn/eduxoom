@@ -222,7 +222,7 @@
     
             <button onclick="component('schoolData')" style="font-weight: 600; width: 150px" class="flex-md-fill rounded-start-pill  rounded-0 btn btn-light schoolData  text-light bg-gradient-info activeMode">School settings</button>
                 <button onclick="component('academicData')" style="font-weight: 600; width: 200px;" class="flex-md-fill btn  rounded-0 btn-light academicData activeMode">Academic settings</button>
-                <button onclick="component('transcriptData')" style="font-weight: 600; width: 150px;" class="flex-md-fill btn  rounded-0 btn-light transcriptData activeMode">Transcript card</button>
+                <button onclick="component('transcriptData')" style="font-weight: 600; width: 150px;" class="flex-md-fill btn  rounded-0 btn-light transcriptData activeMode">Result card</button>
                 <button onclick="component('organizationData')" style="font-weight: 600; width: 150px; " class="flex-md-fill btn rounded-0  btn-light organizationData activeMode">Organization</button>
                 <button onclick="component('galleryData')" style="font-weight: 600; width: 150px; " class="flex-md-fill rounded-end-pill btn rounded-0  btn-light galleryData activeMode">Gallery settings</button>
             
@@ -367,10 +367,10 @@
         $('.percent-t-male').append(res.percentTmale);
         $('.percent-t-male').append(` (${res.tMale})`);
         $('.percent-t-female').append(res.percentTfemale);     
-        $('.percent-t-female').append(` (${res.tFemale})`);     
+        $('.percent-t-female').append(`(${res.tFemale})`);     
         
         $('.staff-count').text(res.countStaff);
-        $('.staff-female').append(res.staffFemale);
+        $('.staff-female').append(`(${res.staffFemale})`);
         $('.staff-male').append(` (${res.staffMale})`);
 
          $('.student-count').text(res.countStudent);
@@ -636,7 +636,7 @@
         <a href="/privet/transcript/report-init-page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
           <div class="d-flex align-items-center">
             <img height="20px" width="20px" src="/icons/icons8-reports-64.png" alt="">
-            <span class="ps-1 text-muted">Transcript primary</span>
+            <span class="ps-1 text-muted">Transcript card</span>
           </div>
         </a>
        </div>
@@ -658,7 +658,7 @@
         <a href="/admin/transcript/report-init-page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
           <div class="d-flex align-items-center">
             <img height="20px" width="20px" src="/icons/icons8-report-passed-94.png" alt="">
-            <span class="ps-1 text-muted">Transcript card</span>
+            <span class="ps-1 text-muted">Report card</span>
           </div>
         </a>
        </div>

@@ -25,9 +25,19 @@ exports.privet_transcript_report_student_get= ( req , res)=>{
 
 
 
+exports.privet_finding_subject_sid= ( req , res)=>{
+  const {class_name, section_name, sid}= req.params;      
+      res.render('transcript/transcript-subject-page', {class_name, section_name, sid})
+}
 
-
-
+exports.privet_finding_subject= ( req , res)=>{
+  const {class_name, section_name, sid}= req.body;    
+      sqlmap.query(`SELECT subject, class FROM subject WHERE domain='${req.hostname}' AND class='${class_name}' GROUP BY subject ORDER BY subject`, 
+      (err_subject, infoSubject)=>{
+              if(err_subject) console.log(err_subject.sqlMessage);
+              else res.send({infoSubject})
+      })
+}
 
 
 
@@ -72,28 +82,28 @@ exports.admin_pi_transcript_report_checkout=(req, res)=>{
     const domain= req.hostname;
   
   
-    sqlmap.query(`SELECT *, COUNT(pi) as pi_count, SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
+    sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
     AND pi_group='group01'`,
     (errg01, infog01)=>{
         
-        sqlmap.query(`SELECT *, COUNT(pi) as pi_count, SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
+        sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
         AND pi_group='group02'`,
         (errg02, infog02)=>{
             
-        sqlmap.query(`SELECT *, COUNT(pi) as pi_count, SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
+        sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
         AND pi_group='group03'`,
         (errg03, infog03)=>{
             
             
-            sqlmap.query(`SELECT *, COUNT(pi) as pi_count, SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
+            sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
             AND pi_group='group04'`,
             (errg04, infog04)=>{
                 
-                const english_gp01v= (infog01[0].pi_sum/infog01[0].pi_count*100);
-                const english_gp02v= (infog02[0].pi_sum/infog02[0].pi_count*100);
-                const english_gp03v= (infog03[0].pi_sum/infog03[0].pi_count*100);
-                const english_gp04v= (infog04[0].pi_sum/infog04[0].pi_count*100);
-        
+                const english_gp01v= (((infog01[0].pi_sum)/3)*100);
+                const english_gp02v= (((infog02[0].pi_sum)/2)*100);
+                const english_gp03v= (((infog03[0].pi_sum)/2)*100);
+                const english_gp04v= (((infog04[0].pi_sum)/2)*100);
+
                if(english_gp01v==100){
                 var english_gp01= 7;
                } 
