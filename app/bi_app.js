@@ -32,7 +32,7 @@ exports.admin_bi_catagory_post= (req, res)=>{
 res.send({msg: 'Adding successfully!'})
 
 }
-
+    
 
 
 exports.admin_bi_catagory_get= (req, res)=>{
@@ -172,7 +172,7 @@ exports.teacher_bi_report_get= ( req , res)=>{
 
 
 
-var teacher_bi_transcript_post= ( domain, teacher_uuid, roll,  className, sectionName, bi_no, bi_group, catagory, bi, student_uuid, name, checkout )=>{
+const teacher_bi_transcript_post= ( domain, teacher_uuid, roll,  className, sectionName, bi_no, bi_group, catagory, bi, student_uuid, name, checkout )=>{
     const session= new Date().getUTCFullYear();
 //   console.log(bi_group);
     sqlmap.query(`SELECT * FROM bi_transcript WHERE domain='${domain}' AND  teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' AND catagory='${catagory}'`
@@ -183,11 +183,11 @@ var teacher_bi_transcript_post= ( domain, teacher_uuid, roll,  className, sectio
             VALUES('${domain}', ${session}, '${className}', '${sectionName}', '${bi_no}', '${bi_group}',  '${teacher_uuid}','${student_uuid}', '${roll}', '${name}', '${catagory}', '${bi}', '${checkout}')`, (errPost, nextPost)=>{
                 if(errPost) console.log(errPost.sqlMessage);
                 // console.log('bi_transcript_makeing!');
-            //     else {
+                else {
+                    teacher_bi_transcript_post_update(domain, className, sectionName, student_uuid)
 
-                teacher_bi_transcript_post_update= (domain, className,  sectionName, student_uuid, bi_group)
-                
-            // }
+              
+            }
             })
         } else console.log('already none!');
     })
@@ -197,9 +197,8 @@ var teacher_bi_transcript_post= ( domain, teacher_uuid, roll,  className, sectio
 
 
 
-var teacher_bi_transcript_post_update= (domain, className,  sectionName, student_uuid, bi_group,)=>{
+const teacher_bi_transcript_post_update= (domain, className,  sectionName, student_uuid)=>{
 
-  console.log(bi_group);
       sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${domain}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
   
       for (let index = 0; index < infoCatagory.length; index++) {
@@ -231,8 +230,7 @@ var teacher_bi_transcript_post_update= (domain, className,  sectionName, student
            ,(errUpdate, infoUpdate)=>{
           
               if(errUpdate) console.log(errUpdate.sqlMessage);
-              else console.log('updated with ajax...'+bi_point +' '+ bg_color);
-       
+            //   else console.log('updated with ajax...'+bi_point +' '+ bg_color);
            })
           
   
@@ -266,12 +264,9 @@ exports.teacher_bi_mark_post= (req, res)=>{
                 if(errPost) console.log(errPost.sqlMessage);
                 else { 
 
-
                     teacher_bi_transcript_post(domain, teacher_uuid, roll,  className, sectionName, bi_no, bi_group, catagory, bi, student_uuid, name, checkout)
                     
                     res.send({msg: 'success'}) 
-
-
 
                 }
             })
@@ -352,7 +347,7 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
                 const gp01v= (((get_gp01)/4)*100);
                 const gp02v= (((get_gp02)/4)*100);
                 const gp03v= (((get_gp03)/2)*100);
-
+                console.log('bi =>', gp01v, gp02v, gp03v);
                if(gp01v==100){
                 var gp01= 7;
                } 
@@ -440,7 +435,7 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
 
                }
 
-              res.send({gp01, gp02, gp03})
+                res.send({gp01, gp02, gp03})
 
             })
     
