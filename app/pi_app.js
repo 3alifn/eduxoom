@@ -224,3 +224,81 @@ exports.admin_pi_transcript_report_checkout=(req, res)=>{
  
   }
   
+
+
+exports.privet_transcript_report_get= ( req , res)=>{
+    const {className, sectionName, student_uuid}= req.params;
+  
+    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
+  
+    sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
+  
+      sqlmap.query(`SELECT * FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+      AND student_uuid='${student_uuid}'`
+      ,(errStudent, infoStudent)=>{
+
+
+      sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
+        if(errs) console.log(errs.sqlMessage);
+      else {
+        if(school.length>0){
+          res.render('transcript/transcript-page-report-get-privet', {infoCatagory, infoStudent, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
+        }
+        // else res.redirect('/pages/empty.html')
+         else  res.render('transcript/transcript-page-report-get-privet', {infoCatagory, infoStudent, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
+      }
+    })
+   
+  
+  
+    })
+  
+    })
+    })
+  
+  }
+
+
+
+exports.admin_transcript_report_get= ( req , res)=>{
+    var {className, sectionName, student_uuid}= req.params; 
+    const {student_offset}= req.query; const init_student= student_uuid;
+    if(student_offset==undefined) var offset= 0; if(student_uuid=='auto') var offset= student_offset;  
+    if(student_uuid=='auto')   var findStudent= `SELECT student_uuid, name, avatar, pi, roll, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'  GROUP BY student_uuid  ORDER BY ID DESC LIMIT 1 OFFSET ${offset}`
+    else  var findStudent= `SELECT student_uuid, name, avatar, pi, roll, bg_color FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'`
+    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
+  
+  sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
+  sqlmap.query(`SELECT student_uuid FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' GROUP BY student_uuid`, (err_row, info_row)=>{
+   if(err_row) console.log(err_row.sqlMessage);
+  
+  sqlmap.query( findStudent,(errStudent, infoStudent)=>{
+   if(errStudent) console.log(errStudent.sqlMessage);
+  
+    if(infoStudent.length>0){  
+      
+      const student_uuid= infoStudent[0].student_uuid; 
+      if(info_row.length==parseInt(offset)+1) var btnstatus= 'disabled'; else var btnstatus=''; if(init_student=='auto') var offsetPlus= parseInt(offset)+1; else var offsetPlus= 0;  
+        
+   
+        sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
+          if(errs) console.log(errs.sqlMessage);
+        else {
+          if(school.length>0){
+            res.render('admin/transcript-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
+          } else  res.render('admin/transcript-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
+        }
+      })
+   
+      }
+    else res.redirect('/pages/empty.html')
+  
+  
+    })
+  
+    })
+  
+    })
+    })
+  
+  }

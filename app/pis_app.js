@@ -136,69 +136,69 @@ exports.teacher_pis_subject_get=(req, res)=>{
 
 
 
- exports.privet_pis_report_student_get= ( req , res)=>{
-  const {className, sectionName}= req.params;
+//  exports.privet_pis_report_student_get= ( req , res)=>{
+//   const {className, sectionName}= req.params;
 
-  sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-   GROUP BY student_uuid ORDER BY roll`
-  ,(errStudent, infoStudentData)=>{
-  if(infoStudentData.length>0){
-      const infoStudent= infoStudentData;
-      res.render('pis/pis-page-report-student-privet', {infoStudent, className, sectionName})
-  }
-  else res.redirect('/pages/empty.html')
-
-
-
-  })
-
-}
+//   sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+//    GROUP BY student_uuid ORDER BY roll`
+//   ,(errStudent, infoStudentData)=>{
+//   if(infoStudentData.length>0){
+//       const infoStudent= infoStudentData;
+//       res.render('pis/pis-page-report-student-privet', {infoStudent, className, sectionName})
+//   }
+//   else res.redirect('/pages/empty.html')
 
 
 
+//   })
 
-exports.privet_pis_report_get= ( req , res)=>{
-  const {className, sectionName, student_uuid}= req.params;
-
-  sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
-  sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-   AND student_uuid='${student_uuid}'`
-  ,(errStudent, infoStudentData)=>{
-  if(infoStudentData){
-      const infoStudent= infoStudentData;
-      sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
-        if(errs) console.log(errs.sqlMessage);
-      else {
-        if(school.length>0){
-          res.render('pis/pis-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
-        } else  res.render('pis/pis-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
-      }
-    })  }
-  else res.redirect('/pages/empty.html')
-
-
-  })
-  })
-
-}
+// }
 
 
 
 
+// exports.privet_pis_report_get= ( req , res)=>{
+//   const {className, sectionName, student_uuid}= req.params;
+
+//   sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
+//   sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+//    AND student_uuid='${student_uuid}'`
+//   ,(errStudent, infoStudentData)=>{
+//   if(infoStudentData){
+//       const infoStudent= infoStudentData;
+//       sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
+//         if(errs) console.log(errs.sqlMessage);
+//       else {
+//         if(school.length>0){
+//           res.render('pis/pis-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
+//         } else  res.render('pis/pis-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
+//       }
+//     })  }
+//   else res.redirect('/pages/empty.html')
 
 
-exports.privet_pis_report_get_checkout= (req, res)=>{
-  const session= new Date().getUTCFullYear();
+//   })
+//   })
 
-  const {className, sectionName, student_uuid}= req.body;
-  sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' ORDER BY roll`, (errFind, info_checkout)=>{
-      if(errFind) console.log(errFind.sqlMessage);
-      else {  
+// }
+
+
+
+
+
+
+// exports.privet_pis_report_get_checkout= (req, res)=>{
+//   const session= new Date().getUTCFullYear();
+
+//   const {className, sectionName, student_uuid}= req.body;
+//   sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' ORDER BY roll`, (errFind, info_checkout)=>{
+//       if(errFind) console.log(errFind.sqlMessage);
+//       else {  
           
-          res.send({info_checkout}) 
-      }
-  })
-}
+//           res.send({info_checkout}) 
+//       }
+//   })
+// }
 
 
 
