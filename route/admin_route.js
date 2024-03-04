@@ -10,7 +10,6 @@ const { admin_routine_post, admin_routine_delete, admin_subject_dynamic_get, adm
 const { admin_student_import, admin_student_get, admin_student_get_class_base, admin_student_delete, multer_upload_student, admin_student_join, admin_student_copy_get, admin_student_copy_post, admin_student_copy_delete, admin_student_copy_profile, admin_student_update_post, admin_student_update_form, admin_student_join_quick, admin_student_import_quick, admin_student_post, admin_student_penbox_pull, admin_student_penbox_push, admin_student_rm, admin_student_img_post } = require("../app/student_app")
 const { admin_subject_list, admin_subject_select_teacher, admin_subject_set_time, admin_subject_delete, admin_subject_post, admin_subject_get, admin_subject_rm } = require("../app/subject_app")
 const { admin_teacher_get, admin_teacher_delete, admin_teacher_update, admin_teacher_update_page, admin_teacher_config, join, admin_config_subject, admin_teacher_join, multer_upload_teacher, admin_teacher_penbox_pull, admin_teacher_penbox_push, admin_teacher_rm, admin_teacher_post, admin_teacher_img_post } = require("../app/teacher_app")
-const { admin_transcript_student_get, admin_transcript_student_final_card, admin_transcript_student_final_card_init, admin_transcript_final_card_init, admin_transcript_final_card_mark, admin_transcript_final_card_accept_student_list, admin_transcript_final_card_waiting_student_list, admin_transcript_final_card_drop_student_list, admin_transcript_final_card_passed_student_list, admin_transcript_final_card_passed_result, admin_transcript_final_card_drop_result, admin_transcript_report_page, admin_transcript_report_student_get, privet_transcript_report_get, admin_transcript_report_get, admin_transcript_report_get_checkout, admin_transcript_pdf_page, admin_transcript_pdf_checkout, admin_bi_transcript_pdf_checkout, admin_transcript_pdf_get } = require("../app/transcript_app")
 const { render } = require("ejs")
 const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_post, admin_bi_catagory_delete, teacher_bi_mark_post, admin_bi_transcript_report_checkout } = require("../app/bi_app")
 const { multer_upload_school_settings, admin_school_post, admin_school_get, admin_school_headmaster_post, admin_school_headmaster_get, admin_school_president_post, admin_school_president_get, admin_school_secretary_post, admin_school_secretary_get } = require("../app/school_app")
@@ -20,7 +19,7 @@ const headofschool_app = require("../app/headofschool_app")
 const { admin_repo_post, multer_upload_repo, admin_repo_get, multer_upload_repository, admin_repository_post, admin_repository_get, admin_repository_rm, admin_repository_update_page, admin_repository_img_rm, admin_repository_update, admin_repository_update_post, admin_repository_img_update_post } = require("../app/repository")
 const { admin_dashboard_tsa_lookup } = require("../app/dashboard_app")
 const { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, admin_staff_penbox_pull, admin_staff_penbox_push, admin_staff_img_post } = require("../app/staff_app")
-const { admin_pi_transcript_report_checkout } = require('../app/pi_app')
+const { admin_pi_transcript_report_checkout, admin_transcript_report_student_get } = require('../app/pi_app')
 const admin= express.Router()
 
 admin.get("/panel", (req, res)=>{
@@ -114,17 +113,9 @@ admin.get('/transcript/report-init-page', (req, res)=>{
   res.render('admin/transcript-page-report-init')
 })
 admin.get('/transcript/report-page-student-get/:className/:sectionName/', admin_transcript_report_student_get)
-admin.get('/transcript/report-get/:className/:sectionName/:student_uuid', admin_transcript_report_get)
-admin.post('/transcript/report-get-checkout', admin_transcript_report_get_checkout)
 
 
 
-admin.get('/transcript/final-card-passed-student-list/:className/:sectionName', admin_transcript_final_card_passed_student_list)
-admin.get('/transcript/final-card-waiting-student-list/:className/:sectionName', admin_transcript_final_card_waiting_student_list)
-admin.get('/transcript/final-card-drop-student-list/:className/:sectionName', admin_transcript_final_card_drop_student_list)
-
-admin.post('/transcript/final-card-passed-result', admin_transcript_final_card_passed_result)
-admin.post('/transcript/final-card-drop-result', admin_transcript_final_card_drop_result)
 
 // bi report card router.........
 admin.post("/bi/transcript-report-checkout", admin_bi_transcript_report_checkout)
@@ -146,11 +137,7 @@ admin.get('/transcript/pdf-init-page', (req, res)=>{
 
 
 
-admin.get('/transcript/pdf-page/:className/:sectionName', admin_transcript_pdf_page)
 
-admin.post('/transcript/pdf-get', admin_transcript_pdf_get)
-admin.post('/transcript/pdf-checkout', admin_transcript_pdf_checkout)
-admin.post('/bi/transcript/pdf-checkout', admin_bi_transcript_pdf_checkout)
 
 
 // self router......

@@ -48,6 +48,9 @@ exports.teacher_pis_mark_post= (req, res)=>{
   const session= new Date().getUTCFullYear();
   const domain= req.hostname;
   const {className,sectionName, pi, student_uuid, roll, name, avatar, chapter, subject, checkout, bg_color}= req.body;
+  const subjectx= subject.replaceAll(' ', '-').split('-');
+  const subjecty= subjectx[0];
+  const subject_code=className+'_'+sectionName+'_'+subjecty;  
 
   var gp01= ['6_1_1', '6_1_2', '6_1_3'].includes(chapter); var gp02=['6_2_1', '6_2_2'].includes(chapter); var gp03=['6_3_1', '6_3_2'].includes(chapter); var gp04=['6_4_1', '6_4_2'].includes(chapter)
 
@@ -64,13 +67,13 @@ exports.teacher_pis_mark_post= (req, res)=>{
          if(errCheck) console.log(errCheck.sqlMessage);
          if(infoCheck===undefined || infoCheck.length===0){
    
-             sqlmap.query(`INSERT INTO pis_mark (domain, session, class, section, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
-             VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${pi_group}',
+             sqlmap.query(`INSERT INTO pis_mark (domain, session, class, section, subject_code, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
+             VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${subject_code}', '${pi_group}',
              '${student_uuid}', '${subject}', ${roll}, '${name}', '${avatar}', '${chapter}', ${pi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
                  if(errPost) console.log(errPost.sqlMessage);
                  else { 
    
-                   todo_transcipt(domain, className, pi_group, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout)
+                   todo_transcipt(domain, className, subject_code, pi_group, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout)
                      
                      res.send({msg: 'success'}) 
    
@@ -200,7 +203,7 @@ exports.privet_pis_report_get_checkout= (req, res)=>{
 
 
 
-function todo_transcipt(domain, className, pi_group, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout){
+function todo_transcipt(domain, className, subject_code, pi_group, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout){
   const session= new Date().getUTCFullYear(); 
 
   if(pi>pic_pi) var final_pi= pi; else var final_pi=  pic_pi; if(final_pi==1) var bg_color= 'bg-success'; else if(final_pi==0) var bg_color='bg-warning'; else bg_color='bg-danger';
@@ -212,9 +215,9 @@ function todo_transcipt(domain, className, pi_group, teacher_uuid, roll, section
     if(info_find.length==0 || info_find==undefined){
 
     
-      sqlmap.query(`INSERT INTO transcript_report (domain, session, class, section, pi_group, subject, chapter,
+      sqlmap.query(`INSERT INTO transcript_report (domain, session, class, section, subject_code, pi_group, subject, chapter,
         teacher_uuid, student_uuid, roll, name, pi, bg_color, checkout, avatar)
-      VALUES('${domain}', ${session},'${className}', '${sectionName}', '${pi_group}', '${subject}', '${chapter}', '${teacher_uuid}',
+      VALUES('${domain}', ${session},'${className}', '${sectionName}', '${subject_code}', '${pi_group}', '${subject}', '${chapter}', '${teacher_uuid}',
     '${student_uuid}', '${roll}', '${name}',  '${final_pi}', '${bg_color}', '${checkout}',  '${avatar}')`, (errTranscipt, todoTranscipt)=>{
      if(errTranscipt) console.log(errTranscipt.sqlMessage);
     //  else console.log('transcipt inserted!.');

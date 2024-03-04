@@ -1,4 +1,5 @@
 const { app, express, mysql , sessionStore,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs } = require("./server")
+//  subject_code_example: six_a_math
 
 function ___ini(domain, lics){
     const join_date= new Date().toLocaleDateString();

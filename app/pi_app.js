@@ -6,10 +6,69 @@ var regexpi= /^[A-Za-z0-9-_]*$/
 var regexPassword= /^[a-zA-Z0-9!@#$%&*]*$/
 var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/ 
 
+exports.privet_transcript_report_student_get= ( req , res)=>{
+  const {className, sectionName}= req.params;
+
+  sqlmap.query(`SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+   GROUP BY student_uuid  ORDER BY roll`
+  ,(errStudent, infoStudentData)=>{
+  if(infoStudentData.length>0){
+      const infoStudent= infoStudentData;
+      res.render('transcript/transcript-page-report-student-privet', {infoStudent, className, sectionName})
+  }
+  else res.redirect('/pages/empty.html')
+
+
+  })
+
+}
+
+
+
+
+
+
+
+
+
+
+exports.admin_transcript_report_student_get= ( req , res)=>{
+  const {className, sectionName}= req.params;
+
+  sqlmap.query(`SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+  GROUP BY student_uuid  ORDER BY roll`
+  ,(errStudent, infoStudentData)=>{
+  if(infoStudentData.length>0){
+      const infoStudent= infoStudentData;
+      res.render('admin/transcript-page-report-student', {infoStudent, className, sectionName})
+  }
+  else res.redirect('/pages/empty.html')
+
+
+  })
+
+}
+
+
+exports.privet_pi_report_checkout= (req, res)=>{
+  const session= new Date().getUTCFullYear();
+  const {className, sectionName, student_uuid, subject}= req.body;
+
+  sqlmap.query(`SELECT subject, pi, chapter, bg_color  FROM transcript_report WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' AND subject='${subject}' ORDER BY chapter`,
+   (errFind, checkout)=>{
+      if(errFind) console.log(errFind.sqlMessage);
+      else {  
+          
+          res.send({checkout}) 
+      }
+  })
+}
+
+
 
 
 exports.admin_pi_transcript_report_checkout=(req, res)=>{
-    const {className,sectionName, student_uuid}= req.body;
+    const {className,sectionName, student_uuid, subject}= req.body;
     const domain= req.hostname;
   
   
@@ -151,7 +210,7 @@ exports.admin_pi_transcript_report_checkout=(req, res)=>{
             
                }
   
-            console.log(english_gp01, english_gp02, english_gp03, english_gp04);
+            // console.log(english_gp01, english_gp02, english_gp03, english_gp04);
               res.send({english_gp01, english_gp02, english_gp03, english_gp04})
   
             })
