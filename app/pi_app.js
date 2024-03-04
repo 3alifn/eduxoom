@@ -26,23 +26,20 @@ exports.privet_transcript_report_student_get= ( req , res)=>{
 
 
 exports.privet_finding_subject_sid= ( req , res)=>{
-  const {class_name, section_name, sid}= req.params;      
-      res.render('transcript/transcript-subject-page', {class_name, section_name, sid})
-}
+  const {class_name, section_name, sid}= req.params; 
 
-exports.privet_finding_subject= ( req , res)=>{
-  const {class_name, section_name, sid}= req.body;    
-      sqlmap.query(`SELECT subject, class FROM subject WHERE domain='${req.hostname}' AND class='${class_name}' GROUP BY subject ORDER BY subject`, 
-      (err_subject, infoSubject)=>{
-              if(err_subject) console.log(err_subject.sqlMessage);
-              else res.send({infoSubject})
-      })
+  sqlmap.query(`SELECT subject, class FROM subject WHERE domain='${req.hostname}' AND class='${class_name}' GROUP BY subject ORDER BY subject`, 
+  (err_subject, infoSubject)=>{
+          if(err_subject) console.log(err_subject.sqlMessage);
+          else res.render('transcript/transcript-subject-page', {infoSubject,class_name, section_name, sid})
+  })  
+      
 }
 
 
 
 
-exports.admin_transcript_report_student_get= ( req , res)=>{
+exports.admin_result_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
 
   sqlmap.query(`SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
@@ -50,7 +47,7 @@ exports.admin_transcript_report_student_get= ( req , res)=>{
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
       const infoStudent= infoStudentData;
-      res.render('admin/transcript-page-report-student', {infoStudent, className, sectionName})
+      res.render('admin/result-page-report-student', {infoStudent, className, sectionName})
   }
   else res.redirect('/pages/empty.html')
 
@@ -62,9 +59,9 @@ exports.admin_transcript_report_student_get= ( req , res)=>{
 
 exports.privet_pi_report_checkout= (req, res)=>{
   const session= new Date().getUTCFullYear();
-  const {className, sectionName, student_uuid, subject}= req.body;
+  const {className, sectionName, student_uuid, subject_code}= req.body;
 
-  sqlmap.query(`SELECT subject, pi, chapter, bg_color  FROM transcript_report WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' AND subject='${subject}' ORDER BY chapter`,
+  sqlmap.query(`SELECT subject_code, subject, pi, chapter, bg_color  FROM transcript_report WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' ORDER BY chapter`,
    (errFind, checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
@@ -237,40 +234,37 @@ exports.admin_pi_transcript_report_checkout=(req, res)=>{
 
 
 exports.privet_transcript_report_get= ( req , res)=>{
-    const {className, sectionName, student_uuid}= req.params;
-  
-    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
-  
-    sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
-  
-      sqlmap.query(`SELECT * FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-      AND student_uuid='${student_uuid}'`
+    const {className, sectionName, subject_code, student_uuid}= req.params;
+ 
+      sqlmap.query(`SELECT class, section, subject_code, student_uuid FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+      AND student_uuid='${student_uuid}' AND subject_code='${subject_code}'`
       ,(errStudent, infoStudent)=>{
+        if(infoStudent.length>0){
+          sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
+            if(errs) console.log(errs.sqlMessage);
+          else {
+            if(school.length>0){
+              res.render('transcript/transcript-page-report-get-privet', {infoStudent, subject_code, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
+            }
+            // else res.redirect('/pages/empty.html')
+             else  res.render('transcript/transcript-page-report-get-privet', {infoStudent, subject_code, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
+          }
+        })
+       
+        }  else res.redirect('/pages/empty.html')
 
 
-      sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
-        if(errs) console.log(errs.sqlMessage);
-      else {
-        if(school.length>0){
-          res.render('transcript/transcript-page-report-get-privet', {infoCatagory, infoStudent, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
-        }
-        // else res.redirect('/pages/empty.html')
-         else  res.render('transcript/transcript-page-report-get-privet', {infoCatagory, infoStudent, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
-      }
-    })
-   
+    
   
   
     })
-  
-    })
-    })
+
   
   }
 
 
 
-exports.admin_transcript_report_get= ( req , res)=>{
+exports.admin_result_report_get= ( req , res)=>{
     var {className, sectionName, student_uuid}= req.params; 
     const {student_offset}= req.query; const init_student= student_uuid;
     if(student_offset==undefined) var offset= 0; if(student_uuid=='auto') var offset= student_offset;  
@@ -295,8 +289,8 @@ exports.admin_transcript_report_get= ( req , res)=>{
           if(errs) console.log(errs.sqlMessage);
         else {
           if(school.length>0){
-            res.render('admin/transcript-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
-          } else  res.render('admin/transcript-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
+            res.render('admin/result-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
+          } else  res.render('admin/result-page-report-get', {infoStudent, infoCatagory, btnstatus, offsetPlus, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
         }
       })
    

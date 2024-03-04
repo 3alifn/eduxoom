@@ -57,9 +57,8 @@ privet.get('/transcript/report-init-page', (req, res)=>{
 })
 privet.get('/transcript/report-page-student-get/:className/:sectionName/', privet_transcript_report_student_get)
 privet.post('/pi/transcript-report-checkout', privet_pi_report_checkout)
-privet.get('/transcript/report-get/:className/:sectionName/:student_uuid', privet_transcript_report_get)
+privet.get('/transcript/report-get/:className/:sectionName/:subject_code/:student_uuid', privet_transcript_report_get)
 privet.get('/finding/subject/page/:class_name/:section_name/:sid/', privet_finding_subject_sid)
-privet.post('/finding/subject/', privet_finding_subject)
 
 
 module.exports= privet;

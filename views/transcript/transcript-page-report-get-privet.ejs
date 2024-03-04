@@ -455,11 +455,11 @@ function pi_checkout_class() {
  const className= '<%=className%>'
  const sectionName= '<%=sectionName%>'
  const student_uuid= '<%=student_uuid%>'
- const subject= 'English';
+ const subject_code= '<%=subject_code%>';
     $.ajax({
         method: "post",
         url: "/privet/pi/transcript-report-checkout",
-        data: {className, sectionName, student_uuid, subject},
+        data: {className, sectionName, student_uuid, subject_code},
         dataType: "JSON",
         success: function (res) {
             for (const key in res.checkout) { 

@@ -19,7 +19,7 @@ const headofschool_app = require("../app/headofschool_app")
 const { admin_repo_post, multer_upload_repo, admin_repo_get, multer_upload_repository, admin_repository_post, admin_repository_get, admin_repository_rm, admin_repository_update_page, admin_repository_img_rm, admin_repository_update, admin_repository_update_post, admin_repository_img_update_post } = require("../app/repository")
 const { admin_dashboard_tsa_lookup } = require("../app/dashboard_app")
 const { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, admin_staff_penbox_pull, admin_staff_penbox_push, admin_staff_img_post } = require("../app/staff_app")
-const { admin_pi_transcript_report_checkout, admin_transcript_report_student_get, admin_transcript_report_get } = require('../app/pi_app')
+const { admin_pi_transcript_report_checkout, admin_result_report_student_get, admin_result_report_get } = require('../app/pi_app')
 const admin= express.Router()
 
 admin.get("/panel", (req, res)=>{
@@ -110,10 +110,10 @@ admin.post('/staff/penbox/push', admin_staff_penbox_push)
 
 // final transcript router....
 admin.get('/transcript/report-init-page', (req, res)=>{
-  res.render('admin/transcript-page-report-init')
+  res.render('admin/result-page-report-init')
 })
-admin.get('/transcript/report-page-student-get/:className/:sectionName/', admin_transcript_report_student_get)
-admin.get('/transcript/report-get/:className/:sectionName/:student_uuid', admin_transcript_report_get)
+admin.get('/transcript/report-page-student-get/:className/:sectionName/', admin_result_report_student_get)
+admin.get('/transcript/report-get/:className/:sectionName/:student_uuid', admin_result_report_get)
 
 
 
@@ -132,7 +132,7 @@ admin.post("/pi/transcript-report-checkout", admin_pi_transcript_report_checkout
 // transcript pdf downloader......
 
 admin.get('/transcript/pdf-init-page', (req, res)=>{
-  res.render('admin/transcript-pdf-init-page')
+  res.render('admin/result-pdf-init-page')
 
 })
 
