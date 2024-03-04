@@ -74,7 +74,7 @@ const teacher_bi_transcript_post_update= (domain, className, sectionName, studen
 
 exports.privet_transcript_report_get= ( req , res)=>{
   const {className, sectionName, student_uuid}= req.params;
-  teacher_bi_transcript_post_update(className, sectionName, student_uuid)
+  // teacher_bi_transcript_post_update(className, sectionName, student_uuid)
 
   sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
 
@@ -129,6 +129,9 @@ exports.privet_transcript_report_get_checkout= (req, res)=>{
   })
 }
 
+
+// admin transcript router....
+
 exports.admin_transcript_report_get_checkout= (req, res)=>{
 
   const {className, sectionName, student_uuid}= req.body;
@@ -141,7 +144,9 @@ exports.admin_transcript_report_get_checkout= (req, res)=>{
 }
 
 
-// admin transcript router....
+
+
+
 
 exports.admin_transcript_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
@@ -159,7 +164,6 @@ exports.admin_transcript_report_student_get= ( req , res)=>{
   })
 
 }
-
 
 
 
@@ -207,8 +211,6 @@ sqlmap.query( findStudent,(errStudent, infoStudent)=>{
   })
 
 }
-
-
 
 
 

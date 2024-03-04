@@ -48,6 +48,12 @@ exports.teacher_pis_mark_post= (req, res)=>{
   const session= new Date().getUTCFullYear();
   const domain= req.hostname;
   const {className,sectionName, pi, student_uuid, roll, name, avatar, chapter, subject, checkout, bg_color}= req.body;
+
+  var gp01= ['6_1_1', '6_1_2', '6_1_3'].includes(chapter); var gp02=['6_2_1', '6_2_2'].includes(chapter); var gp03=['6_3_1', '6_3_2'].includes(chapter); var gp04=['6_4_1', '6_4_2'].includes(chapter)
+
+  if(gp01==true){var pi_group='group01'}else if(gp02==true){var pi_group='group02'}else if(gp03==true){var pi_group='group03'}else{var pi_group='group04'}
+
+
   sqlmap.query(`SELECT * FROM pic_mark WHERE domain='${req.hostname}' AND   class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND subject='${subject}' AND chapter='${chapter}'`, (err_pic, info_pic)=>{
     if(err_pic) console.log(err_pic.sqlMessage);
     if(info_pic.length>0){
@@ -58,13 +64,13 @@ exports.teacher_pis_mark_post= (req, res)=>{
          if(errCheck) console.log(errCheck.sqlMessage);
          if(infoCheck===undefined || infoCheck.length===0){
    
-             sqlmap.query(`INSERT INTO pis_mark (domain, session, class, section, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
-             VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}',
+             sqlmap.query(`INSERT INTO pis_mark (domain, session, class, section, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
+             VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${pi_group}',
              '${student_uuid}', '${subject}', ${roll}, '${name}', '${avatar}', '${chapter}', ${pi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
                  if(errPost) console.log(errPost.sqlMessage);
                  else { 
    
-                   todo_transcipt(domain, className, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout)
+                   todo_transcipt(domain, className, pi_group, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout)
                      
                      res.send({msg: 'success'}) 
    
@@ -194,20 +200,22 @@ exports.privet_pis_report_get_checkout= (req, res)=>{
 
 
 
-function todo_transcipt(domain, className, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout){
+function todo_transcipt(domain, className, pi_group, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout){
   const session= new Date().getUTCFullYear(); 
-  if(chapter=='A1' || chapter=='A2' || chapter=='A3' || chapter=='A4' || chapter=='A5' || chapter=='A6') var transciptName= 'half'; else var transciptName= 'full';
-  if(pi>pic_pi) var final_pi= pi; else var final_pi=  pic_pi; if(final_pi==1) var bg_color= 'bg-danger'; else if(final_pi==2) var bg_color='bg-warning'; else bg_color='bg-success';
+
+  if(pi>pic_pi) var final_pi= pi; else var final_pi=  pic_pi; if(final_pi==1) var bg_color= 'bg-success'; else if(final_pi==0) var bg_color='bg-warning'; else bg_color='bg-danger';
+
+
   sqlmap.query(`SELECT subject, chapter, student_uuid, roll FROM transcript_report WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND 
   subject='${subject}' AND chapter='${chapter}' AND student_uuid='${student_uuid}'`, (err_find, info_find)=>{
     if(err_find) console.log(err_find.sqlMessage);
     if(info_find.length==0 || info_find==undefined){
 
     
-      sqlmap.query(`INSERT INTO transcript_report (domain, session, class, section, subject, chapter,
-        teacher_uuid, student_uuid, roll, name,  transcript_name, pi, bg_color, checkout, avatar)
-      VALUES('${domain}', ${session},'${className}', '${sectionName}', '${subject}', '${chapter}', '${teacher_uuid}',
-    '${student_uuid}', '${roll}', '${name}',  '${transciptName}', '${final_pi}', '${bg_color}', '${checkout}',  '${avatar}')`, (errTranscipt, todoTranscipt)=>{
+      sqlmap.query(`INSERT INTO transcript_report (domain, session, class, section, pi_group, subject, chapter,
+        teacher_uuid, student_uuid, roll, name, pi, bg_color, checkout, avatar)
+      VALUES('${domain}', ${session},'${className}', '${sectionName}', '${pi_group}', '${subject}', '${chapter}', '${teacher_uuid}',
+    '${student_uuid}', '${roll}', '${name}',  '${final_pi}', '${bg_color}', '${checkout}',  '${avatar}')`, (errTranscipt, todoTranscipt)=>{
      if(errTranscipt) console.log(errTranscipt.sqlMessage);
     //  else console.log('transcipt inserted!.');
    })

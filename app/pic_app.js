@@ -50,13 +50,18 @@ exports.teacher_pic_mark_post= (req, res)=>{
   const teacher_uuid= req.session.teacher_uuid;
   const session= new Date().getUTCFullYear();
   const {className,sectionName, pi, student_uuid, roll, name, avatar, chapter, subject, checkout, bg_color}= req.body;
+
+  var gp01= ['6-1-1', '6-1-2', '6-1-3'].includes(chapter); var gp02=['6-2-1', '6-2-2'].includes(chapter); var gp03=['6-3-1', '6-3-2'].includes(chapter); var gp04=['6-4-1', '6-4-2'].includes(chapter)
+
+  if(gp01==true){var pi_group='group01'}else if(gp02==true){var pi_group='group02'}else if(gp03==true){var pi_group='group03'}else{var pi_group='group04'}
+  
   sqlmap.query(`SELECT * FROM pic_mark WHERE domain='${req.hostname}' AND   class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND subject='${subject}' AND chapter='${chapter}'`,
    (errCheck, infoCheck)=>{
       if(errCheck) console.log(errCheck.sqlMessage);
       if(infoCheck===undefined || infoCheck.length===0){
 
-          sqlmap.query(`INSERT INTO pic_mark (domain, session, class, section, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
-          VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}',  '${student_uuid}', '${subject}', ${roll}, '${name}', '${avatar}', '${chapter}', ${pi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
+          sqlmap.query(`INSERT INTO pic_mark (domain, session, class, section, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
+          VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${pi_group}',  '${student_uuid}', '${subject}', ${roll}, '${name}', '${avatar}', '${chapter}', ${pi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
               if(errPost) console.log(errPost.sqlMessage);
               else { 
                   
