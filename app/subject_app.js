@@ -21,7 +21,7 @@ exports.admin_subject_post= (req, res)=>{
 
 exports.admin_subject_get= (req, res)=>{
     const {class_name}= req.body; 
-            sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class="${class_name}" ORDER BY subject`, (err, info)=>{
+            sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class="${class_name}" GROUP BY subject ORDER BY subject`, (err, info)=>{
                 if (err) console.log(err.sqlMessage);
                 
                if(info.length>0){ 

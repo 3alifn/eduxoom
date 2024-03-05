@@ -215,7 +215,8 @@ module.exports= {
             sqlmap.query(`SELECT class, subject, subject_code FROM ini_subject WHERE domain='localhost'`, (err, info)=>{
                 if(err) console.log(err.sqlMessage);
                 for (let index = 0; index < info.length; index++) {
-                    const randomString= randomBytes(10).toString('hex');
+                    // const randomString= randomBytes(10).toString('hex');
+                    const randomString= createHmac('md5', 'pipilikapipra').update(`${info[index].subject}`).digest('hex');
 
                     sqlmap.query(`SELECT subject FROM subject WHERE domain='${req.hostname}' AND subject='${info[index].subject}'`, (errh, have_subject)=>{
                         if(errh) console.log(errh.sqlMessage);
@@ -247,7 +248,8 @@ module.exports= {
             sqlmap.query(`SELECT catagory_name, catagory_code FROM ini_bi_catagory WHERE domain='localhost' GROUP BY catagory_code`, (err, info)=>{
                 if(err) console.log(err.sqlMessage);
                 for (let index = 0; index < info.length; index++) {
-                    const randomString= randomBytes(10).toString('hex');
+                    // const randomString= randomBytes(10).toString('hex');
+                  const randomString= createHmac('md5', 'pipilikapipra').update(`${info[index].catagory_name}`).digest('hex');
 
                     sqlmap.query(`SELECT catagory_name FROM bi_catagory WHERE domain='${req.hostname}' AND catagory_name='${info[index].catagory_name}'`, (errbi, have_bi)=>{
                         if(errbi) console.log(errbi.sqlMessage);

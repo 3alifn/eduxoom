@@ -26,12 +26,10 @@ function ___ini(domain, lics){
   // console.log(randomString);
 
 //   const log= createHmac('md5', 'pipilikapipra').update('user@admin.com').digest('hex');
-//   console.log(log);
+  // const log= createHmac('md5', 'pipilikapipra').update(``).digest('hex');
+  // console.log(log);
   
-  // ___ini('sahasrailpphs.saanviabc.com', 'ABC123XYS')
-  // ___ini('norailmnmhs.saanviabc.com', 'ABC123XYN')
-  // ___ini('goailbarimb.saanviabc.com', 'ABC123XYG')
-  
+ 
   
   // var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
 
