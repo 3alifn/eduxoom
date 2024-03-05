@@ -314,17 +314,16 @@ exports.admin_result_report_get= ( req , res)=>{
     const {student_offset}= req.query; const init_student= student_uuid;
     if(student_offset==undefined) var offset= 0; if(student_uuid=='auto') var offset= student_offset;  
 
-    sqlmap.query(`SELECT student_uuid, subject, subject_code, subject_flag FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' GROUP BY student_uuid`, 
-    
-    (err, info)=>
-    
-    { sqlmap.query(`SELECT subject, subject_code, subject_flag FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' GROUP BY subject`, 
+    sqlmap.query(`SELECT student_uuid, subject, subject_code, subject_flag FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'`, 
+    (err, info)=>{ 
+
+      if(err) console.log(err.sqlMessage);
+      if(info.length>0){
+
+      sqlmap.query(`SELECT subject, subject_code, subject_flag FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' GROUP BY subject_code`, 
     
     (errSubject, infoSubject)=>{
-  
-    if(err) console.log(err.sqlMessage);
-     if(info.length>0){
-      
+ 
       // if(info_row.length==parseInt(offset)+1) var btnstatus= 'disabled'; else var btnstatus=''; if(init_student=='auto') var offsetPlus= parseInt(offset)+1; else var offsetPlus= 0;  
         
         sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
@@ -343,14 +342,16 @@ exports.admin_result_report_get= ( req , res)=>{
 
           } 
       })
-   
-     }
-     
-     else res.redirect('/pages/empty.html')
-  
+    
   
     })
+        }
+        
+        else res.redirect('/pages/empty.html')
+  
     })
+    
+    
   
   
   

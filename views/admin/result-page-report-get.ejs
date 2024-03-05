@@ -429,7 +429,7 @@
                         </small>
                       </div>
 
-                      <div class="d-flex" style="height: 28px;">
+                      <div class="d-flex Six_A_গণিত_gp1" style="height: 28px;">
                         <!-- <div class="flex-fill border border-dark"></div> -->
 
                       </div>
@@ -450,7 +450,7 @@
                         </small>
                       </div>
 
-                      <div class="d-flex" style="height: 28px;">
+                      <div class="d-flex Six_A_গণিত_gp2" style="height: 28px;">
                         <!-- <div class="flex-fill border border-dark"></div> -->
 
                       </div>
@@ -472,7 +472,7 @@
                         </small>
                       </div>
 
-                      <div class="d-flex" style="height: 28px;">
+                      <div class="d-flex Six_A_গণিত_gp3" style="height: 28px;">
                         <!-- <div class="flex-fill border border-dark"></div> -->
 
 
@@ -496,7 +496,7 @@
                         </small>
                       </div>
 
-                      <div class="d-flex" style="height: 28px;">
+                      <div class="d-flex Six_A_গণিত_gp4" style="height: 28px;">
 
                         <!-- <div class="flex-fill border border-dark"></div> -->
 
@@ -1240,6 +1240,9 @@
 
       <%- include("../component/___node.html") %>
 
+      <% for( let index = 0; index < infoSubject.length; index++ ) { %>
+      <input type="hidden" name="null" class="getSubject_<%=index%>" value="<%=infoSubject[index].subject_code%>">
+      <% } %>
 </body>
 
 
@@ -1323,15 +1326,11 @@
     const className = '<%=className%>'
     const sectionName = '<%=sectionName%>'
     const student_uuid = '<%=student_uuid%>'
-    const subject_codex= ['cc3556329d4583319dca2e10ff96baf7'];
-    
-    for (let index = 0; index < '<%=infoSubject.length%>'.length; index++) { 
-      console.log('<%=infoSubject[0].subject_code%>');
+    const subLen= '<%=infoSubject.length%>';
+    for (let index = 0; index < subLen; index++) { 
+     const currentSubject= $('.getSubject_'+index).val()
+      const subject_code= currentSubject;
 
-    } 
-
-    for (let index = 0; index < subject_codex.length; index++) {
-      subject_code= subject_codex[index];
       $.ajax({
       method: "post",
       url: "/admin/pi/transcript-report-checkout",
