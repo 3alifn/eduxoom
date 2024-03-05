@@ -28,8 +28,12 @@ function ___ini(domain, lics){
 //   const log= createHmac('md5', 'pipilikapipra').update('user@admin.com').digest('hex');
   // const log= createHmac('md5', 'pipilikapipra').update(``).digest('hex');
   // console.log(log);
-  
+
  
+  // sqlmap.query(`SELECT subject, subject_code FROM subject WHERE class='Six' order by subject`, (err, info)=>{
+  //  if(err) console.log(err.sqlMessage);
+  //  else console.log(info);
+  // })
   
   // var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
 

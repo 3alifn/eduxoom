@@ -15,10 +15,12 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
 
  const subject_flag= `${className}_${sectionName}_${tempSubject}`
 
- const infoChapter= chapter_six[`${tempSubject}`];
-
+ sqlmap.query(`SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}' AND subject='${subject}'`, (errfind, infof)=>{
+  if(errfind) console.log(errfind.sqlMessage);
+  
  sqlmap.query(`SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}' AND subject='${subject}'`, (errfound, subjectfound)=>{
   if(subjectfound.length>0){
+    var infoChapter= chapter_six[`_${infof[0].subject_code}`];
 
  sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
  ,(err_row, count_row)=>{
@@ -48,7 +50,11 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
 
       
     })
-  } else res.redirect('/pages/empty.html')
+  } 
+  
+  else res.redirect('/pages/empty.html')
+
+  })
 
   })
 
