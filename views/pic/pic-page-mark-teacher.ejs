@@ -172,10 +172,11 @@ $.ajax({
  const className= '<%=className%>'
  const sectionName= '<%=sectionName%>'
  const subject= '<%=subject%>'
+ const subject_code= '<%=subject_code%>'
     $.ajax({
         method: "post",
         url: "/teacher/pic/mark-checkout",
-        data: {className, sectionName, subject},
+        data: {className, sectionName, subject_code},
         dataType: "JSON",
         success: function (response) {
             for (const key in response.info_checkout) {
@@ -193,6 +194,7 @@ $(document).on('click', '.form-check-input', (event)=>{
 const className= '<%=className%>'
 const sectionName= '<%=sectionName%>'
 const subject= '<%=subject%>'
+const subject_code= '<%=subject_code%>';
    const pi= event.currentTarget.attributes[0].value;
    const student_uuid= event.currentTarget.attributes[1].value;
    const name= event.currentTarget.attributes[2].value;
@@ -206,7 +208,7 @@ const subject= '<%=subject%>'
 $.ajax({
     method: "post",
     url: "/teacher/pic/mark-post",
-    data: { className, sectionName, pi, student_uuid, roll, name, avatar, subject, chapter, checkout, bg_color},
+    data: { className, sectionName, pi, student_uuid, roll, name, avatar, subject, subject_code, chapter, checkout, bg_color},
     beforeSend: ()=>{
      
     },

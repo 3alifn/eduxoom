@@ -71,10 +71,8 @@
         <% for( let i = 0; i < infoStudent.length; i++ ) { %>
 <tr>
 
-
         <% for( let index = 0; index <infoCatagory.length; index++ ) { %>
             <td > 
-
                 <small style="font-size: smaller;"> <b>(<%=index+1%>)</b> <%=infoCatagory[index].catagory_name.slice(0, 15)%>   <i title="BI" onclick="infoBi('<%=infoCatagory[index].ID%>')" class="bi bi-info-circle btn p-0 infoBi"></i></small>
 
          <p></p>
@@ -136,6 +134,7 @@
 <%- include("../component/___node.html") %> 
 
 </body>
+
 <script>
 function infoBi(ID){
 $.ajax({
@@ -233,4 +232,5 @@ $.ajax({
 })
 
 </script>
+
 </html>

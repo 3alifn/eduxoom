@@ -24,7 +24,7 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
       sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'  ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
       (errStudent, infoStudentData)=>{
 
-        sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}'  AND subject='${subject}'`
+        sqlmap.query(`SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}'  AND subject='${subject}'`
         , (errSubjectCode, infoSubjectCode)=>{
          const subject_code= infoSubjectCode[0].subject_code;
 
@@ -47,33 +47,33 @@ exports.teacher_pis_mark_post= (req, res)=>{
   const teacher_uuid= req.session.teacher_uuid; 
   const session= new Date().getUTCFullYear();
   const domain= req.hostname;
-  const {className,sectionName, pi, student_uuid, roll, name, avatar, chapter, subject, checkout, bg_color}= req.body;
+  const {className,sectionName, pi, student_uuid, roll, name, avatar, chapter, subject, subject_code, checkout, bg_color}= req.body;
   const subjectx= subject.replaceAll(' ', '-').split('-');
   const subjecty= subjectx[0];
-  const subject_code=className+'_'+sectionName+'_'+subjecty;  
+  const subject_flag=className+'_'+sectionName+'_'+subjecty;  
 
   var gp01= ['6_1_1', '6_1_2', '6_1_3'].includes(chapter); var gp02=['6_2_1', '6_2_2'].includes(chapter); var gp03=['6_3_1', '6_3_2'].includes(chapter); var gp04=['6_4_1', '6_4_2'].includes(chapter)
 
   if(gp01==true){var pi_group='group01'}else if(gp02==true){var pi_group='group02'}else if(gp03==true){var pi_group='group03'}else{var pi_group='group04'}
 
 
-  sqlmap.query(`SELECT * FROM pic_mark WHERE domain='${req.hostname}' AND   class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND subject='${subject}' AND chapter='${chapter}'`, (err_pic, info_pic)=>{
+  sqlmap.query(`SELECT * FROM pic_mark WHERE domain='${req.hostname}' AND   class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND subject_code='${subject_code}' AND chapter='${chapter}'`, (err_pic, info_pic)=>{
     if(err_pic) console.log(err_pic.sqlMessage);
     if(info_pic.length>0){
       const pic_pi= info_pic[0].pi;
       sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND   class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'
-       AND subject='${subject}' AND chapter='${chapter}'`,
+       AND subject_code='${subject_code}' AND chapter='${chapter}'`,
       (errCheck, infoCheck)=>{
          if(errCheck) console.log(errCheck.sqlMessage);
          if(infoCheck===undefined || infoCheck.length===0){
    
-             sqlmap.query(`INSERT INTO pis_mark (domain, session, class, section, subject_code, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
-             VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${subject_code}', '${pi_group}',
+             sqlmap.query(`INSERT INTO pis_mark (domain, session, class, section, subject_flag, subject_code, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
+             VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${subject_flag}', '${subject_code}', '${pi_group}',
              '${student_uuid}', '${subject}', ${roll}, '${name}', '${avatar}', '${chapter}', ${pi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
                  if(errPost) console.log(errPost.sqlMessage);
                  else { 
    
-                   todo_transcipt(domain, className, subject_code, pi_group, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout)
+                   todo_transcipt(domain, className, subject_flag, subject_code, pi_group, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout)
                      
                      res.send({msg: 'success'}) 
    
@@ -97,8 +97,8 @@ exports.teacher_pis_mark_post= (req, res)=>{
 exports.teacher_pis_mark_checkout= (req, res)=>{
   const teacher_uuid= req.session.teacher_uuid;
 
-  const {className, sectionName, subject}= req.body;
-  sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='${subject}'`, (errFind, info_checkout)=>{
+  const {className, sectionName, subject, subject_code}= req.body;
+  sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}'`, (errFind, info_checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       res.send({info_checkout})
   })
@@ -122,7 +122,7 @@ exports.teacher_pis_subject_get=(req, res)=>{
        `
        for (const i in info) {
 
-     listData+= `<option vlaue='${info[i].subject}'>${info[i].subject}</option>`
+     listData+= `<option vlaue='${info[i].subject_code}'>${info[i].subject}</option>`
 
        }
  
@@ -134,90 +134,21 @@ exports.teacher_pis_subject_get=(req, res)=>{
 
 
 
-
-
-//  exports.privet_pis_report_student_get= ( req , res)=>{
-//   const {className, sectionName}= req.params;
-
-//   sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-//    GROUP BY student_uuid ORDER BY roll`
-//   ,(errStudent, infoStudentData)=>{
-//   if(infoStudentData.length>0){
-//       const infoStudent= infoStudentData;
-//       res.render('pis/pis-page-report-student-privet', {infoStudent, className, sectionName})
-//   }
-//   else res.redirect('/pages/empty.html')
-
-
-
-//   })
-
-// }
-
-
-
-
-// exports.privet_pis_report_get= ( req , res)=>{
-//   const {className, sectionName, student_uuid}= req.params;
-
-//   sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY subject`, (err_subject, infoSubject)=>{
-//   sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-//    AND student_uuid='${student_uuid}'`
-//   ,(errStudent, infoStudentData)=>{
-//   if(infoStudentData){
-//       const infoStudent= infoStudentData;
-//       sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
-//         if(errs) console.log(errs.sqlMessage);
-//       else {
-//         if(school.length>0){
-//           res.render('pis/pis-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
-//         } else  res.render('pis/pis-page-report-get-privet', {infoStudent, infoSubject, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
-//       }
-//     })  }
-//   else res.redirect('/pages/empty.html')
-
-
-//   })
-//   })
-
-// }
-
-
-
-
-
-
-// exports.privet_pis_report_get_checkout= (req, res)=>{
-//   const session= new Date().getUTCFullYear();
-
-//   const {className, sectionName, student_uuid}= req.body;
-//   sqlmap.query(`SELECT * FROM pis_mark WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' ORDER BY roll`, (errFind, info_checkout)=>{
-//       if(errFind) console.log(errFind.sqlMessage);
-//       else {  
-          
-//           res.send({info_checkout}) 
-//       }
-//   })
-// }
-
-
-
-
-function todo_transcipt(domain, className, subject_code, pi_group, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout){
+function todo_transcipt(domain, className, subject_flag, subject_code, pi_group, teacher_uuid, roll, sectionName,  student_uuid, subject, chapter, name, avatar, pi, pic_pi, checkout){
   const session= new Date().getUTCFullYear(); 
 
   if(pi>pic_pi) var final_pi= pi; else var final_pi=  pic_pi; if(final_pi==1) var bg_color= 'bg-success'; else if(final_pi==0) var bg_color='bg-warning'; else bg_color='bg-danger';
 
 
-  sqlmap.query(`SELECT subject, chapter, student_uuid, roll FROM transcript_report WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND 
-  subject='${subject}' AND chapter='${chapter}' AND student_uuid='${student_uuid}'`, (err_find, info_find)=>{
+  sqlmap.query(`SELECT subject, subject_code, chapter, student_uuid, roll FROM transcript_report WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND 
+  subject_code='${subject_code}' AND chapter='${chapter}' AND student_uuid='${student_uuid}'`, (err_find, info_find)=>{
     if(err_find) console.log(err_find.sqlMessage);
     if(info_find.length==0 || info_find==undefined){
 
     
-      sqlmap.query(`INSERT INTO transcript_report (domain, session, class, section, subject_code, pi_group, subject, chapter,
+      sqlmap.query(`INSERT INTO transcript_report (domain, session, class, section, subject_flag, subject_code, pi_group, subject, chapter,
         teacher_uuid, student_uuid, roll, name, pi, bg_color, checkout, avatar)
-      VALUES('${domain}', ${session},'${className}', '${sectionName}', '${subject_code}', '${pi_group}', '${subject}', '${chapter}', '${teacher_uuid}',
+      VALUES('${domain}', ${session},'${className}', '${sectionName}', '${subject_flag}', '${subject_code}', '${pi_group}', '${subject}', '${chapter}', '${teacher_uuid}',
     '${student_uuid}', '${roll}', '${name}',  '${final_pi}', '${bg_color}', '${checkout}',  '${avatar}')`, (errTranscipt, todoTranscipt)=>{
      if(errTranscipt) console.log(errTranscipt.sqlMessage);
     //  else console.log('transcipt inserted!.');

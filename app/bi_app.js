@@ -82,7 +82,6 @@ exports.admin_bi_catagory_update_post= (req, res)=>{
 
 exports.admin_bi_catagory_delete= (req, res)=>{
 const {catagory_id}= req.body;
-
 sqlmap.query(`DELETE FROM bi_catagory WHERE domain='${req.hostname}' AND  ID=${catagory_id}`, (err, done)=>{
     if(err) console.log(err.sqlMessage);
     else res.send({msg: 'successfully!'})
@@ -115,7 +114,6 @@ exports.teacher_bi_page_mark_get= (req, res)=>{
     
         if(infoStudentData.length>0){
             const infoStudent= infoStudentData;
-     
             res.render('bi/bi-page-mark-teacher', {infoStudent, infoCatagory, pagination, page, nextbtnstatus, prevbtnstatus, className, sectionName, teacher_uuid})
         }
         else res.redirect('/pages/empty.html')
@@ -164,9 +162,6 @@ exports.teacher_bi_report_get= ( req , res)=>{
     })
 
 }
-
-
-
 
 
 

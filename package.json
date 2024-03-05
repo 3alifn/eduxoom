@@ -1,5 +1,5 @@
 {
-  "name": "saanvi",
+  "name": "SAANVIABC",
   "version": "1.3.0",
   "description": "School management software",
   "main": "app.js",
@@ -28,13 +28,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/3alifn/saanvi.git"
+    "url": "git+https://github.com/3alifn/SAANVIABC.git"
   },
   "keywords": [
     "pipilikapipra"
   ],
   "bugs": {
-    "url": "https://github.com/3alifn/saanvi/issues"
+    "url": "https://github.com/3alifn/SAANVIABC/issues"
   },
-  "homepage": "https://github.com/3alifn/saanvi#readme"
+  "homepage": "https://github.com/3alifn/SAANVIABC#readme"
 }
