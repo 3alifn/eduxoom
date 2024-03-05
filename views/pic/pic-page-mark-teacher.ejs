@@ -63,8 +63,7 @@
 
       <table style="transform: rotateX(180deg);"  class="table table-hover">
         <% const infoChapter= ['6.1.1', '6.1.2', '6.1.3', '6.2.1', '6.2.2', '6.3.1', '6.3.2', '6.4.1', '6.4.2'] %>
-
-    
+        
             <tbody class="text-center">
 
                 <% for( let i = 0; i < infoStudent.length; i++ ) { %>
@@ -75,8 +74,7 @@
                          <b><%=infoChapter[index]%></b> <br>
                         <small class="badge bg-light text-dark"><%=infoStudent[i].name%> - <%=infoStudent[i].roll%> <i data-id="<%=infoStudent[i].student_uuid%>"  title="profile" onclick="infoStudent('<%=infoStudent[i].student_uuid%>')" class="bi bi-info-circle btn p-0 infoStudent"></i></small> 
                         <div class="form-check checkout_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%> m-0 p-0 form-switch d-flex btn ">
-                    
-                                     
+                                                         
                                  <span class="p-2 fs-5  border-end checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%>bg-danger">&#9726; <input value="-1" data-id="<%=infoStudent[i].student_uuid%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"  data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index].replaceAll('.', '_')%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
                                  <span class="p-2 fs-5 border-end checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%>bg-warning">&#9673; <input value="0" data-id="<%=infoStudent[i].student_uuid%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"  data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index].replaceAll('.', '_')%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
                                  <span class="p-2 fs-5 checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%>bg-success">&#9650; <input value="1" data-id="<%=infoStudent[i].student_uuid%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>" data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index].replaceAll('.', '_')%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>

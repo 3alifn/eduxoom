@@ -1,5 +1,6 @@
 const {app, express, sqlmap , session} = require("../server")
 
+
 exports.teacher_pic_page_mark_get= (req, res)=>{
   var {class_section, subject, page}= req.query; 
   if(class_section==undefined) {
