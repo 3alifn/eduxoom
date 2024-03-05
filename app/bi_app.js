@@ -5,6 +5,8 @@ var regexString= /^[A-Za-z .-_]*$/
 var regexBi= /^[A-Za-z0-9-_]*$/
 var regexPassword= /^[a-zA-Z0-9!@#$%&*]*$/
 var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/ 
+const chapter_six= require('../chapter_api')
+
 
 exports.teacher_bi_info= (req, res)=>{
     const {ID}= req.body;

@@ -1,3 +1,4 @@
+const chapter_six = require("../chapter_api");
 const {app, express, sqlmap , session} = require("../server")
 
 
@@ -10,36 +11,46 @@ exports.teacher_pic_page_mark_get= (req, res)=>{
  var className= class_section_temp[0];
  var sectionName= class_section_temp[1];
   } 
-  
+  const tempSubject= subject.split('-')[0];
+
+  const subject_flag= `${className}_${sectionName}_${tempSubject}`
+
+  const infoChapter= chapter_six[`${tempSubject}`];
+
  if(page==1) var offset=0; else var offset=page-1; const limit=20; 
+ sqlmap.query(`SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}' AND subject='${subject}'`, (errfound, subjectfound)=>{
+  if(subjectfound.length>0){
+    
+    sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
+    ,(err_row, count_row)=>{
+      if(err_row) console.log(err_row.sqlMessage);
+     const student_row= count_row[0].student_row;
+     const pagination= student_row / limit 
+     if(Math.ceil(pagination)==page) var nextbtnstatus= 'disabled'; else nextbtnstatus=''
+     if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus=''
+   
+    
+         sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
+         (errStudent, infoStudentData)=>{
+     
+           sqlmap.query(`SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}' AND subject='${subject}'`
+           , (errSubjectCode, infoSubjectCode)=>{
+            const subject_code= infoSubjectCode[0].subject_code;
+         if(infoStudentData){
+             const infoStudent= infoStudentData;
+             res.render('pic/pic-page-mark-teacher', {infoStudent,  className, infoChapter, subject_flag, sectionName, subject, subject_code, pagination, page, nextbtnstatus, prevbtnstatus})
+         }
+         else res.redirect('/pages/empty.html')
+     
+     
+         })
+   
+         })
+   
+         })
+  } else res.redirect('/pages/empty.html')
+ })
 
- sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
- ,(err_row, count_row)=>{
-   if(err_row) console.log(err_row.sqlMessage);
-  const student_row= count_row[0].student_row;
-  const pagination= student_row / limit 
-  if(Math.ceil(pagination)==page) var nextbtnstatus= 'disabled'; else nextbtnstatus=''
-  if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus=''
-
- 
-      sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
-      (errStudent, infoStudentData)=>{
-  
-        sqlmap.query(`SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}' AND subject='${subject}'`
-        , (errSubjectCode, infoSubjectCode)=>{
-         const subject_code= infoSubjectCode[0].subject_code;
-      if(infoStudentData){
-          const infoStudent= infoStudentData;
-          res.render('pic/pic-page-mark-teacher', {infoStudent, className, sectionName, subject, subject_code, pagination, page, nextbtnstatus, prevbtnstatus})
-      }
-      else res.redirect('/pages/empty.html')
-  
-  
-      })
-
-      })
-
-      })
 
 }
 

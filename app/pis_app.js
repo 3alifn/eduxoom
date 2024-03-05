@@ -1,5 +1,5 @@
 const {app, express, sqlmap, session } = require("../server")
-
+const chapter_six= require('../chapter_api');
 
 exports.teacher_pis_page_mark_get= (req, res)=>{
   var {class_section, subject, page}= req.query;
@@ -11,6 +11,14 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
  var sectionName= class_section_temp[1];
   }
  if(page==1) var offset=0; else var offset=page-1; const limit=20; 
+ const tempSubject= subject.split('-')[0];
+
+ const subject_flag= `${className}_${sectionName}_${tempSubject}`
+
+ const infoChapter= chapter_six[`${tempSubject}`];
+
+ sqlmap.query(`SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}' AND subject='${subject}'`, (errfound, subjectfound)=>{
+  if(subjectfound.length>0){
 
  sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
  ,(err_row, count_row)=>{
@@ -30,7 +38,7 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
 
       if(infoStudentData){
           const infoStudent= infoStudentData;
-          res.render('pis/pis-page-mark-teacher', {infoStudent, className, sectionName, subject, subject_code, pagination, page, nextbtnstatus, prevbtnstatus})
+          res.render('pis/pis-page-mark-teacher', {infoStudent, className, sectionName, infoChapter, subject, subject_code, pagination, page, nextbtnstatus, prevbtnstatus})
       }
       else res.redirect('/pages/empty.html')
   
@@ -38,7 +46,12 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
       })
       })
 
-      })
+      
+    })
+  } else res.redirect('/pages/empty.html')
+
+  })
+
 }
 
 
