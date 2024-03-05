@@ -114,7 +114,7 @@
                       <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">অংশগ্রহন ও যোগাযোগ
                       </div>
 
-                      <div class="d-flex bi-group01" style="height: 28px;">
+                      <div class="d-flex bi-gp1" style="height: 28px;">
 
                         <!-- <div class="flex-fill border border-dark"></div>-->
 
@@ -131,7 +131,7 @@
 
                       <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">নিষ্ঠা ও সততা</div>
 
-                      <div class="d-flex bi-group02" style="height: 28px;">
+                      <div class="d-flex bi-gp2" style="height: 28px;">
                       <!-- <div class="flex-fill border border-dark"></div>-->
 
                       </div>
@@ -148,7 +148,7 @@
                       <div class="text-center fw-semibold p-1 border-bottom border-dark border-2">পারস্পারিক শ্রব্দা ও
                         সহযোগিতা</div>
 
-                      <div class="d-flex bi-group03" style="height: 28px;">
+                      <div class="d-flex bi-gp3" style="height: 28px;">
                   <!-- <div class="flex-fill border border-dark"></div>-->
 
                       </div>
@@ -311,7 +311,7 @@
                         </small>
                       </div>
 
-                      <div class="d-flex english-group01" style="height: 28px;">
+                      <div class="d-flex Six_A_English_gp1" style="height: 28px;">
 
                       <!-- <div class="flex-fill border border-dark"></div>-->
 
@@ -333,7 +333,7 @@
                         </small>
                       </div>
 
-                      <div class="d-flex english-group02" style="height: 28px;">
+                      <div class="d-flex Six_A_English_gp2" style="height: 28px;">
                       <!-- <div class="flex-fill border border-dark"></div>-->
 
 
@@ -359,7 +359,7 @@
                         </small>
                       </div>
 
-                      <div class="d-flex english-group03" style="height: 28px;">
+                      <div class="d-flex Six_A_English_gp3" style="height: 28px;">
                       <!-- <div class="flex-fill border border-dark"></div>-->
 
 
@@ -382,7 +382,7 @@
                         </small>
                       </div>
 
-                      <div class="d-flex english-group04" style="height: 28px;">
+                      <div class="d-flex Six_A_English_gp4" style="height: 28px;">
 
                       <!-- <div class="flex-fill border border-dark"></div>-->
 
@@ -1312,13 +1312,13 @@
       dataType: "JSON",
       success: function (res) {
         for (let index = 0; index < 7; index++) {
-          $('.bi-group01').append(`<div class="flex-fill border border-dark ${res.gp01>index?'bg-secondary':''} "></div>`)
+          $('.bi-gp1').append(`<div class="flex-fill border border-dark ${res.gp01>index?'bg-secondary':''} "></div>`)
           
         }  for (let index = 0; index < 7; index++) {
-          $('.bi-group02').append(`<div class="flex-fill border border-dark ${res.gp02>index?'bg-secondary':''}"></div>`)
+          $('.bi-gp2').append(`<div class="flex-fill border border-dark ${res.gp02>index?'bg-secondary':''}"></div>`)
           
         }  for (let index = 0; index < 7; index++) {
-          $('.bi-group03').append(`<div class="flex-fill border border-dark ${res.gp03>index?'bg-secondary':''}"></div>`)
+          $('.bi-gp3').append(`<div class="flex-fill border border-dark ${res.gp03>index?'bg-secondary':''}"></div>`)
           
         }
 
@@ -1335,23 +1335,30 @@
     const className = '<%=className%>'
     const sectionName = '<%=sectionName%>'
     const student_uuid = '<%=student_uuid%>'
-    $.ajax({
+    const subject_codex= ['cc3556329d4583319dca2e10ff96baf7'];
+    
+    for (let index = 0; index < subject_codex.length; index++) {
+      subject_code= subject_codex[index];
+      $.ajax({
       method: "post",
       url: "/admin/pi/transcript-report-checkout",
-      data: { className, sectionName, student_uuid },
+      data: { className, sectionName, student_uuid, subject_code },
       dataType: "JSON",
       success: function (res) {
         for (let index = 0; index < 7; index++) {
-          $('.english-group01').append(`<div class="flex-fill border border-dark ${res.english_gp01>index?'bg-secondary':''} "></div>`)
+          $(`.${res.subject_flag}_gp1`).append(`<div class="flex-fill border border-dark ${res.gp1>index?'bg-secondary':''} "></div>`)
           
         }  for (let index = 0; index < 7; index++) {
-          $('.english-group02').append(`<div class="flex-fill border border-dark ${res.english_gp02>index?'bg-secondary':''}"></div>`)
+          $(`.${res.subject_flag}_gp2`).append(`<div class="flex-fill border border-dark ${res.gp2>index?'bg-secondary':''}"></div>`)
           
         }  for (let index = 0; index < 7; index++) {
-          $('.english-group03').append(`<div class="flex-fill border border-dark ${res.english_gp03>index?'bg-secondary':''}"></div>`)
+          $(`.${res.subject_flag}_gp3`).append(`<div class="flex-fill border border-dark ${res.gp3>index?'bg-secondary':''}"></div>`)
           
         } for (let index = 0; index < 7; index++) {
-          $('.english-group04').append(`<div class="flex-fill border border-dark ${res.english_gp04>index?'bg-secondary':''}"></div>`)
+          $(`.${res.subject_flag}_gp4`).append(`<div class="flex-fill border border-dark ${res.gp4>index?'bg-secondary':''}"></div>`)
+          
+        }for (let index = 0; index < 7; index++) {
+          $(`.${res.subject_flag}_gp5`).append(`<div class="flex-fill border border-dark ${res.gp5>index?'bg-secondary':''}"></div>`)
           
         }
 
@@ -1359,6 +1366,9 @@
       }
     });
 
+      
+    }
+  
   }
 
   pi_checkout_class()

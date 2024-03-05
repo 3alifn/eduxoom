@@ -71,10 +71,8 @@ exports.teacher_pis_mark_post= (req, res)=>{
   const subjecty= subjectx[0];
   const subject_flag=className+'_'+sectionName+'_'+subjecty;  
 
-  var gp01= ['6_1_1', '6_1_2', '6_1_3'].includes(chapter); var gp02=['6_2_1', '6_2_2'].includes(chapter); var gp03=['6_3_1', '6_3_2'].includes(chapter); var gp04=['6_4_1', '6_4_2'].includes(chapter)
-
-  if(gp01==true){var pi_group='group01'}else if(gp02==true){var pi_group='group02'}else if(gp03==true){var pi_group='group03'}else{var pi_group='group04'}
-
+  const pi_group= chapter.split('_')[0];
+  // console.log(pi_group);
 
   sqlmap.query(`SELECT * FROM pic_mark WHERE domain='${req.hostname}' AND   class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND subject_code='${subject_code}' AND chapter='${chapter}'`, (err_pic, info_pic)=>{
     if(err_pic) console.log(err_pic.sqlMessage);

@@ -250,7 +250,7 @@ exports.teacher_bi_mark_post= (req, res)=>{
     const domain= req.hostname;
     const {className,sectionName,bi_no, bi, student_uuid, roll, name, avatar, catagory, checkout, bg_color}= req.body;
     var g01= ['1','2','9','10'].includes(bi_no); var g02=['3','4','5','6'].includes(bi_no); var g03=['7','8'].includes(bi_no)
-    if(g01==true){var bi_group='group01'}else if(g02==true){var bi_group='group02'}else{var bi_group='group03'}
+    if(g01==true){var bi_group='gp1'}else if(g02==true){var bi_group='gp2'}else{var bi_group='gp3'}
     sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.hostname}' AND  teacher_uuid='${teacher_uuid}' AND class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${catagory}'`,
      (errCheck, infoCheck)=>{
         if(errCheck) console.log(errCheck.sqlMessage);
@@ -283,22 +283,21 @@ exports.teacher_bi_mark_post= (req, res)=>{
 exports.admin_bi_transcript_report_checkout=(req, res)=>{
     const {className,sectionName, student_uuid}= req.body;
     const domain= req.hostname;
-
     teacher_bi_transcript_post_update(domain, className, sectionName, student_uuid)
 
     sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
    
         sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' 
-        AND student_uuid='${student_uuid}' AND bi_group='group01' GROUP BY bi_no ORDER BY ID DESC`,
+        AND student_uuid='${student_uuid}' AND bi_group='gp1' GROUP BY bi_no ORDER BY ID DESC`,
     (errg01, infog01)=>{
         
         sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
-         AND student_uuid='${student_uuid}' AND bi_group='group02' GROUP BY bi_no ORDER BY ID DESC`,
+         AND student_uuid='${student_uuid}' AND bi_group='gp2' GROUP BY bi_no ORDER BY ID DESC`,
         (errg02, infog02)=>{
             
             
             sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' 
-            AND student_uuid='${student_uuid}' AND bi_group='group03' GROUP BY bi_no ORDER BY ID DESC`,
+            AND student_uuid='${student_uuid}' AND bi_group='gp3' GROUP BY bi_no ORDER BY ID DESC`,
             (errg03, infog03)=>{
            
                 if(infog01.length>0){
@@ -339,8 +338,8 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
                 })
                
                 }
-       
-
+         
+                   
                 const gp01v= (((get_gp01)/4)*100);
                 const gp02v= (((get_gp02)/4)*100);
                 const gp03v= (((get_gp03)/2)*100);
@@ -431,7 +430,6 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
                 var gp03= null;
 
                }
-
                 res.send({gp01, gp02, gp03})
 
             })

@@ -75,157 +75,202 @@ exports.privet_pi_report_checkout= (req, res)=>{
 
 
 exports.admin_pi_transcript_report_checkout=(req, res)=>{
-    const {className,sectionName, student_uuid, subject}= req.body;
+    const {className,sectionName, student_uuid, subject_code}= req.body;
     const domain= req.hostname;
   
-  
-    sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
-    AND pi_group='group01'`,
+    sqlmap.query(`SELECT subject_flag, subject_code, subject FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'`,
+    (errinfo, info)=>{
+      const subject_flag= info[0].subject_flag;
+      sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+    AND pi_group='gp1'`,
     (errg01, infog01)=>{
         
-        sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
-        AND pi_group='group02'`,
+        sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+        AND pi_group='gp2'`,
         (errg02, infog02)=>{
             
-        sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
-        AND pi_group='group03'`,
+        sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+        AND pi_group='gp3'`,
         (errg03, infog03)=>{
             
             
-            sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject='English' AND student_uuid='${student_uuid}'
-            AND pi_group='group04'`,
-            (errg04, infog04)=>{
-                
-                const english_gp01v= (((infog01[0].pi_sum)/3)*100);
-                const english_gp02v= (((infog02[0].pi_sum)/2)*100);
-                const english_gp03v= (((infog03[0].pi_sum)/2)*100);
-                const english_gp04v= (((infog04[0].pi_sum)/2)*100);
+            sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+            AND pi_group='gp4'`,
+            (errg04, infog04)=>{ 
+              
+              sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+            AND pi_group='gp5'`,
 
-               if(english_gp01v==100){
-                var english_gp01= 7;
-               } 
-               else if(english_gp01v>=50){
-                var english_gp01= 6;
-               } 
-               else if(english_gp01v>=25){
-                var english_gp01= 5;
-               }
-               else if(english_gp01v>=0){
-                var english_gp01= 4;
-               }
-               else if(english_gp01v>=-25){
-                var english_gp01= 3;
+            (errg05, infog05)=>{
+              
+
+              const gp1v= (((infog01[0].pi_sum==null?undefined:infog01[0].pi_sum)/3)*100);
+              const gp2v= (((infog02[0].pi_sum==null?undefined:infog02[0].pi_sum)/2)*100);
+              const gp3v= (((infog03[0].pi_sum==null?undefined:infog03[0].pi_sum)/2)*100);
+              const gp4v= (((infog04[0].pi_sum==null?undefined:infog04[0].pi_sum)/2)*100);
+              const gp5v= (((infog05[0].pi_sum==null?undefined:infog05[0].pi_sum)/2)*100);
+                          
+
+                  if(gp1v==100){
+                    var gp1= 7;
+                   } 
+                   else if(gp1v>=50){
+                    var gp1= 6;
+                   } 
+                   else if(gp1v>=25){
+                    var gp1= 5;
+                   }
+                   else if(gp1v>=0){
+                    var gp1= 4;
+                   }
+                   else if(gp1v>=-25){
+                    var gp1= 3;
+      
+                   } else if(gp1v>=-50){
+                    var gp1= 2;
+      
+                   }else if(gp1v>=-100){
+                    var gp1= 1;
+      
+                   } else {
+      
+                    var gp1= 0;
+      
+                   }
   
-               } else if(english_gp01v>=-50){
-                var english_gp01= 2;
   
-               }else if(english_gp01v>=-100){
-                var english_gp01= 1;
+                                  
+            if(gp2v==100){
+              var gp2= 7;
+             } 
+             else if(gp2v>=50){
+              var gp2= 6;
+             } 
+             else if(gp2v>=25){
+              var gp2= 5;
+             }
+             else if(gp2v>=0){
+              var gp2= 4;
+             }
+             else if(gp2v>=-25){
+              var gp2= 3;
+
+             } else if(gp2v>=-50){
+              var gp2= 2;
+
+             }else if(gp2v>=-100){
+              var gp2= 1;
+
+             } else {
+
+              var gp2= 0;
+
+             }
+  
+  
+                    
+
+              if(gp3v==100){
+                var gp3= 7;
+               } 
+               else if(gp3v>=50){
+                var gp3= 6;
+               } 
+               else if(gp3v>=25){
+                var gp3= 5;
+               }
+               else if(gp3v>=0){
+                var gp3= 4;
+               }
+               else if(gp3v>=-25){
+                var gp3= 3;
+  
+               } else if(gp3v>=-50){
+                var gp3= 2;
+  
+               }else if(gp3v>=-100){
+                var gp3= 1;
   
                } else {
   
-                var english_gp01= 0;
-  
-               }
-  
-  
-                      
-               if(english_gp02v==100){
-                var english_gp02= 7;
-               } 
-               else if(english_gp02v>=50){
-                var english_gp02= 6;
-               } 
-               else if(english_gp02v>=25){
-                var english_gp02= 5;
-               }
-               else if(english_gp02v>=0){
-                var english_gp02= 4;
-               }
-               else if(english_gp02v>=-25){
-                var english_gp02= 3;
-  
-               } else if(english_gp02v>=-50){
-                var english_gp02= 2;
-  
-               }else if(english_gp02v>=-100){
-                var english_gp02= 1;
-  
-               } else {
-  
-                var english_gp02= 0;
-  
-               }
-  
-  
-  
-  
-                      
-               if(english_gp03v==100){
-                var english_gp03= 7;
-               } 
-               else if(english_gp03v>=50){
-                var english_gp03= 6;
-               } 
-               else if(english_gp03v>=25){
-                var english_gp03= 5;
-               }
-               else if(english_gp03v>=0){
-                var english_gp03= 4;
-               }
-               else if(english_gp03v>=-25){
-                var english_gp03= 3;
-  
-               } else if(english_gp03v>=-50){
-                var english_gp03= 2;
-  
-               }else if(english_gp03v>=-100){
-                var english_gp03= 1;
-  
-               } else {
-  
-                var english_gp03= 0;
+                var gp3= 0;
   
                }
 
 
 
-               if(english_gp04v==100){
-                var english_gp04= 7;
-               } 
-               else if(english_gp04v>=50){
-                var english_gp04= 6;
-               } 
-               else if(english_gp04v>=25){
-                var english_gp04= 5;
-               }
-               else if(english_gp04v>=0){
-                var english_gp04= 4;
-               }
-               else if(english_gp04v>=-25){
-                var english_gp04= 3;
-            
-               } else if(english_gp04v>=-50){
-                var english_gp04= 2;
-            
-               }else if(english_gp04v>=-100){
-                var english_gp04= 1;
-            
-               } else {
-            
-                var english_gp04= 0;
-            
-               }
+
+                if(gp4v==100){
+                  var gp4= 7;
+                 } 
+                 else if(gp4v>=50){
+                  var gp4= 6;
+                 } 
+                 else if(gp4v>=25){
+                  var gp4= 5;
+                 }
+                 else if(gp4v>=0){
+                  var gp4= 4;
+                 }
+                 else if(gp4v>=-25){
+                  var gp4= 3;
+              
+                 } else if(gp4v>=-50){
+                  var gp4= 2;
+              
+                 }else if(gp4v>=-100){
+                  var gp4= 1;
+              
+                 } else {
+              
+                  var gp4= 0;
+                 
+                 }
+
+
+                 
+                 if(gp5v==100){
+                  var gp5= 7;
+                 } 
+                 else if(gp5v>=50){
+                  var gp5= 6;
+                 } 
+                 else if(gp5v>=25){
+                  var gp5= 5;
+                 }
+                 else if(gp5v>=0){
+                  var gp5= 4;
+                 }
+                 else if(gp5v>=-25){
+                  var gp5= 3;
+              
+                 } else if(gp5v>=-50){
+                  var gp5= 2;
+              
+                 }else if(gp5v>=-100){
+                  var gp5= 1;
+              
+                 } else {
+              
+                  var gp5= 0;
+                 
+                 }
+              
+
   
-            // console.log(english_gp01, english_gp02, english_gp03, english_gp04);
-              res.send({english_gp01, english_gp02, english_gp03, english_gp04})
+            console.log(gp1, gp2, gp3, gp4, gp5, subject_flag);
+              res.send({gp1, gp2, gp3, gp4, gp5, subject_flag})
   
             })
     
         })
 
         })
+
+        })
   
+    });
+
     });
     
  
