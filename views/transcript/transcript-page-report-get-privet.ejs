@@ -16,7 +16,32 @@
 
   <div class="row p-1 mt-5">
     <div class="col-md-11 col-12 m-auto p-2">
-      <table class="table table-bordered p-2 m-1 border-5 border-dark ">
+
+      <identification>
+        <div class="d-flex m-2 ps-3 pe-3 justify-content-start">
+          <div class="pe-2">প্রতিষ্ঠানের নাম</div>
+          <div class="flex-fill fw-semibold" style="border-bottom: 2px dotted;">: <%=sname%></div>
+        </div>
+
+        <div class="d-flex m-2 ps-3 pe-3 justify-content-start">
+          <div class="pe-2">শিক্ষার্থীর নাম</div>
+          <div class="flex-fill fw-semibold" style="border-bottom: 2px dotted;">: <%=info[0].name%></div>
+
+          <div class="pe-2 ps-3">শিক্ষার্থীর আইডি</div>
+          <div class="flex-fill fw-semibold" style="border-bottom: 2px dotted;">: <%=student_uuid%></div>
+        </div>
+
+
+        <div class="d-flex m-2 ps-3 pe-3 justify-content-start">
+          <div class="pe-2">শ্রেণি</div>
+          <div class="flex-fill fw-semibold" style="border-bottom: 2px dotted;">: <%=className%> - <%=sectionName%></div>
+
+          <div class="pe-2 ps-3">শিক্ষাবর্ষ</div>
+          <div class="flex-fill" style="border-bottom: 2px dotted;">: </div>
+        </div>
+      </identification>
+
+      <table class="table table-bordered p-2 m-1 mt-3 border-5 border-dark ">
         
         <thead class="text-center fw-semibold">
          
@@ -31,9 +56,9 @@
   
           <tr class="text-center" style="height: 40px;"><td style="border-top: 1px solid white;"></td>
           
-            <td class="english_6_1_1_bg-danger"></td>
-            <td class="english_6_1_1_bg-warning"></td>
-            <td class="english_6_1_1_bg-success"></td>
+            <td class="6_1_1_bg-danger"></td>
+            <td class="6_1_1_bg-warning"></td>
+            <td class="6_1_1_bg-success"></td>
            
           </tr>
   
@@ -80,9 +105,9 @@
   
           <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
-            <td class="english_6_1_2_bg-danger"></td>
-            <td class="english_6_1_2_bg-warning"></td>
-            <td class="english_6_1_2_bg-success"></td>
+            <td class="6-1-2-bg-danger"></td>
+            <td class="6-1-2-bg-warning"></td>
+            <td class="6-1-2-bg-success"></td>
            
           </tr>
           <tr>
@@ -128,9 +153,9 @@
   
           <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
-            <td class="english_6_1_3_bg-danger"></td>
-            <td class="english_6_1_3_bg-warning"></td>
-            <td class="english_6_1_3_bg-success"></td>
+            <td class="6_1_3_bg-danger"></td>
+            <td class="6_1_3_bg-warning"></td>
+            <td class="6_1_3_bg-success"></td>
            
           </tr>
           <tr>
@@ -178,9 +203,9 @@
             </tr>
             <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
-              <td class="english_6_2_1_bg-danger"></td>
-              <td class="english_6_2_1_bg-warning"></td>
-              <td class="english_6_2_1_bg-success"></td>
+              <td class="6-2-1-bg-danger"></td>
+              <td class="6-2-1-bg-warning"></td>
+              <td class="6-2-1-bg-success"></td>
              
             </tr>
             
@@ -221,9 +246,9 @@
   
             <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
-              <td class="english_6_2_2_bg-danger"></td>
-              <td class="english_6_2_2_bg-warning"></td>
-              <td class="english_6_2_2_bg-success"></td>
+              <td class="6-2-2-bg-danger"></td>
+              <td class="6-2-2-bg-warning"></td>
+              <td class="6-2-2-bg-success"></td>
              
             </tr>
                
@@ -269,9 +294,9 @@
   
             <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
-              <td class="english_6_3_1_bg-danger"></td>
-              <td class="english_6_3_1_bg-warning"></td>
-              <td class="english_6_3_1_bg-success"></td>
+              <td class="6-3-1-bg-danger"></td>
+              <td class="6-3-1-bg-warning"></td>
+              <td class="6-3-1-bg-success"></td>
              
             </tr>
             <tr>
@@ -306,9 +331,9 @@
   
               <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
-                <td class="english_6_3_2_bg-danger"></td>
-                <td class="english_6_3_2_bg-warning"></td>
-                <td class="english_6_3_2_bg-success"></td>
+                <td class="6-3-2-bg-danger"></td>
+                <td class="6-3-2-bg-warning"></td>
+                <td class="6-3-2-bg-success"></td>
                
               </tr>
               <tr>
@@ -354,9 +379,9 @@
   
                 <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
-                  <td class="english_6_4_1_bg-danger"></td>
-                  <td class="english_6_4_1_bg-warning"></td>
-                  <td class="english_6_4_1_bg-success"></td>
+                  <td class="6-4-1-bg-danger"></td>
+                  <td class="6-4-1-bg-warning"></td>
+                  <td class="6-4-1-bg-success"></td>
                  
                 </tr>
                 <tr>
@@ -394,9 +419,9 @@
   
                   <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
-                    <td class="english_6_4_2_bg-danger"></td>
-                    <td class="english_6_4_2_bg-warning"></td>
-                    <td class="english_6_4_2_bg-success"></td>
+                    <td class="6-4-2-bg-danger"></td>
+                    <td class="6-4-2-bg-warning"></td>
+                    <td class="6-4-2-bg-success"></td>
                    
                   </tr>
                   
@@ -464,7 +489,7 @@ function pi_checkout_class() {
         success: function (res) {
             for (const key in res.checkout) { 
               
-   $(`.${res.checkout[key].subject}_${res.checkout[key].chapter}_${res.checkout[key].bg_color}`).html(res.checkout[key].pi=='1'?'&#9650;':res.checkout[key].pi=='0'?'&#9673;':'&#9726;')
+   $(`.${res.checkout[key].chapter.split('_')[1]}-${res.checkout[key].bg_color}`).html(res.checkout[key].bg_color=='bg-success'?'&#9650;':res.checkout[key].bg_color=='bg-warning'?'&#9673;':'&#9726;')
 
 
             }

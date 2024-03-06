@@ -45,8 +45,8 @@
          </div>
          </div>
 
-        <% for (const key in infoSubject ) { %>
-          <code class="subject-<%=infoSubject[key].subject%>">
+        <% for (const key in info ) { %>
+          <code class="subject-<%=info[key].subject%>">
          
             <div class="col-md-7  col-11 m-auto  rounded">
           
@@ -54,9 +54,9 @@
           
              <!-- Hover added -->
              <div class="list-group shadowx m-1 fw-semibold text-muted">
-              <a href="/privet/transcript/report-get/<%=class_name%>/<%=section_name%>/<%=class_name%>_<%=section_name%>_<%=infoSubject[key].subject.split('-')[0]%>/<%=sid%>/" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+              <a href="/privet/transcript/report-get/<%=class_name%>/<%=section_name%>/<%=info[key].subject_code%>/<%=sid%>/" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
                 <div class="d-flex align-items-center">
-                  <span class="ps-1 fw-semibold text-muted"><%=infoSubject[key].subject%></span>
+                  <span class="ps-1 fw-semibold text-muted"><%=info[key].subject%></span>
                 </div>
               </a>
              </div>

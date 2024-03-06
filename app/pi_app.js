@@ -8,7 +8,7 @@ var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|
 
 exports.privet_transcript_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
-
+ console.log(req.params);
   sqlmap.query(`SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
    GROUP BY student_uuid  ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
@@ -28,14 +28,13 @@ exports.privet_transcript_report_student_get= ( req , res)=>{
 exports.privet_finding_subject_sid= ( req , res)=>{
   const {class_name, section_name, sid}= req.params; 
 
-  sqlmap.query(`SELECT subject, class FROM subject WHERE domain='${req.hostname}' AND class='${class_name}' GROUP BY subject ORDER BY subject`, 
+  sqlmap.query(`SELECT subject, subject_code, class FROM subject WHERE domain='${req.hostname}' AND class='${class_name}' GROUP BY subject ORDER BY subject`, 
   (err_subject, info)=>{
           if(err_subject) console.log(err_subject.sqlMessage);
           else res.render('transcript/transcript-subject-page', {info,class_name, section_name, sid})
   })  
       
 }
-
 
 
 
@@ -65,8 +64,8 @@ exports.privet_pi_report_checkout= (req, res)=>{
    (errFind, checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
-          
-          res.send({checkout}) 
+    
+          res.send({className, sectionName, student_uuid, subject_code,  checkout}) 
       }
   })
 }
@@ -280,19 +279,26 @@ exports.admin_pi_transcript_report_checkout=(req, res)=>{
 
 exports.privet_transcript_report_get= ( req , res)=>{
     const {className, sectionName, subject_code, student_uuid}= req.params;
- 
-      sqlmap.query(`SELECT class, section, subject_code, student_uuid FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+      sqlmap.query(`SELECT class, section, name, chapter,  subject_code, student_uuid FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
       AND student_uuid='${student_uuid}' AND subject_code='${subject_code}'`
-      ,(errStudent, infoStudent)=>{
-        if(infoStudent.length>0){
+      ,(errStudent, info)=>{
+        if(info.length>0){
+      
           sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
             if(errs) console.log(errs.sqlMessage);
           else {
             if(school.length>0){
-              res.render('transcript/transcript-page-report-get-privet', {infoStudent, subject_code, student_uuid, className, sectionName, sname: school[0].name, slogo: school[0].logo})
+              const sname= school[0].name; const slogo=school[0].logo;
+
+              res.render('transcript/transcript-page-report-get-privet', {info, subject_code, student_uuid, className, sectionName, sname, slogo })
             }
             // else res.redirect('/pages/empty.html')
-             else  res.render('transcript/transcript-page-report-get-privet', {infoStudent, subject_code, student_uuid, className, sectionName, sname: 'no name', slogo: 'logo.png'})
+             else {
+              const sname= 'NO NAME'; const slogo=null
+              
+
+               res.render('transcript/transcript-page-report-get-privet', {info, subject_code, student_uuid, className, sectionName, sname, slogo})
+          }
           }
         })
        
@@ -352,3 +358,5 @@ exports.admin_result_report_get= ( req , res)=>{
   
   
   }
+
+
