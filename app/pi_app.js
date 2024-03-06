@@ -29,9 +29,9 @@ exports.privet_finding_subject_sid= ( req , res)=>{
   const {class_name, section_name, sid}= req.params; 
 
   sqlmap.query(`SELECT subject, class FROM subject WHERE domain='${req.hostname}' AND class='${class_name}' GROUP BY subject ORDER BY subject`, 
-  (err_subject, infoSubject)=>{
+  (err_subject, info)=>{
           if(err_subject) console.log(err_subject.sqlMessage);
-          else res.render('transcript/transcript-subject-page', {infoSubject,class_name, section_name, sid})
+          else res.render('transcript/transcript-subject-page', {info,class_name, section_name, sid})
   })  
       
 }
@@ -258,8 +258,8 @@ exports.admin_pi_transcript_report_checkout=(req, res)=>{
               
 
   
-            console.log(gp1, gp2, gp3, gp4, gp5, subject_flag);
-              res.send({gp1, gp2, gp3, gp4, gp5, subject_flag})
+            // console.log(gp1, gp2, gp3, gp4, gp5, subject_flag, subject_code);
+              res.send({gp1, gp2, gp3, gp4, gp5, subject_code})
   
             })
     
@@ -314,18 +314,15 @@ exports.admin_result_report_get= ( req , res)=>{
     const {student_offset}= req.query; const init_student= student_uuid;
     if(student_offset==undefined) var offset= 0; if(student_uuid=='auto') var offset= student_offset;  
 
-    sqlmap.query(`SELECT student_uuid, subject, subject_code, subject_flag FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}'`, 
-    (err, info)=>{ 
-
-      if(err) console.log(err.sqlMessage);
-      if(info.length>0){
-
-      sqlmap.query(`SELECT subject, subject_code, subject_flag FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' GROUP BY subject_code`, 
+      sqlmap.query(`SELECT name, avatar, student_uuid, class, section, subject, subject_code, subject_flag FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' GROUP BY subject_code`, 
     
-    (errSubject, infoSubject)=>{
- 
+    (errSubject, info)=>{
+      if(errSubject) console.log(errSubject.sqlMessage);
+      
       // if(info_row.length==parseInt(offset)+1) var btnstatus= 'disabled'; else var btnstatus=''; if(init_student=='auto') var offsetPlus= parseInt(offset)+1; else var offsetPlus= 0;  
-        
+      
+      if(info.length>0){
+    
         sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
           if(errs) console.log(errs.sqlMessage);
           if(school.length>0){
@@ -333,23 +330,22 @@ exports.admin_result_report_get= ( req , res)=>{
 
             const sname= school[0].name; const slogo=school[0].logo;
 
-            res.render('admin/result-page-report-get', {infoSubject, info,  student_uuid, className, sectionName, sname, slogo})
+            res.render('admin/result-page-report-get', {info,  student_uuid, className, sectionName, sname, slogo})
        
           } 
           else {
-            const sname= null; const slogo=null
-            res.render('admin/result-page-report-get', {infoSubject, info,  student_uuid, className, sectionName, sname, slogo})
+            const sname= 'NO NAME'; const slogo=null
+            res.render('admin/result-page-report-get', {info,  student_uuid, className, sectionName, sname, slogo})
 
           } 
       })
     
-  
+    } else res.redirect('/pages/empty.html')
+
     })
-        }
         
-        else res.redirect('/pages/empty.html')
+        
   
-    })
     
     
   
