@@ -30,7 +30,7 @@ function ___ini(domain, lics){
   // console.log(log);
 
  
-  // sqlmap.query(`SELECT subject, subject_code FROM subject WHERE class='Six' order by subject`, (err, info)=>{
+  // sqlmap.query(`SELECT class, subject, subject_code FROM subject WHERE class='Six' OR class='Seven' order by subject`, (err, info)=>{
   //  if(err) console.log(err.sqlMessage);
   //  else console.log(info);
   // })
