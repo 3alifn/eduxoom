@@ -25,7 +25,7 @@ exports.privet_transcript_report_student_get= ( req , res)=>{
 exports.privet_finding_subject_sid= ( req , res)=>{
   const {class_name, section_name, sid}= req.params; 
 
-  sqlmap.query(`SELECT subject, subject_code, class FROM subject WHERE domain='${req.hostname}' AND class='${class_name}' GROUP BY subject ORDER BY subject`, 
+  sqlmap.query(`SELECT subject, subject_code, class FROM ini_subject WHERE class='${class_name}' GROUP BY subject ORDER BY subject`, 
   (err_subject, info)=>{
           if(err_subject) console.log(err_subject.sqlMessage);
           else res.render('transcript/transcript-subject-page', {info,class_name, section_name, sid})

@@ -742,15 +742,15 @@ else {
 
 exports.admin_config_subject= (req, res)=>{
 
-  sqlmap.query(`SELECT subject, section FROM subject WHERE domain='${req.hostname}' AND  class="Ten" ORDER BY section`, (err10, info10)=>{
+  sqlmap.query(`SELECT subject, section FROM ini_subject WHERE  class="Ten" ORDER BY section`, (err10, info10)=>{
 
-    sqlmap.query(`SELECT subject, section FROM subject WHERE domain='${req.hostname}' AND  class="Nine" ORDER BY section`, (err9, info9)=>{
+    sqlmap.query(`SELECT subject, section FROM ini_subject WHERE  class="Nine" ORDER BY section`, (err9, info9)=>{
 
-      sqlmap.query(`SELECT subject, section FROM subject WHERE domain='${req.hostname}' AND  class="Eight" ORDER BY section`, (err8, info8)=>{
+      sqlmap.query(`SELECT subject, section FROM ini_subject WHERE  class="Eight" ORDER BY section`, (err8, info8)=>{
 
-        sqlmap.query(`SELECT subject, section FROM subject WHERE domain='${req.hostname}' AND  class="Seven" ORDER BY section`, (err7, info7)=>{
+        sqlmap.query(`SELECT subject, section FROM ini_subject WHERE  class="Seven" ORDER BY section`, (err7, info7)=>{
 
-          sqlmap.query(`SELECT subject, section FROM subject WHERE domain='${req.hostname}' AND  class="Six" ORDER BY section`, (err6, info6)=>{
+          sqlmap.query(`SELECT subject, section FROM ini_subject WHERE  class="Six" ORDER BY section`, (err6, info6)=>{
 
             let list10= "";
 

@@ -204,7 +204,7 @@ const sql= `SELECT * FROM routine WHERE domain='${req.hostname}' AND  class="${c
 exports.admin_subject_dynamic_get= (req, res)=>{
     const {class_name}= req.body;
 
-    sqlmap.query(`SELECT subject FROM subject WHERE domain='${req.hostname}' AND  class="${class_name}" GROUP BY subject ORDER BY subject`, (err, info)=>{
+    sqlmap.query(`SELECT ini_subject FROM ini_subject WHERE  class="${class_name}" GROUP BY subject ORDER BY subject`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
 
         else 
