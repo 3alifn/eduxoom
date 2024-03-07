@@ -15,10 +15,10 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
 
  const subject_flag= `${className}_${sectionName}_${tempSubject}`
 
- sqlmap.query(`SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}' AND subject='${subject}'`, (errfind, infof)=>{
+ sqlmap.query(`SELECT subject, subject_code FROM ini_subject WHERE  class='${className}' AND subject='${subject}'`, (errfind, infof)=>{
   if(errfind) console.log(errfind.sqlMessage);
   
- sqlmap.query(`SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}' AND subject='${subject}'`, (errfound, subjectfound)=>{
+ sqlmap.query(`SELECT subject, subject_code FROM ini_subject WHERE  class='${className}' AND subject='${subject}'`, (errfound, subjectfound)=>{
   if(subjectfound.length>0){
     var infoChapter= chapter_six[`_${infof[0].subject_code}`];
 
@@ -34,7 +34,7 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
       sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'  ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`,
       (errStudent, infoStudentData)=>{
 
-        sqlmap.query(`SELECT subject, subject_code FROM subject WHERE domain='${req.hostname}' AND  class='${className}'  AND subject='${subject}'`
+        sqlmap.query(`SELECT subject, subject_code FROM ini_subject WHERE  class='${className}'  AND subject='${subject}'`
         , (errSubjectCode, infoSubjectCode)=>{
          const subject_code= infoSubjectCode[0].subject_code;
 
@@ -129,7 +129,7 @@ exports.teacher_pis_subject_get=(req, res)=>{
 
    const {className}= req.body;
  
-     sqlmap.query( `SELECT * FROM subject WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY subject ORDER BY ID DESC`, (err, info)=>{
+     sqlmap.query( `SELECT * FROM ini_subject WHERE  class='${className}' GROUP BY subject ORDER BY ID DESC`, (err, info)=>{
  
        if (err) console.log(err.sqlMessage);
  

@@ -30,9 +30,23 @@ function ___ini(domain, lics){
   // console.log(log);
 
  
-  // sqlmap.query(`SELECT class, subject, subject_code FROM subject WHERE class='Six' OR class='Seven' order by subject`, (err, info)=>{
+  // sqlmap.query(`SELECT ID, subject FROM subject order by subject`, (err, info)=>{
   //  if(err) console.log(err.sqlMessage);
-  //  else console.log(info);
+  //  else {
+  //   for (let index = 0; index < info.length; index++) {
+  //       const subject_code= createHmac('md5', 'pipilikapipra').update(`${info[index].subject}`).digest('hex');
+
+  //    sqlmap.query(`UPDATE subject SET subject_code='${subject_code}' WHERE ID='${info[index].ID}'`, (errx, update)=>{
+  //     if(errx) console.log(errx.sqlMessage);
+  //     else {
+  //       if(info.length==index+1){
+  //         console.log('updated');
+  //       }
+  //     }
+  //    })
+      
+  //   }
+  //  }
   // })
   
   // var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);

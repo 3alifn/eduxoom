@@ -159,9 +159,9 @@ module.exports= {
                 sqlmap.query(`UPDATE ___ini SET checkout=${true} WHERE domain='${req.hostname}'`, (errup, update)=>{
                     if(errup) console.log(errup.sqlMessage);
                     else {
-                         init_class_section(req.hostname)
-                         init_subject(req.hostname)
-                        init_bi_catagory(req.hostname)
+                        //  init_class_section(req.hostname)
+                        //  init_subject(req.hostname)
+                        // init_bi_catagory(req.hostname)
                         res.send({status: true, msg: 'WELCOME TO SAANVI ABC', alert: 'alert-success'})
 
                     }
