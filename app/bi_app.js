@@ -10,7 +10,7 @@ const chapter_six= require('../chapter_api')
 
 exports.teacher_bi_info= (req, res)=>{
     const {ID}= req.body;
-sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, info)=>{
+sqlmap.query(`SELECT * FROM ini_bi_catagory WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     const data= `<p>${info[0].catagory_name}</p>`
     res.send({data})
@@ -39,22 +39,22 @@ res.send({msg: 'Adding successfully!'})
 
 exports.admin_bi_catagory_get= (req, res)=>{
 
-    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_code ORDER BY ID`, (err, info)=>{
+    sqlmap.query(`SELECT * FROM ini_bi_catagory  GROUP BY catagory_code ORDER BY ID`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         let tbody_data= '';
         for (let index = 0; index < info.length; index++) {
 
             tbody_data+=`<tr>
             <td> 
-            <textarea  class="_inputbox-${info[index].ID}" placeholder="catagory name" disabled cols='40' rows='5'>${info[index].catagory_name}</textarea>
+            <textarea  class="_inputbox-${info[index].ID}" disabled placeholder="catagory name" disabled cols='40' rows='5'>${info[index].catagory_name}</textarea>
             </td>
             <td> 
             <span  class="_penbox-sm-area-${info[index].ID}">
-            <button data-id="${info[index].ID}" onclick='_penbox_sm_pull(${info[index].ID})' class="btn edit-btn"><i class='bi bi-pen-fill'></i></button>
+            <button data-id="${info[index].ID}" onclick='_penbox_sm_pull(${info[index].ID})' class="btn disabled edit-btn"><i class='bi bi-pen-fill'></i></button>
             </span>   
 
              <span class='_delbox-sm-area-${info[index].ID}'>
-             <button data-id="${info[index].ID}" onclick='_delbox_sm_pull(${info[index].ID})'  class="btn "><i class='bi bi-trash-fill'></i></button>
+             <button data-id="${info[index].ID}" onclick='_delbox_sm_pull(${info[index].ID})'  class="btn disabled "><i class='bi bi-trash-fill'></i></button>
    
             </span>
          </td>
@@ -100,7 +100,7 @@ exports.teacher_bi_page_mark_get= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid; 
     const {className, sectionName, page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit=20; 
 
-    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM ini_bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
 
         sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
@@ -136,7 +136,7 @@ exports.teacher_bi_report_get= ( req , res)=>{
 
     const teacher_uuid= req.session.teacher_uuid;
     const {className, sectionName,page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit=20; 
-    sqlmap.query(`SELECT * FROM bi_catagory ORDER BY ID`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM ini_bi_catagory ORDER BY ID`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
 
         sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}' GROUP BY student_uuid`
@@ -196,7 +196,7 @@ const teacher_bi_transcript_post= ( domain, teacher_uuid, roll,  className, sect
 
 const teacher_bi_transcript_post_update= (domain, className,  sectionName, student_uuid)=>{
 
-      sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${domain}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
+      sqlmap.query(`SELECT * FROM ini_bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
   
       for (let index = 0; index < infoCatagory.length; index++) {
           sqlmap.query(`SELECT count(bi) as bi FROM bi_transcript WHERE domain='${domain}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${infoCatagory[index].catagory_code}' AND bi =-1`,(err_bi_danger, info_bi_danger)=>{
@@ -285,7 +285,7 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
     const domain= req.hostname;
     teacher_bi_transcript_post_update(domain, className, sectionName, student_uuid)
 
-    sqlmap.query(`SELECT * FROM bi_catagory WHERE domain='${req.hostname}' GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
+    sqlmap.query(`SELECT * FROM ini_bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
    
         sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' 
         AND student_uuid='${student_uuid}' AND bi_group='gp1' GROUP BY bi_no ORDER BY ID DESC`,
