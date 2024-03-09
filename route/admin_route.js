@@ -326,8 +326,8 @@ admin.get("/subject/page", (req, res)=>{
   res.render("admin/subject_page")
 })
 admin.post("/subject/get", admin_subject_get)
-admin.post("/subject/post", admin_subject_post)
-admin.post("/subject/rm", admin_subject_rm)
+// admin.post("/subject/post", admin_subject_post)
+// admin.post("/subject/rm", admin_subject_rm)
 
 
 // // admission router.......
@@ -357,9 +357,9 @@ admin.get("/bi/catagory-page", (req, res)=>{
 res.render('admin/bi_catagory_page')
 })
 
-admin.post('/bi/catagory-post', admin_bi_catagory_post)
+// admin.post('/bi/catagory-post', admin_bi_catagory_post)
 admin.post('/bi/catagory-get', admin_bi_catagory_get)
-admin.post('/bi/catagory-update-post', admin_bi_catagory_update_post)
-admin.post('/bi/catagory-delete', admin_bi_catagory_delete )
+// admin.post('/bi/catagory-update-post', admin_bi_catagory_update_post)
+// admin.post('/bi/catagory-delete', admin_bi_catagory_delete )
 
 module.exports= admin;  

@@ -21,7 +21,7 @@ exports.admin_subject_post= (req, res)=>{
 
 exports.admin_subject_get= (req, res)=>{
     const {class_name}= req.body; 
-            sqlmap.query(`SELECT * FROM subject WHERE domain='${req.hostname}' AND  class="${class_name}" GROUP BY subject ORDER BY subject`, (err, info)=>{
+            sqlmap.query(`SELECT * FROM ini_subject WHERE domain='${req.hostname}' AND  class="${class_name}" GROUP BY subject ORDER BY subject`, (err, info)=>{
                 if (err) console.log(err.sqlMessage);
                 
                if(info.length>0){ 
@@ -30,7 +30,7 @@ exports.admin_subject_get= (req, res)=>{
                 for (const index in info) { 
                     htmldata+=
                     `<div class="d-flex p-2 m-1 shadowx fw-semibold">
-                    <input  class=" shadowx form-check-input" value="${info[index].ID}" type="checkbox" name="dataid[]" id="">
+                    <input disabled class="disabled shadowx form-check-input" value="${info[index].ID}" type="checkbox" name="dataid[]" id="">
                     <p class="ps-2">${info[index].subject}</p>
                   </div>`
                     }
