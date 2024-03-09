@@ -1,5 +1,6 @@
 const {app, express, sqlmap, session } = require("../server")
-const chapter_six= require('../chapter_api');
+const chapter_Six = require("../chapter_api");
+const chapter_Seven = require("../chapter_api");
 
 exports.teacher_pis_page_mark_get= (req, res)=>{
   var {class_section, subject, page}= req.query;
@@ -20,7 +21,7 @@ exports.teacher_pis_page_mark_get= (req, res)=>{
   
  sqlmap.query(`SELECT subject, subject_code FROM ini_subject WHERE  class='${className}' AND subject='${subject}'`, (errfound, subjectfound)=>{
   if(subjectfound.length>0){
-    var infoChapter= chapter_six[`_${infof[0].subject_code}`];
+    var infoChapter= chapter_Six[`_${infof[0].subject_code}`];
 
  sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
  ,(err_row, count_row)=>{
