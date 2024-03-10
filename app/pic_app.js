@@ -41,6 +41,7 @@ exports.teacher_pic_page_mark_get= (req, res)=>{
             const subject_code= infoSubjectCode[0].subject_code;
          if(infoStudentData){
              const infoStudent= infoStudentData;
+            //  console.log(infoSubjectCode);
              res.render('pic/pic-page-mark-teacher', {infoStudent,  className, infoChapter, subject_flag, sectionName, subject, subject_code, pagination, page, nextbtnstatus, prevbtnstatus})
          }
          else res.redirect('/pages/empty.html')

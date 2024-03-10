@@ -26,7 +26,7 @@ function ___ini(domain, lics){
   // console.log(randomString);
 
 //   const log= createHmac('md5', 'pipilikapipra').update('user@admin.com').digest('hex');
-  // const log= createHmac('md5', 'pipilikapipra').update(``).digest('hex');
+  // const log= createHmac('md5', 'pipilikapipra').update('বাংলা').digest('hex');
   // console.log(log);
 
  
