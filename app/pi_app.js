@@ -159,34 +159,38 @@ exports.admin_pi_transcript_report_checkout=(req, res)=>{
   sqlmap.query(`SELECT subject_flag, subject_code, subject FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'`,
   (errinfo, info)=>{
     const subject_flag= info[0].subject_flag;
-    sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+    sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
   AND pi_group='gp1'`,
   (errg01, infog01)=>{
       
-      sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+      sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
       AND pi_group='gp2'`,
       (errg02, infog02)=>{
           
-      sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+      sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
       AND pi_group='gp3'`,
       (errg03, infog03)=>{
           
           
-          sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+          sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
           AND pi_group='gp4'`,
           (errg04, infog04)=>{ 
             
-            sqlmap.query(`SELECT *,  SUM(pi) as pi_sum FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+            sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
           AND pi_group='gp5'`,
 
           (errg05, infog05)=>{
             
-
-            const gp1v= (((infog01[0].pi_sum==null?undefined:infog01[0].pi_sum)/3)*100);
-            const gp2v= (((infog02[0].pi_sum==null?undefined:infog02[0].pi_sum)/2)*100);
-            const gp3v= (((infog03[0].pi_sum==null?undefined:infog03[0].pi_sum)/2)*100);
-            const gp4v= (((infog04[0].pi_sum==null?undefined:infog04[0].pi_sum)/2)*100);
-            const gp5v= (((infog05[0].pi_sum==null?undefined:infog05[0].pi_sum)/2)*100);
+              // console.log(infog01[0].pi_count);
+              // console.log(infog02[0].pi_count);
+              // console.log(infog03[0].pi_count);
+              // console.log(infog04[0].pi_count);
+              // console.log(infog05[0].pi_count);
+            const gp1v= (((infog01[0].pi_sum==null?undefined:infog01[0].pi_sum)/infog01[0].pi_count)*100);
+            const gp2v= (((infog02[0].pi_sum==null?undefined:infog02[0].pi_sum)/infog02[0].pi_count)*100);
+            const gp3v= (((infog03[0].pi_sum==null?undefined:infog03[0].pi_sum)/infog03[0].pi_count)*100);
+            const gp4v= (((infog04[0].pi_sum==null?undefined:infog04[0].pi_sum)/infog04[0].pi_count)*100);
+            const gp5v= (((infog05[0].pi_sum==null?undefined:infog05[0].pi_sum)/infog05[0].pi_count)*100);
                         
 
                 if(gp1v==100){
