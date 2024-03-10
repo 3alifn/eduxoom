@@ -57,8 +57,10 @@
           <tr class="text-center" style="height: 40px;"><td style="border-top: 1px solid white;"></td>
           
             <td class="6-1-1-bg-danger bi-square"></td>
-            <td class="6-1-1-bg-warning bi-circle"></td>
-            <td class="6-1-1-bg-success bi-triangle"></td>
+            <td class="6-1-1-bg-warning symbolsb">&#9898;</td>
+
+            <td class="6-1-1-bg-success symbolsc">&#9651;</td>
+
            
           </tr>
   
@@ -106,8 +108,10 @@
           <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
             <td class="6-1-2-bg-danger bi-square"></td>
-            <td class="6-1-2-bg-warning bi-circle"></td>
-            <td class="6-1-2-bg-success bi-triangle"></td>
+            <td class="6-1-2-bg-warning symbolsb">&#9898;</td>
+
+            <td class="6-1-2-bg-success symbolsc">&#9651;</td>
+
            
           </tr>
           <tr>
@@ -154,8 +158,10 @@
           <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
             <td class="6-2-1-bg-danger bi-square"></td>
-            <td class="6-2-1-bg-warning  bi-circle"></td>
-            <td class="6-2-1-bg-success bi-triangle bi-triangle"></td>
+            <td class="6-2-1-bg-warning  symbolsb">&#9898;</td>
+
+            <td class="6-2-1-bg-success bi-triangle symbolsc">&#9651;</td>
+
            
           </tr>
           <tr>
@@ -204,8 +210,10 @@
             <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
               <td class="6-2-2-bg-danger bi-square"></td>
-              <td class="6-2-2-bg-warning bi-circle"></td>
-              <td class="6-2-2-bg-success bi-triangle"></td>
+              <td class="6-2-2-bg-warning symbolsb">&#9898;</td>
+
+              <td class="6-2-2-bg-success symbolsc">&#9651;</td>
+
              
             </tr>
             
@@ -249,8 +257,10 @@
             <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
               <td class="6-3-1-bg-danger bi-square"></td>
-              <td class="6-3-1-bg-warning bi-circle"></td>
-              <td class="6-3-1-bg-success bi-triangle"></td>
+              <td class="6-3-1-bg-warning symbolsb">&#9898;</td>
+
+              <td class="6-3-1-bg-success symbolsc">&#9651;</td>
+
              
             </tr>
             <tr>
@@ -287,8 +297,10 @@
                 <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
                   <td class="6-4-1-bg-danger bi-square"></td>
-                  <td class="6-4-1-bg-warning bi-circle"></td>
-                  <td class="6-4-1-bg-success bi-triangle"></td>
+                  <td class="6-4-1-bg-warning symbolsb">&#9898;</td>
+
+                  <td class="6-4-1-bg-success symbolsc">&#9651;</td>
+
                  
                 </tr>
    
@@ -329,8 +341,10 @@
                   <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
                     <td class="6-5-1-bg-danger bi-square"></td>
-                    <td class="6-5-1-bg-warning bi-circle"></td>
-                    <td class="6-5-1-bg-success bi-triangle"></td>
+                    <td class="6-5-1-bg-warning symbolsb">&#9898;</td>
+
+                    <td class="6-5-1-bg-success symbolsc">&#9651;</td>
+
                    
                   </tr>
      
@@ -371,8 +385,10 @@
                     <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
                       <td class="6-5-2-bg-danger bi-square"></td>
-                      <td class="6-5-2-bg-warning bi-circle"></td>
-                      <td class="6-5-2-bg-success bi-triangle"></td>
+                      <td class="6-5-2-bg-warning symbolsb">&#9898;</td>
+
+                      <td class="6-5-2-bg-success symbolsc">&#9651;</td>
+
                      
                     </tr>
        
@@ -415,8 +431,10 @@
                       <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
                         <td class="6-6-1-bg-danger bi-square"></td>
-                        <td class="6-6-1-bg-warning bi-circle"></td>
-                        <td class="6-6-1-bg-success bi-triangle"></td>
+                        <td class="6-6-1-bg-warning symbolsb">&#9898;</td>
+
+                        <td class="6-6-1-bg-success symbolsc">&#9651;</td>
+
                        
                       </tr>
          
@@ -457,9 +475,12 @@
 
                         <tr class="text-center" style="height: 40px;"><td style="border-bottom: 1px solid white;"></td>
           
-                          <td class="6-6-2-bg-danger bi-square"></td>
-                          <td class="6-6-2-bg-warning bi-circle"></td>
-                          <td class="6-6-2-bg-success bi-triangle"></td>
+                          <td class="6-6-2-bg-danger symbolsa">&#9725;</td>
+
+                          <td class="6-6-2-bg-warning symbolsb">&#9898;</td>
+
+                          <td class="6-6-2-bg-success symbolsc">&#9651;</td>
+
                          
                         </tr>
            
@@ -525,8 +546,7 @@ function pi_checkout_class() {
         success: function (res) {
             for (const key in res.checkout) { 
               
-   $(`.${res.checkout[key].chapter.split('_')[1]}-${res.checkout[key].bg_color}`).removeClass(res.checkout[key].bg_color=='bg-success'?'bi-triangle':res.checkout[key].bg_color=='bg-warning'?'bi-circle':'bi-square')
-   $(`.${res.checkout[key].chapter.split('_')[1]}-${res.checkout[key].bg_color}`).addClass(res.checkout[key].bg_color=='bg-success'?'bi-triangle-fill':res.checkout[key].bg_color=='bg-warning'?'bi-circle-fill':'bi-square-fill')
+              $(`.${res.checkout[key].chapter.split('_')[1]}-${res.checkout[key].bg_color}`).html(res.checkout[key].bg_color=='bg-success'?'&#9650;':res.checkout[key].bg_color=='bg-warning'?'&#9899;':'&#9725;')
 
             }
         }
