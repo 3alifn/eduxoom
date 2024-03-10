@@ -47,7 +47,7 @@ exports.privet_transcript_report_get= ( req , res)=>{
           if(school.length>0){
             const sname= school[0].name; const slogo=school[0].logo;
 
-            res.render('transcript/transcript-page-report-get-privet', {info, subject_code, student_uuid, className, sectionName, sname, slogo })
+            res.render(`transcript/${className}/${subject_code}`, {info, subject_code, student_uuid, className, sectionName, sname, slogo})
           }
           // else res.redirect('/pages/empty.html')
            else {
