@@ -1,136 +1,181 @@
-   <html lang="en">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIC mark system</title>
-    <%- include("../component/metadata.html") %> 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIC mark system</title>
+  <%- include("../component/metadata.html") %>
 
 </head>
 <style>
   body {
     overflow-x: hidden;
   }
-    thead th, tbody td{
+
+  thead th,
+  tbody td {
     border: 1px solid black;
-    }
-    
+  }
 
-       /* Designing for scroll-bar */
-       ::-webkit-scrollbar {
-            width: 5px;
-        }
-     
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: gainsboro;
-            border-radius: 5px;
-        }
-     
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background: #432121;
 
-        }
-     
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #432121;
-}
+  /* Designing for scroll-bar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: gainsboro;
+    border-radius: 5px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #432121;
+
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #432121;
+  }
 </style>
+
 <body onload="pageLoadingTop()">
 
-    <%- include("../component/user-header-nav.html") %> 
-    <%- include("../component/teacher-offcanvas-nav.html") %> 
-    <%- include("../component/card-mini.html") %> 
+  <%- include("../component/user-header-nav.html") %>
+    <%- include("../component/teacher-offcanvas-nav.html") %>
+      <%- include("../component/card-mini.html") %>
 
-    <div class="row mt-5 mbx p-2 shadowx">
-    
-    <div class="col-10 col-md-6 mt-2 m-auto" >
-        <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
-    
-        <center class="p-2">
-            <p class="bg-light badge fs-5 text-dark">PIC - <%=className%> - <%=sectionName%></p>
-            <p class="bg-light badge fs-5 text-dark"><%=subject%></p>
-        </center>
+        <div class="row mt-5 mbx p-2 shadowx">
 
-    </div>
-</div>
+          <div class="col-10 col-md-6 mt-2 m-auto">
+            <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);" type="search"
+              name="" placeholder="search..." id="search">
 
+            <center class="p-2">
+              <p class="bg-light badge fs-5 text-dark">PIC - <%=className%> - <%=sectionName%>
+              </p>
+              <p class="bg-light badge fs-5 text-dark">
+                <%=subject%>
+              </p>
+            </center>
 
-<div style="width: 98% !important; overflow: auto; transform: rotateX(180deg);" class="row m-auto" >
-
-
-      <table style="transform: rotateX(180deg);"  class="table table-hover">
-        <%# const infoChapter= ['6.1.1', '6.1.2', '6.1.3', '6.2.1', '6.2.2', '6.3.1', '6.3.2', '6.4.1', '6.4.2'] %>
-        
-            <tbody class="text-center">
-
-                <% for( let i = 0; i < infoStudent.length; i++ ) { %>
-                 <tr>
-    
-                <% for( let index = 0; index <infoChapter.length; index++ ) { %>
-                    <td > 
-                         <b><%=infoChapter[index].replaceAll('-', '.').split('_')[1]%></b> <br>
-                        <small class="badge bg-light text-dark"><%=infoStudent[i].name%> - <%=infoStudent[i].roll%> <i data-id="<%=infoStudent[i].student_uuid%>"  title="profile" onclick="infoStudent('<%=infoStudent[i].student_uuid%>')" class="bi bi-info-circle btn p-0 infoStudent"></i></small> 
-                        <div class="form-check checkout_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%> m-0 p-0 form-switch d-flex btn ">
-                                                         
-                                 <span class="p-2 fs-5  border-end checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%>bg-danger">&#9726; <input value="-1" data-id="<%=infoStudent[i].student_uuid%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"  data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index].replaceAll('.', '_')%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
-                                 <span class="p-2 fs-5 border-end checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%>bg-warning">&#9673; <input value="0" data-id="<%=infoStudent[i].student_uuid%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"  data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index].replaceAll('.', '_')%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
-                                 <span class="p-2 fs-5 checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%>bg-success">&#9650; <input value="1" data-id="<%=infoStudent[i].student_uuid%>" data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>" data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>" data-roll="<%=infoStudent[i].roll%>" data-chapter="<%=infoChapter[index].replaceAll('.', '_')%>" class="form-check-input m-0 p-2" type="radio" name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
-                    
-                        
-                        </div>
-                
-                        
-                       </td>
-                <% } %>
-       
-    </tr>
-                <% } %>
-            </tbody>
-    
-    
-        </table>
+          </div>
 
         </div>
-    
-
-      
-      <!--  pagination section -->
-
-<div class="row p-2">
-  <div class="col-11 col-md-8 m-auto" style="position: relative; overflow-x: scroll;">
-
-      <nav aria-label="...">
-          <ul class="pagination">
-            <li class="page-item <%=prevbtnstatus%>">
-              <a class="page-link" href="/teacher/pic/page-mark-get?page=<%=parseInt(page)-parseInt(1)%>&className=<%=className%>&sectionName=<%=sectionName%>&subject=<%=subject%>">Previous</a>
-            </li>
-
-            <% for( let index = 1; index <=Math.ceil(pagination); index++ ) { %>
-
-              <li class="page-item"><a class="page-link <%=page==index?'active':''%>" href="/teacher/pic/page-mark-get?page=<%=index%>&className=<%=className%>&sectionName=<%=sectionName%>&subject=<%=subject%>"><%=index%></a></li>
- 
-            <% } %>
-
-            <li class="page-item">
-              <a class="page-link <%=nextbtnstatus%> <%=pagination<=1?'disabled':''%>" href="/teacher/pic/page-mark-get?page=<%=parseInt(page)+parseInt(1)%>&className=<%=className%>&sectionName=<%=sectionName%>&subject=<%=subject%>">Next</a>
-            </li>
-          </ul>
-        </nav>
-
-  </div>
-</div>
 
 
+        <div style="width: 98% !important; overflow: auto; transform: rotateX(180deg);" class="row m-auto">
+
+
+          <table style="transform: rotateX(180deg);" class="table table-hover">
+            <%# const infoChapter=['6.1.1', '6.1.2' , '6.1.3' , '6.2.1' , '6.2.2' , '6.3.1' , '6.3.2' , '6.4.1'
+              , '6.4.2' ] %>
+
+              <tbody class="text-center">
+
+                <% for( let i=0; i < infoStudent.length; i++ ) { %>
+                  <tr>
+
+                    <% for( let index=0; index <infoChapter.length; index++ ) { %>
+                      <td>
+                        <b><%=infoChapter[index].replaceAll('-', '.' ).split('_')[1]%></b> <br>
+                        <small class="badge bg-light text-dark">
+                          <%=infoStudent[i].name%> - <%=infoStudent[i].roll%> <i
+                                data-id="<%=infoStudent[i].student_uuid%>" title="profile"
+                                onclick="infoStudent('<%=infoStudent[i].student_uuid%>')"
+                                class="bi bi-info-circle btn p-0 infoStudent"></i>
+                        </small>
+                        <div
+                          class="form-check checkout_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%> m-0 p-0 form-switch d-flex btn ">
+
+                          <span
+                            class="p-2 fs-5  border-end checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%>bg-danger">&#9726;
+                            <input value="-1" data-id="<%=infoStudent[i].student_uuid%>"
+                              data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"
+                              data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>"
+                              data-roll="<%=infoStudent[i].roll%>"
+                              data-chapter="<%=infoChapter[index].replaceAll('.', '_')%>"
+                              class="form-check-input m-0 p-2" type="radio"
+                              name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
+                          <span
+                            class="p-2 fs-5 border-end checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%>bg-warning">&#9673;
+                            <input value="0" data-id="<%=infoStudent[i].student_uuid%>"
+                              data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"
+                              data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>"
+                              data-roll="<%=infoStudent[i].roll%>"
+                              data-chapter="<%=infoChapter[index].replaceAll('.', '_')%>"
+                              class="form-check-input m-0 p-2" type="radio"
+                              name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
+                          <span
+                            class="p-2 fs-5 checked_<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index].replaceAll('.', '_')%>bg-success">&#9650;
+                            <input value="1" data-id="<%=infoStudent[i].student_uuid%>"
+                              data-name="<%=infoStudent[i].name%>" data-avatar="<%=infoStudent[i].avatar%>"
+                              data-checkout="<%=infoStudent[i].student_uuid%><%=subject_code%><%=infoChapter[index]%>"
+                              data-roll="<%=infoStudent[i].roll%>"
+                              data-chapter="<%=infoChapter[index].replaceAll('.', '_')%>"
+                              class="form-check-input m-0 p-2" type="radio"
+                              name="<%=infoStudent[i].student_uuid%>N<%=index%>" id=""> </span>
+
+
+                        </div>
+
+
+                      </td>
+                      <% } %>
+
+                  </tr>
+                  <% } %>
+              </tbody>
+
+
+          </table>
+
+        </div>
+
+
+
+        <!--  pagination section -->
+
+        <div class="row p-2">
+          <div class="col-11 col-md-8 m-auto" style="position: relative; overflow-x: scroll;">
+
+            <nav aria-label="...">
+              <ul class="pagination">
+                <li class="page-item <%=prevbtnstatus%>">
+                  <a class="page-link"
+                    href="/teacher/pic/page-mark-get?page=<%=parseInt(page)-parseInt(1)%>&className=<%=className%>&sectionName=<%=sectionName%>&subject=<%=subject%>">Previous</a>
+                </li>
+
+                <% for( let index=1; index <=Math.ceil(pagination); index++ ) { %>
+
+                  <li class="page-item"><a class="page-link <%=page==index?'active':''%>"
+                      href="/teacher/pic/page-mark-get?page=<%=index%>&className=<%=className%>&sectionName=<%=sectionName%>&subject=<%=subject%>">
+                      <%=index%>
+                    </a></li>
+
+                  <% } %>
+
+                    <li class="page-item">
+                      <a class="page-link <%=nextbtnstatus%> <%=pagination<=1?'disabled':''%>"
+                        href="/teacher/pic/page-mark-get?page=<%=parseInt(page)+parseInt(1)%>&className=<%=className%>&sectionName=<%=sectionName%>&subject=<%=subject%>">Next</a>
+                    </li>
+              </ul>
+            </nav>
+
+          </div>
+        </div>
 
 
 
 
 
-<%- include("../component/___node.html") %> 
+
+
+        <%- include("../component/___node.html") %>
 
 </body>
 
@@ -139,93 +184,93 @@
 
 <script>
 
-function infoStudent(student_uuid){
-$.ajax({
-  type: "post",
-  url: "/teacher/student/info/",
-  data: {student_uuid},
-  dataType: "JSON",
-  success: function (res) {
-    
-    $('.card-mini-avatar').attr('src', `/image/student/resized/${res.avatar}`)
-    $('.card-mini-body').html(res.data)
-    $('.card-mini-trigger').click()
+  function infoStudent(student_uuid) {
+    $.ajax({
+      type: "post",
+      url: "/teacher/student/info/",
+      data: { student_uuid },
+      dataType: "JSON",
+      success: function (res) {
+
+        $('.card-mini-avatar').attr('src', `/image/student/resized/${res.avatar}`)
+        $('.card-mini-body').html(res.data)
+        $('.card-mini-trigger').click()
+      }
+    });
+
   }
-});
-
-    }
 
 
-    $(document).ready(function(){
-  $("#search").keyup(function() {
-    var value = $(this).val().toLowerCase();
-    $("tbody tr").filter(function() {
-       
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-     
+  $(document).ready(function () {
+    $("#search").keyup(function () {
+      var value = $(this).val().toLowerCase();
+      $("tbody tr").filter(function () {
+
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+      });
     });
   });
-});
 
- function checkout_class() {
- const className= '<%=className%>'
- const sectionName= '<%=sectionName%>'
- const subject= '<%=subject%>'
- const subject_code= '<%=subject_code%>'
+  function checkout_class() {
+    const className = '<%=className%>'
+    const sectionName = '<%=sectionName%>'
+    const subject = '<%=subject%>'
+    const subject_code = '<%=subject_code%>'
     $.ajax({
-        method: "post",
-        url: "/teacher/pic/mark-checkout",
-        data: {className, sectionName, subject_code},
-        dataType: "JSON",
-        success: function (response) {
-            for (const key in response.info_checkout) {
-                $('.checkout_'+response.info_checkout[key].checkout).addClass('disabled').addClass(response.info_checkout[key].bg_color)
-                $('.checked_'+response.info_checkout[key].checkout+response.info_checkout[key].bg_color+' input').attr('checked', true).addClass('bg-dark');
-            }
+      method: "post",
+      url: "/teacher/pic/mark-checkout",
+      data: { className, sectionName, subject_code },
+      dataType: "JSON",
+      success: function (response) {
+        for (const key in response.info_checkout) {
+          $('.checkout_' + response.info_checkout[key].checkout).addClass('disabled').addClass(response.info_checkout[key].bg_color)
+          $('.checked_' + response.info_checkout[key].checkout + response.info_checkout[key].bg_color + ' input').attr('checked', true).addClass('bg-dark');
         }
+      }
     });
-    
-}
 
-checkout_class()
+  }
 
-$(document).on('click', '.form-check-input', (event)=>{
-const className= '<%=className%>'
-const sectionName= '<%=sectionName%>'
-const subject= '<%=subject%>'
-const subject_code= '<%=subject_code%>';
-   const pi= event.currentTarget.attributes[0].value;
-   const student_uuid= event.currentTarget.attributes[1].value;
-   const name= event.currentTarget.attributes[2].value;
-   const avatar= event.currentTarget.attributes[3].value;
-   const checkout= event.currentTarget.attributes[4].value.replaceAll('.', '_');
-   const roll= event.currentTarget.attributes[5].value;
-   const bg_color= pi==1?'bg-success':pi==0?'bg-warning':'bg-danger';
-   const chapter= event.currentTarget.attributes[6].value;
+  checkout_class()
 
-
-$.ajax({
-    method: "post",
-    url: "/teacher/pic/mark-post",
-    data: { className, sectionName, pi, student_uuid, roll, name, avatar, subject, subject_code, chapter, checkout, bg_color},
-    beforeSend: ()=>{
-     
-    },
-    dataType: "JSON",
-    success: function (response) {
-
-        if(response.msg=='success'){
-    
-    $('.checkout_'+checkout).addClass('disabled').addClass(bg_color);
-
-   }
-  
-    }
-});
+  $(document).on('click', '.form-check-input', (event) => {
+    const className = '<%=className%>'
+    const sectionName = '<%=sectionName%>'
+    const subject = '<%=subject%>'
+    const subject_code = '<%=subject_code%>';
+    const pi = event.currentTarget.attributes[0].value;
+    const student_uuid = event.currentTarget.attributes[1].value;
+    const name = event.currentTarget.attributes[2].value;
+    const avatar = event.currentTarget.attributes[3].value;
+    const checkout = event.currentTarget.attributes[4].value.replaceAll('.', '_');
+    const roll = event.currentTarget.attributes[5].value;
+    const bg_color = pi == 1 ? 'bg-success' : pi == 0 ? 'bg-warning' : 'bg-danger';
+    const chapter = event.currentTarget.attributes[6].value;
 
 
+    $.ajax({
+      method: "post",
+      url: "/teacher/pic/mark-post",
+      data: { className, sectionName, pi, student_uuid, roll, name, avatar, subject, subject_code, chapter, checkout, bg_color },
+      beforeSend: () => {
 
-})
+      },
+      dataType: "JSON",
+      success: function (response) {
+
+        if (response.msg == 'success') {
+
+          $('.checkout_' + checkout).addClass('disabled').addClass(bg_color);
+
+        }
+
+      }
+    });
+
+
+
+  })
 
 </script>
 
