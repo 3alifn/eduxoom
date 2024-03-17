@@ -29,7 +29,7 @@ function ___ini(domain, lics){
   // const log= createHmac('md5', 'pipilikapipra').update('বাংলা').digest('hex');
   // console.log(log);
 
- 
+//  sql for update subject code..............
   // sqlmap.query(`SELECT ID, subject FROM subject order by subject`, (err, info)=>{
   //  if(err) console.log(err.sqlMessage);
   //  else {
@@ -49,17 +49,14 @@ function ___ini(domain, lics){
   //  }
   // })
   
-  // var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
 
-  //   const password= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
-
-  // sqlmap.query(`SELECT password FROM students ORDER BY ID`, (err, info)=>{
+  // sqlmap.query(`SELECT roll, ID, name FROM students WHERE class='Ten' AND section='A' ORDER BY roll`, (err, info)=>{
   //   if(err) console.log(err.sqlMessage);
   //   else {
   //     for (let index = 0; index < info.length; index++) {
-  //      sqlmap.query(`update students set password='${password}'`, (erru, update)=>{
+  //      sqlmap.query(`UPDATE students SET roll=${index+1} WHERE ID='${info[index].ID}'`, (erru, update)=>{
   //       if(erru) console.log(erru.sqlMessage);
-  //       else console.log(password);
+  //       else console.log(index+1);
   //      })
         
   //     }

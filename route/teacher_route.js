@@ -7,6 +7,7 @@ const { self_dashboard, self_account, self_info_update, self_password_update, se
 const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, teacher_bi_report_get,  teacher_bi_checkout, teacher_bi_report_self_checkout, teacher_bi_info } = require("../app/bi_app");
 const { teacher_student_info } = require("../app/student_app");
 const { Cookie } = require('express-session');
+const { teacher_attn_init_page, teacher_attn_post_page, teacher_attn_post_page_num, teacher_attn_post } = require('../app/attendance_app');
 const teacher= express.Router()
 
 teacher.all('*', (req, res, next)=>{
@@ -31,6 +32,14 @@ teacher.post('/self/img/post', multer_upload_teacher.single('image'),self_img_po
 teacher.post("/self/password/update/push", self_password_update_push)
 teacher.post("/self/email/update/pull", self_email_update_pull)
 teacher.post("/self/email/update/push", self_email_update_push)
+
+
+// attendance router.........
+teacher.get('/attn/init/page/', teacher_attn_init_page)
+teacher.get('/attn/post/page/:class_name/:section_name', teacher_attn_post_page)
+teacher.post('/attn/post/page/num', teacher_attn_post_page_num)
+teacher.post('/attn/post/', teacher_attn_post)
+
 
 
 
