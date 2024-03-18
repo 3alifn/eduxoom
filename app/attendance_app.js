@@ -40,15 +40,15 @@ exports.teacher_attn_post_page_num= (req, res)=>{
              
                  </div>
        
-                 
+
                  <div class="d-flex  justify-content-center align-content-center align-items-center">
                  <button onclick="att_post_def('${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}', 0)"
                    
-                   class="0_${info[index].student_uuid} btn btn-danger border border-3 btn-sm pt-0 pb-0 fw-semibold">Absent</button>
+                   class="0_${info[index].student_uuid} btn btn-light fw-semibold text-danger bi bi-calendar-x border border-3 btn-sm pt-0 pb-0 fw-semibold"> Absent</button>
                 
                    <button onclick="att_post_def('${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}', 1)"
                    
-                   class="1_${info[index].student_uuid} btn btn-primary border border-3 btn-sm pt-0 pb-0 ms-1 fw-semibold">Present</button>
+                   class="1_${info[index].student_uuid} btn btn-light fw-semibold text-primary bi bi-calendar-check  border border-3 btn-sm pt-0 pb-0 ms-1 fw-semibold"> Present</button>
                </div>
 
                </div>
@@ -113,7 +113,7 @@ exports.teacher_attn_post= (req, res)=>{
 
 
 
-   exports.teacher_attn_checkout= (req, res)=>{
+exports.teacher_attn_checkout= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid;
     const {class_name, section_name}= req.body;
     const today = new Date();
@@ -129,3 +129,83 @@ exports.teacher_attn_post= (req, res)=>{
     })
 
    }
+
+
+
+
+
+exports.privet_attn_init_page= (req, res)=>{
+
+    res.render('attn/attn_init_page_privet')
+
+}
+
+
+exports.privet_attn_repo_page= (req, res)=>{
+ const {class_name, section_name}= req.params;
+ const today = new Date();
+ const currentMonth = today.getMonth();
+ const currentYear = today.getFullYear();
+ const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+ const attn_date= `${myMonth[currentMonth]}-${currentMonth+1}-${currentYear}`
+
+ sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn
+ WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
+ GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
+    if(err) console.log(err.sqlMessage);
+    else  res.render('attn/attn_repo_page_privet', {info, class_name, section_name})
+ })
+   
+
+}
+
+
+exports.privet_attn_repo_page_num= (req, res)=>{
+    const {class_name, section_name, offset}= req.body; 
+   const today = new Date();
+   const currentMonth = today.getMonth();
+   const currentYear = today.getFullYear();
+   const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+   const attn_date= `${myMonth[currentMonth]}-${currentMonth+1}-${currentYear}`
+  
+    sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll FROM attn
+    WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
+    GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET ${offset*20}`, (err, info)=>{
+       if(err) console.log(err.sqlMessage);
+       else {
+           if(info.length>0){
+               var htmldata= '';
+               for (let index = 0; index < info.length; index++) {
+                  htmldata+=` 
+                  <div class="student-card pt-1 pb-1 shadow-sm">
+                  <div class="d-flex  justify-content-start align-content-center align-items-center">
+               
+                    <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/image/student/resized/${info[index].avatar}" alt="">
+                    <p class="fw-semibold text-muted ps-1">${info[index].roll} </p>
+                    <p class="fw-semibold text-muted ps-2  text-truncate">${info[index].name}</p>
+                
+                    </div>
+            
+                    <div class="d-flex  justify-content-center align-content-center align-items-center">
+                    <p class="border fw-semibold border-1 bi ${info[index].checkout==1?'text-primary bi-calendar-check': 'text-danger bi-calendar-x'} pt-0 pb-0 ps-1 pe-1 rounded ms-1 fw-semibold">
+                    ${info[index].at_status} 
+                  </p>  
+                        </div>
+                
+                  </div>
+                        `
+                  
+               }
+               res.send({htmldata})
+           } else {
+               res.send({htmldata: 404});
+           }
+           
+       }
+    })
+      
+   
+   }
+
+
+
