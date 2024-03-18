@@ -22,7 +22,7 @@
   <%- include("../component/user-header-nav.html") %>
     <%- include("../component/teacher-offcanvas-nav.html") %>
 
-      <div id="main-content" class="p-2 main-content mt-5 row">
+      <div class="p-2 mt-5 row">
 
         <center class="mt-3">
           <span id="syncTime"></span>
@@ -58,11 +58,11 @@
                 <div class="d-flex  justify-content-center align-content-center align-items-center">
                   <button onclick="att_post_def('<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>', 0)"
                     
-                    class="0_<%=info[index].student_uuid%> btn btn-danger border border-3 btn-sm pt-0 pb-0 fw-semibold">Absent</button>
+                    class="0_<%=info[index].student_uuid%> btn btn-light fw-semibold text-danger bi bi-calendar-x border border-3 btn-sm pt-0 pb-0 fw-semibold"> Absent</button>
                  
                     <button onclick="att_post_def('<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>', 1)"
                     
-                    class="1_<%=info[index].student_uuid%> btn btn-primary border border-3 btn-sm pt-0 pb-0 ms-1 fw-semibold">Present</button>
+                    class="1_<%=info[index].student_uuid%> btn btn-light fw-semibold text-primary bi bi-calendar-check  border border-3 btn-sm pt-0 pb-0 ms-1 fw-semibold"> Present</button>
                 </div>
 
               </div>
@@ -82,7 +82,7 @@
 <script>
 
 
-(function(){
+function checkout_class(){
   const class_name = `<%=class_name%>`;
   const section_name = `<%=section_name%>`;
   $.ajax({
@@ -93,12 +93,13 @@
     success: function (res) {
   
       for (const index in res.info) {
-        $(`.${res.info[index].checkout}_${res.info[index].student_uuid}`).addClass('disabled');
+        $(`.${res.info[index].checkout}_${res.info[index].student_uuid}`).addClass('disabled border-light');
       }
 
     }
   });
-}())
+}
+checkout_class()
   
 const Today= new Date().toDateString()
 $('#syncTime').html(`<code>${Today}</code>`)
@@ -187,9 +188,11 @@ function att_post_def(student_uuid, name, roll, avatar, checkout){
     dataType: "JSON",
     success: function (res) {
       if(res.att==true){
-        $(`.0_${student_uuid}`).removeClass('disabled');
-        $(`.1_${student_uuid}`).removeClass('disabled');
-        $(`.${checkout}_${student_uuid}`).addClass('disabled');
+        $(`.0_${student_uuid}`).removeClass('disabled border-light');
+        $(`.1_${student_uuid}`).removeClass('disabled border-light');
+        $(`.${checkout}_${student_uuid}`).addClass('disabled border-light');
+      checkout_class()
+       
       }
     }
   });

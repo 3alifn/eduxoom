@@ -5,6 +5,7 @@ const { privet_pic_report_student_get, privet_pic_report_get, privet_pic_report_
 const {  privet_pis_report_student_get, privet_pis_report_get, privet_pis_report_get_checkout } = require("../app/pis_app");
 const { privet_bi_transcript_get, privet_bi_transcript_report_checkout } = require("../app/bi_app");
 const { privet_pi_report_checkout, privet_transcript_report_student_get, privet_transcript_report_get, privet_finding_subject, privet_finding_subject_sid } = require("../app/pi_app");
+const { privet_attn_init_page, privet_attn_repo_page, privet_attn_checkout } = require('../app/attendance_app');
 const privet= express.Router()
 
 privet.all('*', (req, res, next)=>{
@@ -25,12 +26,14 @@ privet.all('*', (req, res, next)=>{
 
 
 
-
+// attendance router......
+privet.get('/attn/repo/init/page/', privet_attn_init_page)
+privet.get('/attn/repo/page/:class_name/:section_name/', privet_attn_repo_page) 
 
 
 // pic result report:
 privet.get('/pic/report-init-page', (req, res)=>{
-  res.render('pic/pic-page-report-init-privet')
+  res.render('pic/pic-page-repo-init-privet')
 })
 
 
