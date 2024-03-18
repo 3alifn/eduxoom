@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Attendance Calender</title>
+
+   <link rel="stylesheet" href="./calendar.css">
+   <link rel="stylesheet" href="..//source/bootstrap.min.css">
+   <script src="..//source/jquery.min.js"></script>
+</head>
+
+<body>
+
+   <main>
+      <!-- Calendar Code Start -->
+      <div class="wrapper row shadow-sm p-2 mt-5">
+         <div class="col-11 col-md-8 m-auto">
+            <h3 id="monthAndYear"></h3>
+            <div class="button-container-calendar">
+               <button id="previous" onclick="previous()">&#8249;</button>
+               <button id="next" onclick="next()">&#8250;</button>
+            </div>
+            <table class="table-calendar" id="calendar" data-lang="en">
+               <thead id="thead-month"></thead>
+               <tbody id="calendar-body"></tbody>
+            </table>
+            <div class="input-group p-3">
+               <label class="p-2" for="month">Jump To: </label>
+               <select class="form-select" id="month" onchange="jump()">
+                  <option value=0>January</option>
+                  <option value=1>February</option>
+                  <option value=2>March</option>
+                  <option value=3>April</option>
+                  <option value=4>May</option>
+                  <option value=5>Jun</option>
+                  <option value=6>July</option>
+                  <option value=7>August</option>
+                  <option value=8>September</option>
+                  <option value=9>October</option>
+                  <option value=10>November</option>
+                  <option value=11>December</option>
+               </select>
+               <select class="form-select" id="year" onchange="jump()"></select>
+            </div>
+         </div>
+      </div>
+
+      <!-- Calendar Code End -->
+   </main>
+</body>
+
+<script src="./calender.js"></script>
+<script>
+   $('.March-10-3-2024 span').addClass('bg-success p-1 rounded text-light')
+   $('.March-12-3-2024 span').addClass('bg-danger p-1 rounded text-light')
+</script>
+
+</html>
