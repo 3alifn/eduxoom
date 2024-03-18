@@ -63,8 +63,10 @@ function ___ini(domain, lics){
   //   }
   // })
 
-// var find_date= new Date('2023-10-21 11:56:35').toDateString()
+// var find_date= new Date().toDateString()
+// var findDate= new Date().toLocaleDateString();
 // console.log(find_date);
+// console.log(findDate);
 // const join_date_temp= new Date().toLocaleString().split(',');
 // const join_date= join_date_temp[0];
 // console.log(join_date);

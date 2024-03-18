@@ -58,11 +58,11 @@
                 <div class="d-flex  justify-content-center align-content-center align-items-center">
                   <button onclick="att_post_def('<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>', 0)"
                     
-                    class="0<%=info[index].student_uuid%> btn btn-danger border border-3 btn-sm pt-0 pb-0 fw-semibold">Absent</button>
+                    class="0_<%=info[index].student_uuid%> btn btn-danger border border-3 btn-sm pt-0 pb-0 fw-semibold">Absent</button>
                  
                     <button onclick="att_post_def('<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>', 1)"
                     
-                    class="1<%=info[index].student_uuid%> btn btn-primary border border-3 btn-sm pt-0 pb-0 ms-1 fw-semibold">Present</button>
+                    class="1_<%=info[index].student_uuid%> btn btn-primary border border-3 btn-sm pt-0 pb-0 ms-1 fw-semibold">Present</button>
                 </div>
 
               </div>
@@ -80,6 +80,28 @@
 </body>
 
 <script>
+
+
+(function(){
+  const class_name = `<%=class_name%>`;
+  const section_name = `<%=section_name%>`;
+  $.ajax({
+    type: "POST",
+    url: "/teacher/attn/checkout/pull/",
+    data: {class_name, section_name},
+    dataType: "JSON",
+    success: function (res) {
+  
+      for (const index in res.info) {
+        $(`.${res.info[index].checkout}_${res.info[index].student_uuid}`).addClass('disabled');
+      }
+
+    }
+  });
+}())
+  
+const Today= new Date().toDateString()
+$('#syncTime').html(`<code>${Today}</code>`)
 
   $(document).ready(function () {
     $("#search").keyup(function () {
@@ -152,33 +174,27 @@
     else { }
 
   }, { threshold: 0.8 }).observe(elem);
-  
-  const today = new Date();
-    const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
-    const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    const myDate= `${myMonth[currentMonth]}-${currentMonth+1}-${currentYear}`
-    
 
-$('#syncTime').html(`<code>${myDate}</code>`)
 
-function att_post_def(student_uuid, name, roll, avatar, status){
+
+function att_post_def(student_uuid, name, roll, avatar, checkout){
     const class_name = `<%=class_name%>`;
     const section_name = `<%=section_name%>`;
     $.ajax({
     type: "POST",
     url: "/teacher/attn/post/",
-    data: {class_name, section_name, student_uuid, name, roll, avatar, status},
+    data: {class_name, section_name, student_uuid, name, roll, avatar, checkout},
     dataType: "JSON",
     success: function (res) {
-      if(res.att==1){
-        $(`.0${student_uuid}`).removeClass('disabled');
-        $(`.1${student_uuid}`).removeClass('disabled');
-        $(`.${status}${student_uuid}`).addClass('disabled');
+      if(res.att==true){
+        $(`.0_${student_uuid}`).removeClass('disabled');
+        $(`.1_${student_uuid}`).removeClass('disabled');
+        $(`.${checkout}_${student_uuid}`).addClass('disabled');
       }
     }
   });
 }
+
 
 </script>
 

@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAANVI</title>
-    <link style="border-radius: 100%;" class="append-logo rounded-circle" rel="shortcut icon" href="/image/demo/logo.png" type="image/x-icon">
-   
+    <link style="border-radius: 100%;" class="append-logo rounded-circle" rel="shortcut icon" href="/image/default/logo.ico" type="image/x-icon">
 <!-- Custom CSS cdn -->
 
 <link rel="stylesheet" href="/app/custom.css">
@@ -44,7 +43,7 @@
     success: function (res) {
 
       $(".append-name").text(res.info_school[0]==undefined?null:res.info_school[0].name)
-      $(".append-logo").attr( 'href', `/image/default/resized/${res.info_school[0]==undefined?null:res.info_school[0].logo}`)
+      $(".append-logo").attr( 'href', `/image/default/resized/${res.info_school[0]==undefined?'/image/default/logo.ico':res.info_school[0].logo}`)
 
   
     }
