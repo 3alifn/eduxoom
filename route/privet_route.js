@@ -5,7 +5,7 @@ const { privet_pic_report_student_get, privet_pic_report_get, privet_pic_report_
 const {  privet_pis_report_student_get, privet_pis_report_get, privet_pis_report_get_checkout } = require("../app/pis_app");
 const { privet_bi_transcript_get, privet_bi_transcript_report_checkout } = require("../app/bi_app");
 const { privet_pi_report_checkout, privet_transcript_report_student_get, privet_transcript_report_get, privet_finding_subject, privet_finding_subject_sid } = require("../app/pi_app");
-const { privet_attn_init_page, privet_attn_repo_page, privet_attn_checkout, privet_attn_repo_page_num } = require('../app/attendance_app');
+const { privet_attn_init_page, privet_attn_repo_page, privet_attn_checkout, privet_attn_repo_page_num, privet_attn_repo_find, privet_attn_calendar_page, privet_attn_calendar_checkout, privet_attn_student_calendar } = require('../app/attendance_app');
 const privet= express.Router()
 
 privet.all('*', (req, res, next)=>{
@@ -29,7 +29,10 @@ privet.all('*', (req, res, next)=>{
 // attendance router......
 privet.get('/attn/repo/init/page/', privet_attn_init_page)
 privet.get('/attn/repo/page/:class_name/:section_name/', privet_attn_repo_page) 
+privet.get('/attn/student/calendar/:class_name/:section_name/:student_uuid/', privet_attn_student_calendar) 
 privet.post('/attn/repo/page/num/', privet_attn_repo_page_num) 
+privet.post('/attn/repo/find/', privet_attn_repo_find) 
+privet.post('/attn/calendar/checkout/', privet_attn_calendar_checkout) 
 
 
 // pic result report:

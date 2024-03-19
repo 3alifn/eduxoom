@@ -14,7 +14,11 @@ exports.teacher_attn_post_page= (req, res)=>{
  WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' 
  GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
-    else  res.render('attn/attn_post_page_teacher', {info, class_name, section_name})
+    else {
+        if(info.length>0){
+            res.render('attn/attn_post_page_teacher', {info, class_name, section_name})
+        }  else res.redirect('/pages/empty.html')
+    } 
  })
    
 
@@ -32,7 +36,7 @@ exports.teacher_attn_post_page_num= (req, res)=>{
             var htmldata= '';
             for (let index = 0; index < info.length; index++) {
                htmldata+=` 
-                <div class="student-card pt-3 pb-3 shadow-sm">
+                <div class="student-card findcard pt-3 pb-3 shadowx">
                <div class="d-flex  justify-content-start align-content-center align-items-center">
                  <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/image/student/${info[index].avatar}" alt="">
                  <p class="fw-semibold text-muted ps-1"> ${info[index].roll}</p>
@@ -74,6 +78,7 @@ exports.teacher_attn_post= (req, res)=>{
     const currentDate= new Date().getDate();
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
+    const get_cal= currentMonth+'-'+currentYear;
     const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
     const attn_date= new Date().toDateString();
@@ -94,9 +99,9 @@ exports.teacher_attn_post= (req, res)=>{
         }else {
       
             sqlmap.query(`
-            INSERT INTO attn (domain, session, attn_date, find_date, checkout, at_status, class, section, teacher_uuid, student_uuid, name, roll, avatar, year, month, day)
+            INSERT INTO attn (domain, session, get_cal, attn_date, find_date, checkout, at_status, class, section, teacher_uuid, student_uuid, name, roll, avatar, year, month, day)
             
-            VALUES('${req.hostname}', '${currentYear}', '${attn_date}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}', '${teacher_uuid}',
+            VALUES('${req.hostname}', '${currentYear}', '${attn_date}', '${get_cal}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}', '${teacher_uuid}',
             '${student_uuid}', '${name}', '${roll}', '${avatar}', '${currentYear}', '${currentMonth}', '${currentDate}')`, (erri, inser)=>{
                 if(erri) console.log(erri.sqlMessage);
                 else {
@@ -128,8 +133,6 @@ exports.teacher_attn_checkout= (req, res)=>{
 
 
 
-
-
 exports.privet_attn_init_page= (req, res)=>{
 
     res.render('attn/attn_init_page_privet')
@@ -145,16 +148,22 @@ exports.privet_attn_repo_page= (req, res)=>{
  WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
  GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
-    else  res.render('attn/attn_repo_page_privet', {info, class_name, section_name})
+    else  {
+        if(info.length>0){
+            res.render('attn/attn_repo_page_privet', {info, class_name, section_name})
+        }else res.redirect('/pages/empty.html')
+    }
  })
    
 
 }
 
 
+
+
 exports.privet_attn_repo_page_num= (req, res)=>{
-    const {class_name, section_name, offset}= req.body; 
-    const attn_date= new Date().toDateString(); 
+    const {class_name, section_name, offset, find_date}= req.body; 
+    const attn_date=find_date;
     sqlmap.query(`SELECT ID, student_uuid, avatar, name, checkout, at_status, roll FROM attn
     WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
     GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET ${offset*20}`, (err, info)=>{
@@ -164,7 +173,8 @@ exports.privet_attn_repo_page_num= (req, res)=>{
                var htmldata= '';
                for (let index = 0; index < info.length; index++) {
                   htmldata+=` 
-                  <div class="student-card pt-1 pb-1 shadow-sm">
+                  <a href="/privet/attn/student/calendar/${class_name}/${section_name}/${info[index].student_uuid}">
+                  <div class="student-card findcard pt-1 pb-1 shadowx">
                   <div class="d-flex  justify-content-start align-content-center align-items-center">
                
                     <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/image/student/resized/${info[index].avatar}" alt="">
@@ -172,6 +182,52 @@ exports.privet_attn_repo_page_num= (req, res)=>{
                     <p class="fw-semibold text-muted ps-2  text-truncate">${info[index].name}</p>
                 
                     </div>
+                    <code class="p-2 link-hover">History</code> 
+                    <div class="d-flex  justify-content-center align-content-center align-items-center">
+                    <p class="border fw-semibold border-1 bi ${info[index].checkout==1?'text-primary bi-calendar-check': 'text-danger bi-calendar-x'} pt-0 pb-0 ps-1 pe-1 rounded ms-1 fw-semibold">
+                    ${info[index].at_status} 
+                  </p>  
+                        </div>
+                
+                  </div>
+                  </a>
+                        `
+                  
+               }
+               res.send({htmldata})
+           } else {
+               res.send({htmldata: 404});
+           }
+           
+       }
+    })
+      
+   
+   }
+
+
+exports.privet_attn_repo_find= (req, res)=>{
+    const {class_name, section_name, find_date}= req.body; 
+    const attn_date=find_date;
+    sqlmap.query(`SELECT ID, student_uuid, avatar, name, checkout, at_status, roll FROM attn
+    WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
+    GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
+       if(err) console.log(err.sqlMessage);
+       else {
+           if(info.length>0){
+               var htmldata= '';
+               for (let index = 0; index < info.length; index++) {
+                  htmldata+=` 
+                  <a href="/privet/attn/repo/student/${class_name}/${section_name}/${info[index].student_uuid}">         
+                  <div class="student-card findcard pt-1 pb-1 shadowx">
+                  <div class="d-flex  justify-content-start align-content-center align-items-center">
+               
+                    <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/image/student/resized/${info[index].avatar}" alt="">
+                    <p class="fw-semibold text-muted ps-1">${info[index].roll} </p>
+                    <p class="fw-semibold text-muted ps-2  text-truncate">${info[index].name}</p>
+                
+                    </div>
+                    <code class="p-2 link-hover">History</code> 
             
                     <div class="d-flex  justify-content-center align-content-center align-items-center">
                     <p class="border fw-semibold border-1 bi ${info[index].checkout==1?'text-primary bi-calendar-check': 'text-danger bi-calendar-x'} pt-0 pb-0 ps-1 pe-1 rounded ms-1 fw-semibold">
@@ -196,3 +252,51 @@ exports.privet_attn_repo_page_num= (req, res)=>{
 
 
 
+
+exports.privet_attn_student_calendar= (req, res)=>{
+    const {class_name, section_name, student_uuid}= req.params;
+   
+    sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn
+    WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND student_uuid='${student_uuid}'`,
+     (err, info)=>{
+       if(err) console.log(err.sqlMessage);
+       else  {
+        if(info.length>0){
+            res.render('attn/attn_student_calendar_privet', {info, class_name, section_name, student_uuid})
+        } else res.redirect('/pages/empty.html')
+       }
+    })
+      
+   
+   }
+   
+
+
+exports.privet_attn_calendar_checkout= (req, res)=>{
+    const {class_name, section_name, student_uuid, get_cal}= req.body;
+    sqlmap.query(`SELECT COUNT(CASE checkout WHEN 1 THEN 1 ELSE null END) AS present, COUNT(CASE checkout WHEN 0 THEN 1 ELSE null END) AS absent FROM attn WHERE domain='${req.hostname}'
+     AND  class='${class_name}' AND section='${section_name}' AND student_uuid='${student_uuid}' AND get_cal='${get_cal}'`, 
+    (errc, cal)=>{
+        if(errc) console.log(errc.sqlMessage);
+        else { 
+           const present= cal[0].present;
+           const absent= cal[0].absent;
+            sqlmap.query(`SELECT find_date, get_cal, checkout FROM attn WHERE domain='${req.hostname}'
+            AND  class='${class_name}' AND section='${section_name}' AND student_uuid='${student_uuid}' AND get_cal='${get_cal}' ORDER BY day`, 
+           (err, info)=>{
+               if(err) console.log(err.sqlMessage);
+               else { 
+                // console.log(present, absent);
+                   if(info.length>0){
+                       res.send({info, present, absent})
+                   } else {
+                    res.send({info: 404})
+
+                   }
+               }
+           })
+  
+        }
+    })
+
+   }
