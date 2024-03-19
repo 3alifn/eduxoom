@@ -71,20 +71,20 @@ exports.teacher_attn_post= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid;
     const {class_name, section_name, student_uuid, name, roll, avatar, checkout}= req.body;
     const today = new Date();
+    const currentDate= new Date().getDate();
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
     const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    const attn_date= `${myMonth[currentMonth]}-${currentMonth+1}-${currentYear}`
-    const find_date= new Date().toDateString();
-    const currentDate= new Date().getDate();
+    const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
+    const attn_date= new Date().toDateString();
     const at_status= checkout==1?'Present':'Absent'
     sqlmap.query(`SELECT student_uuid, teacher_uuid, find_date, attn_date
-    FROM attn WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND attn_date='${attn_date}'
+    FROM attn WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'
     ORDER BY ID DESC`, (errf, find)=>{
         if(errf) console.log(errf.sqlMessage);
         if(find.length>0){
        
-      sqlmap.query(`UPDATE attn SET checkout=${checkout}, at_status='${at_status}' WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND attn_date='${attn_date}'`,
+      sqlmap.query(`UPDATE attn SET checkout=${checkout}, at_status='${at_status}' WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'`,
         (erru, up)=>{
             if(erru) console.log(erru.sqlMessage);
             // else console.log('updated...');
@@ -116,11 +116,7 @@ exports.teacher_attn_post= (req, res)=>{
 exports.teacher_attn_checkout= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid;
     const {class_name, section_name}= req.body;
-    const today = new Date();
-    const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
-    const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    const attn_date= `${myMonth[currentMonth]}-${currentMonth+1}-${currentYear}`
+    const attn_date= new Date().toDateString();
    
     sqlmap.query(`SELECT student_uuid, checkout, attn_date FROM attn WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
     AND attn_date='${attn_date}'`, (err, info)=>{
@@ -143,11 +139,7 @@ exports.privet_attn_init_page= (req, res)=>{
 
 exports.privet_attn_repo_page= (req, res)=>{
  const {class_name, section_name}= req.params;
- const today = new Date();
- const currentMonth = today.getMonth();
- const currentYear = today.getFullYear();
- const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
- const attn_date= `${myMonth[currentMonth]}-${currentMonth+1}-${currentYear}`
+ const attn_date= new Date().toDateString();
 
  sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn
  WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
@@ -162,13 +154,8 @@ exports.privet_attn_repo_page= (req, res)=>{
 
 exports.privet_attn_repo_page_num= (req, res)=>{
     const {class_name, section_name, offset}= req.body; 
-   const today = new Date();
-   const currentMonth = today.getMonth();
-   const currentYear = today.getFullYear();
-   const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-   const attn_date= `${myMonth[currentMonth]}-${currentMonth+1}-${currentYear}`
-  
-    sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll FROM attn
+    const attn_date= new Date().toDateString(); 
+    sqlmap.query(`SELECT ID, student_uuid, avatar, name, checkout, at_status, roll FROM attn
     WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
     GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET ${offset*20}`, (err, info)=>{
        if(err) console.log(err.sqlMessage);
