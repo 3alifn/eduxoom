@@ -1,7 +1,7 @@
 const {app, express, sqlmap, nodemailer, createHmac, mysession } = require("../server")
 
 exports.public_admission_step1 = (req, res) => {
-  console.log(mysession);
+  // console.log(mysession);
   res.render("public/admission_form_public", { pastAdmission: true, nextAdmission: false, data: false, msg: req.flash("msg"), alert: req.flash("alert") })
 
 }

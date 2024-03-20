@@ -36,7 +36,11 @@ exports.self_dashboard= (req, res)=>{
   const teacher_uuid= req.session.teacher_uuid;
   sqlmap.query(`SELECT * FROM teachers  WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}'`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
-   else res.render("teacher/dashboard_page", {info})
+   else {
+    if(info.length>0){
+      res.render("teacher/dashboard_page", {info})
+    } else res.redirect('/pages/empty.html')
+   }
   })
 
 
@@ -51,7 +55,9 @@ exports.self_account = (req, res)=>{
 
     sqlmap.query(sql, (err, info)=>{
 
-      res.render("teacher/account_page", {info,  msg: req.flash("msg"), alert: req.flash("alert")})
+      if(info.length>0){
+        res.render("teacher/account_page", {info,  msg: req.flash("msg"), alert: req.flash("alert")})
+      } else res.redirect('/pages/empty.html')
 
 
     })
@@ -792,7 +798,9 @@ exports.public_teacher_list= (req, res)=>{
             sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ORDER_VALUE`, (err, info)=>{
              if(err) console.log(err.sqlMessage);
   
-              else res.render("public/all_teachers_public", {info})
+              if(info.length>0){
+                res.render("public/all_teachers_public", {info})
+              } else res.redirect('/pages/empty.html')
       })
     }
   

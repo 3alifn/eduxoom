@@ -638,7 +638,9 @@ exports.self_dashboard= (req, res)=>{
 
       sqlmap.query(sql, (err, info)=>{
 
-        res.render("student/dashboard_page", {info})
+        if(info.length>0){
+          res.render("student/dashboard_page", {info})
+        } else res.redirect('/pages/empty.html')
 
 
       })
@@ -655,7 +657,9 @@ exports.self_account= (req, res)=>{
 
       sqlmap.query(sql, (err, info)=>{
 
-        res.render("student/account_page", {info,  msg: req.flash("msg"), alert: req.flash("alert")})
+        if(info.length>0){
+          res.render("student/account_page", {info,  msg: req.flash("msg"), alert: req.flash("alert")})
+        } else res.redirect('/pages/empty.html')
 
 
       })
@@ -1055,8 +1059,6 @@ exports.public_student_list= (req, res)=>{
           sqlmap.query(sql, (err, info)=>{
      
             if(info.length>0){
-
-              
               res.render("public/all_students_public", {info, className, sectionName})
             }
 

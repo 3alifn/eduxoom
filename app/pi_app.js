@@ -51,7 +51,7 @@ exports.privet_transcript_report_get= ( req , res)=>{
           }
           // else res.redirect('/pages/empty.html')
            else {
-            const sname= 'NO NAME'; const slogo=null
+            const sname= 'NO NAME'; const slogo=null;
             
 
              res.render(`transcript/${className}/${subject_code}`, {info, subject_code, student_uuid, className, sectionName, sname, slogo})
