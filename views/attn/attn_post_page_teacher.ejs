@@ -54,8 +54,18 @@
 
                 </div>
 
+                <div class="d-flex p-1  justify-content-center align-content-center align-items-center">
+              
+                  <code>Last checkout</code>
+                  <code class="checkout_<%=info[index].student_uuid%> ps-1">
+                    <span class="spinner-border spinner-border-sm"></span>
 
-                <div class="d-flex  justify-content-center align-content-center align-items-center">
+                  </code>
+                    
+                </div>
+
+
+                <div  class="d-flex  justify-content-center align-content-center align-items-center">
                   <button onclick="att_post_def('<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>', 0)"
                     
                     class="0_<%=info[index].student_uuid%> btn btn-light fw-semibold text-danger bi bi-calendar-x border border-3 btn-sm pt-0 pb-0 fw-semibold"> Absent</button>
@@ -76,10 +86,13 @@
 
         </div>
 
-
+ <% for( let index = 0; index < infoS.length; index++ ) { %>
+ <input class="student<%=index%>" value="<%=infoS[index].student_uuid%>" type="hidden" name="">
+ <% } %>
 </body>
 
 <script>
+
 
 
 function checkout_class(){
@@ -100,6 +113,43 @@ function checkout_class(){
   });
 }
 checkout_class()
+
+function checkout_last_five(student_uuid){
+  const class_name = `<%=class_name%>`;
+  const section_name = `<%=section_name%>`;
+  $.ajax({
+    type: "POST",
+    url: "/teacher/attn/checkout/pull/last/five",
+    data: {class_name, section_name, student_uuid},
+    dataType: "JSON",
+    success: function (res) {
+      var htmldata='';
+      for (const index in res.info) {
+        htmldata+= `<span class="fw-semibold ${res.info[index].checkout==1? "text-primary bi bi-calendar-check":" text-danger bi bi-calendar-x"} b-1 ms-1 fw-semibold"></span>`
+
+      }
+     
+       $(`.checkout_${res.info[0].student_uuid}`).html(htmldata)
+
+        
+    }
+  });
+}
+
+function checkout_loop_event(){
+const getLenStudent= '<%=infoSLen%>'
+setTimeout(() => {
+
+for (let index = 0; index < getLenStudent; index++) {
+  const studentid= $('.student'+index).val()
+  checkout_last_five(studentid)
+}
+}, 3000);
+
+
+}
+
+checkout_loop_event()
 
 const Today= new Date().toDateString()
 $('#syncTime').html(`<code>${Today}</code>`)
@@ -154,15 +204,16 @@ $('#syncTime').html(`<code>${Today}</code>`)
       beforeSend: () => {
 
         $('#syncSystem').html(placeHolder)
-
+       
       },
       success: function (res) {
+        // checkout_loop_event()
+
         if (res.htmldata == 404) {
           $('#syncSystem').html('')
         } else {
           $('#syncSystemApp').append(res.htmldata)
           checkout_class()
-
         }
 
       }
