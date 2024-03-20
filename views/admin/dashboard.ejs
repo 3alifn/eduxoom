@@ -129,8 +129,8 @@
         
     
     </div>
-    
-    
+       
+
     <div class="row p-2 view-cards">
     
     
@@ -212,8 +212,7 @@
     
     </div>
     
-    
-    
+     
     <div class="row p-2 mt-3 mb-5 settings-cards">
     
       <div class="col-md-10 col-11 mt-3 mb-3 m-auto" style="overflow: auto; ">
@@ -222,11 +221,9 @@
     
             <button onclick="component('schoolData')" style="font-weight: 600; width: 150px" class="flex-md-fill rounded-start-pill  rounded-0 btn btn-light schoolData  text-light bg-gradient-info activeMode">School settings</button>
                 <button onclick="component('academicData')" style="font-weight: 600; width: 200px;" class="flex-md-fill btn  rounded-0 btn-light academicData activeMode">Academic settings</button>
-                <button onclick="component('transcriptData')" style="font-weight: 600; width: 150px;" class="flex-md-fill btn  rounded-0 btn-light transcriptData activeMode">Result card</button>
+                <button onclick="component('studentArchive')" style="font-weight: 600; width: 150px;" class="flex-md-fill btn  rounded-0 btn-light studentArchive activeMode">Student archive</button>
                 <button onclick="component('organizationData')" style="font-weight: 600; width: 150px; " class="flex-md-fill btn rounded-0  btn-light organizationData activeMode">Organization</button>
                 <button onclick="component('galleryData')" style="font-weight: 600; width: 150px; " class="flex-md-fill rounded-end-pill btn rounded-0  btn-light galleryData activeMode">Gallery settings</button>
-            
-    
             </div>
     
         </div>
@@ -583,8 +580,28 @@
     
     ,
     
-    transcriptData: `<code class="transcript-cards">
+    studentArchive: `<code class="transcript-cards">
             
+
+      <div class="col-md-7 mt-2 col-11 m-auto  rounded">
+      
+      <span class="">
+    
+     <!-- Hover added -->
+     <div class="list-group  fw-semibold text-muted">
+      <a href="/privet/attn/repo/init/page" class="list-group-item list-group-item-action fs-6 shadow-sm rounded ">
+        <div class="d-flex align-items-center">
+          <img height="20px" width="20px" src="/icons/icons8-calendar.png" alt="">
+          <span class="ps-1 text-muted">Attendance report</span>
+        </div>
+      </a>
+     </div>
+     
+      </span>
+    
+    </div>
+
+
       <div class="col-md-7 mt-2 col-11 m-auto  rounded">
       
         <span class="">
