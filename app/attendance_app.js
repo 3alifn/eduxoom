@@ -10,16 +10,22 @@ exports.teacher_attn_init_page= (req, res)=>{
 
 exports.teacher_attn_post_page= (req, res)=>{
  const {class_name, section_name}= req.params;
- sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll FROM students 
- WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' 
- GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
-    else {
-        res.render('attn/attn_post_page_teacher', {info, class_name, section_name})
-    } 
- })
-   
+ sqlmap.query(`SELECT student_uuid FROM students 
+ WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' GROUP BY student_uuid ORDER BY roll`,
+ (errS, infoS)=>{
+    if(errS) console.log(errS.sqlMessage);
+    const infoSLen= infoS.length;
 
+    sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll FROM students 
+    WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' 
+    GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
+       if(err) console.log(err.sqlMessage);
+       else {
+           res.render('attn/attn_post_page_teacher', {info, infoS, infoSLen, class_name, section_name})
+       } 
+    })
+
+ })
 }
 
 exports.teacher_attn_post_page_num= (req, res)=>{
@@ -42,6 +48,15 @@ exports.teacher_attn_post_page_num= (req, res)=>{
              
                  </div>
        
+                 <div class="d-flex p-1  justify-content-center align-content-center align-items-center">
+              
+                 <code>Last checkout</code>
+                 <code class="checkout_${info[index].student_uuid} ps-1">
+                   <span class="spinner-border spinner-border-sm"></span>
+
+                 </code>
+                   
+               </div>
 
                  <div class="d-flex  justify-content-center align-content-center align-items-center">
                  <button onclick="att_post_def('${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}', 0)"
@@ -80,7 +95,6 @@ exports.teacher_attn_post= (req, res)=>{
     const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
     const attn_date= new Date().toDateString();
-    console.log(attn_date);
     const at_status= checkout==1?'Present':'Absent'
     sqlmap.query(`SELECT student_uuid, teacher_uuid, find_date, attn_date
     FROM attn WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'
@@ -126,6 +140,19 @@ exports.teacher_attn_checkout= (req, res)=>{
     AND attn_date='${attn_date}'`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else res.send({info})
+    })
+
+   }
+
+exports.teacher_attn_checkout_last_five= (req, res)=>{
+    const teacher_uuid= req.session.teacher_uuid;
+    const {class_name, section_name, student_uuid}= req.body;
+    sqlmap.query(`SELECT student_uuid, checkout, attn_date FROM attn WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
+    AND student_uuid='${student_uuid}' ORDER BY at_date LIMIT 5`, (err, info)=>{
+        if(err) console.log(err.sqlMessage);
+        else {
+            res.send({info})
+        }
     })
 
    }
