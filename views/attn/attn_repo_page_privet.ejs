@@ -79,8 +79,12 @@
 
 <script>
 
-  const Today = new Date().toDateString()
-  $('#syncTime').html(`<code>${Today}</code>`)
+  function display_date(date){
+    $('#syncTime').html(`<code>${date}</code>`)
+  }
+
+  display_date('<%=get_attn_date%>')
+ 
   $(document).ready(function () {
     $("#search").keyup(function () {
       var value = $(this).val().toLowerCase();
@@ -175,6 +179,7 @@
     const fdate = $('#find_date').val();
     find_date = new Date(fdate).toDateString()
     getStudentFindDate(find_date)
+    display_date(find_date)
   })
 
 

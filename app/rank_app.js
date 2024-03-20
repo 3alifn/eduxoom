@@ -98,7 +98,11 @@ exports.teacher_rank_mark_page= (req, res)=>{
      let sql= `SELECT * FROM students  WHERE domain='${req.hostname}' AND  class="Six" ORDER BY roll`
      sqlmap.query(sql, (err, info)=>{
        if(err) console.log(err.sqlMessage);
-       else res.render("rank/daily_mark_page_teacher", {info})
+       else {
+        if(info.length>0){
+          res.render("rank/daily_mark_page_teacher", {info})
+        } else res.redirect('/pages/empty.html')
+       }
      }) 
   
    

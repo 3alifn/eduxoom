@@ -81,7 +81,11 @@ self_account: (req, res)=>{
   
       sqlmap.query(sql, (err, info)=>{
   
-        res.render("admin/account_page", {info,  msg: req.flash("msg"), alert: req.flash("alert")})
+        if(info.length>0){
+          res.render("admin/account_page", {info,  msg: req.flash("msg"), alert: req.flash("alert")})
+        } else {
+          res.redirect('/pages/404.html')
+        }
   
   
       })

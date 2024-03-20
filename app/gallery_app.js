@@ -85,7 +85,7 @@ exports.public_gallery_image_get= (req, res)=>{
               res.render('public/gallery_image_page', {info})
 
 
-        } else res.send('<center><h1>Image not found!</h1></center>')
+        } else res.redidect('/pages/empty.html')
 
     })
 
@@ -123,7 +123,7 @@ exports.public_gallery_video_get= (req, res)=>{
         
          res.render('public/gallery_video_page', {info})
 
-        } else res.send('<center><h1>Video not found!</h1></center>')
+        } else res.redidect('/pages/empty.html')
 
     })
 
@@ -146,7 +146,7 @@ exports.public_gallery_video_data_get= (req, res)=>{
         
             res.render('public/gallery_video_data', {info})
    
-           } else res.send('<center><h1>Video not found!</h1></center>')
+          } else res.redidect('/pages/empty.html')
 
         }
 

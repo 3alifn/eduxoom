@@ -15,9 +15,7 @@ exports.teacher_attn_post_page= (req, res)=>{
  GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     else {
-        if(info.length>0){
-            res.render('attn/attn_post_page_teacher', {info, class_name, section_name})
-        }  else res.redirect('/pages/empty.html')
+        res.render('attn/attn_post_page_teacher', {info, class_name, section_name})
     } 
  })
    
@@ -82,6 +80,7 @@ exports.teacher_attn_post= (req, res)=>{
     const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
     const attn_date= new Date().toDateString();
+    console.log(attn_date);
     const at_status= checkout==1?'Present':'Absent'
     sqlmap.query(`SELECT student_uuid, teacher_uuid, find_date, attn_date
     FROM attn WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'
@@ -101,7 +100,7 @@ exports.teacher_attn_post= (req, res)=>{
             sqlmap.query(`
             INSERT INTO attn (domain, session, get_cal, attn_date, find_date, checkout, at_status, class, section, teacher_uuid, student_uuid, name, roll, avatar, year, month, day)
             
-            VALUES('${req.hostname}', '${currentYear}', '${attn_date}', '${get_cal}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}', '${teacher_uuid}',
+            VALUES('${req.hostname}', '${currentYear}', '${get_cal}', '${attn_date}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}', '${teacher_uuid}',
             '${student_uuid}', '${name}', '${roll}', '${avatar}', '${currentYear}', '${currentMonth}', '${currentDate}')`, (erri, inser)=>{
                 if(erri) console.log(erri.sqlMessage);
                 else {
@@ -143,21 +142,25 @@ exports.privet_attn_init_page= (req, res)=>{
 exports.privet_attn_repo_page= (req, res)=>{
  const {class_name, section_name}= req.params;
  const attn_date= new Date().toDateString();
+ sqlmap.query(`SELECT attn_date FROM attn WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' ORDER BY at_date DESC LIMIT 1`,
+ (errf, infof)=>{
+ if(errf) console.log(errf.sqlMessage);
+  const get_attn_date= infof[0].attn_date;
+  sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn
+  WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}'
+   AND attn_date='${get_attn_date}' GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
+     if(err) console.log(err.sqlMessage);
+     else  {
+         res.render('attn/attn_repo_page_privet', {info, get_attn_date, class_name, section_name})
+     }
+  })
 
- sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn
- WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
- GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
-    else  {
-        if(info.length>0){
-            res.render('attn/attn_repo_page_privet', {info, class_name, section_name})
-        }else res.redirect('/pages/empty.html')
-    }
  })
+
+
    
 
 }
-
 
 
 
@@ -218,7 +221,7 @@ exports.privet_attn_repo_find= (req, res)=>{
                var htmldata= '';
                for (let index = 0; index < info.length; index++) {
                   htmldata+=` 
-                  <a href="/privet/attn/repo/student/${class_name}/${section_name}/${info[index].student_uuid}">         
+                  <a href="/privet/attn/student/calendar/${class_name}/${section_name}/${info[index].student_uuid}">         
                   <div class="student-card findcard pt-1 pb-1 shadowx">
                   <div class="d-flex  justify-content-start align-content-center align-items-center">
                
@@ -255,7 +258,6 @@ exports.privet_attn_repo_find= (req, res)=>{
 
 exports.privet_attn_student_calendar= (req, res)=>{
     const {class_name, section_name, student_uuid}= req.params;
-   
     sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn
     WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND student_uuid='${student_uuid}'`,
      (err, info)=>{
