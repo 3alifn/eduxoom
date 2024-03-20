@@ -128,8 +128,10 @@ function checkout_last_five(student_uuid){
         htmldata+= `<span class="fw-semibold ${res.info[index].checkout==1? "text-primary bi bi-calendar-check":" text-danger bi bi-calendar-x"} b-1 ms-1 fw-semibold"></span>`
 
       }
-     
-       $(`.checkout_${res.info[0].student_uuid}`).html(htmldata)
+       if(res.info[0]==undefined){
+        null
+       }
+       else $(`.checkout_${res.info[0].student_uuid}`).html(htmldata)
 
         
     }
@@ -138,13 +140,13 @@ function checkout_last_five(student_uuid){
 
 function checkout_loop_event(){
 const getLenStudent= '<%=infoSLen%>'
-setTimeout(() => {
+// setTimeout(() => {
 
 for (let index = 0; index < getLenStudent; index++) {
   const studentid= $('.student'+index).val()
   checkout_last_five(studentid)
 }
-}, 3000);
+// }, 3000);
 
 
 }
@@ -207,7 +209,7 @@ $('#syncTime').html(`<code>${Today}</code>`)
        
       },
       success: function (res) {
-        // checkout_loop_event()
+        checkout_loop_event()
 
         if (res.htmldata == 404) {
           $('#syncSystem').html('')
