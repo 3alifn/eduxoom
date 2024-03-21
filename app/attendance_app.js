@@ -42,7 +42,7 @@ exports.teacher_attn_post_page_num= (req, res)=>{
                htmldata+=` 
                 <div class="student-card findcard pt-3 pb-3 shadowx">
                <div class="d-flex  justify-content-start align-content-center align-items-center">
-                 <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/image/student/${info[index].avatar}" alt="">
+                 <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/image/student/resized/${info[index].avatar}" alt="">
                  <p class="fw-semibold text-muted ps-1"> ${info[index].roll}</p>
                  <p class="fw-semibold text-muted ps-2  text-truncate">${info[index].name}</p>
              
