@@ -35,7 +35,7 @@
 
             <div class="row mt-1 mbx p-2 shadowx">
 
-                <div class="col-12 col-md-8 m-auto p-2" id="list">
+                <div class="col-12 col-md-8 m-auto p-2" id="syncSystemApp">
 
 
                     <% for(let index=0; index<info.length; index++) {%>
@@ -93,6 +93,9 @@
                         <% } %>
 
                 </div>
+
+                <div id="syncSystem" class="p-2 mt-5 mb-5"></div>
+
             </div>
 
 
@@ -110,6 +113,91 @@ $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
  });
  });
 
+function checkout_class(){
+  const class_name = `<%=class_name%>`;
+  const section_name = `<%=section_name%>`;
+  $.ajax({
+    type: "POST",
+    url: "/teacher/rank/mark/checkout/",
+    data: {class_name, section_name},
+    dataType: "JSON",
+    success: function (res) {
+      for (const index in res.info) {
+        $(`.${res.info[index].checkout}`).addClass('disabled bg-dark');
+      }
+
+    }
+  });
+}
+checkout_class()
+
+
+const placeHolder = `
+    <div class="row p-2" >
+    <div class="col-10 col-md-6 mt-2 m-auto" >
+
+    <div class="card" aria-hidden="true">
+  <div class="card-body">
+    <h5 class="card-title placeholder-glow">
+      <span class="placeholder col-6"></span>
+    </h5>
+    <p class="card-text placeholder-glow">
+      <span class="placeholder col-7"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-6"></span>
+      <span class="placeholder col-8"></span>
+    </p>
+    <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+  </div>
+</div>
+
+</div>
+</div>
+      `
+ 
+  const elem = document.getElementById('syncSystem');
+  var pageNumber = 0;
+  function syncStudent() {
+    pageNumber++
+    const class_name = `<%=class_name%>`;
+    const section_name = `<%=section_name%>`;
+    const offset = pageNumber;
+    $.ajax({
+      type: "POST",
+      url: "/teacher/rank/mark/page/num",
+      data: { class_name, section_name, offset },
+      dataType: "JSON",
+      beforeSend: () => {
+
+        $('#syncSystem').html(placeHolder)
+       
+      },
+      success: function (res) {
+        if (res.data == false) {
+          $('#syncSystem').html('')
+        } else {
+          $('#syncSystemApp').append(res.htmldata)
+          checkout_class()
+        }
+
+      }
+    });
+  }
+
+  new IntersectionObserver((event) => {
+
+    if (event[0].isIntersecting == true) {
+
+      syncStudent()
+
+    }
+    else { }
+
+  }, { threshold: 0.8 }).observe(elem);
+
+
+
 function post_mark_def(column, cls, rm, mark, sid, name, roll, avatar){
    const class_name= '<%=class_name%>';
    const section_name= '<%=section_name%>';
@@ -117,7 +205,7 @@ function post_mark_def(column, cls, rm, mark, sid, name, roll, avatar){
    $.ajax({
     type: "post",
     url: "/teacher/rank/mark/post/",
-    data: {class_name, section_name, column, mark, sid, name, roll, avatar},
+    data: {class_name, section_name, column, mark, cls, sid, name, roll, avatar},
     dataType: "JSON",
     beforeSend: ()=>{
     },
