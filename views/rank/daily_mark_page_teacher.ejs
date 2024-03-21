@@ -1,209 +1,138 @@
-
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Mark</title>
-  
 
-    <%- include("../component/metadata.html") %> 
+
+    <%- include("../component/metadata.html") %>
 
 </head>
+
 <body onload="pageLoadingTop()">
 
-    <%- include("../component/user-header-nav.html") %> 
-    <%- include("../component/teacher-offcanvas-nav.html") %> 
+    <%- include("../component/user-header-nav.html") %>
+        <%- include("../component/teacher-offcanvas-nav.html") %>
+
+            <div class="p-2 mt-5 row">
+
+                <center class="mt-3">
+                    <h6>Daily mark system</h6>
+                    <code class="fw-semibold" id="syncTime"><%=today%></code>
+                </center>
 
 
-    <div class="row mt-5 mbx p-2 shadowx">
+                <div class="col-10 col-md-6 mt-2 m-auto">
+                    <input class=" form-dev p-2 ps-3 border-0" style="background-color: rgba(211, 207, 207, 0.26);"
+                        type="search" name="" placeholder="Search in page" id="search">
+
+                </div>
+
+            </div>
 
 
-        <div class="col">
+            <div class="row mt-1 mbx p-2 shadowx">
 
-            
-    <div class=" w-50 mt-2 m-auto">
-        <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="Example: 140044" id="search">
-    
-    </div>
-
-    
-    <center>
-        <div class="btn-group bg-secondary ">
-            <button data-id="Six" class="classDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">Six</span></button>
-            <button data-id="Seven" class="classDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">Seven</span></button>
-            <button data-id="Eight" class="classDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">Eight</span></button>
-            <button data-id="Nine" class="classDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">Nine</span></button>
-            <button data-id="Ten" class="classDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">Ten</span></button>
-       
-          </div>
-    </center>
-    <center>
-        <div class="btn-group bg-secondary ">
-            <button data-id="- A" class="sectionDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">A</span></button>
-            <button data-id="- B"  class="sectionDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">B</span></button>
-            <button data-id="- C" class="sectionDef btn btn-default "><span class=" btn btn-dark bg-light bg-light text-danger">C</span></button>
-       
-          </div>
-    </center>
-<div class="row">
-    <div class="col-12 col-md-6 m-auto" id="list">
-        
-
-        <% for(let i= 0; i<info.length; i++) {%>
-
-            <ul class="list-group mt-2" id="list">
-                <li class="list-group-item list-group-item-light shadow">
-                    <img src="/image/student/resized/<%=info[i].avatar%>" height="30px" class=" rounded" width="40px" alt="">
-             
-                    <span class="  bg-light text-muted">(<%=info[i].class%> - <%=info[i].section%>) </span>
-                    <span class="  bg-light text-dark"><%=info[i].name%> (<%=info[i].roll%>) </span>
-            <hr> <span class=" btn-lg  badge bg-light text-dark">Behavior</span> <br>
-                    <div class=" btn-group btn-group-sm ">
-
-                        <button data-id="weak_B" data-id2="<%=info[i].student_uuid%>" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#x2730;</button>
-
-                        <button data-id="good_B" data-id2="<%=info[i].student_uuid%>" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#x2730;&#x2730;</button>
-                        <button data-id="excellent_B" data-id2="<%=info[i].student_uuid%>" id="excellent" class="def  btn btn-success fs-3 bg-light text-success ">&#x2730;&#x2730;&#x2730;</button>
-
-                   </div>
-
-                   <hr>  <span class=" btn-lg  badge bg-light text-dark">Uniform</span> <br>
-                   <div class=" btn-group btn-group-sm ">
-                       
-                       <button data-id="weak_U" data-id2="<%=info[i].student_uuid%>" id="weak" class="def  btn btn-danger fs-3 bg-light  text-danger ">&#10026;</button>
-                       <button data-id="good_U" data-id2="<%=info[i].student_uuid%>" id="good" class="def  btn btn-primary fs-3 bg-light text-primary">&#10026;&#10026;</button>
-                        <button data-id="excellent_U" data-id2="<%=info[i].student_uuid%>" id="excellent" class="def  btn btn-success fs-3 bg-light text-success ">&#10026;&#10026;&#10026;</button>
-                   </div>
-           
-
-                   <hr> <span class=" btn-lg  badge bg-light text-dark">Study</span> <br>
-                   <div class=" btn-group btn-group-sm ">
-                    
-                       <button data-id="weak_S" data-id2="<%=info[i].student_uuid%>" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#10030;</button>
-
-                        <button data-id="good_S" data-id2="<%=info[i].student_uuid%>" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#10030;&#10030;</button>
-                        <button data-id="excellent_S" data-id2="<%=info[i].student_uuid%>" id="excellent" class="def  btn btn-success fs-3  bg-light text-success ">&#10030;&#10030;&#10030;</button>
-
-                    </div>
-                 </li>
-               
-             
-            </ul>
-
-            <% } %>  
-
-    </div>
-</div>
+                <div class="col-12 col-md-8 m-auto p-2" id="list">
 
 
-        </div>
+                    <% for(let index=0; index<info.length; index++) {%>
 
-    </div>
+                        <ul class="list-group findcard mt-2" id="list">
+                            <li class="list-group-item list-group-item-light shadow">
+                                <img src="/image/student/resized/<%=info[index].avatar%>" height="30px" class=" rounded"
+                                    width="40px" alt="">
+
+                                <span class="  bg-light text-muted">(<%=info[index].class%> - <%=info[index].section%> - <%=info[index].roll%>)
+                                </span>
+                                <span class="  bg-light text-dark">
+                                   <%=info[index].name%> 
+                                </span>
+                                <hr> <span class=" btn-lg  badge bg-light text-dark">Behavior</span> <br>
+                              
+                                <div class=" btn-group btn-group-sm ">
+
+                                    <button onclick="post_mark_def('behavior', 'b1', 'rmb', -1.666, '<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>')" class="b1_<%=info[index].student_uuid%> rmb btn btn-danger fs-3 bg-light text-danger ">&#10030;</button>
+
+                                    <button onclick="post_mark_def('behavior', 'b2', 'rmb', 0.666, '<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>')" class="b2_<%=info[index].student_uuid%> rmb btn btn-primary fs-3 bg-light text-primary">&#10030;&#10030;</button>
+                                   
+                                    <button onclick="post_mark_def('behavior', 'b3', 'rmb', 1.666, '<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>')" class="b3_<%=info[index].student_uuid%> rmb btn btn-success fs-3 bg-light text-success ">&#10030;&#10030;&#10030;</button>
+
+                                </div>
+
+                                <hr> <span class=" btn-lg  badge bg-light text-dark">Uniform</span> <br>
+                            
+                                <div class=" btn-group btn-group-sm ">
+
+                                    <button onclick="post_mark_def('uniform', 'u1', 'rmu', -1.555, '<%=info[index].student_uuid%>',  '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>',)" class="u1_<%=info[index].student_uuid%> rmu btn btn-danger fs-3 bg-light  text-danger ">&#10026;</button>
+                                   
+                                    <button onclick="post_mark_def('uniform', 'u2', 'rmu', 0.555, '<%=info[index].student_uuid%>',  '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>',)"  class="u2_<%=info[index].student_uuid%> rmu btn btn-primary fs-3 bg-light text-primary">&#10026;&#10026;</button>
+                                 
+                                    <button onclick="post_mark_def('uniform', 'u3', 'rmu', 1.555, '<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>',)"  class="u3_<%=info[index].student_uuid%> rmu btn btn-success fs-3 bg-light text-success ">&#10026;&#10026;&#10026;</button>
+                                </div>
 
 
-    <%- include("../component/___node.html") %> 
+                                <hr> <span class=" btn-lg  badge bg-light text-dark">Study</span> <br>
+                          
+                                <div class=" btn-group btn-group-sm ">
+
+                                    <button onclick="post_mark_def('study', 's1', 'rms', -1.333, '<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>',)" class="s1_<%=info[index].student_uuid%> rms btn btn-danger fs-3 bg-light text-danger ">&#x2730;</button>
+
+                                    <button onclick="post_mark_def('study', 's2', 'rms', 0.333,'<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>',)" class="s2_<%=info[index].student_uuid%> rms btn btn-primary fs-3 bg-light text-primary">&#x2730;&#x2730; </button>
+                                 
+                                    <button onclick="post_mark_def('study', 's3', 'rms', 1.333, '<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>',)" class="s3_<%=info[index].student_uuid%> rms btn btn-success fs-3  bg-light text-success ">&#x2730;&#x2730;&#x2730;</button>
+
+                                </div>
+                            </li>
+
+
+                        </ul>
+
+                        <% } %>
+
+                </div>
+            </div>
+
+
+           <%- include("../component/___node.html") %>
 
 
 <script>
+$(document).ready(function () {
+$("#search").keyup(function () {
+var value = $(this).val().toLowerCase();
+$(".list-group").filter(function () {
 
-$(document).ready(function(){
-  $("#search").keyup(function() {
-    var value = $(this).val().toLowerCase();
-    $(".list-group").filter(function() {
-       
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-     
-    });
-  });
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 });
+ });
+ });
 
-$(document).ready(function(){
-  $(".sectionDef").click(function(e) {
-    let btn=  e.currentTarget;
-    $(".sectionDef").removeClass("btn-light")
-var value= e.currentTarget.attributes[0].value;
-$(btn).addClass("btn-light")
-    
-    $(".list-group").filter(function() {
-       
-      $(this).toggle($(this).text().indexOf(value) > -1)
-     
-    });
-  });
-});
-
-
-$(document).on("click", ".def",(e)=>{
- let student_uuid =  e.currentTarget.attributes[1].value
- let mark =  e.currentTarget.attributes[0].value
- let btn= e.currentTarget
-
-$.ajax({
-    method: "post",
-    url: "/teacher/rank/post",
-    data: {student_uuid, mark},
-    dataType: "JSON",
-    beforeSend: function(){
-        $(btn).addClass("btn")
-        $(btn).addClass("disabled bg-dark")
-    },
-    success: function (info) {
-
-        _msg_pull(`alert-${info.alert}`, info.msg, 1000 )
-
-        setTimeout(() => {
-            $(btn).removeClass("disabled")
-        }, 2000);
-    }
-});
-
-
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$(document).on("click", ".classDef", (e)=>{
-    let btn= e.currentTarget;
-$(".classDef").removeClass("btn-light")
-$(".sectionDef").removeClass("btn-light")
-
-let className= e.currentTarget.attributes[0].value;
-$(btn).addClass("btn-light")
-function loadDataClassBase()
-{
+function post_mark_def(column, cls, rm, mark, sid, name, roll, avatar){
+   const class_name= '<%=class_name%>';
+   const section_name= '<%=section_name%>';
+   console.log(cls);
    $.ajax({
-       method: "post",
-       url: "/teacher/rank/get/class/base",
-       data: {className},
-       dataType: "JSON",
-       success: function (info) {
+    type: "post",
+    url: "/teacher/rank/mark/post/",
+    data: {class_name, section_name, column, mark, sid, name, roll, avatar},
+    dataType: "JSON",
+    beforeSend: ()=>{
+    },
+    success: function (res) {
+    if(res.msg==true){
+     $(`.${rm}`).removeClass('disabled bg-dark')
+     $(`.${cls}_${sid}`).addClass('disabled bg-dark')
+    }
 
-           $("#list").html(info.html)
-           
-       }
+    }
    });
 }
 
-loadDataClassBase()
+ </script>
 
-})
-
-
-</script>
-
-<%-include('../component/___node.html') %>
 </body>
 
 

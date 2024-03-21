@@ -2,7 +2,7 @@
 const {app, express, session}=require('../server') 
 const { teacher_pic_subject_get,  teacher_pic_page_mark_get, teacher_pic_mark_post, teacher_pic_mark_checkout } = require("../app/pic_app");
 const {  teacher_pis_subject_get,  teacher_pis_page_mark_get, teacher_pis_mark_post, teacher_pis_mark_checkout } = require("../app/pis_app");
-const { teacher_rank_mark_post, teacher_rank_mark_page_class_base, teacher_rank_mark_page, teacher_rank_mark_post_attendance } = require("../app/rank_app");
+const { teacher_rank_mark_post, teacher_rank_mark_page_class_base, teacher_rank_mark_page, teacher_rank_mark_post_attendance, teacher_rank_mark_init_page, teacher_rank_mark_page_num } = require("../app/rank_app");
 const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update, self_email_update_page, self_social_update, self_close_account, self_avatar_upload, multer_upload, multer_upload_teacher, self_img_post, self_penbox_push, self_email_update_pull, self_email_update_push, self_password_update_push } = require("../app/teacher_app");
 const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, teacher_bi_report_get,  teacher_bi_checkout, teacher_bi_report_self_checkout, teacher_bi_info } = require("../app/bi_app");
 const { teacher_student_info } = require("../app/student_app");
@@ -95,10 +95,10 @@ teacher.post("/pis/mark-checkout", teacher_pis_mark_checkout)
 
 
 // rank router............
-teacher.get("/daily/mark/page", teacher_rank_mark_page)
-teacher.post("/rank/get/class/base", teacher_rank_mark_page_class_base)
-teacher.post("/rank/post", teacher_rank_mark_post)
-teacher.post("/rank/mark/post/attendance", teacher_rank_mark_post_attendance)
+teacher.get("/daily/mark/init/page/", teacher_rank_mark_init_page)
+teacher.get("/daily/mark/page/:class_name/:section_name", teacher_rank_mark_page)
+teacher.post("/rank/mark/page/num", teacher_rank_mark_page_num)
+teacher.post("/rank/mark/post", teacher_rank_mark_post)
 
 
 

@@ -131,7 +131,7 @@ public.post("/admission/post", public_admission_post)
 
 //  rank router...........
 public.get("/rank/class/page", public_rank_class_page)
-public.get("/rank/page", public_rank_page)
+public.get("/rank/page/:class_name", public_rank_page)
 public.post("/rank/get", public_rank_get)
 public.post("/rank/class/base", public_rank_get_class_base)
 
