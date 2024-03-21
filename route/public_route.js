@@ -4,7 +4,7 @@ const { public_admission_step1, public_admission_step2, public_admission_post } 
 const { public_gallery_video, public_gallery_image, public_gallery_video_list, public_gallery_image_list, public_carousel_get, public_gallery_image_get, admin_gallery_image_data_get, public_gallery_image_data_get, public_gallery_video_get, public_gallery_video_data_get } = require("../app/gallery_app")
 const { public_notice_get, public_notice_download, public_notice_view } = require("../app/notice_app")
 const { join, self_verify_code } = require("../app/parent_app")
-const { public_rank_class_page, public_rank_page, public_rank_get, public_rank_get_class_base } = require("../app/rank_app")
+const { public_rank_class_page, public_rank_page, public_rank_get, public_rank_get_class_base, public_rank_student_get, public_rank_student_get_num, public_rank_student_page, public_rank_student_page_num } = require("../app/rank_app")
 const { public_routine_page, public_routine_page_class_base, public_routine_download, public_routine_get } = require("../app/routine_app")
 const { public_student_page, public_student_profile, public_student_list, self_join_student, self_student_verify_code, self_student_send_mail, public_student_get, public_student_profile_get, public_student_paginationt, public_student_pagination } = require("../app/student_app")
 const { public_teacher_list, public_teacher_profile_get } = require("../app/teacher_app")
@@ -131,9 +131,8 @@ public.post("/admission/post", public_admission_post)
 
 //  rank router...........
 public.get("/rank/class/page", public_rank_class_page)
-public.get("/rank/page", public_rank_page)
-public.post("/rank/get", public_rank_get)
-public.post("/rank/class/base", public_rank_get_class_base)
+public.get("/rank/page/:class_name", public_rank_student_page)
+public.post("/rank/student/page/num/", public_rank_student_page_num)
 
 
 

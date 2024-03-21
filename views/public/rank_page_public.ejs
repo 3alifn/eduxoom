@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Rank </title>
     <%- include("../component/metadata.html") %> 
-
 
 </head>
 <body onload="pageLoadingTop()">
@@ -23,14 +21,17 @@
 
     <% if(infoA.length>0) {%>   
   
-    <ul class="list-group mt-2">
-      <li class="list-group-item list-group-item-primary">
-          <img src="/image/student/<%=infoA[0].avatar%>" height="30px" class=" rounded" width="40px" alt="">
-   
+    <ul class="list-group  m-auto mt-2">
+      <li class="list-group-item p-2 list-group-item-primary">
+          <img  src="/image/student/resized/<%=infoA[0].avatar%>" height="30px" class="m-1 rounded" width="40px" alt="">
+          <span class=" badge bg-light text-muted"><%=infoA[0].name%>  </span>
+
+         <div>
           <span class=" badge bg-light text-muted"> <%=infoA[0].class%> </span>
           <span class=" badge bg-light text-muted"> <%=infoA[0].section%> </span>
-          <span class=" badge bg-light text-muted"><%=infoA[0].name%> (<%=infoA[0].roll%>) </span>
+          <span class=" badge bg-light text-muted"> <%=infoA[0].roll%> </span>
           <span class=" badge bg-primary "> Rating (<%=infoA[0].poient%>) </span>
+         </div>
 
        </li>
      
@@ -42,20 +43,25 @@
     <% } %>  
 
 
-    <% if(infoB.length>0) {%>   
-      <ul class="list-group mt-2" id="">
-        <li class="list-group-item list-group-item-primary">
-            <img src="/image/student/<%=infoB[0].avatar%>" height="30px" class=" rounded" width="40px" alt="">
-     
+    <% if(infoB.length>0) {%> 
+
+      <ul class="list-group  m-auto mt-2">
+        <li class="list-group-item p-2 list-group-item-primary">
+            <img  src="/image/student/resized/<%=infoB[0].avatar%>" height="30px" class="m-1 rounded" width="40px" alt="">
+            <span class=" badge bg-light text-muted"><%=infoB[0].name%>  </span>
+  
+           <div>
             <span class=" badge bg-light text-muted"> <%=infoB[0].class%> </span>
             <span class=" badge bg-light text-muted"> <%=infoB[0].section%> </span>
-              <span class=" badge bg-light text-muted"><%=infoB[0].name%> (<%=infoB[0].roll%>) </span>
-            <span class=" badge bg-primary">Rating (<%=infoB[0].poient%>) </span>
- 
+            <span class=" badge bg-light text-muted"> <%=infoB[0].roll%> </span>
+            <span class=" badge bg-primary "> Rating (<%=infoB[0].poient%>) </span>
+           </div>
+  
          </li>
        
      
     </ul>
+
     <% }  else {%>
       <%=null %> 
       <% } %>  
@@ -64,19 +70,23 @@
 
       <% if(infoC.length>0) {%> 
 
-        <ul class="list-group mt-2" id="">
-          <li class="list-group-item list-group-item-primary">
-              <img src="/image/student/<%=infoC[0].avatar%>" height="30px" class=" rounded" width="40px" alt="">
-       
+        <ul class="list-group  m-auto mt-2">
+          <li class="list-group-item p-2 list-group-item-primary">
+              <img  src="/image/student/resized/<%=infoC[0].avatar%>" height="30px" class="m-1 rounded" width="40px" alt="">
+              <span class=" badge bg-light text-muted"><%=infoC[0].name%>  </span>
+    
+             <div>
               <span class=" badge bg-light text-muted"> <%=infoC[0].class%> </span>
               <span class=" badge bg-light text-muted"> <%=infoC[0].section%> </span>
-              <span class=" badge bg-light text-muted"><%=infoC[0].name%> (<%=infoC[0].roll%>) </span>
-              <span class=" badge bg-primary">Rating (<%=infoC[0].poient%>) </span>
-
+              <span class=" badge bg-light text-muted"> <%=infoC[0].roll%> </span>
+              <span class=" badge bg-primary "> Rating (<%=infoC[0].poient%>) </span>
+             </div>
+    
            </li>
          
        
       </ul>
+
       <% }  else {%>
         <%=null %> 
         <% } %>  
@@ -87,52 +97,56 @@
   </div> 
 
 
-
-
- 
 <hr>
-    <div class=" w-50 w- mt-2 m-auto ">
-        <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
-    
-    </div>
+
+<div class="row p-2">
+  
+  <div class="col-md-8 col-11 m-auto">
+    <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
+
+</div>
+
+</div>
 
 
 
 <div class="row">
 
-    <div class="col-10 col-md-6 m-auto" id="list">
+    <div  class="col-10 col-md-6 m-auto" id="listdata">
    
+                         
+<% for( let i = 0; i < info.length; i++ ) { %>
+  <ul class="list-group  mt-2 list">
+                             
+    <li class="list-group-item list-group-item-primary ">
 
-       
+      <span class="badge bg-primary">Rank: <%=parseInt(i)+parseInt(1)%></span>  
+      <img src="/image/student/resized/<%=info[i].avatar%>" height="30px" class=" rounded" width="40px" alt="">
+ 
+        <span class=" badge bg-light text-muted"><%=info[i].class%> - <%=info[i].section%> - <%=info[i].roll%> </span>
+        <span class=" badge bg-light text-dark"><%=info[i].name%></span>
+
+<hr>
+
+<span class=" badge bg-light text-danger">Behavior (<%=infoS[i].behavior%>)</span>
+<span class=" badge bg-light text-secondary"> Uniform (<%=infoS[i].uniform%>) </span>
+<span class=" badge bg-light text-success">Study (<%=infoS[i].study%>) </span>
+<span class=" badge bg-light text-info">Present (<%=infoS[i].present%>) </span>
+<span class=" badge bg-light text-primary">Ratting (<%=info[i].poient%>) </span>
+
+     </li>
+   
+ 
+</ul>
+   
+<% } %>
 
     </div>
     
+      <div id="syncSystem" class="p-2 mt-5 mb-5"></div>
+
 </div>
-
-
   
-  <div class="card d-none" aria-hidden="true" id="card">
-    <div class="card-body">
-    
-      <p class="card-text placeholder-glow">
-        <span class="placeholder bg-primary col-2"></span>
-        <span class="placeholder bg-danger col-1 p-3 rounded-circle"></span>
-        <span class="placeholder  col-2"></span>
-        <span class="placeholder col-2"></span>
-        <span class="placeholder col-2"></span>
-        <hr>
-      </p>
-
-      <p  class="card-text placeholder-glow">
-      <span class="placeholder bg-danger col-2"></span>
-      <span class="placeholder col-2"></span>
-      <span class="placeholder col-2"></span>
-      <span class="placeholder col-2"></span>
-      <span class="placeholder col-2"></span>
-      </p>
-    </div>
-  </div>
-
 
 <script>
 
@@ -147,43 +161,86 @@ $(document).ready(function(){
   });
 });
 
-
-
-
-function loadData()
-{
- let className= `<%=className%>`
+function getData(){
+ const class_name= `<%=class_name%>`
     $.ajax({
         method: "post",
-        url: "/pu/rank/get",
-        data: {className},
+        url: "/pu/rank/student/get",
+        data: {class_name},
         dataType: "JSON",
-
-        beforeSend: function (){
-
-        
-
-        },
         success: function (info) {
          
-            $("#list").html(info.html)
+            $("#listdata").html(info.htmldata)
+
         }
     });
 
 }
 
-loadData()
+getData()
 
-// setInterval(() => {
-  
+const placeHolder = `
+    <div class="row p-2" >
+    <div class="col-10 col-md-6 mt-2 m-auto" >
 
+    <div class="card" aria-hidden="true">
+  <div class="card-body">
+    <h5 class="card-title placeholder-glow">
+      <span class="placeholder col-6"></span>
+    </h5>
+    <p class="card-text placeholder-glow">
+      <span class="placeholder col-7"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-6"></span>
+      <span class="placeholder col-8"></span>
+    </p>
+    <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+  </div>
+</div>
 
-// },5000);
+</div>
+</div>
+      `
+ 
+  const elem = document.getElementById('syncSystem');
+  var pageNumber = 0;
+  function syncStudent() {
+    pageNumber++
+    const class_name = `<%=class_name%>`;
+    const offset = pageNumber;
+    $.ajax({
+      type: "POST",
+      url: "/pu/rank/student/page/num",
+      data: { class_name, offset },
+      dataType: "JSON",
+      beforeSend: () => {
 
+        $('#syncSystem').html(placeHolder)
+      },
+      success: function (res) {
+        
+        if (res.data == false) {
+          $('#syncSystem').html('')
+        } else {
+          $('#listdata').append(res.htmldata)
 
+        }
 
+      }
+    });
+  }
 
+  new IntersectionObserver((event) => {
 
+    if (event[0].isIntersecting == true) {
+
+      syncStudent()
+
+    }
+    else { }
+
+  }, { threshold: 0.8 }).observe(elem);
 
 
 </script>

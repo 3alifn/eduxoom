@@ -1,106 +1,20 @@
 const {app, express, sqlmap, session } = require("../server")
 
-
-exports.public_rank_class_page= (req, res)=>{
-
-  sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Ten' GROUP BY poient DESC`, (errTen, infoTen)=>{
-
-    if(errTen) console.log(errTen.sqlMessage);
-
-    sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Nine' GROUP BY poient DESC`, (errNine, infoNine)=>{
-
-      if(errNine) console.log(errNine.sqlMessage);
-  
-      sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Eight' GROUP BY poient DESC`, (errEight, infoEight)=>{
-
-        if(errEight) console.log(errEight.sqlMessage);
-    
-        sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Seven' GROUP BY poient DESC`, (errSeven, infoSeven)=>{
-
-          if(errSeven) console.log(errSeven.sqlMessage);
-      
-          
-        sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Six' GROUP BY poient DESC`, (errSix, infoSix)=>{
-
-         
-          if(errSix) console.log(errSix.sqlMessage);
-      
-          if(infoSix.length==0 && infoSeven.length==0 && infoEight.length==0 && infoNine.length==0 && infoTen.length==0){
-
-            res.redirect('/pages/empty.html')
-
-          }
-    
-          else res.render("public/rank_class_page_public", {infoSix, infoSeven, infoEight, infoNine, infoTen})
-      
-         
-        })
-    
-    
-      
-        })
-  
-  
-    
-      })
-
-
-  
-    })
-
-  })
-
-}
-
-
-
-
-
-exports.public_rank_page= (req, res)=>{
-  let className=  req.query.className;
-  app.locals.className= className
- 
- sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${className}" AND section="A" GROUP BY poient DESC `, (errA, infoA)=>{
-  if(errA) console.log(errA.sqlMessage);
-
-
-  sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${className}" AND section="B" GROUP BY poient DESC `, (errB, infoB)=>{
-    if(errB) console.log(errB.sqlMessage);
-  
-
-    sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${className}" AND section="C" GROUP BY poient DESC `, (errC, infoC)=>{
-      if(errC) console.log(errC.sqlMessage);
-
-      
-    
-      res.render("public/rank_page_public", {infoA, infoB, infoC, className: app.locals.className})
-    
-     })
-    
-  
-   })
-
-
- })
-
-}
-
-
-
+exports.teacher_rank_mark_init_page= (req, res)=>{
+  res.render("rank/daily_mark_init_page_teacher")   
+   }
 
 
 
 
 exports.teacher_rank_mark_page= (req, res)=>{
-  // let yearName= new Date().getFullYear()
-
-  
-     let sql= `SELECT * FROM students  WHERE domain='${req.hostname}' AND  class="Six" ORDER BY roll`
-     sqlmap.query(sql, (err, info)=>{
+    const {class_name, section_name}= req.params;  
+    const today= new Date().toDateString()
+     sqlmap.query(`SELECT * FROM students  WHERE domain='${req.hostname}' AND  class="${class_name}" AND section='${section_name}' GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
        if(err) console.log(err.sqlMessage);
        else {
         if(info.length>0){
-          res.render("rank/daily_mark_page_teacher", {info})
+          res.render("rank/daily_mark_page_teacher", {info, today, class_name, section_name})
         } else res.redirect('/pages/empty.html')
        }
      }) 
@@ -113,63 +27,75 @@ exports.teacher_rank_mark_page= (req, res)=>{
 
 
 
-exports.teacher_rank_mark_page_class_base= (req, res)=>{
-  // let yearName= new Date().getFullYear()
-
-    let sql= `SELECT * FROM students  WHERE domain='${req.hostname}' AND  class="${req.body.className}"  ORDER BY roll`
-    sqlmap.query(sql, (err, info)=>{
-
+exports.teacher_rank_mark_page_num= (req, res)=>{
+const {class_name, section_name, offset}= req.body;
+    sqlmap.query( `SELECT * FROM students  WHERE domain='${req.hostname}' AND  class="${class_name}" AND section='${section_name}' GROUP BY student_uuid
+     ORDER BY roll LIMIT 20 OFFSET ${offset*20}`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
 
     else 
     {
-        let html= '';
-
-  
-        for (const i in info) {
-          html+= 
-          ` <ul class="list-group mt-2" id="list">
+        if(info.length>0){
+         var htmldata= '';
+        for (const index in info) {
+          htmldata+= 
+         ` <ul class="list-group findcard mt-2" id="list">
           <li class="list-group-item list-group-item-light shadow">
-          <img src="/image/student/resized/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
-       
-              <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
-              <span class=" badge bg-light text-dark">${info[i].name}</span>
+              <img src="/image/student/resized/${info[index].avatar}" height="30px" class=" rounded"
+                  width="40px" alt="">
 
-              <span class=" badge bg-light text-muted">${info[i].roll} </span>
-      <hr> <span class=" btn btn-default">Behavior</span> <br>
+              <span class="  bg-light text-muted">(${info[index].class} - ${info[index].section} - ${info[index].roll})
+              </span>
+              <span class="  bg-light text-dark">
+                 ${info[index].name} 
+              </span>
+              <hr> <span class=" btn-lg  badge bg-light text-dark">Behavior</span> <br>
+            
               <div class=" btn-group btn-group-sm ">
-              <button data-id="weak_B" data-id2="${info[i].student_uuid}" id="weak" class="def  btn btn-danger fs-3 bg-light text-danger ">&#x2730;</button>
 
-              <button data-id="good_B" data-id2="${info[i].student_uuid}" id="good" class="def   btn btn-primary fs-3 bg-light text-primary">&#x2730;&#x2730;</button>
-              <button data-id="excellent_B" data-id2="${info[i].student_uuid}" id="excellent" class="def  btn fs-3 btn-success bg-light text-success ">&#x2730;&#x2730;&#x2730;</button>
+                  <button onclick="post_mark_def('behavior', 'b1', 'rmb', -1.666, '${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}')" class="b1_${info[index].student_uuid} rmb btn btn-danger fs-3 bg-light text-danger ">&#10030;</button>
 
-         </div>
-
-         <hr>  <span class=" btn btn-default">Uniform</span> <br>
-         <div class=" btn-group btn-group-sm ">
-             
-             <button data-id="weak_U" data-id2="${info[i].student_uuid}" id="weak" class="def  btn fs-3 btn-danger bg-light  text-danger ">&#10026;</button>
-             <button data-id="good_U" data-id2="${info[i].student_uuid}" id="good" class="def  btn btn-primary fs-3 bg-light text-primary">&#10026;&#10026;</button>
-              <button data-id="excellent_U" data-id2="${info[i].student_uuid}" id="excellent" class="def fs-3 btn btn-success bg-light text-success ">&#10026;&#10026;&#10026;</button>
-         </div>
- 
-
-         <hr> <span class=" btn btn-default">Study</span> <br>
-         <div class=" btn-group btn-group-sm ">
-          
-             <button data-id="weak_S" data-id2="${info[i].student_uuid}" id="weak" class="def  btn fs-3 btn-danger bg-light text-danger ">&#10030;</button>
-
-              <button data-id="good_S" data-id2="${info[i].student_uuid}" id="good" class="def   btn fs-3 btn-primary bg-light text-primary">&#10030;&#10030;</button>
-              <button data-id="excellent_S" data-id2="${info[i].student_uuid}" id="excellent" class="def  btn fs-3 btn-success bg-light text-success ">&#10030;&#10030;&#10030;</button>
+                  <button onclick="post_mark_def('behavior', 'b2', 'rmb', 0.666, '${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}')" class="b2_${info[index].student_uuid} rmb btn btn-primary fs-3 bg-light text-primary">&#10030;&#10030;</button>
+                 
+                  <button onclick="post_mark_def('behavior', 'b3', 'rmb', 1.666, '${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}')" class="b3_${info[index].student_uuid} rmb btn btn-success fs-3 bg-light text-success ">&#10030;&#10030;&#10030;</button>
 
               </div>
-           </li>
-         
-       
-      </ul>`
+
+              <hr> <span class=" btn-lg  badge bg-light text-dark">Uniform</span> <br>
+          
+              <div class=" btn-group btn-group-sm ">
+
+                  <button onclick="post_mark_def('uniform', 'u1', 'rmu', -1.555, '${info[index].student_uuid}',  '${info[index].name}', '${info[index].roll}', '${info[index].avatar}',)" class="u1_${info[index].student_uuid} rmu btn btn-danger fs-3 bg-light  text-danger ">&#10026;</button>
+                 
+                  <button onclick="post_mark_def('uniform', 'u2', 'rmu', 0.555, '${info[index].student_uuid}',  '${info[index].name}', '${info[index].roll}', '${info[index].avatar}',)"  class="u2_${info[index].student_uuid} rmu btn btn-primary fs-3 bg-light text-primary">&#10026;&#10026;</button>
+               
+                  <button onclick="post_mark_def('uniform', 'u3', 'rmu', 1.555, '${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}',)"  class="u3_${info[index].student_uuid} rmu btn btn-success fs-3 bg-light text-success ">&#10026;&#10026;&#10026;</button>
+              </div>
+
+
+              <hr> <span class=" btn-lg  badge bg-light text-dark">Study</span> <br>
+        
+              <div class=" btn-group btn-group-sm ">
+
+                  <button onclick="post_mark_def('study', 's1', 'rms', -1.333, '${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}',)" class="s1_${info[index].student_uuid} rms btn btn-danger fs-3 bg-light text-danger ">&#x2730;</button>
+
+                  <button onclick="post_mark_def('study', 's2', 'rms', 0.333,'${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}',)" class="s2_${info[index].student_uuid} rms btn btn-primary fs-3 bg-light text-primary">&#x2730;&#x2730; </button>
+               
+                  <button onclick="post_mark_def('study', 's3', 'rms', 1.333, '${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}',)" class="s3_${info[index].student_uuid} rms btn btn-success fs-3  bg-light text-success ">&#x2730;&#x2730;&#x2730;</button>
+
+              </div>
+          </li>
+
+
+      </ul>
+          
+          `
+
+
         }
 
-        res.send({html: html})
+        res.send({htmldata, data: true})
+        } else res.send({data: false})
     }
 
    })
@@ -186,88 +112,50 @@ exports.teacher_rank_mark_page_class_base= (req, res)=>{
 
 
 exports.teacher_rank_mark_post= (req, res)=>{
-
-  let defaultNumber= 1;
-  let teacher_uuid= req.session.teacher_uuid;
-  let session= new Date().getUTCFullYear();
-
-  let findDate = new Date().toLocaleDateString();
-
-
-    let today= new Date().toLocaleDateString();
-    let {student_uuid, mark} = req.body;
-
-
-    if(mark=='good_B' || mark=='weak_B' || mark=='excellent_B')
+ const {class_name, section_name, column, cls, mark, sid, roll, name, avatar}= req.body;
+  const defaultNumber= 1;
+  const checkout= cls+'_'+sid;
+  const teacher_uuid= req.session.teacher_uuid;
+  const session= new Date().getUTCFullYear();
+  const find_date = new Date().toLocaleDateString();
+  const rank_date= new Date().toDateString();
+   sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND  student_uuid='${sid}' AND rank_date="${rank_date}" AND teacher_uuid='${teacher_uuid}' AND ${column}=1`, (err, info)=>{
+    if(err) console.log(err.sqlMessage);
+    if(info.length==0)
     {
-        var markColumnName= 'behavior';
-        
-    }
-
-    else if(mark=='good_U' || mark=='weak_U' || mark=='excellent_U')
-    {
-        var markColumnName= 'uniform';
-    }
-
-    
-
-    else if(mark=='good_S' || mark=='weak_S' || mark=='excellent_S')
-    {
-        var markColumnName= 'study';
-    }
-    else var markColumnName= null;
-
-
-
-   sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND today="${today}" AND teacher_uuid='${teacher_uuid}' AND ${markColumnName}=1 `, (err0, info0)=>{
-    if(err0) console.log(err0.sqlMessage);
-    if(info0.length==0)
-    {
-
-      sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  student_uuid=${student_uuid}`, (err, info)=>{
-            
-        if(err) console.log(err.sqlMessage);
-  
-        sqlmap.query(`INSERT INTO student_rank (
-          domain,
-          session,
-          find_date, 
-          teacher_uuid, 
-          today, 
-          student_uuid,
-            roll, 
-            name, 
-            class, 
-            section,
-             avatar, 
-             ${markColumnName}
-        )
-      VALUES
-        ('${req.hostname}',${session},
-          "${findDate}",
+        sqlmap.query(`INSERT INTO student_rank (domain, session, checkout, find_date, rank_date, ${column}, teacher_uuid, student_uuid, class, section, roll, name, avatar) 
+        VALUES(
+        '${req.hostname}',
+         ${session},
+          "${checkout}",
+          "${find_date}",
+          "${rank_date}",
+           ${defaultNumber},
           ${teacher_uuid},
-          "${today}",
-          ${info[0].student_uuid},
-          ${info[0].roll},
-          "${info[0].name}",
-          "${info[0].class}",
-          "${info[0].section}",
-          "${info[0].avatar}",
-          ${defaultNumber}
-        )` , (errInsert, next)=>{
+          ${sid},
+          '${class_name}',
+          '${section_name}',
+          ${roll},
+          '${name}',
+          '${avatar}')`,
+          (errInsert, next)=>{
           
-          if(errInsert) console.log(errInsert);
+          if(errInsert) console.log(errInsert+' errInsert');
 
-            sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_uuid= ${info[0].student_uuid} ORDER BY poient DESC`, (err3, info3)=>{
-              if(err3) console.log(err3.sqlMessage);
+            sqlmap.query(`SELECT poient FROM student_rank WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND student_uuid=${sid} ORDER BY poient DESC LIMIT 1`, (err3, info3)=>{
+              if(err3) console.log(err3.sqlMessage+' err3');
        
               else 
               {
-                sqlmap.query(`UPDATE student_rank SET poient=${ info[0].poient==undefined? 1 : parseFloat(info3[0].poient)+parseFloat(mark=='good_U'||mark=='good_S'||mark=='good_U'?1.555: mark=='excellent_U'||mark=='excellent_B'||mark=='excellent_S'? 2.555 : 0.555)} WHERE domain='${req.hostname}' AND  student_uuid=${info[0].student_uuid}`, (err4, info4)=>{
+                const marked= info3[0].poient==undefined?1:parseFloat(info3[0].poient)+parseFloat(mark);
+                sqlmap.query(`UPDATE student_rank SET poient=${marked} WHERE domain='${req.hostname}'  AND class='${class_name}' AND section='${section_name}' AND  student_uuid=${sid}`, (err4, info4)=>{
     
-                  if(err4) console.log(err4.sqlMessage);
+                  if(err4) console.log(err4.sqlMessage+' err4');
         
-                  else res.send({msg: "Mark Updated...", alert: "dark"})
+                  else {
+                    // console.log('marked...');
+                    res.send({msg: true})
+                  }
         
                 })
     
@@ -278,127 +166,178 @@ exports.teacher_rank_mark_post= (req, res)=>{
       
         })
     
-      })
     
     }
   
-    else res.send({msg: "Today Locked! for you!", alert: "danger"})
+    else {
+      // console.log('locked...');
+      res.send({msg: true})
+    }
    })
   
-  
   }
 
 
 
-
-
-
-
-exports.teacher_rank_mark_post_attendance = (req, res) => {
-
-    let session = new Date().getFullYear()
-    let Month = new Date().toDateString().substring(4, 7)
-    let Day = new Date().toDateString().substring(0, 4) + new Date().getDate()
-    let today= new Date().toLocaleDateString();
-    let findDate= new Date().toLocaleDateString();
-
-    sqlmap.query(`SELECT * FROM attendance WHERE domain='${req.hostname}' AND  find_date="${findDate}"`, (err, info) => {
-
-      if (err) console.log(err.sqlMessage)
-  
-  
-        for (let i = 0; i < info.length; i++) {
-       
-          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_uuid=${info[i].student_uuid} AND find_date='${findDate}'`, (errCheck, infoCheck)=>{
-            if(errCheck) console.log(errCheck.sqlMessage);
-            // console.log(infoCheck.length);
-
-            if(infoCheck.length==0){
-
-              
-          sqlmap.query( `INSERT INTO student_rank (domain,session, find_date ,today, name,  student_uuid, student_uuid, roll, class, section, avatar, present) 
-          VALUES ('${req.hostname}', ${session}, "${findDate}", "${today}",  "${info[i].name}", "${info[i].student_uuid}", "${info[i].student_uuid}", "${info[i].roll}", "${info[i].class}",  "${info[i].section}", "${info[i].avatar}", 1)`, (err2, info2)=>{
-
-            if(err2) console.log(err2.sqlMessage + "fooooooooo");
-    
-                 
-              sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  student_uuid=${info[i].student_uuid} ORDER BY poient DESC LIMIT 1`, (err3, info3)=>{
-                if(err3) console.log(err3.sqlMessage);
-      
-                  sqlmap.query(`UPDATE student_rank SET poient=${parseFloat(info3[0].poient)+parseFloat(3.333)} WHERE domain='${req.hostname}' AND  student_uuid=${info[i].student_uuid}`, (err4, info4)=>{
-      
-                    if(err4) console.log(err4.sqlMessage);
-          
-                  
-                  
-          
-                  })
-      
-            
-      
-              })
-  
-          })
-
-            }
-
-          })
-
-  
-    
+exports.teacher_rank_checkout= (req, res)=>{
+    const teacher_uuid= req.session.teacher_uuid;
+    const {class_name, section_name}= req.body;
+    const rank_date= new Date().toDateString();
+   
+    sqlmap.query(`SELECT student_uuid, checkout, rank_date FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
+    AND rank_date='${rank_date}'`, (err, info)=>{
+        if(err) console.log(err.sqlMessage);
+        else {
+          res.send({info})
         }
+    })
+
+   }
+
+
+
+
+
+exports.public_rank_class_page= (req, res)=>{
+
+    sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Ten' GROUP BY poient DESC`, (errTen, infoTen)=>{
+  
+      if(errTen) console.log(errTen.sqlMessage);
+  
+      sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Nine' GROUP BY poient DESC`, (errNine, infoNine)=>{
+  
+        if(errNine) console.log(errNine.sqlMessage);
     
-        res.send({msg: "Attendance finished with student_rank mark!", alert: "success"})
+        sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Eight' GROUP BY poient DESC`, (errEight, infoEight)=>{
+  
+          if(errEight) console.log(errEight.sqlMessage);
+      
+          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Seven' GROUP BY poient DESC`, (errSeven, infoSeven)=>{
+  
+            if(errSeven) console.log(errSeven.sqlMessage);
+        
+            
+          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Six' GROUP BY poient DESC`, (errSix, infoSix)=>{
+  
+           
+            if(errSix) console.log(errSix.sqlMessage);
+        
+            if(infoSix.length==0 && infoSeven.length==0 && infoEight.length==0 && infoNine.length==0 && infoTen.length==0){
+  
+              res.redirect('/pages/empty.html')
+  
+            }
+      
+            else res.render("public/rank_class_page_public", {infoSix, infoSeven, infoEight, infoNine, infoTen})
+        
+           
+          })
+      
+      
+        
+          })
+    
+    
+      
+        })
   
   
-  })
+    
+      })
+  
+    })
+  
   }
   
   
   
-
-
-
-
-exports.public_rank_get= (req, res)=>{
- let className=  req.body.className;
-
-//  let yearName= new Date().getFullYear()
-
-     let sql= `SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY student_uuid ORDER BY poient DESC`
-     sqlmap.query(sql, (err, info)=>{
-
+  
+  
+exports.public_rank_student_page= (req, res)=>{
+    const {class_name}=  req.params;
+  
+   sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="A" GROUP BY student_uuid ORDER BY poient DESC `, (errA, infoA)=>{
+    if(errA) console.log(errA.sqlMessage);
+  
+    sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="B" GROUP BY student_uuid ORDER  BY poient DESC `, (errB, infoB)=>{
+      if(errB) console.log(errB.sqlMessage);
     
+      sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="C" GROUP BY student_uuid ORDER  BY poient DESC `, (errC, infoC)=>{
+        if(errC) console.log(errC.sqlMessage);
+
+        // {..............
+          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET 0`, 
+          (err, info)=>{
+     
+            if(err) console.log(err.sqlMessage);
+     
+            else {
+     
+             sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}'
+              GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET 0`, 
+             (errS, infoS)=>{
+                 if(errS) console.log(errS.sqlMessage);
+     
+                 else res.render("public/rank_page_public", {infoA, infoB, infoC, info, infoS, class_name})
+
+     
+             })
+     
+           
+     
+            }
+     
+     
+     
+          }) 
+       
+        // }.................
+      
+      
+       })
+       
+     })
+  
+  
+   })
+  
+  }
+  
+
+
+exports.public_rank_student_page_num= (req, res)=>{
+  const {class_name, offset}=  req.body;
+     sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET ${offset*20}`, 
+     (err, info)=>{
 
        if(err) console.log(err.sqlMessage);
 
-       else
-       {
+       else {
 
-        sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE domain='${req.hostname}' AND  class='${className}' GROUP BY student_uuid ORDER BY poient DESC`, (errS, infoS)=>{
+        sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET ${offset*20}`, 
+        (errS, infoS)=>{
             if(errS) console.log(errS.sqlMessage);
 
+            else {
 
-            else 
-            {
-
-                let html= "";
+               if(info.length>0){
+                var htmldata= "";
 
                 for (const i in info) {
         
-                    html+= 
+                    htmldata+= 
                     /*html*/
                     `
-                       
-                    <ul class="list-group  mt-2 list" id="list">
+                    
+                    <ul class="list-group  mt-2 list">
                         
                         <li class="list-group-item list-group-item-primary ">
                    
                           <span class="badge bg-primary">Rank: ${parseInt(i)+parseInt(1)}</span>  
                           <img src="/image/student/resized/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
                      
-                            <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
-                            <span class=" badge bg-light text-dark">${info[i].name} (${info[i].roll})</span>
+                            <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} - ${info[i].roll} </span>
+                            <span class=" badge bg-light text-dark">${info[i].name}</span>
 
                     <hr>
         
@@ -408,10 +347,7 @@ exports.public_rank_get= (req, res)=>{
                     <span class=" badge bg-light text-info">Present (${infoS[i].present}) </span>
                     <span class=" badge bg-light text-primary">Ratting (${info[i].poient}) </span>
         
-        
-                            <div class=" btn-group btn-group-sm">
-                            
-                            </div>
+      
                     
                          </li>
                        
@@ -421,8 +357,8 @@ exports.public_rank_get= (req, res)=>{
                     `
                  
                 }
-        
-                res.send({html: html})
+                res.send({htmldata, data: true})
+               } else res.send({data: false})
                 
             }
 
@@ -441,84 +377,3 @@ exports.public_rank_get= (req, res)=>{
    }
 
 
-
-
-
-
-
-
-
-exports.public_rank_get_class_base= (req, res)=>{
-
-    let sql= `SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${req.body.className}" GROUP BY student_uuid ORDER BY poient DESC`
-    sqlmap.query(sql, (err, info)=>{
-
-
-      if(err) console.log(err.sqlMessage);
-
-      else
-      {
-
-       sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE domain='${req.hostname}' AND  class="${req.body.className}" GROUP BY student_uuid ORDER BY poient DESC`, (errS, infoS)=>{
-           if(errS) console.log(errS.sqlMessage);
-
-
-           else 
-           {
-
-               let html= "";
-
-               for (const i in info) {
-       
-                   html+= 
-                   /*html*/
-                   `
-                      
-                   <ul class="list-group  mt-2 list" id="list">
-                       
-                       <li class="list-group-item list-group-item-primary ">
-                  
-                         <span class="badge bg-primary">Rank: ${parseInt(i)+parseInt(1)}</span>  
-                         <img src="/image/student/resized/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
-                    
-                           <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
-                           <span class=" badge bg-light text-muted">${info[i].name} (${info[i].roll}) </span>
-                   <hr>
-       
-                   <span class=" badge bg-light text-danger">Behavior (${infoS[i].behavior})</span>
-                   <span class=" badge bg-light text-secondary"> Uniform (${infoS[i].uniform}) </span>
-                   <span class=" badge bg-light text-success">Study (${infoS[i].study}) </span>
-                   <span class=" badge bg-light text-info">Present (${infoS[i].present}) </span>
-                   <span class=" badge bg-light text-primary">Ratting (${info[i].poient}) </span>
-       
-       
-                           <div class=" btn-group btn-group-sm">
-                           
-                           </div>
-                   
-                        </li>
-                      
-                    
-                   </ul>
-       
-                   `
-                
-               }
-       
-               res.send({html: html})
-               
-           }
-
-       })
-
-     
-
-      }
-
-
-
-    }) 
- 
-
-  
-  }
