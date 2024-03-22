@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,36 +18,30 @@
 
   <div id="main-content" class="main-content row p-2 mt-5">
 
-      <%-include("../component/modal-trigger.html") %> 
-      <%-include("../component/modal-person.html") %> 
-
-
-
-
-  <div class="col-10  m-auto mt-5">
+  <div class="col-11  m-auto mt-5">
     <input  class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="date" name=""  id="findDate"> <p></p>
     <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
 
 </div>
 
-
+ <div class="row p-2 mt-1">
   <% for(let i= 0; i<info.length; i++) {%>
 
-   
+
      
      <div  class="col-12 col-md-3 mt-2 text-center">
        
-           <div class="card ">
-               <img class="card-img-to m-auto" width="100px" src="/image/student/resized/<%=info[i].avatar==undefined?'male_avatar.png':info[i].avatar%>" alt="404">
+           <div class="card findcard p-2">
+               <img class="card-img-to m-auto" width="100px" src="/image/student/resized/<%=info[i].avatar%>" alt="404">
                <div class="card-body">
                    <h5 class="card-title"><%=info[i].name%> </h5>
                    <h6 class="card-text">Last Education: <%=info[i].last_education%></h6> 
                    <h6 class="card-text">Passing Year: <%=info[i].passing_year%></h6>
                    <code class="card-text">Admission Date: <%=info[i].at_date.toLocaleString('en-ZA').substring(0,10)%></code>
                    <br>
-                   <button data-id="<%=info[i].ID%>"  class="modal-person-trigger btn fs-3" title="Information" ><i class=" bi bi-info-circle-fill"></i></button>
-                   <button data-id="<%=info[i].ID%>" data-id2="<%=info[i].email%>" class="accept btn fs-3" title="Accept" ><i class=" bi bi-check-circle-fill"></i></button>
-                   <button data-id="<%=info[i].ID%>" data-id2="<%=info[i].email%>" class="reject btn fs-3" title="Reject" ><i class="bi bi-x-circle-fill"></i></button>
+                   <button data-id="<%=info[i].ID%>"  class="btn fs-3" title="Information" ><i class=" bi bi-info-circle-fill"></i></button>
+                   <button data-id="<%=info[i].ID%>" data-id2="<%=info[i].email%>" class="btn fs-3" title="Accept" ><i class=" bi bi-check-circle-fill"></i></button>
+                   <button data-id="<%=info[i].ID%>" data-id2="<%=info[i].email%>" class="btn fs-3" title="Reject" ><i class="bi bi-x-circle-fill"></i></button>
  
                </div>
         
@@ -57,6 +49,8 @@
        </div>
  
      <% } %>  
+
+    </div>
  
          <!-- end div -->
   
@@ -73,21 +67,12 @@
 
 
 <script>
-
-
- $("#form").hide()
-
-
  
  $(document).ready(function(){
   $("#findDate").change(function(e) {
-    let findDate= $("#findDate").val().replaceAll("-", "/");
-    var value = findDate
-    $(".card").filter(function() {
-       
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-     
-    });
+    const value= $("#findDate").val();
+    const findDate= new Date(value).toDateString();
+
   });
 });
 
@@ -103,58 +88,6 @@
     });
   });
 });
-
-
-
-
- $(document).on("click", ".modal-person-trigger", (e)=>{
-  let dataID= e.currentTarget.attributes[0].value;
-  $.ajax({
-  type: "post",
-  url: "/admin/admission/report/info",
-  data: {dataID},
-  dataType: "JSON",
-  beforeSend: function(){
-    $(".modal-person-body").html(`<div class="card" aria-hidden="true">
-  <div class="card-body">
-    <h5 class="card-title placeholder-glow">
-      <span class="placeholder col-6"></span>
-    </h5>
-    <p class="card-text placeholder-glow">
-      <span class="placeholder col-7"></span>
-      <span class="placeholder col-4"></span>
-      <span class="placeholder col-4"></span>
-      <span class="placeholder col-6"></span>
-      <span class="placeholder col-8"></span>
-    </p>
-    <a class="btn btn-primary disabled placeholder col-6"></a>
-  </div> 
-</div>`)
-  
-     $(".modal-person-btn").click()
-  },
-
-  success: function (info) {
-    
-      $(".modal-person-body").html(info.html)
-     $(".modal-person-avatar").attr("src", `/image/admission/resized/${info.avatar}`)
-  
-     $(".modal-person-btn").click()
-  }
-});
-})
-
-
-
-
-
-
-
-$(".btn-close").on("click", ()=>{
-    $("#form").fadeOut()
-    $("body").addClass("bg-light")
- })
-
 
 
  $(document).on("click", ".accept", (e)=>{

@@ -95,7 +95,7 @@ exports.teacher_attn_post= (req, res)=>{
     const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
     const attn_date= new Date().toDateString();
-    const at_status= checkout==1?'Present':'Absent'
+    const at_status= checkout==1?'present':'absent'
     sqlmap.query(`SELECT student_uuid, teacher_uuid, find_date, attn_date
     FROM attn WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'
     ORDER BY ID DESC`, (errf, find)=>{
@@ -106,6 +106,8 @@ exports.teacher_attn_post= (req, res)=>{
         (erru, up)=>{
             if(erru) console.log(erru.sqlMessage);
             // else console.log('updated...');
+            student_rank_mark_attn(req.hostname, class_name, section_name, student_uuid, at_status)
+
             res.send({att: true})
         })
 
@@ -118,6 +120,7 @@ exports.teacher_attn_post= (req, res)=>{
             '${student_uuid}', '${name}', '${roll}', '${avatar}', '${currentYear}', '${currentMonth}', '${currentDate}')`, (erri, inser)=>{
                 if(erri) console.log(erri.sqlMessage);
                 else {
+                    student_rank_mark_attn(req.hostname, class_name, section_name, student_uuid, at_status)
                     // console.log('inserted...');
                      res.send({att: true})
 
@@ -329,3 +332,42 @@ exports.privet_attn_calendar_checkout= (req, res)=>{
     })
 
    }
+
+
+
+
+
+
+
+
+function student_rank_mark_attn(domain, class_name, section_name, student_uuid, at_status){
+         const session= new Date().getUTCFullYear();
+         const find_date = new Date().toLocaleDateString();
+         const rank_date= new Date().toDateString();
+         
+         sqlmap.query(`SELECT ${at_status} FROM student_rank WHERE domain='${domain}' AND class='${class_name}' AND section='${section_name}' AND student_uuid=${student_uuid} ORDER BY ${at_status} DESC LIMIT 1`, 
+         (errf, infof)=>{
+            if(errf) console.log(errf.sqlMessage+' errf');
+     
+            else 
+            {
+              if(at_status=='present'){
+                var marked= infof[0].present==undefined?1:parseFloat(infof[0].present)+parseFloat(1);
+              } else var marked= infof[0].absent==undefined?1:parseFloat(infof[0].present)+parseFloat(1);
+
+              sqlmap.query(`UPDATE student_rank SET ${at_status}=${marked} WHERE domain='${domain}'  AND class='${class_name}' AND section='${section_name}' AND  student_uuid=${student_uuid}`,
+               (erru, infou)=>{
+  
+                if(erru) console.log(erru.sqlMessage+' erru');
+      
+                else {
+                //   console.log('marked...');
+                //   res.send({msg: true})
+                }
+      
+              })
+  
+            }
+  
+          })
+}

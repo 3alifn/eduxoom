@@ -1,4 +1,4 @@
-const {app, express, sqlmap, nodemailer, createHmac, mysession } = require("../server")
+const { app, express, sqlmap, nodemailer, createHmac, mysession } = require("../server")
 
 exports.public_admission_step1 = (req, res) => {
   // console.log(mysession);
@@ -25,9 +25,9 @@ exports.public_admission_post = (req, res) => {
 
   let { lastEducation, roll, regNumber, Board, passingYear, joinGroup, comment } = req.body;
   let data = req.body.pastData.split("$%&");
- if(data[3]=='Male') var avatar= 'male_avatar.png'; else var avatar= 'female_avatar.png'; 
- const session= new Date().getUTCFullYear();
-    let findDate= new Date().toLocaleDateString();
+  if (data[3] == 'Male') var avatar = 'male_avatar.png'; else var avatar = 'female_avatar.png';
+  const session = new Date().getUTCFullYear();
+  let findDate = new Date().toDateString();
   sqlmap.query(`
   INSERT INTO admission (domain, session, find_date, comment, name, avatar, dob_number, birth_date, gender, father_name, mother_name, blood_group, religion, telephone, email, guardian_name, address, hobbies, last_education, roll, reg, board, passing_year, join_group) 
      
@@ -50,7 +50,7 @@ exports.public_admission_post = (req, res) => {
     }
 
   })
-  
+
 
 }
 
@@ -60,41 +60,37 @@ exports.public_admission_post = (req, res) => {
 
 
 
-exports.admin_admission_page= (req, res)=>{
+exports.admin_admission_page = (req, res) => {
 
 
 
-    sqlmap.query(`SELECT * FROM admission WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM admission WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info) => {
 
-      if(info.length>0){
-      
 
-        res.render("admin/admission_report", {info})
-          
-      }
+    res.render("admin/admission_report", { info })
 
-    else res.redirect('/pages/empty.html')
-})
 
-  
+  })
 
-  }
+
+
+}
 
 
 
 
 
-exports.admin_admission_info= (req, res)=>{
+exports.admin_admission_info = (req, res) => {
 
-  let ID= req.body.dataID;
+  const { ID } = req.body;
 
-          sqlmap.query(`SELECT * FROM admission WHERE domain='${req.hostname}' AND  ID="${ID}"`, (err, info)=>{
-     
-          
+  sqlmap.query(`SELECT * FROM admission WHERE domain='${req.hostname}' AND  ID="${ID}"`, (err, info) => {
 
-              let avatar= `${info[0].avatar}`
 
-              let html= `
+
+    let avatar = `${info[0].avatar}`
+
+    let html = `
               <strong>Personal Information</strong> <br> 
                <h5 class="card-title">${info[0].name} </h5>
                <p class="badge border bg-light text-dark">Gender: ${info[0].gender}</p> 
@@ -121,25 +117,25 @@ exports.admin_admission_info= (req, res)=>{
                <p class="badge border bg-light text-dark">Hobbies: ${info[0].hobbies}</p> 
                <p class="badge border bg-light text-dark">Comment: ${info[0].comment}</p> 
                `
-  
-             
-              res.send({html, avatar})
 
-          
 
-              
+    res.send({ html, avatar })
+
+
+
+
   })
 
-  }
+}
 
 
 
 exports.admin_admission_accept = (req, res) => {
 
-  const {email, ID} = req.body;
-      
-  const transporter= nodemailer.createTransport({
-  
+  const { email, ID } = req.body;
+
+  const transporter = nodemailer.createTransport({
+
     host: process.env.email_host,
     port: process.env.email_port,
     auth: {
@@ -149,8 +145,8 @@ exports.admin_admission_accept = (req, res) => {
 
   })
 
-  
-  let mailOutput= `<html> 
+
+  let mailOutput = `<html> 
   <h2>Welcome to Our School</h2><h4 style="background-color: slateblue; color: white;">Congatulations! you are admission submited...</h4>
   </html>`
 
@@ -163,79 +159,79 @@ exports.admin_admission_accept = (req, res) => {
   }
 
 
-  
-  transporter.sendMail(mailOptions, (err, info)=>{
-    
-    if(err) {
+
+  transporter.sendMail(mailOptions, (err, info) => {
+
+    if (err) {
 
       req.flash("msg", "Something Wrong! please try again...")
-       
-      res.send({msg: 'Something was wrong! pls try again!', alert: 'warning'})
-     }
-    
-     else res.send({msg: 'Admission Submited Sent!', alert: 'success'})
 
-  
+      res.send({ msg: 'Something was wrong! pls try again!', alert: 'warning' })
+    }
+
+    else res.send({ msg: 'Admission Submited Sent!', alert: 'success' })
 
 
-})
+
+
+  })
 
 }
 
 
 exports.admin_admission_reject = (req, res) => {
 
-  const{ID, email} = req.body;
+  const { ID, email } = req.body;
 
   sqlmap.query(`DELETE FROM admission WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, info) => {
 
     if (err) console.log(err.sqlMessage);
     else {
-    const transporter= nodemailer.createTransport({
-  
-      host: process.env.email_host,
-      port: process.env.email_port,
-      auth: {
-        user: process.env.email_address,
-        pass: process.env.email_password
-      }
-  
-    })
-  
-    
-    let mailOutput= `<html> 
+      const transporter = nodemailer.createTransport({
+
+        host: process.env.email_host,
+        port: process.env.email_port,
+        auth: {
+          user: process.env.email_address,
+          pass: process.env.email_password
+        }
+
+      })
+
+
+      let mailOutput = `<html> 
     <h2>sorry!</h2><
     h4 style="background-color: slateblue; color: white;">your addmission is not approval! </h4>
     </html>`
-  
-    let mailOptions = {
-      from: process.env.email_address,
-      to: email,
-      subject: "Admission rejected!",
-      text: "your are not accepted!",
-      html: mailOutput
-    }
-  
-  
-    
-    transporter.sendMail(mailOptions, (err, info)=>{
-      
-      if(err) {
-  
-        req.flash("msg", "Something Wrong! please try again...")
-         
-        res.send({msg: 'Something was wrong! pls try again!', alert: 'warning'})
-       }
-      
-       else res.send({ msg: "<strong class='alert alert-success'>Reject Admission Successfully!</strong>" })
 
-  
-    
-  
-  
-  })
-  
-}
+      let mailOptions = {
+        from: process.env.email_address,
+        to: email,
+        subject: "Admission rejected!",
+        text: "your are not accepted!",
+        html: mailOutput
+      }
+
+
+
+      transporter.sendMail(mailOptions, (err, info) => {
+
+        if (err) {
+
+          req.flash("msg", "Something Wrong! please try again...")
+
+          res.send({ msg: 'Something was wrong! pls try again!', alert: 'warning' })
+        }
+
+        else res.send({ msg: "<strong class='alert alert-success'>Reject Admission Successfully!</strong>" })
+
+
+
+
+
+      })
+
+    }
 
   })
 

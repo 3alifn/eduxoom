@@ -13,31 +13,38 @@
   <%- include("../component/menu-nav.html") %> 
   <%- include("../component/offcanvas-nav.html") %> 
  
-<div id="" class="row mt-5 mbx p-2 shadowx">
+<div id="" class="row mt-5 p-2">
 
-  <div class="col-10 col-md-6 m-auto" id="">
+  <div class="col-12 col-md-8 m-auto" id="">
  
     <center><strong class="badge bg-success">Top Level</strong></center>
 
     <% if(infoA.length>0) {%>   
-  
-    <ul class="list-group  m-auto mt-2">
-      <li class="list-group-item p-2 list-group-item-primary">
-          <img  src="/image/student/resized/<%=infoA[0].avatar%>" height="30px" class="m-1 rounded" width="40px" alt="">
-          <span class=" badge bg-light text-muted"><%=infoA[0].name%>  </span>
 
-         <div>
-          <span class=" badge bg-light text-muted"> <%=infoA[0].class%> </span>
-          <span class=" badge bg-light text-muted"> <%=infoA[0].section%> </span>
-          <span class=" badge bg-light text-muted"> <%=infoA[0].roll%> </span>
-          <span class=" badge bg-primary "> Rating (<%=infoA[0].poient%>) </span>
-         </div>
 
-       </li>
+      <ul class="list-group shadowx findcard  mt-2 list">
+                             
+        <li class="list-group-item list-group-item-primary ">
+    
+          <img src="/image/student/resized/<%=infoA[0].avatar%>" height="30px" class=" rounded" width="40px" alt="">
      
-   
-  </ul>
-
+            <span class=" badge bg-light  text-muted"><%=infoA[0].class%> - <%=infoA[0].section%> - <%=infoA[0].roll%> </span>
+            <span class=" badge bg-light text-dark"><%=infoA[0].name%></span>
+    
+            <hr>
+    
+    <span class=" badge bg-light m-1 text-warning">Behavior (<%=infoA[0].behavior%>)</span>
+    <span class=" badge bg-light m-1 text-secondary"> Uniform (<%=infoA[0].uniform%>) </span>
+    <span class=" badge bg-light m-1 text-info">Study (<%=infoA[0].study%>) </span>
+    <span class=" badge bg-light m-1 text-danger">Absent (<%=infoA[0].absent%>) </span>
+    <span class=" badge bg-light m-1 text-success">Present (<%=infoA[0].present%>) </span>
+    <span class=" badge bg-light m-1 text-primary">Ratting (<%=infoA[0].poient%>) </span>
+    
+         </li>
+       
+     
+    </ul>
+       
   <% }  else {%>
     <%=null %> 
     <% } %>  
@@ -45,22 +52,31 @@
 
     <% if(infoB.length>0) {%> 
 
-      <ul class="list-group  m-auto mt-2">
-        <li class="list-group-item p-2 list-group-item-primary">
-            <img  src="/image/student/resized/<%=infoB[0].avatar%>" height="30px" class="m-1 rounded" width="40px" alt="">
-            <span class=" badge bg-light text-muted"><%=infoB[0].name%>  </span>
   
-           <div>
-            <span class=" badge bg-light text-muted"> <%=infoB[0].class%> </span>
-            <span class=" badge bg-light text-muted"> <%=infoB[0].section%> </span>
-            <span class=" badge bg-light text-muted"> <%=infoB[0].roll%> </span>
-            <span class=" badge bg-primary "> Rating (<%=infoB[0].poient%>) </span>
-           </div>
-  
+      <ul class="list-group shadowx findcard  mt-2 list">
+                             
+        <li class="list-group-item list-group-item-primary ">
+    
+          <img src="/image/student/resized/<%=infoB[0].avatar%>" height="30px" class=" rounded" width="40px" alt="">
+     
+            <span class=" badge bg-light  text-muted"><%=infoB[0].class%> - <%=infoB[0].section%> - <%=infoB[0].roll%> </span>
+            <span class=" badge bg-light text-dark"><%=infoB[0].name%></span>
+          
+            <hr>
+    
+    
+    <span class=" badge bg-light m-1 text-warning">Behavior (<%=infoB[0].behavior%>)</span>
+    <span class=" badge bg-light m-1 text-secondary"> Uniform (<%=infoB[0].uniform%>) </span>
+    <span class=" badge bg-light m-1 text-info">Study (<%=infoB[0].study%>) </span>
+    <span class=" badge bg-light m-1 text-danger">Absent (<%=infoB[0].absent%>) </span>
+    <span class=" badge bg-light m-1 text-success">Present (<%=infoB[0].present%>) </span>
+    <span class=" badge bg-light m-1 text-primary">Ratting (<%=infoB[0].poient%>) </span>
+    
          </li>
        
      
     </ul>
+
 
     <% }  else {%>
       <%=null %> 
@@ -70,22 +86,29 @@
 
       <% if(infoC.length>0) {%> 
 
-        <ul class="list-group  m-auto mt-2">
-          <li class="list-group-item p-2 list-group-item-primary">
-              <img  src="/image/student/resized/<%=infoC[0].avatar%>" height="30px" class="m-1 rounded" width="40px" alt="">
-              <span class=" badge bg-light text-muted"><%=infoC[0].name%>  </span>
-    
-             <div>
-              <span class=" badge bg-light text-muted"> <%=infoC[0].class%> </span>
-              <span class=" badge bg-light text-muted"> <%=infoC[0].section%> </span>
-              <span class=" badge bg-light text-muted"> <%=infoC[0].roll%> </span>
-              <span class=" badge bg-primary "> Rating (<%=infoC[0].poient%>) </span>
-             </div>
-    
+        <ul class="list-group shadowx findcard  mt-2 list">
+                             
+          <li class="list-group-item list-group-item-primary ">
+      
+            <img src="/image/student/resized/<%=infoC[0].avatar%>" height="30px" class=" rounded" width="40px" alt="">
+       
+              <span class=" badge bg-light  text-muted"><%=infoC[0].class%> - <%=infoC[0].section%> - <%=infoC[0].roll%> </span>
+              <span class=" badge bg-light text-dark"><%=infoC[0].name%></span>
+      
+      <hr>
+      
+      <span class=" badge bg-light m-1 text-warning">Behavior (<%=infoC[0].behavior%>)</span>
+      <span class=" badge bg-light m-1 text-secondary"> Uniform (<%=infoC[0].uniform%>) </span>
+      <span class=" badge bg-light m-1 text-info">Study (<%=infoC[0].study%>) </span>
+      <span class=" badge bg-light m-1 text-danger">Absent (<%=infoC[0].absent%>) </span>
+      <span class=" badge bg-light m-1 text-success">Present (<%=infoC[0].present%>) </span>
+      <span class=" badge bg-light m-1 text-primary">Ratting (<%=infoC[0].poient%>) </span>
+      
            </li>
          
        
       </ul>
+      
 
       <% }  else {%>
         <%=null %> 
@@ -95,9 +118,6 @@
         </div>
   <!-- end rowDiv -->
   </div> 
-
-
-<hr>
 
 <div class="row p-2">
   
@@ -112,27 +132,28 @@
 
 <div class="row">
 
-    <div  class="col-10 col-md-6 m-auto" id="listdata">
+    <div  class="col-12 col-md-8 m-auto" id="listdata">
    
                          
 <% for( let i = 0; i < info.length; i++ ) { %>
-  <ul class="list-group  mt-2 list">
+  <ul class="list-group findcard  mt-2 list">
                              
     <li class="list-group-item list-group-item-primary ">
 
       <span class="badge bg-primary">Rank: <%=parseInt(i)+parseInt(1)%></span>  
       <img src="/image/student/resized/<%=info[i].avatar%>" height="30px" class=" rounded" width="40px" alt="">
  
-        <span class=" badge bg-light text-muted"><%=info[i].class%> - <%=info[i].section%> - <%=info[i].roll%> </span>
+        <span class=" badge bg-light  text-muted"><%=info[i].class%> - <%=info[i].section%> - <%=info[i].roll%> </span>
         <span class=" badge bg-light text-dark"><%=info[i].name%></span>
 
 <hr>
 
-<span class=" badge bg-light text-danger">Behavior (<%=infoS[i].behavior%>)</span>
-<span class=" badge bg-light text-secondary"> Uniform (<%=infoS[i].uniform%>) </span>
-<span class=" badge bg-light text-success">Study (<%=infoS[i].study%>) </span>
-<span class=" badge bg-light text-info">Present (<%=infoS[i].present%>) </span>
-<span class=" badge bg-light text-primary">Ratting (<%=info[i].poient%>) </span>
+<span class=" badge bg-light m-1 text-warning">Behavior (<%=infoS[i].behavior%>)</span>
+<span class=" badge bg-light m-1 text-secondary"> Uniform (<%=infoS[i].uniform%>) </span>
+<span class=" badge bg-light m-1 text-info">Study (<%=infoS[i].study%>) </span>
+<span class=" badge bg-light m-1 text-danger">Absent (<%=infoS[i].absent%>) </span>
+<span class=" badge bg-light m-1 text-success">Present (<%=infoS[i].present%>) </span>
+<span class=" badge bg-light m-1 text-primary">Ratting (<%=info[i].poient%>) </span>
 
      </li>
    

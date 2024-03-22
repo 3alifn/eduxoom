@@ -256,24 +256,24 @@ exports.public_rank_class_page= (req, res)=>{
 exports.public_rank_student_page= (req, res)=>{
     const {class_name}=  req.params;
   
-   sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="A" GROUP BY student_uuid ORDER BY poient DESC `, (errA, infoA)=>{
+   sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="A" GROUP BY student_uuid ORDER BY poient DESC `, (errA, infoA)=>{
     if(errA) console.log(errA.sqlMessage);
   
-    sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="B" GROUP BY student_uuid ORDER  BY poient DESC `, (errB, infoB)=>{
+    sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="B" GROUP BY student_uuid ORDER  BY poient DESC `, (errB, infoB)=>{
       if(errB) console.log(errB.sqlMessage);
     
-      sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="C" GROUP BY student_uuid ORDER  BY poient DESC `, (errC, infoC)=>{
+      sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="C" GROUP BY student_uuid ORDER  BY poient DESC `, (errC, infoC)=>{
         if(errC) console.log(errC.sqlMessage);
 
         // {..............
-          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET 0`, 
+          sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET 0`, 
           (err, info)=>{
      
             if(err) console.log(err.sqlMessage);
      
             else {
      
-             sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}'
+             sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present, absent FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}'
               GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET 0`, 
              (errS, infoS)=>{
                  if(errS) console.log(errS.sqlMessage);
@@ -314,7 +314,7 @@ exports.public_rank_student_page_num= (req, res)=>{
 
        else {
 
-        sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET ${offset*20}`, 
+        sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present, absent FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET ${offset*20}`, 
         (errS, infoS)=>{
             if(errS) console.log(errS.sqlMessage);
 
@@ -329,7 +329,7 @@ exports.public_rank_student_page_num= (req, res)=>{
                     /*html*/
                     `
                     
-                    <ul class="list-group  mt-2 list">
+                    <ul class="list-group shadowx findcard mt-2 list">
                         
                         <li class="list-group-item list-group-item-primary ">
                    
@@ -341,11 +341,12 @@ exports.public_rank_student_page_num= (req, res)=>{
 
                     <hr>
         
-                    <span class=" badge bg-light text-danger">Behavior (${infoS[i].behavior})</span>
-                    <span class=" badge bg-light text-secondary"> Uniform (${infoS[i].uniform}) </span>
-                    <span class=" badge bg-light text-success">Study (${infoS[i].study}) </span>
-                    <span class=" badge bg-light text-info">Present (${infoS[i].present}) </span>
-                    <span class=" badge bg-light text-primary">Ratting (${info[i].poient}) </span>
+                    <span class=" badge bg-light m-1 text-warning">Behavior (${infoS[i].behavior})</span>
+                    <span class=" badge bg-light m-1 text-secondary"> Uniform (${infoS[i].uniform}) </span>
+                    <span class=" badge bg-light m-1 text-info">Study (${infoS[i].study}) </span>
+                    <span class=" badge bg-light m-1 text-dander">Absent (${infoS[i].absent}) </span>
+                    <span class=" badge bg-light m-1 text-success">Present (${infoS[i].present}) </span>
+                    <span class=" badge bg-light m-1 text-primary">Ratting (${info[i].poient}) </span>
         
       
                     
