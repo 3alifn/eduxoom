@@ -32,7 +32,7 @@
     <% if(pastAdmission) {%>
 
      
-        <form id="form1" novalidate action="/pu/admission/step2" method="post">
+        <form id="form1" novalidate action="/pu/admission/step2" method="post" enctype="multipart/form-data">
       
     <center>
         <h5 class=" badge fs-5"  style="background-color: #281e5d;">Personal Information</h5>
@@ -67,12 +67,27 @@
                         </div>                          
                  </div>
          </div>
-
-
-
-
             
            <p></p>
+
+
+
+           
+<div class="col-10 col-md-6 d-md-flex m-auto">
+
+
+  <div class=" input-group">
+
+      <span class=" input-group-text"><img width="30px" src="/image/default/female_avatar.png" alt=""></span>
+
+      <input title="Student photo" class="form-control" type="file" name="avatar" accept=".jpeg, .png, .jpg" id="">
+      
+   </div>
+   </div>
+
+
+<p></p> 
+
           
    
            <div class="col-10 col-md-6 d-md-flex m-auto">
@@ -318,35 +333,18 @@
         <% } %> 
 
 
-
-
-
-
-
 <div class="row mt-2">
 
      <% if(nextAdmission) {%>
         <p></p>
 
-     <form id="formNext" novalidate class="formNext shadow" action="/pu/admission/post" method="post">
+     <form id="formNext" novalidate class="formNext shadow" action="/pu/admission/post" method="post" enctype="multipart/form-data">
 
       
         <center>
             <h5 class=" badge fs-5"  style="background-color: #281e5d;">Education Information</h5>
     
         </center>
-        
-        
-        
-        <% if( data) {%>
-
-            <input type="hidden" name="pastData" 
-            value="<%=data.studentName%>$%&<%=data.dobNumber%>$%&<%=data.birthDate%>$%&<%=data.Gender%>$%&<%=data.fatherName%>$%&<%=data.motherName%>$%&<%=data.bloodGroup%>$%&<%=data.Religion%>$%&<%=data.telephone%>$%&<%=data.Email%>$%&<%=data.guardianName%>$%&<%=data.Address%>$%&<%=data.Hobbies%>" 
-            required>              
-
-            <% } else {%>
-                <% null %> 
-                <% } %>  
         
 
    <div class="col-10 col-md-6 d-md-flex m-auto">
@@ -359,9 +357,13 @@
          
             <select name="lastEducation" id="" class="form-self form-select" required>
                 <option value="" selected disabled>Last Education</option>
-                <option value="PSC">PSC</option>
-                <option value="JSC">JSC</option>
-        
+                <option value="Five">Five</option>
+                <option value="Six">Six</option>
+                <option value="Seven">Seven</option>
+                <option value="Eight">Eight</option>
+                <option value="Nine">Nine</option>
+                <option value="Ten">Ten</option>
+      
         
             </select>
             
@@ -379,11 +381,13 @@
               <span class=" input-group-text"><img width="30px" src="/icons/user/icons8-student-center-48.png" alt=""></span>
   
            
-              <select name="joinGroup" id="" class="form-self form-select" required>
-                  <option value="" selected disabled>Group</option>
-                  <option value="Science">Science</option>
-                  <option value="Accounting">Accounting</option>
-                  <option value="Humanities">Humanities</option>
+              <select name="admissionClass" id="" class="form-self form-select" required>
+                  <option value="" selected disabled>Admission</option>
+                  <option value="Six">Six</option>
+                  <option value="Seven">Seven</option>
+                  <option value="Eight">Eight</option>
+                  <option value="Nine">Nine</option>
+                  <option value="Ten">Ten</option>
           
           
               </select>
@@ -395,104 +399,36 @@
 <p></p>  
 
 
-
-
-   <div class="col-10 col-md-6 d-md-flex m-auto">
-
-<div class=" input-group">
-
-    <span class=" input-group-text"><img width="30px" src="/icons/user/icons8-id-card-48.png" alt=""></span>
-    <input pattern="^[0-9]*$" type="number"class="form-self form-control" name="regNumber"  id="" placeholder=" Registration No." required>
-        
-
-    <div  class="valid-feedback"></div>
-    <div id="" class="invalid-feedback">Enter a reg no.</div>
+ 
 
 
 
-
-    </div>
-
-
-     
-     <p></p>
-     
-     <div class=" input-group">
-
-    <span class=" input-group-text"><img width="30px" src="/icons/user/icons8-id-card-48.png" alt=""></span>
-
-    <input pattern="^[0-9]*$" type="number"class="form-self form-control" name="roll" id="" placeholder="Roll" required>
-        
-    <div  class="valid-feedback"></div>
-    <div id="" class="invalid-feedback">Enter a valid roll no.</div>
+<div class="col-10 col-md-6 d-md-flex m-auto">
 
 
+  <div class=" input-group">
 
-    </div>
+    <span class=" input-group-text"><img width="30px" src="/icons/icons8-certification-48.png" alt=""></span>
 
-
-     </div>
-
-    
-
-
-
-     <p></p>
-
-        
-     
-     <div class="col-10 col-md-6 d-md-flex m-auto">
-
-        <div class=" input-group">
-
-            <span class=" input-group-text">Board</span>
-               
-        <select name="Board" id="" class="form-self form-select" required>
-            <option selected value="" disabled>Board</option>
-            <option selected value="Dhaka">Dhaka</option>
-            <option value="Barisal">Barisal</option>
-            <option value="Chittagong">Chittagong</option>
-            <option value="Dinajpur">Dinajpur</option>
-            <option value="Jessore">Jessore</option>
-            <option value="Mymensingh">Mymensingh</option>
-            <option value="Rajshahi">Rajshahi</option>
-            <option value="Sylhet">Sylhet</option>
-
-            
-        </select>
-       </div>
+      <input title="letter of appreciation" class="form-control" type="file" name="docs" accept=".jpeg, .png, .jpg, .pdf" id="">
+      
+   </div>
+   </div>
 
 
-       <p></p>
+<p></p>  
 
-               
-       <div class=" input-group">
-
-        <span class=" input-group-text"><img width="30px" src="/icons/user/icons8-calendar-48.png" alt=""></span>
-       
-
-          <input pattern="^[0-9]*$" type="number" name="passingYear" id="" placeholder="Passing year" class="form-self form-control" required>
-             
-              
-    <div  class="valid-feedback"></div>
-    <div id="" class="invalid-feedback">Enter valid year</div>
-
-
-       </div>
-
-       </div>
-       <p></p>
 
  <div class="col-10 col-md-6 d-md-flex m-auto">
   <div>
-  <textarea name="comment" id="" cols="80" style="width: 100%;" rows="5"  placeholder="comment : what's on your mind?"></textarea>
-</div>
+    <textarea class="ps-3 pt-2" name="comment" id="" cols="80" style="width: 100%;" rows="5"  placeholder=" what's on your mind?"></textarea>
+  </div>
 
   </div>
 
 
        <center>
-        <input class="w-25 btn-self" type="submit" value="Apply">
+        <input class="w-50 btn-self" type="submit" value="Apply">
        </center>
     
     <p></p>

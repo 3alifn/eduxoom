@@ -1,4 +1,5 @@
-const { app, express, sqlmap, nodemailer, createHmac, mysession } = require("../server")
+const { app, express, sqlmap, nodemailer, createHmac, randomBytes, multer, fs, path } = require("../server")
+const sharp= require('sharp');
 
 exports.public_admission_step1 = (req, res) => {
   // console.log(mysession);
@@ -7,38 +8,135 @@ exports.public_admission_step1 = (req, res) => {
 }
 
 
-exports.public_admission_step2 = (req, res) => {
+const multer_location= multer.diskStorage({
+  destination: (req, file, cb)=>{
+   cb(null, "./public/docs/admission/")
+  } ,
 
-  let data = req.body;
+  filename: (req, file, cb)=>{
+
+    cb(null, new Date().getTime()+"_"+file.originalname)
+  },
+  
+})
+
+exports.multer_upload_admission= multer({
+  storage: multer_location,
+
+  limits: { fileSize: 1024 * 1024 * 2 },
+  fileFilter: (req, file, cb) => {
+    if(file.mimetype=="application/pdf" || file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg"){
+    cb(null, true)
+      }
+      else {
+        cb(new Error("file extension allow only pdf / png / jpeg/ jpg"))
+      }
+
+  }
+
+})
+
+exports.public_admission_step2 = async(req, res) => {
+
+  const {studentName, gender, dobNumber, birthDate, fatherName, motherName, bloodGroup, Religion, Email, telephone, guardianName, Address, Hobbies} = req.body;
+  req.session.studentName= studentName;
+  req.session.dobNumber= dobNumber;
+  req.session.birthDate= birthDate;
+  req.session.fatherName= fatherName;
+  req.session.motherName= motherName;
+  req.session.bloodGroup= bloodGroup;
+  req.session.Religion= Religion;
+  req.session.Email= Email;
+  req.session.guardianName= guardianName;
+  req.session.Address= Address;
+  req.session.Hobbies= Hobbies;
+  req.session.gender= gender;
+  req.session.telephone= telephone;
+
+  if(req.file){
+    if(req.file.size<1048576){
+        const { filename: image } = req.file;
+  
+      await sharp(req.file.path)
+      .jpeg({ quality: 50 })
+      .toFile(
+          path.resolve(path.resolve(req.file.destination, 'resized',image))
+      )
+      fs.unlinkSync(req.file.path)
+  
+      }
+  
+      else {
+  
+        
+        await sharp(req.file.path)
+        .jpeg({ quality: 50 })
+        .toFile(
+            path.resolve(path.resolve(req.file.destination, 'resized', image))
+        )
+  
+    fs.unlinkSync(req.file.path)
+      
+        }
+ }
+
+ req.session.avatar= req.file.filename;
 
 
-  res.render("public/admission_form_public", { nextAdmission: true, pastAdmission: false, data })
-
-
+  res.render("public/admission_form_public", { nextAdmission: true, pastAdmission: false })
 
 }
 
 
 
 
-exports.public_admission_post = (req, res) => {
+exports.public_admission_post = async (req, res) => {
 
-  let { lastEducation, roll, regNumber, Board, passingYear, joinGroup, comment } = req.body;
-  let data = req.body.pastData.split("$%&");
-  if (data[3] == 'Male') var avatar = 'male_avatar.png'; else var avatar = 'female_avatar.png';
+  const {studentName, gender, avatar, dobNumber, birthDate, fatherName, motherName, bloodGroup, Religion, Email, telephone, guardianName, Address, Hobbies} = req.session;
+  const { lastEducation, admissionClass, comment } = req.body;
   const session = new Date().getUTCFullYear();
-  let findDate = new Date().toDateString();
+  const findDate = new Date().toDateString();
+  const  uuid= randomBytes(8).toString('hex'); 
+
+  if(req.file){
+    if(req.file.size<1048576){
+        const { filename: image } = req.file;
+  
+      await sharp(req.file.path)
+      .jpeg({ quality: 50 })
+      .toFile(
+          path.resolve(path.resolve(req.file.destination, 'resized',image))
+      )
+      fs.unlinkSync(req.file.path)
+  
+      }
+  
+      else {
+  
+        
+        await sharp(req.file.path)
+        .jpeg({ quality: 50 })
+        .toFile(
+            path.resolve(path.resolve(req.file.destination, 'resized', image))
+        )
+  
+    fs.unlinkSync(req.file.path)
+      
+        }
+ }
+
   sqlmap.query(`
-  INSERT INTO admission (domain, session, find_date, comment, name, avatar, dob_number, birth_date, gender, father_name, mother_name, blood_group, religion, telephone, email, guardian_name, address, hobbies, last_education, roll, reg, board, passing_year, join_group) 
-     
-  VALUES ('${req.hostname}', '${session}', "${findDate}", "${comment}", "${data[0]}", "${avatar}", "${data[1]}","${data[2]}","${data[3]}","${data[4]}","${data[5]}", "${data[6]}","${data[7]}", "${data[8]}","${data[9]}","${data[10]}","${data[11]}","${data[12]}","${lastEducation}", "${roll}", "${regNumber}", "${Board}", "${passingYear}", "${joinGroup}")
+  INSERT INTO admission (domain, uuid, session, find_date, name, gender, avatar, dob_number,
+     birth_date, father_name, mother_name, blood_group, religion, telephone, email,
+      guardian_name, address, hobbies, last_education, admission_class, docs, comment) 
+  VALUES ('${req.hostname}', '${uuid}', '${session}', "${findDate}", "${studentName}", "${gender}", "${avatar}",
+   "${dobNumber}","${birthDate}","${fatherName}","${motherName}","${bloodGroup}", "${Religion}","${telephone}", "${Email}",
+   "${guardianName}","${Address}","${Hobbies}","${lastEducation}","${admissionClass}", "${req.file.filename}", "${comment}")
 
   `, (err, next) => {
 
 
     if (err) console.log(err.sqlMessage)
-
-
 
     else {
 
@@ -53,9 +151,6 @@ exports.public_admission_post = (req, res) => {
 
 
 }
-
-
-
 
 
 
