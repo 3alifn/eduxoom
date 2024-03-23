@@ -20,35 +20,34 @@
 
   <div class="col-11  m-auto mt-5">
     <input  class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="date" name=""  id="findDate"> <p></p>
+  
     <input class=" form-dev p-2 border-0" style="background-color: rgba(211, 207, 207, 0.26);"  type="search" name="" placeholder="search..." id="search">
 
 </div>
 
  <div class="row p-2 mt-1">
-  <% for(let i= 0; i<info.length; i++) {%>
+  <div id="" class="col-md-8 m-auto col-11">
 
-
-     
-     <div  class="col-12 col-md-3 mt-2 text-center">
-       
-           <div class="card findcard p-2">
-               <img class="card-img-to m-auto" width="100px" src="/image/student/resized/<%=info[i].avatar%>" alt="404">
-               <div class="card-body">
-                   <h5 class="card-title"><%=info[i].name%> </h5>
-                   <h6 class="card-text">Last Education: <%=info[i].last_education%></h6> 
-                   <h6 class="card-text">Passing Year: <%=info[i].passing_year%></h6>
-                   <code class="card-text">Admission Date: <%=info[i].at_date.toLocaleString('en-ZA').substring(0,10)%></code>
-                   <br>
-                   <button data-id="<%=info[i].ID%>"  class="btn fs-3" title="Information" ><i class=" bi bi-info-circle-fill"></i></button>
-                   <button data-id="<%=info[i].ID%>" data-id2="<%=info[i].email%>" class="btn fs-3" title="Accept" ><i class=" bi bi-check-circle-fill"></i></button>
-                   <button data-id="<%=info[i].ID%>" data-id2="<%=info[i].email%>" class="btn fs-3" title="Reject" ><i class="bi bi-x-circle-fill"></i></button>
- 
-               </div>
+  <% for(let index= 0; index<info.length; index++) {%>
+  
         
-           </div>
-       </div>
+        <a class="text-decoration-none" href="/admin/admission/student/page/<%=info[index].uuid%>">
+        <div class="student-card findcard pt-3 pb-3 shadow-sm">
+          <div class="d-flex  justify-content-center align-content-center align-items-center">
+            <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/docs/admission/resized/<%=info[index].avatar%>" alt="">
+            <p class="fw-semibold text-muted ps-2  text-truncate"><%=info[index].name%></p>
+        
+            </div>
+        
+            <div class="d-flex  justify-content-center align-content-center align-items-center">
+              <code class="fw-semibold ps-1"><%=info[index].find_date%></code>
+            </div>
+        
+          </div>
+        </a>
  
      <% } %>  
+    </div>
 
     </div>
  

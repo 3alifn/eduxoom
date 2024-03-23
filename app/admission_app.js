@@ -96,7 +96,7 @@ exports.public_admission_post = async (req, res) => {
   const { lastEducation, admissionClass, comment } = req.body;
   const session = new Date().getUTCFullYear();
   const findDate = new Date().toDateString();
-  const  uuid= randomBytes(8).toString('hex'); 
+  const uuid= randomBytes(8).toString('hex'); 
 
   if(req.file){
     if(req.file.size<1048576){
@@ -159,10 +159,24 @@ exports.admin_admission_page = (req, res) => {
 
 
 
-  sqlmap.query(`SELECT * FROM admission WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info) => {
+  sqlmap.query(`SELECT uuid, ID, name, find_date, avatar FROM admission WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info) => {
 
 
     res.render("admin/admission_report", { info })
+
+
+  })
+
+
+
+}
+
+exports.admin_admission_student_page = (req, res) => {
+const {uuid}= req.params;
+  sqlmap.query(`SELECT * FROM admission WHERE domain='${req.hostname}' AND uuid='${uuid}'`, (err, info) => {
+
+
+    res.render("admin/admission_student_page", { info })
 
 
   })
