@@ -1,4 +1,4 @@
-const { app, express, mysql , sessionStore,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs } = require("./server")
+const { app, express, mysql , sessionStore,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs, ZKHLIB } = require("./server")
 //  subject_code_example: six_a_math
 
 function ___ini(domain, lics){
@@ -21,6 +21,40 @@ function ___ini(domain, lics){
     })
   }
   
+
+  // const runMachine = async () => {
+  //   let obj = new ZKHLIB("192.168.1.201", 4370, 5200, 5000);
+  //   try {
+  //     // Create socket to machine
+  //     await obj.createSocket();
+  
+  //     // Get all logs in the machine
+  //     const logs = await obj.getAttendances();
+  //     // console.log(logs);
+  
+  //     // Read real-time logs
+  //     await obj.getRealTimeLogs((data) => {
+  //       console.log(data);
+  //     });
+
+  //     // Disconnect from device
+  //     await obj.disconnect(); // when you are using real-time logs, you need to disconnect manually
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+  
+  // runMachine();
+ 
+// setInterval(() => {
+//   // runMachine();
+
+// }, 3000);
+
+
+
+
+
   // const randomString= randomBytes(10).toString('hex');
 
   // console.log(randomString);

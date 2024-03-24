@@ -20,6 +20,14 @@ const { public_staff_page, public_staff_profile_get } = require("../app/staff_ap
 const { admin_achievement_page, public_achievement_view, public_eventnews_page, public_eventnews_view, admin_facilities_view, public_facilities_view, public_achievement_page, public_facilities_page } = require("../app/repository")
 const public= express.Router()
 
+
+public.post('/test/req/res/', (req, res)=>{
+  console.log(req.body);
+
+  res.json({data: 'successfully!'})
+})
+
+
 // class section settings...
 public.get("/class/section/rm", pu_class_secton_rm)
 
@@ -36,9 +44,6 @@ public.get('/contact-us.html/', school_app.pu_contactus_render)
 public.get('/headofschool.html/', headofschool_app.pu_headofschool_view_page)
 public.get('/staff-page.html/', public_staff_page)
 public.post("/staff/profile/get", public_staff_profile_get)
-
-
-
 
 
 

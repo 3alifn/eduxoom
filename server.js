@@ -16,7 +16,6 @@ const nodemailer= require("nodemailer")
 const dotenv= require("dotenv").config()
 const cors= require("cors")
 
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('trust proxy', 1) // trust first proxy
@@ -96,3 +95,91 @@ app, express, mysession, mysql, session, cookieParser, flash, bodyParser,
   createHmac, fs, path, ejs, sessionStore,
 }
 
+
+
+//  test code:
+
+
+
+const ZKLib = require('zklib-32ble')
+const zkteco = async() => {
+let zkInstance = new ZKLib('192.168.1.201', 4370, 5200, 5000);
+try {
+    // Create socket to machine
+    await zkInstance.createSocket()
+
+    // console.log(await zkInstance.getInfo())
+
+    const logs = await zkInstance.getAttendances()
+   const getLast= logs.data.length;
+   var domain= 'localhost';
+   var deviceUserId= logs.data[getLast-1].deviceUserId;
+   var recordDate= logs.data[getLast-1].recordTime.slice(0, 15);
+   var recordTime= logs.data[getLast-1].recordTime.slice(0, 24);
+    
+    await zkInstance.getRealTimeLogs((data)=>{
+      // do something when some checkin
+      console.log(data)
+  })
+
+  console.log(await zkInstance.getAttendances());
+    
+  } catch (e) {
+    console.log(e)
+    if (e.code === 'EADDRINUSE') {
+    }
+}
+
+// console.log(deviceUserId, recordDate, recordTime);
+todoatn(domain, deviceUserId, recordDate, recordTime)
+}
+
+// setInterval(() => {
+  // zkteco()
+// }, 5000);
+
+function todoatn(domain, user_id, record_date, record_time){
+ console.log(arguments);
+ sqlmap.query(`SELECT * FROM record_attn WHERE domain='${domain}' AND user_id='${user_id}' AND record_date='${record_date}'`, 
+ (errc, infoc)=>{
+  if(errc) console.log(errc.sqlMessage);
+  else {
+    if(infoc.length>=2){
+      null
+    } else {
+
+      sqlmap.query(`INSERT INTO record_attn (domain, user_id, record_date, record_time)VALUES('${domain}', '${user_id}', '${record_date}', '${record_time}')`, 
+      (err, insert)=>{
+      if(err) console.log(err.sqlMessage);
+      else console.log('inserted');
+      })
+
+    }
+  }
+ })
+
+
+}
+
+const Timer = require('setinterval');
+const axios= require('axios')
+urlSender=()=>{
+  axios.post('http://localhost:30/pu/test/req/res/', {
+user:{
+  name: 'alifn',
+  age: 23,
+  gender: 'male'
+}
+})
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+}
+
+// setInterval(() => {
+//   urlSender()
+// }, 3000);

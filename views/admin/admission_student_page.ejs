@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission settings</title>
+
+    <%- include("../component/metadata.html") %> 
+
+
+  
+</head>
+<body onload="pageLoadingTop()">
+
+  <%- include("../component/admin-header-nav.html") %> 
+  <%- include("../component/admin-menu-nav.html") %> 
+
+  <div id="main-content" class="main-content row p-2 mt-5">
+
+    <div class="row mt-5 p-2">
+
+      <div class="col-12 p-2 col-md-8 m-auto">
+    
+        <ul class="list-group fw-semibold">
+            
+
+          <li class="list-group-item border border-bottom-0 d-flex p-2 justify-content-between align-items-center">
+          <a class="findcard" href="/docs/admission/resized/<%=info[0].avatar%>">
+            <img class="rounded-circle" height="50px" width="50px" src="/docs/admission/resized/<%=info[0].avatar%>" alt="">
+          </a>     
+          
+
+          <a title="Document" class="border findcard link-primary page-link" href="/docs/admission/resized/<%=info[0].docs%>">
+            <img class="rounded-circle" height="50px" width="50px" src="/icons/icons8-academic-64.png" alt="">
+          </a>     
+          </li>    
+          
+          <li class="list-group-item border border-top-0 p-2 d-flex justify-content-between align-items-center">
+            <%=info[0].name%>
+          </li> 
+          
+          <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+            Gender: <%=info[0].gender%> 
+          </li>
+          <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+            Email: <%=info[0].email%>
+          </li>
+          <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+            Contact: <%=info[0].telephone%>
+          </li>
+          <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+            Birth Date: <%=info[0].birth_date%>
+          </li>
+     
+          <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+            Last Education: <%=info[0].last_education%>
+          </li>
+          <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+            Father Name: <%=info[0].father_name%>
+          </li>
+          <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+            Mother Name: <%=info[0].mother_name%>
+          </li>
+       <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+        Guardian Name: <%=info[0].guardian_name%>
+          </li>
+       <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+        Reliigion: <%=info[0].religion%>
+          </li>
+       <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+        Address: <%=info[0].address%>
+          </li>
+       <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+        Hobbies: <%=info[0].hobbies%>
+          </li>
+    
+          <textarea readonly class="p-2" name="" id="" cols="30" rows="10">
+            <%=info[0].comment%>
+          </textarea>
+    
+        </ul>
+    
+    
+      </div>
+    
+    </div>
+ 
+         <!-- end div -->
+  
+
+
+  </div>
+
+
+
+
+  <%- include("../component/___node.html") %> 
+
+</body>
+
+
+<script>
+ 
+ $(document).ready(function(){
+  $("#findDate").change(function(e) {
+    const value= $("#findDate").val();
+    const findDate= new Date(value).toDateString();
+
+  });
+});
+
+
+
+ $(document).ready(function(){
+  $("#search").keyup(function() {
+    var value = $(this).val().toLowerCase();
+    $(".card").filter(function() {
+       
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     
+    });
+  });
+});
+
+
+ $(document).on("click", ".accept", (e)=>{
+
+let ID= e.currentTarget.attributes[0].value;
+let email= e.currentTarget.attributes[1].value;
+console.log(ID, email);
+$('.modal-trigger-trigger').click()
+$('.modal-trigger-body').text('are you want to accept?').addClass('alert alert-success fw-bolder')
+
+$(".modal-trigger-ok").on("click", ()=>{
+$.ajax({
+ type: "post",
+ url: "/admin/admission/accept",
+ data: {email, ID},
+ dataType: "JSON",
+ beforeSend: function(){
+
+ },
+ success: function (info) {
+   
+  $('.toast-msg').text('Admission accepted!').addClass('alert alert-success')
+  $('.toast').addClass('show')   
+
+ }
+
+});  
+})
+
+
+})
+
+
+
+
+$(document).on("click", ".reject", (e)=>{
+
+let ID= e.currentTarget.attributes[0].value;
+let email= e.currentTarget.attributes[1].value;
+
+$('.modal-trigger-trigger').click()
+$('.modal-trigger-body').text('are you want to reject?').addClass('alert alert-danger fw-bolder')
+
+ $(".modal-trigger-ok").on("click", ()=>{
+  $.ajax({
+ type: "post",
+ url: "/admin/admission/reject",
+ data: {ID, email},
+ dataType: "JSON",
+ beforeSend: function(){
+
+ },
+ success: function (info) {
+  $('.toast-msg').text('Admission rejected!').addClass('alert alert-danger')
+  $('.toast').addClass('show')   
+
+ }
+
+}); 
+ })
+ })
+
+ 
+
+
+</script>
+
+</html>
