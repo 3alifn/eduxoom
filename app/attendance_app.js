@@ -97,12 +97,12 @@ exports.teacher_attn_post= (req, res)=>{
     const attn_date= new Date().toDateString();
     const at_status= checkout==1?'present':'absent'
     sqlmap.query(`SELECT student_uuid, teacher_uuid, find_date, attn_date
-    FROM attn WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'
+    FROM attn_student WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'
     ORDER BY ID DESC`, (errf, find)=>{
         if(errf) console.log(errf.sqlMessage);
         if(find.length>0){
        
-      sqlmap.query(`UPDATE attn SET checkout=${checkout}, at_status='${at_status}' WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'`,
+      sqlmap.query(`UPDATE attn_student SET checkout=${checkout}, at_status='${at_status}' WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'`,
         (erru, up)=>{
             if(erru) console.log(erru.sqlMessage);
             // else console.log('updated...');
@@ -114,7 +114,7 @@ exports.teacher_attn_post= (req, res)=>{
         }else {
       
             sqlmap.query(`
-            INSERT INTO attn (domain, session, get_cal, attn_date, find_date, checkout, at_status, class, section, teacher_uuid, student_uuid, name, roll, avatar, year, month, day)
+            INSERT INTO attn_student (domain, session, get_cal, attn_date, find_date, checkout, at_status, class, section, teacher_uuid, student_uuid, name, roll, avatar, year, month, day)
             
             VALUES('${req.hostname}', '${currentYear}', '${get_cal}', '${attn_date}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}', '${teacher_uuid}',
             '${student_uuid}', '${name}', '${roll}', '${avatar}', '${currentYear}', '${currentMonth}', '${currentDate}')`, (erri, inser)=>{
@@ -139,7 +139,7 @@ exports.teacher_attn_checkout= (req, res)=>{
     const {class_name, section_name}= req.body;
     const attn_date= new Date().toDateString();
    
-    sqlmap.query(`SELECT student_uuid, checkout, attn_date FROM attn WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
+    sqlmap.query(`SELECT student_uuid, checkout, attn_date FROM attn_student WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
     AND attn_date='${attn_date}'`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else res.send({info})
@@ -150,7 +150,7 @@ exports.teacher_attn_checkout= (req, res)=>{
 exports.teacher_attn_checkout_last_five= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid;
     const {class_name, section_name, student_uuid}= req.body;
-    sqlmap.query(`SELECT student_uuid, checkout, attn_date FROM attn WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
+    sqlmap.query(`SELECT student_uuid, checkout, attn_date FROM attn_student WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
     AND student_uuid='${student_uuid}' ORDER BY at_date LIMIT 5`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else {
@@ -172,7 +172,7 @@ exports.privet_attn_init_page= (req, res)=>{
 exports.privet_attn_repo_page= (req, res)=>{
  const {class_name, section_name}= req.params;
  const attn_date= new Date().toDateString();
- sqlmap.query(`SELECT attn_date FROM attn WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' ORDER BY at_date DESC LIMIT 1`,
+ sqlmap.query(`SELECT attn_date FROM attn_student WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' ORDER BY at_date DESC LIMIT 1`,
  (errf, infof)=>{
  if(errf) console.log(errf.sqlMessage);
   const get_attn_date= infof[0].attn_date;
@@ -306,14 +306,14 @@ exports.privet_attn_student_calendar= (req, res)=>{
 
 exports.privet_attn_calendar_checkout= (req, res)=>{
     const {class_name, section_name, student_uuid, get_cal}= req.body;
-    sqlmap.query(`SELECT COUNT(CASE checkout WHEN 1 THEN 1 ELSE null END) AS present, COUNT(CASE checkout WHEN 0 THEN 1 ELSE null END) AS absent FROM attn WHERE domain='${req.hostname}'
+    sqlmap.query(`SELECT COUNT(CASE checkout WHEN 1 THEN 1 ELSE null END) AS present, COUNT(CASE checkout WHEN 0 THEN 1 ELSE null END) AS absent FROM attn_student WHERE domain='${req.hostname}'
      AND  class='${class_name}' AND section='${section_name}' AND student_uuid='${student_uuid}' AND get_cal='${get_cal}'`, 
     (errc, cal)=>{
         if(errc) console.log(errc.sqlMessage);
         else { 
            const present= cal[0].present;
            const absent= cal[0].absent;
-            sqlmap.query(`SELECT find_date, get_cal, checkout FROM attn WHERE domain='${req.hostname}'
+            sqlmap.query(`SELECT find_date, get_cal, checkout FROM attn_student WHERE domain='${req.hostname}'
             AND  class='${class_name}' AND section='${section_name}' AND student_uuid='${student_uuid}' AND get_cal='${get_cal}' ORDER BY day`, 
            (err, info)=>{
                if(err) console.log(err.sqlMessage);
