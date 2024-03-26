@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2024 at 11:13 AM
+-- Generation Time: Mar 26, 2024 at 11:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,6 +39,7 @@ CREATE TABLE `admission` (
   `birth_date` varchar(100) NOT NULL,
   `gender` varchar(100) NOT NULL DEFAULT 'Male',
   `avatar` varchar(500) NOT NULL DEFAULT 'male_avatar.png',
+  `docs` varchar(200) NOT NULL,
   `father_name` varchar(100) NOT NULL,
   `mother_name` varchar(100) NOT NULL,
   `blood_group` varchar(100) NOT NULL,
@@ -49,11 +50,7 @@ CREATE TABLE `admission` (
   `address` varchar(100) NOT NULL,
   `hobbies` varchar(100) NOT NULL,
   `last_education` varchar(100) NOT NULL,
-  `roll` int(11) NOT NULL,
-  `reg` int(11) NOT NULL,
-  `board` varchar(100) NOT NULL,
-  `passing_year` int(11) NOT NULL,
-  `join_group` varchar(100) NOT NULL,
+  `admission_class` varchar(100) NOT NULL,
   `comment` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -61,8 +58,9 @@ CREATE TABLE `admission` (
 -- Dumping data for table `admission`
 --
 
-INSERT INTO `admission` (`domain`, `ID`, `uuid`, `session`, `find_date`, `at_date`, `name`, `dob_number`, `birth_date`, `gender`, `avatar`, `father_name`, `mother_name`, `blood_group`, `religion`, `telephone`, `email`, `guardian_name`, `address`, `hobbies`, `last_education`, `roll`, `reg`, `board`, `passing_year`, `join_group`, `comment`) VALUES
-('saanviabc.com', 25, '', 2023, '10/26/2023', '2023-10-26 09:08:53', 'Ratul', 2, '2010-09-09', '', 'female_avatar.png', 'Fhjcx', 'Xhjcf', 'O+ve', 'Islam', 1998031221, 'ratulmia0199@gmail.com', 'Ryffc', 'Xfhjbc', 'Cricket', 'JSC', 66, 2586, 'Dhaka', 2021, 'Science', 'Hjj');
+INSERT INTO `admission` (`domain`, `ID`, `uuid`, `session`, `find_date`, `at_date`, `name`, `dob_number`, `birth_date`, `gender`, `avatar`, `docs`, `father_name`, `mother_name`, `blood_group`, `religion`, `telephone`, `email`, `guardian_name`, `address`, `hobbies`, `last_education`, `admission_class`, `comment`) VALUES
+('localhost', 25, '123', 2023, '10/26/2023', '2023-10-26 09:08:53', 'Ratul', 2, '2010-09-09', 'male', 'male_avatar.png', '', 'Fhjcx', 'Xhjcf', 'O+ve', 'Islam', 1998031221, 'ratulmia0199@gmail.com', 'Ryffc', 'Xfhjbc', 'Cricket', 'Nine', '', 'Hjj'),
+('localhost', 30, '5ee9fe8d5ce0a261', 2024, 'Sat Mar 23 2024', '2024-03-23 06:32:23', 'sufia', 1234567890, '2010-09-09', 'Female', '1711175385428_female_avatar.png', '1711175543199_application.png', 'fname', 'mname', 'B+ve', 'Islam', 124567890, 'api.saanvi.abc@gmail.com', 'gname', 'boalmari', 'Playing', 'Five', 'Six', 'admission plz');
 
 -- --------------------------------------------------------
 
@@ -91,18 +89,62 @@ CREATE TABLE `application` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `attn`
+-- Table structure for table `attn_record`
 --
 
-CREATE TABLE `attn` (
+CREATE TABLE `attn_record` (
+  `domain` varchar(100) NOT NULL,
+  `id` int(11) NOT NULL,
+  `session` int(11) NOT NULL,
+  `user` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `get_cal` varchar(100) NOT NULL,
+  `find_date` varchar(100) NOT NULL,
+  `attn_date` varchar(100) NOT NULL,
+  `record_date` varchar(100) NOT NULL,
+  `record_time` varchar(100) NOT NULL,
+  `checkout` varchar(100) DEFAULT NULL,
+  `overtime` varchar(100) NOT NULL,
+  `latetime` varchar(100) NOT NULL,
+  `take_time` int(11) DEFAULT NULL,
+  `year` int(11) NOT NULL,
+  `month` int(11) NOT NULL,
+  `day` int(11) NOT NULL,
+  `at_date` varchar(100) NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `attn_record`
+--
+
+INSERT INTO `attn_record` (`domain`, `id`, `session`, `user`, `name`, `user_id`, `get_cal`, `find_date`, `attn_date`, `record_date`, `record_time`, `checkout`, `overtime`, `latetime`, `take_time`, `year`, `month`, `day`, `at_date`) VALUES
+('localhost', 41, 2024, 'Teacher', 'Fingerprint', 1, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Tue Mar 26 2024', 'Tue Mar 26 2024 11:08:38', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 11:10:01'),
+('localhost', 42, 2024, 'Teacher', 'Fingerprint', 2, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Mon Mar 25 2024', 'Mon Mar 25 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:07:37'),
+('localhost', 43, 2024, 'Teacher', 'Fingerprint', 2, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Mon Mar 25 2024', 'Mon Mar 25 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:07:37'),
+('localhost', 44, 2024, 'Teacher', 'Fingerprint', 10, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Mon Mar 25 2024', 'Mon Mar 25 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:07:37'),
+('localhost', 45, 2024, 'Teacher', 'Fingerprint', 11, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Mon Mar 25 2024', 'Mon Mar 25 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:07:37'),
+('localhost', 46, 2024, 'Teacher', 'Fingerprint', 12, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Mon Mar 25 2024', 'Mon Mar 25 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:07:37'),
+('localhost', 47, 2024, 'Teacher', 'Fingerprint', 2, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Mon Mar 25 2024', 'Mon Mar 25 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:07:37'),
+('localhost', 48, 2024, 'Teacher', 'Fingerprint', 2, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Mon Mar 25 2024', 'Mon Mar 25 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:07:37'),
+('localhost', 49, 2024, 'Teacher', 'Fingerprint', 10, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Mon Mar 25 2024', 'Mon Mar 25 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:07:37'),
+('localhost', 50, 2024, 'Teacher', 'Fingerprint', 11, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Mon Mar 25 2024', 'Mon Mar 25 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:07:37'),
+('localhost', 51, 2024, 'Teacher', 'Fingerprint', 12, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Mon Mar 25 2024', 'Mon Mar 25 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:07:37'),
+('localhost', 54, 2024, 'Teacher', 'Fingerprint', 2, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Tue Mar 26 2024', 'Tue Mar 26 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:16:46'),
+('localhost', 55, 2024, 'Teacher', 'Fingerprint', 10, '2-2024', 'March-26-3-2024', 'Tue Mar 26 2024', 'Tue Mar 26 2024', 'Tue Mar 26 2024', 'check-in', '', '', 2147483647, 2024, 2, 26, '2024-03-26 13:18:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attn_staff`
+--
+
+CREATE TABLE `attn_staff` (
   `domain` varchar(100) NOT NULL,
   `ID` int(11) NOT NULL,
   `session` int(11) NOT NULL,
-  `class` varchar(100) NOT NULL,
-  `section` varchar(100) NOT NULL,
-  `teacher_uuid` varchar(100) NOT NULL,
   `roll` int(11) NOT NULL,
-  `student_uuid` varchar(100) NOT NULL,
+  `index_number` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `avatar` varchar(500) NOT NULL DEFAULT 'male_avatar.png',
   `get_cal` varchar(10) NOT NULL,
@@ -116,53 +158,114 @@ CREATE TABLE `attn` (
   `day` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `attn`
+-- Table structure for table `attn_student`
 --
 
-INSERT INTO `attn` (`domain`, `ID`, `session`, `class`, `section`, `teacher_uuid`, `roll`, `student_uuid`, `name`, `avatar`, `get_cal`, `find_date`, `attn_date`, `checkout`, `at_date`, `at_status`, `year`, `month`, `day`) VALUES
-('localhost', 19, 2024, 'Six', 'A', '1697209362834', 1, '1698506063682', 'তড়িতা অধিকারী ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:16:48', 'Present', '2024', '2', '19'),
-('localhost', 20, 2024, 'Six', 'A', '1697209362834', 2, '1698299881366', 'Chompa Khatun', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:16:50', 'Present', '2024', '2', '19'),
-('localhost', 21, 2024, 'Six', 'A', '1697209362834', 3, '1698659885616', 'তানিয়া ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:16', 'Absent', '2024', '2', '19'),
-('localhost', 22, 2024, 'Six', 'A', '1697209362834', 4, '1698738939274', 'Karima', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:18', 'Present', '2024', '2', '19'),
-('localhost', 23, 2024, 'Six', 'A', '1697209362834', 5, '1698460381556', 'উৎসব বিশ্বাস', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:19', 'Present', '2024', '2', '19'),
-('localhost', 24, 2024, 'Six', 'A', '1697209362834', 6, '1698148306745', 'Sarmin', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:20', 'Absent', '2024', '2', '19'),
-('localhost', 25, 2024, 'Six', 'A', '1697209362834', 7, '1698721140415', 'Tasmim', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:21', 'Present', '2024', '2', '19'),
-('localhost', 26, 2024, 'Six', 'A', '1697209362834', 8, '1698361986940', 'রুদ্র বালা ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:23', 'Absent', '2024', '2', '19'),
-('localhost', 27, 2024, 'Six', 'A', '1697209362834', 9, '1698497140420', 'Ivamoni', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:24', 'Absent', '2024', '2', '19'),
-('localhost', 28, 2024, 'Six', 'A', '1697209362834', 10, '1698851230507', 'মোঃ মারুফ মোল্যা ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:25', 'Present', '2024', '2', '19'),
-('localhost', 29, 2024, 'Six', 'A', '1697209362834', 11, '1698921111153', 'Arifa ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:26', 'Absent', '2024', '2', '19'),
-('localhost', 30, 2024, 'Six', 'A', '1697209362834', 12, '1698274196192', 'মোঃ রাশেদুল মিনা ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:27', 'Present', '2024', '2', '19'),
-('localhost', 31, 2024, 'Six', 'A', '1697209362834', 13, '1698134517482', 'Sadia', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:28', 'Present', '2024', '2', '19'),
-('localhost', 32, 2024, 'Six', 'A', '1697209362834', 14, '1698091785667', 'দিগন্ত বিশ্বাস ', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:30', 'Present', '2024', '2', '19'),
-('localhost', 33, 2024, 'Six', 'A', '1697209362834', 15, '1698162667949', 'Mst. Sadia Khanom', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:31', 'Present', '2024', '2', '19'),
-('localhost', 34, 2024, 'Six', 'A', '1697209362834', 16, '1698702423129', 'হাবিবুর রহমান ', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:32', 'Present', '2024', '2', '19'),
-('localhost', 35, 2024, 'Six', 'A', '1697209362834', 17, '1698666063327', 'আর্য বিশ্বাস ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:33', 'Present', '2024', '2', '19'),
-('localhost', 36, 2024, 'Six', 'A', '1697209362834', 18, '1698057503520', 'রওশন মাসফি ছোয়াদ ', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:35', 'Present', '2024', '2', '19'),
-('localhost', 37, 2024, 'Six', 'A', '1697209362834', 19, '1698906249674', 'পূজা ভদ্র', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:36', 'Present', '2024', '2', '19'),
-('localhost', 38, 2024, 'Six', 'A', '1697209362834', 20, '1698261533936', 'আরিফা আক্তার ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:38', 'Absent', '2024', '2', '19'),
-('localhost', 39, 2024, 'Six', 'A', '1697209362834', 21, '1697451431015', 'Sumi Akter', '1697221782178_download (1).jpeg', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:39', 'Present', '2024', '2', '19'),
-('localhost', 40, 2024, 'Six', 'A', '1697209362834', 22, '1698646217806', 'যুথী পারভীন ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:40', 'Absent', '2024', '2', '19'),
-('localhost', 41, 2024, 'Six', 'A', '1697209362834', 23, '1697719197242', 'Lima Sultana', '1697221808622_download (2).jpeg', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:41', 'Absent', '2024', '2', '19'),
-('localhost', 42, 2024, 'Six', 'A', '1697209362834', 24, '1698845201207', 'লিমন মিনা ', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:42', 'Absent', '2024', '2', '19'),
-('localhost', 43, 2024, 'Six', 'A', '1697209362834', 25, '1697245493778', 'Maria Sultana', '1697221831998_images (2).jpeg', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:43', 'Absent', '2024', '2', '19'),
-('localhost', 44, 2024, 'Six', 'A', '1697209362834', 26, '1698692716505', 'সুষমা বিশ্বাস ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:44', 'Present', '2024', '2', '19'),
-('localhost', 45, 2024, 'Six', 'A', '1697209362834', 27, '1698472671897', 'সিমলা ভদ্র', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:45', 'Present', '2024', '2', '19'),
-('localhost', 46, 2024, 'Six', 'A', '1697209362834', 28, '1698774650269', 'সিনথিয়া ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:47', 'Present', '2024', '2', '19'),
-('localhost', 47, 2024, 'Six', 'A', '1697209362834', 29, '1698437459238', 'হাজেরা ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '2024-03-19 04:24:48', 'Absent', '2024', '2', '19'),
-('localhost', 48, 2024, 'Six', 'A', '1697209362834', 30, '1698695838603', 'বিশাল বিশ্বাস ', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '2024-03-19 04:24:50', 'Present', '2024', '2', '19'),
-('localhost', 50, 2024, 'Six', 'A', '1697209362834', 2, '1698299881366', 'Chompa Khatun', 'female_avatar.png', '2-2024', 'March-18-3-2024', 'Tue Mar 18 2024', 0, '2024-03-18 04:16:50', 'Absent', '2024', '2', '18'),
-('localhost', 61, 2024, 'Six', 'A', '1697209362834', 1, '1698506063682', 'তড়িতা অধিকারী ', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 1, '2024-03-20 08:00:29', 'Present', '2024', '2', '20'),
-('localhost', 62, 2024, 'Six', 'A', '1697209362834', 2, '1698299881366', 'Chompa Khatun', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 1, '2024-03-20 08:00:30', 'Present', '2024', '2', '20'),
-('localhost', 63, 2024, 'Six', 'A', '1697209362834', 3, '1698659885616', 'তানিয়া ', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 1, '2024-03-20 08:00:31', 'Present', '2024', '2', '20'),
-('localhost', 64, 2024, 'Six', 'A', '1697209362834', 4, '1698738939274', 'Karima', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 0, '2024-03-20 08:00:33', 'Absent', '2024', '2', '20'),
-('localhost', 65, 2024, 'Six', 'A', '1697209362834', 5, '1698460381556', 'উৎসব বিশ্বাস', 'male_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 0, '2024-03-20 08:00:34', 'Absent', '2024', '2', '20'),
-('localhost', 66, 2024, 'Six', 'A', '1697209362834', 2, '1698299881366', 'Chompa Khatun', 'female_avatar.png', '2-2024', 'March-17-3-2024', 'Sun Mar 17 2024', 0, '2024-03-19 04:16:50', 'Present', '2024', '2', '17'),
-('localhost', 67, 2024, 'Six', 'A', '1697209362834', 30, '1698695838603', 'বিশাল বিশ্বাস ', 'male_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 1, '2024-03-20 09:30:31', 'Present', '2024', '2', '20'),
-('localhost', 68, 2024, 'Six', 'A', '1697209362834', 29, '1698437459238', 'হাজেরা ', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 0, '2024-03-20 09:30:34', 'Absent', '2024', '2', '20'),
-('localhost', 69, 2024, 'Six', 'A', '1697209362834', 31, '1698910006912', 'রাকেশ বিশ্বাস ', 'male_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 0, '2024-03-20 09:30:38', 'Absent', '2024', '2', '20'),
-('localhost', 70, 2024, 'Six', 'A', '1697209362834', 111, '1698325184048', 'Mst. Ummea Habiba', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 1, '2024-03-20 09:36:33', 'Present', '2024', '2', '20'),
-('localhost', 71, 2024, 'Six', 'A', '1697209362834', 110, '1698465242281', 'Rupa', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 0, '2024-03-20 09:36:35', 'Absent', '2024', '2', '20');
+CREATE TABLE `attn_student` (
+  `domain` varchar(100) NOT NULL,
+  `ID` int(11) NOT NULL,
+  `session` int(11) NOT NULL,
+  `class` varchar(100) NOT NULL,
+  `section` varchar(100) NOT NULL,
+  `teacher_uuid` varchar(100) NOT NULL,
+  `roll` int(11) NOT NULL,
+  `student_uuid` varchar(100) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `avatar` varchar(500) NOT NULL DEFAULT 'male_avatar.png',
+  `get_cal` varchar(10) NOT NULL,
+  `find_date` varchar(100) NOT NULL,
+  `attn_date` varchar(100) NOT NULL,
+  `checkout` int(11) DEFAULT NULL,
+  `overtime` varchar(100) NOT NULL,
+  `latetime` varchar(100) NOT NULL,
+  `at_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `at_status` varchar(11) DEFAULT NULL,
+  `year` varchar(100) NOT NULL,
+  `month` varchar(100) NOT NULL,
+  `day` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `attn_student`
+--
+
+INSERT INTO `attn_student` (`domain`, `ID`, `session`, `class`, `section`, `teacher_uuid`, `roll`, `student_uuid`, `student_id`, `name`, `avatar`, `get_cal`, `find_date`, `attn_date`, `checkout`, `overtime`, `latetime`, `at_date`, `at_status`, `year`, `month`, `day`) VALUES
+('localhost', 19, 2024, 'Six', 'A', '1697209362834', 1, '1698506063682', 0, 'তড়িতা অধিকারী ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:16:48', 'Present', '2024', '2', '19'),
+('localhost', 20, 2024, 'Six', 'A', '1697209362834', 2, '1698299881366', 0, 'Chompa Khatun', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:16:50', 'Present', '2024', '2', '19'),
+('localhost', 21, 2024, 'Six', 'A', '1697209362834', 3, '1698659885616', 0, 'তানিয়া ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:16', 'Absent', '2024', '2', '19'),
+('localhost', 22, 2024, 'Six', 'A', '1697209362834', 4, '1698738939274', 0, 'Karima', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:18', 'Present', '2024', '2', '19'),
+('localhost', 23, 2024, 'Six', 'A', '1697209362834', 5, '1698460381556', 0, 'উৎসব বিশ্বাস', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:19', 'Present', '2024', '2', '19'),
+('localhost', 24, 2024, 'Six', 'A', '1697209362834', 6, '1698148306745', 0, 'Sarmin', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:20', 'Absent', '2024', '2', '19'),
+('localhost', 25, 2024, 'Six', 'A', '1697209362834', 7, '1698721140415', 0, 'Tasmim', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:21', 'Present', '2024', '2', '19'),
+('localhost', 26, 2024, 'Six', 'A', '1697209362834', 8, '1698361986940', 0, 'রুদ্র বালা ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:23', 'Absent', '2024', '2', '19'),
+('localhost', 27, 2024, 'Six', 'A', '1697209362834', 9, '1698497140420', 0, 'Ivamoni', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:24', 'Absent', '2024', '2', '19'),
+('localhost', 28, 2024, 'Six', 'A', '1697209362834', 10, '1698851230507', 0, 'মোঃ মারুফ মোল্যা ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:25', 'Present', '2024', '2', '19'),
+('localhost', 29, 2024, 'Six', 'A', '1697209362834', 11, '1698921111153', 0, 'Arifa ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:26', 'Absent', '2024', '2', '19'),
+('localhost', 30, 2024, 'Six', 'A', '1697209362834', 12, '1698274196192', 0, 'মোঃ রাশেদুল মিনা ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:27', 'Present', '2024', '2', '19'),
+('localhost', 31, 2024, 'Six', 'A', '1697209362834', 13, '1698134517482', 0, 'Sadia', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:28', 'Present', '2024', '2', '19'),
+('localhost', 32, 2024, 'Six', 'A', '1697209362834', 14, '1698091785667', 0, 'দিগন্ত বিশ্বাস ', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:30', 'Present', '2024', '2', '19'),
+('localhost', 33, 2024, 'Six', 'A', '1697209362834', 15, '1698162667949', 0, 'Mst. Sadia Khanom', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:31', 'Present', '2024', '2', '19'),
+('localhost', 34, 2024, 'Six', 'A', '1697209362834', 16, '1698702423129', 0, 'হাবিবুর রহমান ', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:32', 'Present', '2024', '2', '19'),
+('localhost', 35, 2024, 'Six', 'A', '1697209362834', 17, '1698666063327', 0, 'আর্য বিশ্বাস ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:33', 'Present', '2024', '2', '19'),
+('localhost', 36, 2024, 'Six', 'A', '1697209362834', 18, '1698057503520', 0, 'রওশন মাসফি ছোয়াদ ', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:35', 'Present', '2024', '2', '19'),
+('localhost', 37, 2024, 'Six', 'A', '1697209362834', 19, '1698906249674', 0, 'পূজা ভদ্র', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:36', 'Present', '2024', '2', '19'),
+('localhost', 38, 2024, 'Six', 'A', '1697209362834', 20, '1698261533936', 0, 'আরিফা আক্তার ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:38', 'Absent', '2024', '2', '19'),
+('localhost', 39, 2024, 'Six', 'A', '1697209362834', 21, '1697451431015', 0, 'Sumi Akter', '1697221782178_download (1).jpeg', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:39', 'Present', '2024', '2', '19'),
+('localhost', 40, 2024, 'Six', 'A', '1697209362834', 22, '1698646217806', 0, 'যুথী পারভীন ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:40', 'Absent', '2024', '2', '19'),
+('localhost', 41, 2024, 'Six', 'A', '1697209362834', 23, '1697719197242', 0, 'Lima Sultana', '1697221808622_download (2).jpeg', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:41', 'Absent', '2024', '2', '19'),
+('localhost', 42, 2024, 'Six', 'A', '1697209362834', 24, '1698845201207', 0, 'লিমন মিনা ', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:42', 'Absent', '2024', '2', '19'),
+('localhost', 43, 2024, 'Six', 'A', '1697209362834', 25, '1697245493778', 0, 'Maria Sultana', '1697221831998_images (2).jpeg', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:43', 'Absent', '2024', '2', '19'),
+('localhost', 44, 2024, 'Six', 'A', '1697209362834', 26, '1698692716505', 0, 'সুষমা বিশ্বাস ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:44', 'Present', '2024', '2', '19'),
+('localhost', 45, 2024, 'Six', 'A', '1697209362834', 27, '1698472671897', 0, 'সিমলা ভদ্র', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:45', 'Present', '2024', '2', '19'),
+('localhost', 46, 2024, 'Six', 'A', '1697209362834', 28, '1698774650269', 0, 'সিনথিয়া ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:47', 'Present', '2024', '2', '19'),
+('localhost', 47, 2024, 'Six', 'A', '1697209362834', 29, '1698437459238', 0, 'হাজেরা ', 'female_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 0, '', '', '2024-03-19 04:24:48', 'Absent', '2024', '2', '19'),
+('localhost', 48, 2024, 'Six', 'A', '1697209362834', 30, '1698695838603', 0, 'বিশাল বিশ্বাস ', 'male_avatar.png', '2-2024', 'March-19-3-2024', 'Tue Mar 19 2024', 1, '', '', '2024-03-19 04:24:50', 'Present', '2024', '2', '19'),
+('localhost', 50, 2024, 'Six', 'A', '1697209362834', 2, '1698299881366', 0, 'Chompa Khatun', 'female_avatar.png', '2-2024', 'March-18-3-2024', 'Tue Mar 18 2024', 0, '', '', '2024-03-18 04:16:50', 'Absent', '2024', '2', '18'),
+('localhost', 61, 2024, 'Six', 'A', '1697209362834', 1, '1698506063682', 0, 'তড়িতা অধিকারী ', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 1, '', '', '2024-03-20 08:00:29', 'Present', '2024', '2', '20'),
+('localhost', 62, 2024, 'Six', 'A', '1697209362834', 2, '1698299881366', 0, 'Chompa Khatun', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 1, '', '', '2024-03-20 08:00:30', 'Present', '2024', '2', '20'),
+('localhost', 63, 2024, 'Six', 'A', '1697209362834', 3, '1698659885616', 0, 'তানিয়া ', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 1, '', '', '2024-03-20 08:00:31', 'Present', '2024', '2', '20'),
+('localhost', 64, 2024, 'Six', 'A', '1697209362834', 4, '1698738939274', 0, 'Karima', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 0, '', '', '2024-03-20 08:00:33', 'Absent', '2024', '2', '20'),
+('localhost', 65, 2024, 'Six', 'A', '1697209362834', 5, '1698460381556', 0, 'উৎসব বিশ্বাস', 'male_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 0, '', '', '2024-03-20 08:00:34', 'Absent', '2024', '2', '20'),
+('localhost', 66, 2024, 'Six', 'A', '1697209362834', 2, '1698299881366', 0, 'Chompa Khatun', 'female_avatar.png', '2-2024', 'March-17-3-2024', 'Sun Mar 17 2024', 0, '', '', '2024-03-19 04:16:50', 'Present', '2024', '2', '17'),
+('localhost', 67, 2024, 'Six', 'A', '1697209362834', 30, '1698695838603', 0, 'বিশাল বিশ্বাস ', 'male_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 1, '', '', '2024-03-20 09:30:31', 'Present', '2024', '2', '20'),
+('localhost', 68, 2024, 'Six', 'A', '1697209362834', 29, '1698437459238', 0, 'হাজেরা ', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 0, '', '', '2024-03-20 09:30:34', 'Absent', '2024', '2', '20'),
+('localhost', 69, 2024, 'Six', 'A', '1697209362834', 31, '1698910006912', 0, 'রাকেশ বিশ্বাস ', 'male_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 0, '', '', '2024-03-20 09:30:38', 'Absent', '2024', '2', '20'),
+('localhost', 70, 2024, 'Six', 'A', '1697209362834', 111, '1698325184048', 0, 'Mst. Ummea Habiba', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 1, '', '', '2024-03-20 09:36:33', 'Present', '2024', '2', '20'),
+('localhost', 71, 2024, 'Six', 'A', '1697209362834', 110, '1698465242281', 0, 'Rupa', 'female_avatar.png', '2-2024', 'March-20-3-2024', 'Wed Mar 20 2024', 0, '', '', '2024-03-20 09:36:35', 'Absent', '2024', '2', '20'),
+('localhost', 72, 2024, 'Six', 'A', '1697209362834', 2, '1698299881366', 0, 'Chompa Khatun', 'female_avatar.png', '2-2024', 'March-22-3-2024', 'Fri Mar 22 2024', 1, '', '', '2024-03-22 04:14:31', 'present', '2024', '2', '22'),
+('localhost', 73, 2024, 'Six', 'A', '1697209362834', 1, '1698506063682', 0, 'তড়িতা অধিকারী ', 'female_avatar.png', '2-2024', 'March-22-3-2024', 'Fri Mar 22 2024', 1, '', '', '2024-03-22 04:15:31', 'present', '2024', '2', '22'),
+('localhost', 74, 2024, 'Six', 'A', '1697209362834', 3, '1698659885616', 0, 'তানিয়া ', 'female_avatar.png', '2-2024', 'March-22-3-2024', 'Fri Mar 22 2024', 1, '', '', '2024-03-22 04:15:54', 'present', '2024', '2', '22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attn_teacher`
+--
+
+CREATE TABLE `attn_teacher` (
+  `domain` varchar(100) NOT NULL,
+  `ID` int(11) NOT NULL,
+  `session` int(11) NOT NULL,
+  `teacher_uuid` varchar(100) NOT NULL,
+  `index_number` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `avatar` varchar(500) NOT NULL DEFAULT 'male_avatar.png',
+  `get_cal` varchar(10) NOT NULL,
+  `find_date` varchar(100) NOT NULL,
+  `attn_date` varchar(100) NOT NULL,
+  `checkout` int(11) DEFAULT NULL,
+  `overtime` varchar(100) NOT NULL,
+  `latetime` varchar(100) NOT NULL,
+  `at_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `at_status` varchar(11) DEFAULT NULL,
+  `year` varchar(100) NOT NULL,
+  `month` varchar(100) NOT NULL,
+  `day` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -197,7 +300,6 @@ INSERT INTO `authentication_session` (`session_id`, `session_expires`, `session_
 ('mQdi02mmWdns6YKfRPTHJl-rTbPcv99O', 1712163007, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T16:50:07.222Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
 ('n5R77TFuehEO-vDQscYPVpLFY0QYXrxm', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.508Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
 ('piyT7isfkqRhGuJJ77x8uoHOmNJxXd5E', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.530Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('rc_zrEduPkImDaospvXdVsMsvVIBhau9', 1713521516, '{\"cookie\":{\"originalMaxAge\":2591999999,\"expires\":\"2024-04-19T10:11:55.926Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
 ('tBCriGj7MhtPIdi-Lxq1wVotdazP3eYk', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.513Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
 ('tRx9FhfXutbvCva4LCFO9jSSgQ19ARP1', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.500Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}');
 
@@ -2624,19 +2726,20 @@ CREATE TABLE `student_rank` (
   `ID` int(11) NOT NULL,
   `session` int(11) DEFAULT 2023,
   `find_date` varchar(100) NOT NULL,
+  `rank_date` varchar(100) NOT NULL,
   `teacher_uuid` varchar(100) NOT NULL,
   `student_uuid` varchar(100) NOT NULL,
   `at_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `today` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `student_id` int(11) NOT NULL,
   `roll` int(11) NOT NULL,
   `class` varchar(100) NOT NULL,
   `section` varchar(100) NOT NULL,
+  `checkout` varchar(100) NOT NULL,
   `behavior` int(11) NOT NULL,
   `study` int(11) NOT NULL,
   `uniform` int(11) NOT NULL,
   `present` int(11) NOT NULL,
+  `absent` int(11) NOT NULL,
   `poient` float NOT NULL,
   `avatar` varchar(500) NOT NULL DEFAULT 'male_avatar.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -2645,25 +2748,23 @@ CREATE TABLE `student_rank` (
 -- Dumping data for table `student_rank`
 --
 
-INSERT INTO `student_rank` (`domain`, `ID`, `session`, `find_date`, `teacher_uuid`, `student_uuid`, `at_date`, `today`, `name`, `student_id`, `roll`, `class`, `section`, `behavior`, `study`, `uniform`, `present`, `poient`, `avatar`) VALUES
-('localhost', 1, 2024, '3/20/2024', '1697209362834', '1697167918767', '2024-03-20 08:03:40', '3/20/2024', 'MD Abid Rahman Alif', 0, 1, 'Six', 'B', 1, 0, 0, 0, 1, 'male_avatar.png'),
-('localhost', 2, 2024, '3/20/2024', '1697209362834', '1697167918767', '2024-03-20 08:03:41', '3/20/2024', 'MD Abid Rahman Alif', 0, 1, 'Six', 'B', 0, 0, 1, 0, 1, 'male_avatar.png'),
-('localhost', 3, 2024, '3/20/2024', '1697209362834', '1697167918767', '2024-03-20 08:03:43', '3/20/2024', 'MD Abid Rahman Alif', 0, 1, 'Six', 'B', 0, 1, 0, 0, 1, 'male_avatar.png'),
-('localhost', 4, 2024, '3/20/2024', '1697209362834', '1698506063682', '2024-03-20 08:03:45', '3/20/2024', 'তড়িতা অধিকারী ', 0, 1, 'Six', 'A', 1, 0, 0, 0, 1, 'female_avatar.png'),
-('localhost', 5, 2024, '3/20/2024', '1697209362834', '1698506063682', '2024-03-20 08:03:46', '3/20/2024', 'তড়িতা অধিকারী ', 0, 1, 'Six', 'A', 0, 0, 1, 0, 1, 'female_avatar.png'),
-('localhost', 6, 2024, '3/20/2024', '1697209362834', '1698506063682', '2024-03-20 08:03:48', '3/20/2024', 'তড়িতা অধিকারী ', 0, 1, 'Six', 'A', 0, 1, 0, 0, 1, 'female_avatar.png'),
-('localhost', 7, 2024, '3/20/2024', '1697209362834', '1697226477358', '2024-03-20 08:03:50', '3/20/2024', 'MD.Tamim MIa', 0, 1, 'Six', 'C', 1, 0, 0, 0, 1, 'male_avatar.png'),
-('localhost', 8, 2024, '3/20/2024', '1697209362834', '1697226477358', '2024-03-20 08:03:51', '3/20/2024', 'MD.Tamim MIa', 0, 1, 'Six', 'C', 0, 0, 1, 0, 1, 'male_avatar.png'),
-('localhost', 9, 2024, '3/20/2024', '1697209362834', '1697226477358', '2024-03-20 08:03:52', '3/20/2024', 'MD.Tamim MIa', 0, 1, 'Six', 'C', 0, 1, 0, 0, 1, 'male_avatar.png'),
-('localhost', 10, 2024, '3/20/2024', '1697209362834', '1698299881366', '2024-03-20 08:03:54', '3/20/2024', 'Chompa Khatun', 0, 2, 'Six', 'A', 1, 0, 0, 0, 1, 'female_avatar.png'),
-('localhost', 11, 2024, '3/20/2024', '1697209362834', '1698299881366', '2024-03-20 08:03:55', '3/20/2024', 'Chompa Khatun', 0, 2, 'Six', 'A', 0, 0, 1, 0, 1, 'female_avatar.png'),
-('localhost', 12, 2024, '3/20/2024', '1697209362834', '1698299881366', '2024-03-20 08:03:57', '3/20/2024', 'Chompa Khatun', 0, 2, 'Six', 'A', 0, 1, 0, 0, 1, 'female_avatar.png'),
-('localhost', 13, 2024, '3/20/2024', '1697209362834', '1697196905199', '2024-03-20 08:04:01', '3/20/2024', 'MD Mehedi Hasan', 0, 2, 'Six', 'B', 0, 0, 1, 0, 1, 'male_avatar.png'),
-('localhost', 14, 2024, '3/20/2024', '1697209362834', '1697196905199', '2024-03-20 08:04:02', '3/20/2024', 'MD Mehedi Hasan', 0, 2, 'Six', 'B', 0, 1, 0, 0, 1, 'male_avatar.png'),
-('localhost', 15, 2024, '3/20/2024', '1697209362834', '1697295547774', '2024-03-20 08:04:04', '3/20/2024', 'Tanvir sheikh', 0, 2, 'Six', 'C', 1, 0, 0, 0, 1, 'male_avatar.png'),
-('localhost', 16, 2024, '3/20/2024', '1697209362834', '1697295547774', '2024-03-20 08:04:07', '3/20/2024', 'Tanvir sheikh', 0, 2, 'Six', 'C', 0, 0, 1, 0, 1, 'male_avatar.png'),
-('localhost', 17, 2024, '3/20/2024', '1697209362834', '1697295547774', '2024-03-20 08:04:12', '3/20/2024', 'Tanvir sheikh', 0, 2, 'Six', 'C', 0, 1, 0, 0, 1, 'male_avatar.png'),
-('localhost', 18, 2024, '3/20/2024', '1697209362834', '1697196905199', '2024-03-20 08:04:37', '3/20/2024', 'MD Mehedi Hasan', 0, 2, 'Six', 'B', 1, 0, 0, 0, 1, 'male_avatar.png');
+INSERT INTO `student_rank` (`domain`, `ID`, `session`, `find_date`, `rank_date`, `teacher_uuid`, `student_uuid`, `at_date`, `name`, `roll`, `class`, `section`, `checkout`, `behavior`, `study`, `uniform`, `present`, `absent`, `poient`, `avatar`) VALUES
+('localhost', 36, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698506063682', '2024-03-21 08:24:10', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 1, 0, 3.554, 'female_avatar.png'),
+('localhost', 37, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698506063682', '2024-03-21 08:24:12', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u2_1698506063682', 0, 0, 1, 1, 0, 3.554, 'female_avatar.png'),
+('localhost', 38, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698506063682', '2024-03-21 08:24:14', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 1, 0, 3.554, 'female_avatar.png'),
+('localhost', 39, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1697245493778', '2024-03-21 08:40:32', 'Maria Sultana', 25, 'Six', 'A', 'b3_1697245493778', 1, 0, 0, 0, 0, 3.554, '1697221831998_images (2).jpeg'),
+('localhost', 40, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1697245493778', '2024-03-21 08:40:34', 'Maria Sultana', 25, 'Six', 'A', 'u2_1697245493778', 0, 0, 1, 0, 0, 3.554, '1697221831998_images (2).jpeg'),
+('localhost', 41, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1697245493778', '2024-03-21 08:40:35', 'Maria Sultana', 25, 'Six', 'A', 's3_1697245493778', 0, 1, 0, 0, 0, 3.554, '1697221831998_images (2).jpeg'),
+('localhost', 42, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698299881366', '2024-03-21 09:54:59', 'Chompa Khatun', 2, 'Six', 'A', 'b1_1698299881366', 1, 0, 0, 1, 0, 1.888, 'female_avatar.png'),
+('localhost', 43, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698299881366', '2024-03-21 09:55:00', 'Chompa Khatun', 2, 'Six', 'A', 'u2_1698299881366', 0, 0, 1, 1, 0, 1.888, 'female_avatar.png'),
+('localhost', 44, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698299881366', '2024-03-21 09:55:01', 'Chompa Khatun', 2, 'Six', 'A', 's3_1698299881366', 0, 1, 0, 1, 0, 1.888, 'female_avatar.png'),
+('localhost', 45, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698659885616', '2024-03-21 09:55:03', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 1, 0, 6.109, 'female_avatar.png'),
+('localhost', 46, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698659885616', '2024-03-21 09:55:04', 'তানিয়া ', 3, 'Six', 'A', 'u3_1698659885616', 0, 0, 1, 1, 0, 6.109, 'female_avatar.png'),
+('localhost', 47, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698659885616', '2024-03-21 09:55:05', 'তানিয়া ', 3, 'Six', 'A', 's3_1698659885616', 0, 1, 0, 1, 0, 6.109, 'female_avatar.png'),
+('localhost', 48, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698738939274', '2024-03-21 09:55:06', 'Karima', 4, 'Six', 'A', 'b1_1698738939274', 1, 0, 0, 0, 0, -1.333, 'female_avatar.png'),
+('localhost', 49, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698738939274', '2024-03-21 09:55:29', 'Karima', 4, 'Six', 'A', 'u1_1698738939274', 0, 0, 1, 0, 0, -1.333, 'female_avatar.png'),
+('localhost', 50, 2024, '3/21/2024', 'Thu Mar 21 2024', '1697209362834', '1698738939274', '2024-03-21 09:55:30', 'Karima', 4, 'Six', 'A', 's1_1698738939274', 0, 1, 0, 0, 0, -1.333, 'female_avatar.png'),
+('localhost', 51, 2024, '3/22/2024', 'Fri Mar 22 2024', '1697209362834', '1698659885616', '2024-03-22 04:21:55', 'তানিয়া ', 3, 'Six', 'A', 'u3_1698659885616', 0, 0, 1, 0, 0, 6.109, 'female_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -2983,9 +3084,27 @@ ALTER TABLE `application`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `attn`
+-- Indexes for table `attn_record`
 --
-ALTER TABLE `attn`
+ALTER TABLE `attn_record`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `attn_staff`
+--
+ALTER TABLE `attn_staff`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `attn_student`
+--
+ALTER TABLE `attn_student`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `attn_teacher`
+--
+ALTER TABLE `attn_teacher`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -3199,7 +3318,7 @@ ALTER TABLE `___ini`
 -- AUTO_INCREMENT for table `admission`
 --
 ALTER TABLE `admission`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `application`
@@ -3208,10 +3327,28 @@ ALTER TABLE `application`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `attn`
+-- AUTO_INCREMENT for table `attn_record`
 --
-ALTER TABLE `attn`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+ALTER TABLE `attn_record`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
+--
+-- AUTO_INCREMENT for table `attn_staff`
+--
+ALTER TABLE `attn_staff`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `attn_student`
+--
+ALTER TABLE `attn_student`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+
+--
+-- AUTO_INCREMENT for table `attn_teacher`
+--
+ALTER TABLE `attn_teacher`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bi_catagory`
@@ -3355,7 +3492,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `student_rank`
 --
 ALTER TABLE `student_rank`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `subject`

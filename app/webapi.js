@@ -11,6 +11,8 @@ const zkteco = async() => {
         // console.log(await zkInstance.getInfo())
     
         const logs = await zkInstance.getAttendances()
+        const logsCountInit = await zkInstance.getInfo()
+        const logsCount = logsCountInit.logCounts;
         var infoUsers = await zkInstance.getUsers()
        const getLast= logs.data.length;
        var domain= 'localhost';
@@ -23,31 +25,71 @@ const zkteco = async() => {
     //       // do something when some checkin
     //       console.log(data)
     //   })
+      
 
+  const data= logs.data;
+  const user= 'Teacher';
+  const name= 'Fingerprint';
+  for (let index = 0; index < logsCount; index++) {
+  const user_id= data[index].deviceUserId;
+  const today= data[index].recordTime;
+  const record_date= data[index].recordTime.slice(0, 15);
+  const record_time= data[index].recordTime.slice(0, 15);
+
+
+  on_time_log_todo(domain, user, name, user_id, today, record_date, record_time);
+  
+}
+  
+ // real_time_log(domain, user_id, today, record_date, record_time) 
+    
 
       } catch (e) {
         console.log(e)
         if (e.code === 'EADDRINUSE') {
         }
     }
-    attnLog(domain, user_id, today, record_date, record_time) 
 
 }
-    
+
+setTimeout(() => {
+  zkteco()
+}, 6000); // emit on after 1min.........
+
     setInterval(() => {
-      zkteco()
-    }, 3000);
+      // zkteco()
+    }, 36000000); // emit on after 10hr........
+
+
+
+function on_time_log_todo(domain, user, name, user_id, today, record_date, record_time){
+
+  axios.post('http://localhost:30/pu/attn-tid-webapi/', {
+  domain, user, name, user_id, today, record_date, record_time
+})
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+
+
+}
+
+
 
     
-    function attnLog(domain, user_id, today, record_date, record_time){
+function real_time_log(domain, user_id, today, record_date, record_time){
         const user= 'Teacher';
         const name= 'Fingerprint';
-        pushAttnPostRouter(domain, user, name, user_id, today, record_date, record_time)
+        real_time_log_todo(domain, user, name, user_id, today, record_date, record_time)
     
     }
 
 
-function pushAttnPostRouter(domain, user, name, user_id, today, record_date, record_time){
+function real_time_log_todo(domain, user, name, user_id, today, record_date, record_time){
 
         axios.post('http://localhost:30/pu/attn-tid-webapi/', {
         domain, user, name, user_id, today, record_date, record_time
@@ -109,7 +151,7 @@ sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${
     if(erri) console.log(erri.sqlMessage);
     else {
         null
-        console.log(`"Congratulations! your are check-in, ${user} ${user_id} ${name} ${record_time}"`);
+        console.log(`"Congratulations! your are check-in, ${user} ${user_id} ${today}"`);
     
         }
     })
@@ -118,7 +160,7 @@ sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${
 
 
       
-   else if(infoc.length==1 || infoc[0].take_time>get_time){
+   else if(infoc.length==1 && infoc[0].take_time>get_time){
  
     sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, take_time, get_cal, find_date, attn_date,  record_date, record_time, year, month, day)
     VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-out', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
@@ -127,7 +169,7 @@ sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${
     if(erri) console.log(erri.sqlMessage);
     else {
     null
-    console.log(`"Thanks! your are check-out, ${user} ${user_id} ${name} ${record_time}"`);
+    console.log(`"Thanks! your are check-out, ${user} ${user_id} ${today}"`);
 
     }
     })
@@ -137,7 +179,7 @@ sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${
    
    else{
     null 
-    console.log(`"HI, dear ${user} ${user_id} ${name} now you can check-out after  5 minutes for checkout!"`);
+    console.log(`"HI, dear ${user} ${user_id} you can check-out after 5 minutes for checkout!"`);
 
    }
 
