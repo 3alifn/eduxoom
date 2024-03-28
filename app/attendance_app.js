@@ -176,7 +176,7 @@ exports.privet_attn_repo_page= (req, res)=>{
  (errf, infof)=>{
  if(errf) console.log(errf.sqlMessage);
   const get_attn_date= infof[0].attn_date;
-  sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn
+  sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn_student
   WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}'
    AND attn_date='${get_attn_date}' GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
      if(err) console.log(err.sqlMessage);
@@ -197,7 +197,7 @@ exports.privet_attn_repo_page= (req, res)=>{
 exports.privet_attn_repo_page_num= (req, res)=>{
     const {class_name, section_name, offset, find_date}= req.body; 
     const attn_date=find_date;
-    sqlmap.query(`SELECT ID, student_uuid, avatar, name, checkout, at_status, roll FROM attn
+    sqlmap.query(`SELECT ID, student_uuid, avatar, name, checkout, at_status, roll FROM attn_student
     WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
     GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET ${offset*20}`, (err, info)=>{
        if(err) console.log(err.sqlMessage);
@@ -242,7 +242,7 @@ exports.privet_attn_repo_page_num= (req, res)=>{
 exports.privet_attn_repo_find= (req, res)=>{
     const {class_name, section_name, find_date}= req.body; 
     const attn_date=find_date;
-    sqlmap.query(`SELECT ID, student_uuid, avatar, name, checkout, at_status, roll FROM attn
+    sqlmap.query(`SELECT ID, student_uuid, avatar, name, checkout, at_status, roll FROM attn_student
     WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
     GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
        if(err) console.log(err.sqlMessage);
@@ -288,7 +288,7 @@ exports.privet_attn_repo_find= (req, res)=>{
 
 exports.privet_attn_student_calendar= (req, res)=>{
     const {class_name, section_name, student_uuid}= req.params;
-    sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn
+    sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn_student
     WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND student_uuid='${student_uuid}'`,
      (err, info)=>{
        if(err) console.log(err.sqlMessage);
