@@ -345,6 +345,8 @@ exports.admin_teacher_post= async(req, res)=>{
   const {name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
   const domain= req.hostname;
+  const teacher_id= index_number.slice(1);
+
   var get_position= position.toLowerCase().trim();
   if(get_position.indexOf('headmaster')==0) var order_value= 'A';
   else if(get_position.indexOf('assistant headmaster')==0) var order_value= 'B';
@@ -404,8 +406,8 @@ exports.admin_teacher_post= async(req, res)=>{
           }
    }
 
-    sqlmap.query(`INSERT INTO teachers (domain, teacher_uuid, name, position, order_value, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar )
-    VALUES('${req.hostname}', '${uuid}', '${name}','${position}', '${order_value}', '${gender}', '${index_number}', '${pds_id}', '${birth_date}', '${blood_group}',
+    sqlmap.query(`INSERT INTO teachers (domain, teacher_uuid, teacher_id, name, position, order_value, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar )
+    VALUES('${req.hostname}', '${uuid}', '${teacher_id}', '${name}','${position}', '${order_value}', '${gender}', '${index_number}', '${pds_id}', '${birth_date}', '${blood_group}',
     '${religion}', '${email}', '${phone}', '${address}', '${joining_date}', '${hashPassword}', '${avatar_png}')`, (err, next)=>{
         if(err) console.log(err.sqlMessage);
         else   res.send({status: 200, msg: 'Teacher join successfully!', alert: 'alert-success'})

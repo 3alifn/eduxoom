@@ -63,13 +63,17 @@ run_cmd_terminal=()=>{
   // })
   
 
-  // sqlmap.query(`SELECT roll, ID, name FROM students WHERE class='Ten' AND section='A' ORDER BY roll`, (err, info)=>{
+  // sql for teacher id.....
+
+  // sqlmap.query(`SELECT index_number, ID FROM teachers ORDER BY ID`, (err, info)=>{
   //   if(err) console.log(err.sqlMessage);
   //   else {
   //     for (let index = 0; index < info.length; index++) {
-  //      sqlmap.query(`UPDATE students SET roll=${index+1} WHERE ID='${info[index].ID}'`, (erru, update)=>{
+  //       const teacher_id= info[index].index_number.slice(1);
+  //       console.log(teacher_id);
+  //      sqlmap.query(`UPDATE teachers SET teacher_id=${teacher_id} WHERE ID='${info[index].ID}'`, (erru, update)=>{
   //       if(erru) console.log(erru.sqlMessage);
-  //       else console.log(index+1);
+  //       // else console.log(index+1);
   //      })
         
   //     }
@@ -107,14 +111,6 @@ run_cmd_terminal=()=>{
 // })
 
 
-// query for move...
-
-// sqlmap.query(`INSERT INTO teachers SELECT * FROM teachers_b`, (err, move)=>{
-//   if(err) console.log(err.sqlMessage);
-//   else {
-//     console.log('moved...');
-//   }
-// })
 
 
 // query for demo password
