@@ -18,7 +18,7 @@ const { pu_headofschool_render } = require("../app/headofschool_app")
 const headofschool_app = require("../app/headofschool_app")
 const { public_staff_page, public_staff_profile_get } = require("../app/staff_app")
 const { admin_achievement_page, public_achievement_view, public_eventnews_page, public_eventnews_view, admin_facilities_view, public_facilities_view, public_achievement_page, public_facilities_page } = require("../app/repository")
-const { pu_attn_tid_webapi_post, pu_attn_stid_webapi_post, pu_attn_fsid_webapi_post, pu_attn_msid_webapi_post, pu_attn_domain_checkout } = require("../app/webapi")
+const {pu_attn_checkout_webapi_present, pu_attn_checkout_webapi_absent, pu_attn_checkout_logs } = require("../app/webapi")
 const public= express.Router()
 
 // test router system......
@@ -30,11 +30,10 @@ res.json({msg: 200})
 
 
 // biometric attn router.............
-public.post('/attn-domain-checkout-webapi/', pu_attn_domain_checkout)
-public.post('/attn-tid-webapi/', pu_attn_tid_webapi_post)
-public.post('/attn-stid-webapi/', pu_attn_stid_webapi_post)
-public.post('/attn-fsid-webapi/', pu_attn_fsid_webapi_post)
-public.post('/attn-msid-webapi/', pu_attn_msid_webapi_post)
+public.post('/attn-checkout-webapi/', pu_attn_checkout_logs)
+public.post('/attn-present-webapi/', pu_attn_checkout_webapi_present)
+public.post('/attn-absent-webapi/', pu_attn_checkout_webapi_absent)
+
 
 // class section settings...
 public.get("/class/section/rm", pu_class_secton_rm)

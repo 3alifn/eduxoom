@@ -50,9 +50,9 @@ if(getLast>0){
 
 
 
-function domain_log_checkout(domain){
+function attn_log_checkout(domain){
 
-  axios.post('http://localhost:30/pu/attn-domain-checkout-webapi/', {
+  axios.post('http://localhost:30/pu/attn-checkout-webapi/', {
   domain
 }).then((response) => {
   const getLast= response.data.lastSyncData;
@@ -67,7 +67,7 @@ function domain_log_checkout(domain){
 });
 }
 
-domain_log_checkout('localhost')
+attn_log_checkout('localhost')
 
 
 
@@ -82,13 +82,13 @@ setInterval(() => {
 
 
 setTimeout(() => {
-domain_log_checkout('localhost')
+  attn_log_checkout('localhost')
 }, 3000); // emit on after 3sec.........
 
 
 function abs_log_checkout(domain, user, name, user_id, today, record_date, record_time){
 
-  axios.post('http://localhost:30/pu/attn-tid-webapi/', {
+  axios.post('http://localhost:30/pu/attn-present-webapi/', {
   domain, user, name, user_id, today, record_date, record_time
 })
   .then((response) => {
@@ -108,7 +108,7 @@ const get_time= new Date().getTime();
 const five_min= 300000;
 const session= new Date().getUTCFullYear();
 
-exports.pu_attn_domain_checkout= (req, res)=>{
+exports.pu_attn_checkout_logs= (req, res)=>{
   const {domain}= req.body;
   sqlmap.query(`SELECT COUNT(ID) AS lastSync FROM attn_record WHERE Domain='${domain}'`, (err, checkout)=>{
    if(err) console.log(err.sqlMessage);
@@ -121,7 +121,7 @@ exports.pu_attn_domain_checkout= (req, res)=>{
 }
 
 
-exports.pu_attn_tid_webapi_post=(req, res)=>{
+exports.pu_attn_checkout_webapi_present=(req, res)=>{
 const {domain, user_id, user, name, today, record_date, record_time}= req.body;
 const todaym = new Date(today);
 const currentDate= new Date().getDate();
@@ -154,8 +154,8 @@ sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${
    
    else if(infoc.length==0 || infoc.length==undefined){
  
-    sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-    VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-in', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
+    sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+    VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-in', 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
     
     (erri, insert)=>{
     if(erri) console.log(erri.sqlMessage);
@@ -172,8 +172,8 @@ sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${
       
    else if(infoc.length==1 && infoc[0].take_time>get_time){
  
-    sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, take_time, get_cal, find_date, attn_date,  record_date, record_time, year, month, day)
-    VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-out', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
+    sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, at_status, take_time, get_cal, find_date, attn_date,  record_date, record_time, year, month, day)
+    VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-out', 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
     
     (erri, insert)=>{
     if(erri) console.log(erri.sqlMessage);
@@ -204,253 +204,97 @@ sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${
 
 
 
-exports.pu_attn_stid_webapi_post=(req, res)=>{
-    const {domain, user_id, user, name, today, record_date, record_time}= req.body;
-    const todaym = new Date(today);
-    const currentDate= new Date().getDate();
-    const currentMonth = todaym.getMonth();
-    const currentYear = todaym.getFullYear();
-    const get_cal= currentMonth+'-'+currentYear;
-    const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
-    const attn_date= new Date().toDateString();
-    
-    sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${user_id}' AND record_time='${record_time}' ORDER BY at_date DESC`, 
-    (errf, infof)=>{
-    
-    if(infof.length>0){
-        null
-        console.log(`Last checkout: "${user} ${user_id} ${name} ${record_time} ${infof[0].checkout}"`);
-    }
-    
-    else{
-    
-    sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${user_id}' AND record_date='${record_date}' ORDER BY at_date DESC`, 
-    (errc, infoc)=>{
-     if(errc) console.log(errc.sqlMessage);
-    
-     else {
-       if(infoc.length>=2) {
-        null
-        console.log(`"HI, dear ${user} ${user_id} ${name} you are already checkout today!"`);
-       } 
-       
-       else if(infoc.length==0 || infoc.length==undefined){
+
+
+exports.pu_attn_checkout_webapi_absent=(req, res)=>{
+  const {domain, user_id, user, name, today, record_date, record_time}= req.body;
+  const todaym = new Date(today);
+  const currentDate= new Date().getDate();
+  const currentMonth = todaym.getMonth();
+  const currentYear = todaym.getFullYear();
+  const get_cal= currentMonth+'-'+currentYear;
+  const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
+  const attn_date= new Date().toDateString();
+  
+  sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${user_id}' AND record_time='${record_time}' ORDER BY at_date DESC`, 
+  (errf, infof)=>{
+  
+  if(infof.length>0){
+      null
+      // console.log(`Last checkout: "${user} ${user_id} ${name} ${record_time} ${infof[0].checkout}"`);
+  }
+  
+  else{
+  
+  sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${user_id}' AND record_date='${record_date}' ORDER BY at_date DESC`, 
+  (errc, infoc)=>{
+   if(errc) console.log(errc.sqlMessage);
+  
+   else {
+     if(infoc.length>=2) {
+      null
+      console.log(`"HI, dear ${user} ${user_id} ${name} you are already checkout today!"`);
+     } 
      
-        sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-        VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-in', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
-        
-        (erri, insert)=>{
-        if(erri) console.log(erri.sqlMessage);
-        else {
-            null
-            console.log(`"Congratulations! your are check-in, ${user} ${user_id} ${name} ${record_time}"`);
-        
-            }
-        })
-    
-       }
-    
-    
-          
-       else if(infoc.length==1 || infoc[0].take_time>get_time){
-     
-        sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, take_time, get_cal, find_date, attn_date,  record_date, record_time, year, month, day)
-        VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-out', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
-        
-        (erri, insert)=>{
-        if(erri) console.log(erri.sqlMessage);
-        else {
-        null
-        console.log(`"Thanks! your are check-out, ${user} ${user_id} ${name} ${record_time}"`);
-    
-        }
-        })
-    
-       }
-    
-       
-       else{
-        null 
-        console.log(`"HI, dear ${user} ${user_id} ${name} now you can check-out after  5 minutes for checkout!"`);
-    
-       }
-    
+     else if(infoc.length==0 || infoc.length==undefined){
+   
+      sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+      VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-in', 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
+      
+      (erri, insert)=>{
+      if(erri) console.log(erri.sqlMessage);
+      else {
+          null
+          console.log(`"Congratulations! your are check-in, ${user} ${user_id} ${today}"`);
+      
+          }
+      })
+  
      }
-    })
-    
-    }
-    
-    })
-    
-}
-    
+  
+  
+        
+     else if(infoc.length==1 && infoc[0].take_time>get_time){
+   
+      sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, at_status, take_time, get_cal, find_date, attn_date,  record_date, record_time, year, month, day)
+      VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-out', 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
+      
+      (erri, insert)=>{
+      if(erri) console.log(erri.sqlMessage);
+      else {
+      null
+      console.log(`"Thanks! your are check-out, ${user} ${user_id} ${today}"`);
+  
+      }
+      })
+  
+     }
+  
+     
+     else{
+      null 
+      // console.log(`"HI, dear ${user} ${user_id} you can check-out after 5 minutes for checkout!"`);
+  
+     }
+  
+   }
+  })
+  
+  }
+  
+  })
+  
+  }
 
 
 
 
-exports.pu_attn_fsid_webapi_post=(req, res)=>{
-        const {domain, user_id, user, name, today, record_date, record_time}= req.body;
-        const todaym = new Date(today);
-        const currentDate= new Date().getDate();
-        const currentMonth = todaym.getMonth();
-        const currentYear = todaym.getFullYear();
-        const get_cal= currentMonth+'-'+currentYear;
-        const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-        const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
-        const attn_date= new Date().toDateString();
-        
-        sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${user_id}' AND record_time='${record_time}' ORDER BY at_date DESC`, 
-        (errf, infof)=>{
-        
-        if(infof.length>0){
-            null
-            console.log(`Last checkout: "${user} ${user_id} ${name} ${record_time} ${infof[0].checkout}"`);
-        }
-        
-        else{
-        
-        sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${user_id}' AND record_date='${record_date}' ORDER BY at_date DESC`, 
-        (errc, infoc)=>{
-         if(errc) console.log(errc.sqlMessage);
-        
-         else {
-           if(infoc.length>=2) {
-            null
-            console.log(`"HI, dear ${user} ${user_id} ${name} you are already checkout today!"`);
-           } 
-           
-           else if(infoc.length==0 || infoc.length==undefined){
-         
-            sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-            VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-in', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
-            
-            (erri, insert)=>{
-            if(erri) console.log(erri.sqlMessage);
-            else {
-                null
-                console.log(`"Congratulations! your are check-in, ${user} ${user_id} ${name} ${record_time}"`);
-            
-                }
-            })
-        
-           }
-        
-        
+// SELECT name, student_uuid
+// FROM students WHERE EXISTS (SELECT user_id, checkout, record_time
+//               FROM attn_record
+//               WHERE students.student_uuid = attn_record.user_id);
               
-           else if(infoc.length==1 || infoc[0].take_time>get_time){
-         
-            sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, take_time, get_cal, find_date, attn_date,  record_date, record_time, year, month, day)
-            VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-out', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
-            
-            (erri, insert)=>{
-            if(erri) console.log(erri.sqlMessage);
-            else {
-            null
-            console.log(`"Thanks! your are check-out, ${user} ${user_id} ${name} ${record_time}"`);
-        
-            }
-            })
-        
-           }
-        
-           
-           else{
-            null 
-            console.log(`"HI, dear ${user} ${user_id} ${name} now you can check-out after  5 minutes for checkout!"`);
-        
-           }
-        
-         }
-        })
-        
-        }
-        
-        })
-        
-}
-
-
-
-
-exports.pu_attn_msid_webapi_post=(req, res)=>{
-    const {domain, user_id, user, name, today, record_date, record_time}= req.body;
-    const todaym = new Date(today);
-    const currentDate= new Date().getDate();
-    const currentMonth = todaym.getMonth();
-    const currentYear = todaym.getFullYear();
-    const get_cal= currentMonth+'-'+currentYear;
-    const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
-    const attn_date= new Date().toDateString();
-    
-    sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${user_id}' AND record_time='${record_time}' ORDER BY at_date DESC`, 
-    (errf, infof)=>{
-    
-    if(infof.length>0){
-        null
-        console.log(`Last checkout: "${user} ${user_id} ${name} ${record_time} ${infof[0].checkout}"`);
-    }
-    
-    else{
-    
-    sqlmap.query(`SELECT * FROM attn_record WHERE domain='${domain}' AND user_id='${user_id}' AND record_date='${record_date}' ORDER BY at_date DESC`, 
-    (errc, infoc)=>{
-     if(errc) console.log(errc.sqlMessage);
-    
-     else {
-       if(infoc.length>=2) {
-        null
-        console.log(`"HI, dear ${user} ${user_id} ${name} you are already checkout today!"`);
-       } 
-       
-       else if(infoc.length==0 || infoc.length==undefined){
-     
-        sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-        VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-in', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
-        
-        (erri, insert)=>{
-        if(erri) console.log(erri.sqlMessage);
-        else {
-            null
-            console.log(`"Congratulations! your are check-in, ${user} ${user_id} ${name} ${record_time}"`);
-        
-            }
-        })
-    
-       }
-    
-    
-          
-       else if(infoc.length==1 || infoc[0].take_time>get_time){
-     
-        sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, checkout, take_time, get_cal, find_date, attn_date,  record_date, record_time, year, month, day)
-        VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-out', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
-        
-        (erri, insert)=>{
-        if(erri) console.log(erri.sqlMessage);
-        else {
-        null
-        console.log(`"Thanks! your are check-out, ${user} ${user_id} ${name} ${record_time}"`);
-    
-        }
-        })
-    
-       }
-    
-       
-       else{
-        null 
-        console.log(`"HI, dear ${user} ${user_id} ${name} now you can check-out after  5 minutes for checkout!"`);
-    
-       }
-    
-     }
-    })
-    
-    }
-    
-    })
-    
-    }
-    
+              
+// SELECT name, student_uuid
+// FROM students WHERE student_uuid NOT IN (SELECT user_id FROM attn_record)
