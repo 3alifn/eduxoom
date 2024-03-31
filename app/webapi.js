@@ -49,6 +49,15 @@ if(getLast>0){
 }
 
 
+// const realTimeStart= "0800";
+// const realTimeEnd= "1000";
+// const nowTime= new Date().toTimeString().slice(0, 5).replace(":","")
+
+setTimeout(() => {
+  // attn_log_checkout('localhost', 'Student')
+}, 3000); // emit on after 3sec.........
+
+
 
 function attn_log_checkout(domain, user){
 
@@ -72,14 +81,6 @@ function attn_log_checkout(domain, user){
 });
 }
 
-
-// const realTimeStart= "0800";
-// const realTimeEnd= "1000";
-// const nowTime= new Date().toTimeString().slice(0, 5).replace(":","")
-
-setTimeout(() => {
-  // attn_log_checkout('localhost', 'students')
-}, 3000); // emit on after 3sec.........
 
 
 function abs_log_checkout(domain, user, name, user_id, today, record_date, record_time){
@@ -106,7 +107,7 @@ const session= new Date().getUTCFullYear();
 
 exports.pu_attn_checkout_logs= (req, res)=>{
   const {domain, user}= req.body;
-  sqlmap.query(`SELECT COUNT(ID) AS lastSync, user FROM attn_record WHERE Domain='${domain}' AND user='${user}'`, (err, checkout)=>{
+  sqlmap.query(`SELECT COUNT(ID) AS lastSync, user FROM attn_record WHERE Domain='${domain}' AND user='${user}' AND menual=null`, (err, checkout)=>{
    if(err) console.log(err.sqlMessage);
    else res.send({lastSyncData: checkout[0].lastSync})
   
@@ -125,6 +126,11 @@ const myMonth= ["January", "February", "March", "April", "May", "June", "July", 
 const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
 const attn_date= new Date().toDateString();
 
+const tbname= user=='Teacher'?'teachers':user=='Student'?'students':'staff'
+const colname= user=='Teacher'?'teacher_id':user=='Student'?'student_id':'staff_id'
+const user_uid= user=='Teacher'?'teacher_id':user=='Student'?'student_id':'staff_id'
+
+
 sqlmap.query(`SELECT user_id FROM attn_record WHERE domain='${domain}' AND user_id='${user_id}' AND record_date='${record_date}' ORDER BY at_date DESC`, 
 (errf, infof)=>{
 
@@ -142,39 +148,84 @@ sqlmap.query(`SELECT user_id FROM attn_record WHERE domain='${domain}' AND user_
  else {
    if(infoc.length>=2) {
     null
-    console.log(`"HI, dear ${user} ${user_id} ${name} you are already checkout today!"`);
+    // console.log(`"HI, dear ${user} ${user_id} ${name} you are already checkout today!"`);
    } 
    
-   else if(infoc.length==0 || infoc.length==undefined){
+  else if(infoc.length==0 || infoc.length==undefined){
  
-    sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-    VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-in', 1, 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
-    
-    (erri, insert)=>{
+sqlmap.query(`SELECT name, avatar, class, section, '${user_uid}'  FROM ${tbname} WHERE ${colname}=${user_id})`, 
+(erru, infou)=>{
+  if(erru) console.log(erru.sqlMessage);
+
+    if(tbname=='students') {
+      var sqli= 
+    `INSERT INTO attn_record (domain, session, class, section, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+    VALUES('${domain}', '${session}', '${infou[0].class}', '${infou[0].section}', '${user}', '${infou[0].student_id}', '${infou[0].name}', '${infou[0].avatar}', check-in, 1, 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
+    } else if(tbname=='teachers'){
+      var sqli= 
+      `INSERT INTO attn_record (domain, session, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+      VALUES('${domain}', '${session}', '${user}', '${infou[0].teacher_id}', '${infou[0].name}', ${infou[0].avatar}', check-in, 1, 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
+    } else {
+      var sqli= 
+      `INSERT INTO attn_record (domain, session, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+    VALUES('${domain}', '${session}', '${user}', '${infou[0].staff_id}', '${infou[0].name}', ${infou[0].avatar}', check-in, 1, 'present',  '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
+    }
+
+    sqlmap.query(sqli, (erri, insert)=>{
     if(erri) console.log(erri.sqlMessage);
-    else {
-        null
-        console.log(`"Congratulations! your are check-in, ${user} ${user_id} ${today}"`);
-    
-        }
+    else{
+      null
+      if(tbname=='teacher') console.log(`"present now! ${infof[0].name} ${infof[0].teacher_id} ${today}"`);
+      else if(tbname=='students') console.log(`"present now! ${infof[0].name}  ${infof[0].student_id} ${today}"`);
+      else console.log(`"present now! ${infof[0].name}  ${infof[0].staff_id} ${today}"`);
+  
+    } 
     })
+    
+   
+
+
+})
+
 
    }
 
 
       
-   else if(infoc.length==1 && infoc[0].take_time>get_time){
+   else if(1==0 && infoc.length==1 && infoc[0].take_time>get_time){
  
-    sqlmap.query(`INSERT INTO attn_record (domain, session, user, user_id, name, punch, checkout, at_status, take_time, get_cal, find_date, attn_date,  record_date, record_time, year, month, day)
-    VALUES('${domain}', '${session}', '${user}', '${user_id}', '${name}', 'check-out', 1, 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`, 
+    sqlmap.query(`SELECT name, avatar, '${user_uid}'  FROM ${tbname} WHERE ${colname}=${user_id})`, 
+    (erru, infou)=>{
+      if(erru) console.log(erru.sqlMessage);
     
-    (erri, insert)=>{
-    if(erri) console.log(erri.sqlMessage);
-    else {
-    null
-    console.log(`"Thanks! your are check-out, ${user} ${user_id} ${today}"`);
-
-    }
+        if(tbname=='students') {
+          var sqli= 
+        `INSERT INTO attn_record (domain, session, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+        VALUES('${domain}', '${session}', '${user}', '${infou[0].student_id}', '${infou[0].name}', '${infou[0].avatar}', check-out, 1, 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
+        } else if(tbname=='teachers'){
+          var sqli= 
+          `INSERT INTO attn_record (domain, session, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+          VALUES('${domain}', '${session}', '${user}', '${infou[0].teacher_id}', '${infou[0].name}', ${infou[0].avatar}', check-out, 1, 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
+        } else {
+          var sqli= 
+          `INSERT INTO attn_record (domain, session, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+        VALUES('${domain}', '${session}', '${user}', '${infou[0].staff_id}', '${infou[0].name}', ${infou[0].avatar}', check-out, 1, 'present',  '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
+        }
+    
+        sqlmap.query(sqli, (erri, insert)=>{
+        if(erri) console.log(erri.sqlMessage);
+        else{
+          null
+          if(tbname=='teacher') console.log(`"present now! ${infof[0].name} ${infof[0].teacher_id} ${today}"`);
+          else if(tbname=='students') console.log(`"present now! ${infof[0].name}  ${infof[0].student_id} ${today}"`);
+          else console.log(`"present now! ${infof[0].name}  ${infof[0].staff_id} ${today}"`);
+      
+        } 
+        })
+        
+       
+    
+    
     })
 
    }
@@ -211,9 +262,9 @@ exports.pu_attn_checkout_webapi_absent=(req, res)=>{
   const attn_date= new Date().toDateString();
   const tbname= user=='Teacher'?'teachers':user=='Student'?'students':'staff'
   const colname= user=='Teacher'?'teacher_id':user=='Student'?'student_id':'staff_id'
-  const selected= user=='Teacher'?'teacher_id':user=='Student'?'student_id':'staff_id'
+  const user_uid= user=='Teacher'?'teacher_id':user=='Student'?'student_id':'staff_id'
 
-  sqlmap.query(`SELECT name, '${selected}'  FROM ${tbname} WHERE ${colname} NOT IN (SELECT user_id FROM attn_record WHERE record_date='${record_date}')`, 
+  sqlmap.query(`SELECT name, avatar, '${user_uid}'  FROM ${tbname} WHERE ${colname} NOT IN (SELECT user_id FROM attn_record WHERE record_date='${record_date}')`, 
   (errf, infof)=>{
     if(errf) console.log(errf.sqlMessage);
 
@@ -221,16 +272,16 @@ exports.pu_attn_checkout_webapi_absent=(req, res)=>{
       
       if(tbname=='students') {
         var sqli= 
-      `INSERT INTO attn_record (domain, session, user, user_id, name, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-      VALUES('${domain}', '${session}', '${user}', '${infof[index].student_id}', '${infof[index].name}', null, 0, 'absent', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
+      `INSERT INTO attn_record (domain, session, class, section, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+      VALUES('${domain}', '${session}', '${infof[index].class}', '${infof[index].section}', '${user}', '${infof[index].student_id}', '${infof[index].name}', '${infof[index].avatar}', null, 0, 'absent', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
       } else if(tbname=='teachers'){
         var sqli= 
-        `INSERT INTO attn_record (domain, session, user, user_id, name, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-        VALUES('${domain}', '${session}', '${user}', '${infof[index].teacher_id}', '${infof[index].name}', null, 0, 'absent', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
+        `INSERT INTO attn_record (domain, session, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+        VALUES('${domain}', '${session}', '${user}', '${infof[index].teacher_id}', '${infof[index].name}', '${infof[index].avatar}', null, 0, 'absent', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
       } else {
         var sqli= 
-        `INSERT INTO attn_record (domain, session, user, user_id, name, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-      VALUES('${domain}', '${session}', '${user}', '${infof[index].staff_id}', '${infof[index].name}',  null, 0, 'absent',  '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
+        `INSERT INTO attn_record (domain, session, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
+      VALUES('${domain}', '${session}', '${user}', '${infof[index].staff_id}', '${infof[index].name}', '${infof[index].avatar}', null, 0, 'absent',  '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
       }
 
       sqlmap.query(sqli, (erri, insert)=>{

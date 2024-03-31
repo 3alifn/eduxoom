@@ -110,7 +110,7 @@ function checkout_class(){
     success: function (res) {
   
       for (const index in res.info) {
-        $(`.${res.info[index].checkout}_${res.info[index].student_id}`).addClass('disabled border-light');
+        $(`.${res.info[index].checkout}_${res.info[index].user_id}`).addClass('disabled border-light');
       }
 
     }
