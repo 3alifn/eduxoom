@@ -61,7 +61,7 @@
                 <div class="d-flex p-1  justify-content-center align-content-center align-items-center">
               
                   <code>Last checkout</code>
-                  <code class="checkout_<%=info[index].student_uuid%> ps-1">
+                  <code class="checkout_<%=info[index].student_id%> ps-1">
                     <span class="spinner-border spinner-border-sm"></span>
 
                   </code>
@@ -70,13 +70,13 @@
 
 
                 <div  class="d-flex  justify-content-center align-content-center align-items-center">
-                  <button onclick="att_post_def('<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>', 0)"
+                  <button onclick="att_post_def('<%=info[index].student_id%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>', 0)"
                     
-                    class="0_<%=info[index].student_uuid%> btn btn-light fw-semibold text-danger bi bi-calendar-x border border-3 btn-sm pt-0 pb-0 fw-semibold"> Absent</button>
+                    class="0_<%=info[index].student_id%> btn btn-light fw-semibold text-danger bi bi-calendar-x border border-3 btn-sm pt-0 pb-0 fw-semibold"> Absent</button>
                  
-                    <button onclick="att_post_def('<%=info[index].student_uuid%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>', 1)"
+                    <button onclick="att_post_def('<%=info[index].student_id%>', '<%=info[index].name%>', '<%=info[index].roll%>', '<%=info[index].avatar%>', 1)"
                     
-                    class="1_<%=info[index].student_uuid%> btn btn-light fw-semibold text-primary bi bi-calendar-check  border border-3 btn-sm pt-0 pb-0 ms-1 fw-semibold"> Present</button>
+                    class="1_<%=info[index].student_id%> btn btn-light fw-semibold text-primary bi bi-calendar-check  border border-3 btn-sm pt-0 pb-0 ms-1 fw-semibold"> Present</button>
                 </div>
 
               </div>
@@ -91,7 +91,7 @@
         </div>
 
  <% for( let index = 0; index < infoS.length; index++ ) { %>
- <input class="student<%=index%>" value="<%=infoS[index].student_uuid%>" type="hidden" name="">
+ <input class="student<%=index%>" value="<%=infoS[index].student_id%>" type="hidden" name="">
  <% } %>
 </body>
 
@@ -110,7 +110,7 @@ function checkout_class(){
     success: function (res) {
   
       for (const index in res.info) {
-        $(`.${res.info[index].checkout}_${res.info[index].student_uuid}`).addClass('disabled border-light');
+        $(`.${res.info[index].checkout}_${res.info[index].student_id}`).addClass('disabled border-light');
       }
 
     }
@@ -118,13 +118,13 @@ function checkout_class(){
 }
 checkout_class()
 
-function checkout_last_five(student_uuid){
+function checkout_last_five(student_id){
   const class_name = `<%=class_name%>`;
   const section_name = `<%=section_name%>`;
   $.ajax({
     type: "POST",
     url: "/teacher/attn/checkout/pull/last/five",
-    data: {class_name, section_name, student_uuid},
+    data: {class_name, section_name, student_id},
     dataType: "JSON",
     success: function (res) {
       var htmldata='';
@@ -135,7 +135,7 @@ function checkout_last_five(student_uuid){
        if(res.info[0]==undefined){
         null
        }
-       else $(`.checkout_${res.info[0].student_uuid}`).html(htmldata)
+       else $(`.checkout_${res.info[0].student_id}`).html(htmldata)
 
         
     }
@@ -239,19 +239,19 @@ $('#syncTime').html(`<code>${Today}</code>`)
 
 
 
-function att_post_def(student_uuid, name, roll, avatar, checkout){
+function att_post_def(student_id, name, roll, avatar, checkout){
     const class_name = `<%=class_name%>`;
     const section_name = `<%=section_name%>`;
     $.ajax({
     type: "POST",
     url: "/teacher/attn/post/",
-    data: {class_name, section_name, student_uuid, name, roll, avatar, checkout},
+    data: {class_name, section_name, student_id, name, roll, avatar, checkout},
     dataType: "JSON",
     success: function (res) {
       if(res.att==true){
-        $(`.0_${student_uuid}`).removeClass('disabled border-light');
-        $(`.1_${student_uuid}`).removeClass('disabled border-light');
-        $(`.${checkout}_${student_uuid}`).addClass('disabled border-light');
+        $(`.0_${student_id}`).removeClass('disabled border-light');
+        $(`.1_${student_id}`).removeClass('disabled border-light');
+        $(`.${checkout}_${student_id}`).addClass('disabled border-light');
        
       }
     }

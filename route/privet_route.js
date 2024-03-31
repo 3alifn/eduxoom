@@ -29,7 +29,7 @@ privet.all('*', (req, res, next)=>{
 // attendance router......
 privet.get('/attn/repo/init/page/', privet_attn_init_page)
 privet.get('/attn/repo/page/:class_name/:section_name/', privet_attn_repo_page) 
-privet.get('/attn/student/calendar/:class_name/:section_name/:student_uuid/', privet_attn_student_calendar) 
+privet.get('/attn/student/calendar/:class_name/:section_name/:student_id/', privet_attn_student_calendar) 
 privet.post('/attn/repo/page/num/', privet_attn_repo_page_num) 
 privet.post('/attn/repo/find/', privet_attn_repo_find) 
 privet.post('/attn/calendar/checkout/', privet_attn_calendar_checkout) 

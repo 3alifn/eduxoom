@@ -10,15 +10,15 @@ exports.teacher_attn_init_page= (req, res)=>{
 
 exports.teacher_attn_post_page= (req, res)=>{
  const {class_name, section_name}= req.params;
- sqlmap.query(`SELECT student_uuid FROM students 
- WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' GROUP BY student_uuid ORDER BY roll`,
+ sqlmap.query(`SELECT student_id FROM students 
+ WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' GROUP BY student_id ORDER BY roll`,
  (errS, infoS)=>{
     if(errS) console.log(errS.sqlMessage);
     const infoSLen= infoS.length;
 
-    sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll FROM students 
+    sqlmap.query(`SELECT ID, student_id, avatar, name, roll FROM students 
     WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' 
-    GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
+    GROUP BY student_id ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
        if(err) console.log(err.sqlMessage);
        else {
            res.render('attn/attn_post_page_teacher', {info, infoS, infoSLen, class_name, section_name})
@@ -31,9 +31,9 @@ exports.teacher_attn_post_page= (req, res)=>{
 exports.teacher_attn_post_page_num= (req, res)=>{
  const {class_name, section_name, offset}= req.body; 
 //  console.log(offset*20);
- sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll FROM students 
+ sqlmap.query(`SELECT ID, student_id, avatar, name, roll FROM students 
  WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' 
- GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET ${offset*20}`, (err, info)=>{
+ GROUP BY student_id ORDER BY roll LIMIT 20 OFFSET ${offset*20}`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     else {
         if(info.length>0){
@@ -51,7 +51,7 @@ exports.teacher_attn_post_page_num= (req, res)=>{
                  <div class="d-flex p-1  justify-content-center align-content-center align-items-center">
               
                  <code>Last checkout</code>
-                 <code class="checkout_${info[index].student_uuid} ps-1">
+                 <code class="checkout_${info[index].student_id} ps-1">
                    <span class="spinner-border spinner-border-sm"></span>
 
                  </code>
@@ -59,13 +59,13 @@ exports.teacher_attn_post_page_num= (req, res)=>{
                </div>
 
                  <div class="d-flex  justify-content-center align-content-center align-items-center">
-                 <button onclick="att_post_def('${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}', 0)"
+                 <button onclick="att_post_def('${info[index].student_id}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}', 0)"
                    
-                   class="0_${info[index].student_uuid} btn btn-light fw-semibold text-danger bi bi-calendar-x border border-3 btn-sm pt-0 pb-0 fw-semibold"> Absent</button>
+                   class="0_${info[index].student_id} btn btn-light fw-semibold text-danger bi bi-calendar-x border border-3 btn-sm pt-0 pb-0 fw-semibold"> Absent</button>
                 
-                   <button onclick="att_post_def('${info[index].student_uuid}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}', 1)"
+                   <button onclick="att_post_def('${info[index].student_id}', '${info[index].name}', '${info[index].roll}', '${info[index].avatar}', 1)"
                    
-                   class="1_${info[index].student_uuid} btn btn-light fw-semibold text-primary bi bi-calendar-check  border border-3 btn-sm pt-0 pb-0 ms-1 fw-semibold"> Present</button>
+                   class="1_${info[index].student_id} btn btn-light fw-semibold text-primary bi bi-calendar-check  border border-3 btn-sm pt-0 pb-0 ms-1 fw-semibold"> Present</button>
                </div>
 
                </div>
@@ -85,8 +85,7 @@ exports.teacher_attn_post_page_num= (req, res)=>{
 
 
 exports.teacher_attn_post= (req, res)=>{
-    const teacher_uuid= req.session.teacher_uuid;
-    const {class_name, section_name, student_uuid, name, roll, avatar, checkout}= req.body;
+    const {class_name, section_name, student_id, name, roll, avatar, checkout}= req.body;
     const today = new Date();
     const currentDate= new Date().getDate();
     const currentMonth = today.getMonth();
@@ -96,17 +95,17 @@ exports.teacher_attn_post= (req, res)=>{
     const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
     const attn_date= new Date().toDateString();
     const at_status= checkout==1?'present':'absent'
-    sqlmap.query(`SELECT student_uuid, teacher_uuid, find_date, attn_date
-    FROM attn_student WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'
+    sqlmap.query(`SELECT student_id, find_date, attn_date
+    FROM attn_student WHERE domain='${req.hostname}'  AND student_id='${student_id}' AND find_date='${find_date}'
     ORDER BY ID DESC`, (errf, find)=>{
         if(errf) console.log(errf.sqlMessage);
         if(find.length>0){
        
-      sqlmap.query(`UPDATE attn_student SET checkout=${checkout}, at_status='${at_status}' WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}' AND student_uuid='${student_uuid}' AND find_date='${find_date}'`,
+      sqlmap.query(`UPDATE attn_student SET checkout=${checkout}, at_status='${at_status}' WHERE domain='${req.hostname}' AND student_id='${student_id}' AND find_date='${find_date}'`,
         (erru, up)=>{
             if(erru) console.log(erru.sqlMessage);
             // else console.log('updated...');
-            student_rank_mark_attn(req.hostname, class_name, section_name, student_uuid, at_status)
+            student_rank_mark_attn(req.hostname, class_name, section_name, student_id, at_status)
 
             res.send({att: true})
         })
@@ -114,13 +113,13 @@ exports.teacher_attn_post= (req, res)=>{
         }else {
       
             sqlmap.query(`
-            INSERT INTO attn_student (domain, session, get_cal, attn_date, find_date, checkout, at_status, class, section, teacher_uuid, student_uuid, name, roll, avatar, year, month, day)
+            INSERT INTO attn_student (domain, session, get_cal, attn_date, find_date, checkout, at_status, class, section, student_id, name, roll, avatar, year, month, day)
             
-            VALUES('${req.hostname}', '${currentYear}', '${get_cal}', '${attn_date}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}', '${teacher_uuid}',
-            '${student_uuid}', '${name}', '${roll}', '${avatar}', '${currentYear}', '${currentMonth}', '${currentDate}')`, (erri, inser)=>{
+            VALUES('${req.hostname}', '${currentYear}', '${get_cal}', '${attn_date}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}',
+            '${student_id}', '${name}', '${roll}', '${avatar}', '${currentYear}', '${currentMonth}', '${currentDate}')`, (erri, inser)=>{
                 if(erri) console.log(erri.sqlMessage);
                 else {
-                    student_rank_mark_attn(req.hostname, class_name, section_name, student_uuid, at_status)
+                    student_rank_mark_attn(req.hostname, class_name, section_name, student_id, at_status)
                     // console.log('inserted...');
                      res.send({att: true})
 
@@ -135,11 +134,10 @@ exports.teacher_attn_post= (req, res)=>{
 
 
 exports.teacher_attn_checkout= (req, res)=>{
-    const teacher_uuid= req.session.teacher_uuid;
     const {class_name, section_name}= req.body;
     const attn_date= new Date().toDateString();
    
-    sqlmap.query(`SELECT student_uuid, checkout, attn_date FROM attn_student WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
+    sqlmap.query(`SELECT student_id, checkout, attn_date FROM attn_student WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
     AND attn_date='${attn_date}'`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else res.send({info})
@@ -148,10 +146,9 @@ exports.teacher_attn_checkout= (req, res)=>{
    }
 
 exports.teacher_attn_checkout_last_five= (req, res)=>{
-    const teacher_uuid= req.session.teacher_uuid;
-    const {class_name, section_name, student_uuid}= req.body;
-    sqlmap.query(`SELECT student_uuid, checkout, attn_date FROM attn_student WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
-    AND student_uuid='${student_uuid}' ORDER BY at_date LIMIT 5`, (err, info)=>{
+    const {class_name, section_name, student_id}= req.body;
+    sqlmap.query(`SELECT student_id, checkout, attn_date FROM attn_student WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
+    AND student_id='${student_id}' ORDER BY at_date LIMIT 5`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else {
             res.send({info})
@@ -176,9 +173,9 @@ exports.privet_attn_repo_page= (req, res)=>{
  (errf, infof)=>{
  if(errf) console.log(errf.sqlMessage);
   const get_attn_date= infof[0].attn_date;
-  sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn_student
+  sqlmap.query(`SELECT ID, student_id, avatar, name, roll, checkout, at_status FROM attn_student
   WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}'
-   AND attn_date='${get_attn_date}' GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
+   AND attn_date='${get_attn_date}' GROUP BY student_id ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
      if(err) console.log(err.sqlMessage);
      else  {
          res.render('attn/attn_repo_page_privet', {info, get_attn_date, class_name, section_name})
@@ -197,16 +194,16 @@ exports.privet_attn_repo_page= (req, res)=>{
 exports.privet_attn_repo_page_num= (req, res)=>{
     const {class_name, section_name, offset, find_date}= req.body; 
     const attn_date=find_date;
-    sqlmap.query(`SELECT ID, student_uuid, avatar, name, checkout, at_status, roll FROM attn_student
+    sqlmap.query(`SELECT ID, student_id, avatar, name, checkout, at_status, roll FROM attn_student
     WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
-    GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET ${offset*20}`, (err, info)=>{
+    GROUP BY student_id ORDER BY roll LIMIT 20 OFFSET ${offset*20}`, (err, info)=>{
        if(err) console.log(err.sqlMessage);
        else {
            if(info.length>0){
                var htmldata= '';
                for (let index = 0; index < info.length; index++) {
                   htmldata+=` 
-                  <a href="/privet/attn/student/calendar/${class_name}/${section_name}/${info[index].student_uuid}">
+                  <a href="/privet/attn/student/calendar/${class_name}/${section_name}/${info[index].student_id}">
                   <div class="student-card findcard pt-1 pb-1 shadowx">
                   <div class="d-flex  justify-content-start align-content-center align-items-center">
                
@@ -242,16 +239,16 @@ exports.privet_attn_repo_page_num= (req, res)=>{
 exports.privet_attn_repo_find= (req, res)=>{
     const {class_name, section_name, find_date}= req.body; 
     const attn_date=find_date;
-    sqlmap.query(`SELECT ID, student_uuid, avatar, name, checkout, at_status, roll FROM attn_student
+    sqlmap.query(`SELECT ID, student_id, avatar, name, checkout, at_status, roll FROM attn_student
     WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND attn_date='${attn_date}'
-    GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
+    GROUP BY student_id ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
        if(err) console.log(err.sqlMessage);
        else {
            if(info.length>0){
                var htmldata= '';
                for (let index = 0; index < info.length; index++) {
                   htmldata+=` 
-                  <a href="/privet/attn/student/calendar/${class_name}/${section_name}/${info[index].student_uuid}">         
+                  <a href="/privet/attn/student/calendar/${class_name}/${section_name}/${info[index].student_id}">         
                   <div class="student-card findcard pt-1 pb-1 shadowx">
                   <div class="d-flex  justify-content-start align-content-center align-items-center">
                
@@ -287,14 +284,14 @@ exports.privet_attn_repo_find= (req, res)=>{
 
 
 exports.privet_attn_student_calendar= (req, res)=>{
-    const {class_name, section_name, student_uuid}= req.params;
-    sqlmap.query(`SELECT ID, student_uuid, avatar, name, roll, checkout, at_status FROM attn_student
-    WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND student_uuid='${student_uuid}'`,
+    const {class_name, section_name, student_id}= req.params;
+    sqlmap.query(`SELECT ID, student_id, avatar, name, roll, checkout, at_status FROM attn_student
+    WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND student_id='${student_id}'`,
      (err, info)=>{
        if(err) console.log(err.sqlMessage);
        else  {
         if(info.length>0){
-            res.render('attn/attn_student_calendar_privet', {info, class_name, section_name, student_uuid})
+            res.render('attn/attn_student_calendar_privet', {info, class_name, section_name, student_id})
         } else res.redirect('/pages/empty.html')
        }
     })
@@ -305,16 +302,16 @@ exports.privet_attn_student_calendar= (req, res)=>{
 
 
 exports.privet_attn_calendar_checkout= (req, res)=>{
-    const {class_name, section_name, student_uuid, get_cal}= req.body;
+    const {class_name, section_name, student_id, get_cal}= req.body;
     sqlmap.query(`SELECT COUNT(CASE checkout WHEN 1 THEN 1 ELSE null END) AS present, COUNT(CASE checkout WHEN 0 THEN 1 ELSE null END) AS absent FROM attn_student WHERE domain='${req.hostname}'
-     AND  class='${class_name}' AND section='${section_name}' AND student_uuid='${student_uuid}' AND get_cal='${get_cal}'`, 
+     AND  class='${class_name}' AND section='${section_name}' AND student_id='${student_id}' AND get_cal='${get_cal}'`, 
     (errc, cal)=>{
         if(errc) console.log(errc.sqlMessage);
         else { 
            const present= cal[0].present;
            const absent= cal[0].absent;
             sqlmap.query(`SELECT find_date, get_cal, checkout FROM attn_student WHERE domain='${req.hostname}'
-            AND  class='${class_name}' AND section='${section_name}' AND student_uuid='${student_uuid}' AND get_cal='${get_cal}' ORDER BY day`, 
+            AND  class='${class_name}' AND section='${section_name}' AND student_id='${student_id}' AND get_cal='${get_cal}' ORDER BY day`, 
            (err, info)=>{
                if(err) console.log(err.sqlMessage);
                else { 
@@ -340,32 +337,33 @@ exports.privet_attn_calendar_checkout= (req, res)=>{
 
 
 
-function student_rank_mark_attn(domain, class_name, section_name, student_uuid, at_status){
-         const session= new Date().getUTCFullYear();
-         const find_date = new Date().toLocaleDateString();
-         const rank_date= new Date().toDateString();
-         
-         sqlmap.query(`SELECT ${at_status} FROM student_rank WHERE domain='${domain}' AND class='${class_name}' AND section='${section_name}' AND student_uuid=${student_uuid} ORDER BY ${at_status} DESC LIMIT 1`, 
+function student_rank_mark_attn(domain, class_name, section_name, student_id, at_status){
+ 
+        
+         sqlmap.query(`SELECT ${at_status} FROM student_rank WHERE domain='${domain}' AND class='${class_name}' AND section='${section_name}' AND student_id='${student_id}' ORDER BY ${at_status} DESC LIMIT 1`, 
          (errf, infof)=>{
             if(errf) console.log(errf.sqlMessage+' errf');
      
             else 
             {
-              if(at_status=='present'){
-                var marked= infof[0].present==undefined?1:parseFloat(infof[0].present)+parseFloat(1);
-              } else var marked= infof[0].absent==undefined?1:parseFloat(infof[0].present)+parseFloat(1);
-
-              sqlmap.query(`UPDATE student_rank SET ${at_status}=${marked} WHERE domain='${domain}'  AND class='${class_name}' AND section='${section_name}' AND  student_uuid=${student_uuid}`,
-               (erru, infou)=>{
-  
-                if(erru) console.log(erru.sqlMessage+' erru');
-      
-                else {
-                //   console.log('marked...');
-                //   res.send({msg: true})
+            
+                if(infof.length>0){
+                    if(at_status=='present'){
+                        var marked= infof[0].present==undefined?1:parseFloat(infof[0].present)+parseFloat(1);
+                      } else var marked= infof[0].absent==undefined?1:parseFloat(infof[0].present)+parseFloat(1);
+        
+                      sqlmap.query(`UPDATE student_rank SET ${at_status}=${marked} WHERE domain='${domain}'  AND class='${class_name}' AND section='${section_name}' AND  student_id='${student_id}'`,
+                       (erru, infou)=>{
+          
+                        if(erru) console.log(erru.sqlMessage+' erru');
+              
+                        else {
+                        //   console.log('marked...');
+                        //   res.send({msg: true})
+                        }
+              
+                      })
                 }
-      
-              })
   
             }
   

@@ -39,7 +39,7 @@
         
                 <p class="fw-semibold p-2 border"><%=class_name%> - <%=section_name%></p>
                 <p class="fw-semibold p-2 border">Roll: <%=info[0].roll%></p>
-                <p class="fw-semibold p-2 border">SID: <%=info[0].student_uuid%></p>
+                <p class="fw-semibold p-2 border">SID: <%=info[0].student_id%></p>
 
               </div>
 
@@ -102,11 +102,11 @@ function calendar_checkout(month, year){
 const get_cal= month+'-'+year;
 const class_name = `<%=class_name%>`;
 const section_name = `<%=section_name%>`;
-const student_uuid = `<%=student_uuid%>`;
+const student_id = `<%=student_id%>`;
 $.ajax({
   type: "post",
   url: "/privet/attn/calendar/checkout/",
-  data: {get_cal, class_name, section_name, student_uuid },
+  data: {get_cal, class_name, section_name, student_id },
   dataType: "JSON",
   beforeSend: ()=>{
     $('#presentid').text('Present= '+ 0)

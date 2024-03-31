@@ -112,7 +112,7 @@ const {class_name, section_name, offset}= req.body;
 
 
 exports.teacher_rank_mark_post= (req, res)=>{
- const {class_name, section_name, column, cls, mark, sid, roll, name, avatar}= req.body;
+ const {class_name, section_name, column, cls, mark, sid, student_id, roll, name, avatar}= req.body;
   const defaultNumber= 1;
   const checkout= cls+'_'+sid;
   const teacher_uuid= req.session.teacher_uuid;
@@ -123,7 +123,7 @@ exports.teacher_rank_mark_post= (req, res)=>{
     if(err) console.log(err.sqlMessage);
     if(info.length==0)
     {
-        sqlmap.query(`INSERT INTO student_rank (domain, session, checkout, find_date, rank_date, ${column}, teacher_uuid, student_uuid, class, section, roll, name, avatar) 
+        sqlmap.query(`INSERT INTO student_rank (domain, session, checkout, find_date, rank_date, ${column}, teacher_uuid, student_uuid, student_id, class, section, roll, name, avatar) 
         VALUES(
         '${req.hostname}',
          ${session},
@@ -133,6 +133,7 @@ exports.teacher_rank_mark_post= (req, res)=>{
            ${defaultNumber},
           ${teacher_uuid},
           ${sid},
+          ${student_id},
           '${class_name}',
           '${section_name}',
           ${roll},
