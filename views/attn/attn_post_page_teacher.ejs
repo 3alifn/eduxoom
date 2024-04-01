@@ -132,10 +132,9 @@ function checkout_last_five(student_id){
         htmldata+= `<span class="fw-semibold ${res.info[index].checkout==1? "text-primary bi bi-calendar-check":" text-danger bi bi-calendar-x"} b-1 ms-1 fw-semibold"></span>`
 
       }
-       if(res.info[0]==undefined){
-        null
-       }
-       else $(`.checkout_${res.info[0].student_id}`).html(htmldata)
+       if(res.info[0]==undefined) null;
+        
+       else $(`.checkout_${res.info[0].user_id}`).html(htmldata)
 
         
     }

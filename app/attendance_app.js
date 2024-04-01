@@ -10,7 +10,7 @@ exports.teacher_attn_init_page= (req, res)=>{
 
 exports.teacher_attn_post_page= (req, res)=>{
  const {class_name, section_name}= req.params;
- sqlmap.query(`SELECT student_id, student_uuid, FROM students 
+ sqlmap.query(`SELECT ID, student_id, student_uuid FROM students 
  WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' GROUP BY student_id ORDER BY roll`,
  (errS, infoS)=>{
     if(errS) console.log(errS.sqlMessage);
@@ -86,7 +86,7 @@ exports.teacher_attn_post_page_num= (req, res)=>{
 
 exports.teacher_attn_post= (req, res)=>{
     const {class_name, section_name, student_id, name, roll, avatar, checkout}= req.body;
-    const today = new Date();
+    const today = new Date(); 
     const currentDate= new Date().getDate();
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
@@ -95,7 +95,7 @@ exports.teacher_attn_post= (req, res)=>{
     const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
     const attn_date= new Date().toDateString();
     const at_status= checkout==1?'present':'absent'
-    sqlmap.query(`SELECT user_id, find_date, attn_date FROM attn_record WHERE domain='${req.hostname}' AND user='Student'  AND student_id='${student_id}' AND find_date='${find_date}' ORDER BY id DESC`, (errf, find)=>{
+    sqlmap.query(`SELECT user_id, find_date, attn_date FROM attn_record WHERE domain='${req.hostname}' AND user='Student' AND user_id='${student_id}' AND find_date='${find_date}' ORDER BY id DESC`, (errf, find)=>{
         if(errf) console.log(errf.sqlMessage);
         if(find.length>0){
        
@@ -281,7 +281,7 @@ exports.privet_attn_repo_find= (req, res)=>{
 
 
 
-exports.privet_attn_record_calendar= (req, res)=>{
+exports.privet_attn_student_calendar= (req, res)=>{
     const {class_name, section_name, student_id}= req.params;
     sqlmap.query(`SELECT id, user_id, avatar, name, roll, checkout, at_status FROM attn_record
     WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND user_id='${student_id}'`,
@@ -336,8 +336,7 @@ exports.privet_attn_calendar_checkout= (req, res)=>{
 
 
 function student_rank_mark_attn(domain, class_name, section_name, student_id, at_status){
- 
-        
+   
          sqlmap.query(`SELECT ${at_status} FROM student_rank WHERE domain='${domain}' AND class='${class_name}' AND section='${section_name}' AND student_id='${student_id}' ORDER BY ${at_status} DESC LIMIT 1`, 
          (errf, infof)=>{
             if(errf) console.log(errf.sqlMessage+' errf');
@@ -348,7 +347,7 @@ function student_rank_mark_attn(domain, class_name, section_name, student_id, at
                 if(infof.length>0){
                     if(at_status=='present'){
                         var marked= infof[0].present==undefined?1:parseFloat(infof[0].present)+parseFloat(1);
-                      } else var marked= infof[0].absent==undefined?1:parseFloat(infof[0].present)+parseFloat(1);
+                      } else var marked= infof[0].absent==undefined?1:parseFloat(infof[0].absent)+parseFloat(1);
         
                       sqlmap.query(`UPDATE student_rank SET ${at_status}=${marked} WHERE domain='${domain}'  AND class='${class_name}' AND section='${section_name}' AND  student_id='${student_id}'`,
                        (erru, infou)=>{
