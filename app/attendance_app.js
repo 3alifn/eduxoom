@@ -169,16 +169,19 @@ exports.privet_attn_repo_page= (req, res)=>{
  const attn_date= new Date().toDateString();
  sqlmap.query(`SELECT user_id, attn_date FROM attn_record WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' ORDER BY at_date DESC LIMIT 1`,
  (errf, infof)=>{
+    
  if(errf) console.log(errf.sqlMessage);
+ if(infof.length>0){
   const get_attn_date= infof[0].attn_date;
   sqlmap.query(`SELECT id, user_id, avatar, name, roll, checkout, at_status FROM attn_record
   WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}'
    AND attn_date='${get_attn_date}' GROUP BY user_id ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
      if(err) console.log(err.sqlMessage);
-     else  {
-         res.render('attn/attn_repo_page_privet', {info, get_attn_date, class_name, section_name})
-     }
+     else res.render('attn/attn_repo_page_privet', {info, get_attn_date, class_name, section_name})
+
+     
   })
+} else res.redirect('/pages/empty.html')
 
  })
 
