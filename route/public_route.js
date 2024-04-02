@@ -23,9 +23,7 @@ const public= express.Router()
 
 // test router system......
 public.post('/test-webapi/', (req, res)=>{
-const {domain}= req.body;
-console.log(domain);
-res.json({msg: 200})
+  res.json({msg: req.body, status: '200'});
 })
 
 

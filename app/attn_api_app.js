@@ -1,162 +1,15 @@
 const { json } = require("body-parser");
-const {app, express, dotenv, nodemailer, mysql, sqlmap, multer, createHmac, randomBytes, fs, path} = require("../server")
+const {app, express, mysql, sqlmap, createHmac, randomBytes, fs, path} = require("../server")
 
-const {Timer, axios, ZKLib}= require('../server');
-
-const zkteco = async(param) => {
-    let zkInstance = new ZKLib('192.168.1.201', 4370, 5200, 5000);
-    try {
-        // Create socket to machine
-        await zkInstance.createSocket()
-        // get total attendance data    
-        const logs = await zkInstance.getAttendances()
-        // console.log(await zkInstance.getInfo());
-       const getLast= logs.data.length;
-       const domain= 'localhost';
-       const data= logs.data;
-       const user= 'Student';
-       const name= 'Fingerprint';
-const lastSyncData = fs.readFileSync('./data.js', 'utf8');
-const abs_count= Math.abs(getLast - lastSyncData)
-
-// console.log( 'TOTAL ATTN LOGS IN MACHINE CAPACITY '+getLast);
-// console.log( 'ATTN LOGS LAST SYNC DATA '+lastSyncData);
-// console.log( 'DIFF ATTN LOGS BETWEEN DATABASE AND MACHINE CAPACITY '+abs_count);
-// console.log('=================================================================');
-if(getLast>lastSyncData && param=='abs_log_checkout'){
-  for (let index = getLast-abs_count; index < getLast; index++) {
-    const user_id= data[index].deviceUserId;
-    const today= data[index].recordTime;
-    const record_date= data[index].recordTime.slice(0, 15);
-    const record_time= data[index].recordTime.slice(0, 24);
-    // console.log(user_id);    
-    abs_log_checkout(domain, user, name, user_id, today, record_date, record_time);
-  }
-}
-
-
-if(getLast>0){
-  fs.writeFileSync('./data.js', JSON.stringify(getLast));
-}
-
-      } catch (e) {
-        console.log(e)
-        if (e.code === 'EADDRINUSE') {
-        }
-    }
-
-}
 
 const get_time= new Date().getTime();
 const five_min= 300000;
 const session= new Date().getUTCFullYear();
 
-const checkinTime= "0800";
-const checkoutTime= "1000";
-const realTime= new Date().toTimeString().slice(0, 5).replace(":","")
-
-// attn_checkout_webapi_absent_student('localhost', 'Student', 'Fingerprint')
-
-setTimeout(() => {
-  // attn_log_checkout('localhost', 'Student')
-}, 3000); // emit on after 3sec.........
-
-
-function attn_log_checkout(domain, user){
-
-  axios.post('http://localhost:30/pu/attn-checkout-webapi/', {
-  domain, user
-}).then((response) => {
-  const getLast= response.data.lastSyncData;
-
-  setInterval(() => {
-    zkteco('abs_log_checkout')
-  }, 5000); // emit on after 5sec.........
-
-const lastSyncData = fs.readFileSync('./data.js', 'utf8');
-const abs_count= Math.abs(getLast - lastSyncData)
-console.log('TOTAL ATTN LOGS IN DATABASE '+ parseInt(getLast));
-console.log( 'TOTAL ATTN LOGS IN MACHINE CAPACITY '+parseInt(lastSyncData));
-console.log( 'DIFF ATTN LOGS BETWEEN DATABASE AND MACHINE CAPACITY '+parseInt(abs_count));
-console.log('=================================================================');
-
-fs.writeFileSync('./data.js', JSON.stringify(getLast));
-
-
-
-})
-.catch((error) => {
-  console.error(error);
-});
-}
-
-
-
-function abs_log_checkout(domain, user, name, user_id, today, record_date, record_time){
-
-  axios.post('http://localhost:30/pu/attn-present-webapi/', {
-  domain, user, name, user_id, today, record_date, record_time
-})
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-
-
-}
-
-
-
-function attn_checkout_webapi_absent_teacher(domain, user, name){
-
-  axios.post('http://localhost:30/pu/attn-absent-webapi/teacher/', {
-  domain, user, name
-})
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-}
-    
-
-function attn_checkout_webapi_absent_staff(domain, user, name){
-
-  axios.post('http://localhost:30/pu/attn-absent-webapi/staff/', {
-  domain, user, name
-})
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-}
-
-
-
-function attn_checkout_webapi_absent_student(domain, user, name){
-
-  axios.post('http://localhost:30/pu/attn-absent-webapi/student/', {
-  domain, user, name
-})
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-}
-
-
 
 exports.pu_attn_checkout_logs= (req, res)=>{
   const {domain, user}= req.body;
-  sqlmap.query(`SELECT COUNT(id) AS lastSync, user FROM attn_record WHERE domain='${domain}' AND user='${user}' AND menual=0`, (err, checkout)=>{
+  sqlmap.query(`SELECT COUNT(id) AS lastSync, user FROM attn_record WHERE domain='${domain}' AND user='${user}' AND menual=0 AND menual=0 AND checkout=1`, (err, checkout)=>{
    if(err) console.log(err.sqlMessage);
    else {
     res.send({lastSyncData: checkout[0].lastSync})
@@ -168,7 +21,7 @@ exports.pu_attn_checkout_logs= (req, res)=>{
 
 exports.pu_attn_checkout_webapi_present=(req, res)=>{
 const {domain, user_id, user, name, today, record_date, record_time}= req.body;
-// console.log(domain, user_id, user, name, today, record_date, record_time);
+
 const todaym = new Date(today);
 const currentDate= new Date().getDate();
 const currentMonth = todaym.getMonth();
@@ -185,18 +38,21 @@ const user_uid= user=='Teacher'?'teacher_id':user=='Student'?'student_id':'staff
 
 sqlmap.query(`SELECT user_id FROM attn_record WHERE domain='${domain}' AND user='${user}' AND user_id='${user_id}' AND record_date='${record_date}' ORDER BY at_date DESC`, 
 (errf, infof)=>{
-if(infof.length==0){
-
-sqlmap.query(`SELECT name, avatar, class, section, roll, ${user_uid} FROM ${tbname} WHERE domain='${domain}' AND user='${user}' AND ${colname}='${user_id}'`, 
+    
+    if(errf) res.json({status: errf.sqlMessage});
+    
+    else {
+        
+sqlmap.query(`SELECT name, avatar, class, section, roll, ${user_uid} FROM ${tbname} WHERE domain='${domain}' AND ${colname}='${user_id}'`, 
 (erru, infou)=>{
   
-  if(erru) console.log(erru.sqlMessage+ " erru...");
+  if(erru) res.json({status: erru.sqlMessage});
 
   else {
-// if find student................
- if(infou.length>0){
-
-  if(tbname=='students') {
+    
+    if(infou.length>0){
+     
+     if(tbname=='students') {
     var sqli= 
   `INSERT INTO attn_record (domain, session, duplicate_data, class, section, user, user_id, roll, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
   VALUES('${domain}', '${session}', '${duplicate_data}', '${infou[0].class}', '${infou[0].section}', '${user}', '${infou[0].student_id}', '${infou[0].roll}', '${infou[0].name}', '${infou[0].avatar}', 'check-in', 1, 'present', '${get_time}', '${get_cal}', '${find_date}', '${attn_date}', '${record_date}', '${record_time}', '${currentYear}', '${currentMonth}', '${currentDate}')`
@@ -212,30 +68,21 @@ sqlmap.query(`SELECT name, avatar, class, section, roll, ${user_uid} FROM ${tbna
 
   sqlmap.query(sqli, (erri, insert)=>{
   if(erri) console.log(erri.sqlMessage);
-  else{
+  else res.json({msg: `"present now! ${infou[0].name} ${user_id} ${record_time}"`});
 
-    if(user=='Teacher') console.log(`"present now! ${infou[0].name} ${infou[0].teacher_id} ${record_time}"`);
-    else if(user=='Student') console.log(`"present now! ${infou[0].name}  ${infou[0].student_id} ${record_time}"`);
-    else console.log(`"present now! ${infou[0].name}  ${infou[0].staff_id} ${record_time}"`);
-
-  } 
   })
+
   
- } else {
-  console.log(user_id+ ' user id not found in database!');
- }
+ } else res.json({msg: user_id+ ' user id not found in database!'});
 
    
-
-
-  }
-  })
-
 }
 
-else null;
-
+  })
+    }
 })
+
+
 
 }
 
@@ -390,10 +237,3 @@ exports.pu_attn_checkout_webapi_absent_student=(req, res)=>{
     
     }
 
-// SELECT name, student_uuid
-// FROM students WHERE EXISTS (SELECT user_id, checkout, record_time
-//               FROM attn_record
-//               WHERE students.student_uuid = attn_record.user_id);
-              
-              
-// SELECT name, student_uuid FROM students WHERE student_uuid NOT IN (SELECT user_id FROM attn_record)
