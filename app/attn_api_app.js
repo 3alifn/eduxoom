@@ -30,7 +30,7 @@ const get_cal= currentMonth+'-'+currentYear;
 const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
 const attn_date= new Date().toDateString();
-const duplicate_data= user_id+'_'+record_time;
+const duplicate_data= user_id+'_'+record_date;
 const tbname= user=='Teacher'?'teachers':user=='Student'?'students':'staff'
 const colname= user=='Teacher'?'teacher_id':user=='Student'?'student_id':'staff_id'
 const user_uid= user=='Teacher'?'teacher_id':user=='Student'?'student_id':'staff_id'

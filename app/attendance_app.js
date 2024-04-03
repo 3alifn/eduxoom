@@ -94,6 +94,7 @@ exports.teacher_attn_post= (req, res)=>{
     const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
     const attn_date= new Date().toDateString();
+    const duplicate_data= student_id+"_"+attn_date
     const at_status= checkout==1?'present':'absent'
     sqlmap.query(`SELECT user_id, find_date, attn_date FROM attn_record WHERE domain='${req.hostname}' AND user='Student' AND user_id='${student_id}' AND find_date='${find_date}' ORDER BY id DESC`, (errf, find)=>{
         if(errf) console.log(errf.sqlMessage);
@@ -111,9 +112,9 @@ exports.teacher_attn_post= (req, res)=>{
         }else {
       
             sqlmap.query(`
-            INSERT INTO attn_record (domain, session, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day)
+            INSERT INTO attn_record (domain, session, duplicate_data, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day)
             
-            VALUES('${req.hostname}', '${currentYear}', 1, 'Student', '${get_cal}', '${attn_date}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}',
+            VALUES('${req.hostname}', '${currentYear}', '${duplicate_data}', 1, 'Student', '${get_cal}', '${attn_date}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}',
             '${student_id}', '${name}', '${roll}', '${avatar}', '${currentYear}', '${currentMonth}', '${currentDate}')`, (erri, inser)=>{
                 if(erri) console.log(erri.sqlMessage);
                 else {
@@ -162,7 +163,6 @@ exports.privet_attn_init_page= (req, res)=>{
     res.render('attn/attn_init_page_privet')
 
 }
-
 
 exports.privet_attn_repo_page= (req, res)=>{
  const {class_name, section_name}= req.params;
