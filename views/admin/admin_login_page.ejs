@@ -8,7 +8,17 @@
     <title>Admin Login</title>
     <%- include("../component/metadata.html") %> 
 
-
+<style>
+    a{
+    text-decoration: none;
+    padding: 1px;
+    font-weight: 500;
+    font-size: 95%;
+   }  .link-me:hover{
+    text-decoration: underline;
+   }
+   
+</style>
 </head>
 
 <body onload="pageLoadingTop()">
@@ -20,8 +30,8 @@
         <form id="formau" action="#" method="post">
 
 
-        <span class="pb-3 fw-semibold fs-5">Admin Login</span> 
-        <a href="/au/signout/" class="btn pb-3 btn-link">Return to signin</a>
+        <span class="pb-3 fw-semibold btn fs-5">Admin Login</span> 
+        <a  href="/au/signout/" class=" pb-3">Return to signin</a>
 
         <div class="input-group">
 

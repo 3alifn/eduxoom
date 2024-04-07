@@ -28,6 +28,7 @@
     "session": "^0.1.0",
     "setinterval": "^0.2.4",
     "sharp": "^0.31.3",
+    "socket.io": "^4.7.5",
     "zklib-32ble": "^2.0.5"
   },
   "repository": {

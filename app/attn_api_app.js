@@ -43,7 +43,9 @@ sqlmap.query(`SELECT user_id FROM attn_record WHERE domain='${domain}' AND user=
     
     else {
         
-sqlmap.query(`SELECT name, avatar, class, section, roll, ${user_uid} FROM ${tbname} WHERE domain='${domain}' AND ${colname}='${user_id}'`, 
+      if(infof.length===0){
+
+  sqlmap.query(`SELECT name, avatar, class, section, roll, ${user_uid} FROM ${tbname} WHERE domain='${domain}' AND ${colname}='${user_id}'`, 
 (erru, infou)=>{
   
   if(erru) res.json({status: erru.sqlMessage});
@@ -79,6 +81,8 @@ sqlmap.query(`SELECT name, avatar, class, section, roll, ${user_uid} FROM ${tbna
 }
 
   })
+      } else res.json({msg: user_id+ 'user id already checkout!'});
+
     }
 })
 

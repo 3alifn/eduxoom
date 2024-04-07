@@ -1,4 +1,3 @@
-
 <style>
 
   ::-webkit-scrollbar {
@@ -23,6 +22,19 @@
     border-radius: 10px;
   }
 
+#admin-list-item{
+ul{
+  border-bottom: 1px dotted black;
+}
+a{
+  font-size: small !important;
+    font-weight: 500 !important;
+    color: rgba(0, 0, 0, 0.629) !important;
+
+}
+    background-color: rgba(207, 207, 207, 0.411);
+
+}
 
   
 </style>
@@ -32,38 +44,28 @@
   <div class="row">
     <div class="col-auto m-auto">
 
-      <img height="60px" width="80px" class="border mt-3" style="border-radius: 100%;" src="/image/default/male_avatar.png" alt="">
+      <img height="60px" width="60px" class="border mt-3" style="border-radius: 100%;" src="/image/default/user.png" alt="">
     </div>
   </div>
 
-  <div class="col-auto mt-4"  >
+  <div id="admin-list-item" class="col-auto mt-4 mb-5"  >
 
 
     
 <ul class="school-settings- ps-2 mt-2" style="list-style:none;">
 
-  <button onclick="collapsebtn('collapsebtn1')" class="d-flex w-100 border-bottom justify-content-between align-items-center nav-link p-1" type="button" data-bs-toggle="collapse" data-bs-target="#item1">
-    <img height="15px" width="15px" src="/icons/icons8-school-building-48.png" alt=""> <span class="ps-1 pe-1 fw-semibold">School setup</span> <i class="collapsebtn1 fa fa-angle-right pt-1"></i>
-</button>
 
-  <div id="item1" class=" ps-2">
     <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/school-settings">School settings</a></li>
     <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/class-section">Class & Section</a></li>
     <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/carousel/page">Carousel slider</a></li>
     <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/headofschool">Head of school</a></li>
     
-  </div>
   
   </ul>
 
 
-<ul class="academic-settings- ps-2 mt-2" style="list-style:none">
+  <ul class="academic-settings- ps-2 mt-1" style="list-style:none">
 
-    <button onclick="collapsebtn('collapsebtn2')" class="d-flex w-100 border-bottom justify-content-between align-items-center nav-link p-1" type="button" data-bs-toggle="collapse" data-bs-target="#item2">
-    <img height="15px" width="15px" src="/icons/icons8-academic-64.png" alt=""> <span class="ps-1 pe-1 fw-semibold">Academic setup</span> <i class="collapsebtn2 fa fa-angle-right pt-1"></i>
-  </button>
-  
-    <div id="item2" class=" ps-2">
       <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/notice/page">Notice settings</a></li>
       <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/teacher/page">Teacher settings</a></li>
       <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/student/page">Student settings</a></li>
@@ -72,26 +74,20 @@
       <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/subject/page?className=Six">Subject settings</a></li>
       <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/routine/page">Class routine</a></li>
       
-    </div>
     
     </ul>
 
 
 
     <ul class="organization-settings- ps-2 mt-2" style="list-style:none">
-
-      <button onclick="collapsebtn('collapsebtn3')" class="d-flex w-100 border-bottom justify-content-between align-items-center nav-link p-1" type="button" data-bs-toggle="collapse" data-bs-target="#item3">
-      <img height="15px" width="15px" src="/icons/icons8-organization-48.png" alt=""> <span class="ps-1 pe-1 fw-semibold">Organization</span> <i class="collapsebtn3 fa fa-angle-right pt-1"></i>
-    </button>
     
-      <div id="item3" class="collapse ps-2">
+
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/achievement/">Achievement</a></li>
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/eventnews/">Event & news</a></li>
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/facilities/">Facilities</a></li>
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/library/page">Library</a></li>
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="#">Fees management</a></li>
         
-      </div>
       
       </ul>
     
@@ -99,16 +95,12 @@
 
     <ul class="student-archive ps-2 mt-2" style="list-style:none">
 
-      <button onclick="collapsebtn('collapsebtn4')" class="d-flex w-100 border-bottom justify-content-between align-items-center nav-link p-1" type="button" data-bs-toggle="collapse" data-bs-target="#item4">
-      <img height="15px" width="15px" src="/icons/icons8-result-64.png" alt=""> <span class="ps-1 pe-1 fw-semibold">Student archive</span> <i class="collapsebtn4 fa fa-angle-right pt-1"></i>
-    </button>
+
     
-      <div id="item4" class="collapse ps-2">
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/privet/attn/repo/init/page">Attendance report</a></li>
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/privet/transcript/report-init-page">Transcript card</a></li>
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/transcript/report-init-page">Report card</a></li>
         
-      </div>
       
       </ul>
     
@@ -117,11 +109,7 @@
 
     <ul class="academic-view- ps-2 mt-1" style="list-style:none">
 
-      <button onclick="collapsebtn('collapsebtn0')" class="d-flex w-100 border-bottom justify-content-between align-items-center nav-link p-1" type="button" data-bs-toggle="collapse" data-bs-target="#item0">
-      <img height="15px" width="15px" src="/icons/icons8-admin-settings-male-48.png" alt=""> <span class="ps-1 pe-1 fw-semibold">Academic view</span> <i class="collapsebtn0 fa fa-angle-right pt-1"></i>
-    </button>
-    
-      <div id="item0" class="collapse ps-2">
+
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/all/teacher">Teachers</a></li>
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/student/page">Students</a></li>
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/routine/page">Class routine</a></li>
@@ -129,24 +117,18 @@
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/dashboard">Admission report</a></li>
         <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/admission/report/page">Application report</a></li>
         
-      </div>
       
       </ul>
 
-<!-- 
-      <ul class="gallery-settings- ps-2 mt-2" style="list-style:none">
 
-        <button onclick="collapsebtn('collapsebtn5')" class="d-flex w-100 border-bottom justify-content-between align-items-center nav-link p-1" type="button" data-bs-toggle="collapse" data-bs-target="#item5">
-        <img height="15px" width="15px" src="/icons/icons8-photo-gallery-94.png" alt=""> <span class="ps-1 pe-1 fw-semibold">Gallery settings</span> <i class="collapsebtn5 fa fa-angle-right pt-1"></i>
-      </button>
+      <ul class="gallery-settings- ps-2 mt-2 mb-5" style="list-style:none">
+
+
       
-        <div id="item5" class="collapse ps-2">
           <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/gallery/image/page">Photo settings</a></li>
           <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/gallery/video/page">Video settings</a></li>
-          
-        </div>
         
-        </ul> -->
+        </ul>
 
 
 
@@ -155,27 +137,3 @@
   
        
 </nav>
-    
-<script>
-
-function collapsebtn(elem){
-    $(`.${elem}`).toggleClass('toggleBtnRotate')
-}
-      
-       
-  $("#main-menu-btn-sm").click(()=>{
- 
- $("#main-menu").toggleClass('d-none')
- 
-}) 
-
-$("#main-menu-btn-md").click(()=>{
- 
- $("#main-menu").toggleClass('d-md-none')
- $("#main-content").toggleClass('main-content')
- 
-}) 
-
- 
-   
-  </script> 

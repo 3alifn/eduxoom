@@ -6,6 +6,24 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+a{
+    text-decoration: none;
+    padding: 1px;
+    font-weight: 500;
+    font-size: 95%;
+   }  .link-me:hover{
+    text-decoration: underline;
+   }
+   
+   .link-me{
+    text-decoration: none;
+    padding: 1px;
+    font-weight: 500;
+    font-size: 99%;
+   }  .link-me:hover{
+    text-decoration: underline;
+   }
+
 ::selection{
     background-color: #043F2E;
     color: white;
@@ -169,7 +187,7 @@ display: block;
     /* transform: translate(-50%, -50%); */
     padding: 2px;
     /* background-color: rgba(0, 0, 0, 0.133); */
-    font-weight: 500;
+    font-weight: small;
     border-radius: 5px;
     z-index: 1080;
 

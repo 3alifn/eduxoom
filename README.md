@@ -2,22 +2,39 @@
 ## HIGH SCHOOL MANAGEMENT SOFTWARE
 ### code by 3alifn
 
-## Features
-### teacher system
-### student system
-### parent system
-### library system
-### gallery system
-### routine system
-### subject system
+## @Features of S1
+### teacher settings
+### student settings
+### parent settings
+### library settings
+### gallery setting
+### routine systems
+### subject settings
 ### notice system
+### attendance system (manual and biometric)
 ### admission system
 ### application system
 ### student rank system
-### transcript result (bi, pic, pis) system
-### reposiitory (achievement, facilities, event news)
+### new curriculum result system (bi, pic, pis, report)
+### repository (achievement, facilities, event news)
 ### head of school (governing body)
 ### school settings
 ### staff settings
-### task system => comming soon
 
+# --plan of #2024
+## @Features of S2
+### accounting system
+### fees system
+### query search system
+### data sorting system
+### data filtering system
+### input regex validation
+### installation system
+
+# --plan of #2025
+## @Features of S3
+### trash and restore
+### import and export
+### backup and archive
+### database troubleshooting
+### errors handling

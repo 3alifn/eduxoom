@@ -3,6 +3,7 @@ const app = express()
 const mysql = require("mysql")
 const path = require("path")
 const fs = require("fs")
+const http = require("http")
 const cookieParser= require("cookie-parser")
 const session= require("express-session")
 const mysqlStore= require("express-mysql-session") (session)
@@ -18,6 +19,8 @@ const cors= require("cors")
 const Timer = require('setinterval');
 const axios= require('axios')
 const ZKLib = require('zklib-32ble')
+
+
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
@@ -86,9 +89,9 @@ sqlmap.connect((err, res) => {
 })
 
 
+const io = require('socket.io')(app.listen(process.env.listen_port || 30));
 
-
-app.listen(process.env.listen_port || 30)
+// app.listen(process.env.listen_port || 30)
 var mysession=new Date().getUTCFullYear();
 
 
@@ -97,4 +100,28 @@ app, express, mysession, mysql, session, cookieParser, flash, bodyParser,
  sqlmap, multer, nodemailer, dotenv, cors, randomBytes,
   createHmac, fs, path, ejs, sessionStore, Timer, axios, ZKLib,
 }
+
+
+
+
+io.on('connection', (socket)=>{
+  console.log('user connected...');
+  socket.on('request', (data)=>{
+    console.log(data);
+
+    setTimeout(() => {
+      sqlmap.query(`select ID, name from admission order by ID desc`, (err, info)=>{
+        // if(err) console.log(err.sqlMessage);
+        const data= info[0].name;
+        socket.emit('response', data)
+         
+       
+    
+        })
+    }, 1000);
+  })
+
+  
+
+})
 
