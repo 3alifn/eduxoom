@@ -1,139 +1,155 @@
-<style>
+    <style>
 
-  ::-webkit-scrollbar {
-    scroll-behavior:smooth;
-  
-  }
-  
-  /* width */
-  .admin-menu-scroll-bar::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  /* Track */
-  .admin-menu-scroll-bar::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 10px;
-  }
-   
-  /* Handle */
-  .admin-menu-scroll-bar::-webkit-scrollbar-thumb {
-    background: rgba(187, 181, 181, 0.829); 
-    border-radius: 10px;
-  }
+      ::-webkit-scrollbar {
+        scroll-behavior:smooth;
+      
+      }
+      
+      /* width */
+      .admin-menu-scroll-bar::-webkit-scrollbar {
+        width: 10px;
+      }
+      
+      /* Track */
+      .admin-menu-scroll-bar::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+      }
+       
+      /* Handle */
+      .admin-menu-scroll-bar::-webkit-scrollbar-thumb {
+        background: rgba(187, 181, 181, 0.829); 
+        border-radius: 10px;
+      }
+    
+  #admin-list-item{
+    ul{
+      border-bottom: 1px dotted black;
+    }
+    a{
+      font-size: small !important;
+        font-weight: 500 !important;
+        color: rgba(0, 0, 0, 0.629) !important;
 
-#admin-list-item{
-ul{
-  border-bottom: 1px dotted black;
-}
-a{
-  font-size: small !important;
-    font-weight: 500 !important;
-    color: rgba(0, 0, 0, 0.629) !important;
+    }
+        background-color: rgba(207, 207, 207, 0.304);
 
-}
-    background-color: rgba(207, 207, 207, 0.411);
+    }
 
-}
-
-  
-</style>
-
-<nav id="main-menu" style="height: 99% !important; overflow: scroll; position: fixed; z-index: 1020; top: 50px" class="mt-3 main-menu pe-2 bg-light d-none d-md-block shadow border-end" >
-
-  <div class="row">
-    <div class="col-auto m-auto">
-
+      
+    </style>
+    
+    <nav id="main-menu" style="height: 99% !important; overflow: scroll; position: fixed; z-index: 1020; top: 50px" class="mt-3 main-menu pe-2 bg-light d-none d-md-block shadow border-end" >
+    
+      <div class="row">
+        <div class="col-auto m-auto">
+    
       <img height="60px" width="60px" class="border mt-3" style="border-radius: 100%;" src="/image/default/user.png" alt="">
-    </div>
-  </div>
-
-  <div id="admin-list-item" class="col-auto mt-4 mb-5"  >
-
-
+        </div>
+      </div>
     
-<ul class="school-settings- ps-2 mt-2" style="list-style:none;">
-
-
-    <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/school-settings">School settings</a></li>
-    <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/class-section">Class & Section</a></li>
-    <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/carousel/page">Carousel slider</a></li>
-    <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/headofschool">Head of school</a></li>
+      <div id="admin-list-item" class="col-auto mt-4 mb-5"  >
     
-  
-  </ul>
-
-
-  <ul class="academic-settings- ps-2 mt-1" style="list-style:none">
-
-      <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/notice/page">Notice settings</a></li>
-      <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/teacher/page">Teacher settings</a></li>
-      <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/student/page">Student settings</a></li>
-      <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/parent/page">Parent settings</a></li>
-      <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/dashboard#">Staff settings</a></li>
-      <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/subject/page?className=Six">Subject settings</a></li>
-      <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/routine/page">Class routine</a></li>
-      
     
-    </ul>
-
-
-
-    <ul class="organization-settings- ps-2 mt-2" style="list-style:none">
+        
+    <ul class="school-settings- ps-2 mt-2" style="list-style:none;">
     
 
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/achievement/">Achievement</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/eventnews/">Event & news</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/facilities/">Facilities</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/library/page">Library</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="#">Fees management</a></li>
+        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/school-settings">School settings</a></li>
+        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/class-section">Class & Section</a></li>
+        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/carousel/page">Carousel slider</a></li>
+        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/headofschool">Head of school</a></li>
         
       
       </ul>
     
     
+      <ul class="academic-settings- ps-2 mt-1" style="list-style:none">
 
-    <ul class="student-archive ps-2 mt-2" style="list-style:none">
-
-
-    
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/privet/attn/repo/init/page">Attendance report</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/privet/transcript/report-init-page">Transcript card</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/transcript/report-init-page">Report card</a></li>
-        
-      
-      </ul>
-    
-
-      
-
-    <ul class="academic-view- ps-2 mt-1" style="list-style:none">
-
-
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/all/teacher">Teachers</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/student/page">Students</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/routine/page">Class routine</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/rank/class/page">Student rank</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/dashboard">Admission report</a></li>
-        <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/admission/report/page">Application report</a></li>
-        
-      
-      </ul>
-
-
-      <ul class="gallery-settings- ps-2 mt-2 mb-5" style="list-style:none">
-
-
-      
-          <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/gallery/image/page">Photo settings</a></li>
-          <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/gallery/video/page">Video settings</a></li>
+          <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/notice/page">Notice settings</a></li>
+          <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/teacher/page">Teacher settings</a></li>
+          <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/student/page">Student settings</a></li>
+          <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/parent/page">Parent settings</a></li>
+          <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/dashboard#">Staff settings</a></li>
+          <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/subject/page?className=Six">Subject settings</a></li>
+          <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/routine/page">Class routine</a></li>
+          
         
         </ul>
+    
+    
+    
+        <ul class="organization-settings- ps-2 mt-2" style="list-style:none">
+        
 
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/achievement/">Achievement</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/eventnews/">Event & news</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/setup/facilities/">Facilities</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/library/page">Library</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="#">Fees management</a></li>
+            
+          
+          </ul>
+        
+        
+    
+        <ul class="student-archive ps-2 mt-2" style="list-style:none">
+    
+  
+        
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/privet/attn/repo/init/page">Attendance report</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/privet/transcript/report-init-page">Transcript card</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/transcript/report-init-page">Report card</a></li>
+            
+          
+          </ul>
+        
+    
+          
+    
+        <ul class="academic-view- ps-2 mt-1" style="list-style:none">
+    
 
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/all/teacher">Teachers</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/student/page">Students</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/routine/page">Class routine</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/pu/rank/class/page">Student rank</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/dashboard">Admission report</a></li>
+            <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/admission/report/page">Application report</a></li>
+            
+          
+          </ul>
+    
+    
+          <ul class="gallery-settings- ps-2 mt-2 mb-5" style="list-style:none">
+    
 
           
-</div>
-  
-       
-</nav>
+              <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/gallery/image/page">Photo settings</a></li>
+              <li><a class=" page-link p-2 btn-hover fs-6 text-muted" href="/admin/gallery/video/page">Video settings</a></li>
+            
+            </ul>
+    
+    
+    
+              
+    </div>
+      
+           
+    </nav>
+
+<script>
+       $("#main-menu-btn-sm").click(()=>{
+ 
+ $("#main-menu").toggleClass('d-none')
+ 
+}) 
+
+$("#main-menu-btn-md").click(()=>{
+ 
+ $("#main-menu").toggleClass('d-md-none')
+ $("#main-content").toggleClass('main-content')
+ 
+}) 
+
+</script>
