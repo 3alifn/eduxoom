@@ -343,7 +343,7 @@ exports.admin_bi_transcript_report_checkout=(req, res)=>{
                 const gp01v= (((get_gp01)/4)*100);
                 const gp02v= (((get_gp02)/4)*100);
                 const gp03v= (((get_gp03)/2)*100);
-                console.log('bi =>', gp01v, gp02v, gp03v);
+                // console.log('bi =>', gp01v, gp02v, gp03v);
                if(gp01v==100){
                 var gp01= 7;
                } 
