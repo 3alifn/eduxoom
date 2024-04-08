@@ -6,6 +6,21 @@
     
   <div class="col-md-6 m-auto col-12">
                 
+    <code class="open-section">
+            
+      <div class="list-group shadowx pb-2 m-1 fw-semibold text-muted">
+      
+       <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+       
+         <div class="ps-5 pe-5 fw-semibold text-secondary">Open a section</div>
+      
+    
+      
+       </div>
+      </div>
+      
+     </code>
+
     <code class="status-Six">
     
       <div class="list-group shadowx pb-2 m-1 fw-semibold text-muted">
@@ -118,6 +133,37 @@
      
 
 </div> 
+
+
+  
+</body>
+<script>
+
+  (function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/class/section/rm",
+    data: {},
+    dataType: "JSON",
+    success: function (res) {
+
+     for (let index = 0; index < res.cls.length; index++) {
+
+      $(".status-"+res.cls[index].class).remove()
+        
+     }
+
+     for (let index = 0; index < res.clss.length; index++) {
+
+        $(".status-"+res.clss[index].class+'-'+res.clss[index].section).remove()
+        
+     }
+    }
+  });
+
+  }())
+
+</script>
 
 
 

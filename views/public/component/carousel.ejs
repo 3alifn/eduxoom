@@ -22,7 +22,7 @@
       <% for( let index = 0; index < info_carousel.length; index++ ) { %>
 
         <div class="slide">
-            <img class="bg-demo-img-color" src="/image/carousel/resized/<%=info_carousel[index].item_name%>"/>
+            <img loading="lazy" class="bg-demo-img-color" src="/image/carousel/resized/<%=info_carousel[index].item_name%>"/>
             <div class="slide-desc">
                 <h1 class="text-light p-2"><%=info_school[0]==undefined?'My school name':info_school[0].name%></h1>
             </div>
@@ -31,14 +31,14 @@
       <% } %>
       <% } else {%>
         <div class="slide">
-            <img class="bg-demo-img-color" src="/image/demo/i-4.png"/>
+            <img loading="lazy" class="bg-demo-img-color" src="/image/demo/i-4.png"/>
             <div class="slide-desc">
                 <h1 class="text-light p-2">My school name</h1>
             </div>
         </div>
 
         <div class="slide">
-            <img class="bg-demo-img-color" src="/image/demo/i-5.png"/>
+            <img loading="lazy" class="bg-demo-img-color" src="/image/demo/i-5.png"/>
             <div class="slide-desc">
                 <h1 class="text-light p-2">My school name</h1>
             </div>

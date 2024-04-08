@@ -4,331 +4,149 @@
     <%- include("../component/metadata.html") %> 
 
 </head>
-
-<style>
-    
-    .row a
-    {
-        text-decoration: none;
-        
-    }
-    .row .card-body{
-        background-color: #F5F4F8 !important;
-    
-        color: #754FFE ;
-    }
-    
-
-</style>
-
+<!-- /teacher/attn/post/page/Seven/A -->
 <body onload="pageLoadingTop()">
     
     <%- include("../component/user-header-nav.html") %> 
     <%- include("../component/teacher-offcanvas-nav.html") %> 
  
     
-    <div class="row mt-3 mbx p-2 shadowx" id="class_section_link">
+<div id="view_class_section" class="row mt-5 p-2">
+    
+        <div class="col-md-6 m-auto col-12">
 
-        <center>
-            <h5 class="mt-5">Take Attendance</h5>
-           </center>
-
-    <div class="status_Six">
-        <center>
-            <button id="classSixbtn" class="btn-self mt-3 dropdown-toggle w-50">ষষ্ঠ শ্রেণী</button>
-           </center>
-           
-        <div id="classSix" class="row">
-        
-        
-            <div class="card shadow-sm m-auto ">
-                <div class="card-body text-center text-dark">
-                    <h4 class="card-title">ষষ্ঠ শ্রেণী</h4>
+            <code class="open-section">
+            
+                <div class="list-group shadowx pb-2 m-1 fw-semibold">
+                
+                 <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+                 
+                   <div class="ps-5 pe-5 fw-semibold fs-5">Open a section</div>
+                
+              
+                
+                 </div>
                 </div>
-            </div>
-        
-            <div class="col-md-4 col-10 m-auto status_Six_A">
-           
-                <a href="/teacher/attn/post/page/Six/A">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (ক)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div>      
+                
+               </code>
+                
+            <code class="status-Six">
+            
+              <div class="list-group shadowx pb-2 m-1 fw-semibold">
               
+               <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+               
+                 <div class="ps-5 pe-5 fw-semibold text-secondary">Six </div>
               
-              <div class="col-md-4 col-10 m-auto status_Six_B"> 
-        
-                <a href="/teacher/attn/post/page/Six/B">
-                  <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (খ)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div>  
-        
-        
-              <div class="col-md-4 col-10 m-auto status_Six_C">
-        
-                <a href="/teacher/attn/post/page/Six/C">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (গ)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div> 
-        </div>
-    </div>
-    
-    
-    <div class="status_Seven">
-        <center>
-            <button id="classSevenbtn" class="btn-self mt-3 dropdown-toggle w-50">সপ্তম শ্রেণী</button>
-           </center>
-        <div id="classSeven" class="row">
-        
-            <div class="card shadow-sm m-auto ">
-                <div class="card-body text-center text-dark">
-                    <h4 class="card-title">সপ্তম শ্রেণী</h4>
-                </div>
-            </div>
-        
-            <div class="col-md-4 col-10 m-auto status_Seven_A">
-           
-                <a href="/teacher/attn/post/page/Seven/A">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (ক)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div>      
+                 <div class="d-flex flex-wrap gap-3">
+                   <a href="/teacher/attn/post/page/Six/A" class="shadow-sm findcard ps-2 pe-2 rounded status-Six-A">A</a>
+                   <a href="/teacher/attn/post/page/Six/B" class="shadowx findcard ps-2 pe-2 rounded status-Six-B">B</a>
+                   <a href="/teacher/attn/post/page/Six/C" class="shadowx findcard ps-2 pe-2 rounded status-Six-C">C</a>
+         
+                 </div>
               
-              
-              <div class="col-md-4 col-10 m-auto status_Seven_A">
-        
-                <a href="/teacher/attn/post/page/Seven/B">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (খ)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div>  
-        
-        
-              <div class="col-md-4 col-10 m-auto status_Seven_A">
-        
-                <a href="/teacher/attn/post/page/Seven/C">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (গ)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div> 
-        </div>
-        
-    </div>
-    
-    
-    <div class="status_Eight">
-        
-    <center>
-        <button id="classEightbtn" class="btn-self mt-3 dropdown-toggle w-50">অষ্টম শ্রেণী</button>
-       </center>
-    <div id="classEight" class="row">
-    
-        <div class="card shadow-sm m-auto status_Eight_A">
-            <div class="card-body text-center text-dark">
-                <h4 class="card-title">অষ্টম শ্রেণী</h4>
-            </div>
-        </div>
-    
-        <div class="col-md-4 col-10 m-auto">
-       
-            <a href="/teacher/attn/post/page/Eight/A">
-                <div class="card shadow-sm">
-                  <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                  <div class="card-body text-center">
-                      <h4 class="card-title">শাখা (ক)</h4>
-                  </div>
+               </div>
               </div>
-            </a>
-    
-          </div>      
-          
-          
-          <div class="col-md-4 col-10 m-auto status_Eight_B">
-    
-            <a href="/teacher/attn/post/page/Eight/B">
-                <div class="card shadow-sm">
-                  <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                  <div class="card-body text-center">
-                      <h4 class="card-title">শাখা (খ)</h4>
-                  </div>
+              
+             </code>
+        
+        
+        
+             <code class="status-Seven">
+            
+              <div class="list-group mt-2 shadowx pb-2 m-1 fw-semibold">
+              
+               <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+               
+                 <div class="ps-5 pe-5 fw-semibold text-secondary">Seven</div>
+              
+                 <div class="d-flex flex-wrap gap-3 me-3">
+                   <a href="/teacher/attn/post/page/Seven/A" class="shadowx findcard ps-2 pe-2 rounded status-Seven-A">A</a>
+                   <a href="/teacher/attn/post/page/Seven/B" class="shadowx findcard ps-2 pe-2 rounded status-Seven-B">B</a>
+                   <a href="/teacher/attn/post/page/Seven/C" class="shadowx findcard ps-2 pe-2 rounded status-Seven-C">C</a>
+         
+                 </div>
+              
+               </div>
               </div>
-            </a>
-    
-          </div>  
-    
-    
-          <div class="col-md-4 col-10 m-auto status_Eight_C">
-    
-            <a href="/teacher/attn/post/page/Eight/C">
-                <div class="card shadow-sm">
-                  <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                  <div class="card-body text-center">
-                      <h4 class="card-title">শাখা (গ)</h4>
-                  </div>
+              
+             </code>
+        
+        
+        
+        
+             <code class="status-Eight">
+            
+              <div class="list-group mt-2 shadowx pb-2 m-1 fw-semibold">
+              
+               <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+               
+                 <div class="ps-5 pe-5 fw-semibold text-secondary">Eight</div>
+              
+                 <div class="d-flex flex-wrap gap-3 me-2">
+                   <a href="/teacher/attn/post/page/Eight/A" class="shadowx findcard ps-2 pe-2 rounded status-Eight-A">A</a>
+                   <a href="/teacher/attn/post/page/Eight/B" class="shadowx findcard ps-2 pe-2 rounded status-Eight-B">B</a>
+                   <a href="/teacher/attn/post/page/Eight/C" class="shadowx findcard ps-2 pe-2 rounded status-Eight-C">C</a>
+         
+                 </div>
+              
+               </div>
               </div>
-            </a>
-    
-          </div> 
-    </div>
-    </div>
-    
-    
-    <div class="status_Nine">
-        <center>
-            <button id="classNinebtn" class="btn-self mt-3 dropdown-toggle w-50">নবম শ্রেণী</button>
-           </center>
-        <div id="classNine" class="row">
-        
-            <div class="card shadow-sm m-auto ">
-                <div class="card-body text-center text-dark">
-                    <h4 class="card-title">নবম শ্রেণী</h4>
-                </div>
-            </div>
-        
-            <div class="col-md-4 col-10 m-auto status_Nine_A">
-           
-                <a href="/teacher/attn/post/page/Nine/A">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (ক)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div>      
               
+             </code>
+        
+        
+             <code class="status-Nine">
+            
+              <div class="list-group mt-2 shadowx pb-2 m-1 fw-semibold">
               
-              <div class="col-md-4 col-10 m-auto status_Nine_B">
-        
-                <a href="/teacher/attn/post/page/Nine/B">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (খ)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div>  
-        
-        
-              <div class="col-md-4 col-10 m-auto status_Nine_C">
-        
-                <a href="/teacher/attn/post/page/Nine/C">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (গ)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div> 
-        </div>
-        
-    </div>
-    
-    
-    
-    <div class="status_Ten">
-        <center>
-            <button id="classTenbtn" class="btn-self mt-3 dropdown-toggle w-50">দশম শ্রেণী</button>
-           </center>
-        <div id="classTen" class="row ">
-        
-            <div class="card shadow-sm m-auto">
-                <div class="card-body text-center text-dark">
-                    <h4 class="card-title">দশম শ্রেণী</h4>
-                </div>
-            </div>
-        
-            <div class="col-md-4 col-10 m-auto status_Ten_A">
-           
-                <a href="/teacher/attn/post/page/Ten/A">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (ক)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div>      
+               <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+               
+                 <div class="ps-5 pe-5 fw-semibold text-secondary">Nine</div>
               
+                 <div class="d-flex flex-wrap gap-3 me-2">
+                   <a href="/teacher/attn/post/page/Nine/A" class="shadowx findcard ps-2 pe-2 rounded status-Nine-A">A</a>
+                   <a href="/teacher/attn/post/page/Nine/B" class="shadowx findcard ps-2 pe-2 rounded status-Nine-B">B</a>
+                   <a href="/teacher/attn/post/page/Nine/C" class="shadowx findcard ps-2 pe-2 rounded status-Nine-C">C</a>
+         
+                 </div>
               
-              <div class="col-md-4 col-10 m-auto status_Ten_B">
-        
-                <a href="/teacher/attn/post/page/Ten/B">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (খ)</h4>
-                      </div>
-                  </div>
-                </a>
-        
-              </div>  
+               </div>
+              </div>
+              
+             </code>
         
         
-              <div class="col-md-4 col-10 m-auto status_Ten_C">
+             <code class="status-Ten">
+            
+              <div class="list-group mt-2 shadowx pb-2 m-1 fw-semibold">
+              
+               <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+               
+                 <div class="ps-5 pe-5 fw-semibold text-secondary">Ten </div>
+              
+                 <div class="d-flex flex-wrap gap-3 ms-1">
+                   <a href="/teacher/attn/post/page/Ten/A" class="shadowx findcard ps-2 pe-2 rounded status-Ten-A">A</a>
+                   <a href="/teacher/attn/post/page/Ten/B" class="shadowx findcard ps-2 pe-2 rounded status-Ten-B">B</a>
+                   <a href="/teacher/attn/post/page/Ten/C" class="shadowx findcard ps-2 pe-2 rounded status-Ten-C">C</a>
+         
+                 </div>
+              
+               </div>
+              </div>
+              
+             </code>
         
-                <a href="/teacher/attn/post/page/Ten/C">
-                    <div class="card shadow-sm">
-                      <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                      <div class="card-body text-center">
-                          <h4 class="card-title">শাখা (গ)</h4>
-                      </div>
-                  </div>
-                </a>
         
-              </div> 
-        </div>
-    </div>
- </div>
-   
+        </div> 
 
-
+</div>
 
 </body>
 
-
-
 <script>
 
-(function(){
+  (function(){
   $.ajax({
     type: "get",
     url: "/pu/class/section/rm",
@@ -338,43 +156,19 @@
 
      for (let index = 0; index < res.cls.length; index++) {
 
-      $(".status_"+res.cls[index].class).remove()
+      $(".status-"+res.cls[index].class).remove()
         
      }
 
      for (let index = 0; index < res.clss.length; index++) {
 
-        $(".status_"+res.clss[index].class+'_'+res.clss[index].section).remove()
+        $(".status-"+res.clss[index].class+'-'+res.clss[index].section).remove()
         
      }
     }
   });
 
   }())
-
-
-
-
-$("#classSixbtn").on("click", ()=>{
-    $("#classSix").toggle()
-})
-
-
-$("#classSevenbtn").on("click", ()=>{
-    $("#classSeven").toggle()
-})
-
-$("#classEightbtn").on("click", ()=>{
-    $("#classEight").toggle()
-})
-
-$("#classNinebtn").on("click", ()=>{
-    $("#classNine").toggle()
-})
-
-$("#classTenbtn").on("click", ()=>{
-    $("#classTen").toggle()
-})
 
 </script>
 

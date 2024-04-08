@@ -23,26 +23,23 @@
 
 
     <% if(infoTen.length>0) {%>   
-      <div class="col-md-2 col-9 mt-1">
+      <div class="col-md-2 col-11 mt-1 m-auto">
 
-      <a class='page-link' href="/pu/rank/page/Ten">
+        <a class='page-link' href="/pu/rank/page/Ten">
           <div class="card shadowx findcard p-2">
-            <img class=" m-auto" width="100px" src="/image/student/resized/<%= infoTen[0].avatar %>" alt="">
-            <div class="card-body text-center">
-              <h6 class="card-text fw-bold">দশম শ্রেণী </i></h6>
-
-              <strong  class="badge p-1  bg-primary">Rank: 1</strong>
-                <strong  class="badge p-1 " style="background-color: slateblue;">Rating (<%=infoTen[0].poient%>)</strong>
-                <br>
-                <strong  class="badge p-1  bg-secondary"><%=infoTen[0].name%></strong>
-                <br>
+            <img class="bg-card-color-light m-auto" width="100px" src="/image/student/resized/<%=infoTen[0].avatar%>" alt="">
+            <div class="card-body text-center ">
+              <h6 class="card-text bg-light fw-bold">Class Ten </h6>
+    
+              <p><strong  class="badge p-1  bg-primary">Rank: 1</strong></p>
+                <p><strong  class="badge p-1 " style="background-color: slateblue;">Rating (<%=infoTen[0].poient%>)</strong></p>
+                <p class="text-truncate"><strong  class="p-1  bg-light"><%=infoTen[0].name%></strong></p>
                 <strong  class="badge p-1  bg-light text-dark btn btn-link ">Show All</strong>
            
             </div>
         </div>
       </a>
-
-    </div> 
+      </div> 
     <% }  else {%>
       <%=null %> 
       <% } %>  
@@ -54,26 +51,24 @@
 
 
 <% if(infoNine.length>0) {%>   
-      <div class="col-md-2 col-9 mt-1 m-auto">
+  <div class="col-md-2 col-11 mt-1 m-auto">
 
-      <a class='page-link' href="/pu/rank/page/Nine">
-          <div class="card shadowx findcard p-2">
-            <img class=" m-auto" width="100px" src="/image/student/resized/<%=infoNine[0].avatar%>" alt="">
-            <div class="card-body text-center">
-              <h6 class="card-text fw-bold"> নবম শ্রেণী</i></h6>
+    <a class='page-link' href="/pu/rank/page/Nine">
+      <div class="card shadowx findcard p-2">
+        <img class="bg-card-color-light m-auto" width="100px" src="/image/student/resized/<%=infoNine[0].avatar%>" alt="">
+        <div class="card-body text-center ">
+          <h6 class="card-text bg-light fw-bold">Class Nine </h6>
 
-              <strong  class="badge p-1  bg-primary">Rank: 1</strong>
-                <strong  class="badge p-1 " style="background-color: slateblue;">Rating (<%=infoNine[0].poient%>)</strong>
-                <br>
-                <strong  class="badge p-1  bg-secondary"><%=infoNine[0].name%></strong>
-                <br>
-                <strong  class="badge p-1  bg-light text-dark btn btn-link ">Show All</strong>
-           
-            </div>
+          <p><strong  class="badge p-1  bg-primary">Rank: 1</strong></p>
+            <p><strong  class="badge p-1 " style="background-color: slateblue;">Rating (<%=infoNine[0].poient%>)</strong></p>
+            <p class="text-truncate"><strong  class="p-1  bg-light"><%=infoNine[0].name%></strong></p>
+            <strong  class="badge p-1  bg-light text-dark btn btn-link ">Show All</strong>
+       
         </div>
-      </a>
+    </div>
+  </a>
+  </div> 
 
-    </div> 
 
     <% }  else {%>
       <%=null %> 
@@ -81,25 +76,22 @@
 
 
   <% if(infoEight.length>0) {%>
-    <div class="col-md-2 col-9 mt-1 m-auto">
+    <div class="col-md-2 col-11 mt-1 m-auto">
 
       <a class='page-link' href="/pu/rank/page/Eight">
-          <div class="card shadowx findcard p-2">
-            <img class=" m-auto" width="100px" src="/image/student/resized/<%=infoEight[0].avatar%>" alt="">
-            <div class="card-body text-center">
-              <h6 class="card-text fw-bold"> অষ্টম শ্রেণী</i></h6>
+        <div class="card shadowx findcard p-2">
+          <img class="bg-card-color-light m-auto" width="100px" src="/image/student/resized/<%=infoEight[0].avatar%>" alt="">
+          <div class="card-body text-center ">
+            <h6 class="card-text bg-light fw-bold">Class Eight </h6>
 
-              <strong  class="badge p-1  bg-primary">Rank: 1</strong>
-                <strong  class="badge p-1 " style="background-color: slateblue;">Rating (<%=infoEight[0].poient%>)</strong>
-                <br>
-                <strong  class="badge p-1  bg-secondary"><%=infoEight[0].name%></strong>
-                <br>
-                <strong  class="badge p-1  bg-light text-dark btn btn-link ">Show All</strong>
-           
-            </div>
-        </div>
-      </a>
-
+            <p><strong  class="badge p-1  bg-primary">Rank: 1</strong></p>
+              <p><strong  class="badge p-1 " style="background-color: slateblue;">Rating (<%=infoEight[0].poient%>)</strong></p>
+              <p class="text-truncate"><strong  class="p-1  bg-light"><%=infoEight[0].name%></strong></p>
+              <strong  class="badge p-1  bg-light text-dark btn btn-link ">Show All</strong>
+         
+          </div>
+      </div>
+    </a>
     </div> 
 
     <% }  else {%>
@@ -113,25 +105,22 @@
 
       <% if(infoSeven.length>0) {%>   
 
-    <div class="col-md-2 col-9 mt-1 m-auto">
+    <div class="col-md-2 col-11 mt-1 m-auto">
 
-      <a class="page-link" href="/pu/rank/page/Seven">
-          <div class="card shadowx findcard p-2">
-            <img class=" m-auto" width="100px" src="/image/student/resized/<%=infoSeven[0].avatar%>" alt="">
-            <div class="card-body text-center">
-              <h6 class="card-text fw-bold"> সপ্তম শ্রেণী</i></h6>
+      <a class='page-link' href="/pu/rank/page/Seven">
+        <div class="card shadowx findcard p-2">
+          <img class="bg-card-color-light m-auto" width="100px" src="/image/student/resized/<%=infoSeven[0].avatar%>" alt="">
+          <div class="card-body text-center ">
+            <h6 class="card-text bg-light fw-bold">Class Seven </h6>
 
-              <strong  class="badge p-1  bg-primary">Rank: 1</strong>
-                <strong  class="badge p-1 " style="background-color: slateblue;">Rating (<%=infoSeven[0].poient%>)</strong>
-                <br>
-                <strong  class="badge p-1  bg-secondary"><%=infoSeven[0].name%></strong>
-                <br>
-                <strong  class="badge p-1  bg-light text-dark btn btn-link ">Show All</strong>
-           
-            </div>
-        </div>
-      </a>
-
+            <p><strong  class="badge p-1  bg-primary">Rank: 1</strong></p>
+              <p><strong  class="badge p-1 " style="background-color: slateblue;">Rating (<%=infoSeven[0].poient%>)</strong></p>
+              <p class="text-truncate"><strong  class="p-1  bg-light"><%=infoSeven[0].name%></strong></p>
+              <strong  class="badge p-1  bg-light text-dark btn btn-link ">Show All</strong>
+         
+          </div>
+      </div>
+    </a>
     </div> 
 
     <% }  else {%>
@@ -147,19 +136,17 @@
 
     
       <% if(infoSix.length>0) {%>   
-        <div class="col-md-2 col-9 mt-1 m-auto">
+        <div class="col-md-2 col-11 mt-1 m-auto ">
 
       <a class='page-link' href="/pu/rank/page/Six">
           <div class="card shadowx findcard p-2">
-            <img class=" m-auto" width="100px" src="/image/student/resized/<%=infoSix[0].avatar%>" alt="">
-            <div class="card-body text-center">
-              <h6 class="card-text fw-bold"> ষষ্ঠ শ্রেণী </i></h6>
+            <img class="bg-card-color-light m-auto" width="100px" src="/image/student/resized/<%=infoSix[0].avatar%>" alt="">
+            <div class="card-body text-center ">
+              <h6 class="card-text bg-light fw-bold">Class Six </h6>
 
-              <strong  class="badge p-1  bg-primary">Rank: 1</strong>
-                <strong  class="badge p-1 " style="background-color: slateblue;">Rating (<%=infoSix[0].poient%>)</strong>
-                <br>
-                <strong  class="badge p-1  bg-secondary"><%=infoSix[0].name%></strong>
-                 <br>
+              <p><strong  class="badge p-1  bg-primary">Rank: 1</strong></p>
+                <p><strong  class="badge p-1 " style="background-color: slateblue;">Rating (<%=infoSix[0].poient%>)</strong></p>
+                <p class="text-truncate"><strong  class="p-1  bg-light"><%=infoSix[0].name%></strong></p>
                 <strong  class="badge p-1  bg-light text-dark btn btn-link ">Show All</strong>
            
             </div>
