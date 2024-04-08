@@ -84,39 +84,32 @@ exports.pu_headofschool_get = (req, res) => {
 exports.au_user_profile_header_nav= (req, res)=>{
   
     if(req.session.userAccess==='privet'){
-     var data= '';
+     
       if(req.session.hashUser=='hashAdmin'){
 
-         data+=`
-         <a class="p-2 btn  d-none nav-link d-md-block" style="background-color: #043F2E;color:  #C8F169; width: 130px;" href="/admin/dashboard">Dashboard</a>
-             `
+             res.send({link: '/admin/dashboard/', name: 'Dashboard'})
         
       }
   
       else if(req.session.user=='teacher') {
     
-        data+=`
-        <a class="p-2 btn  d-none nav-link d-md-block" style="background-color: #043F2E;color:  #C8F169; width: 130px;" href="/teacher/dashboard">Dashboard</a>
-        `
+        res.send({link: '/teacher/dashboard/', name: 'Dashboard'})
+
       }
   
       else if(req.session.user=='student'){
   
-        data+= 
-        `
-        <a class="p-2 btn  d-none nav-link d-md-block" style="background-color: #043F2E;color:  #C8F169; width: 130px;" href="/student/dashboard">Dashboard</a>
+        res.send({link: '/student/dashboard/', name: 'Dashboard'})
 
-            `
         
       }
   
       else if(req.session.user=='parent'){
-        data+=`
-        <a class="p-2 btn  d-none nav-link d-md-block" style="background-color: #043F2E;color:  #C8F169; width: 130px;" href="/parent/dashboard">Dashboard</a>
-        `
-      }  else data+=null;
 
-      res.send({data})
+        res.send({link: '/parent/dashboard/', name: 'Dashboard'})
+
+      }  else null;
+
      
     }
 

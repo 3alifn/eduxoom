@@ -74,7 +74,7 @@ $(document).ready(function(){
         data: {},
         dataType: "JSON",
         success: function (res) {
-            $('.append-user').html(res.data)
+            $('.append-user a').attr('href', res.link).text(res.name)
             
         }
     });
