@@ -54,26 +54,14 @@
          <% } %> 
 
 
-  <div id="personalInfos"  class="col-10">
+  <div id="personalInfos"  class="col-md-8 col-12">
 
     
-        <div class="card p-2">
-          <div class="card-body">
-              <h4 class="card-title">Profile Details</h4>
-              
-              <p class="card-text">You have full control to manage your account setting.</p>
-        </div>
+        <div class="card p-2 mt-5">
+
     
-      
-              <div>
-                <input type="file" name="avatar" id="file" style="display: none;">
-                <img id="" width="50px" class="rounded " src="/image/admin/male_avatar.png" alt="">
-              </div>
-          
-    
-           <h4 class="text-dark mt-3"><%-info[0].hash_name %> </h4>
-           <p class="text-dark mt-3"><%-info[0].hash_username %> </p>
-       <p class="text-muted">PNG or JPG and max file size 2mb.</p>
+           <h4 class="text-dark  p-2"><%-info[0].hash_name %> </h4>
+           <p class="text-dark p-2"><%-info[0].hash_username %> </p>
     
       </div>
     
@@ -82,20 +70,20 @@
 
     <form action="/admin/info/update" method="post">
     
-    <div class="col-10">
+    <div class="col-md-8 col-12">
     
     
-    <label  for="name">Name</label>
+    <label class="p-1" for="name">Name</label>
     <input class="form-dev " type="text" value="<%=info[0].hash_name%>" name="hash_name"  id="name" placeholder="Enter Name" required>
     <p></p>
     
-    <button  class="btn btn-primary p-1 mb-2">Save Change</button>
+    <button  class="btn btn-primary p-1 ps-2 pe-2 mb-2">Save & Changes</button>
 
              </div>
     
   </form>
 
-     <div id="securitys"  class="col-10">
+     <div id="securitys"  class="col-md-8 col-12">
 
 
               <div class="card">
@@ -112,7 +100,7 @@
                             <label for="email">New email address </label>
                             <input class="form-dev " type="email" name="hash_username"  id="newemail" placeholder="<%=info[0].hash_username%>" required>
                             <p></p>
-                            <button  class="btn btn-primary p-1">Save Change</button>
+                            <button  class="btn btn-primary p-1 ps-2 pe-2">Save & Changes</button>
                           <p></p>
                             <hr>
                           <p></p>
@@ -136,7 +124,7 @@
                    <p></p>
                           
             
-                            <button  class="btn btn-primary p-1">Save Change</button>
+                            <button  class="btn btn-primary p-1 ps-2 pe-2">Save & Changes</button>
                         <p></p>
             
                </div>

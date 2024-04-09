@@ -5,18 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIC Report</title>
+    <title>Transcript card</title>
     <%- include("../../component/metadata.html") %> 
 
 </head>
 
 <body onload="pageLoadingTop()" >
   <%- include("../../component/user-header-nav.html") %> 
-  <%- include("../../component/offcanvas-nav.html") %> 
+
+ 
+  <div class="d-flex p-2 justify-content-center m-2 mt-3">
+    <button onclick="printArea()" class="btn view-link ps-3 pe-3 fw-semibold text-primary printAreaBtn">Download pdf record</button>
+  </div>
 
 
-  <div class="row p-1 mt-5">
-    <div class="col-md-11 col-12 m-auto p-2">
+  <div id="printArea">
+
+    <div class="row p-2 mainApp" style="width: 1200px; overflow: auto;">
+
+      <div class="col-11 m-auto">
+
 
       <identification>
         <div class="d-flex m-2 ps-3 pe-3 justify-content-start">
@@ -499,12 +507,55 @@
       
     </div>
   </div>
+ 
+</div>
 
 <%- include("../../component/___node.html") %> 
 
           <!-- &#9726; &#9673; &#9650; -->
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
+
 <script>
+  function printArea(todo) {
+    $('.printAreaBtn').addClass('disabled');
+    $('.mainApp').css('overflow-x', 'visible');
+
+    const className = '<%=className%>'
+    const sectionName = '<%=sectionName%>'
+    const student_uuid = '<%=student_uuid%>'
+
+    _spin_pull()
+    _spin_bar_pull()
+    setTimeout(() => {
+      var element = document.getElementById('printArea');
+
+      var options = {
+        image: { type: 'jpeg', quality: 1 },
+        margin: [0, 0, 0, 0], //top, left, buttom, right,
+        filename: `Transcript-${className}-${sectionName}-${-student_uuid}.pdf`,
+        image: { type: 'jpeg', quality: 0.90 },
+        html2canvas: { dpi: 192, scale: 2, letterRendering: true },
+        pagebreak: { mode: 'avoid-all' },
+        jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' },
+        compressPDF: true,
+
+
+      };
+      _spin_pop()
+      _spin_bar_pop()
+      _msg_pull('alert-success', 'Download Successfully...', false)
+      $('.printAreaBtn').removeClass('disabled');
+      html2pdf().set(options).from(element).save();
+  
+
+    }, 3000);
+
+
+  }
+
+
 
 
 function pi_checkout_class() {
