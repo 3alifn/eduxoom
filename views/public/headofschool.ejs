@@ -19,18 +19,19 @@
 <% if (info.length>0) { %>
   <% for( let index = 0; index < info.length; index++ ) { %>
  
-    <div class="row">
-      <div class="col-12 col-md-8  shadowx m-auto p-2 mt-5 position-relative">
+    <div class="row p-2 ms-0 me-0">
+      <div class="col-12 col-md-8 shadowx m-auto p-2 mt-5 position-relative">
     
-      <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
-        <div class="d-flex  justify-content-around align-items-center">
-          <div class="card-image">
+   
+        <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
+          <div class="d-flex flex-md-row flex-column justify-content-around align-items-center">
+            <div class="card-image">
             <img class="avatar-circle" src="/image/headofschool/resized/<%=info[index].image%>" alt="">
             
         </div>
        
         <div class="text-light">
-          <h1 id="<%=info[index].position%>" class="name">Our <%=info[index].position%></h1>
+          <h2 id="<%=info[index].position%>" class="name">Our <%=info[index].position%></h2>
           <h5  class="name"><%=info[index].name%></h5>
         </div>
       
