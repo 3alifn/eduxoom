@@ -20,13 +20,13 @@ exports.multer_upload= multer({
 
   limits: {fileSize: 1024*1024*2},
   fileFilter: (req, file, cb)=>{
-    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg")
+    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg")
     {
       cb(null, true)
     } 
     else 
     {
-        cb(new Error("file extension allow only png or jpeg"))
+        cb(new Error("file extension allow only png, jpg or jpeg"))
     }
     
   }
@@ -54,13 +54,13 @@ exports.multer_upload_carousel= multer({
   limits: {fileSize: 1024*1024*2},
   fileFilter: (req, file, cb)=>{
   
-    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg")
+    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg")
     {
       cb(null, true)
     } 
     else 
     {
-        cb(new Error("file extension allow only png or jpeg"))
+        cb(new Error("file extension allow only png, jpg or jpeg"))
     }
     
   }
@@ -213,7 +213,6 @@ res.send({msg: 'Image Added!', alert: 'alert-success'})
 exports.admin_carousel_get= (req, res)=>{
 
   sqlmap.query(`SELECT * FROM carousel WHERE domain='${req.hostname}' ORDER BY ID DESC`, (err, info)=>{
-
     if(info.length>0){
 
       let listData= '';
@@ -231,7 +230,7 @@ exports.admin_carousel_get= (req, res)=>{
       res.send({listData})
 
 
-    }
+    } else res.send({listData: "<code>No image file here</code>"})
 
   })
 
