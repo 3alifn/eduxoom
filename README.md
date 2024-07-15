@@ -1,8 +1,8 @@
-# SAANVI S1
+# iPathshala v1.0.0
 ## HIGH SCHOOL MANAGEMENT SOFTWARE
 ### code by 3alifn
 
-## @Features of S1
+## @Features of v1
 ### teacher settings
 ### student settings
 ### parent settings
@@ -22,7 +22,7 @@
 ### staff settings
 
 # --plan of #2024
-## @Features of S2
+## @Features of v2
 ### accounting system
 ### fees system
 ### query search system
@@ -32,7 +32,7 @@
 ### installation system
 
 # --plan of #2025
-## @Features of S3
+## @Features of v3
 ### trash and restore
 ### import and export
 ### backup and archive
