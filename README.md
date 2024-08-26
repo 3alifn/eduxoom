@@ -1,4 +1,4 @@
-# Eduxoom v1.0.0
+# Eduxoom v1
 ## HIGH SCHOOL MANAGEMENT SOFTWARE
 ### code by 3alifn
 
