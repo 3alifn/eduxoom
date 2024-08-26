@@ -23,10 +23,9 @@ sqlmap.query(`SELECT domain, lics FROM ___ini WHERE domain='${req.hostname}' AND
       } else {
         res.render('ini/lics')
       }
-
+})
 })
 
-})
 app.get("/", home_page)
 app.use('/ini', ini)
 app.use("/pu", public)
@@ -37,15 +36,10 @@ app.use("/teacher", teacher)
 app.use("/parent", parent)
 app.use("/au", authentication)
 
-
-
 app.use((err, req, res, next)=>{
-
-    
   if(err instanceof MulterError ) {
     console.log(err.message + "_multer_");
-  
-    res.send({msg: err.message, alert: "alert-danger text-danger"})
+    res.send({msg: err.message, alert: "alert-warning text-warning"})
    }
 
 
@@ -57,12 +51,8 @@ app.use((err, req, res, next)=>{
  
   else {  
     console.log("There was a problem!");
-
     res.send("There was a problem!")
 }
-    
- 
-
 
 })
 

@@ -2,9 +2,6 @@ const express= require('express');
 const app= express();
 const {sqlmap}= require('../server');
 
-
-
-
 exports.admin_class_section_main_post=(req, res)=>{
   const {className, at_status}= req.body;
   sqlmap.query( `UPDATE class_section SET class_status='${at_status}' WHERE domain='${req.hostname}' AND  class='${className}'`, (err, next)=>{

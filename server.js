@@ -6,7 +6,7 @@ const fs = require("fs")
 const http = require("http")
 const cookieParser= require("cookie-parser")
 const session= require("express-session")
-const mysqlStore= require("express-mysql-session") (session)
+const mysqlStore= require("express-mysql-session")(session)
 const flash= require("connect-flash")
 const bodyParser = require("body-parser")
 const { render } = require("ejs")
@@ -30,8 +30,6 @@ app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
 
 app.use(express.static("./public/"))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(flash());
 app.use(cors({
   origin: true,
@@ -47,9 +45,7 @@ app.use(cors({
     database: process.env.database_name
   
   });
-
   // 
-
 
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
 const sessionStore= new mysqlStore({
@@ -85,7 +81,7 @@ const sessionStore= new mysqlStore({
 sqlmap.connect((err, res) => {
 
   if (err) console.log("Server not running")
-  else console.log("SAANVI S1 code by 3alifn...")
+  else console.log("iPathshala code by 3alifn...")
 })
 
 
@@ -104,24 +100,4 @@ app, express, mysession, mysql, session, cookieParser, flash, bodyParser,
 
 
 
-io.on('connection', (socket)=>{
-  console.log('user connected...');
-  socket.on('request', (data)=>{
-    console.log(data);
-
-    setTimeout(() => {
-      sqlmap.query(`select ID, name from admission order by ID desc`, (err, info)=>{
-        // if(err) console.log(err.sqlMessage);
-        const data= info[0].name;
-        socket.emit('response', data)
-         
-       
-    
-        })
-    }, 1000);
-  })
-
-  
-
-})
 
