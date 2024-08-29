@@ -81,7 +81,7 @@ const sessionStore= new mysqlStore({
 sqlmap.connect((err, res) => {
 
   if (err) console.log("Server not running")
-  else console.log("iPathshala code by 3alifn...")
+  else console.log("Eduxoom code by 3alifn...")
 })
 
 
