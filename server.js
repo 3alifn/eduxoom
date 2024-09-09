@@ -66,7 +66,7 @@ const sessionStore= new mysqlStore({
     key: 'saanviabc',
     secret: 'pipilikiapipra',
     store: sessionStore,
-    resave: true,
+    resave: false,
     saveUninitialized: false,
     name: cookiename,
     cookie: {
