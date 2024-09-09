@@ -35,19 +35,24 @@ app.use(cors({
   origin: true,
   credentials: true,
   optionsSuccessStatus: 200
-}))
+}));
 
-
-  const sqlmap = mysql.createConnection({
+const dbOption= {
     host: process.env.host_name,
     user: process.env.user_name,
     password: process.env.user_password,
     database: process.env.database_name
   
-  });
-  // 
+  };
+
+
+const sqlmap = mysql.createConnection(dbOption)
+ 
+
 
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
+
+
 const sessionStore= new mysqlStore({
   expiration: 86400000*30,
   createDatabaseTable: true,
@@ -59,7 +64,7 @@ const sessionStore= new mysqlStore({
       data: "session_data"
     }
   }
- }, sqlmap)
+ }, dbOption)
 
   app.use(cookieParser('pipilikiapipra'));
   app.use( session({
