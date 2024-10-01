@@ -13,7 +13,6 @@ const  authentication= require("./route/auhentication_route");
 const { home_page } = require("./app/home_app");
 const admin = require("./route/admin_route");
 const ini = require("./route/ini_route");
-const { query } = require("express");
 
 app.get('*', (req, res, next)=>{
 sqlmap.query(`SELECT domain, lics FROM ___ini WHERE domain='${req.hostname}' AND at_status=${true} AND checkout=${true}`, (errllc, infollc)=>{
@@ -64,7 +63,4 @@ app.use((req, res, next)=>{
 // throw new Error("This url was not found!")
 
 })
-
-
-
 

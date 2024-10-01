@@ -6,6 +6,7 @@ const fs = require("fs")
 const http = require("http")
 const cookieParser= require("cookie-parser")
 const session= require("express-session")
+const jwt= require("jsonwebtoken");
 const mysqlStore= require("express-mysql-session")(session)
 const flash= require("connect-flash")
 const bodyParser = require("body-parser")
@@ -21,9 +22,8 @@ const axios= require('axios')
 const ZKLib = require('zklib-32ble')
 
 
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json())
+app.use(express.urlencoded({extended: true}));
 app.set('trust proxy', 1) // trust first proxy
 app.enable("trust proxy", true)
 app.set("view engine", "ejs")
@@ -33,6 +33,7 @@ app.use(express.static("./public/"))
 app.use(flash());
 app.use(cors({
   origin: true,
+  allowedHeaders: ['Authorization', 'Content-Type'],
   credentials: true,
   optionsSuccessStatus: 200
 }));
@@ -48,10 +49,7 @@ const dbOption= {
 
 const sqlmap = mysql.createConnection(dbOption)
  
-
-
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
-
 
 const sessionStore= new mysqlStore({
   expiration: 86400000*30,
@@ -64,7 +62,7 @@ const sessionStore= new mysqlStore({
       data: "session_data"
     }
   }
- }, dbOption)
+ }, sqlmap)
 
   app.use(cookieParser('pipilikiapipra'));
   app.use( session({
@@ -90,19 +88,17 @@ sqlmap.connect((err, res) => {
 })
 
 
-const io = require('socket.io')(app.listen(process.env.listen_port || 30));
+// const io = require('socket.io')(app.listen(process.env.listen_port || 30));
 
-// app.listen(process.env.listen_port || 30)
+app.listen(process.env.listen_port || 30)
 var mysession=new Date().getUTCFullYear();
 
 
 module.exports= {
-app, express, mysession, mysql, session, cookieParser, flash, bodyParser,
+app, express, mysession, mysql, session, jwt, cookieParser, flash, bodyParser,
  sqlmap, multer, nodemailer, dotenv, cors, randomBytes,
   createHmac, fs, path, ejs, sessionStore, Timer, axios, ZKLib,
 }
-
-
 
 
 
