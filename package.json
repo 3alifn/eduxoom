@@ -9,7 +9,6 @@
     "dev": "nodemon app",
     "demo": "node demo.js",
     "npkg": "npm i express session express-session axios cors dotenv ejs mysql node-localstorage bootstrap body-parser cookie-parser connect-flash express-mysql-session jsonwebtoken multer nodemailer setinterval socket.io zklib-32ble sharp@0.31.3"
-
   },
   "author": "alifn",
   "license": "ISC",
@@ -29,6 +28,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
+    "node-localstorage": "^3.0.5",
     "nodemailer": "^6.9.15",
     "session": "^0.1.0",
     "setinterval": "^0.2.4",
