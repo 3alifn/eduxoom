@@ -95,42 +95,6 @@ age INT
     }
     
     databaseSchema(); // used async await
-      
-
-
-// sqlmap.query(`CREATE USER "mr_bean"@"localhost" IDENTIFIED by "fun"`,(err, up)=>{
-// if(err) throw err.sql
-// else console.log('success...');
-
-// }) // CREATE DATABASE USER
-
-
-// sqlmap.query(`GRANT ALL PRIVILEGES ON *.* TO "mr_bean"@"localhost" WITH GRANT OPTION`,(err, up)=>{
-//     if(err) throw err.sql
-//     else console.log('success...');
     
-// }) // ALL DATABASE USER ALL GRANT PERMISSION
-    
-    
-// sqlmap.query(`CREATE DATABASE IF NOT EXISTS bio`,(err, up)=>{
-//     if(err) throw err.sql
-//     else console.log('success...');
-    
-// }) // CREATE DATABASE IF NOT EXISTS
-
-
-
-// sqlmap.query(`CREATE TABLE IF NOT EXISTS person 
-// (
-// id INT AUTO_INCREMENT PRIMARY KEY,
-// name VARCHAR(100),
-// age INT
-// )`,(err, up)=>{
-//     if(err) throw err.sql
-//     else console.log('success...');
-    
-// }) // CREATE TABLE IF NOT EXISTS
-
-
 
     
