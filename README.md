@@ -24,44 +24,40 @@ Navigate to http://localhost:30 to see the application in action.
 
 ### Features
 
-- teacher settings
-- student settings
-- parent settings
-- staff settings
-- library settings
-- gallery setting
-- routine systems
-- subject settings
-- notice system
-- attendance system (manual and biometric)
-- admission system
-- application system
-- student rank system
-- new curriculum result system (bi, pic, pis, report)
-- repository (achievement, facilities, event news)
-_ head of school (governing body)
-- school settings
+- Teacher settings
+- Student settings
+- Parent settings
+- Staff settings
+- Library settings
+- Gallery setting
+- Routine systems
+- Subject settings
+- Notice system
+- Attendance system (manual and biometric)
+- Admission system
+- Application system
+- Student rank system
+- New curriculum result system (bi, pic, pis, report)
+- Repository (achievement, facilities, event news)
+_ Head of school (governing body)
+- School settings
 
 **--Next features plan #2025**
-
-- accounting system
-- fees system
-- query search system
-- data sorting system
-- data filtering system
-- input regex validation
-- installation system
+>
+>Accounting system Fees system Query search system Data sorting system Data filtering system Input regex validation Installation system
+>
 
 ### Contributing
 
 Contribute, inspire, and create. Your contributions are greatly appreciated.
 
 1. Fork the Project
-2. Create your Feature Branch (` git checkout -b feature/yourFeature `)
-3. Commit your Changes ( `git commit -m 'Add some yourFeature' `)
-4. Push to the Branch ( `git push origin feature/yourFeature `)
+2. Create your Feature Branch (` git checkout -b featureName `)
+3. Commit your Changes ( `git commit -m 'Add some featureName' `)
+4. Push to the Branch ( `git push origin featureName `)
 5. Open a Pull Request
 ---
-> Author	~ alif nayon
 >
-
+> Env ~ Javascript, Jquery, Bootstrap, Node.js, Express.js & Mysql, 
+> Author ~ alif nayon
+>
