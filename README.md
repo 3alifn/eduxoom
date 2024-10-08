@@ -44,7 +44,7 @@ _ Head of school (governing body)
 
 **--Next features plan #2025**
 >
->Accounting system, Fees system, Query search, Data sorting, Data filtering, Input regex validation &Installation system
+>Accounting system, Fees system, Query search, Data sorting, Data filtering, Input regex validation & Installation system
 >
 
 ### Contributing
@@ -58,7 +58,7 @@ Contribute, inspire, and create. Your contributions are greatly appreciated.
 5. Open a Pull Request
 ---
 >
-> Env ~ Javascript, Jquery, Bootstrap, Node.js, Express.js & Mysql
+> Env ~ Javascript, Jquery, Bootstrap, Node.js, Express.js & Mysql Database
 >
 > Author ~ alif nayon
 >
