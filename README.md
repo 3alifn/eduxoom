@@ -9,7 +9,7 @@ To get a local copy up and running follow these simple steps.
 ``` bash
 git clone https://github.com/3alifn/eduxoom.git
 cd eduxoom
-npm i npkg
+npm install
 
 ```
 ### Usage
