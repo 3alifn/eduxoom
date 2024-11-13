@@ -66,7 +66,7 @@ const sessionStore= new mysqlStore({
 
   app.use(cookieParser('pipilikiapipra'));
   app.use( session({
-    key: 'saanviabc',
+    key: 'eduxoom',
     secret: 'pipilikiapipra',
     store: sessionStore,
     resave: false,
