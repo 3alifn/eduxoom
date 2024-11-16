@@ -1,10 +1,12 @@
+<link style="object-fit: cover; border-radius: 100%;" class="append-logo rounded-circle" rel="icon" type="image/x-icon" href="/image/default/favicon.ico">
+
 <p class="page-loading-top shadowx">Loading...</p> 
 <head>
       
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eduxoom</title>
-    <link style="border-radius: 100%;" class="append-logo rounded-circle" rel="shortcut icon" href="/image/default/logo.ico" type="image/x-icon">
+    <link rel="icon" type="image/x-icon" href="/image/default/favicon.ico">
 <!-- Custom CSS cdn -->
 
 <link rel="stylesheet" href="/app/custom.css">
@@ -43,7 +45,7 @@
     success: function (res) {
 
       $(".append-name").text(res.info_school[0]==undefined?null:res.info_school[0].name)
-      $(".append-logo").attr( 'href', `/image/default/resized/${res.info_school[0]==undefined?'/image/default/logo.ico':res.info_school[0].logo}`)
+      $(".append-logo").attr( 'href', `/image/default/resized/${res.info_school[0]==undefined?'/image/default/favicon.ico':res.info_school[0].logo}`)
 
   
     }
