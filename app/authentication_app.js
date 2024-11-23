@@ -1,14 +1,15 @@
-const {app, express, dotenv, nodemailer, mysql, session, createHmac} = require("../server")
+const {app, express, dotenv, nodemailer, mysql, sqlmap, session, createHmac} = require("../server")
 
 
-const sqlmap= mysql.createConnection({
-    host: process.env.host_name,
-    user: process.env.user_name,
-    password: process.env.user_password,
-    database: process.env.database_name
+// const sqlmap= mysql.createPool({
+//     host: process.env.host_name,
+//     user: process.env.user_name,
+//     password: process.env.user_password,
+//     database: process.env.database_name,
+//     queueLimit: 0, 
+//     connectionLimit: 10
   
-  
-  })
+//   })
 
 
 

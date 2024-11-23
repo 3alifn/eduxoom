@@ -38,16 +38,15 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-const dbOption= {
+const sqlmap= mysql.createPool({
+
     host: process.env.host_name,
     user: process.env.user_name,
     password: process.env.user_password,
-    database: process.env.database_name
-  
-  };
-
-
-const sqlmap = mysql.createConnection(dbOption)
+    database: process.env.database_name,
+    queueLimit: 0,
+    connectionLimit: 10
+})
  
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
 
@@ -81,16 +80,19 @@ const sessionStore= new mysqlStore({
 
 
 
-sqlmap.connect((err, res) => {
+// sqlmap.connect((err, res) => {
 
-  if (err) console.log("Server not running")
-  else console.log("Eduxoom code by 3alifn...")
-})
+//   if (err) console.log("Server not running")
+//   else console.log("Eduxoom code by 3alifn...")
+// })
 
 
 // const io = require('socket.io')(app.listen(process.env.listen_port || 30));
 
-app.listen(process.env.listen_port || 30)
+app.listen(process.env.listen_port || 30, ()=>{
+  console.log('code by alifn => server runnig on http://localhost:30');
+  
+})
 var mysession=new Date().getUTCFullYear();
 
 
