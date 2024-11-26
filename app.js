@@ -39,18 +39,13 @@ app.use((err, req, res, next)=>{
   if(err instanceof MulterError ) {
     console.log(err.message + "_multer_");
     res.send({msg: err.message, alert: "alert-warning text-warning"})
+    
    }
-
-
- else if(err.message) {
-  console.log(err.message);
-  res.send(err.message)
- }
 
  
   else {  
     console.log("There was a problem!");
-    res.send("There was a problem!")
+    next("There was a problem!")
 }
 
 })

@@ -50,18 +50,7 @@ const sqlmap= mysql.createPool({
  
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
 
-const sessionStore= new mysqlStore({
-  expiration: 86400000*30,
-  createDatabaseTable: true,
-  schema: {
-    tableName: "authentication_session",
-    columnNames: {
-      session_id: "session_id",
-      expires: "session_expires",
-      data: "session_data"
-    }
-  }
- }, sqlmap)
+const sessionStore= new mysqlStore({expiration: 86400000*30}, sqlmap)
 
   app.use(cookieParser('pipilikiapipra'));
   app.use( session({
@@ -75,16 +64,6 @@ const sessionStore= new mysqlStore({
      path: '/', secure: false, httpOnly: true, maxAge:  86400000*30, 
     }
 }))
-
-
-
-
-
-// sqlmap.connect((err, res) => {
-
-//   if (err) console.log("Server not running")
-//   else console.log("Eduxoom code by 3alifn...")
-// })
 
 
 // const io = require('socket.io')(app.listen(process.env.listen_port || 30));
