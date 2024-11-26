@@ -180,16 +180,18 @@ exports.admin_carousel_post= async(req, res)=>{
     else {
 
       
-      await sharp(req.files.path)
+      await sharp(req.files[x].path)
       .jpeg({ quality: 50 })
       .toFile(
-          path.resolve(path.resolve(req.files.destination, 'resized',image))
+          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
       )
       // console.log(req.files[x].path);
 
   fs.unlinkSync(req.files[x].path)
     
       }
+
+
     }
   
   

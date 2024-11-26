@@ -41,7 +41,9 @@ admin_logger: (req, res)=>{
     const {hashUsername, hashPassword}= req.body;
     const hashPassword__= createHmac('md5', 'pipilikapipra').update(hashPassword).digest('hex');
 
-    sqlmap.query(`SELECT * FROM user_admin WHERE domain='${req.hostname}' AND   hash_username='${hashUsername}' AND hash_password='${hashPassword__}'`, (err, info)=>{
+    sqlmap.query("SELECT * FROM user_admin WHERE domain =? AND hash_username =? AND hash_password =?",
+      [req.hostname, hashUsername, hashPassword__],
+     (err, info)=>{
 
         if(info.length>0){
           
