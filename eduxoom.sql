@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2024 at 09:16 AM
+-- Generation Time: Nov 27, 2024 at 09:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -95,12 +95,16 @@ CREATE TABLE `application` (
 CREATE TABLE `attn_record` (
   `domain` varchar(100) NOT NULL,
   `id` int(11) NOT NULL,
+  `menual` int(11) NOT NULL,
   `session` int(11) NOT NULL,
   `user` varchar(100) NOT NULL,
+  `duplicate_data` varchar(200) NOT NULL,
   `class` varchar(10) DEFAULT NULL,
   `section` varchar(10) DEFAULT NULL,
+  `roll` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `user_id` varchar(100) NOT NULL,
+  `avatar` varchar(100) NOT NULL,
   `get_cal` varchar(100) NOT NULL,
   `find_date` varchar(100) NOT NULL,
   `attn_date` varchar(100) NOT NULL,
@@ -117,6 +121,16 @@ CREATE TABLE `attn_record` (
   `day` int(11) NOT NULL,
   `at_date` varchar(100) NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `attn_record`
+--
+
+INSERT INTO `attn_record` (`domain`, `id`, `menual`, `session`, `user`, `duplicate_data`, `class`, `section`, `roll`, `name`, `user_id`, `avatar`, `get_cal`, `find_date`, `attn_date`, `record_date`, `record_time`, `punch`, `checkout`, `at_status`, `overtime`, `latetime`, `take_time`, `year`, `month`, `day`, `at_date`) VALUES
+('localhost', 125, 1, 2024, 'Student', '601792_Wed Nov 27 2024', 'Six', 'A', 1, '????? ??????? ', '601792', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:29'),
+('localhost', 126, 1, 2024, 'Student', '134797_Wed Nov 27 2024', 'Six', 'A', 2, 'Chompa Khatun', '134797', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:31'),
+('localhost', 127, 1, 2024, 'Student', '467151_Wed Nov 27 2024', 'Six', 'A', 3, '?????? ', '467151', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:38'),
+('localhost', 128, 1, 2024, 'Student', '241952_Wed Nov 27 2024', 'Six', 'A', 4, 'Karima', '241952', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:39');
 
 -- --------------------------------------------------------
 
@@ -151,14 +165,6 @@ CREATE TABLE `attn_student` (
   `at_date` varchar(100) NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `attn_student`
---
-
-INSERT INTO `attn_student` (`domain`, `id`, `session`, `class`, `section`, `name`, `avatar`, `student_id`, `roll`, `get_cal`, `find_date`, `attn_date`, `record_date`, `record_time`, `punch`, `checkout`, `at_status`, `overtime`, `latetime`, `take_time`, `year`, `month`, `day`, `at_date`) VALUES
-('localhost', 11, 2024, 'Six', 'A', 'তড়িতা অধিকারী ', 'female_avatar.png', 601792, 1, '2-2024', 'March-31-3-2024', 'Sun Mar 31 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 2, 31, '2024-03-31 12:56:20'),
-('localhost', 12, 2024, 'Six', 'A', 'Chompa Khatun', 'female_avatar.png', 134797, 2, '2-2024', 'March-31-3-2024', 'Sun Mar 31 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 2, 31, '2024-03-31 12:56:21');
-
 -- --------------------------------------------------------
 
 --
@@ -170,31 +176,6 @@ CREATE TABLE `authentication_session` (
   `session_expires` int(10) UNSIGNED NOT NULL,
   `session_data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `authentication_session`
---
-
-INSERT INTO `authentication_session` (`session_id`, `session_expires`, `session_data`) VALUES
-('2Ifu1_tbm6srVMkouBvuubK2rUBydRJo', 1712163007, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T16:50:07.224Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('5-cMCPm6a7_BQlgJQD4SlrH4B9QLW6Wg', 1712163007, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T16:50:07.229Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('92AkBJbgoO6fzW_yPMqjdWa-wB7rjzEk', 1712155186, '{\"cookie\":{\"originalMaxAge\":2591999999,\"expires\":\"2024-04-03T14:39:46.321Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
-('Au4S3VHZrUOvWB5MMyGPsl_ypT84rJ_3', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.534Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('CiKg3RUjgYpPZU72juvbPWrIC2fwv-me', 1712163007, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T16:50:07.219Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('GBZYZ3CSzdL3uPiSWZDYwRcBC1lWFKi8', 1712139513, '{\"cookie\":{\"originalMaxAge\":2591999999,\"expires\":\"2024-04-03T10:18:32.506Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('GQpbr6m1Ywj12PYFRmnLSgnCuwabdMqb', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.521Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('PHuCqQZc7rwcRXXFK_DcooB6279leIOQ', 1712139510, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:29.727Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('S2Z24lGAVwZbAOk2efJUkw9WIYqQei-f', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.523Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('S6QTk75l2LehyfT94cxMFGFqSX9_5k98', 1712139512, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.498Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('Vl58ETg0c6Tbq4D4y1Tehs7koICHUgWc', 1712574599, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-08T11:09:59.058Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":18,\"teacher_uuid\":\"1697209362834\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"SOUMITRA SAHA\",\"userEmail\":\"soumitrasahatanin@gmail.com\",\"usermail\":\"soumitrasahatanin@gmail.com\",\"index\":\"N1147428\"}'),
-('_H6Z4pd9ze51aO86bqDSluhk4exYOYt1', 1714461243, '{\"cookie\":{\"originalMaxAge\":2591999994,\"expires\":\"2024-04-30T07:14:03.120Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":18,\"teacher_uuid\":\"1697209362834\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"SOUMITRA SAHA\",\"userEmail\":\"soumitrasahatanin@gmail.com\",\"usermail\":\"soumitrasahatanin@gmail.com\",\"index\":\"N1147428\"}'),
-('_Ka4_N53qc_wDN4ojGaAZZLu6uNEFqE9', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.528Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('h2sIS1j9HtLsdQU7qCLimH0hfRSMww59', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.515Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('mQdi02mmWdns6YKfRPTHJl-rTbPcv99O', 1712163007, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T16:50:07.222Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('n5R77TFuehEO-vDQscYPVpLFY0QYXrxm', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.508Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('piyT7isfkqRhGuJJ77x8uoHOmNJxXd5E', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.530Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('tBCriGj7MhtPIdi-Lxq1wVotdazP3eYk', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.513Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}'),
-('tRx9FhfXutbvCva4LCFO9jSSgQ19ARP1', 1712139513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-04-03T10:18:32.500Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":2,\"teacher_uuid\":\"1697690219859\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Abdul Aziz Molla\",\"userEmail\":\"azizshs07@gmail.com\",\"usermail\":\"azizshs07@gmail.com\",\"index\":\"D470889\"}');
 
 -- --------------------------------------------------------
 
@@ -825,7 +806,55 @@ INSERT INTO `pic_mark` (`domain`, `ID`, `session`, `at_date`, `class`, `section`
 ('localhost', 42, 2024, '2024-03-10 08:06:32', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-9-1', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-9-1', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
 ('localhost', 43, 2024, '2024-03-10 08:06:32', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-9-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-9-2', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
 ('localhost', 44, 2024, '2024-03-10 08:06:32', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-1', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-1', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
-('localhost', 45, 2024, '2024-03-10 08:06:32', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-2', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png');
+('localhost', 45, 2024, '2024-03-10 08:06:32', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-2', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
+('localhost', 46, 2024, '2024-11-25 04:07:53', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '1', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-success', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 47, 2024, '2024-11-25 04:07:54', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '0', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-warning', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 48, 2024, '2024-11-25 04:07:56', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '-1', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-danger', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 49, 2024, '2024-11-25 04:07:57', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '0', 'gp2', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-warning', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 50, 2024, '2024-11-25 04:07:58', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '1', 'gp2', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-success', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 51, 2024, '2024-11-25 04:08:00', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '-1', 'gp3', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-danger', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 52, 2024, '2024-11-25 04:08:01', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '-1', 'gp2', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-danger', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 53, 2024, '2024-11-25 04:08:02', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '0', 'gp2', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-warning', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 54, 2024, '2024-11-25 04:08:03', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '-1', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-danger', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 55, 2024, '2024-11-25 04:08:04', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '-1', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-danger', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 56, 2024, '2024-11-25 04:08:06', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '-1', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-danger', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 57, 2024, '2024-11-25 04:08:08', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '0', 'gp3', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-warning', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 58, 2024, '2024-11-25 04:08:09', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-2', '0', 'gp3', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp3_6-3-2', 'bg-warning', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 59, 2024, '2024-11-25 04:08:11', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '1', 'gp1', 0, '1698659885616cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-success', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('localhost', 60, 2024, '2024-11-25 04:08:12', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '0', 'gp1', 0, '1698659885616cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-warning', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('localhost', 61, 2024, '2024-11-25 04:08:13', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '-1', 'gp1', 0, '1698659885616cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-danger', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('localhost', 62, 2024, '2024-11-25 04:08:14', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '-1', 'gp2', 0, '1698659885616cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-danger', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('localhost', 63, 2024, '2024-11-25 04:08:15', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '1', 'gp2', 0, '1698659885616cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-success', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('localhost', 64, 2024, '2024-11-25 04:08:17', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '0', 'gp3', 0, '1698659885616cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-warning', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('localhost', 65, 2024, '2024-11-25 04:08:18', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-2', '0', 'gp3', 0, '1698659885616cc3556329d4583319dca2e10ff96baf7gp3_6-3-2', 'bg-warning', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('localhost', 66, 2024, '2024-11-25 04:08:20', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '0', 'gp1', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-warning', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 67, 2024, '2024-11-25 04:08:21', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '-1', 'gp1', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-danger', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 68, 2024, '2024-11-25 04:08:22', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '1', 'gp1', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-success', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 69, 2024, '2024-11-25 04:08:23', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '0', 'gp2', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-warning', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 70, 2024, '2024-11-25 04:08:23', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '0', 'gp2', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-warning', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 71, 2024, '2024-11-25 04:08:25', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '-1', 'gp1', 0, '1698460381556cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-danger', '', '1698460381556', 5, 'উৎসব বিশ্বাস', 'male_avatar.png'),
+('localhost', 72, 2024, '2024-11-25 04:08:27', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '0', 'gp1', 0, '1698460381556cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-warning', '', '1698460381556', 5, 'উৎসব বিশ্বাস', 'male_avatar.png'),
+('localhost', 73, 2024, '2024-11-25 04:08:28', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '1', 'gp1', 0, '1698460381556cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-success', '', '1698460381556', 5, 'উৎসব বিশ্বাস', 'male_avatar.png'),
+('localhost', 74, 2024, '2024-11-25 04:08:29', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '1', 'gp2', 0, '1698460381556cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-success', '', '1698460381556', 5, 'উৎসব বিশ্বাস', 'male_avatar.png'),
+('localhost', 75, 2024, '2024-11-25 04:08:30', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '1', 'gp2', 0, '1698460381556cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-success', '', '1698460381556', 5, 'উৎসব বিশ্বাস', 'male_avatar.png'),
+('localhost', 76, 2024, '2024-11-25 04:08:31', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '0', 'gp3', 0, '1698460381556cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-warning', '', '1698460381556', 5, 'উৎসব বিশ্বাস', 'male_avatar.png'),
+('localhost', 77, 2024, '2024-11-25 04:08:33', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '0', 'gp1', 0, '1698148306745cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-warning', '', '1698148306745', 6, 'Sarmin', 'female_avatar.png'),
+('localhost', 78, 2024, '2024-11-25 04:08:34', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '-1', 'gp1', 0, '1698148306745cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-danger', '', '1698148306745', 6, 'Sarmin', 'female_avatar.png'),
+('localhost', 79, 2024, '2024-11-25 04:08:36', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '1', 'gp1', 0, '1698148306745cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-success', '', '1698148306745', 6, 'Sarmin', 'female_avatar.png'),
+('localhost', 80, 2024, '2024-11-25 04:08:37', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '-1', 'gp2', 0, '1698148306745cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-danger', '', '1698148306745', 6, 'Sarmin', 'female_avatar.png'),
+('localhost', 81, 2024, '2024-11-25 04:08:38', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '0', 'gp2', 0, '1698148306745cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-warning', '', '1698148306745', 6, 'Sarmin', 'female_avatar.png'),
+('localhost', 82, 2024, '2024-11-25 04:08:39', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '1', 'gp3', 0, '1698148306745cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-success', '', '1698148306745', 6, 'Sarmin', 'female_avatar.png'),
+('localhost', 83, 2024, '2024-11-27 07:42:25', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '0', 'gp1', 0, '1698361986940cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-warning', '', '1698361986940', 8, 'রুদ্র বালা ', 'female_avatar.png'),
+('localhost', 84, 2024, '2024-11-27 07:42:26', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '1', 'gp1', 0, '1698361986940cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-success', '', '1698361986940', 8, 'রুদ্র বালা ', 'female_avatar.png'),
+('localhost', 85, 2024, '2024-11-27 07:42:27', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '0', 'gp1', 0, '1698361986940cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-warning', '', '1698361986940', 8, 'রুদ্র বালা ', 'female_avatar.png'),
+('localhost', 86, 2024, '2024-11-27 07:42:27', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '-1', 'gp2', 0, '1698361986940cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-danger', '', '1698361986940', 8, 'রুদ্র বালা ', 'female_avatar.png'),
+('localhost', 87, 2024, '2024-11-27 07:42:28', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '0', 'gp2', 0, '1698361986940cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-warning', '', '1698361986940', 8, 'রুদ্র বালা ', 'female_avatar.png'),
+('localhost', 88, 2024, '2024-11-27 07:42:31', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '1', 'gp1', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-success', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
+('localhost', 89, 2024, '2024-11-27 07:42:32', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '0', 'gp1', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
+('localhost', 90, 2024, '2024-11-27 07:42:33', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '0', 'gp1', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
+('localhost', 91, 2024, '2024-11-27 07:42:35', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '0', 'gp2', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
+('localhost', 92, 2024, '2024-11-27 07:42:36', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '1', 'gp2', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-success', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
+('localhost', 93, 2024, '2024-11-27 07:42:37', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '0', 'gp3', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -1549,6 +1578,26 @@ CREATE TABLE `school_settings` (
   `video` varchar(100) NOT NULL,
   `fb_link` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `expires` int(11) UNSIGNED NOT NULL,
+  `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('P-AlFd3xdHn_O5IQXMnh-3tVid3Po9mY', 1735188976, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-12-26T04:55:56.597Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
+('bFoaPryQFqcXw26bAio5y1fdA6pUMGOi', 1735286721, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-12-27T07:47:28.768Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":18,\"teacher_uuid\":\"1697209362834\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"SOUMITRA SAHA\",\"userEmail\":\"soumitrasahatanin@gmail.com\",\"usermail\":\"soumitrasahatanin@gmail.com\",\"index\":\"N1147428\"}');
 
 -- --------------------------------------------------------
 
@@ -2664,23 +2713,32 @@ CREATE TABLE `student_rank` (
 --
 
 INSERT INTO `student_rank` (`domain`, `ID`, `session`, `find_date`, `rank_date`, `teacher_uuid`, `student_uuid`, `student_id`, `at_date`, `name`, `roll`, `class`, `section`, `checkout`, `behavior`, `study`, `uniform`, `present`, `absent`, `poient`, `avatar`) VALUES
-('localhost', 56, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:51', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 0, 0, 1.444, 'female_avatar.png'),
-('localhost', 57, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:52', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 0, 0, 1.444, 'female_avatar.png'),
-('localhost', 58, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:53', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 0, 0, 1.444, 'female_avatar.png'),
-('localhost', 59, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:02:17', 'Chompa Khatun', 2, 'Six', 'A', 'b3_1698299881366', 1, 0, 0, 0, 0, -1.222, 'female_avatar.png'),
-('localhost', 60, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:06', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 0, 0, 0.444, 'female_avatar.png'),
-('localhost', 61, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:32', 'Chompa Khatun', 2, 'Six', 'A', 'u1_1698299881366', 0, 0, 1, 0, 0, -1.222, 'female_avatar.png'),
-('localhost', 62, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:40', 'Chompa Khatun', 2, 'Six', 'A', 's1_1698299881366', 0, 1, 0, 0, 0, -1.222, 'female_avatar.png'),
-('localhost', 63, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:42', 'তানিয়া ', 3, 'Six', 'A', 'u1_1698659885616', 0, 0, 1, 0, 0, 0.444, 'female_avatar.png'),
-('localhost', 64, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:45', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 0, 0, 0.444, 'female_avatar.png'),
-('localhost', 65, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:06:36', 'Karima', 4, 'Six', 'A', 'b1_1698738939274', 1, 0, 0, 0, 0, 1.333, 'female_avatar.png'),
+('localhost', 56, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:51', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 1, 0, 2.888, 'female_avatar.png'),
+('localhost', 57, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:52', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 1, 0, 2.888, 'female_avatar.png'),
+('localhost', 58, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:53', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 1, 0, 2.888, 'female_avatar.png'),
+('localhost', 59, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:02:17', 'Chompa Khatun', 2, 'Six', 'A', 'b3_1698299881366', 1, 0, 0, 0, 1, 1.888, 'female_avatar.png'),
+('localhost', 60, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:06', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 1, 0, 3.998, 'female_avatar.png'),
+('localhost', 61, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:32', 'Chompa Khatun', 2, 'Six', 'A', 'u1_1698299881366', 0, 0, 1, 0, 1, 1.888, 'female_avatar.png'),
+('localhost', 62, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:40', 'Chompa Khatun', 2, 'Six', 'A', 's1_1698299881366', 0, 1, 0, 0, 1, 1.888, 'female_avatar.png'),
+('localhost', 63, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:42', 'তানিয়া ', 3, 'Six', 'A', 'u1_1698659885616', 0, 0, 1, 1, 0, 3.998, 'female_avatar.png'),
+('localhost', 64, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:45', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 1, 0, 3.998, 'female_avatar.png'),
+('localhost', 65, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:06:36', 'Karima', 4, 'Six', 'A', 'b1_1698738939274', 1, 0, 0, 0, 1, 2.999, 'female_avatar.png'),
 ('localhost', 66, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698460381556', 551763, '2024-03-31 07:06:58', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 'b1_1698460381556', 1, 0, 0, 0, 0, 1.333, 'male_avatar.png'),
-('localhost', 67, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:08:11', 'Karima', 4, 'Six', 'A', 's3_1698738939274', 0, 1, 0, 0, 0, 1.333, 'female_avatar.png'),
+('localhost', 67, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:08:11', 'Karima', 4, 'Six', 'A', 's3_1698738939274', 0, 1, 0, 0, 1, 2.999, 'female_avatar.png'),
 ('localhost', 68, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698460381556', 551763, '2024-03-31 07:08:15', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 's3_1698460381556', 0, 1, 0, 0, 0, 1.333, 'male_avatar.png'),
 ('localhost', 69, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:52', 'Sarmin', 6, 'Six', 'A', 'b3_1698148306745', 1, 0, 0, 0, 0, -1.222, 'female_avatar.png'),
 ('localhost', 70, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:57', 'Sarmin', 6, 'Six', 'A', 'u1_1698148306745', 0, 0, 1, 0, 0, -1.222, 'female_avatar.png'),
 ('localhost', 71, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:58', 'Sarmin', 6, 'Six', 'A', 's1_1698148306745', 0, 1, 0, 0, 0, -1.222, 'female_avatar.png'),
-('localhost', 72, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698721140415', 139041, '2024-03-31 07:13:59', 'Tasmim', 7, 'Six', 'A', 'b1_1698721140415', 1, 0, 0, 0, 0, -1.666, 'female_avatar.png');
+('localhost', 72, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698721140415', 139041, '2024-03-31 07:13:59', 'Tasmim', 7, 'Six', 'A', 'b1_1698721140415', 1, 0, 0, 0, 0, -1.666, 'female_avatar.png'),
+('localhost', 73, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:41', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 1, 0, 2.888, 'female_avatar.png'),
+('localhost', 74, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:42', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 1, 0, 2.888, 'female_avatar.png'),
+('localhost', 75, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:43', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 1, 0, 2.888, 'female_avatar.png'),
+('localhost', 76, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698299881366', 134797, '2024-11-27 07:41:47', 'Chompa Khatun', 2, 'Six', 'A', 's3_1698299881366', 0, 1, 0, 0, 1, 1.888, 'female_avatar.png'),
+('localhost', 77, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698299881366', 134797, '2024-11-27 07:41:48', 'Chompa Khatun', 2, 'Six', 'A', 'u2_1698299881366', 0, 0, 1, 0, 1, 1.888, 'female_avatar.png'),
+('localhost', 78, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:49', 'তানিয়া ', 3, 'Six', 'A', 'u3_1698659885616', 0, 0, 1, 1, 0, 3.998, 'female_avatar.png'),
+('localhost', 79, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:50', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 1, 0, 3.998, 'female_avatar.png'),
+('localhost', 80, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:51', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 1, 0, 3.998, 'female_avatar.png'),
+('localhost', 81, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698738939274', 241952, '2024-11-27 07:41:52', 'Karima', 4, 'Six', 'A', 'b3_1698738939274', 1, 0, 0, 0, 1, 2.999, 'female_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -2752,7 +2810,7 @@ INSERT INTO `teachers` (`domain`, `ID`, `teacher_uuid`, `name`, `gender`, `educa
 ('localhost', 15, '1697184120953', 'MADHABIKA BISWAS', 'Female', 'N/A', '100402754', 'D1038899', 1038899, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01714207353', 'ambiswas7@gmail.com', '', 'Hinduism', 'N/A', 'N/A', 'N/A', '2008-04-01', '1676563463399_madhabika-madam-at.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:04:23'),
 ('localhost', 16, '1697576944814', 'MOHSIN ALAM', 'Male', 'N/A', '100461153', 'N1072480', 1072480, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01778029043', 'mohsinalammath@gmail.com', '', 'Islam', 'N/A', 'N/A', 'N/A', '2012-07-10', '1676563588633_mahasin-sir-at.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:06:28'),
 ('localhost', 17, '1697371634552', 'RINA RANI KUNDU', 'Female', 'N/A', '100509626', 'N1123915', 1123915, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01726012667', 'rinaranikundu81@gmail.com', '', 'Hinduism', 'N/A', 'N/A', 'N/A', '2015-08-01', '1676563720313_rina-rani-madam-at.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:08:40'),
-('localhost', 18, '1697209362834', 'SOUMITRA SAHA', 'Male', 'N/A', '100555345', 'N1147428', 1147428, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01743452910', 'soumitrasahatanin@gmail.com', '', 'Hinduism', 'N/A', ' Boalmari-Faridpur', 'N/A', '2019-02-03', '1697003982308_382232475.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:10:32'),
+('localhost', 18, '1697209362834', 'SOUMITRA SAHA', 'Male', 'N/A', '100555345', 'N1147428', 1147428, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01743452910', 'soumitrasahatanin@gmail.com', '', 'Hinduism', 'N/A', ' Boalmari-Faridpur', 'N/A', '2019-02-03', 'male_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:10:32'),
 ('localhost', 19, '1697198926998', 'MOFIJUR RAHAMAN', 'Male', 'N/A', '100499627', 'N1117821', 1117821, 'Sports Teacher', 'C', 'N/A', 'N/A', '01854744192', 'mofijur1988@gmail.com', '', 'Islam', 'N/A', 'N/A', 'N/A', '2019-02-20', '1676563986090_mofijur-rahman-sir.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:13:06'),
 ('localhost', 20, '1697584951834', 'USHA NANDI', 'Female', 'N/A', '100567695', 'N1156115', 1156115, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01734726447', 'nandi.usha85@gmail.com', '', 'Hinduism', 'N/A', 'N/A', 'N/A', '2019-11-14', '1676564123460_usha-nandi-madam-.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:15:23'),
 ('localhost', 21, '1697147898114', 'ELIAS HOSSAN', 'Male', 'N/A', '100543362', 'N2122121', 2122121, 'Instructor', 'D', 'N/A', 'N/A', '01770559553', 'eliasmolla19870805@gmail.com', '', 'Islam', 'N/A', 'N/A', 'N/A', '2020-02-01', '1676564247907_elias-sir-inst.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:17:27'),
@@ -2972,7 +3030,7 @@ CREATE TABLE `___ini` (
 
 INSERT INTO `___ini` (`ID`, `domain`, `lics`, `join_date`, `expire_date`, `at_status`, `checkout`, `at_date`) VALUES
 (10, 'localhost', 'ABC123XYZL', '10/7/2023', '10/7/2024', 1, 1, '2023-10-07'),
-(16, 'saanviabc.com', 'ABC123XYZS', '10/7/2023', '10/7/2024', 1, 1, '2023-10-07'),
+(16, 'eduxoom.net', 'ABC123XYZS', '10/7/2023', '10/7/2025', 1, 1, '2023-10-07'),
 (17, 'sahasrailpphs.saanviabc.com', 'ABC123XYZSS', '14/10/2023', '14/10/2024', 1, 1, '2023-10-07'),
 (18, 'gohailbarimb.saanviabc.com', 'ABC123XYZG', '14/10/2023', '14/10/2024', 1, 1, '2023-10-07'),
 (19, 'kadirdiblhs.saanviabc.com', 'ABC123XYZK', '14/10/2023', '14/10/2024', 1, 1, '2023-10-07'),
@@ -3149,6 +3207,12 @@ ALTER TABLE `school_settings`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`session_id`);
+
+--
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
@@ -3238,7 +3302,7 @@ ALTER TABLE `application`
 -- AUTO_INCREMENT for table `attn_record`
 --
 ALTER TABLE `attn_record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `attn_student`
@@ -3268,7 +3332,7 @@ ALTER TABLE `bi_transcript`
 -- AUTO_INCREMENT for table `carousel`
 --
 ALTER TABLE `carousel`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `class_section`
@@ -3340,7 +3404,7 @@ ALTER TABLE `parents`
 -- AUTO_INCREMENT for table `pic_mark`
 --
 ALTER TABLE `pic_mark`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `pis_mark`
@@ -3388,7 +3452,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `student_rank`
 --
 ALTER TABLE `student_rank`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `subject`
