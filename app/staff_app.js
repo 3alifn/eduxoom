@@ -65,7 +65,7 @@ exports.public_staff_profile_get = (req, res) => {
    <center>
   <div class="bg-card-color-light pt-3  pb-3 rounded-top-5 rounded-start-5">
       <div class="card-image">
-          <img class="avatar-circle" src="/image/staff/resized/${info[0].avatar}" alt="">
+          <img class="avatar-circle" src="/image/staff/resized/${info[0].image}" alt="">
       </div>
   </div>
 </center>
