@@ -38,14 +38,14 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-const sqlmap= mysql.createConnection({
+const sqlmap= mysql.createPool({
 
     host: process.env.host_name,
     user: process.env.user_name,
     password: process.env.user_password,
     database: process.env.database_name,
     // queueLimit: 0,
-    // connectionLimit: 100
+    connectionLimit: 100
 })
  
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')

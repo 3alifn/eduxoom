@@ -1,26 +1,35 @@
 const { app, express, mysql , sessionStore,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs, ZKHLIB } = require("../server")
 //  subject_code_example: six_a_math
 
-function ___ini(domain, lics){
-    const join_date= new Date().toLocaleDateString();
-    const expire_date= parseInt(new Date().getMonth()+1)+'/'+parseInt(new Date().getDay()+1)+'/'+parseInt(new Date().getFullYear()+1);
-    sqlmap.query(`INSERT INTO ___ini (domain, lics, join_date, expire_date, at_status)
-    VALUES('${domain}', '${lics}','${join_date}', '${expire_date}', ${true})`, (err1, info1)=>{
-      if(err1) console.log(err1.sqlMessage);
-      else {
-        sqlmap.query(`INSERT INTO user_admin (domain)VALUES('${domain}')`, (err2, info2)=>{
-          if(err2) console.log(err2.sqlMessage);
-          else {
-            
-            console.log('Created => '+domain, lics, expire_date);
-  
+function ___ini(domain, lics) {
+  const join_date = new Date().toLocaleDateString();
+  const expire_date = (new Date().getMonth() + 1) + '/' + (new Date().getDate() + 1) + '/' + (new Date().getFullYear() + 1);
+
+  sqlmap.query(
+      `INSERT INTO ___ini (domain, lics, join_date, expire_date, at_status)
+      VALUES (?, ?, ?, ?, ?)`,
+      [domain, lics, join_date, expire_date, true],
+      (err1, info1) => {
+          if (err1) {
+              console.log(err1.sqlMessage);
+              return;
           }
-      })
-    
+
+          sqlmap.query(
+              `INSERT INTO user_admin (domain) VALUES (?)`,
+              [domain],
+              (err2, info2) => {
+                  if (err2) {
+                      console.log(err2.sqlMessage);
+                      return;
+                  }
+
+                  console.log('Created => ' + domain, lics, expire_date);
+              }
+          );
       }
-    })
-  }
-  
+  );
+}
 
 
 
@@ -32,6 +41,9 @@ run_cmd_terminal=()=>{
   cpm.exec('start "" "index.html"', {cwd: 'C:/Users/3alifn/Desktop/web'});
   
 }
+ 
+
+
 // run_cmd_terminal()
 
   // const randomString= randomBytes(10).toString('hex');
@@ -43,42 +55,65 @@ run_cmd_terminal=()=>{
   // console.log(log);
 
 //  sql for update subject code..............
-  // sqlmap.query(`SELECT ID, subject FROM subject order by subject`, (err, info)=>{
-  //  if(err) console.log(err.sqlMessage);
-  //  else {
-  //   for (let index = 0; index < info.length; index++) {
-  //       const subject_code= createHmac('md5', 'pipilikapipra').update(`${info[index].subject}`).digest('hex');
 
-  //    sqlmap.query(`UPDATE subject SET subject_code='${subject_code}' WHERE ID='${info[index].ID}'`, (errx, update)=>{
-  //     if(errx) console.log(errx.sqlMessage);
-  //     else {
-  //       if(info.length==index+1){
-  //         console.log('updated');
-  //       }
-  //     }
-  //    })
-      
-  //   }
-  //  }
-  // })
+// sqlmap.query(
+//   `SELECT ID, subject FROM subject ORDER BY subject`,
+//   (err, info) => {
+//       if (err) {
+//           console.log(err.sqlMessage);
+//           return;
+//       }
+
+//       for (let index = 0; index < info.length; index++) {
+//           const subject_code = createHmac('md5', 'pipilikapipra').update(`${info[index].subject}`).digest('hex');
+
+//           sqlmap.query(
+//               `UPDATE subject SET subject_code=? WHERE ID=?`,
+//               [subject_code, info[index].ID],
+//               (errx, update) => {
+//                   if (errx) {
+//                       console.log(errx.sqlMessage);
+//                       return;
+//                   }
+//                   if (info.length == index + 1) {
+//                       console.log('updated');
+//                   }
+//               }
+//           );
+//       }
+//   }
+// );
+
   
 
   // sql for teacher id.....
 
-  // sqlmap.query(`SELECT index_number, ID FROM teachers ORDER BY ID`, (err, info)=>{
-  //   if(err) console.log(err.sqlMessage);
-  //   else {
-  //     for (let index = 0; index < info.length; index++) {
-  //       const teacher_id= info[index].index_number.slice(1);
-  //       console.log(teacher_id);
-  //      sqlmap.query(`UPDATE teachers SET teacher_id=${teacher_id} WHERE ID='${info[index].ID}'`, (erru, update)=>{
-  //       if(erru) console.log(erru.sqlMessage);
-  //       // else console.log(index+1);
-  //      })
-        
-  //     }
+  // sqlmap.query(
+  //   `SELECT index_number, ID FROM teachers ORDER BY ID`,
+  //   (err, info) => {
+  //       if (err) {
+  //           console.log(err.sqlMessage);
+  //           return;
+  //       }
+
+  //       for (let index = 0; index < info.length; index++) {
+  //           const teacher_id = info[index].index_number.slice(1);
+  //           console.log(teacher_id);
+
+  //           sqlmap.query(
+  //               `UPDATE teachers SET teacher_id=? WHERE ID=?`,
+  //               [teacher_id, info[index].ID],
+  //               (erru, update) => {
+  //                   if (erru) {
+  //                       console.log(erru.sqlMessage);
+  //                       return;
+  //                   }
+  //               }
+  //           );
+  //       }
   //   }
-  // })
+
+
 
 // var find_date= new Date().toDateString()
 // var findDate= new Date().toLocaleDateString();
@@ -94,34 +129,52 @@ run_cmd_terminal=()=>{
 
 // query for uuid and new primary id...
 
-// sqlmap.query(`select ID from students_r order by ID`, (err, info)=>{
-//   if(err) console.log(err.sqlMessage);
-//   for (let index = 0; index < info.length; index++) {
-//   var newid= 2001;
-//    var uuid= new Date().getTime()+Math.floor(Math.random()*900000000);
-
-//     sqlmap.query(`update students_r set ID='${newid+index}', student_uuid='${uuid}' where ID='${info[index].ID}'`, (err2, update)=>{
-//       if(err2) console.log(err2.sqlMessage);
-//       else {
-//         console.log('updated...');
+// sqlmap.query(
+//   `SELECT ID FROM students_r ORDER BY ID`,
+//   (err, info) => {
+//       if (err) {
+//           console.log(err.sqlMessage);
+//           return;
 //       }
-//     })
-    
+
+//       for (let index = 0; index < info.length; index++) {
+//           let newid = 2001;
+//           let uuid = new Date().getTime() + Math.floor(Math.random() * 900000000);
+
+//           sqlmap.query(
+//               `UPDATE students_r SET ID=?, student_uuid=? WHERE ID=?`,
+//               [newid + index, uuid, info[index].ID],
+//               (err2, update) => {
+//                   if (err2) {
+//                       console.log(err2.sqlMessage);
+//                       return;
+//                   }
+//                   console.log('updated...');
+//               }
+//           );
+//       }
 //   }
-// })
+// );
+
 
 
 
 
 // query for demo password
 
-//  var password= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
-// sqlmap.query(`update students set password='${password}'`, (err, update)=>{
-//   if(err) console.log(err.sqlMessage);
-//   else {
-//     console.log('updated');
-//   }
-// })
+// var password = createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
+// sqlmap.query(
+//     `UPDATE students SET password=?`,
+//     [password],
+//     (err, update) => {
+//         if (err) {
+//             console.log(err.sqlMessage);
+//             return;
+//         }
+//         console.log('updated');
+//     }
+// );
+
 
 // var get_position= ' Headmaster '.toLowerCase().trim();
 // if(get_position.indexOf('headmaster')==0) var order_value= 'A';

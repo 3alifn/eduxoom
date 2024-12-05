@@ -1,50 +1,65 @@
 const {app, sqlmap}= require("../server");
 
-exports.admin_dashboard_tsa_lookup=(req, res)=>{
-    sqlmap.query(`SELECT COUNT(ID) AS tAll, 
-    COUNT(CASE WHEN gender="Female" THEN 1 END) AS tFemale,
-    COUNT(CASE WHEN gender="Male" THEN 1 END ) AS tMale FROM teachers WHERE domain='${req.hostname}'`, (err, info)=>{
-            if(err) console.log(err.sqlMessage);
-            else {
-            const countTeacher= info[0].tAll;
-              const percentTmale=(100/info[0].tAll*info[0].tMale).toFixed()+'%'
-              const percentTfemale=(100/info[0].tAll*info[0].tFemale).toFixed()+'%'
-              const tMale= info[0].tMale
-              const tFemale= info[0].tFemale
+exports.admin_dashboard_tsa_lookup = (req, res) => {
+  sqlmap.query(
+      `SELECT COUNT(ID) AS tAll, 
+      COUNT(CASE WHEN gender="Female" THEN 1 END) AS tFemale,
+      COUNT(CASE WHEN gender="Male" THEN 1 END) AS tMale 
+      FROM teachers WHERE domain=?`,
+      [req.hostname],
+      (err, info) => {
+          if (err) {
+              console.log(err.sqlMessage);
+              return;
+          }
+          const countTeacher = info[0].tAll;
+          const percentTmale = (100 / info[0].tAll * info[0].tMale).toFixed() + '%';
+          const percentTfemale = (100 / info[0].tAll * info[0].tFemale).toFixed() + '%';
+          const tMale = info[0].tMale;
+          const tFemale = info[0].tFemale;
 
-              sqlmap.query(`SELECT COUNT(ID) AS staffAll, 
+          sqlmap.query(
+              `SELECT COUNT(ID) AS staffAll, 
               COUNT(CASE WHEN gender="Female" THEN 1 END) AS staffFemale,
-              COUNT(CASE WHEN gender="Male" THEN 1 END ) AS staffMale FROM staff WHERE domain='${req.hostname}'`, (err, info)=>{
-                      if(err) console.log(err.sqlMessage);
-                      else {
-                      const countStaff= info[0].staffAll;
-                        // const percentStaffmale=(100/info[0].staffAll*info[0].staffMale).toFixed()+'%'
-                        // const percentStafffemale=(100/info[0].staffAll*info[0].staffFemale).toFixed()+'%'
-                        const staffMale= info[0].staffMale
-                        const staffFemale= info[0].staffFemale
-                    
-                        sqlmap.query(`SELECT COUNT(ID) AS sAll, 
-                        COUNT(CASE WHEN gender="Female" THEN 1 END) AS sFemale,
-                        COUNT(CASE WHEN gender="Male" THEN 1 END ) AS sMale FROM students WHERE domain='${req.hostname}'`, (err, info)=>{
-                                if(err) console.log(err.sqlMessage);
-                                else {
-                                const countStudent= info[0].sAll;
-                                  const percentSmale=(100/info[0].sAll*info[0].sMale).toFixed()+'%'
-                                  const percentSfemale=(100/info[0].sAll*info[0].sFemale).toFixed()+'%'
-                                  const sMale= info[0].sMale
-                                  const sFemale= info[0].sFemale
-                                  res.send({countTeacher, percentTmale, percentTfemale,
-                                    countStaff, staffMale, staffFemale ,countStudent, percentSmale, percentSfemale, tMale, tFemale, sMale, sFemale})
-                                }
-                        })
+              COUNT(CASE WHEN gender="Male" THEN 1 END) AS staffMale 
+              FROM staff WHERE domain=?`,
+              [req.hostname],
+              (err, info) => {
+                  if (err) {
+                      console.log(err.sqlMessage);
+                      return;
+                  }
+                  const countStaff = info[0].staffAll;
+                  const staffMale = info[0].staffMale;
+                  const staffFemale = info[0].staffFemale;
 
-                    
+                  sqlmap.query(
+                      `SELECT COUNT(ID) AS sAll, 
+                      COUNT(CASE WHEN gender="Female" THEN 1 END) AS sFemale,
+                      COUNT(CASE WHEN gender="Male" THEN 1 END) AS sMale 
+                      FROM students WHERE domain=?`,
+                      [req.hostname],
+                      (err, info) => {
+                          if (err) {
+                              console.log(err.sqlMessage);
+                              return;
+                          }
+                          const countStudent = info[0].sAll;
+                          const percentSmale = (100 / info[0].sAll * info[0].sMale).toFixed() + '%';
+                          const percentSfemale = (100 / info[0].sAll * info[0].sFemale).toFixed() + '%';
+                          const sMale = info[0].sMale;
+                          const sFemale = info[0].sFemale;
+                          res.send({
+                              countTeacher, percentTmale, percentTfemale,
+                              countStaff, staffMale, staffFemale, 
+                              countStudent, percentSmale, percentSfemale, 
+                              tMale, tFemale, sMale, sFemale
+                          });
                       }
-              })
+                  );
+              }
+          );
+      }
+  );
+};
 
-
-            }
-    })
-    
-    
-}
