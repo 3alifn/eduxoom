@@ -1089,7 +1089,7 @@ exports.public_student_pagination= (req, res)=>{
 
                   <div class="bg-card-color pt-3 pb-3 rounded-4">
                       <div class="card-image m-auto">
-                          <img  class="avatar-circle" src="/image/teacher/resized/${info[index].avatar}" alt="">
+                          <img  class="avatar-circle" src="/image/student/resized/${info[index].avatar}" alt="">
                       </div>
                   </div>
                 
