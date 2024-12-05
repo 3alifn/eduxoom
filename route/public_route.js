@@ -1,6 +1,6 @@
 
 const express= require("express")
-const { public_admission_step1, public_admission_step2, public_admission_post, multer_upload_admission } = require("../app/admission_app")
+const { public_admission_step1, public_admission_step2, public_admission_post, multer_upload_admission, multer_upload_admission_image, multer_upload_admission_any, multer_upload_admission_image_or_pdf } = require("../app/admission_app")
 const { public_gallery_video, public_gallery_image, public_gallery_video_list, public_gallery_image_list, public_carousel_get, public_gallery_image_get, admin_gallery_image_data_get, public_gallery_image_data_get, public_gallery_video_get, public_gallery_video_data_get } = require("../app/gallery_app")
 const { public_notice_get, public_notice_download, public_notice_view } = require("../app/notice_app")
 const { join, self_verify_code } = require("../app/parent_app")
@@ -133,8 +133,8 @@ public.get("/join/parent", (req, res)=>{
     
 //   admission router......
 public.get("/admission/step1", public_admission_step1)
-public.post("/admission/step2", multer_upload_admission.single('avatar'),public_admission_step2)
-public.post("/admission/post", multer_upload_admission.single('docs'),public_admission_post)
+public.post("/admission/step2", multer_upload_admission_image.single('avatar'),public_admission_step2)
+public.post("/admission/post", multer_upload_admission_image_or_pdf.single('docs'),public_admission_post)
 
 
 

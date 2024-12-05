@@ -8,7 +8,7 @@ exports.public_admission_step1 = (req, res) => {
 }
 
 
-const multer_location= multer.diskStorage({
+const multer_location_image= multer.diskStorage({
   destination: (req, file, cb)=>{
    cb(null, "./public/docs/admission/")
   } ,
@@ -20,21 +20,53 @@ const multer_location= multer.diskStorage({
   
 })
 
-exports.multer_upload_admission= multer({
-  storage: multer_location,
 
-  limits: { fileSize: 1024 * 1024 * 2 },
+const multer_location_image_or_pdf= multer.diskStorage({
+  destination: (req, file, cb)=>{
+   cb(null, "./public/docs/admission/resized/")
+  } ,
+
+  filename: (req, file, cb)=>{
+
+    cb(null, new Date().getTime()+"_"+file.originalname)
+  },
+  
+})
+
+exports.multer_upload_admission_image= multer({
+  storage: multer_location_image,
+
+  limits: { fileSize: 524288 },
   fileFilter: (req, file, cb) => {
-    if(file.mimetype=="application/pdf" || file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg"){
+    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg"){
     cb(null, true)
       }
       else {
-        cb(new Error("file extension allow only pdf / png / jpeg/ jpg"))
+        cb(new Error("upload size upto 500kb file extension allow only png / jpeg/ jpg"))
       }
 
   }
 
 })
+
+
+
+exports.multer_upload_admission_image_or_pdf= multer({
+  storage: multer_location_image_or_pdf,
+
+  limits: { fileSize: 524288 },
+  fileFilter: (req, file, cb) => {
+    if(file.mimetype=="application/pdf" || file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg"){
+    cb(null, true)
+      }
+      else {
+        cb(new Error("upload size upto 500kb file extension allow only pdf / png / jpeg/ jpg"))
+      }
+
+  }
+
+})
+
 
 exports.public_admission_step2 = async(req, res) => {
 
@@ -54,38 +86,23 @@ exports.public_admission_step2 = async(req, res) => {
   req.session.telephone= telephone;
 
   if(req.file){
-    if(req.file.size<1048576){
-        const { filename: image } = req.file;
-  
-      await sharp(req.file.path)
-      .jpeg({ quality: 50 })
-      .toFile(
-          path.resolve(path.resolve(req.file.destination, 'resized',image))
-      )
-      fs.unlinkSync(req.file.path)
-  
-      }
-  
-      else {
-  
-        
+
+    const filename = req.file.filename;
+
         await sharp(req.file.path)
         .jpeg({ quality: 50 })
         .toFile(
-            path.resolve(path.resolve(req.file.destination, 'resized', image))
+            path.resolve(path.resolve(req.file.destination, 'resized', filename))
         )
   
     fs.unlinkSync(req.file.path)
       
-        }
- }
-
- req.session.avatar= req.file.filename;
+    req.session.avatar= req.file.filename;
 
 
-  res.render("public/admission_form_public", { nextAdmission: true, pastAdmission: false })
+    res.render("public/admission_form_public", { nextAdmission: true, pastAdmission: false })
 
-}
+}}
 
 
 
@@ -99,36 +116,13 @@ exports.public_admission_post = async (req, res) => {
   const uuid= randomBytes(8).toString('hex'); 
 
   if(req.file){
-    if(req.file.size<1048576){
-        const { filename: image } = req.file;
-  
-      await sharp(req.file.path)
-      .jpeg({ quality: 50 })
-      .toFile(
-          path.resolve(path.resolve(req.file.destination, 'resized',image))
-      )
-      fs.unlinkSync(req.file.path)
-  
-      }
-  
-      else {
-  
-        
-        await sharp(req.file.path)
-        .jpeg({ quality: 50 })
-        .toFile(
-            path.resolve(path.resolve(req.file.destination, 'resized', image))
-        )
-  
-    fs.unlinkSync(req.file.path)
-      
-        }
- }
+
+      const filename = req.file.filename
 
 sqlmap.query(` INSERT INTO admission (domain, uuid, session, find_date, name, gender, avatar, dob_number, birth_date, father_name, mother_name, blood_group, religion, telephone, email, guardian_name, address, hobbies, last_education, admission_class, docs, comment)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `, 
-[ hostname, uuid, session, findDate, studentName, gender, avatar, dobNumber, birthDate, fatherName, motherName,
-bloodGroup, Religion, telephone, Email, guardianName, Address, Hobbies, lastEducation, admissionClass, req.file.filename, comment ], (err, result) => {
+[ req.hostname, uuid, session, findDate, studentName, gender, avatar, dobNumber, birthDate, fatherName, motherName,
+bloodGroup, Religion, telephone, Email, guardianName, Address, Hobbies, lastEducation, admissionClass, filename, comment ], (err, result) => {
 
     if (err) console.log(err.sqlMessage)
 
@@ -143,9 +137,9 @@ bloodGroup, Religion, telephone, Email, guardianName, Address, Hobbies, lastEduc
 
   })
 
-
-}
-
+        }
+    
+ }
 
 
 
