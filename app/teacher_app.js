@@ -34,7 +34,7 @@ exports.multer_upload_teacher= multer({
 
 exports.self_dashboard= (req, res)=>{
   const teacher_uuid= req.session.teacher_uuid;
-  sqlmap.query(`SELECT * FROM teachers  WHERE domain='${req.hostname}' AND teacher_uuid='${teacher_uuid}'`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM teachers  WHERE domain='${req.cookies["hostname"]}' AND teacher_uuid='${teacher_uuid}'`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
    else {
     if(info.length>0){
@@ -51,7 +51,7 @@ exports.self_dashboard= (req, res)=>{
 
 exports.self_account = (req, res)=>{
   const teacher_uuid= req.session.teacher_uuid;
-    const sql= `SELECT * FROM teachers WHERE domain='${req.hostname}' AND  teacher_uuid="${teacher_uuid}"`
+    const sql= `SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  teacher_uuid="${teacher_uuid}"`
 
     sqlmap.query(sql, (err, info)=>{
 
@@ -66,12 +66,12 @@ exports.self_account = (req, res)=>{
 
 exports.self_penbox_push=(req, res)=>{
     const {dataid, name, position, phone, fb_link, index_number, gender, birth_date, pds_id, blood_group, religion, address, joining_date}= req.body;
-    const domain= req.hostname;
+    const domain= req.cookies["hostname"];
     const userid= req.session.userid;
     sqlmap.query(`UPDATE teachers SET name='${name}', position='${position}',
     gender='${gender}', birth_date='${birth_date}', blood_group='${blood_group}', religion='${religion}', phone='${phone}',
      address='${address}', joining_date='${joining_date}', fb_link='${fb_link}'
-    WHERE domain='${req.hostname}' AND ID=${userid}`,
+    WHERE domain='${req.cookies["hostname"]}' AND ID=${userid}`,
     (err, update)=>{
         if(err) console.log(err.sqlMessage);
         else res.send({alert: 'alert-success', msg: 'Update successfully!'})
@@ -113,7 +113,7 @@ exports.self_img_post= async(req, res)=>{
             }
      }
   
-     sqlmap.query(`UPDATE teachers SET avatar='${req.file.filename}' WHERE domain='${req.hostname}' AND ID=${userid}`, (err, next)=>{
+     sqlmap.query(`UPDATE teachers SET avatar='${req.file.filename}' WHERE domain='${req.cookies["hostname"]}' AND ID=${userid}`, (err, next)=>{
       // console.log(req.file.filename);
          if(err) console.log(err.sqlMessage);
          else   res.send({msg: 'Update successfully!', alert: 'alert-success'})
@@ -133,10 +133,10 @@ exports.self_password_update_push= (req, res)=>{
   const newPassword= createHmac('md5', 'pipilikapipra').update(npassword).digest('hex');
   const userid= req.session.userid;
 
-          const sql= `UPDATE teachers SET password="${newPassword}" WHERE domain='${req.hostname}' AND  ID="${userid}"`
+          const sql= `UPDATE teachers SET password="${newPassword}" WHERE domain='${req.cookies["hostname"]}' AND  ID="${userid}"`
     
     
-       sqlmap.query(`SELECT password FROM teachers WHERE domain='${req.hostname}' AND  ID="${userid}"`, (errPass, infoPass)=>{
+       sqlmap.query(`SELECT password FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  ID="${userid}"`, (errPass, infoPass)=>{
     
         if(errPass) console.log(errPass.sqlMessage);
         else{
@@ -173,7 +173,7 @@ req.session.temp_code=randHashCode;
 
 // console.log(req.session.temp_code);
 
-sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
+sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  email="${username}"`, (errMain, infoMain)=>{
  if(errMain) console.log(errMain.sqlMessage);
   if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
 
@@ -270,12 +270,12 @@ const username=req.session.username;
 const temp_code=req.session.temp_code;
 
 if(verifyCode==temp_code){
-sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
+sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  email="${username}"`, (errMain, infoMain)=>{
   if(errMain) console.log(errMain.sqlMessage);
    if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
    else {
 
-    sqlmap.query(`UPDATE teachers SET email="${username}" WHERE domain='${req.hostname}' AND  ID=${userid}`, (err, info) =>{
+    sqlmap.query(`UPDATE teachers SET email="${username}" WHERE domain='${req.cookies["hostname"]}' AND  ID=${userid}`, (err, info) =>{
     
       if(err) res.send({alert: 'alert-info', msg: 'Something Wrong! please try again!'})
     
@@ -328,7 +328,7 @@ exports.admin_teacher_img_post= async(req, res)=>{
           }
    }
 
-   sqlmap.query(`UPDATE teachers SET avatar='${req.file.filename}' WHERE domain='${req.hostname}' AND ID=${dataid}`, (err, next)=>{
+   sqlmap.query(`UPDATE teachers SET avatar='${req.file.filename}' WHERE domain='${req.cookies["hostname"]}' AND ID=${dataid}`, (err, next)=>{
        if(err) console.log(err.sqlMessage);
        else   res.send({msg: 'Update successfully!', alert: 'alert-success'})
    })
@@ -344,7 +344,7 @@ exports.admin_teacher_post= async(req, res)=>{
   var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
   const {name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
-  const domain= req.hostname;
+  const domain= req.cookies["hostname"];
   const teacher_id= index_number.slice(1);
 
   var get_position= position.toLowerCase().trim();
@@ -407,7 +407,7 @@ exports.admin_teacher_post= async(req, res)=>{
    }
 
     sqlmap.query(`INSERT INTO teachers (domain, teacher_uuid, teacher_id, name, position, order_value, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar )
-    VALUES('${req.hostname}', '${uuid}', '${teacher_id}', '${name}','${position}', '${order_value}', '${gender}', '${index_number}', '${pds_id}', '${birth_date}', '${blood_group}',
+    VALUES('${req.cookies["hostname"]}', '${uuid}', '${teacher_id}', '${name}','${position}', '${order_value}', '${gender}', '${index_number}', '${pds_id}', '${birth_date}', '${blood_group}',
     '${religion}', '${email}', '${phone}', '${address}', '${joining_date}', '${hashPassword}', '${avatar_png}')`, (err, next)=>{
         if(err) console.log(err.sqlMessage);
         else   res.send({status: 200, msg: 'Teacher join successfully!', alert: 'alert-success'})
@@ -418,7 +418,7 @@ exports.admin_teacher_post= async(req, res)=>{
 
 
 exports.admin_teacher_get=(req, res)=>{
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY order_value`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' ORDER BY order_value`, (err, info)=>{
       if(err) console.log(err.sqlMessage);
       else {
           var tabledata= '';
@@ -466,7 +466,7 @@ exports.admin_teacher_get=(req, res)=>{
 
 exports.admin_teacher_penbox_pull=(req, res)=>{
   const {dataid}= req.body; 
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  ID=${dataid}`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  ID=${dataid}`, (err, info)=>{
       if(err) console.log(err.sqlMessage);
       else {
 
@@ -663,7 +663,7 @@ res.send({penboxdata})
 
 exports.admin_teacher_penbox_push=(req, res)=>{
   const {dataid, name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date}= req.body;
-  const domain= req.hostname;
+  const domain= req.cookies["hostname"];
 
   sqlmap.query(`SELECT ID FROM teachers WHERE domain='${domain}' AND (index_number='${index_number}' OR email='${email}' OR phone='${phone}')`, 
   (err_check, info_check)=>{
@@ -684,7 +684,7 @@ exports.admin_teacher_penbox_push=(req, res)=>{
 function update_teacher_def(){
   sqlmap.query(`UPDATE teachers SET name='${name}', position='${position}', index_number='${index_number}',
   gender='${gender}', birth_date='${birth_date}', pds_id='${pds_id}', blood_group='${blood_group}', religion='${religion}', email='${email}', phone='${phone}', address='${address}', joining_date='${joining_date}'
-  WHERE domain='${req.hostname}' AND ID='${dataid}'`,
+  WHERE domain='${req.cookies["hostname"]}' AND ID='${dataid}'`,
   (err, update)=>{
       if(err) console.log(err.sqlMessage);
       else res.send({alert: 'alert-success', msg: 'Update successfully!'})
@@ -705,13 +705,13 @@ if(dataid==undefined){
 
 }
 else {
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
       if(errInfo) console.log("data not found!")
       
       else {
   
           
-  sqlmap.query(`DELETE FROM teachers WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
+  sqlmap.query(`DELETE FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  ID IN (${dataid})`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
       else
       {
@@ -797,7 +797,7 @@ exports.admin_config_subject= (req, res)=>{
 
 exports.public_teacher_list= (req, res)=>{
 
-            sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' ORDER BY ORDER_VALUE`, (err, info)=>{
+            sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' ORDER BY ORDER_VALUE`, (err, info)=>{
              if(err) console.log(err.sqlMessage);
   
               if(info.length>0){
@@ -810,7 +810,7 @@ exports.public_teacher_list= (req, res)=>{
 
 exports.public_teacher_profile_get= (req, res)=>{
 const {dataid}= req.body; 
-sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.hostname}' AND  ID="${dataid}"`, (err, info)=>{
+sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  ID="${dataid}"`, (err, info)=>{
          
 if(info.length>0){
 let htmldata= `

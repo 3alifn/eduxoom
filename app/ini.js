@@ -152,16 +152,16 @@ module.exports= {
 
     lics_checkout: (req, res)=>{
         const {lics}= req.body;
-        sqlmap.query(`SELECT domain, lics FROM ___ini WHERE domain='${req.hostname}' AND lics='${lics}' AND at_status=${true}`, (errllc,infollc)=>{
+        sqlmap.query(`SELECT domain, lics FROM ___ini WHERE domain='${req.cookies["hostname"]}' AND lics='${lics}' AND at_status=${true}`, (errllc,infollc)=>{
             if(errllc) console.log(errllc.sql);
             if(infollc.length>0){
 
-                sqlmap.query(`UPDATE ___ini SET checkout=${true} WHERE domain='${req.hostname}'`, (errup, update)=>{
+                sqlmap.query(`UPDATE ___ini SET checkout=${true} WHERE domain='${req.cookies["hostname"]}'`, (errup, update)=>{
                     if(errup) console.log(errup.sqlMessage);
                     else {
-                        //  init_class_section(req.hostname)
-                        //  init_subject(req.hostname)
-                        // init_bi_catagory(req.hostname)
+                        //  init_class_section(req.cookies["hostname"])
+                        //  init_subject(req.cookies["hostname"])
+                        // init_bi_catagory(req.cookies["hostname"])
                         res.send({status: true, msg: 'WELCOME TO SAANVI ABC', alert: 'alert-success'})
 
                     }
@@ -186,7 +186,7 @@ module.exports= {
                 if(err) console.log(err.sqlMessage);
                 for (let index = 0; index < info.length; index++) {
 
-                    sqlmap.query(`SELECT class, section FROM class_section WHERE domain='${req.hostname}' AND class='${info[index].class}' AND section='${info[index].section}'`, (errcs, have_cs)=>{
+                    sqlmap.query(`SELECT class, section FROM class_section WHERE domain='${req.cookies["hostname"]}' AND class='${info[index].class}' AND section='${info[index].section}'`, (errcs, have_cs)=>{
                         if(errcs) console.log(errcs.sqlMessage);
                         if(have_cs.length==0){
    
@@ -218,7 +218,7 @@ module.exports= {
                     // const randomString= randomBytes(10).toString('hex');
                     const randomString= createHmac('md5', 'pipilikapipra').update(`${info[index].subject}`).digest('hex');
 
-                    sqlmap.query(`SELECT subject FROM subject WHERE domain='${req.hostname}' AND subject='${info[index].subject}'`, (errh, have_subject)=>{
+                    sqlmap.query(`SELECT subject FROM subject WHERE domain='${req.cookies["hostname"]}' AND subject='${info[index].subject}'`, (errh, have_subject)=>{
                         if(errh) console.log(errh.sqlMessage);
                         if(have_subject.length==0){
 
@@ -251,7 +251,7 @@ module.exports= {
                     // const randomString= randomBytes(10).toString('hex');
                   const randomString= createHmac('md5', 'pipilikapipra').update(`${info[index].catagory_name}`).digest('hex');
 
-                    sqlmap.query(`SELECT catagory_name FROM bi_catagory WHERE domain='${req.hostname}' AND catagory_name='${info[index].catagory_name}'`, (errbi, have_bi)=>{
+                    sqlmap.query(`SELECT catagory_name FROM bi_catagory WHERE domain='${req.cookies["hostname"]}' AND catagory_name='${info[index].catagory_name}'`, (errbi, have_bi)=>{
                         if(errbi) console.log(errbi.sqlMessage);
                         if(have_bi.length==0){
 

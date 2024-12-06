@@ -41,7 +41,7 @@ module.exports = {
 
       sqlmap.query(
         `SELECT * FROM headofschool WHERE domain=? GROUP BY position ORDER BY ID DESC`,
-        [req.hostname],
+        [req.cookies["hostname"]],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -58,7 +58,7 @@ module.exports = {
       
       sqlmap.query(
         `SELECT * FROM headofschool WHERE domain=? ORDER BY ID DESC`,
-        [req.hostname],
+        [req.cookies["hostname"]],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -204,7 +204,7 @@ module.exports = {
            sqlmap.query(
             `INSERT INTO headofschool (domain, position, name, gender, message, image)
              VALUES (?, ?, ?, ?, ?, ?)`,
-            [req.hostname, position, name, gender, message, avatar_png],
+            [req.cookies["hostname"], position, name, gender, message, avatar_png],
             (err, next) => {
                 if (err) {
                     console.log(err.sqlMessage);
@@ -261,7 +261,7 @@ module.exports = {
 
                sqlmap.query(
                 `UPDATE headofschool SET position=?, name=?, gender=?, message=?, image=? WHERE domain=? AND ID=?`,
-                [position, name, gender, message, avatar_png, req.hostname, dataid],
+                [position, name, gender, message, avatar_png, req.cookies["hostname"], dataid],
                 (errN, nextN) => {
                     if (errN) {
                         console.log(errN.sqlMessage + "- update issued");
@@ -279,7 +279,7 @@ module.exports = {
       
         sqlmap.query(
           `DELETE FROM headofschool WHERE domain=? AND ID=?`,
-          [req.hostname, dataid],
+          [req.cookies["hostname"], dataid],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);

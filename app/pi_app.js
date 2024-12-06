@@ -8,7 +8,7 @@ var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|
 
 exports.privet_transcript_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
-  sqlmap.query(`SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+  sqlmap.query(`SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}'
    GROUP BY student_uuid  ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
@@ -36,12 +36,12 @@ exports.privet_finding_subject_sid= ( req , res)=>{
 
 exports.privet_transcript_report_get= ( req , res)=>{
   const {className, sectionName, subject_code, student_uuid}= req.params;
-    sqlmap.query(`SELECT class, section, name, chapter,  subject_code, student_uuid FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+    sqlmap.query(`SELECT class, section, name, chapter,  subject_code, student_uuid FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}'
     AND student_uuid='${student_uuid}' AND subject_code='${subject_code}'`
     ,(errStudent, info)=>{
       if(info.length>0){
     
-        sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
+        sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.cookies["hostname"]}'`, (errs, school)=>{
           if(errs) console.log(errs.sqlMessage);
         else {
           if(school.length>0){
@@ -76,7 +76,7 @@ exports.privet_pi_report_checkout= (req, res)=>{
   const session= new Date().getUTCFullYear();
   const {className, sectionName, student_uuid, subject_code}= req.body;
 
-  sqlmap.query(`SELECT subject_code, subject, pi, chapter, bg_color  FROM transcript_report WHERE domain='${req.hostname}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' ORDER BY chapter`,
+  sqlmap.query(`SELECT subject_code, subject, pi, chapter, bg_color  FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  student_uuid='${student_uuid}' AND class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' ORDER BY chapter`,
    (errFind, checkout)=>{
       if(errFind) console.log(errFind.sqlMessage);
       else {  
@@ -91,7 +91,7 @@ exports.privet_pi_report_checkout= (req, res)=>{
 exports.admin_result_report_student_get= ( req , res)=>{
   const {className, sectionName}= req.params;
 
-  sqlmap.query(`SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+  sqlmap.query(`SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}'
   GROUP BY student_uuid  ORDER BY roll`
   ,(errStudent, infoStudentData)=>{
   if(infoStudentData.length>0){
@@ -112,7 +112,7 @@ exports.admin_result_report_get= ( req , res)=>{
     const {student_offset}= req.query; const init_student= student_uuid;
     if(student_offset==undefined) var offset= 0; if(student_uuid=='auto') var offset= student_offset;  
 
-      sqlmap.query(`SELECT name, avatar, student_uuid, class, section, subject, subject_code, subject_flag FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' GROUP BY subject_code`, 
+      sqlmap.query(`SELECT name, avatar, student_uuid, class, section, subject, subject_code, subject_flag FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' GROUP BY subject_code`, 
     
     (errSubject, info)=>{
       if(errSubject) console.log(errSubject.sqlMessage);
@@ -121,7 +121,7 @@ exports.admin_result_report_get= ( req , res)=>{
       
       if(info.length>0){
     
-        sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.hostname}'`, (errs, school)=>{
+        sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.cookies["hostname"]}'`, (errs, school)=>{
           if(errs) console.log(errs.sqlMessage);
           if(school.length>0){
 
@@ -154,29 +154,29 @@ exports.admin_result_report_get= ( req , res)=>{
 
 exports.admin_pi_transcript_report_checkout=(req, res)=>{
   const {className,sectionName, student_uuid, subject_code}= req.body;
-  const domain= req.hostname;
+  const domain= req.cookies["hostname"];
 
-  sqlmap.query(`SELECT subject_flag, subject_code, subject FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'`,
+  sqlmap.query(`SELECT subject_flag, subject_code, subject FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'`,
   (errinfo, info)=>{
     const subject_flag= info[0].subject_flag;
-    sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+    sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
   AND pi_group='gp1'`,
   (errg01, infog01)=>{
       
-      sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+      sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
       AND pi_group='gp2'`,
       (errg02, infog02)=>{
           
-      sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+      sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
       AND pi_group='gp3'`,
       (errg03, infog03)=>{
           
           
-          sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+          sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
           AND pi_group='gp4'`,
           (errg04, infog04)=>{ 
             
-            sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+            sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
           AND pi_group='gp5'`,
 
           (errg05, infog05)=>{

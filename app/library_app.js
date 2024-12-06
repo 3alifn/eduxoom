@@ -47,7 +47,7 @@ exports.admin_library_post = (req, res) => {
   sqlmap.query(
       `INSERT INTO library (domain, book_name, book_author, book_copy, description, book_image) 
       VALUES (?, ?, ?, ?, ?, ?)`,
-      [req.hostname, bookName, authorName, bookCopy, description, filenameBook],
+      [req.cookies["hostname"], bookName, authorName, bookCopy, description, filenameBook],
       (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -62,7 +62,7 @@ exports.admin_library_post = (req, res) => {
 
 exports.admin_library_get = (req, res) => {
   let sql = `SELECT * FROM library WHERE domain=? ORDER BY ID DESC`;
-  sqlmap.query(sql, [req.hostname], (err, info) => {
+  sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -101,7 +101,7 @@ exports.admin_library_delete = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM library WHERE domain=? AND ID IN (?)`,
-      [req.hostname, ID.toString()],
+      [req.cookies["hostname"], ID.toString()],
       (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
@@ -110,7 +110,7 @@ exports.admin_library_delete = (req, res) => {
 
           sqlmap.query(
               `DELETE FROM library WHERE domain=? AND ID IN (?)`,
-              [req.hostname, ID.toString()],
+              [req.cookies["hostname"], ID.toString()],
               (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -140,7 +140,7 @@ exports.admin_library_update_page = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM library WHERE domain=?`,
-      [req.hostname],
+      [req.cookies["hostname"]],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -157,7 +157,7 @@ exports.admin_library_update = (req, res) => {
 
   sqlmap.query(
       `UPDATE library SET book_name=?, book_author=?, book_copy=?, description=? WHERE domain=? AND ID=?`,
-      [bookName, bookAuthor, bookCopy, description, req.hostname, ID],
+      [bookName, bookAuthor, bookCopy, description, req.cookies["hostname"], ID],
       (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -172,7 +172,7 @@ exports.admin_library_update = (req, res) => {
 
 exports.public_library_get = (req, res) => {
   let sql = `SELECT * FROM library WHERE domain=? ORDER BY ID DESC`;
-  sqlmap.query(sql, [req.hostname], (err, info) => {
+  sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;

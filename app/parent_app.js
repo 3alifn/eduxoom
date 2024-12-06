@@ -34,11 +34,11 @@ exports.join= (req, res)=>{
 
   function todoJoinParent(){
  
-    sqlmap.query(`SELECT student_id FROM students WHERE domain='${req.hostname}' AND  student_id='${student_id}'`, (errStudent, infoStudent)=>{
+    sqlmap.query(`SELECT student_id FROM students WHERE domain='${req.cookies["hostname"]}' AND  student_id='${student_id}'`, (errStudent, infoStudent)=>{
       if(errStudent) console.log(errStudent.sqlMessage);
       if(infoStudent.length>0){
 
-        sqlmap.query(`SELECT email FROM parents WHERE domain='${req.hostname}' AND  email="${email}"`, (errMain, infoMain)=>{
+        sqlmap.query(`SELECT email FROM parents WHERE domain='${req.cookies["hostname"]}' AND  email="${email}"`, (errMain, infoMain)=>{
  
           if(errMain) console.log(errMain.sqlMessage);
       
@@ -200,7 +200,7 @@ exports.self_verify_code= (req, res)=>{
     const hashPassword= createHmac('md5', 'pipilikapipra').update(password).digest('hex');
   
     sqlmap.query(`INSERT INTO parents (domain, session, class, section, name, telephone, student_id, email, password, gender) 
-    VALUES (${req.hostname}', ${session}', "${className}", "${sectionName}", "${name}","${telephone}", "${student_id}", "${email}", "${hashPassword}", "${gender}")`, (err)=>{
+    VALUES (${req.cookies["hostname"]}', ${session}', "${className}", "${sectionName}", "${name}","${telephone}", "${student_id}", "${email}", "${hashPassword}", "${gender}")`, (err)=>{
   
       if(err) console.log(err.sqlMessage);
   
@@ -244,7 +244,7 @@ exports.self_verify_code= (req, res)=>{
 exports.self_dashboard= (req, res)=>{
 
     let parent_uuid= req.session.parent_uuid;
-    let sql= `SELECT * FROM parents WHERE domain='${req.hostname}' AND  parent_uuid="${parent_uuid}"`
+    let sql= `SELECT * FROM parents WHERE domain='${req.cookies["hostname"]}' AND  parent_uuid="${parent_uuid}"`
 
     sqlmap.query(sql, (err, info)=>{
 
@@ -260,7 +260,7 @@ exports.self_dashboard= (req, res)=>{
 exports.self_account= (req, res)=>{
 
     let parent_uuid= req.session.parent_uuid;
-    let sql= `SELECT * FROM parents WHERE domain='${req.hostname}' AND  parent_uuid="${parent_uuid}"`
+    let sql= `SELECT * FROM parents WHERE domain='${req.cookies["hostname"]}' AND  parent_uuid="${parent_uuid}"`
 
     sqlmap.query(sql, (err, info)=>{
 
@@ -277,10 +277,10 @@ exports.self_account= (req, res)=>{
   exports.self_penbox_push=(req, res)=>{
     console.log(req.body);
       const {name, phone, gender, }= req.body;
-      const domain= req.hostname;
+      const domain= req.cookies["hostname"];
       const userid= req.session.userid;
       sqlmap.query(`UPDATE parents SET name='${name}', phone='${phone}',
-      gender='${gender}' WHERE domain='${req.hostname}' AND ID=${userid}`,
+      gender='${gender}' WHERE domain='${req.cookies["hostname"]}' AND ID=${userid}`,
       (err, update)=>{
           if(err) console.log(err.sqlMessage);
           else res.send({alert: 'alert-success', msg: 'Update successfully!'})
@@ -322,7 +322,7 @@ exports.self_account= (req, res)=>{
               }
        }
     
-       sqlmap.query(`UPDATE parents SET avatar='${req.file.filename}' WHERE domain='${req.hostname}' AND ID=${userid}`, (err, next)=>{
+       sqlmap.query(`UPDATE parents SET avatar='${req.file.filename}' WHERE domain='${req.cookies["hostname"]}' AND ID=${userid}`, (err, next)=>{
            if(err) console.log(err.sqlMessage);
            else   res.send({msg: 'Update successfully!', alert: 'alert-success'})
        })
@@ -341,10 +341,10 @@ exports.self_account= (req, res)=>{
     const newPassword= createHmac('md5', 'pipilikapipra').update(npassword).digest('hex');
     const userid= req.session.userid;
   
-          const sql= `UPDATE parents SET password="${newPassword}" WHERE domain='${req.hostname}' AND  ID="${userid}"`
+          const sql= `UPDATE parents SET password="${newPassword}" WHERE domain='${req.cookies["hostname"]}' AND  ID="${userid}"`
       
       
-         sqlmap.query(`SELECT password FROM parents WHERE domain='${req.hostname}' AND  ID="${userid}"`, (errPass, infoPass)=>{
+         sqlmap.query(`SELECT password FROM parents WHERE domain='${req.cookies["hostname"]}' AND  ID="${userid}"`, (errPass, infoPass)=>{
       
           if(errPass) console.log(errPass.sqlMessage);
           else{
@@ -378,7 +378,7 @@ exports.self_account= (req, res)=>{
   var randHashCode= Math.ceil(Math.random()*900000);
 req.session.username=username; 
 req.session.temp_code=randHashCode;
-  sqlmap.query(`SELECT email FROM parents WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
+  sqlmap.query(`SELECT email FROM parents WHERE domain='${req.cookies["hostname"]}' AND  email="${username}"`, (errMain, infoMain)=>{
    if(errMain) console.log(errMain.sqlMessage);
    if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
   
@@ -476,12 +476,12 @@ req.session.temp_code=randHashCode;
    
   
 if(verifyCode==temp_code){
-  sqlmap.query(`SELECT email FROM parents WHERE domain='${req.hostname}' AND  email="${username}"`, (errMain, infoMain)=>{
+  sqlmap.query(`SELECT email FROM parents WHERE domain='${req.cookies["hostname"]}' AND  email="${username}"`, (errMain, infoMain)=>{
     if(errMain) console.log(errMain.sqlMessage);
      if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
      else {
   
-      sqlmap.query(`UPDATE parents SET email="${username}" WHERE domain='${req.hostname}' AND  ID=${userid}`, (err, info) =>{
+      sqlmap.query(`UPDATE parents SET email="${username}" WHERE domain='${req.cookies["hostname"]}' AND  ID=${userid}`, (err, info) =>{
       
         if(err) res.send({alert: 'alert-info', msg: 'Something Wrong! please try again!'})
       
@@ -502,7 +502,7 @@ if(verifyCode==temp_code){
 exports.admin_parent_get= (req, res)=>{
   let {className, sectionName}= req.body;
 
-  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.hostname}' AND  permission='allow' AND class='${className}' AND section='${sectionName}'`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.cookies["hostname"]}' AND  permission='allow' AND class='${className}' AND section='${sectionName}'`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     
     let listData= '';
@@ -537,7 +537,7 @@ exports.admin_parent_get= (req, res)=>{
 exports.admin_parent_profile= (req, res)=>{
   let parent_uuid= req.session.parent_uuid;
   
-  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.hostname}' AND  permission='allow' AND parent_uuid='${parent_uuid}'`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.cookies["hostname"]}' AND  permission='allow' AND parent_uuid='${parent_uuid}'`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     if(info.length>0){
   
@@ -575,13 +575,13 @@ if(dataid==undefined){
 
 }
 else {
-  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
+  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.cookies["hostname"]}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
       if(errInfo) console.log("data not found!")
       
       else {
   
           
-  sqlmap.query(`DELETE FROM parents WHERE domain='${req.hostname}' AND  ID IN (${dataid})`, (err, next)=>{
+  sqlmap.query(`DELETE FROM parents WHERE domain='${req.cookies["hostname"]}' AND  ID IN (${dataid})`, (err, next)=>{
       if(err) console.log(err.sqlMessage);
       else
       {

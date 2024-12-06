@@ -42,7 +42,7 @@ admin_logger: (req, res)=>{
     const hashPassword__= createHmac('md5', 'pipilikapipra').update(hashPassword).digest('hex');
 
     sqlmap.query("SELECT * FROM user_admin WHERE domain =? AND hash_username =? AND hash_password =?",
-      [req.hostname, hashUsername, hashPassword__],
+      [req.cookies["hostname"], hashUsername, hashPassword__],
      (err, info)=>{
 
         if(info.length>0){
@@ -79,7 +79,7 @@ dashboard: (req, res)=>{
 self_account: (req, res)=>{
 
   
-      sqlmap.query('SELECT * FROM user_admin WHERE domain=?', [req.hostname], (err, info)=>{
+      sqlmap.query('SELECT * FROM user_admin WHERE domain=?', [req.cookies["hostname"]], (err, info)=>{
   
         if(info.length>0){
           res.render("admin/account_page", {info,  msg: req.flash("msg"), alert: req.flash("alert")})
@@ -101,7 +101,7 @@ self_account: (req, res)=>{
 self_info_update: (req, res) =>{
   
   let {hash_name}= req.body;
-  sqlmap.query('UPDATE user_admin SET hash_name=? WHERE domain=?',[hash_name, req.hostname], (err, info)=>{
+  sqlmap.query('UPDATE user_admin SET hash_name=? WHERE domain=?',[hash_name, req.cookies["hostname"]], (err, info)=>{
   
   if(err) console.log(err.sqlMessage);
   
@@ -130,7 +130,7 @@ self_password_update: (req, res)=>{
       const hashPassword= createHmac('md5', 'pipilikapipra').update(hash_password).digest('hex');  
       const pastHashPassword= createHmac('md5', 'pipilikapipra').update(pastPassword).digest('hex');  
     
-       sqlmap.query(`SELECT hash_password FROM user_admin WHERE domain=?`, [req.hostname], (errPass, infoPass)=>{
+       sqlmap.query(`SELECT hash_password FROM user_admin WHERE domain=?`, [req.cookies["hostname"]], (errPass, infoPass)=>{
     
         if(errPass) console.log(errPass.sqlMessage);
         else{
@@ -138,7 +138,7 @@ self_password_update: (req, res)=>{
           if( pastHashPassword==infoPass[0].hash_password)
     {
     
-      sqlmap.query( `UPDATE user_admin SET hash_password=? WHERE domain=?`, [hashPassword, req.hostname], (err, info) =>{
+      sqlmap.query( `UPDATE user_admin SET hash_password=? WHERE domain=?`, [hashPassword, req.cookies["hostname"]], (err, info) =>{
     
         if(err) 
         {
@@ -185,7 +185,7 @@ self_password_update: (req, res)=>{
   
 self_email_update: (req, res)=>{
   
-  sqlmap.query(`UPDATE user_admin SET hash_username=? WHERE domain=?`, [req.body.hash_username, req.hostname], (err, info) =>{
+  sqlmap.query(`UPDATE user_admin SET hash_username=? WHERE domain=?`, [req.body.hash_username, req.cookies["hostname"]], (err, info) =>{
   
   if(err) 
   {

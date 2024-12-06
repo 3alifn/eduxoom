@@ -6,7 +6,7 @@ exports.admin_subject_post = (req, res) => {
       const randomString = randomBytes(10).toString('hex');
       sqlmap.query(
           `INSERT INTO subject (domain, class, subject, subject_code) VALUES (?, ?, ?, ?)`,
-          [req.hostname, class_name, subject_name[i], randomString],
+          [req.cookies["hostname"], class_name, subject_name[i], randomString],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);
@@ -24,7 +24,7 @@ exports.admin_subject_get = (req, res) => {
   const { class_name } = req.body;
   sqlmap.query(
       `SELECT * FROM ini_subject WHERE domain=? AND class=? GROUP BY subject ORDER BY subject`,
-      [req.hostname, class_name],
+      [req.cookies["hostname"], class_name],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -55,7 +55,7 @@ exports.admin_subject_rm = (req, res) => {
   } else {
       sqlmap.query(
           `DELETE FROM subject WHERE domain=? AND ID IN (?)`,
-          [req.hostname, dataid],
+          [req.cookies["hostname"], dataid],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);

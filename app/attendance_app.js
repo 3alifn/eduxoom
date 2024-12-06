@@ -15,7 +15,7 @@ exports.teacher_attn_post_page = (req, res) => {
 
     sqlmap.query(
         `SELECT ID, student_id, student_uuid FROM students WHERE domain=? AND class=? AND section=? GROUP BY student_id ORDER BY roll`,
-        [req.hostname, class_name, section_name],
+        [req.cookies["hostname"], class_name, section_name],
         (errS, infoS) => {
             if (errS) {
                 console.log(errS.sqlMessage);
@@ -26,7 +26,7 @@ exports.teacher_attn_post_page = (req, res) => {
 
             sqlmap.query(
                 `SELECT ID, student_id, student_uuid, avatar, name, roll FROM students WHERE domain=? AND class=? AND section=? GROUP BY student_id ORDER BY roll LIMIT 20 OFFSET 0`,
-                [req.hostname, class_name, section_name],
+                [req.cookies["hostname"], class_name, section_name],
                 (err, info) => {
                     if (err) {
                         console.log(err.sqlMessage);
@@ -46,7 +46,7 @@ exports.teacher_attn_post_page_num = (req, res) => {
 
     sqlmap.query(
         `SELECT ID, student_id, student_uuid, avatar, name, roll FROM students WHERE domain=? AND class=? AND section=? GROUP BY student_id ORDER BY roll LIMIT 20 OFFSET ?`,
-        [req.hostname, class_name, section_name, offset * 20],
+        [req.cookies["hostname"], class_name, section_name, offset * 20],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -109,15 +109,15 @@ exports.teacher_attn_post= (req, res)=>{
     const attn_date= new Date().toDateString();
     const duplicate_data= student_id+"_"+attn_date
     const at_status= checkout==1?'present':'absent'
-    sqlmap.query(`SELECT user_id, find_date, attn_date FROM attn_record WHERE domain='${req.hostname}' AND user='Student' AND user_id='${student_id}' AND find_date='${find_date}' ORDER BY id DESC`, (errf, find)=>{
+    sqlmap.query(`SELECT user_id, find_date, attn_date FROM attn_record WHERE domain='${req.cookies["hostname"]}' AND user='Student' AND user_id='${student_id}' AND find_date='${find_date}' ORDER BY id DESC`, (errf, find)=>{
         if(errf) console.log(errf.sqlMessage);
         if(find.length>0){
        
-      sqlmap.query(`UPDATE attn_record SET checkout=${checkout}, at_status='${at_status}' WHERE domain='${req.hostname}' AND user='Student' AND user_id='${student_id}' AND find_date='${find_date}'`,
+      sqlmap.query(`UPDATE attn_record SET checkout=${checkout}, at_status='${at_status}' WHERE domain='${req.cookies["hostname"]}' AND user='Student' AND user_id='${student_id}' AND find_date='${find_date}'`,
         (erru, up)=>{
             if(erru) console.log(erru.sqlMessage);
             // else console.log('updated...');
-            student_rank_mark_attn(req.hostname, class_name, section_name, student_id, at_status)
+            student_rank_mark_attn(req.cookies["hostname"], class_name, section_name, student_id, at_status)
 
             res.send({att: true})
         })
@@ -127,11 +127,11 @@ exports.teacher_attn_post= (req, res)=>{
             sqlmap.query(`
             INSERT INTO attn_record (domain, session, duplicate_data, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day)
             
-            VALUES('${req.hostname}', '${currentYear}', '${duplicate_data}', 1, 'Student', '${get_cal}', '${attn_date}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}',
+            VALUES('${req.cookies["hostname"]}', '${currentYear}', '${duplicate_data}', 1, 'Student', '${get_cal}', '${attn_date}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}',
             '${student_id}', '${name}', '${roll}', '${avatar}', '${currentYear}', '${currentMonth}', '${currentDate}')`, (erri, inser)=>{
                 if(erri) console.log(erri.sqlMessage);
                 else {
-                    student_rank_mark_attn(req.hostname, class_name, section_name, student_id, at_status)
+                    student_rank_mark_attn(req.cookies["hostname"], class_name, section_name, student_id, at_status)
                     // console.log('inserted...');
                      res.send({att: true})
 
@@ -151,7 +151,7 @@ exports.teacher_attn_post= (req, res)=>{
 
     sqlmap.query(
         `SELECT user_id, checkout, attn_date FROM attn_record WHERE domain=? AND user='Student' AND class=? AND section=? AND attn_date=?`,
-        [req.hostname, class_name, section_name, attn_date],
+        [req.cookies["hostname"], class_name, section_name, attn_date],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -169,7 +169,7 @@ exports.teacher_attn_post= (req, res)=>{
 
     sqlmap.query(
         `SELECT user_id, checkout, attn_date FROM attn_record WHERE domain=? AND class=? AND section=? AND user_id=? ORDER BY at_date LIMIT 5`,
-        [req.hostname, class_name, section_name, student_id],
+        [req.cookies["hostname"], class_name, section_name, student_id],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -196,7 +196,7 @@ exports.privet_attn_repo_page = (req, res) => {
 
     sqlmap.query(
         `SELECT user_id, attn_date FROM attn_record WHERE domain=? AND class=? AND section=? ORDER BY at_date DESC LIMIT 1`,
-        [req.hostname, class_name, section_name],
+        [req.cookies["hostname"], class_name, section_name],
         (errf, infof) => {
             if (errf) {
                 console.log(errf.sqlMessage);
@@ -207,7 +207,7 @@ exports.privet_attn_repo_page = (req, res) => {
                 const get_attn_date = infof[0].attn_date;
                 sqlmap.query(
                     `SELECT id, user_id, avatar, name, roll, checkout, at_status FROM attn_record WHERE domain=? AND class=? AND section=? AND attn_date=? GROUP BY user_id ORDER BY roll LIMIT 20 OFFSET 0`,
-                    [req.hostname, class_name, section_name, get_attn_date],
+                    [req.cookies["hostname"], class_name, section_name, get_attn_date],
                     (err, info) => {
                         if (err) {
                             console.log(err.sqlMessage);
@@ -232,7 +232,7 @@ exports.privet_attn_repo_page_num = (req, res) => {
     
     sqlmap.query(
         `SELECT id, user_id, avatar, name, checkout, at_status, roll FROM attn_record WHERE domain=? AND class=? AND section=? AND attn_date=? GROUP BY user_id ORDER BY roll LIMIT 20 OFFSET ?`,
-        [req.hostname, class_name, section_name, attn_date, offset * 20],
+        [req.cookies["hostname"], class_name, section_name, attn_date, offset * 20],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -276,7 +276,7 @@ exports.privet_attn_repo_find = (req, res) => {
     
     sqlmap.query(
         `SELECT id, user_id, avatar, name, checkout, at_status, roll FROM attn_record WHERE domain=? AND class=? AND section=? AND attn_date=? GROUP BY user_id ORDER BY roll LIMIT 20 OFFSET 0`,
-        [req.hostname, class_name, section_name, attn_date],
+        [req.cookies["hostname"], class_name, section_name, attn_date],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -322,7 +322,7 @@ exports.privet_attn_repo_find = (req, res) => {
 
     sqlmap.query(
         `SELECT id, user_id, avatar, name, roll, checkout, at_status FROM attn_record WHERE domain=? AND class=? AND section=? AND user_id=?`,
-        [req.hostname, class_name, section_name, student_id],
+        [req.cookies["hostname"], class_name, section_name, student_id],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -346,7 +346,7 @@ exports.privet_attn_repo_find = (req, res) => {
 
     sqlmap.query(
         `SELECT COUNT(CASE checkout WHEN 1 THEN 1 ELSE null END) AS present, COUNT(CASE checkout WHEN 0 THEN 1 ELSE null END) AS absent FROM attn_record WHERE domain=? AND class=? AND section=? AND user_id=? AND get_cal=?`,
-        [req.hostname, class_name, section_name, student_id, get_cal],
+        [req.cookies["hostname"], class_name, section_name, student_id, get_cal],
         (errc, cal) => {
             if (errc) {
                 console.log(errc.sqlMessage);
@@ -358,7 +358,7 @@ exports.privet_attn_repo_find = (req, res) => {
 
             sqlmap.query(
                 `SELECT find_date, get_cal, checkout FROM attn_record WHERE domain=? AND class=? AND section=? AND user_id=? AND get_cal=? ORDER BY day`,
-                [req.hostname, class_name, section_name, student_id, get_cal],
+                [req.cookies["hostname"], class_name, section_name, student_id, get_cal],
                 (err, info) => {
                     if (err) {
                         console.log(err.sqlMessage);

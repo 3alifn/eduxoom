@@ -121,7 +121,7 @@ exports.public_admission_post = async (req, res) => {
 
 sqlmap.query(` INSERT INTO admission (domain, uuid, session, find_date, name, gender, avatar, dob_number, birth_date, father_name, mother_name, blood_group, religion, telephone, email, guardian_name, address, hobbies, last_education, admission_class, docs, comment)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `, 
-[ req.hostname, uuid, session, findDate, studentName, gender, avatar, dobNumber, birthDate, fatherName, motherName,
+[ req.cookies["hostname"], uuid, session, findDate, studentName, gender, avatar, dobNumber, birthDate, fatherName, motherName,
 bloodGroup, Religion, telephone, Email, guardianName, Address, Hobbies, lastEducation, admissionClass, filename, comment ], (err, result) => {
 
     if (err) console.log(err.sqlMessage)
@@ -147,7 +147,7 @@ exports.admin_admission_page = (req, res) => {
 
 
 
-  sqlmap.query(`SELECT uuid, ID, name, find_date, avatar FROM admission WHERE domain=? ORDER BY ID DESC`,[req.hostname], (err, info) => {
+  sqlmap.query(`SELECT uuid, ID, name, find_date, avatar FROM admission WHERE domain=? ORDER BY ID DESC`,[req.cookies["hostname"]], (err, info) => {
 
 
     res.render("admin/admission_report", { info })
@@ -161,7 +161,7 @@ exports.admin_admission_page = (req, res) => {
 
 exports.admin_admission_student_page = (req, res) => {
 const {uuid}= req.params;
-  sqlmap.query(`SELECT * FROM admission WHERE domain=? AND uuid=?`,[req.hostname, uuid], (err, info) => {
+  sqlmap.query(`SELECT * FROM admission WHERE domain=? AND uuid=?`,[req.cookies["hostname"], uuid], (err, info) => {
 
 
     res.render("admin/admission_student_page", { info })
@@ -181,7 +181,7 @@ exports.admin_admission_info = (req, res) => {
 
   const { ID } = req.body;
 
-  sqlmap.query(`SELECT * FROM admission WHERE domain=? AND  ID=?`,[req.hostname, ID], (err, info) => {
+  sqlmap.query(`SELECT * FROM admission WHERE domain=? AND  ID=?`,[req.cookies["hostname"], ID], (err, info) => {
 
 
 
@@ -280,7 +280,7 @@ exports.admin_admission_reject = (req, res) => {
 
   const { ID, email } = req.body;
 
-  sqlmap.query(`DELETE FROM admission WHERE domain=? AND  ID=?`,[req.hostname, ID], (err, info) => {
+  sqlmap.query(`DELETE FROM admission WHERE domain=? AND  ID=?`,[req.cookies["hostname"], ID], (err, info) => {
 
     if (err) console.log(err.sqlMessage);
     else {
