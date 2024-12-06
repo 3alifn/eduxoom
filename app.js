@@ -14,16 +14,39 @@ const { home_page } = require("./app/home_app");
 const admin = require("./route/admin_route");
 const ini = require("./route/ini_route");
 
-app.get('*', (req, res, next)=>{
-sqlmap.query(`SELECT domain, lics FROM ___ini WHERE domain='${req.hostname}' AND at_status=${true} AND checkout=${true}`, (errllc, infollc)=>{
-  if(errllc) console.log(errllc.sqlMessage);
-  if(infollc.length>0){
-        next()
-      } else {
-        res.render('ini/lics')
-      }
-})
-})
+app.all('*', (req, res, next) => {
+const host= req.hostname.startsWith("www.")
+  
+if(host) var hostnameSet= req.hostname=req.hostname.split("www.")[1];
+else var hostnameSet= req.hostname;
+
+const hostname= req.cookies['hostname'];
+
+if(hostname!=undefined&&hostname==hostnameSet){
+  next()
+}
+
+else if(hostname==undefined || hostnameSet!=hostname){
+  sqlmap.query(
+    `SELECT domain, lics FROM ___ini WHERE domain=? AND at_status=? AND checkout=?`,
+    [hostnameSet, true, true],
+    (errllc, infollc) => {
+        if (errllc) {
+            console.log(errllc.sqlMessage);
+            return;
+        }
+        if (infollc.length > 0) {
+          res.cookie('hostname', hostnameSet, {path: "/"})
+            next();
+        } else {
+            res.render('ini/lics');
+        }
+    }
+);
+}
+
+});
+
 
 app.get("/", home_page)
 app.use('/ini', ini)
