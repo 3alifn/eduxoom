@@ -10,7 +10,7 @@ exports.teacher_rank_mark_init_page= (req, res)=>{
 exports.teacher_rank_mark_page= (req, res)=>{
     const {class_name, section_name}= req.params;  
     const today= new Date().toDateString()
-     sqlmap.query(`SELECT * FROM students  WHERE domain='${req.hostname}' AND  class="${class_name}" AND section='${section_name}' GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
+     sqlmap.query(`SELECT * FROM students  WHERE domain='${req.cookies["hostname"]}' AND  class="${class_name}" AND section='${section_name}' GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET 0`, (err, info)=>{
        if(err) console.log(err.sqlMessage);
        else {
         if(info.length>0){
@@ -29,7 +29,7 @@ exports.teacher_rank_mark_page= (req, res)=>{
 
 exports.teacher_rank_mark_page_num= (req, res)=>{
 const {class_name, section_name, offset}= req.body;
-    sqlmap.query( `SELECT * FROM students  WHERE domain='${req.hostname}' AND  class="${class_name}" AND section='${section_name}' GROUP BY student_uuid
+    sqlmap.query( `SELECT * FROM students  WHERE domain='${req.cookies["hostname"]}' AND  class="${class_name}" AND section='${section_name}' GROUP BY student_uuid
      ORDER BY roll LIMIT 20 OFFSET ${offset*20}`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
 
@@ -119,13 +119,13 @@ exports.teacher_rank_mark_post= (req, res)=>{
   const session= new Date().getUTCFullYear();
   const find_date = new Date().toLocaleDateString();
   const rank_date= new Date().toDateString();
-   sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND  student_uuid='${sid}' AND rank_date="${rank_date}" AND teacher_uuid='${teacher_uuid}' AND ${column}=1`, (err, info)=>{
+   sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND class='${class_name}' AND section='${section_name}' AND  student_uuid='${sid}' AND rank_date="${rank_date}" AND teacher_uuid='${teacher_uuid}' AND ${column}=1`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     if(info.length==0)
     {
         sqlmap.query(`INSERT INTO student_rank (domain, session, checkout, find_date, rank_date, ${column}, teacher_uuid, student_uuid, student_id, class, section, roll, name, avatar) 
         VALUES(
-        '${req.hostname}',
+        '${req.cookies["hostname"]}',
          ${session},
           "${checkout}",
           "${find_date}",
@@ -143,13 +143,13 @@ exports.teacher_rank_mark_post= (req, res)=>{
           
           if(errInsert) console.log(errInsert+' errInsert');
 
-            sqlmap.query(`SELECT poient FROM student_rank WHERE domain='${req.hostname}' AND class='${class_name}' AND section='${section_name}' AND student_uuid=${sid} ORDER BY poient DESC LIMIT 1`, (err3, info3)=>{
+            sqlmap.query(`SELECT poient FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND class='${class_name}' AND section='${section_name}' AND student_uuid=${sid} ORDER BY poient DESC LIMIT 1`, (err3, info3)=>{
               if(err3) console.log(err3.sqlMessage+' err3');
        
               else 
               {
                 const marked= info3[0].poient==undefined?1:parseFloat(info3[0].poient)+parseFloat(mark);
-                sqlmap.query(`UPDATE student_rank SET poient=${marked} WHERE domain='${req.hostname}'  AND class='${class_name}' AND section='${section_name}' AND  student_uuid=${sid}`, (err4, info4)=>{
+                sqlmap.query(`UPDATE student_rank SET poient=${marked} WHERE domain='${req.cookies["hostname"]}'  AND class='${class_name}' AND section='${section_name}' AND  student_uuid=${sid}`, (err4, info4)=>{
     
                   if(err4) console.log(err4.sqlMessage+' err4');
         
@@ -185,7 +185,7 @@ exports.teacher_rank_checkout= (req, res)=>{
     const {class_name, section_name}= req.body;
     const rank_date= new Date().toDateString();
    
-    sqlmap.query(`SELECT student_uuid, checkout, rank_date FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' AND section='${section_name}'
+    sqlmap.query(`SELECT student_uuid, checkout, rank_date FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='${class_name}' AND section='${section_name}'
     AND rank_date='${rank_date}'`, (err, info)=>{
         if(err) console.log(err.sqlMessage);
         else {
@@ -201,24 +201,24 @@ exports.teacher_rank_checkout= (req, res)=>{
 
 exports.public_rank_class_page= (req, res)=>{
 
-    sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Ten' GROUP BY poient DESC`, (errTen, infoTen)=>{
+    sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='Ten' GROUP BY poient DESC`, (errTen, infoTen)=>{
   
       if(errTen) console.log(errTen.sqlMessage);
   
-      sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Nine' GROUP BY poient DESC`, (errNine, infoNine)=>{
+      sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='Nine' GROUP BY poient DESC`, (errNine, infoNine)=>{
   
         if(errNine) console.log(errNine.sqlMessage);
     
-        sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Eight' GROUP BY poient DESC`, (errEight, infoEight)=>{
+        sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='Eight' GROUP BY poient DESC`, (errEight, infoEight)=>{
   
           if(errEight) console.log(errEight.sqlMessage);
       
-          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Seven' GROUP BY poient DESC`, (errSeven, infoSeven)=>{
+          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='Seven' GROUP BY poient DESC`, (errSeven, infoSeven)=>{
   
             if(errSeven) console.log(errSeven.sqlMessage);
         
             
-          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='Six' GROUP BY poient DESC`, (errSix, infoSix)=>{
+          sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='Six' GROUP BY poient DESC`, (errSix, infoSix)=>{
   
            
             if(errSix) console.log(errSix.sqlMessage);
@@ -257,24 +257,24 @@ exports.public_rank_class_page= (req, res)=>{
 exports.public_rank_student_page= (req, res)=>{
     const {class_name}=  req.params;
   
-   sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="A" GROUP BY student_uuid ORDER BY poient DESC `, (errA, infoA)=>{
+   sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class="${class_name}" AND section="A" GROUP BY student_uuid ORDER BY poient DESC `, (errA, infoA)=>{
     if(errA) console.log(errA.sqlMessage);
   
-    sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="B" GROUP BY student_uuid ORDER  BY poient DESC `, (errB, infoB)=>{
+    sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class="${class_name}" AND section="B" GROUP BY student_uuid ORDER  BY poient DESC `, (errB, infoB)=>{
       if(errB) console.log(errB.sqlMessage);
     
-      sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.hostname}' AND  class="${class_name}" AND section="C" GROUP BY student_uuid ORDER  BY poient DESC `, (errC, infoC)=>{
+      sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class="${class_name}" AND section="C" GROUP BY student_uuid ORDER  BY poient DESC `, (errC, infoC)=>{
         if(errC) console.log(errC.sqlMessage);
 
         // {..............
-          sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET 0`, 
+          sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET 0`, 
           (err, info)=>{
      
             if(err) console.log(err.sqlMessage);
      
             else {
      
-             sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present, absent FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}'
+             sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present, absent FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='${class_name}'
               GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET 0`, 
              (errS, infoS)=>{
                  if(errS) console.log(errS.sqlMessage);
@@ -308,14 +308,14 @@ exports.public_rank_student_page= (req, res)=>{
 
 exports.public_rank_student_page_num= (req, res)=>{
   const {class_name, offset}=  req.body;
-     sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET ${offset*20}`, 
+     sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET ${offset*20}`, 
      (err, info)=>{
 
        if(err) console.log(err.sqlMessage);
 
        else {
 
-        sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present, absent FROM student_rank WHERE domain='${req.hostname}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET ${offset*20}`, 
+        sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present, absent FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='${class_name}' GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET ${offset*20}`, 
         (errS, infoS)=>{
             if(errS) console.log(errS.sqlMessage);
 

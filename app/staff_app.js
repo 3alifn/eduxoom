@@ -34,7 +34,7 @@ exports.multer_upload_staff= multer({
 exports.public_staff_page = (req, res) => {
   sqlmap.query(
       `SELECT * FROM staff WHERE domain=? ORDER BY ID DESC`,
-      [req.hostname],
+      [req.cookies["hostname"]],
       (err, info) => {
           if (err) {
               console.log(sqlmap);
@@ -53,7 +53,7 @@ exports.public_staff_profile_get = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM staff WHERE domain=? AND ID=?`,
-      [req.hostname, dataid],
+      [req.cookies["hostname"], dataid],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -135,7 +135,7 @@ exports.public_staff_profile_get = (req, res) => {
 exports.admin_staff_get = (req, res) => {
           sqlmap.query(
               `SELECT * FROM staff WHERE domain=? ORDER BY ID DESC`,
-              [req.hostname],
+              [req.cookies["hostname"]],
               (err, info) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -196,7 +196,7 @@ exports.admin_staff_img_post = async (req, res) => {
 
   sqlmap.query(
       `UPDATE staff SET image=? WHERE domain=? AND ID=?`,
-      [req.file.filename, req.hostname, dataid],
+      [req.file.filename, req.cookies["hostname"], dataid],
       (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -228,7 +228,7 @@ exports.admin_staff_post = async (req, res) => {
   sqlmap.query(
       `INSERT INTO staff (domain, name, position, gender, index_number, age, email, phone, address, joining_date, image)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [req.hostname, name, position, gender, index_number, age, email, phone, address, joining_date, avatar_png],
+      [req.cookies["hostname"], name, position, gender, index_number, age, email, phone, address, joining_date, avatar_png],
       (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -245,7 +245,7 @@ exports.admin_staff_penbox_pull = (req, res) => {
 
     sqlmap.query(
         `SELECT * FROM staff WHERE domain=? AND ID=?`,
-        [req.hostname, dataid],
+        [req.cookies["hostname"], dataid],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -372,7 +372,7 @@ exports.admin_staff_penbox_push = (req, res) => {
 
   sqlmap.query(
       `UPDATE staff SET name=?, position=?, index_number=?, gender=?, age=?, email=?, phone=?, address=?, joining_date=? WHERE domain=? AND ID=?`,
-      [name, position, index_number, gender, age, email, phone, address, joining_date, req.hostname, dataid],
+      [name, position, index_number, gender, age, email, phone, address, joining_date, req.cookies["hostname"], dataid],
       (err, update) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -397,7 +397,7 @@ exports.admin_staff_rm = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM staff WHERE domain=? AND ID IN (?)`,
-      [req.hostname, dataid],
+      [req.cookies["hostname"], dataid],
       (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
@@ -406,7 +406,7 @@ exports.admin_staff_rm = (req, res) => {
 
           sqlmap.query(
               `DELETE FROM staff WHERE domain=? AND ID IN (?)`,
-              [req.hostname, dataid],
+              [req.cookies["hostname"], dataid],
               (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);

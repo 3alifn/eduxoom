@@ -15,7 +15,7 @@ exports.authentication_check = (req, res) => {
       findBashQuery = `SELECT * FROM ${userRole} WHERE domain=? AND email=? AND password=?`;
   }
 
-  sqlmap.query(findBashQuery, [req.hostname, username, hashPassword], (err, info) => {
+  sqlmap.query(findBashQuery, [req.cookies["hostname"], username, hashPassword], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -85,7 +85,7 @@ exports.forgot_password = (req, res) => {
       const { userRole, username } = req.body;
       const sql = `SELECT email FROM ${userRole} WHERE domain=? AND email=?`;
   
-      sqlmap.query(sql, [req.hostname, username], (err, info) => {
+      sqlmap.query(sql, [req.cookies["hostname"], username], (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
               return;
@@ -173,7 +173,7 @@ exports.reset_password = (req, res) => {
     const hashPassword = createHmac('md5', 'pipilikapipra').update(password).digest('hex');
 
     const sql = `UPDATE ${userRole} SET password=? WHERE domain=? AND email=?`;
-    sqlmap.query(sql, [hashPassword, req.hostname, username], (err, next) => {
+    sqlmap.query(sql, [hashPassword, req.cookies["hostname"], username], (err, next) => {
         if (err) {
             console.log(err.sqlMessage);
             return;

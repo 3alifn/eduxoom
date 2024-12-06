@@ -6,7 +6,6 @@ const fs = require("fs")
 const http = require("http")
 const cookieParser= require("cookie-parser")
 const session= require("express-session")
-const jwt= require("jsonwebtoken");
 const mysqlStore= require("express-mysql-session")(session)
 const flash= require("connect-flash")
 const bodyParser = require("body-parser")
@@ -20,7 +19,8 @@ const cors= require("cors")
 const Timer = require('setinterval');
 const axios= require('axios')
 const ZKLib = require('zklib-32ble')
-
+const sjcl= require("sjcl");
+const jwt= require("jsonwebtoken");
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
@@ -45,8 +45,21 @@ const sqlmap= mysql.createPool({
     password: process.env.user_password,
     database: process.env.database_name,
     // queueLimit: 0,
-    connectionLimit: 100
+    connectionLimit: 50
 })
+
+
+sqlmap.on('connection', function (connection) {
+  console.log('MySQL connection established');
+});
+
+sqlmap.on('error', function (err) {
+  console.error('MySQL error: ', err);
+  if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+     
+  }
+});
+
  
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
 
@@ -76,9 +89,9 @@ var mysession=new Date().getUTCFullYear();
 
 
 module.exports= {
-app, express, mysession, mysql, session, jwt, cookieParser, flash, bodyParser,
+app, express, mysession, mysql, session, cookieParser, flash, bodyParser,
  sqlmap, multer, nodemailer, dotenv, cors, randomBytes,
-  createHmac, fs, path, ejs, sessionStore, Timer, axios, ZKLib,
+  createHmac, fs, path, ejs, sessionStore, Timer, axios, ZKLib, sjcl, jwt
 }
 
 

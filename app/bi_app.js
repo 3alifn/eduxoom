@@ -10,7 +10,7 @@ const chapter_six= require('../chapter_api')
 
 exports.teacher_bi_info= (req, res)=>{
     const {ID}= req.body;
-sqlmap.query(`SELECT * FROM ini_bi_catagory WHERE domain='${req.hostname}' AND  ID=${ID}`, (err, info)=>{
+sqlmap.query(`SELECT * FROM ini_bi_catagory WHERE domain='${req.cookies["hostname"]}' AND  ID=${ID}`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
     const data= `<p>${info[0].catagory_name}</p>`
     res.send({data})
@@ -26,7 +26,7 @@ exports.admin_bi_catagory_post= (req, res)=>{
     for (let index = 0; index < get.catagory_name.length; index++) {
        const randomString= randomBytes(10).toString('hex');
         sqlmap.query(`INSERT INTO bi_catagory (session, domain, catagory_name, catagory_code)
-        VALUES(${session}', ${req.hostname}', '${get.catagory_name[index]}', '${randomString}')`, (err, post)=>{
+        VALUES(${session}', ${req.cookies["hostname"]}', '${get.catagory_name[index]}', '${randomString}')`, (err, post)=>{
             if(err) console.log(err.sqlMessage);
             
         })
@@ -73,7 +73,7 @@ exports.admin_bi_catagory_get= (req, res)=>{
 
 exports.admin_bi_catagory_update_post= (req, res)=>{
     const {catagory_id, catagory_name}= req.body;
-    sqlmap.query(`UPDATE bi_catagory SET catagory_name='${catagory_name}' WHERE domain='${req.hostname}' AND  ID=${catagory_id}`, (err, done)=>{
+    sqlmap.query(`UPDATE bi_catagory SET catagory_name='${catagory_name}' WHERE domain='${req.cookies["hostname"]}' AND  ID=${catagory_id}`, (err, done)=>{
         if(err)console.log(err.sqlMessage);
         else res.send({msg: 'successfully!'})
     })
@@ -84,7 +84,7 @@ exports.admin_bi_catagory_update_post= (req, res)=>{
 
 exports.admin_bi_catagory_delete= (req, res)=>{
 const {catagory_id}= req.body;
-sqlmap.query(`DELETE FROM bi_catagory WHERE domain='${req.hostname}' AND  ID=${catagory_id}`, (err, done)=>{
+sqlmap.query(`DELETE FROM bi_catagory WHERE domain='${req.cookies["hostname"]}' AND  ID=${catagory_id}`, (err, done)=>{
     if(err) console.log(err.sqlMessage);
     else res.send({msg: 'successfully!'})
 })
@@ -103,14 +103,14 @@ exports.teacher_bi_page_mark_get= (req, res)=>{
     sqlmap.query(`SELECT * FROM ini_bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
 
-        sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'`
+        sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM students WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}'`
        ,(err_row, count_row)=>{
          if(err_row) console.log(err_row.sqlMessage);
         const student_row= count_row[0].student_row;
         const pagination= student_row / limit 
         if(Math.ceil(pagination)==page) var nextbtnstatus= 'disabled'; else nextbtnstatus=''
         if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus=''
-        sqlmap.query(`SELECT * FROM students WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+        sqlmap.query(`SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}'
          ORDER BY roll LIMIT ${limit} OFFSET ${offset*limit}`
         ,(errStudent, infoStudentData)=>{
     
@@ -139,7 +139,7 @@ exports.teacher_bi_report_get= ( req , res)=>{
     sqlmap.query(`SELECT * FROM ini_bi_catagory ORDER BY ID`, (err_catagory, infoCatagory)=>{
         if(err_catagory) console.log(err_catagory.sqlMessage);
 
-        sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}' GROUP BY student_uuid`
+        sqlmap.query(`SELECT COUNT(student_uuid) as student_row FROM bi_mark WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}' GROUP BY student_uuid`
        ,(err_row, count_row)=>{
          if(err_row) console.log(err_row.sqlMessage);
          if(count_row.length>0){
@@ -147,7 +147,7 @@ exports.teacher_bi_report_get= ( req , res)=>{
             const pagination= student_row / limit 
             if(Math.ceil(pagination)==page) var nextbtnstatus= 'disabled'; else nextbtnstatus=''
             if(page==1) var prevbtnstatus= 'disabled';  else prevbtnstatus='null'
-            sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+            sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}'
             AND teacher_uuid='${teacher_uuid}' GROUP BY student_uuid ORDER BY ID LIMIT ${limit} OFFSET ${offset*limit}`
             ,(errStudent, infoStudentData)=>{
         if(infoStudentData.length>0){ 
@@ -247,17 +247,17 @@ const teacher_bi_transcript_post_update= (domain, className,  sectionName, stude
 exports.teacher_bi_mark_post= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid;
     const session= new Date().getUTCFullYear();
-    const domain= req.hostname;
+    const domain= req.cookies["hostname"];
     const {className,sectionName,bi_no, bi, student_uuid, roll, name, avatar, catagory, checkout, bg_color}= req.body;
     var g01= ['1','2','9','10'].includes(bi_no); var g02=['3','4','5','6'].includes(bi_no); var g03=['7','8'].includes(bi_no)
     if(g01==true){var bi_group='gp1'}else if(g02==true){var bi_group='gp2'}else{var bi_group='gp3'}
-    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.hostname}' AND  teacher_uuid='${teacher_uuid}' AND class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${catagory}'`,
+    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.cookies["hostname"]}' AND  teacher_uuid='${teacher_uuid}' AND class='${className}' AND section='${sectionName}' AND student_uuid='${student_uuid}' AND catagory='${catagory}'`,
      (errCheck, infoCheck)=>{
         if(errCheck) console.log(errCheck.sqlMessage);
         if(infoCheck===undefined || infoCheck.length===0){
 
             sqlmap.query(`INSERT INTO bi_mark (domain, session, class, section, bi_no, bi_group, teacher_uuid, student_uuid, roll, name, avatar, catagory, bi, checkout, bg_color)
-            VALUES('${req.hostname}', ${session}, '${className}', '${sectionName}', '${bi_no}', '${bi_group}', '${teacher_uuid}','${student_uuid}', ${roll}, '${name}', '${avatar}', '${catagory}', ${bi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
+            VALUES('${req.cookies["hostname"]}', ${session}, '${className}', '${sectionName}', '${bi_no}', '${bi_group}', '${teacher_uuid}','${student_uuid}', ${roll}, '${name}', '${avatar}', '${catagory}', ${bi}, '${checkout}', '${bg_color}')`, (errPost, nextPost)=>{
                 if(errPost) console.log(errPost.sqlMessage);
                 else { 
 
@@ -282,21 +282,21 @@ exports.teacher_bi_mark_post= (req, res)=>{
 
 exports.admin_bi_transcript_report_checkout=(req, res)=>{
     const {className,sectionName, student_uuid}= req.body;
-    const domain= req.hostname;
+    const domain= req.cookies["hostname"];
     teacher_bi_transcript_post_update(domain, className, sectionName, student_uuid)
 
     sqlmap.query(`SELECT * FROM ini_bi_catagory GROUP BY catagory_name ORDER BY ID`, (err_catagory, infoCatagory)=>{
    
-        sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' 
+        sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' 
         AND student_uuid='${student_uuid}' AND bi_group='gp1' GROUP BY bi_no ORDER BY ID DESC`,
     (errg01, infog01)=>{
         
-        sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}'
+        sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}'
          AND student_uuid='${student_uuid}' AND bi_group='gp2' GROUP BY bi_no ORDER BY ID DESC`,
         (errg02, infog02)=>{
             
             
-            sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' 
+            sqlmap.query(`SELECT bi_group, bi_point, bi_no, ID  FROM bi_transcript WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' 
             AND student_uuid='${student_uuid}' AND bi_group='gp3' GROUP BY bi_no ORDER BY ID DESC`,
             (errg03, infog03)=>{
            
@@ -453,7 +453,7 @@ exports.teacher_bi_checkout= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid;
 
     const {className, sectionName, checkout}= req.body;
-    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}' ORDER BY ID`, (errFind, info_checkout)=>{
+    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}' ORDER BY ID`, (errFind, info_checkout)=>{
         if(errFind) console.log(errFind.sqlMessage);
         res.send({info_checkout})
     })
@@ -467,7 +467,7 @@ exports.teacher_bi_report_self_checkout= (req, res)=>{
     const teacher_uuid= req.session.teacher_uuid;
 
     const {className, sectionName}= req.body;
-    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.hostname}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}'`, (errFind, info_checkout)=>{
+    sqlmap.query(`SELECT * FROM bi_mark WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND teacher_uuid='${teacher_uuid}'`, (errFind, info_checkout)=>{
         if(errFind) console.log(errFind.sqlMessage);
         else {  
             

@@ -13,7 +13,7 @@ exports.admin_routine_post = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM routine WHERE domain=? AND class=? AND day=? AND subject=? AND period_table=?`,
-      [req.hostname, class_name, day_name, subject_name, periodTableX],
+      [req.cookies["hostname"], class_name, day_name, subject_name, periodTableX],
       (checkErr, checkInfo) => {
           if (checkErr) {
               console.log(checkErr.sqlMessage);
@@ -23,7 +23,7 @@ exports.admin_routine_post = (req, res) => {
           if (checkInfo.length == 0) {
               sqlmap.query(
                   `SELECT * FROM teachers WHERE domain=? AND teacher_uuid=?`,
-                  [req.hostname, teacher_uuid],
+                  [req.cookies["hostname"], teacher_uuid],
                   (errT, infoT) => {
                       if (errT) {
                           console.log(errT.sqlMessage);
@@ -33,7 +33,7 @@ exports.admin_routine_post = (req, res) => {
                       sqlmap.query(
                           `INSERT INTO routine (domain, session, class, section, day, period_table, subject, period_time, teacher_name, teacher_uuid, teacher_avatar) 
                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                          [req.hostname, session, class_name, section_name, day_name, periodTableX, subject_name, periodTime, infoT[0].name, infoT[0].teacher_uuid, infoT[0].avatar],
+                          [req.cookies["hostname"], session, class_name, section_name, day_name, periodTableX, subject_name, periodTime, infoT[0].name, infoT[0].teacher_uuid, infoT[0].avatar],
                           (err, next) => {
                               if (err) {
                                   console.log(err.sqlMessage);
@@ -61,7 +61,7 @@ exports.admin_routine_get = (req, res) => {
   console.log(req.body);
   sqlmap.query(
       `SELECT * FROM routine WHERE domain=? AND class=? AND section=? AND day=? ORDER BY period_table`,
-      [req.hostname, class_name, section_name, day_name],
+      [req.cookies["hostname"], class_name, section_name, day_name],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -116,7 +116,7 @@ exports.admin_routine_rm = (req, res) => {
   } else {
       sqlmap.query(
           `DELETE FROM routine WHERE domain=? AND ID IN (?)`,
-          [req.hostname, dataid],
+          [req.cookies["hostname"], dataid],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);
@@ -135,7 +135,7 @@ exports.admin_routine_rm = (req, res) => {
 exports.public_routine_get = (req, res) => {
   const { class_name, day_name } = req.query;
   const sql = `SELECT * FROM routine WHERE domain=? AND class=? AND day=? GROUP BY period_table ORDER BY period_table`;
-  sqlmap.query(sql, [req.hostname, class_name, day_name], (err, info) => {
+  sqlmap.query(sql, [req.cookies["hostname"], class_name, day_name], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -146,7 +146,7 @@ exports.public_routine_get = (req, res) => {
           for (let index = 0; index < info.length; index++) {
               sqlmap.query(
                   `SELECT * FROM routine WHERE domain=? AND class=? AND day=? AND period_table=? GROUP BY section ORDER BY section`,
-                  [req.hostname, class_name, day_name, info[index].period_table],
+                  [req.cookies["hostname"], class_name, day_name, info[index].period_table],
                   (err_s, info_s) => {
                       if (err_s) {
                           console.log(err_s.sqlMessage);
@@ -223,7 +223,7 @@ exports.admin_subject_dynamic_get = (req, res) => {
 exports.admin_teacher_dynamic_get = (req, res) => {
   sqlmap.query(
       `SELECT * FROM teachers WHERE domain=? ORDER BY name`,
-      [req.hostname],
+      [req.cookies["hostname"]],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
