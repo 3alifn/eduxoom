@@ -16,26 +16,25 @@ const ini = require("./route/ini_route");
 const { strict } = require("assert");
 
 app.all('*', (req, res, next) => {
-  const host= req.hostname.startsWith("www.")
-  if(host) var hostnameInt= req.hostname=req.hostname.split("www.")[1];
-  else var hostnameInt= req.hostname;
-  res.cookie('hostname', hostnameInt, {path: "/", sameSite: "strict", httpOnly: true, priority: "high"})
+  const host = req.hostname.startsWith("www.");
+  const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
+  res.cookie('hostname', hostnameInt, { path: "/", sameSite: "strict", httpOnly: true, priority: "high" });
 
   sqlmap.query(
-    `SELECT domain, lics FROM ___ini WHERE domain=? AND at_status=? AND checkout=?`,
-    [hostnameInt, true, true],
-    (errllc, infollc) => {
-        if (errllc) {
-            console.log(errllc.sqlMessage);
-            return;
-        }
-        if (infollc.length > 0) {
-            next();
-        } else {
-            res.render('ini/lics');
-        }
-    }
-);
+      `SELECT domain, lics FROM ___ini WHERE domain=? AND at_status=? AND checkout=?`,
+      [hostnameInt, true, true],
+      (errllc, infollc) => {
+          if (errllc) {
+              console.log(errllc.sqlMessage);
+              return;
+          }
+          if (infollc.length > 0) {
+              next();
+          } else {
+              res.render('ini/lics');
+          }
+      }
+  );
 });
 
 

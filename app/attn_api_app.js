@@ -55,8 +55,8 @@ exports.pu_attn_checkout_webapi_present = (req, res) => {
 
           if (infof.length === 0) {
               sqlmap.query(
-                  `SELECT name, avatar, class, section, roll, ?? FROM ?? WHERE domain=? AND ??=?`,
-                  [user_uid, tbname, domain, colname, user_id],
+                  `SELECT name, avatar, class, section, roll, ${user_uid} FROM ${tbname} WHERE domain=? AND ${colname}=?`,
+                  [domain, user_id],
                   (erru, infou) => {
                       if (erru) {
                           res.json({ status: erru.sqlMessage });
@@ -66,50 +66,23 @@ exports.pu_attn_checkout_webapi_present = (req, res) => {
                       if (infou.length > 0) {
                           let sqli;
                           if (tbname == 'students') {
-                              sqli = `
-                                  INSERT INTO attn_record (domain, session, duplicate_data, class, section, user, user_id, roll, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-                                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'check-in', 1, 'present', ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-                              sqlmap.query(
-                                  sqli,
-                                  [domain, session, duplicate_data, infou[0].class, infou[0].section, user, infou[0].student_id, infou[0].roll, infou[0].name, infou[0].avatar, get_time, get_cal, find_date, attn_date, record_date, record_time, currentYear, currentMonth, currentDate],
-                                  (erri, insert) => {
-                                      if (erri) {
-                                          res.json({ status: erri.sqlMessage });
-                                          return;
-                                      }
-                                      res.json({ msg: `"present now! ${infou[0].name} ${user_id} ${record_time}"` });
+                              sqli = `INSERT INTO attn_record (domain, session, duplicate_data, class, section, user, user_id, roll, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                              sqlmap.query(sqli, [domain, session, duplicate_data, infou[0].class, infou[0].section, user, infou[0].student_id, infou[0].roll, infou[0].name, infou[0].avatar, 'check-in', 1, 'present', get_time, get_cal, find_date, attn_date, record_date, record_time, currentYear, currentMonth, currentDate], (erri, insert) => {
+                                  if (erri) {
+                                      res.json({ status: erri.sqlMessage });
+                                      return;
                                   }
-                              );
-                          } else if (tbname == 'teachers') {
-                              sqli = `
-                                  INSERT INTO attn_record (domain, session, duplicate_data, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-                                  VALUES (?, ?, ?, ?, ?, ?, 'check-in', 1, 'present', ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-                              sqlmap.query(
-                                  sqli,
-                                  [domain, session, duplicate_data, user, infou[0].teacher_id, infou[0].name, infou[0].avatar, get_time, get_cal, find_date, attn_date, record_date, record_time, currentYear, currentMonth, currentDate],
-                                  (erri, insert) => {
-                                      if (erri) {
-                                          res.json({ status: erri.sqlMessage });
-                                          return;
-                                      }
-                                      res.json({ msg: `"present now! ${infou[0].name} ${user_id} ${record_time}"` });
-                                  }
-                              );
+                                  res.json({ msg: `present now! ${infou[0].name} ${user_id} ${record_time}` });
+                              });
                           } else {
-                              sqli = `
-                                  INSERT INTO attn_record (domain, session, duplicate_data, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day)
-                                  VALUES (?, ?, ?, ?, ?, ?, 'check-in', 1, 'present', ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-                              sqlmap.query(
-                                  sqli,
-                                  [domain, session, duplicate_data, user, infou[0].staff_id, infou[0].name, infou[0].avatar, get_time, get_cal, find_date, attn_date, record_date, record_time, currentYear, currentMonth, currentDate],
-                                  (erri, insert) => {
-                                      if (erri) {
-                                          res.json({ status: erri.sqlMessage });
-                                          return;
-                                      }
-                                      res.json({ msg: `"present now! ${infou[0].name} ${user_id} ${record_time}"` });
+                              sqli = `INSERT INTO attn_record (domain, session, duplicate_data, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                              sqlmap.query(sqli, [domain, session, duplicate_data, user, user_uid === 'teacher_id' ? infou[0].teacher_id : infou[0].staff_id, infou[0].name, infou[0].avatar, 'check-in', 1, 'present', get_time, get_cal, find_date, attn_date, record_date, record_time, currentYear, currentMonth, currentDate], (erri, insert) => {
+                                  if (erri) {
+                                      res.json({ status: erri.sqlMessage });
+                                      return;
                                   }
-                              );
+                                  res.json({ msg: `present now! ${infou[0].name} ${user_id} ${record_time}` });
+                              });
                           }
                       } else {
                           res.json({ msg: user_id + ' user id not found in database!' });
@@ -117,7 +90,7 @@ exports.pu_attn_checkout_webapi_present = (req, res) => {
                   }
               );
           } else {
-              res.json({ msg: user_id + ' user id already checked out!' });
+              res.json({ msg: user_id + ' user id already checkout!' });
           }
       }
   );
