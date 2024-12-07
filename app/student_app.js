@@ -37,77 +37,136 @@ exports.multer_upload_student= multer({
 })
 
 
-exports.teacher_student_info= (req, res)=>{
-  const {student_uuid}= req.body;
-  sqlmap.query(`SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND  student_uuid='${student_uuid}'`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
-    const avatar= info[0].avatar
-    const data= `
-    <center class='p-2'>
-    <b>${info[0].name}</b> <br>
-    <b>( ${info[0].roll} )</b>
-    </center>
-    `
-    res.send({avatar, data})
-  })
-}
+exports.teacher_student_info = (req, res) => {
+  const { student_uuid } = req.body;
+  const sql = `SELECT * FROM students WHERE domain=? AND student_uuid=?`;
+
+  sqlmap.query(sql, [req.cookies["hostname"], student_uuid], (err, info) => {
+      if (err) {
+          console.log(err.sqlMessage);
+          return;
+      }
+
+      const avatar = info[0].avatar;
+      const data = `
+      <center class='p-2'>
+          <b>${info[0].name}</b> <br>
+          <b>( ${info[0].roll} )</b>
+      </center>`;
+
+      res.send({ avatar, data });
+  });
+};
 
 
-exports.admin_student_join_quick= (req, res)=>{
-  const {classNameX, roll, name, gender}= req.body;
-  const tempData= classNameX.split(' $%& ');
-  const className= tempData[0];
-  const sectionName= tempData[1];
-  const session= new Date().getUTCFullYear();
-  const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
+// exports.admin_student_join_quick= (req, res)=>{
+//   const {classNameX, roll, name, gender}= req.body;
+//   const tempData= classNameX.split(' $%& ');
+//   const className= tempData[0];
+//   const sectionName= tempData[1];
+//   const session= new Date().getUTCFullYear();
+//   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
 
- var message= [];
-for (let index = 0; index < name.length; index++) {
+//  var message= [];
+// for (let index = 0; index < name.length; index++) {
  
-  if(gender[index]=="Male") var avatarName= "male_avatar.png"
-  else avatarName= "female_avatar.png";
+//   if(gender[index]=="Male") var avatarName= "male_avatar.png"
+//   else avatarName= "female_avatar.png";
 
-  sqlmap.query(`SELECT  * FROM students WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND roll='${roll[index]}'`, (err_, info_)=>{
+//   sqlmap.query(`SELECT  * FROM students WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND roll='${roll[index]}'`, (err_, info_)=>{
  
-    if(err_) console.log(err_.sqlMessage);
+//     if(err_) console.log(err_.sqlMessage);
  
-    else 
-    {
-   if(info_.length>0) { console.log('Roll Already Joined!'); message.unshift('Roll Already Joined!');
-    req.flash('msg', 'invalid roll=>'+roll[index])
-    req.flash('alert', 'danger')
-   }
-    else  {
-      var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
-      var student_id= Math.floor(Math.random()*900000);
+//     else 
+//     {
+//    if(info_.length>0) { console.log('Roll Already Joined!'); message.unshift('Roll Already Joined!');
+//     req.flash('msg', 'invalid roll=>'+roll[index])
+//     req.flash('alert', 'danger')
+//    }
+//     else  {
+//       var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
+//       var student_id= Math.floor(Math.random()*900000);
 
-   sqlmap.query(`INSERT INTO students (domain, student_uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
-   VALUES ('${req.cookies["hostname"]}', '${uuid}', ${session}, "${name[index]}","${student_id+'@abc.com'}", "${student_id}", '${roll[index]}', "${className}", "${sectionName}","${gender[index]}", 
-  '${hashPassword}', "${avatarName}")`, (err_sub, info_sub)=>{
+//    sqlmap.query(`INSERT INTO students (domain, student_uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
+//    VALUES ('${req.cookies["hostname"]}', '${uuid}', ${session}, "${name[index]}","${student_id+'@abc.com'}", "${student_id}", '${roll[index]}', "${className}", "${sectionName}","${gender[index]}", 
+//   '${hashPassword}', "${avatarName}")`, (err_sub, info_sub)=>{
  
-     if(err_sub) {console.log(err_sub.sqlMessage); res.send({msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger"});}
+//      if(err_sub) {console.log(err_sub.sqlMessage); res.send({msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger"});}
  
  
-      else {
-      message.unshift('Students Joined!');
-    req.flash('msg', 'adding=>'+roll[index])
-     req.flash('alert', 'success')
-  }
-   })
+//       else {
+//       message.unshift('Students Joined!');
+//     req.flash('msg', 'adding=>'+roll[index])
+//      req.flash('alert', 'success')
+//   }
+//    })
  
-     }
-    }
+//      }
+//     }
  
     
-   })
+//    })
 
-}
+// }
 
-setTimeout(() => {
-res.redirect('/admin/student/page')
-}, 3000);
+// setTimeout(() => {
+// res.redirect('/admin/student/page')
+// }, 3000);
 
-}
+// }
+
+
+
+exports.admin_student_join_quick = (req, res) => {
+  const { classNameX, roll, name, gender } = req.body;
+  const tempData = classNameX.split(' $%& ');
+  const className = tempData[0];
+  const sectionName = tempData[1];
+  const session = new Date().getUTCFullYear();
+  const hashPassword = createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
+
+  let message = [];
+  
+  for (let index = 0; index < name.length; index++) {
+      const avatarName = (gender[index] === "Male") ? "male_avatar.png" : "female_avatar.png";
+
+      sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? AND roll=?`, [req.cookies["hostname"], className, sectionName, roll[index]], (err_, info_) => {
+          if (err_) {
+              console.log(err_.sqlMessage);
+              return;
+          }
+
+          if (info_.length > 0) {
+              console.log('Roll Already Joined!');
+              message.unshift('Roll Already Joined!');
+              req.flash('msg', 'invalid roll=>' + roll[index]);
+              req.flash('alert', 'danger');
+          } else {
+              const uuid = new Date().getTime() + '' + Math.floor(Math.random() * 900000000);
+              const student_id = Math.floor(Math.random() * 900000);
+
+              const sql = `INSERT INTO students (domain, student_uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+              sqlmap.query(sql, [req.cookies["hostname"], uuid, session, name[index], student_id + '@abc.com', student_id, roll[index], className, sectionName, gender[index], hashPassword, avatarName], (err_sub, info_sub) => {
+                  if (err_sub) {
+                      console.log(err_sub.sqlMessage);
+                      res.send({ msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger" });
+                      return;
+                  }
+
+                  message.unshift('Students Joined!');
+                  req.flash('msg', 'adding=>' + roll[index]);
+                  req.flash('alert', 'success');
+              });
+          }
+      });
+  }
+
+  setTimeout(() => {
+      res.redirect('/admin/student/page');
+  }, 3000);
+};
 
 
 
@@ -133,17 +192,14 @@ exports.admin_student_post= async(req, res)=>{
    }
 
 
-
-   sqlmap.query(`SELECT ID FROM students WHERE domain='${domain}' AND (student_id='${student_id}' OR email='${email}')`, 
-   (err_check, info_check)=>{
-    if(info_check.length>0){
-     
-      res.send({status: 503, msg: 'Invalid information! email or student_id already exists', alert: 'alert-danger'})
-
+   sqlmap.query(`SELECT ID FROM students WHERE domain=? AND (student_id=? OR email=?)`, [domain, student_id, email], (err_check, info_check) => {
+    if (info_check.length > 0) {
+        res.send({ status: 503, msg: 'Invalid information! email or student_id already exists', alert: 'alert-danger' });
     } else {
-      join_student_def()
+        join_student_def();
     }
-   })
+});
+
 
 
   async function join_student_def(){
@@ -174,16 +230,18 @@ exports.admin_student_post= async(req, res)=>{
           }
    }
 
-    sqlmap.query(`INSERT INTO students (domain, student_uuid, session, class, section, name, student_id, roll, gender, father_name, mother_name, birth_date, blood_group,
-     religion, email, phone, address, admission_date, password, avatar )
-    VALUES('${req.cookies["hostname"]}', '${uuid}', '${session}', '${className}', '${sectionName}', '${name}','${student_id}', '${roll}', '${gender}', '${fname}', '${mname}', '${birth_date}', '${blood_group}',
-     '${religion}', '${email}', '${phone}', '${address}', '${admission_date}', '${hashPassword}', '${avatar_png}')`, (err, next)=>{
-        if(err) console.log(err.sqlMessage+'__join_bug');
-        else {
-          console.log('joined');
-          res.send({status: 200, msg: 'Student join successfully!', alert: 'alert-success'})
-        }
-    })
+   sqlmap.query(`INSERT INTO students (domain, student_uuid, session, class, section, name, student_id, roll, gender, father_name, mother_name, birth_date, blood_group, religion, email, phone, address, admission_date, password, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     [req.cookies["hostname"], uuid, session, className, sectionName, name, student_id, roll, gender, fname, mname, birth_date, blood_group, religion, email, phone, address, admission_date, hashPassword, avatar_png], (err, next) => {
+    if (err) {
+        console.log(err.sqlMessage + '__join_bug');
+    } else {
+        console.log('joined');
+        res.send({ status: 200, msg: 'Student join successfully!', alert: 'alert-success' });
+    }
+});
+
+
+
    }
 
 
@@ -192,54 +250,55 @@ exports.admin_student_post= async(req, res)=>{
 }
 
 
-exports.admin_student_get=(req, res)=>{
-  const {class_name, section_name, limit}=req.body;
-  if(limit=='All') var sql= `SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND class='${class_name}' AND section='${section_name}'  ORDER BY roll`;
-  else var sql= `SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND class='${class_name}' AND section='${section_name}'  ORDER BY roll LIMIT ${limit}`;
-  sqlmap.query(sql, (err, info)=>{
-      if(err) console.log(err.sqlMessage);
-      else {
-          var tabledata= '';
-          for (let index = 0; index < info.length; index++) {
-            
-              tabledata+=`
+exports.admin_student_get = (req, res) => {
+  const { class_name, section_name, limit } = req.body;
+  let sql;
 
-                    <tr>
-                      <td class="p-3"> 
-                      <input class="shadowx checkout form-check-input" type="checkbox" value="${info[index].ID}" name="dataid[]" id=""></td>
-                      <td class="">
-                      <span class="badge text-dark bg-light">
-                        <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/image/student/resized/${info[index].avatar}" alt="">
-                        </span>
-                        <span class="badge text-dark bg-light">${info[index].name}</span>
-                      </td>
-      
-                      <td class="">
-                      <span class="badge text-dark bg-light">${info[index].roll}</span>
-                      </td>
-      
-                      <td class="fw-semibold text-muted">
-                        <div class="dropdown">
-                          <button data-bs-toggle="dropdown" class="btn btn-link dropdown-toggle shadowx"> <i
-                              class="bi bi-three-dots-vertical"></i></button>
-                          <div class="dropdown-menu">
-                            <button type='button' onclick='_penbox_pull(${info[index].ID})' class="btn  dropdown-item btn-link p-2"><i class="bi bi-pen p-1"></i>view and edit</button>
-                            <button type='button' onclick='_delbox_push(${info[index].ID})' class="btn dropdown-item btn-link p-2"><i class="bi bi-trash p-1"></i>delete forever</button>
-                          </div>
-                        </div>
-                      </td>
-      
-                    </tr>
-               
-                 
-              `     
+  if (limit === 'All') {
+      sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll`;
+  } else {
+      sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ?`;
+  }
 
-          }
-             res.send({tabledata})
-
+  sqlmap.query(sql, [req.cookies["hostname"], class_name, section_name, limit], (err, info) => {
+      if (err) {
+          console.log(err.sqlMessage);
+          return;
       }
-  })
-}
+
+      let tabledata = '';
+      for (let index = 0; index < info.length; index++) {
+          tabledata += `
+              <tr>
+                  <td class="p-3">
+                      <input class="shadowx checkout form-check-input" type="checkbox" value="${info[index].ID}" name="dataid[]" id="">
+                  </td>
+                  <td class="">
+                      <span class="badge text-dark bg-light">
+                          <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/image/student/resized/${info[index].avatar}" alt="">
+                      </span>
+                      <span class="badge text-dark bg-light">${info[index].name}</span>
+                  </td>
+                  <td class="">
+                      <span class="badge text-dark bg-light">${info[index].roll}</span>
+                  </td>
+                  <td class="fw-semibold text-muted">
+                      <div class="dropdown">
+                          <button data-bs-toggle="dropdown" class="btn btn-link dropdown-toggle shadowx"><i class="bi bi-three-dots-vertical"></i></button>
+                          <div class="dropdown-menu">
+                              <button type='button' onclick='_penbox_pull(${info[index].ID})' class="btn dropdown-item btn-link p-2"><i class="bi bi-pen p-1"></i>view and edit</button>
+                              <button type='button' onclick='_delbox_push(${info[index].ID})' class="btn dropdown-item btn-link p-2"><i class="bi bi-trash p-1"></i>delete forever</button>
+                          </div>
+                      </div>
+                  </td>
+              </tr>`;
+      }
+
+      res.send({ tabledata });
+  });
+};
+
+
 
 
 exports.admin_student_img_post= async(req, res)=>{
@@ -273,10 +332,13 @@ exports.admin_student_img_post= async(req, res)=>{
           }
    }
 
-   sqlmap.query(`UPDATE students SET avatar='${req.file.filename}' WHERE domain='${req.cookies["hostname"]}' AND ID=${dataid}`, (err, next)=>{
-       if(err) console.log(err.sqlMessage);
-       else   res.send({msg: 'Update successfully!', alert: 'alert-success'})
-   })
+   sqlmap.query(`UPDATE students SET avatar=? WHERE domain=? AND ID=?`, [req.file.filename, req.cookies["hostname"], dataid], (err, next) => {
+    if (err) {
+        console.log(err.sqlMessage);
+    } else {
+        res.send({ msg: 'Update successfully!', alert: 'alert-success' });
+    }
+});
 
 
 

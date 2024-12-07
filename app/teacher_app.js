@@ -32,53 +32,70 @@ exports.multer_upload_teacher= multer({
 
 
 
-exports.self_dashboard= (req, res)=>{
-  const teacher_uuid= req.session.teacher_uuid;
-  sqlmap.query(`SELECT * FROM teachers  WHERE domain='${req.cookies["hostname"]}' AND teacher_uuid='${teacher_uuid}'`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
-   else {
-    if(info.length>0){
-      res.render("teacher/dashboard_page", {info})
-    } else res.redirect('/pages/empty.html')
-   }
-  })
+exports.self_dashboard = (req, res) => {
+  const teacher_uuid = req.session.teacher_uuid;
+
+  sqlmap.query(
+      `SELECT * FROM teachers WHERE domain=? AND teacher_uuid=?`,
+      [req.cookies["hostname"], teacher_uuid],
+      (err, info) => {
+          if (err) {
+              console.log(err.sqlMessage);
+              return;
+          }
+          if (info.length > 0) {
+              res.render("teacher/dashboard_page", { info });
+          } else {
+              res.redirect('/pages/empty.html');
+          }
+      }
+  );
+};
 
 
-}
 
 
 
-
-exports.self_account = (req, res)=>{
-  const teacher_uuid= req.session.teacher_uuid;
-    const sql= `SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  teacher_uuid="${teacher_uuid}"`
-
-    sqlmap.query(sql, (err, info)=>{
-
-      if(info.length>0){
-        res.render("teacher/account_page", {info,  msg: req.flash("msg"), alert: req.flash("alert")})
-      } else res.redirect('/pages/empty.html')
-
-
-    })
-  }
-
-
-exports.self_penbox_push=(req, res)=>{
-    const {dataid, name, position, phone, fb_link, index_number, gender, birth_date, pds_id, blood_group, religion, address, joining_date}= req.body;
-    const domain= req.cookies["hostname"];
-    const userid= req.session.userid;
-    sqlmap.query(`UPDATE teachers SET name='${name}', position='${position}',
-    gender='${gender}', birth_date='${birth_date}', blood_group='${blood_group}', religion='${religion}', phone='${phone}',
-     address='${address}', joining_date='${joining_date}', fb_link='${fb_link}'
-    WHERE domain='${req.cookies["hostname"]}' AND ID=${userid}`,
-    (err, update)=>{
-        if(err) console.log(err.sqlMessage);
-        else res.send({alert: 'alert-success', msg: 'Update successfully!'})
-    })
-    
-  }
+exports.self_account = (req, res) => {
+  const teacher_uuid = req.session.teacher_uuid;
   
+  sqlmap.query(
+      `SELECT * FROM teachers WHERE domain=? AND teacher_uuid=?`,
+      [req.cookies["hostname"], teacher_uuid],
+      (err, info) => {
+          if (err) {
+              console.log(err.sqlMessage);
+              return;
+          }
+
+          if (info.length > 0) {
+              res.render("teacher/account_page", { info, msg: req.flash("msg"), alert: req.flash("alert") });
+          } else {
+              res.redirect('/pages/empty.html');
+          }
+      }
+  );
+};
+
+
+exports.self_penbox_push = (req, res) => {
+  const { dataid, name, position, phone, fb_link, index_number, gender, birth_date, pds_id, blood_group, religion, address, joining_date } = req.body;
+  const domain = req.cookies["hostname"];
+  const userid = req.session.userid;
+
+  sqlmap.query(
+      `UPDATE teachers SET name=?, position=?, gender=?, birth_date=?, blood_group=?, religion=?, phone=?, address=?, joining_date=?, fb_link=? WHERE domain=? AND ID=?`,
+      [name, position, gender, birth_date, blood_group, religion, phone, address, joining_date, fb_link, domain, userid],
+      (err, update) => {
+          if (err) {
+              console.log(err.sqlMessage);
+              return;
+          }
+          res.send({ alert: 'alert-success', msg: 'Update successfully!' });
+      }
+  );
+};
+
 
 
 exports.self_img_post= async(req, res)=>{
@@ -113,11 +130,17 @@ exports.self_img_post= async(req, res)=>{
             }
      }
   
-     sqlmap.query(`UPDATE teachers SET avatar='${req.file.filename}' WHERE domain='${req.cookies["hostname"]}' AND ID=${userid}`, (err, next)=>{
-      // console.log(req.file.filename);
-         if(err) console.log(err.sqlMessage);
-         else   res.send({msg: 'Update successfully!', alert: 'alert-success'})
-     })
+     sqlmap.query(
+      `UPDATE teachers SET avatar=? WHERE domain=? AND ID=?`,
+      [req.file.filename, req.cookies["hostname"], userid],
+      (err, next) => {
+          if (err) {
+              console.log(err.sqlMessage);
+              return;
+          }
+          res.send({ msg: 'Update successfully!', alert: 'alert-success' });
+      }
+  );
   
   
   
@@ -126,42 +149,40 @@ exports.self_img_post= async(req, res)=>{
 
 
         
-exports.self_password_update_push= (req, res)=>{
-  const {cpassword, npassword}= req.body;
-  const email= req.session.usermmail
-  const currentPassword= createHmac('md5', 'pipilikapipra').update(cpassword).digest('hex');
-  const newPassword= createHmac('md5', 'pipilikapipra').update(npassword).digest('hex');
-  const userid= req.session.userid;
+exports.self_password_update_push = (req, res) => {
+    const { cpassword, npassword } = req.body;
+    const email = req.session.usermmail;
+    const currentPassword = createHmac('md5', 'pipilikapipra').update(cpassword).digest('hex');
+    const newPassword = createHmac('md5', 'pipilikapipra').update(npassword).digest('hex');
+    const userid = req.session.userid;
 
-          const sql= `UPDATE teachers SET password="${newPassword}" WHERE domain='${req.cookies["hostname"]}' AND  ID="${userid}"`
-    
-    
-       sqlmap.query(`SELECT password FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  ID="${userid}"`, (errPass, infoPass)=>{
-    
-        if(errPass) console.log(errPass.sqlMessage);
-        else{
-    
-          if( currentPassword==infoPass[0].password){
-    
-      sqlmap.query(sql, (err, info) =>{
-    
-        if(err) console.log(err.sqlMessage);
-    
-        else res.send({alert: 'alert-success', msg: 'Changed! Successfully...'})
-        
-      })
-    
-    }
-    
-    else res.send({alert: 'alert-info', msg: 'Current Password Not Matched!'})
+    sqlmap.query(
+        `SELECT password FROM teachers WHERE domain=? AND ID=?`,
+        [req.cookies["hostname"], userid],
+        (errPass, infoPass) => {
+            if (errPass) {
+                console.log(errPass.sqlMessage);
+                return;
+            }
 
-    
+            if (currentPassword === infoPass[0].password) {
+                sqlmap.query(
+                    `UPDATE teachers SET password=? WHERE domain=? AND ID=?`,
+                    [newPassword, req.cookies["hostname"], userid],
+                    (err, info) => {
+                        if (err) {
+                            console.log(err.sqlMessage);
+                            return;
+                        }
+                        res.send({ alert: 'alert-success', msg: 'Changed! Successfully...' });
+                    }
+                );
+            } else {
+                res.send({ alert: 'alert-info', msg: 'Current Password Not Matched!' });
+            }
         }
-    
-       })
-  
-      } 
-    
+    );
+};
 
 
 
@@ -173,7 +194,7 @@ req.session.temp_code=randHashCode;
 
 // console.log(req.session.temp_code);
 
-sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  email="${username}"`, (errMain, infoMain)=>{
+sqlmap.query(`SELECT email FROM teachers WHERE domain=? AND  email=?`, [req.cookies["hostname"], username], (errMain, infoMain)=>{
  if(errMain) console.log(errMain.sqlMessage);
   if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
 
@@ -263,36 +284,43 @@ sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.cookies["hostname"]
 
 
     
-exports.self_email_update_push= (req, res)=>{
- const {verifyCode}= req.body;
-const userid= req.session.userid;
-const username=req.session.username; 
-const temp_code=req.session.temp_code;
+exports.self_email_update_push = (req, res) => {
+  const { verifyCode } = req.body;
+  const userid = req.session.userid;
+  const username = req.session.username; 
+  const temp_code = req.session.temp_code;
 
-if(verifyCode==temp_code){
-sqlmap.query(`SELECT email FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  email="${username}"`, (errMain, infoMain)=>{
-  if(errMain) console.log(errMain.sqlMessage);
-   if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
-   else {
+  if (verifyCode === temp_code) {
+      sqlmap.query(
+          `SELECT email FROM teachers WHERE domain=? AND email=?`,
+          [req.cookies["hostname"], username],
+          (errMain, infoMain) => {
+              if (errMain) {
+                  console.log(errMain.sqlMessage);
+                  return;
+              }
 
-    sqlmap.query(`UPDATE teachers SET email="${username}" WHERE domain='${req.cookies["hostname"]}' AND  ID=${userid}`, (err, info) =>{
-    
-      if(err) res.send({alert: 'alert-info', msg: 'Something Wrong! please try again!'})
-    
-      else res.send({alert: 'alert-success', msg: 'Email updated succesfully!'})
-    })
-
-
+              if (infoMain.length > 0) {
+                  res.send({ feedback: true, alert: 'alert-info', msg: 'Username already exists!' });
+              } else {
+                  sqlmap.query(
+                      `UPDATE teachers SET email=? WHERE domain=? AND ID=?`,
+                      [username, req.cookies["hostname"], userid],
+                      (err, info) => {
+                          if (err) {
+                              res.send({ alert: 'alert-info', msg: 'Something Wrong! please try again!' });
+                              return;
+                          }
+                          res.send({ alert: 'alert-success', msg: 'Email updated successfully!' });
+                      }
+                  );
+              }
+          }
+      );
+  } else {
+      res.send({ alert: 'alert-info', msg: 'Invalid verified code!' });
   }
-})
-}
- else res.send({alert: 'alert-info', msg: 'Invalid verified code!'})
-}
-
-
-
-
-
+};
 
 
 
@@ -328,10 +356,18 @@ exports.admin_teacher_img_post= async(req, res)=>{
           }
    }
 
-   sqlmap.query(`UPDATE teachers SET avatar='${req.file.filename}' WHERE domain='${req.cookies["hostname"]}' AND ID=${dataid}`, (err, next)=>{
-       if(err) console.log(err.sqlMessage);
-       else   res.send({msg: 'Update successfully!', alert: 'alert-success'})
-   })
+   sqlmap.query(
+    `UPDATE teachers SET avatar=? WHERE domain=? AND ID=?`,
+    [req.file.filename, req.cookies["hostname"], dataid],
+    (err, next) => {
+        if (err) {
+            console.log(err.sqlMessage);
+            return;
+        }
+        res.send({ msg: 'Update successfully!', alert: 'alert-success' });
+    }
+);
+
 
 
 
@@ -366,16 +402,22 @@ exports.admin_teacher_post= async(req, res)=>{
 
 
 
-   sqlmap.query(`SELECT ID FROM teachers WHERE domain='${domain}' AND (index_number='${index_number}' OR email='${email}' OR phone='${phone}')`, 
-   (err_check, info_check)=>{
-    if(info_check.length>0){
-     
-      res.send({status: 503, msg: 'Invalid information! index_number or phone or email already exists', alert: 'alert-danger'})
-
-    } else {
-      join_teacher_def()
+   sqlmap.query(
+    `SELECT ID FROM teachers WHERE domain=? AND (index_number=? OR email=? OR phone=?)`,
+    [domain, index_number, email, phone],
+    (err_check, info_check) => {
+        if (err_check) {
+            console.log(err_check.sqlMessage);
+            return;
+        }
+        if (info_check.length > 0) {
+            res.send({ status: 503, msg: 'Invalid information! index_number or phone or email already exists', alert: 'alert-danger' });
+        } else {
+            join_teacher_def();
+        }
     }
-   })
+);
+
 
 
   async function join_teacher_def(){
@@ -406,67 +448,77 @@ exports.admin_teacher_post= async(req, res)=>{
           }
    }
 
-    sqlmap.query(`INSERT INTO teachers (domain, teacher_uuid, teacher_id, name, position, order_value, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar )
-    VALUES('${req.cookies["hostname"]}', '${uuid}', '${teacher_id}', '${name}','${position}', '${order_value}', '${gender}', '${index_number}', '${pds_id}', '${birth_date}', '${blood_group}',
-    '${religion}', '${email}', '${phone}', '${address}', '${joining_date}', '${hashPassword}', '${avatar_png}')`, (err, next)=>{
-        if(err) console.log(err.sqlMessage);
-        else   res.send({status: 200, msg: 'Teacher join successfully!', alert: 'alert-success'})
-    })
+   sqlmap.query(
+    `INSERT INTO teachers (domain, teacher_uuid, teacher_id, name, position, order_value, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [req.cookies["hostname"], uuid, teacher_id, name, position, order_value, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, hashPassword, avatar_png],
+    (err, next) => {
+        if (err) {
+            console.log(err.sqlMessage);
+            return;
+        }
+        res.send({ status: 200, msg: 'Teacher join successfully!', alert: 'alert-success' });
+    }
+);
+
    }
 
 }
 
 
-exports.admin_teacher_get=(req, res)=>{
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' ORDER BY order_value`, (err, info)=>{
-      if(err) console.log(err.sqlMessage);
-      else {
-          var tabledata= '';
-          for (let index = 0; index < info.length; index++) {
-            
-              tabledata+=`
-
-              <tr>
-                      <td class="p-3"> 
-                      <input class="shadowx checkout form-check-input" type="checkbox" value="${info[index].ID}" name="dataid[]" id=""></td>
-                      <td class="">
-                      <span class="badge text-dark bg-light">
-                        <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/image/teacher/resized/${info[index].avatar}" alt="">
-                        </span>
-                        <span class="badge text-dark bg-light">${info[index].name}</span>
-                      </td>
-      
-                      <td class="">
-                      <span class="badge text-dark bg-light">${info[index].position}</span>
-                      </td>
-      
-                      <td class="fw-semibold text-muted">
-                        <div class="dropdown">
-                          <button data-bs-toggle="dropdown" class="btn btn-link dropdown-toggle shadowx"> <i
-                              class="bi bi-three-dots-vertical"></i></button>
-                          <div class="dropdown-menu">
-                            <button type='button' onclick='_penbox_pull(${info[index].ID})' class="btn  dropdown-item btn-link p-2"><i class="bi bi-pen p-1"></i>view and edit</button>
-                            <button type='button' onclick='_delbox_push(${info[index].ID})' class="btn dropdown-item btn-link p-2"><i class="bi bi-trash p-1"></i>delete forever</button>
-                          </div>
-                        </div>
-                      </td>
-      
-                    </tr>
-               
-                 
-              `     
-
+exports.admin_teacher_get = (req, res) => {
+  sqlmap.query(
+      `SELECT * FROM teachers WHERE domain=? ORDER BY order_value`,
+      [req.cookies["hostname"]],
+      (err, info) => {
+          if (err) {
+              console.log(err.sqlMessage);
+              return;
           }
-             res.send({tabledata})
 
+          let tabledata = '';
+          for (let index = 0; index < info.length; index++) {
+              tabledata += `
+              <tr>
+                  <td class="p-3"> 
+                      <input class="shadowx checkout form-check-input" type="checkbox" value="${info[index].ID}" name="dataid[]" id="">
+                  </td>
+                  <td class="">
+                      <span class="badge text-dark bg-light">
+                          <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/image/teacher/resized/${info[index].avatar}" alt="">
+                      </span>
+                      <span class="badge text-dark bg-light">${info[index].name}</span>
+                  </td>
+                  <td class="">
+                      <span class="badge text-dark bg-light">${info[index].position}</span>
+                  </td>
+                  <td class="fw-semibold text-muted">
+                      <div class="dropdown">
+                          <button data-bs-toggle="dropdown" class="btn btn-link dropdown-toggle shadowx"> 
+                              <i class="bi bi-three-dots-vertical"></i>
+                          </button>
+                          <div class="dropdown-menu">
+                              <button type='button' onclick='_penbox_pull(${info[index].ID})' class="btn dropdown-item btn-link p-2">
+                                  <i class="bi bi-pen p-1"></i>view and edit
+                              </button>
+                              <button type='button' onclick='_delbox_push(${info[index].ID})' class="btn dropdown-item btn-link p-2">
+                                  <i class="bi bi-trash p-1"></i>delete forever
+                              </button>
+                          </div>
+                      </div>
+                  </td>
+              </tr>`;
+          }
+
+          res.send({ tabledata });
       }
-  })
-}
+  );
+};
+
 
 
 exports.admin_teacher_penbox_pull=(req, res)=>{
   const {dataid}= req.body; 
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  ID=${dataid}`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM teachers WHERE domain=? AND  ID=?`, [req.cookies["hostname"], dataid], (err, info)=>{
       if(err) console.log(err.sqlMessage);
       else {
 
@@ -661,156 +713,185 @@ res.send({penboxdata})
 
 
 
-exports.admin_teacher_penbox_push=(req, res)=>{
-  const {dataid, name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date}= req.body;
-  const domain= req.cookies["hostname"];
+exports.admin_teacher_penbox_push = (req, res) => {
+    const { dataid, name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date } = req.body;
+    const domain = req.cookies["hostname"];
 
-  sqlmap.query(`SELECT ID FROM teachers WHERE domain='${domain}' AND (index_number='${index_number}' OR email='${email}' OR phone='${phone}')`, 
-  (err_check, info_check)=>{
-    if(info_check.length==0){
-
-      update_teacher_def()
-
-    }
-  else if(info_check.length==1 && info_check[0].ID==dataid){
-      update_teacher_def()
-   }
-    else {
-
-     res.send({msg: 'Invalid information! index_number or phone or email already exists', alert: 'alert-danger'})
-   }
-  })
-
-function update_teacher_def(){
-  sqlmap.query(`UPDATE teachers SET name='${name}', position='${position}', index_number='${index_number}',
-  gender='${gender}', birth_date='${birth_date}', pds_id='${pds_id}', blood_group='${blood_group}', religion='${religion}', email='${email}', phone='${phone}', address='${address}', joining_date='${joining_date}'
-  WHERE domain='${req.cookies["hostname"]}' AND ID='${dataid}'`,
-  (err, update)=>{
-      if(err) console.log(err.sqlMessage);
-      else res.send({alert: 'alert-success', msg: 'Update successfully!'})
-  })
- }
-  
-}
-
-
-
-
-exports.admin_teacher_rm= (req, res)=>{
-
-  const {dataid}= req.body; 
-
-if(dataid==undefined){
-    res.send({msg: "Data not found!", alert: "alert-info"})
-
-}
-else {
-  sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
-      if(errInfo) console.log("data not found!")
-      
-      else {
-  
-          
-  sqlmap.query(`DELETE FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  ID IN (${dataid})`, (err, next)=>{
-      if(err) console.log(err.sqlMessage);
-      else
-      {
-        for (const index in findInfo) {
-          if(findInfo[index].avatar=='male_avatar.png' || findInfo[index].avatar=='female_avatar.png'){
-             console.log('no delete default png');
-          } else{
-
-            fs.unlink(`./public/image/teacher/resized/${findInfo[index].avatar}`, function (errDelete) {
-              if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
-         
-            
-            });
-          }
-
-    
-         }
-  
-         res.send({msg: "Data Deleted! Successfully!", alert: "alert-success"})
-          
-      }
-  })
-  
-      }
-  
-  })
-}
-
-
-
-
-}
-
-
-
-
-exports.admin_config_subject= (req, res)=>{
-
-  sqlmap.query(`SELECT subject, section FROM ini_subject WHERE  class="Ten" ORDER BY section`, (err10, info10)=>{
-
-    sqlmap.query(`SELECT subject, section FROM ini_subject WHERE  class="Nine" ORDER BY section`, (err9, info9)=>{
-
-      sqlmap.query(`SELECT subject, section FROM ini_subject WHERE  class="Eight" ORDER BY section`, (err8, info8)=>{
-
-        sqlmap.query(`SELECT subject, section FROM ini_subject WHERE  class="Seven" ORDER BY section`, (err7, info7)=>{
-
-          sqlmap.query(`SELECT subject, section FROM ini_subject WHERE  class="Six" ORDER BY section`, (err6, info6)=>{
-
-            let list10= "";
-
-          
-
-            for (i  in info10) {
-
-              list10+= `
- <option value="${info10[i].subject}">${info10[i].subject}-${info10[i].section}</option>
-          
-         
-            `
-             
+    sqlmap.query(
+        `SELECT ID FROM teachers WHERE domain=? AND (index_number=? OR email=? OR phone=?)`,
+        [domain, index_number, email, phone],
+        (err_check, info_check) => {
+            if (err_check) {
+                console.log(err_check.sqlMessage);
+                return;
             }
 
-            res.send({list10})
-    
+            if (info_check.length == 0 || (info_check.length == 1 && info_check[0].ID == dataid)) {
+                update_teacher_def();
+            } else {
+                res.send({ msg: 'Invalid information! index_number or phone or email already exists', alert: 'alert-danger' });
+            }
+        }
+    );
 
-          })
-    
-
-        })
-    
-
-      })
-    
-
-    })
-
-
-  })
-}
-
-
-
-
-exports.public_teacher_list= (req, res)=>{
-
-            sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' ORDER BY ORDER_VALUE`, (err, info)=>{
-             if(err) console.log(err.sqlMessage);
-  
-              if(info.length>0){
-                res.render("public/all_teachers_public", {info})
-              } else res.redirect('/pages/empty.html')
-      })
+    function update_teacher_def() {
+        sqlmap.query(
+            `UPDATE teachers SET name=?, position=?, index_number=?, gender=?, birth_date=?, pds_id=?, blood_group=?, religion=?, email=?, phone=?, address=?, joining_date=? WHERE domain=? AND ID=?`,
+            [name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date, req.cookies["hostname"], dataid],
+            (err, update) => {
+                if (err) {
+                    console.log(err.sqlMessage);
+                    return;
+                }
+                res.send({ alert: 'alert-success', msg: 'Update successfully!' });
+            }
+        );
     }
-  
+};
+
+
+
+exports.admin_teacher_rm = (req, res) => {
+  const { dataid } = req.body;
+
+  if (dataid === undefined) {
+      res.send({ msg: "Data not found!", alert: "alert-info" });
+      return;
+  }
+
+  sqlmap.query(
+      `SELECT * FROM teachers WHERE domain=? AND ID IN (?)`,
+      [req.cookies["hostname"], dataid],
+      (errInfo, findInfo) => {
+          if (errInfo) {
+              console.log("data not found!");
+              return;
+          }
+
+          sqlmap.query(
+              `DELETE FROM teachers WHERE domain=? AND ID IN (?)`,
+              [req.cookies["hostname"], dataid],
+              (err, next) => {
+                  if (err) {
+                      console.log(err.sqlMessage);
+                      return;
+                  }
+
+                  for (const index in findInfo) {
+                      if (findInfo[index].avatar !== 'male_avatar.png' && findInfo[index].avatar !== 'female_avatar.png') {
+                          fs.unlink(`./public/image/teacher/resized/${findInfo[index].avatar}`, function (errDelete) {
+                              if (errDelete) {
+                                  console.log(errDelete + "_" + "Data Deleted! Not found file!");
+                              }
+                          });
+                      }
+                  }
+
+                  res.send({ msg: "Data Deleted! Successfully!", alert: "alert-success" });
+              }
+          );
+      }
+  );
+};
+
+
+
+
+exports.admin_config_subject = (req, res) => {
+  sqlmap.query(
+      `SELECT subject, section FROM ini_subject WHERE class=? ORDER BY section`,
+      ["Ten"],
+      (err10, info10) => {
+          if (err10) {
+              console.log(err10.sqlMessage);
+              return;
+          }
+
+          sqlmap.query(
+              `SELECT subject, section FROM ini_subject WHERE class=? ORDER BY section`,
+              ["Nine"],
+              (err9, info9) => {
+                  if (err9) {
+                      console.log(err9.sqlMessage);
+                      return;
+                  }
+
+                  sqlmap.query(
+                      `SELECT subject, section FROM ini_subject WHERE class=? ORDER BY section`,
+                      ["Eight"],
+                      (err8, info8) => {
+                          if (err8) {
+                              console.log(err8.sqlMessage);
+                              return;
+                          }
+
+                          sqlmap.query(
+                              `SELECT subject, section FROM ini_subject WHERE class=? ORDER BY section`,
+                              ["Seven"],
+                              (err7, info7) => {
+                                  if (err7) {
+                                      console.log(err7.sqlMessage);
+                                      return;
+                                  }
+
+                                  sqlmap.query(
+                                      `SELECT subject, section FROM ini_subject WHERE class=? ORDER BY section`,
+                                      ["Six"],
+                                      (err6, info6) => {
+                                          if (err6) {
+                                              console.log(err6.sqlMessage);
+                                              return;
+                                          }
+
+                                          let list10 = "";
+
+                                          for (i in info10) {
+                                              list10 += `
+                                                  <option value="${info10[i].subject}">${info10[i].subject}-${info10[i].section}</option>
+                                              `;
+                                          }
+
+                                          res.send({ list10 });
+                                      }
+                                  );
+                              }
+                          );
+                      }
+                  );
+              }
+          );
+      }
+  );
+};
+
+
+
+
+
+exports.public_teacher_list = (req, res) => {
+  sqlmap.query(
+      `SELECT * FROM teachers WHERE domain=? ORDER BY ORDER_VALUE`,
+      [req.cookies["hostname"]],
+      (err, info) => {
+          if (err) {
+              console.log(err.sqlMessage);
+              return;
+          }
+
+          if (info.length > 0) {
+              res.render("public/all_teachers_public", { info });
+          } else {
+              res.redirect('/pages/empty.html');
+          }
+      }
+  );
+};
+
 
 
 exports.public_teacher_profile_get= (req, res)=>{
 const {dataid}= req.body; 
-sqlmap.query(`SELECT * FROM teachers WHERE domain='${req.cookies["hostname"]}' AND  ID="${dataid}"`, (err, info)=>{
+sqlmap.query(`SELECT * FROM teachers WHERE domain=?' AND  ID=?`,[req.cookies["hostname"], dataid], (err, info)=>{
          
 if(info.length>0){
 let htmldata= `

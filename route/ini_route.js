@@ -9,7 +9,7 @@ ini.post('/terminal/push/', ini_terminal_push)
 ini.post('/terminal/ren/', ini_termial_ren)
 ini.post('/terminal/rm/', ini_termial_rm)
 
-ini.get('/terminal/', (req, res)=>{
+ini.all('/terminal/', (req, res)=>{
     res.render('ini/terminal');
 })
 

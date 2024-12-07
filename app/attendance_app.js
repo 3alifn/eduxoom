@@ -97,51 +97,58 @@ exports.teacher_attn_post_page_num = (req, res) => {
 
 
 
-exports.teacher_attn_post= (req, res)=>{
-    const {class_name, section_name, student_id, name, roll, avatar, checkout}= req.body;
+exports.teacher_attn_post = (req, res) => {
+    const { class_name, section_name, student_id, name, roll, avatar, checkout } = req.body;
     const today = new Date(); 
-    const currentDate= new Date().getDate();
+    const currentDate = today.getDate();
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
-    const get_cal= currentMonth+'-'+currentYear;
-    const myMonth= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    const find_date= `${myMonth[currentMonth]}-${currentDate}-${currentMonth+1}-${currentYear}`
-    const attn_date= new Date().toDateString();
-    const duplicate_data= student_id+"_"+attn_date
-    const at_status= checkout==1?'present':'absent'
-    sqlmap.query(`SELECT user_id, find_date, attn_date FROM attn_record WHERE domain='${req.cookies["hostname"]}' AND user='Student' AND user_id='${student_id}' AND find_date='${find_date}' ORDER BY id DESC`, (errf, find)=>{
-        if(errf) console.log(errf.sqlMessage);
-        if(find.length>0){
-       
-      sqlmap.query(`UPDATE attn_record SET checkout=${checkout}, at_status='${at_status}' WHERE domain='${req.cookies["hostname"]}' AND user='Student' AND user_id='${student_id}' AND find_date='${find_date}'`,
-        (erru, up)=>{
-            if(erru) console.log(erru.sqlMessage);
-            // else console.log('updated...');
-            student_rank_mark_attn(req.cookies["hostname"], class_name, section_name, student_id, at_status)
+    const get_cal = currentMonth + '-' + currentYear;
+    const myMonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const find_date = `${myMonth[currentMonth]}-${currentDate}-${currentMonth + 1}-${currentYear}`;
+    const attn_date = today.toDateString();
+    const duplicate_data = student_id + "_" + attn_date;
+    const at_status = checkout == 1 ? 'present' : 'absent';
 
-            res.send({att: true})
-        })
+    sqlmap.query(
+        `SELECT user_id, find_date, attn_date FROM attn_record WHERE domain=? AND user=? AND user_id=? AND find_date=? ORDER BY id DESC`,
+        [req.cookies["hostname"], 'Student', student_id, find_date],
+        (errf, find) => {
+            if (errf) {
+                console.log(errf.sqlMessage);
+                return;
+            }
 
-        }else {
-      
-            sqlmap.query(`
-            INSERT INTO attn_record (domain, session, duplicate_data, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day)
-            
-            VALUES('${req.cookies["hostname"]}', '${currentYear}', '${duplicate_data}', 1, 'Student', '${get_cal}', '${attn_date}', '${find_date}', ${checkout}, '${at_status}',  '${class_name}', '${section_name}',
-            '${student_id}', '${name}', '${roll}', '${avatar}', '${currentYear}', '${currentMonth}', '${currentDate}')`, (erri, inser)=>{
-                if(erri) console.log(erri.sqlMessage);
-                else {
-                    student_rank_mark_attn(req.cookies["hostname"], class_name, section_name, student_id, at_status)
-                    // console.log('inserted...');
-                     res.send({att: true})
-
-                }
-            })
+            if (find.length > 0) {
+                sqlmap.query(
+                    `UPDATE attn_record SET checkout=?, at_status=? WHERE domain=? AND user=? AND user_id=? AND find_date=?`,
+                    [checkout, at_status, req.cookies["hostname"], 'Student', student_id, find_date],
+                    (erru, up) => {
+                        if (erru) {
+                            console.log(erru.sqlMessage);
+                            return;
+                        }
+                        student_rank_mark_attn(req.cookies["hostname"], class_name, section_name, student_id, at_status);
+                        res.send({ att: true });
+                    }
+                );
+            } else {
+                sqlmap.query(
+                    `INSERT INTO attn_record (domain, session, duplicate_data, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                    [req.cookies["hostname"], currentYear, duplicate_data, 1, 'Student', get_cal, attn_date, find_date, checkout, at_status, class_name, section_name, student_id, name, roll, avatar, currentYear, currentMonth, currentDate],
+                    (erri, inser) => {
+                        if (erri) {
+                            console.log(erri.sqlMessage);
+                            return;
+                        }
+                        student_rank_mark_attn(req.cookies["hostname"], class_name, section_name, student_id, at_status);
+                        res.send({ att: true });
+                    }
+                );
+            }
         }
-    })
-
-   }
-
+    );
+};
 
 
 
@@ -382,34 +389,35 @@ exports.privet_attn_repo_find = (req, res) => {
 
 
 
-function student_rank_mark_attn(domain, class_name, section_name, student_id, at_status){
-   
-         sqlmap.query(`SELECT ${at_status} FROM student_rank WHERE domain='${domain}' AND class='${class_name}' AND section='${section_name}' AND student_id='${student_id}' ORDER BY ${at_status} DESC LIMIT 1`, 
-         (errf, infof)=>{
-            if(errf) console.log(errf.sqlMessage+' errf');
-     
-            else 
-            {
-            
-                if(infof.length>0){
-                    if(at_status=='present'){
-                        var marked= infof[0].present==undefined?1:parseFloat(infof[0].present)+parseFloat(1);
-                      } else var marked= infof[0].absent==undefined?1:parseFloat(infof[0].absent)+parseFloat(1);
-        
-                      sqlmap.query(`UPDATE student_rank SET ${at_status}=${marked} WHERE domain='${domain}'  AND class='${class_name}' AND section='${section_name}' AND  student_id='${student_id}'`,
-                       (erru, infou)=>{
-          
-                        if(erru) console.log(erru.sqlMessage+' erru');
-              
-                        else {
-                        //   console.log('marked...');
-                        //   res.send({msg: true})
-                        }
-              
-                      })
-                }
-  
+function student_rank_mark_attn(domain, class_name, section_name, student_id, at_status) {
+    sqlmap.query(
+        `SELECT ${at_status} FROM student_rank WHERE domain=? AND class=? AND section=? AND student_id=? ORDER BY ${at_status} DESC LIMIT 1`,
+        [domain, class_name, section_name, student_id],
+        (errf, infof) => {
+            if (errf) {
+                console.log(errf.sqlMessage + ' errf');
+                return;
             }
-  
-          })
+
+            if (infof.length > 0) {
+                let marked;
+                if (at_status === 'present') {
+                    marked = infof[0].present === undefined ? 1 : parseFloat(infof[0].present) + 1;
+                } else {
+                    marked = infof[0].absent === undefined ? 1 : parseFloat(infof[0].absent) + 1;
+                }
+
+                sqlmap.query(
+                    `UPDATE student_rank SET ${at_status}=? WHERE domain=? AND class=? AND section=? AND student_id=?`,
+                    [marked, domain, class_name, section_name, student_id],
+                    (erru, infou) => {
+                        if (erru) {
+                            console.log(erru.sqlMessage + ' erru');
+                            return;
+                        }
+                    }
+                );
+            }
+        }
+    );
 }
