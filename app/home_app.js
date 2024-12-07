@@ -1,35 +1,38 @@
 const {app, express, sqlmap , session} = require("../server")
 
 exports.home_page = (req, res) => {
-
-    sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.cookies["hostname"]}'`, (err_school, info_school) => {
+    const host= req.hostname.startsWith("www.")
+    if(host) var hostnameInt= req.hostname=req.hostname.split("www.")[1];
+    else var hostnameInt= req.hostname;
+ 
+    sqlmap.query(`SELECT * FROM school_settings WHERE domain='${hostnameInt}'`, (err_school, info_school) => {
         if (err_school) console.log(err_school);
         // if(info_school.length>0){
-            sqlmap.query(`SELECT COUNT(ID) as count FROM teachers WHERE domain='${req.cookies["hostname"]}'`, (err_teacher, info_teacher) => {
+            sqlmap.query(`SELECT COUNT(ID) as count FROM teachers WHERE domain='${hostnameInt}'`, (err_teacher, info_teacher) => {
                 if (err_teacher) console.log(err_teacher.sqlMessage);
     
-                sqlmap.query(`SELECT COUNT(ID) as count FROM students WHERE domain='${req.cookies["hostname"]}'`, (err_student, info_student) => {
+                sqlmap.query(`SELECT COUNT(ID) as count FROM students WHERE domain='${hostnameInt}'`, (err_student, info_student) => {
                     if (err_student) console.log(err_student.sqlMessage);
     
-                    sqlmap.query(`SELECT * FROM headofschool WHERE domain='${req.cookies["hostname"]}'`, (err_headofschool, info_headofschool) => {
+                    sqlmap.query(`SELECT * FROM headofschool WHERE domain='${hostnameInt}'`, (err_headofschool, info_headofschool) => {
                         if (err_headofschool) console.log(err_headofschool.sqlMessage);
     
     
-                        sqlmap.query(`SELECT * FROM carousel WHERE domain='${req.cookies["hostname"]}' ORDER BY ID DESC LIMIT 5`, (err_carousel, info_carousel) => {
+                        sqlmap.query(`SELECT * FROM carousel WHERE domain='${hostnameInt}' ORDER BY ID DESC LIMIT 5`, (err_carousel, info_carousel) => {
                             if(err_carousel) console.log(err_carousel.sqlMessage);
-                            sqlmap.query(`SELECT COUNT(ID) as count FROM staff WHERE domain='${req.cookies["hostname"]}' ORDER BY ID DESC`, (err_staff, info_staff) => {
+                            sqlmap.query(`SELECT COUNT(ID) as count FROM staff WHERE domain='${hostnameInt}' ORDER BY ID DESC`, (err_staff, info_staff) => {
                                 if(err_staff) console.log(err_staff.sqlMessage);
         
-                                sqlmap.query(`SELECT * FROM repository WHERE domain='${req.cookies["hostname"]}' AND  datatype='eventnews' GROUP BY dataid ORDER BY ID DESC LIMIT 6`, (err_repo_e,info_repo_e)=>{
+                                sqlmap.query(`SELECT * FROM repository WHERE domain='${hostnameInt}' AND  datatype='eventnews' GROUP BY dataid ORDER BY ID DESC LIMIT 6`, (err_repo_e,info_repo_e)=>{
                                     if(err_repo_e) console.log(err_repo_e.sqlMessage);
                                     
-                                    sqlmap.query(`SELECT * FROM repository WHERE domain='${req.cookies["hostname"]}' AND  datatype='facilities' GROUP BY dataid ORDER BY ID DESC LIMIT 6`, (err_repo_f,info_repo_f)=>{
+                                    sqlmap.query(`SELECT * FROM repository WHERE domain='${hostnameInt}' AND  datatype='facilities' GROUP BY dataid ORDER BY ID DESC LIMIT 6`, (err_repo_f,info_repo_f)=>{
                                         if(err_repo_f) console.log(err_repo_f.sqlMessage);
                                         
-                                        sqlmap.query(`SELECT * FROM repository WHERE domain='${req.cookies["hostname"]}' AND  datatype='achievement' GROUP BY dataid ORDER BY ID DESC LIMIT 6`, (err_repo_a,info_repo_a)=>{
+                                        sqlmap.query(`SELECT * FROM repository WHERE domain='${hostnameInt}' AND  datatype='achievement' GROUP BY dataid ORDER BY ID DESC LIMIT 6`, (err_repo_a,info_repo_a)=>{
                                             if(err_repo_a) console.log(err_repo_a.sqlMessage);
                                            
-                                            sqlmap.query(`SELECT * FROM repository WHERE domain='${req.cookies["hostname"]}' ORDER BY ID DESC`, (err_repo_have,info_repo_have)=>{
+                                            sqlmap.query(`SELECT * FROM repository WHERE domain='${hostnameInt}' ORDER BY ID DESC`, (err_repo_have,info_repo_have)=>{
                                                 if(err_repo_have) console.log(err_repo_have.sqlMessage);
                                                else {
                                      
@@ -63,7 +66,11 @@ exports.home_page = (req, res) => {
 
 
 exports.pu_school_get = (req, res) => {
-    sqlmap.query(`SELECT * FROM school_settings WHERE domain='${req.cookies["hostname"]}'`, (err_school, info_school) => {
+    const host= req.hostname.startsWith("www.")
+    if(host) var hostnameInt= req.hostname=req.hostname.split("www.")[1];
+    else var hostnameInt= req.hostname;
+ 
+    sqlmap.query(`SELECT * FROM school_settings WHERE domain='${hostnameInt}'`, (err_school, info_school) => {
         if (err_school) console.log(err_school);
         else {
             if(info_school.length>0){
@@ -74,7 +81,11 @@ exports.pu_school_get = (req, res) => {
 }
 
 exports.pu_headofschool_get = (req, res) => {
-    sqlmap.query(`SELECT * FROM headofschool WHERE domain='${req.cookies["hostname"]}'`, (err_headofschool, info_headofschool) => {
+    const host= req.hostname.startsWith("www.")
+    if(host) var hostnameInt= req.hostname=req.hostname.split("www.")[1];
+    else var hostnameInt= req.hostname;
+ 
+    sqlmap.query(`SELECT * FROM headofschool WHERE domain='${hostnameInt}'`, (err_headofschool, info_headofschool) => {
         if (err_headofschool) console.log(err_headofschool.sqlMessage);
         else res.send({ info_headofschool })
     })
