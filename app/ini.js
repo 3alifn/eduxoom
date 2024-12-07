@@ -240,6 +240,8 @@ module.exports= {
                             //  init_class_section(req.cookies["hostname"])
                             //  init_subject(req.cookies["hostname"])
                             // init_bi_catagory(req.cookies["hostname"])
+                            
+                            
                             res.send({ status: true, msg: 'WELCOME TO SAANVI ABC', alert: 'alert-success' });
                         }
                     );
