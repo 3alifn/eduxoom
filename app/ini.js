@@ -41,7 +41,8 @@ module.exports= {
         const join_date_temp= new Date().toLocaleString().split(',');
         const join_date= join_date_temp[0];
         const expire_date= parseInt(new Date().getUTCDate())+'/'+parseInt(new Date().getUTCMonth()+1)+'/'+parseInt(new Date().getFullYear()+1);
-       
+
+
        if(ini_key=='$dream$billion$') {
                 // function ___ini_dll(domain, new_lics){
                     sqlmap.query(
@@ -91,11 +92,13 @@ module.exports= {
 
     ini_termial_dea: (req, res)=>{
         const {ini_key, domain}= req.body;
+        const host = req.hostname.startsWith("www.");
+        const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
          if(ini_key=='$dream$billion$') {
             //  function ___ini_dll(){
                 sqlmap.query(
                     `SELECT domain FROM ___ini WHERE domain=?`,
-                    [domain],
+                    [hostnameInt],
                     (err, have) => {
                         if (err) {
                             console.log(err.sqlMessage);
@@ -131,11 +134,13 @@ module.exports= {
  
  ini_termial_rm: (req, res)=>{
         const {ini_key, domain}= req.body;
+        const host = req.hostname.startsWith("www.");
+        const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
          if(ini_key=='$dream$billion$') {
             //  function ___ini_dll(){
                 sqlmap.query(
                     `SELECT domain FROM ___ini WHERE domain=?`,
-                    [domain],
+                    [hostnameInt],
                     (err, have) => {
                         if (err) {
                             console.log(err.sqlMessage);
@@ -181,11 +186,13 @@ module.exports= {
 
  ini_termial_ren: (req, res)=>{
     const {ini_key, domain}= req.body;
+    const host = req.hostname.startsWith("www.");
+    const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
      if(ini_key=='$dream$billion$') {
         //  function ___ini_dll(){
             sqlmap.query(
                 `SELECT domain FROM ___ini WHERE domain=?`,
-                [domain],
+                [hostnameInt],
                 (err, have) => {
                     if (err) {
                         console.log(err.sqlMessage);
@@ -219,9 +226,11 @@ module.exports= {
 
     lics_checkout: (req, res)=>{
         const {lics}= req.body;
+        const host = req.hostname.startsWith("www.");
+        const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
         sqlmap.query(
             `SELECT domain, lics FROM ___ini WHERE domain=? AND lics=? AND at_status=?`,
-            [req.cookies["hostname"], lics, true],
+            [hostnameInt, lics, true],
             (errllc, infollc) => {
                 if (errllc) {
                     console.log(errllc.sqlMessage);
@@ -231,15 +240,15 @@ module.exports= {
                 if (infollc.length > 0) {
                     sqlmap.query(
                         `UPDATE ___ini SET checkout=? WHERE domain=?`,
-                        [true, req.cookies["hostname"]],
+                        [true, hostnameInt],
                         (errup, update) => {
                             if (errup) {
                                 console.log(errup.sqlMessage);
                                 return;
                             }
-                            //  init_class_section(req.cookies["hostname"])
-                            //  init_subject(req.cookies["hostname"])
-                            // init_bi_catagory(req.cookies["hostname"])
+                            //  init_class_section(hostnameInt)
+                            //  init_subject(hostnameInt)
+                            // init_bi_catagory(hostnameInt)
                             
                             
                             res.send({ status: true, msg: 'WELCOME TO SAANVI ABC', alert: 'alert-success' });
