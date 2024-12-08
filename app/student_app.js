@@ -348,7 +348,7 @@ exports.admin_student_img_post= async(req, res)=>{
 
 exports.admin_student_penbox_pull=(req, res)=>{
   const {dataid}= req.body; 
-  sqlmap.query(`SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND  ID=${dataid}`, (err, info)=>{
+  sqlmap.query(`SELECT * FROM students WHERE domain=? AND  ID=?`,[req.cookies["hostname"], dataid], (err, info)=>{
       if(err) console.log(err.sqlMessage);
       else {
 
@@ -597,158 +597,141 @@ res.send({penboxdata})
 
 
 
-exports.admin_student_penbox_push=(req, res)=>{
-  const {dataid, classNameX, name, roll, gender, fname, mname,  birth_date, blood_group, religion, phone, email, address, admission_date}= req.body;
-  const domain= req.cookies["hostname"];
-  var tempData= classNameX.split(' $%& ');
-  var className= tempData[0];
-  var sectionName= tempData[1];  
-  sqlmap.query(`SELECT ID FROM students WHERE domain='${domain}' AND email='${email}'`, 
-  (err_check, info_check)=>{
-    if(info_check.length==0){
-  console.log(0);
-      update_student_def()
+exports.admin_student_penbox_push = (req, res) => {
+  const { dataid, classNameX, name, roll, gender, fname, mname, birth_date, blood_group, religion, phone, email, address, admission_date } = req.body;
+  const domain = req.cookies["hostname"];
+  const tempData = classNameX.split(' $%& ');
+  const className = tempData[0];
+  const sectionName = tempData[1];
 
-    }
-  else if(info_check.length==1 && info_check[0].ID==dataid){
-    console.log(1);
-      update_student_def()
-   }
-    else {
+  sqlmap.query(`SELECT ID FROM students WHERE domain=? AND email=?`, [domain, email], (err_check, info_check) => {
+      if (err_check) {
+          console.log(err_check.sqlMessage);
+          return;
+      }
 
-     res.send({msg: 'Invalid information! email already exists', alert: 'alert-danger'})
-   }
-  })
+      if (info_check.length == 0 || (info_check.length == 1 && info_check[0].ID == dataid)) {
+          update_student_def();
+      } else {
+          res.send({ msg: 'Invalid information! email already exists', alert: 'alert-danger' });
+      }
+  });
 
-function update_student_def(){
+  function update_student_def() {
+      const updateQuery = `UPDATE students SET class=?, section=?, name=?, roll=?, gender=?, father_name=?, mother_name=?, birth_date=?, blood_group=?, religion=?, email=?, phone=?, address=?, admission_date=? WHERE domain=? AND ID=?`;
 
-  sqlmap.query(`UPDATE students SET class='${className}', section='${sectionName}', name='${name}', roll='${roll}', gender='${gender}',
-  father_name='${fname}', mother_name='${mname}', birth_date='${birth_date}', blood_group='${blood_group}', religion='${religion}',
-   email='${email}', phone='${phone}', address='${address}', admission_date='${admission_date}'
-  WHERE domain='${req.cookies["hostname"]}' AND ID='${dataid}'`,
-  (err, update)=>{
-      if(err) console.log(err.sqlMessage);
-      else res.send({alert: 'alert-success', msg: 'Update successfully!'})
-  })
- }
-
-
-}
-
-
-
-
-exports.admin_student_rm= (req, res)=>{
-
-  const {dataid}= req.body; 
-
-if(dataid==undefined){
-    res.send({msg: "Data not found!", alert: "alert-info"})
-
-}
-else {
-  sqlmap.query(`SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND  ID IN (${dataid})`, (errInfo, findInfo)=>{
-      if(errInfo) console.log("data not found!")
-      
-      else {
-  
-          
-  sqlmap.query(`DELETE FROM students WHERE domain='${req.cookies["hostname"]}' AND  ID IN (${dataid})`, (err, next)=>{
-      if(err) console.log(err.sqlMessage);
-      else
-      {
-
-  
-         for (const index in findInfo) {
-          if(findInfo[index].avatar=='male_avatar.png' || findInfo[index].avatar=='female_avatar.png'){
-             console.log('no delete default png');
-          } else{
-        
-            fs.unlink(`./public/image/student/resized/${findInfo[index].avatar}`, function (errDelete) {
-              if (errDelete) console.log(errDelete+"_"+"Data Deleted! Not found file!");
-         
-            
-            });
+      sqlmap.query(updateQuery, [className, sectionName, name, roll, gender, fname, mname, birth_date, blood_group, religion, email, phone, address, admission_date, req.cookies["hostname"], dataid], (err, update) => {
+          if (err) {
+              console.log(err.sqlMessage);
+          } else {
+              res.send({ alert: 'alert-success', msg: 'Update successfully!' });
           }
+      });
+  }
+};
+
+
+
+
+exports.admin_student_rm = (req, res) => {
+  const { dataid } = req.body;
+
+  if (dataid === undefined) {
+      res.send({ msg: "Data not found!", alert: "alert-info" });
+  } else {
+      sqlmap.query(`SELECT * FROM students WHERE domain=? AND ID IN (?)`, [req.cookies["hostname"], dataid], (errInfo, findInfo) => {
+          if (errInfo) {
+              console.log("data not found!");
+          } else {
+              sqlmap.query(`DELETE FROM students WHERE domain=? AND ID IN (?)`, [req.cookies["hostname"], dataid], (err, next) => {
+                  if (err) {
+                      console.log(err.sqlMessage);
+                  } else {
+                      findInfo.forEach(student => {
+                          if (student.avatar !== 'male_avatar.png' && student.avatar !== 'female_avatar.png') {
+                              fs.unlink(`./public/image/student/resized/${student.avatar}`, errDelete => {
+                                  if (errDelete) {
+                                      console.log(errDelete + "_" + "Data Deleted! Not found file!");
+                                  }
+                              });
+                          } else {
+                              console.log('no delete default png');
+                          }
+                      });
+
+                      res.send({ msg: "Data Deleted! Successfully!", alert: "alert-success" });
+                  }
+              });
+          }
+      });
+  }
+};
+
+
+
+
+exports.self_dashboard = (req, res) => {
+  const student_uuid = req.session.student_uuid;
+  const sql = `SELECT * FROM students WHERE domain=? AND student_uuid=?`;
+
+  sqlmap.query(sql, [req.cookies["hostname"], student_uuid], (err, info) => {
+      if (err) {
+          console.log(err.sqlMessage);
+          return;
+      }
+
+      if (info.length > 0) {
+          res.render("student/dashboard_page", { info });
+      } else {
+          res.redirect('/pages/empty.html');
+      }
+  });
+};
+
+
+
+
+
+exports.self_account = (req, res) => {
+  const student_uuid = req.session.student_uuid;
+  const sql = `SELECT * FROM students WHERE domain=? AND student_uuid=?`;
+
+  sqlmap.query(sql, [req.cookies["hostname"], student_uuid], (err, info) => {
+      if (err) {
+          console.log(err.sqlMessage);
+          return;
+      }
+
+      if (info.length > 0) {
+          res.render("student/account_page", { info, msg: req.flash("msg"), alert: req.flash("alert") });
+      } else {
+          res.redirect('/pages/empty.html');
+      }
+  });
+};
+
 
     
-         }
-  
-         res.send({msg: "Data Deleted! Successfully!", alert: "alert-success"})
-          
+exports.self_penbox_push = (req, res) => {
+  const { name, phone, fb_link, fname, mname, gender, birth_date, blood_group, religion, address } = req.body;
+  const domain = req.cookies["hostname"];
+  const userid = req.session.userid;
+
+  const sql = `UPDATE students SET name=?, phone=?, gender=?, birth_date=?, blood_group=?, religion=?, address=?, father_name=?, mother_name=?, fb_link=? WHERE domain=? AND ID=?`;
+
+  sqlmap.query(sql, [name, phone, gender, birth_date, blood_group, religion, address, fname, mname, fb_link, req.cookies["hostname"], userid], (err, update) => {
+      if (err) {
+          console.log(err.sqlMessage);
+      } else {
+          res.send({ alert: 'alert-success', msg: 'Update successfully!' });
       }
-  })
-  
-      }
-  
-  })
-}
+  });
+};
 
-
-
-
-}
-
-
-
-
-
-exports.self_dashboard= (req, res)=>{
-
-  const student_uuid= req.session.student_uuid;
-      let sql= `SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND  student_uuid="${student_uuid}"`
-
-      sqlmap.query(sql, (err, info)=>{
-
-        if(info.length>0){
-          res.render("student/dashboard_page", {info})
-        } else res.redirect('/pages/empty.html')
-
-
-      })
-
-    } 
-
-
-
-
-exports.self_account= (req, res)=>{
-
-  const student_uuid= req.session.student_uuid;
-      let sql= `SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND  student_uuid="${student_uuid}"`
-
-      sqlmap.query(sql, (err, info)=>{
-
-        if(info.length>0){
-          res.render("student/account_page", {info,  msg: req.flash("msg"), alert: req.flash("alert")})
-        } else res.redirect('/pages/empty.html')
-
-
-      })
-
-    } 
-
-    
-    
-    exports.self_penbox_push=(req, res)=>{
-      console.log(req.body);
-        const {name, phone, fb_link, fname, mname, gender, birth_date, blood_group, religion, address}= req.body;
-        const domain= req.cookies["hostname"];
-        const userid= req.session.userid;
-        sqlmap.query(`UPDATE students SET name='${name}', phone='${phone}',
-        gender='${gender}', birth_date='${birth_date}', blood_group='${blood_group}', religion='${religion}', 
-         address='${address}', father_name='${fname}', mother_name='${mname}', fb_link='${fb_link}'
-        WHERE domain='${req.cookies["hostname"]}' AND ID=${userid}`,
-        (err, update)=>{
-            if(err) console.log(err.sqlMessage);
-            else res.send({alert: 'alert-success', msg: 'Update successfully!'})
-        })
-        
-      }
       
     
     
-    exports.self_img_post= async(req, res)=>{
+exports.self_img_post= async(req, res)=>{
       const userid= req.session.userid;
     
         const {dataid}= req.body;
@@ -780,691 +763,527 @@ exports.self_account= (req, res)=>{
                 }
          }
       
-         sqlmap.query(`UPDATE students SET avatar='${req.file.filename}' WHERE domain='${req.cookies["hostname"]}' AND ID=${userid}`, (err, next)=>{
-             if(err) console.log(err.sqlMessage);
-             else   res.send({msg: 'Update successfully!', alert: 'alert-success'})
-         })
-      
-      
-      
-      
-      }
-    
-    
-            
-    exports.self_password_update_push= (req, res)=>{
-      const {cpassword, npassword}= req.body;
-      const email= req.session.usermmail
-      const currentPassword= createHmac('md5', 'pipilikapipra').update(cpassword).digest('hex');
-      const newPassword= createHmac('md5', 'pipilikapipra').update(npassword).digest('hex');
-      const userid= req.session.userid;
-    
-              const sql= `UPDATE students SET password="${newPassword}" WHERE domain='${req.cookies["hostname"]}' AND  ID="${userid}"`
-        
-        
-           sqlmap.query(`SELECT password FROM students WHERE domain='${req.cookies["hostname"]}' AND  ID="${userid}"`, (errPass, infoPass)=>{
-        
-            if(errPass) console.log(errPass.sqlMessage);
-            else{
-        
-              if( currentPassword==infoPass[0].password){
-        
-          sqlmap.query(sql, (err, info) =>{
-        
-            if(err) console.log(err.sqlMessage);
-        
-            else res.send({alert: 'alert-success', msg: 'Changed! Successfully...'})
-            
-          })
-        
-        }
-        
-        else res.send({alert: 'alert-info', msg: 'Current Password Not Matched!'})
-    
-        
-            }
-        
-           })
-      
-          } 
-        
-    
-    
-    
-    exports.self_email_update_pull= (req, res)=>{
-      const {username}= req.body;
-    var randHashCode= Math.ceil(Math.random()*900000);
-  req.session.username=username; 
-req.session.temp_code=randHashCode;
-    
-    sqlmap.query(`SELECT email FROM students WHERE domain='${req.cookies["hostname"]}' AND  email="${username}"`, (errMain, infoMain)=>{
-     if(errMain) console.log(errMain.sqlMessage);
-     if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
-    
-      else {
-    
-      const transporter= nodemailer.createTransport({
-       
-          host: process.env.email_host,
-          port: process.env.email_port,
-          auth: {
-            user: process.env.email_address,
-            pass: process.env.email_password
+         sqlmap.query(`UPDATE students SET avatar=? WHERE domain=? AND ID=?`, [req.file.filename, req.cookies["hostname"], userid], (err, next) => {
+          if (err) {
+              console.log(err.sqlMessage);
+          } else {
+              res.send({ msg: 'Update successfully!', alert: 'alert-success' });
           }
-      
-        })
-    
-    
-    
+      });
       
       
-        const mailOutput= `<html> <h2>Welcome to Our School</h2><h4 style="background-color: slateblue; color: white;">your verification code is <span style="color: white" href="#">${randHashCode} & expaire after 5 minutes</span></h4></html>`
       
-        const mailOptions = {
-          from: process.env.email_address,
-          to: username,
-          subject: "Username Update",
-          text: "Verify account",
-          html: mailOutput
-        }
+      
+      
+}
     
-        
-        transporter.sendMail(mailOptions, (err, info)=>{
-          
-          if(err) res.send({alert: 'alert-info', msg: 'Something Wrong! please try again!', feedback: true})
-          
-      else {
     
-        
-    
-        var htmldata= `
-        <form id="formemailpush" action="#" method="post">
-                   
-                   
-        <div class="card p-2">
-          <div class="card-body">
-            <h5 class="card-title fw-semibold p-2 font-monospace">Verification code sent!</h5>
-            <p class="card-text p-2"><input required class="form-self w-100 p-2" type="text" placeholder="enter verification code" name="verifyCode" id=""></p>
-          </div>
-    
-          <div class="d-flex justify-content-between p-2">
-           <button type="button" class="btn btn-link p-2 mycard-pop" data-bs-dismiss="modal">Close</button>
-    
-           <button type="submit" class="btn btn-link p-2">Submit </button>
-    
-          </div>
-        </div>
-      </form>`
-    
-     
-  setTimeout(()=>{
-    req.session.temp_code=false;
-    }, 5*60000)
+            
+exports.self_password_update_push = (req, res) => {
+  const { cpassword, npassword } = req.body;
+  const email = req.session.usermmail;
+  const currentPassword = createHmac('md5', 'pipilikapipra').update(cpassword).digest('hex');
+  const newPassword = createHmac('md5', 'pipilikapipra').update(npassword).digest('hex');
+  const userid = req.session.userid;
 
-    req.session.save((err) => {
-      if (err) {
-          console.log('Error saving session: ', err);
+  const updateSql = `UPDATE students SET password=? WHERE domain=? AND ID=?`;
+
+  sqlmap.query(`SELECT password FROM students WHERE domain=? AND ID=?`, [req.cookies["hostname"], userid], (errPass, infoPass) => {
+      if (errPass) {
+          console.log(errPass.sqlMessage);
+          return;
+      }
+
+      if (currentPassword === infoPass[0].password) {
+          sqlmap.query(updateSql, [newPassword, req.cookies["hostname"], userid], (err, info) => {
+              if (err) {
+                  console.log(err.sqlMessage);
+                  return;
+              }
+
+              res.send({ alert: 'alert-success', msg: 'Changed! Successfully...' });
+          });
       } else {
-        res.send({htmldata})
+          res.send({ alert: 'alert-info', msg: 'Current Password Not Matched!' });
       }
   });
-    
-      }
-          
+};
+
         
-        })
     
-     
     
+    
+exports.self_email_update_pull = (req, res) => {
+  const { username } = req.body;
+  const randHashCode = Math.ceil(Math.random() * 900000);
+  req.session.username = username;
+  req.session.temp_code = randHashCode;
+
+  sqlmap.query(`SELECT email FROM students WHERE domain=? AND email=?`, [req.cookies["hostname"], username], (errMain, infoMain) => {
+      if (errMain) {
+          console.log(errMain.sqlMessage);
+          return;
       }
-    
-    })
-    
-      
-    }
-    
+
+      if (infoMain.length > 0) {
+          res.send({ feedback: true, alert: 'alert-info', msg: 'Username already exists!' });
+      } else {
+          const transporter = nodemailer.createTransport({
+              host: process.env.email_host,
+              port: process.env.email_port,
+              auth: {
+                  user: process.env.email_address,
+                  pass: process.env.email_password
+              }
+          });
+
+          const mailOutput = `<html><h2>Welcome to Our School</h2><h4 style="background-color: slateblue; color: white;">your verification code is <span style="color: white">${randHashCode} & expires after 5 minutes</span></h4></html>`;
+
+          const mailOptions = {
+              from: process.env.email_address,
+              to: username,
+              subject: "Username Update",
+              text: "Verify account",
+              html: mailOutput
+          };
+
+          transporter.sendMail(mailOptions, (err, info) => {
+              if (err) {
+                  res.send({ alert: 'alert-info', msg: 'Something went wrong! Please try again.', feedback: true });
+              } else {
+                  const htmldata = `
+                  <form id="formemailpush" action="#" method="post">
+                      <div class="card p-2">
+                          <div class="card-body">
+                              <h5 class="card-title fw-semibold p-2 font-monospace">Verification code sent!</h5>
+                              <p class="card-text p-2"><input required class="form-self w-100 p-2" type="text" placeholder="enter verification code" name="verifyCode"></p>
+                          </div>
+                          <div class="d-flex justify-content-between p-2">
+                              <button type="button" class="btn btn-link p-2 mycard-pop" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-link p-2">Submit</button>
+                          </div>
+                      </div>
+                  </form>`;
+
+                  setTimeout(() => {
+                      req.session.temp_code = false;
+                  }, 5 * 60000);
+
+                  req.session.save((err) => {
+                      if (err) {
+                          console.log('Error saving session: ', err);
+                      } else {
+                          res.send({ htmldata });
+                      }
+                  });
+              }
+          });
+      }
+  });
+};
+
     
     
     
         
-    exports.self_email_update_push= (req, res)=>{
-    const userid= req.session.userid;
-     const {verifyCode}= req.body;
-     const username=req.session.username; 
-     const temp_code=req.session.temp_code;
-    
+exports.self_email_update_push = (req, res) => {
+  const userid = req.session.userid;
+  const { verifyCode } = req.body;
+  const username = req.session.username;
+  const temp_code = req.session.temp_code;
 
-     if(verifyCode==temp_code){
-      sqlmap.query(`SELECT email FROM students WHERE domain='${req.cookies["hostname"]}' AND  email="${username}"`, (errMain, infoMain)=>{
-        if(errMain) console.log(errMain.sqlMessage);
-         if(infoMain.length>0) res.send({feedback: true, alert: 'alert-info', msg: 'Username already exists!'})
-         else {
-      
-          sqlmap.query(`UPDATE students SET email="${username}" WHERE domain='${req.cookies["hostname"]}' AND  ID=${userid}`, (err, info) =>{
-          
-            if(err) res.send({alert: 'alert-info', msg: 'Something Wrong! please try again!'})
-          
-            else res.send({alert: 'alert-success', msg: 'Email updated succesfully!'})
-          })
-      
-      
-        }
-      })
-      }
-       else res.send({alert: 'alert-info', msg: 'Invalid verified code!'})
-      }
-      
-      
-
-
-
-
-
-
-exports.public_student_page= (req, res)=>{
-
-
-
-  var sqlClass= `SELECT COUNT(ID) FROM students`
-  var sqlClass6= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Six"`
-  var sqlClass7= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Seven"`
-  var sqlClass8= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Eight"`
-  var sqlClass9= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Nine"`
-  var sqlClass10= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Ten"`
-
-  var sqlSection6A= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Six" AND section="A"`
-  var sqlSection6B= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Six" AND section="B"`
-  var sqlSection6C= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Six" AND section="C"`
-
-  var sqlSection7A= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Seven" AND section="A"`
-  var sqlSection7B= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Seven" AND section="B"`
-  var sqlSection7C= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Seven" AND section="C"`
-
-  var sqlSection8A= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Eight" AND section="A"`
-  var sqlSection8B= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Eight" AND section="B"`
-  var sqlSection8C= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Eight" AND section="C"`
-
-  var sqlSection9A= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Nine" AND section="A"`
-  var sqlSection9B= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Nine" AND section="B"`
-  var sqlSection9C= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Nine" AND section="C"`
-
-  var sqlSection10A= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Ten" AND section="A"`
-  var sqlSection10B= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Ten" AND section="B"`
-  var sqlSection10C= `SELECT COUNT(ID) FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="Ten" AND section="C"`
-
-
-          sqlmap.query(sqlClass, (err, infoClass)=>{
-     
-            if(infoClass.length>0){
-  
-    
-           sqlmap.query(sqlClass6, (err6, info6)=>{
-           
-            
-           sqlmap.query(sqlClass7, (err7, info7)=>{
-
-            sqlmap.query(sqlClass8, (err8, info8)=>{
-
-              sqlmap.query(sqlClass9, (err9, info9)=>{
-
-                sqlmap.query(sqlClass10, (err10, info10)=>{
-
-                  
-                sqlmap.query(sqlSection6A, (err6a, info6a)=>{
-
-                  sqlmap.query(sqlSection6B, (err6b, info6b)=>{
-
-                    sqlmap.query(sqlSection6C, (err6c, info6c)=>{
-
-                      sqlmap.query(sqlSection7A, (err7a, info7a)=>{
-
-                        sqlmap.query(sqlSection7B, (err7b, info7b)=>{
-
-                          sqlmap.query(sqlSection7C, (err7c, info7c)=>{
-
-                            sqlmap.query(sqlSection8A, (err8a, info8a)=>{
-
-                              sqlmap.query(sqlSection8B, (err8b, info8b)=>{
-
-                                sqlmap.query(sqlSection8C, (err8c, info8c)=>{
-
-                                  sqlmap.query(sqlSection9A, (err9a, info9a)=>{
-
-                                    sqlmap.query(sqlSection9B, (err9b, info9b)=>{
-
-                                      sqlmap.query(sqlSection9C, (err9c, info9c)=>{
-
-                                        sqlmap.query(sqlSection10A, (err10a, info10a)=>{
-
-                                          sqlmap.query(sqlSection10B, (err10b, info10b)=>{
-
-                                            sqlmap.query(sqlSection10C, (err10c, info10c)=>{
-
-res.render("public/student_page_public", {info6, info6a, info6b, info6c, info7, info7a, info7b, info7c, info8, info8a, info8b, info8c, info9, info9a, info9b, info9c, info10, info10a, info10b, info10c})
-            
-                                            })
-                 
-            
-                                          })
-                   
-                 
-            
-                                        })
-                   
-                 
-            
-                                      })
-                 
-            
-                                    })
-                 
-            
-                                  })
-                 
-            
-                                })
-                 
-            
-                              })
-                 
-            
-                            })
-                 
-            
-                          })
-                 
-            
-                        })
-                 
-            
-                      })
-                 
-            
-                    })
-            
-                  })
-            
-                })
-                 
-            
-                })
-            
-              })
-             
-            })
-             
-          })
-         
-         
-           })
-
-
-  
-       
-
-            }
-
-              else res.redirect("/pu/404")
-  })
+  if (verifyCode == temp_code) {
+      sqlmap.query(`SELECT email FROM students WHERE domain=? AND email=?`, [req.cookies["hostname"], username], (errMain, infoMain) => {
+          if (errMain) {
+              console.log(errMain.sqlMessage);
+              return;
+          }
+          if (infoMain.length > 0) {
+              res.send({ feedback: true, alert: 'alert-info', msg: 'Username already exists!' });
+          } else {
+              sqlmap.query(`UPDATE students SET email=? WHERE domain=? AND ID=?`, [username, req.cookies["hostname"], userid], (err, info) => {
+                  if (err) {
+                      res.send({ alert: 'alert-info', msg: 'Something Wrong! please try again!' });
+                  } else {
+                      res.send({ alert: 'alert-success', msg: 'Email updated successfully!' });
+                  }
+              });
+          }
+      });
+  } else {
+      res.send({ alert: 'alert-info', msg: 'Invalid verification code!' });
   }
+};
+
+      
 
 
-
-
-
-
-exports.public_student_list= (req, res)=>{
-
-  let {className, sectionName}= req.query; const limit= 12;
-  let sql= `SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="${className}" AND section="${sectionName}" ORDER BY roll LIMIT ${limit} OFFSET 0`
-
-          sqlmap.query(sql, (err, info)=>{
-     
-            if(info.length>0){
-              res.render("public/all_students_public", {info, className, sectionName})
-            }
-
-              else res.redirect('/pu/student/page')
-  })
-  }
-
-
-exports.public_student_pagination= (req, res)=>{
-
-    const {className, sectionName, requestPageOffset}= req.body; const limit = 12; 
-
-   sqlmap.query(`SELECT COUNT(ID) AS count_row FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="${className}" AND section="${sectionName}"`, (err_count, info_count)=>{
-    if(err_count) console.log(err_count.sqlMessage);
-    var permit_count=  info_count[0].count_row / limit;
-    if(requestPageOffset >= permit_count) var offset= permit_count; else var offset= requestPageOffset;
-    sqlmap.query(`SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND  class="${className}" AND section="${sectionName}" ORDER BY roll LIMIT 12 OFFSET ${offset * limit}`,
-             (err, info)=>{
-       
-              if(info.length>0){
+exports.public_student_page = (req, res) => {
+  const domain = req.cookies["hostname"];
   
+  const sqlClass = `SELECT COUNT(ID) FROM students WHERE domain=?`;
+  const sqlClass6 = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Six"`;
+  const sqlClass7 = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Seven"`;
+  const sqlClass8 = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Eight"`;
+  const sqlClass9 = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Nine"`;
+  const sqlClass10 = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Ten"`;
 
-                let orderData= '';
+  const sqlSection6A = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Six" AND section="A"`;
+  const sqlSection6B = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Six" AND section="B"`;
+  const sqlSection6C = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Six" AND section="C"`;
 
-                for (let index = 0; index < info.length; index++) {
-                 
-                  orderData+=` <div  class="flex-fill m-auto p-2 shadowx ">
+  const sqlSection7A = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Seven" AND section="A"`;
+  const sqlSection7B = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Seven" AND section="B"`;
+  const sqlSection7C = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Seven" AND section="C"`;
 
+  const sqlSection8A = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Eight" AND section="A"`;
+  const sqlSection8B = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Eight" AND section="B"`;
+  const sqlSection8C = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Eight" AND section="C"`;
+
+  const sqlSection9A = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Nine" AND section="A"`;
+  const sqlSection9B = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Nine" AND section="B"`;
+  const sqlSection9C = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Nine" AND section="C"`;
+
+  const sqlSection10A = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Ten" AND section="A"`;
+  const sqlSection10B = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Ten" AND section="B"`;
+  const sqlSection10C = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Ten" AND section="C"`;
+
+  sqlmap.query(sqlClass, [domain], (err, infoClass) => {
+      if (infoClass.length > 0) {
+          sqlmap.query(sqlClass6, [domain], (err6, info6) => {
+              sqlmap.query(sqlClass7, [domain], (err7, info7) => {
+                  sqlmap.query(sqlClass8, [domain], (err8, info8) => {
+                      sqlmap.query(sqlClass9, [domain], (err9, info9) => {
+                          sqlmap.query(sqlClass10, [domain], (err10, info10) => {
+                              sqlmap.query(sqlSection6A, [domain], (err6a, info6a) => {
+                                  sqlmap.query(sqlSection6B, [domain], (err6b, info6b) => {
+                                      sqlmap.query(sqlSection6C, [domain], (err6c, info6c) => {
+                                          sqlmap.query(sqlSection7A, [domain], (err7a, info7a) => {
+                                              sqlmap.query(sqlSection7B, [domain], (err7b, info7b) => {
+                                                  sqlmap.query(sqlSection7C, [domain], (err7c, info7c) => {
+                                                      sqlmap.query(sqlSection8A, [domain], (err8a, info8a) => {
+                                                          sqlmap.query(sqlSection8B, [domain], (err8b, info8b) => {
+                                                              sqlmap.query(sqlSection8C, [domain], (err8c, info8c) => {
+                                                                  sqlmap.query(sqlSection9A, [domain], (err9a, info9a) => {
+                                                                      sqlmap.query(sqlSection9B, [domain], (err9b, info9b) => {
+                                                                          sqlmap.query(sqlSection9C, [domain], (err9c, info9c) => {
+                                                                              sqlmap.query(sqlSection10A, [domain], (err10a, info10a) => {
+                                                                                  sqlmap.query(sqlSection10B, [domain], (err10b, info10b) => {
+                                                                                      sqlmap.query(sqlSection10C, [domain], (err10c, info10c) => {
+                                                                                          res.render("public/student_page_public", {
+                                                                                              info6, info6a, info6b, info6c,
+                                                                                              info7, info7a, info7b, info7c,
+                                                                                              info8, info8a, info8b, info8c,
+                                                                                              info9, info9a, info9b, info9c,
+                                                                                              info10, info10a, info10b, info10c
+                                                                                          });
+                                                                                      });
+                                                                                  });
+                                                                              });
+                                                                          });
+                                                                      });
+                                                                  });
+                                                              });
+                                                          });
+                                                      });
+                                                  });
+                                              });
+                                          });
+                                      });
+                                  });
+                              });
+                          });
+                      });
+                  });
+              });
+          });
+      } else {
+          res.redirect("/pu/404");
+      }
+  });
+};
+
+
+
+
+exports.public_student_list = (req, res) => {
+  let { className, sectionName } = req.query;
+  const limit = 12;
+  const sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ? OFFSET 0`;
+
+  sqlmap.query(sql, [req.cookies["hostname"], className, sectionName, limit], (err, info) => {
+      if (err) {
+          console.log(err.sqlMessage);
+          return;
+      }
+
+      if (info.length > 0) {
+          res.render("public/all_students_public", { info, className, sectionName });
+      } else {
+          res.redirect('/pu/student/page');
+      }
+  });
+};
+
+
+
+exports.public_student_pagination = (req, res) => {
+  const { className, sectionName, requestPageOffset } = req.body;
+  const limit = 12;
+
+  sqlmap.query(`SELECT COUNT(ID) AS count_row FROM students WHERE domain=? AND class=? AND section=?`, [req.cookies["hostname"], className, sectionName], (err_count, info_count) => {
+      if (err_count) {
+          console.log(err_count.sqlMessage);
+          return;
+      }
+
+      const permit_count = Math.ceil(info_count[0].count_row / limit);
+      const offset = requestPageOffset >= permit_count ? permit_count - 1 : requestPageOffset;
+
+      sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ? OFFSET ?`, [req.cookies["hostname"], className, sectionName, limit, offset * limit], (err, info) => {
+          if (err) {
+              console.log(err.sqlMessage);
+              return;
+          }
+
+          if (info.length > 0) {
+              let orderData = '';
+
+              for (let index = 0; index < info.length; index++) {
+                  orderData += `<div class="flex-fill m-auto p-2 shadowx ">
                   <div class="bg-card-color pt-3 pb-3 rounded-4">
                       <div class="card-image m-auto">
-                          <img  class="avatar-circle" src="/image/teacher/resized/${info[index].avatar}" alt="">
+                      
+                          <img class="avatar-circle" src="/image/student/resized/${info[index].avatar}" alt="">
+
                       </div>
                   </div>
-                
-                    
                   <div class="pb-3">
                       <div class="card-body text-center p-2">
-                       <span class="fs-6 fw-semibold">${info[index].name}</span> <br>
-                       <span class="text-muted fw-semibold">${info[index].roll}</span> <br>
-                       <button onclick="get_profile_def('${info[index].ID}')" class="p-2 fw-semibold btn-link btn tap-to-open">Tap to open</button>
+                          <span class="fs-6 fw-semibold">${info[index].name}</span> <br>
+                          <span class="text-muted fw-semibold">${info[index].roll}</span> <br>
+                          <button onclick="get_profile_def('${info[index].ID}')" class="p-2 fw-semibold btn-link btn tap-to-open">Tap to open</button>
                       </div>
                   </div>
-                
-                  </div>`
-                  
-                }
-
-                res.send({orderData})
+              </div>`;
               }
-              else res.send({nomore:'No more student here'})
 
-        
-  
-    })
+              res.send({ orderData });
+          } else {
+              res.send({ nomore: 'No more students here' });
+          }
+      });
+  });
+};
 
-  })
-    }
-  
 
 
-    exports.public_student_profile_get= (req, res)=>{
-      const {dataid}= req.body; 
-      sqlmap.query(`SELECT * FROM students WHERE domain='${req.cookies["hostname"]}' AND  ID="${dataid}"`, (err, info)=>{
-               
-      if(info.length>0){
-      let htmldata= `
-         <center>
-        <div class="bg-card-color pt-3  pb-3 rounded-top-5 rounded-start-5">
-            <div class="card-image">
-                <img class="avatar-circle" src="/image/student/resized/${info[0].avatar}" alt="">
-            </div>
-        </div>
-      </center>
-      
-      <center>
-        
-        <div class="ps-2 pt-3 pb-3 rounded-bottom-5 rounded-end-5">
-            <div class="card-body text-start p-2">
-                   
-            <div class="d-flex fw-semibold">
-            <div class="p-1 w-25">Student of</div>
-            <code class="p-1">:</code> <div class="p-1 w-75">${info[0].class} - ${info[0].section}</div>
-           </div>    
-           
+exports.public_student_profile_get = (req, res) => {
+  const { dataid } = req.body;
+  const sql = `SELECT * FROM students WHERE domain=? AND ID=?`;
 
-                <div class="d-flex fw-semibold">
-                   <div class="p-1 w-25">Name</div>
-                   <code class="p-1">:</code><div class="p-1 w-75">${info[0].name}</div>
+  sqlmap.query(sql, [req.cookies["hostname"], dataid], (err, info) => {
+      if (err) {
+          console.log(err.sqlMessage);
+          return;
+      }
+
+      if (info.length > 0) {
+          const htmldata = `
+          <center>
+              <div class="bg-card-color pt-3 pb-3 rounded-top-5 rounded-start-5">
+                  <div class="card-image">
+                      <img class="avatar-circle" src="/image/student/resized/${info[0].avatar}" alt="">
                   </div>
+              </div>
+          </center>
 
-                              
-                  <div class="d-flex fw-semibold">
-                    <div class="p-1 w-25">Gender</div>
-                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].gender}</div>
-                   </div>
+          <center>
+              <div class="ps-2 pt-3 pb-3 rounded-bottom-5 rounded-end-5">
+                  <div class="card-body text-start p-2">
+                      <div class="d-flex fw-semibold">
+                          <div class="p-1 w-25">Student of</div>
+                          <code class="p-1">:</code>
+                          <div class="p-1 w-75">${info[0].class} - ${info[0].section}</div>
+                      </div>
 
-                   
-                   <div class="d-flex fw-semibold">
-                    <div class="p-1 w-25">Roll</div>
-                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].roll}</div>
-                   </div>     
-                   
-                   
-                   <div class="d-flex fw-semibold">
-                    <div class="p-1 w-25">SID</div>
-                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].student_id}</div>
-                   </div>
-            
-                  <div class="d-flex fw-semibold">
-                    <div class="p-1 w-25">Religion</div>
-                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].religion}</div>
-                   </div>
-            
-                   <div class="d-flex fw-semibold">
-                    <div class="p-1 w-25">Blood Group</div>
-                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].blood_group}</div>
-                   </div>
-            
-                   <div class="d-flex fw-semibold">
-                    <div class="p-1 w-25">Admision date</div>
-                    <code class="p-1">:</code> <div class="p-1 w-75">${info[0].admission_date}</div>
-                   </div>
-            
-            </div>
-        </div>
-      </center>
-      <button data-dismiss="modal" class="btn float-end fw-semibold btn-link link-primary p-2 ms-auto mt-2 mb-b">Close</button>
-            
-       `
-      res.send({htmldata})
-        
-                      }
-          
-                        
-            })
-   }
+                      <div class="d-flex fw-semibold">
+                          <div class="p-1 w-25">Name</div>
+                          <code class="p-1">:</code>
+                          <div class="p-1 w-75">${info[0].name}</div>
+                      </div>
 
+                      <div class="d-flex fw-semibold">
+                          <div class="p-1 w-25">Gender</div>
+                          <code class="p-1">:</code>
+                          <div class="p-1 w-75">${info[0].gender}</div>
+                      </div>
 
+                      <div class="d-flex fw-semibold">
+                          <div class="p-1 w-25">Roll</div>
+                          <code class="p-1">:</code>
+                          <div class="p-1 w-75">${info[0].roll}</div>
+                      </div>
 
+                      <div class="d-flex fw-semibold">
+                          <div class="p-1 w-25">SID</div>
+                          <code class="p-1">:</code>
+                          <div class="p-1 w-75">${info[0].student_id}</div>
+                      </div>
 
-exports.self_close_account= (req, res)=>{
-  if(req.session.user=='student'){
+                      <div class="d-flex fw-semibold">
+                          <div class="p-1 w-25">Religion</div>
+                          <code class="p-1">:</code>
+                          <div class="p-1 w-75">${info[0].religion}</div>
+                      </div>
 
-  // sqlmap.query(`DELETE  FROM students WHERE domain='${req.cookies["hostname"]}' AND  ID="${req.body.dataID}"`, (err, info)=>{
+                      <div class="d-flex fw-semibold">
+                          <div class="p-1 w-25">Blood Group</div>
+                          <code class="p-1">:</code>
+                          <div class="p-1 w-75">${info[0].blood_group}</div>
+                      </div>
 
-  //   if(err) res.end("you are restricted! can't close your account")
-     
-  //   else 
-  //   {
-  //     sqlmap.query(`DELETE FROM attendance WHERE domain='${req.cookies["hostname"]}' AND  ID="${req.body.dataID}"`, (err_sub, info_sub)=>{
- 
-  //       if(err_sub) console.log(err_sub.sqlMessage);
-  //      else res.send({msg: 'closed!'})
-  //     })
-   
-      
-  //   }
-  // })
+                      <div class="d-flex fw-semibold">
+                          <div class="p-1 w-25">Admission date</div>
+                          <code class="p-1">:</code>
+                          <div class="p-1 w-75">${info[0].admission_date}</div>
+                      </div>
+                  </div>
+              </div>
+          </center>
+          <button data-dismiss="modal" class="btn float-end fw-semibold btn-link link-primary p-2 ms-auto mt-2 mb-b">Close</button>`;
 
-}
-}
+          res.send({ htmldata });
+      }
+  });
+};
 
 
 
+exports.self_social = (req, res) => {
+  const { facebookLink } = req.body;
+  const student_uuid = req.session.student_id;
+
+  const sql = `UPDATE students SET facebook_link=? WHERE domain=? AND student_uuid=?`;
+
+  sqlmap.query(sql, [facebookLink, req.cookies["hostname"], student_uuid], (err, info) => {
+      if (err) {
+          console.log(err.sqlMessage);
+      } else {
+          req.flash("alert", "success");
+          req.flash("msg", "Social Link Updated...");
+          res.redirect("/student/account");
+      }
+  });
+};
 
 
+exports.student_rank_get_class_base = (req, res) => {
+  const className = req.session.className;
+  const sectionName = req.session.sectionName;
+  const sql = `SELECT * FROM rank WHERE domain=? AND class=? GROUP BY student_id ORDER BY poient DESC`;
 
-
-exports.self_social= (req, res)=>{
-      let {facebookLink}=req.body;
-      const student_uuid= req.session.student_id;
-        sqlmap.query(`UPDATE students SET facebook_link="${facebookLink}"  WHERE domain='${req.cookies["hostname"]}' AND  student_uuid="${student_uuid}"`, (err, info)=>{
-      
-          if(err) console.log(err.sqlMessage);
-           
-          else 
-          {
-            req.flash("alert", "success")
-            req.flash("msg", "Social Link Updated...")
-            res.redirect("/student/account")
-          }
-        })
-      
+  sqlmap.query(sql, [req.cookies["hostname"], className], (err, info) => {
+      if (err) {
+          console.log(err.sqlMessage);
+          return;
       }
 
+      const sqlSummary = `SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM rank WHERE domain=? AND class=? GROUP BY student_id ORDER BY poient DESC`;
 
-
-
-
-
-
-exports.student_rank_get_class_base= (req, res)=>{
-
-
-  let className= req.session.className;
-  let sectionName= req.session.sectionName;
-
-        let sql= `SELECT * FROM rank WHERE domain='${req.cookies["hostname"]}' AND  class="${className}" GROUP BY student_id ORDER BY poient DESC`
-        sqlmap.query(sql, (err, info)=>{
-    
-    
-          if(err) console.log(err.sqlMessage);
-    
-          else
-          {
-    
-           sqlmap.query(`SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM rank WHERE domain='${req.cookies["hostname"]}' AND  class="${className}" GROUP BY student_id ORDER BY poient DESC`, (errS, infoS)=>{
-               if(errS) console.log(errS.sqlMessage);
-    
-    
-               else 
-               {
-    
-                   let html= "";
-    
-                   for (const i in info) {
-           
-                       html+= 
-                       /*html*/
-                       `
-                          
-                       <ul class="list-group  mt-2 list" id="list">
-                           
-                           <li class="list-group-item list-group-item-primary ">
-                      
-                             <span class="badge bg-primary">Rank: ${parseInt(i)+parseInt(1)}</span>  
-                             <img src="/image/student/resized/${info[i].avatar}" height="30px" class=" rounded" width="40px" alt="">
-                        
-                               <span class=" badge bg-light text-dark">${info[i].name}</span>
-                               <span class=" badge bg-light text-muted">${info[i].class} - ${info[i].section} </span>
-                               <span class=" badge bg-light text-muted">${info[i].student_id} </span>
-                       <hr>
-           
-                       <span class=" badge bg-light text-danger">Behavior (${infoS[i].behavior})</span>
-                       <span class=" badge bg-light text-secondary"> Uniform (${infoS[i].uniform}) </span>
-                       <span class=" badge bg-light text-success">Study (${infoS[i].study}) </span>
-                       <span class=" badge bg-light text-info">Present (${infoS[i].present}) </span>
-                       <span class=" badge bg-light text-primary">Ratting (${info[i].poient}) </span>
-           
-           
-                               <div class=" btn-group btn-group-sm">
-                               
-                               </div>
-                       
-                            </li>
-                          
-                        
-                       </ul>
-           
-                       `
-                    
-                   }
-           
-                   res.send({html: html})
-                   
-               }
-    
-           })
-    
-         
-    
+      sqlmap.query(sqlSummary, [req.cookies["hostname"], className], (errS, infoS) => {
+          if (errS) {
+              console.log(errS.sqlMessage);
+              return;
           }
+
+          let html = "";
+
+          for (const i in info) {
+              html += `
+                  <ul class="list-group mt-2 list" id="list">
+                      <li class="list-group-item list-group-item-primary">
+                          <span class="badge bg-primary">Rank: ${parseInt(i) + 1}</span>
+                          <img src="/image/student/resized/${info[i].avatar}" height="30px" class="rounded" width="40px" alt="">
+                          <span class="badge bg-light text-dark">${info[i].name}</span>
+                          <span class="badge bg-light text-muted">${info[i].class} - ${info[i].section}</span>
+                          <span class="badge bg-light text-muted">${info[i].student_id}</span>
+                          <hr>
+                          <span class="badge bg-light text-danger">Behavior (${infoS[i].behavior})</span>
+                          <span class="badge bg-light text-secondary">Uniform (${infoS[i].uniform})</span>
+                          <span class="badge bg-light text-success">Study (${infoS[i].study})</span>
+                          <span class="badge bg-light text-info">Present (${infoS[i].present})</span>
+                          <span class="badge bg-light text-primary">Rating (${info[i].poient})</span>
+                      </li>
+                  </ul>
+              `;
+          }
+
+          res.send({ html });
+      });
+  });
+};
+
     
-    
-    
-        }) 
-     
-    
-      
+
+
+exports.student_parent_list = (req, res) => {
+  const sql = `SELECT ID, email, name FROM parents WHERE domain=? AND student_id=?`;
+
+  sqlmap.query(sql, [req.cookies["hostname"], req.session.student_id], (err, info) => {
+      if (err) {
+          console.log(err.sqlMessage);
+          return;
       }
-    
 
-
-exports.student_parent_list= (req, res)=>{
-  sqlmap.query(`SELECT ID, email, name FROM parents WHERE domain='${req.cookies["hostname"]}' AND  student_id='${req.session.student_id}'`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
-
-    else {
-
-      let listData= '';
+      let listData = '';
       for (const i in info) {
-        listData+=`
-        <option value="${info[i].email}"> ${info[i].email} - ${info[i].name}</option>
-        `
-     
+          listData += `
+          <option value="${info[i].email}">${info[i].email} - ${info[i].name}</option>`;
       }
 
-      res.send({listData})
-
-
-    }
-
-  })
-
-}
+      res.send({ listData });
+  });
+};
 
 
 
-exports.student_parent_set= (req, res)=>{
+exports.student_parent_set = (req, res) => {
+  const { parentEmail } = req.body;
+  const sql = `UPDATE parents SET permission='allow' WHERE domain=? AND student_id=? AND email=?`;
 
-  let {parentEmail}= req.body;
-  sqlmap.query(`UPDATE parents SET permission='allow' WHERE domain='${req.cookies["hostname"]}' AND  student_id='${req.session.student_id}' AND email='${parentEmail}'`, (err, update)=>{
-    if(err) console.log(err.sqlMessage);
-
-    else {
-
-      res.send({msg: 'Parent set updated!', alert: 'success'})
-    }
-  })
-
-  
-}
+  sqlmap.query(sql, [req.cookies["hostname"], req.session.student_id, parentEmail], (err, update) => {
+      if (err) {
+          console.log(err.sqlMessage);
+      } else {
+          res.send({ msg: 'Parent set updated!', alert: 'success' });
+      }
+  });
+};
 
 
-exports.student_parent_get= (req, res)=>{
 
-  sqlmap.query(`SELECT * FROM parents WHERE domain='${req.cookies["hostname"]}' AND  permission='allow' AND student_id='${req.session.student_id}'`, (err, info)=>{
-    if(err) console.log(err.sqlMessage);
+exports.student_parent_get = (req, res) => {
+  const sql = `SELECT * FROM parents WHERE domain=? AND permission='allow' AND student_id=?`;
 
-    else {
-
-      if(info.length>0){
-        let listData= '<code>Parent Access List</code>';
-
-        for (const i in info) {
-        listData+= 
-         `
-         <div class="input-group ">
-
-
-             
-         <span class=" input-group-text "><img width="50px" src="/image/parent/resized/${info[i].avatar}" alt="404"></span>
-         <input disabled readonly type="text" class= "form-control form-self" value="${info[i].email} -  ${info[i].name}">
-
-            </div>
-           `
-        }
-     
-
-      res.send({listData})
+  sqlmap.query(sql, [req.cookies["hostname"], req.session.student_id], (err, info) => {
+      if (err) {
+          console.log(err.sqlMessage);
+          return;
       }
 
-    }
+      if (info.length > 0) {
+          let listData = '<code>Parent Access List</code>';
 
-  })
-  
-}
+          for (const i in info) {
+              listData += `
+              <div class="input-group">
+                  <span class="input-group-text"><img width="50px" src="/image/parent/resized/${info[i].avatar}" alt="404"></span>
+                  <input disabled readonly type="text" class="form-control form-self" value="${info[i].email} - ${info[i].name}">
+              </div>`;
+          }
+
+          res.send({ listData });
+      }
+  });
+};
