@@ -134,7 +134,8 @@ exports.teacher_attn_post = (req, res) => {
                 );
             } else {
                 sqlmap.query(
-                    `INSERT INTO attn_record (domain, session, duplicate_data, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                    `INSERT INTO attn_record (domain, session, duplicate_data, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                     [req.cookies["hostname"], currentYear, duplicate_data, 1, 'Student', get_cal, attn_date, find_date, checkout, at_status, class_name, section_name, student_id, name, roll, avatar, currentYear, currentMonth, currentDate],
                     (erri, inser) => {
                         if (erri) {

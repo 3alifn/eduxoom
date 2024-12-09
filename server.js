@@ -49,16 +49,16 @@ const sqlmap= mysql.createPool({
 })
 
 
-sqlmap.on('connection', function (connection) {
-  console.log('MySQL connection established');
-});
+// sqlmap.on('connection', function (connection) {
+//   console.log('MySQL connection established');
+// });
 
-sqlmap.on('error', function (err) {
-  console.error('MySQL error: ', err);
-  if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+// sqlmap.on('error', function (err) {
+//   console.error('MySQL error: ', err);
+//   if (err.code === 'PROTOCOL_CONNECTION_LOST') {
      
-  }
-});
+//   }
+// });
 
  
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
