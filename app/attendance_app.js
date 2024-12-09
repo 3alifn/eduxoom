@@ -132,9 +132,11 @@ exports.teacher_attn_post = (req, res) => {
                         res.send({ att: true });
                     }
                 );
+                
             } else {
                 sqlmap.query(
-                    `INSERT INTO attn_record (domain, session, duplicate_data, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                    `INSERT INTO attn_record (domain, session, duplicate_data, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                     [req.cookies["hostname"], currentYear, duplicate_data, 1, 'Student', get_cal, attn_date, find_date, checkout, at_status, class_name, section_name, student_id, name, roll, avatar, currentYear, currentMonth, currentDate],
                     (erri, inser) => {
                         if (erri) {
@@ -401,10 +403,10 @@ function student_rank_mark_attn(domain, class_name, section_name, student_id, at
 
             if (infof.length > 0) {
                 let marked;
-                if (at_status === 'present') {
-                    marked = infof[0].present === undefined ? 1 : parseFloat(infof[0].present) + 1;
+                if (at_status == 'present') {
+                    marked = infof[0].present == undefined ? 1 : parseFloat(infof[0].present) + 1;
                 } else {
-                    marked = infof[0].absent === undefined ? 1 : parseFloat(infof[0].absent) + 1;
+                    marked = infof[0].absent == undefined ? 1 : parseFloat(infof[0].absent) + 1;
                 }
 
                 sqlmap.query(

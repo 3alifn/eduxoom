@@ -25,11 +25,11 @@ exports.multer_upload_student= multer({
 
   limits: { fileSize: 1024 * 1024 * 2 },
   fileFilter: (req, file, cb) => {
-      if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
+      if (file.mimetype == "image/png" || file.mimetype == "image/jpeg" || file.mimetype == "image/jpg") {
           cb(null, true)
       }
       else {
-          cb(new Error("file extension allow only png or jpeg"))
+          cb(new Error("file extension allow only png / jpg / jpeg"))
       }
 
   }
@@ -59,114 +59,62 @@ exports.teacher_student_info = (req, res) => {
 };
 
 
-// exports.admin_student_join_quick= (req, res)=>{
-//   const {classNameX, roll, name, gender}= req.body;
-//   const tempData= classNameX.split(' $%& ');
-//   const className= tempData[0];
-//   const sectionName= tempData[1];
-//   const session= new Date().getUTCFullYear();
-//   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
-
-//  var message= [];
-// for (let index = 0; index < name.length; index++) {
- 
-//   if(gender[index]=="Male") var avatarName= "male_avatar.png"
-//   else avatarName= "female_avatar.png";
-
-//   sqlmap.query(`SELECT  * FROM students WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND roll='${roll[index]}'`, (err_, info_)=>{
- 
-//     if(err_) console.log(err_.sqlMessage);
- 
-//     else 
-//     {
-//    if(info_.length>0) { console.log('Roll Already Joined!'); message.unshift('Roll Already Joined!');
-//     req.flash('msg', 'invalid roll=>'+roll[index])
-//     req.flash('alert', 'danger')
-//    }
-//     else  {
-//       var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
-//       var student_id= Math.floor(Math.random()*900000);
-
-//    sqlmap.query(`INSERT INTO students (domain, student_uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
-//    VALUES ('${req.cookies["hostname"]}', '${uuid}', ${session}, "${name[index]}","${student_id+'@abc.com'}", "${student_id}", '${roll[index]}', "${className}", "${sectionName}","${gender[index]}", 
-//   '${hashPassword}', "${avatarName}")`, (err_sub, info_sub)=>{
- 
-//      if(err_sub) {console.log(err_sub.sqlMessage); res.send({msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger"});}
- 
- 
-//       else {
-//       message.unshift('Students Joined!');
-//     req.flash('msg', 'adding=>'+roll[index])
-//      req.flash('alert', 'success')
-//   }
-//    })
- 
-//      }
-//     }
- 
-    
-//    })
-
-// }
-
-// setTimeout(() => {
-// res.redirect('/admin/student/page')
-// }, 3000);
-
-// }
-
 
 
 exports.admin_student_join_quick = (req, res) => {
-  const { classNameX, roll, name, gender } = req.body;
-  const tempData = classNameX.split(' $%& ');
-  const className = tempData[0];
-  const sectionName = tempData[1];
-  const session = new Date().getUTCFullYear();
-  const hashPassword = createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
+    const { classNameX, roll, name, gender } = req.body;
+    const tempData = classNameX.split(' $%& ');
+    const className = tempData[0];
+    const sectionName = tempData[1];
+    const session = new Date().getUTCFullYear();
+    const hashPassword = createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
 
-  let message = [];
-  
-  for (let index = 0; index < name.length; index++) {
-      const avatarName = (gender[index] === "Male") ? "male_avatar.png" : "female_avatar.png";
+    let message = [];
 
-      sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? AND roll=?`, [req.cookies["hostname"], className, sectionName, roll[index]], (err_, info_) => {
-          if (err_) {
-              console.log(err_.sqlMessage);
-              return;
-          }
+    for (let index = 0; index < name.length; index++) {
+        const avatarName = (gender[index] == "Male") ? "male_avatar.png" : "female_avatar.png";
 
-          if (info_.length > 0) {
-              console.log('Roll Already Joined!');
-              message.unshift('Roll Already Joined!');
-              req.flash('msg', 'invalid roll=>' + roll[index]);
-              req.flash('alert', 'danger');
-          } else {
-              const uuid = new Date().getTime() + '' + Math.floor(Math.random() * 900000000);
-              const student_id = Math.floor(Math.random() * 900000);
+        sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? AND roll=?`, [req.cookies["hostname"], className, sectionName, roll[index]], (err_, info_) => {
+            if (err_) {
+                console.log(err_.sqlMessage);
+                return;
+            }
 
-              const sql = `INSERT INTO students (domain, student_uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
-                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+            if (info_.length > 0) {
+                console.log('Roll Already Joined!');
+                message.unshift('Roll Already Joined!');
+                req.flash('msg', 'invalid roll=>' + roll[index]);
+                req.flash('alert', 'danger');
+                res.json({ msg: "Student Roll Already Joined!" });
 
-              sqlmap.query(sql, [req.cookies["hostname"], uuid, session, name[index], student_id + '@abc.com', student_id, roll[index], className, sectionName, gender[index], hashPassword, avatarName], (err_sub, info_sub) => {
-                  if (err_sub) {
-                      console.log(err_sub.sqlMessage);
-                      res.send({ msg: "Student ID or Roll Already Joined!", alert: "alert-danger text-danger" });
-                      return;
-                  }
+            } else {
+                const uuid = new Date().getTime() + '' + Math.floor(Math.random() * 900000000);
+                const student_id = Math.floor(Math.random() * 900000);
 
-                  message.unshift('Students Joined!');
-                  req.flash('msg', 'adding=>' + roll[index]);
-                  req.flash('alert', 'success');
-              });
-          }
-      });
-  }
+                const sql = `INSERT INTO students (domain, student_uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-  setTimeout(() => {
-      res.redirect('/admin/student/page');
-  }, 3000);
+                sqlmap.query(sql, [req.cookies["hostname"], uuid, session, name[index], student_id+'@abc.com', student_id, roll[index], className, sectionName, gender[index], hashPassword, avatarName], (err_sub, info_sub) => {
+                    if (err_sub) {
+                        console.log(err_sub.sqlMessage);
+                        return;
+                    }
+
+                    message.unshift('Students Joined!');
+                    req.flash('msg', 'adding=>' + roll[index]);
+                    req.flash('alert', 'success');
+
+                    if (name.length == index + 1) {
+                        setTimeout(() => {
+                            res.redirect('/admin/student/page');
+                        }, 3000);
+                    }
+                });
+            }
+        });
+    }
 };
+
 
 
 
@@ -192,9 +140,9 @@ exports.admin_student_post= async(req, res)=>{
    }
 
 
-   sqlmap.query(`SELECT ID FROM students WHERE domain=? AND (student_id=? OR email=?)`, [domain, student_id, email], (err_check, info_check) => {
+   sqlmap.query(`SELECT ID FROM students WHERE domain=? AND (student_id=? OR email=? OR roll=?)`, [domain, student_id, email, roll], (err_check, info_check) => {
     if (info_check.length > 0) {
-        res.send({ status: 503, msg: 'Invalid information! email or student_id already exists', alert: 'alert-danger' });
+        res.send({ status: 503, msg: 'Invalid information! roll already exists', alert: 'alert-danger' });
     } else {
         join_student_def();
     }
@@ -230,12 +178,13 @@ exports.admin_student_post= async(req, res)=>{
           }
    }
 
-   sqlmap.query(`INSERT INTO students (domain, student_uuid, session, class, section, name, student_id, roll, gender, father_name, mother_name, birth_date, blood_group, religion, email, phone, address, admission_date, password, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-     [req.cookies["hostname"], uuid, session, className, sectionName, name, student_id, roll, gender, fname, mname, birth_date, blood_group, religion, email, phone, address, admission_date, hashPassword, avatar_png], (err, next) => {
+   sqlmap.query(`INSERT INTO students (domain, student_uuid, session, class, section, name, student_id, roll, gender, father_name, mother_name, birth_date, blood_group, religion, email, phone, address, admission_date, password, avatar)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     [req.cookies["hostname"], uuid, session, className, sectionName, name, student_id, roll, gender, fname, mname, birth_date, blood_group??'', religion, email, phone, address, admission_date, hashPassword, avatar_png], (err, next) => {
     if (err) {
         console.log(err.sqlMessage + '__join_bug');
+
     } else {
-        console.log('joined');
         res.send({ status: 200, msg: 'Student join successfully!', alert: 'alert-success' });
     }
 });
@@ -254,13 +203,13 @@ exports.admin_student_get = (req, res) => {
   const { class_name, section_name, limit } = req.body;
   let sql;
 
-  if (limit === 'All') {
+  if (limit == 'All') {
       sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll`;
   } else {
       sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ?`;
   }
 
-  sqlmap.query(sql, [req.cookies["hostname"], class_name, section_name, limit], (err, info) => {
+  sqlmap.query(sql, [req.cookies["hostname"], class_name, section_name, parseInt(limit)], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -636,7 +585,7 @@ exports.admin_student_penbox_push = (req, res) => {
 exports.admin_student_rm = (req, res) => {
   const { dataid } = req.body;
 
-  if (dataid === undefined) {
+  if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
   } else {
       sqlmap.query(`SELECT * FROM students WHERE domain=? AND ID IN (?)`, [req.cookies["hostname"], dataid], (errInfo, findInfo) => {
@@ -794,7 +743,7 @@ exports.self_password_update_push = (req, res) => {
           return;
       }
 
-      if (currentPassword === infoPass[0].password) {
+      if (currentPassword == infoPass[0].password) {
           sqlmap.query(updateSql, [newPassword, req.cookies["hostname"], userid], (err, info) => {
               if (err) {
                   console.log(err.sqlMessage);

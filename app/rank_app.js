@@ -205,7 +205,7 @@ const sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? GRO
             return;
         }
 
-        if (info.length === 0) {
+        if (info.length == 0) {
             sqlmap.query(insertQuery, [req.cookies["hostname"], session, checkout, find_date, rank_date, defaultNumber, teacher_uuid, sid, student_id, class_name, section_name, roll, name, avatar], (errInsert, next) => {
                 if (errInsert) {
                     console.log(errInsert.sqlMessage);
@@ -218,7 +218,7 @@ const sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? GRO
                         return;
                     }
 
-                    const marked = info3[0].poient === undefined ? 1 : parseFloat(info3[0].poient) + parseFloat(mark);
+                    const marked = info3[0].poient == undefined ? 1 : parseFloat(info3[0].poient) + parseFloat(mark);
                     sqlmap.query(updatePoientQuery, [marked, req.cookies["hostname"], class_name, section_name, sid], (err4, info4) => {
                         if (err4) {
                             console.log(err4.sqlMessage);
@@ -349,7 +349,7 @@ exports.public_rank_class_page = (req, res) => {
                           return;
                       }
 
-                      if (infoSix.length === 0 && infoSeven.length === 0 && infoEight.length === 0 && infoNine.length === 0 && infoTen.length === 0) {
+                      if (infoSix.length == 0 && infoSeven.length == 0 && infoEight.length == 0 && infoNine.length == 0 && infoTen.length == 0) {
                           res.redirect('/pages/empty.html');
                       } else {
                           res.render("public/rank_class_page_public", { infoSix, infoSeven, infoEight, infoNine, infoTen });

@@ -175,10 +175,10 @@
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">Blood group</p>
 
-                <code class="pe-1">-</code>  
-                   <select name="blood_group" class="w-75 shadowx form-dev form-control-sm" id="" >
+                <code class="pe-1">*</code>  
+                   <select required name="blood_group" class="w-75 shadowx form-dev form-control-sm" id="" >
                   <option selected disabled value="">Blood Group</option>
-            
+                               
                   <optgroup label="Positive"> 
                 
                     <option  value="A+ve">A+ve</option>
@@ -196,6 +196,7 @@
                 
                     </optgroup>
                 
+                    <option value="N/A">N/A</option>
                 
                 </select> 
               
@@ -206,9 +207,9 @@
           <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">Religion</p>
 
-                <code class="pe-1">-</code>  
+                <code class="pe-1">*</code>  
                 
-                <select class="w-75 shadowx form-dev form-control-sm" name="religion" id="">
+                <select required class="w-75 shadowx form-dev form-control-sm" name="religion" id="">
            
                   <option disabled selected value="">Select Religion</option>
                   <option value="Islam">Islam</option>
@@ -241,7 +242,7 @@
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">Photo</p>
                 <code class="pe-1">-</code>  
-                  <input name="images" class="w-75 shadowx images form-dev form-control-sm" type="file"
+                  <input accept=".jpg, .jpeg, .png"  name="images" class="w-75 shadowx images form-dev form-control-sm" type="file"
                   id="">
               </div>
   

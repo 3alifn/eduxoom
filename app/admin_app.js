@@ -47,7 +47,7 @@ admin_logger: (req, res)=>{
 
         if(info.length>0){
           
-            if(info[0].hash_username===hashUsername && info[0].hash_password===hashPassword__){
+            if(info[0].hash_username==hashUsername && info[0].hash_password==hashPassword__){
                  
                 req.session.hashUser= 'hashAdmin'
                 req.session.admin_uuid= info[0].admin_uuid;

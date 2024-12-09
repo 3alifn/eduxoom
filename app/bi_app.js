@@ -249,7 +249,7 @@ const teacher_bi_transcript_post = (domain, teacher_uuid, roll, className, secti
             return;
         }
 
-        if (!infoCheck || infoCheck.length === 0) {
+        if (!infoCheck || infoCheck.length == 0) {
             sqlmap.query(insertQuery, [domain, session, className, sectionName, bi_no, bi_group, teacher_uuid, student_uuid, roll, name, catagory, bi, checkout], (errPost, nextPost) => {
                 if (errPost) {
                     console.log(errPost.sqlMessage);
@@ -353,7 +353,7 @@ exports.teacher_bi_mark_post = (req, res) => {
             return;
         }
 
-        if (!infoCheck || infoCheck.length === 0) {
+        if (!infoCheck || infoCheck.length == 0) {
             sqlmap.query(insertQuery, [domain, session, className, sectionName, bi_no, bi_group, teacher_uuid, student_uuid, roll, name, avatar, catagory, bi, checkout, bg_color], (errPost, nextPost) => {
                 if (errPost) {
                     console.log(errPost.sqlMessage);
@@ -588,7 +588,7 @@ exports.admin_bi_transcript_report_checkout = (req, res) => {
                     const gp03v = getGroupPoints(infog03, 2);
 
                     const calculateGP = (gpv) => {
-                        if (gpv === 100) return 7;
+                        if (gpv == 100) return 7;
                         if (gpv >= 50) return 6;
                         if (gpv >= 25) return 5;
                         if (gpv >= 0) return 4;

@@ -165,7 +165,7 @@ exports.self_password_update_push = (req, res) => {
                 return;
             }
 
-            if (currentPassword === infoPass[0].password) {
+            if (currentPassword == infoPass[0].password) {
                 sqlmap.query(
                     `UPDATE teachers SET password=? WHERE domain=? AND ID=?`,
                     [newPassword, req.cookies["hostname"], userid],
@@ -289,8 +289,8 @@ exports.self_email_update_push = (req, res) => {
   const userid = req.session.userid;
   const username = req.session.username; 
   const temp_code = req.session.temp_code;
-
-  if (verifyCode === temp_code) {
+  
+  if (verifyCode == temp_code) {
       sqlmap.query(
           `SELECT email FROM teachers WHERE domain=? AND email=?`,
           [req.cookies["hostname"], username],
@@ -454,6 +454,7 @@ exports.admin_teacher_post= async(req, res)=>{
     (err, next) => {
         if (err) {
             console.log(err.sqlMessage);
+            res.send({ status: 200, msg: err.sqlMessage, alert: 'alert-danger' });
             return;
         }
         res.send({ status: 200, msg: 'Teacher join successfully!', alert: 'alert-success' });
@@ -754,7 +755,7 @@ exports.admin_teacher_penbox_push = (req, res) => {
 exports.admin_teacher_rm = (req, res) => {
   const { dataid } = req.body;
 
-  if (dataid === undefined) {
+  if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
       return;
   }
@@ -889,85 +890,89 @@ exports.public_teacher_list = (req, res) => {
 
 
 
-exports.public_teacher_profile_get= (req, res)=>{
-const {dataid}= req.body; 
-sqlmap.query(`SELECT * FROM teachers WHERE domain=?' AND  ID=?`,[req.cookies["hostname"], dataid], (err, info)=>{
-         
-if(info.length>0){
-let htmldata= `
-   <center>
-  <div class="bg-card-color-light pt-3  pb-3 rounded-top-5 rounded-start-5">
-      <div class="card-image">
-          <img class="avatar-circle" src="/image/teacher/resized/${info[0].avatar}" alt="">
-      </div>
-  </div>
-</center>
+exports.public_teacher_profile_get = (req, res) => {
+    const { dataid } = req.body;
+    const sql = `SELECT * FROM teachers WHERE domain=? AND ID=?`;
 
-<center>
-  
-  <div class="ps-2 pt-3 pb-3 rounded-bottom-5 rounded-end-5">
-      <div class="card-body text-start p-2">
-    
-          <div class="d-flex fw-semibold ">
-             <div class="p-1 w-25">Name</div>
-             <code class="p-1">:</code><div class="p-1 w-75">${info[0].name}</div>
-            </div>
-      
-            <div class="d-flex fw-semibold ">
-              <div class="p-1 w-25">Position</div>
-              <code class="p-1">:</code> <div class="p-1 w-75">${info[0].position}</div>
-             </div>
-      
-            <div class="d-flex fw-semibold">
-              <div class="p-1 w-25">Gender</div>
-              <code class="p-1">:</code> <div class="p-1 w-75">${info[0].gender}</div>
-             </div>
-      
-             <div class="d-flex fw-semibold ">
-              <div class="p-1 w-25">Index no</div>
-              <code class="p-1">:</code> <div class="p-1 w-75">${info[0].index_number}</div>
-             </div>
-      
-             <div class="d-flex fw-semibold ">
-              <div class="p-1 w-25">Email</div>
-              <code class="p-1">:</code> <div class="p-1 w-75">${info[0].email}</div>
-             </div>
-      
-      
-             <div class="d-flex fw-semibold ">
-              <div class="p-1 w-25">Phone</div>
-              <code class="p-1">:</code><div class="p-1 w-75">${info[0].telephone}</div>
-             </div>
-      
-             <div class="d-flex fw-semibold ">
-              <div class="p-1 w-25">Birth date</div>
-              <code class="p-1">:</code><div class="p-1 w-75">${info[0].birth_date}</div>
-             </div>      
-             
-             <div class="d-flex fw-semibold">
-              <div class="p-1 w-25">Religion</div>
-              <code class="p-1">:</code><div class="p-1 w-75">${info[0].religion}</div>
-             </div>
-      
-             <div class="d-flex fw-semibold ">
-              <div class="p-1 w-25">Joining date</div>
-               <code class="p-1">:</code><div class="p-1 w-75">${info[0].joining_date}</div>
-             </div>
-    
-      
-      </div>
-  </div>
-</center>
-<button data-dismiss="modal" class="btn float-end fw-semibold btn-link link-primary p-2 ms-auto mt-2 mb-b">Close</button>
-      
- `
-res.send({htmldata})
-  
-                }
-    
-                  
-      })
-      }
-    
+    sqlmap.query(sql, [req.cookies["hostname"], dataid], (err, info) => {
+        if (err) {
+            console.log(err.sqlMessage);
+            return;
+        }
 
-      
+        if (info.length > 0) {
+            const htmldata = `
+            <center>
+                <div class="bg-card-color-light pt-3 pb-3 rounded-top-5 rounded-start-5">
+                    <div class="card-image">
+                        <img class="avatar-circle" src="/image/teacher/resized/${info[0].avatar}" alt="">
+                    </div>
+                </div>
+            </center>
+
+            <center>
+                <div class="ps-2 pt-3 pb-3 rounded-bottom-5 rounded-end-5">
+                    <div class="card-body text-start p-2">
+                        <div class="d-flex fw-semibold">
+                            <div class="p-1 w-25">Name</div>
+                            <code class="p-1">:</code>
+                            <div class="p-1 w-75">${info[0].name}</div>
+                        </div>
+
+                        <div class="d-flex fw-semibold">
+                            <div class="p-1 w-25">Position</div>
+                            <code class="p-1">:</code>
+                            <div class="p-1 w-75">${info[0].position}</div>
+                        </div>
+
+                        <div class="d-flex fw-semibold">
+                            <div class="p-1 w-25">Gender</div>
+                            <code class="p-1">:</code>
+                            <div class="p-1 w-75">${info[0].gender}</div>
+                        </div>
+
+                        <div class="d-flex fw-semibold">
+                            <div class="p-1 w-25">Index no</div>
+                            <code class="p-1">:</code>
+                            <div class="p-1 w-75">${info[0].index_number}</div>
+                        </div>
+
+                        <div class="d-flex fw-semibold">
+                            <div class="p-1 w-25">Email</div>
+                            <code class="p-1">:</code>
+                            <div class="p-1 w-75">${info[0].email}</div>
+                        </div>
+
+                        <div class="d-flex fw-semibold">
+                            <div class="p-1 w-25">Phone</div>
+                            <code class="p-1">:</code>
+                            <div class="p-1 w-75">${info[0].telephone}</div>
+                        </div>
+
+                        <div class="d-flex fw-semibold">
+                            <div class="p-1 w-25">Birth date</div>
+                            <code class="p-1">:</code>
+                            <div class="p-1 w-75">${info[0].birth_date}</div>
+                        </div>
+
+                        <div class="d-flex fw-semibold">
+                            <div class="p-1 w-25">Religion</div>
+                            <code class="p-1">:</code>
+                            <div class="p-1 w-75">${info[0].religion}</div>
+                        </div>
+
+                        <div class="d-flex fw-semibold">
+                            <div class="p-1 w-25">Joining date</div>
+                            <code class="p-1">:</code>
+                            <div class="p-1 w-75">${info[0].joining_date}</div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+            <button data-dismiss="modal" class="btn float-end fw-semibold btn-link link-primary p-2 ms-auto mt-2 mb-2">Close</button>`;
+
+            res.send({ htmldata });
+        }
+    });
+};
+

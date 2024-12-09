@@ -200,7 +200,7 @@ exports.admin_repository_update_page = (req, res) => {
 exports.admin_repository_rm = (req, res) => {
   const { dataid } = req.body;
 
-  if (dataid === undefined) {
+  if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
       return;
   }
@@ -242,7 +242,7 @@ exports.admin_repository_rm = (req, res) => {
 exports.admin_repository_img_rm = (req, res) => {
   const { dataid } = req.body;
 
-  if (dataid === undefined) {
+  if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
       return;
   }

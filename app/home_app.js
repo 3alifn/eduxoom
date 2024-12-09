@@ -172,7 +172,7 @@ exports.pu_headofschool_get = (req, res) => {
 
 exports.au_user_profile_header_nav= (req, res)=>{
   
-    if(req.session.userAccess==='privet'){
+    if(req.session.userAccess=='privet'){
      
       if(req.session.hashUser=='hashAdmin'){
 

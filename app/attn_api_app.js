@@ -53,7 +53,7 @@ exports.pu_attn_checkout_webapi_present = (req, res) => {
               return;
           }
 
-          if (infof.length === 0) {
+          if (infof.length == 0) {
               sqlmap.query(
                   `SELECT name, avatar, class, section, roll, ${user_uid} FROM ${tbname} WHERE domain=? AND ${colname}=?`,
                   [domain, user_id],
@@ -76,7 +76,7 @@ exports.pu_attn_checkout_webapi_present = (req, res) => {
                               });
                           } else {
                               sqli = `INSERT INTO attn_record (domain, session, duplicate_data, user, user_id, name, avatar, punch, checkout, at_status, take_time, get_cal, find_date, attn_date, record_date, record_time, year, month, day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-                              sqlmap.query(sqli, [domain, session, duplicate_data, user, user_uid === 'teacher_id' ? infou[0].teacher_id : infou[0].staff_id, infou[0].name, infou[0].avatar, 'check-in', 1, 'present', get_time, get_cal, find_date, attn_date, record_date, record_time, currentYear, currentMonth, currentDate], (erri, insert) => {
+                              sqlmap.query(sqli, [domain, session, duplicate_data, user, user_uid == 'teacher_id' ? infou[0].teacher_id : infou[0].staff_id, infou[0].name, infou[0].avatar, 'check-in', 1, 'present', get_time, get_cal, find_date, attn_date, record_date, record_time, currentYear, currentMonth, currentDate], (erri, insert) => {
                                   if (erri) {
                                       res.json({ status: erri.sqlMessage });
                                       return;

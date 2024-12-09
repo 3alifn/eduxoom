@@ -75,13 +75,13 @@ exports.admin_notice_post = (req, res) => {
     const attachment = req.file ? req.file.filename : "demo.pdf";
     const attachment_type = req.file ? req.file.mimetype : 'text';
     
-    const sql = notice_date === undefined || notice_date === '' 
+    const sql = notice_date == undefined || notice_date == '' 
         ? `INSERT INTO notice (domain, session, find_date, title, attachment_type, description, attachment)
            VALUES (?, ?, ?, ?, ?, ?, ?)`
         : `INSERT INTO notice (domain, session, find_date, at_date, title, attachment_type, description, attachment)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    const values = notice_date === undefined || notice_date === '' 
+    const values = notice_date == undefined || notice_date == '' 
         ? [req.cookies["hostname"], session, find_date, title, attachment_type, description, attachment]
         : [req.cookies["hostname"], session, find_date, notice_date, title, attachment_type, description, attachment];
 
