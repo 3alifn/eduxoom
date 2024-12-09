@@ -350,7 +350,7 @@ exports.self_penbox_push = (req, res) => {
               return;
           }
   
-          if (currentPassword === infoPass[0].password) {
+          if (currentPassword == infoPass[0].password) {
               sqlmap.query(sql, [newPassword, req.cookies["hostname"], userid], (err, info) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -538,7 +538,7 @@ exports.admin_parent_profile = (req, res) => {
 exports.admin_parent_delete = (req, res) => {
   const { dataid } = req.body;
 
-  if (dataid === undefined) {
+  if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
   } else {
       sqlmap.query(`SELECT * FROM parents WHERE domain=? AND ID IN (?)`, [req.cookies["hostname"], dataid], (errInfo, findInfo) => {

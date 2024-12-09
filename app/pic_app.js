@@ -111,7 +111,7 @@ exports.teacher_pic_mark_post = (req, res) => {
               return;
           }
 
-          if (infoCheck === undefined || infoCheck.length === 0) {
+          if (infoCheck == undefined || infoCheck.length == 0) {
               sqlmap.query(
                   `INSERT INTO pic_mark (domain, session, class, section, subject_flag, subject_code, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,

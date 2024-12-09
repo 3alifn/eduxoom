@@ -6,7 +6,7 @@ exports.teacher_pis_page_mark_get = (req, res) => {
   var { class_section, subject, page } = req.query;
   var className, sectionName;
 
-  if (class_section === undefined) {
+  if (class_section == undefined) {
       ({ className, sectionName } = req.query);
   } else {
       [className, sectionName] = class_section.split('$%&');
@@ -119,7 +119,7 @@ exports.teacher_pis_mark_post = (req, res) => {
                           return;
                       }
 
-                      if (infoCheck === undefined || infoCheck.length === 0) {
+                      if (infoCheck == undefined || infoCheck.length == 0) {
                           sqlmap.query(
                               `INSERT INTO pis_mark (domain, session, class, section, subject_flag, subject_code, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,

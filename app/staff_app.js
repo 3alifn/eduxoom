@@ -214,7 +214,7 @@ exports.admin_staff_img_post = async (req, res) => {
 exports.admin_staff_post = async (req, res) => {
   const { name, position, index_number, gender, age, email, phone, address, joining_date } = req.body;
 
-  const avatar_png = req.file ? req.file.filename : (gender === "Female" ? "female_avatar.png" : "male_avatar.png");
+  const avatar_png = req.file ? req.file.filename : (gender == "Female" ? "female_avatar.png" : "male_avatar.png");
   const staff_id = Math.floor(Math.random() * 900000000);
   if (req.file) {
       const { filename: image } = req.file;
@@ -392,7 +392,7 @@ exports.admin_staff_penbox_push = (req, res) => {
 exports.admin_staff_rm = (req, res) => {
   const { dataid } = req.body;
 
-  if (dataid === undefined) {
+  if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
       return;
   }

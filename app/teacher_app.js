@@ -165,7 +165,7 @@ exports.self_password_update_push = (req, res) => {
                 return;
             }
 
-            if (currentPassword === infoPass[0].password) {
+            if (currentPassword == infoPass[0].password) {
                 sqlmap.query(
                     `UPDATE teachers SET password=? WHERE domain=? AND ID=?`,
                     [newPassword, req.cookies["hostname"], userid],
@@ -289,8 +289,8 @@ exports.self_email_update_push = (req, res) => {
   const userid = req.session.userid;
   const username = req.session.username; 
   const temp_code = req.session.temp_code;
-
-  if (verifyCode === temp_code) {
+  
+  if (verifyCode == temp_code) {
       sqlmap.query(
           `SELECT email FROM teachers WHERE domain=? AND email=?`,
           [req.cookies["hostname"], username],
@@ -755,7 +755,7 @@ exports.admin_teacher_penbox_push = (req, res) => {
 exports.admin_teacher_rm = (req, res) => {
   const { dataid } = req.body;
 
-  if (dataid === undefined) {
+  if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
       return;
   }

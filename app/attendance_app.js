@@ -403,10 +403,10 @@ function student_rank_mark_attn(domain, class_name, section_name, student_id, at
 
             if (infof.length > 0) {
                 let marked;
-                if (at_status === 'present') {
-                    marked = infof[0].present === undefined ? 1 : parseFloat(infof[0].present) + 1;
+                if (at_status == 'present') {
+                    marked = infof[0].present == undefined ? 1 : parseFloat(infof[0].present) + 1;
                 } else {
-                    marked = infof[0].absent === undefined ? 1 : parseFloat(infof[0].absent) + 1;
+                    marked = infof[0].absent == undefined ? 1 : parseFloat(infof[0].absent) + 1;
                 }
 
                 sqlmap.query(

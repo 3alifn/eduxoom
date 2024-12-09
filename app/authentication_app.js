@@ -203,26 +203,26 @@ exports.au_user_header_nav = (req, res) => {
 
           const avatar = info[0].avatar;
 
-          if (req.session.userAccess === 'privet') {
-              if (req.session.hashUser === 'hashAdmin') {
+          if (req.session.userAccess == 'privet') {
+              if (req.session.hashUser == 'hashAdmin') {
                   res.send({
                       profile: '/admin/account/',
                       dashboard: '/admin/dashboard/',
                       avatar: '/image/admin/' + avatar
                   });
-              } else if (req.session.user === 'teacher') {
+              } else if (req.session.user == 'teacher') {
                   res.send({
                       profile: '/teacher/account/',
                       dashboard: '/teacher/dashboard/',
                       avatar: '/image/teacher/resized/' + avatar
                   });
-              } else if (req.session.user === 'student') {
+              } else if (req.session.user == 'student') {
                   res.send({
                       profile: '/student/account/',
                       dashboard: '/student/dashboard/',
                       avatar: '/image/student/resized/' + avatar
                   });
-              } else if (req.session.user === 'parent') {
+              } else if (req.session.user == 'parent') {
                   res.send({
                       profile: '/parent/account/',
                       dashboard: '/parent/dashboard/',

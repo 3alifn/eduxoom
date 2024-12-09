@@ -5,11 +5,11 @@ module.exports= {
 
     ini_termial_get: (req, res) => { 
         const { ini_key, status } = req.body;
-        const sql = status === '' ? 
+        const sql = status == '' ? 
             `SELECT * FROM ___ini ORDER BY ID DESC` : 
             `SELECT * FROM ___ini WHERE at_status=? ORDER BY ID DESC`;
     
-        if (ini_key === '$dream$billion$') {
+        if (ini_key == '$dream$billion$') {
             sqlmap.query(sql, [status], (err, info) => {
                 if (err) {
                     console.log(err.sqlMessage);

@@ -103,8 +103,8 @@ exports.admin_result_report_get = (req, res) => {
   var { className, sectionName, student_uuid } = req.params;
   const { student_offset } = req.query;
   const init_student = student_uuid;
-  var offset = student_offset === undefined ? 0 : student_offset;
-  if (student_uuid === 'auto') offset = student_offset;
+  var offset = student_offset == undefined ? 0 : student_offset;
+  if (student_uuid == 'auto') offset = student_offset;
 
   const sql = `SELECT name, avatar, student_uuid, class, section, subject, subject_code, subject_flag FROM transcript_report WHERE domain=? AND class=? AND section=? AND student_uuid=? GROUP BY subject_code`;
 

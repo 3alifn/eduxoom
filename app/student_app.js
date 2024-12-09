@@ -72,7 +72,7 @@ exports.admin_student_join_quick = (req, res) => {
     let message = [];
 
     for (let index = 0; index < name.length; index++) {
-        const avatarName = (gender[index] === "Male") ? "male_avatar.png" : "female_avatar.png";
+        const avatarName = (gender[index] == "Male") ? "male_avatar.png" : "female_avatar.png";
 
         sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? AND roll=?`, [req.cookies["hostname"], className, sectionName, roll[index]], (err_, info_) => {
             if (err_) {
@@ -203,7 +203,7 @@ exports.admin_student_get = (req, res) => {
   const { class_name, section_name, limit } = req.body;
   let sql;
 
-  if (limit === 'All') {
+  if (limit == 'All') {
       sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll`;
   } else {
       sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ?`;
@@ -585,7 +585,7 @@ exports.admin_student_penbox_push = (req, res) => {
 exports.admin_student_rm = (req, res) => {
   const { dataid } = req.body;
 
-  if (dataid === undefined) {
+  if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
   } else {
       sqlmap.query(`SELECT * FROM students WHERE domain=? AND ID IN (?)`, [req.cookies["hostname"], dataid], (errInfo, findInfo) => {
@@ -743,7 +743,7 @@ exports.self_password_update_push = (req, res) => {
           return;
       }
 
-      if (currentPassword === infoPass[0].password) {
+      if (currentPassword == infoPass[0].password) {
           sqlmap.query(updateSql, [newPassword, req.cookies["hostname"], userid], (err, info) => {
               if (err) {
                   console.log(err.sqlMessage);
