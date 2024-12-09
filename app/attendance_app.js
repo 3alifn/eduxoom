@@ -132,6 +132,7 @@ exports.teacher_attn_post = (req, res) => {
                         res.send({ att: true });
                     }
                 );
+                
             } else {
                 sqlmap.query(
                     `INSERT INTO attn_record (domain, session, duplicate_data, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day)

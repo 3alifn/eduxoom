@@ -454,6 +454,7 @@ exports.admin_teacher_post= async(req, res)=>{
     (err, next) => {
         if (err) {
             console.log(err.sqlMessage);
+            res.send({ status: 200, msg: err.sqlMessage, alert: 'alert-danger' });
             return;
         }
         res.send({ status: 200, msg: 'Teacher join successfully!', alert: 'alert-success' });

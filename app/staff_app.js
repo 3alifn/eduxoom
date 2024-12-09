@@ -1,3 +1,4 @@
+const { random } = require('sjcl');
 const {app, sqlmap, multer, fs, path}= require('../server')
 const sharp= require('sharp');
 
@@ -214,7 +215,7 @@ exports.admin_staff_post = async (req, res) => {
   const { name, position, index_number, gender, age, email, phone, address, joining_date } = req.body;
 
   const avatar_png = req.file ? req.file.filename : (gender === "Female" ? "female_avatar.png" : "male_avatar.png");
-
+  const staff_id = Math.floor(Math.random() * 900000000);
   if (req.file) {
       const { filename: image } = req.file;
       await sharp(req.file.path)
@@ -226,15 +227,16 @@ exports.admin_staff_post = async (req, res) => {
   }
 
   sqlmap.query(
-      `INSERT INTO staff (domain, name, position, gender, index_number, age, email, phone, address, joining_date, image)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [req.cookies["hostname"], name, position, gender, index_number, age, email, phone, address, joining_date, avatar_png],
+      `INSERT INTO staff (domain, name, position, gender, index_number, staff_id, age, email, phone, address, joining_date, image)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [req.cookies["hostname"], name, position, gender, index_number, staff_id, age, email, phone, address, joining_date, avatar_png],
       (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
+              res.send({ msg: err.sqlMessage, alert: 'alert-danger' });
               return;
           }
-          res.send({ msg: 'Added!', alert: 'success' });
+          res.send({ msg: 'Added successfully', alert: 'alert-success' });
       }
   );
 };

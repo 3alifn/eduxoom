@@ -89,10 +89,18 @@ const noview= {
       }
   
   else {
+    $('.submitbtn').addClass("disabled")
     $('.'+append_class).html(`
-    <div class="alert alert-primary m-auto" style="width: max-content;" role="alert">
-    <strong>Warning! maximum file size should ${max_kb_size}kb ${file_type==filetype?'':'and allow only '+file_type}</strong>
-    </div>`)
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-sm-12">
+            <div class="alert alert-primary m-auto" role="alert">
+                <strong>Warning! maximum file size should ${max_kb_size}kb ${file_type === filetype ? '' : 'and allow only ' + file_type}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+`)
       }
         
     }

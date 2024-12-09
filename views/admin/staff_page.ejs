@@ -121,19 +121,19 @@
 
 
             <div class="d-flex  p-2 justify-content-between align-items-center">
-              <p class="w-25 fw-semibold m-auto">Index No</p>
-              <input name="index_number" class="w-75 shadowx form-dev form-control-sm" placeholder="N12345" type="text">
+              <p class="w-25 fw-semibold m-auto">Index No <code>*</code></p>
+              <input required name="index_number" class="w-75 shadowx form-dev form-control-sm" placeholder="N12345" type="text">
             </div>
 
             <div class="d-flex  p-2 justify-content-between align-items-center">
-              <p class="w-25 fw-semibold m-auto">Age</p>
-              <input name="age" class="w-75 shadowx form-dev form-control-sm" placeholder="enter age" type="number">
+              <p class="w-25 fw-semibold m-auto">Age <code>*</code></p>
+              <input required name="age" class="w-75 shadowx form-dev form-control-sm" placeholder="enter age" type="number">
             </div>
 
 
             <div class="d-flex  p-2 justify-content-between align-items-center">
-              <p class="w-25 fw-semibold m-auto">Email</p>
-              <input name="email" class="w-75 shadowx form-dev form-control-sm" placeholder="example@gmai.com" type="email">
+              <p class="w-25 fw-semibold m-auto">Email <code>*</code></p>
+              <input required name="email" class="w-75 shadowx form-dev form-control-sm" placeholder="example@gmai.com" type="email">
             </div>
 
             
@@ -144,14 +144,14 @@
 
 
             <div class="d-flex  p-2 justify-content-between align-items-center">
-              <p class="w-25 fw-semibold m-auto">Address</p>
+              <p class="w-25 fw-semibold m-auto">Address <code>-</code></p>
               <input  name="address" class="w-75 shadowx form-dev form-control-sm" placeholder="enter address" type="text">
             </div>
 
 
             <div class="d-flex  p-2 justify-content-between align-items-center">
-              <p class="w-25 fw-semibold m-auto">Joining date</p>
-              <input  name="joining_date" class="w-75 shadowx form-dev form-control-sm" type="date">
+              <p class="w-25 fw-semibold m-auto">Joining date <code>*</code></p>
+              <input required name="joining_date" class="w-75 shadowx form-dev form-control-sm" type="date">
             </div>
 
             
@@ -159,7 +159,7 @@
 
             <div class="d-flex  p-2 justify-content-between align-items-center">
               <p class="w-25 fw-semibold m-auto">Photo <code>-</code></p>
-              <input  name="image" class="w-75 shadowx form-dev form-control-sm" type="file"
+              <input accept=".jpg, .jpeg, .png" name="image" class="w-75 shadowx form-dev form-control-sm" type="file"
                 id="">
             </div>
 
@@ -258,8 +258,8 @@ $.ajax({
   beforeSend: function(){
 $('.submitbtn').addClass('disabled')
   },
-  success: function (response) {
-    _msg_pull('alert-success', 'Staff added successfully!')
+  success: function (res) {
+    _msg_pull(res.alert, res.msg)
     tabledata()
     $('.submitbtn').removeClass('disabled')
 

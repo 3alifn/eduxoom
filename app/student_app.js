@@ -25,11 +25,11 @@ exports.multer_upload_student= multer({
 
   limits: { fileSize: 1024 * 1024 * 2 },
   fileFilter: (req, file, cb) => {
-      if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
+      if (file.mimetype == "image/png" || file.mimetype == "image/jpeg" || file.mimetype == "image/jpg") {
           cb(null, true)
       }
       else {
-          cb(new Error("file extension allow only png or jpeg"))
+          cb(new Error("file extension allow only png / jpg / jpeg"))
       }
 
   }
@@ -140,9 +140,9 @@ exports.admin_student_post= async(req, res)=>{
    }
 
 
-   sqlmap.query(`SELECT ID FROM students WHERE domain=? AND (student_id=? OR email=?)`, [domain, student_id, email], (err_check, info_check) => {
+   sqlmap.query(`SELECT ID FROM students WHERE domain=? AND (student_id=? OR email=? OR roll=?)`, [domain, student_id, email, roll], (err_check, info_check) => {
     if (info_check.length > 0) {
-        res.send({ status: 503, msg: 'Invalid information! email or student_id already exists', alert: 'alert-danger' });
+        res.send({ status: 503, msg: 'Invalid information! roll already exists', alert: 'alert-danger' });
     } else {
         join_student_def();
     }
@@ -183,8 +183,8 @@ exports.admin_student_post= async(req, res)=>{
      [req.cookies["hostname"], uuid, session, className, sectionName, name, student_id, roll, gender, fname, mname, birth_date, blood_group??'', religion, email, phone, address, admission_date, hashPassword, avatar_png], (err, next) => {
     if (err) {
         console.log(err.sqlMessage + '__join_bug');
+
     } else {
-        console.log('joined');
         res.send({ status: 200, msg: 'Student join successfully!', alert: 'alert-success' });
     }
 });
