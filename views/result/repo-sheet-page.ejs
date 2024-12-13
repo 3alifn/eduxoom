@@ -1,0 +1,88 @@
+<html lang="en">
+
+<head>
+  <title>Result marksheet</title>
+  <%- include("../component/metadata.html") %>
+</head>
+
+<style>
+  .row a {
+    text-decoration: none;
+
+  }
+
+</style>
+
+<body onload="pageLoadingTop()">
+
+  <%- include("../component/user-header-nav.html") %>
+    <%- include("../component/teacher-offcanvas-nav.html") %>
+<hr>
+    <center class="mt-5">
+        <h6>Student Marksheet</h6>
+    </center>
+</div>
+</div>
+
+<div class="row p-2">
+    <div id="syncSystemApp" class="col-md-8 m-auto col-6">
+
+    <div class="students-card findcard shadowx pt-1 pb-1">
+        <div class="d-flex  justify-content-start align-content-center align-items-center">
+          <img class="rounded-circle border border-1 p-1" height="60px" width="60px"
+            src="/image/student/resized/<%=result[0].avatar%>" alt="">
+          <p class="fw-semibold text-muted ps-1">
+            <%=result[0].name%>
+          </p>
+          <p class="fw-semibold text-muted ps-2  text-truncate">
+            [<%=result[0].class%> - <%=result[0].section%> - (<%=result[0].roll%>)]
+          </p>
+
+        </div>
+
+      </div>
+    </div>
+</div>    
+
+
+<div class="row p-2">
+  <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Subject</th>
+                        <th scope="col">CI Mark</th>
+                        <th scope="col">Fi Mark</th>
+                        <th scope="col">Book Mark</th>
+                    </tr>
+                </thead>
+        <tbody>
+         <% result.forEach((item) => { %>
+       <tr>
+        <td scope="row"><%= item.subject_name %></td>
+        <td scope="row"><%= item.ci_mark %></td>
+        <td scope="row"><%= item.fi_mark %></td>
+        <td scope="row"><%= item.output_mark %></td>
+    </tr>
+     <% }) %>  
+
+                </tbody>
+
+                <tfoot>
+
+       <tr>
+        <td></td>
+        <td colspan="2"></td>
+        <td style="font-weight: bold;" scope="row">Total Mark = <%= total_mark[0].total_mark %></td>
+       </tr>
+
+                </tfoot>
+            </table>
+        </div>
+</div>    
+
+    
+
+</body>
+
+</html>

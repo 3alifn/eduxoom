@@ -46,21 +46,22 @@
                                   <form class="myForm_<%=index%>">
                                     <input type="hidden" name="suuid"  value="<%=students[index].suuid%>">
                                     <input type="hidden" name="subject_code"  value="<%=subject_code%>">
+                                    <input type="hidden" name="subject_name"  value="<%=subject_name%>">
 
                                   <div class="d-flex p-2 justify-content-between align-items-center">
                                       <p class="w-25 fw-semibold">CI Mark</p>
                                       <code class="p-1">-</code>
 
-                                        <input min="1" type="number"  max="30" name="ci_mark" placeholder="Auto / 1-30" class="w-50 ci_mark_<%=students[index].suuid%> shadow-sm form-dev form-control-sm">
-                                          <button type="button" class="w-25 editBtn_<%=students[index].suuid%> shadow-sm btn btn-link btn-sm text-link form-control-sm">Edit</button>
+                                        <input min="1" type="number" value=""  max="30" name="ci_mark" placeholder="Auto / 1-30" class="w-50 ci_mark_<%=students[index].suuid%> shadow-sm form-dev form-control-sm">
+                                          <button onclick="editFormData(`checkout_<%=students[index].suuid%>`)" type="button" class="w-25 eventBtn editBtn shadow-sm btn btn-link btn-sm text-link form-control-sm">Edit</button>
                              
                                         </div>
           
                                   <div class="d-flex p-2 justify-content-between align-items-center">
                                       <p class="w-25 fw-semibold">FI Mark</p>
                                       <code class="p-1">*</code>
-                                        <input required type="number" min="1" max="100" name="fi_mark" placeholder="1-100" class="w-50 fi_mark_<%=students[index].suuid%> shadow-sm form-dev form-control-sm">
-                                      <input type="submit" value="Post now" class="w-25 submitBtn_<%=students[index].suuid%> shadow-sm btn btn-link btn-sm text-link form-control-sm">
+                                        <input required type="number" value="" min="1" max="100" name="fi_mark" placeholder="1-100" class="w-50 fi_mark_<%=students[index].suuid%> shadow-sm form-dev form-control-sm">
+                                      <input type="submit" value="Post now" class="w-25 eventBtn submitBtn checkout_<%=students[index].suuid%> shadow-sm btn btn-link btn-sm text-link form-control-sm">
                                   </div>
 
                                 </form>
@@ -77,6 +78,17 @@
 
 <script>
 
+$(document).ready(function () {
+$("#search").keyup(function () {
+var value = $(this).val().toLowerCase();
+$(".list-group").filter(function () {
+
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+ });
+ });
+
+ 
   $("form").on("submit", (event)=>{
   event.preventDefault()
   const elem= event.currentTarget.className
@@ -87,20 +99,51 @@
     url: "/teacher/result/mark-push/",
     data: formData,
     beforeSend: function(){
-     
+     $("."+elem).find('.eventBtn').addClass("disabled");
     },
-    success: function(){
+    success: function(res){
+    if(res){
+    _msg_pull(res.alert, res.msg, null);
+    $("."+elem).find('.editBtn').removeClass("disabled");
 
+     return;
+    }
     }
   })
 
   })
 
+  function editFormData(checkout){
+   $('.'+checkout).removeClass('disabled');
+  }
 
 $(document).ready(()=>{
  function resultMarkPull(){
+  const subject_code= "<%=subject_code%>";
+  const class_name= "<%=class_name%>";
+  const section_name= "<%=section_name%>";
+ $.ajax({
+  method: "GET",
+  url: "/teacher/result/mark-pull",
+  data: {class_name, section_name, subject_code},
+  beforeSend: function (){
+  _spin_pull()
+  },
+  success: function(res){
+    if (res.status == 200) { 
+    res.data.data.forEach((item) => {
+      $(`.checkout_${item.suuid}`).addClass('disabled')
+      $(`.ci_mark_${item.suuid}`).val(item.real_ci_mark)
+      $(`.fi_mark_${item.suuid}`).val(item.real_fi_mark)
+    });
+}
 
+  _spin_pop()
+  }
+
+ })
  }
+ resultMarkPull()
 })
 
 </script>

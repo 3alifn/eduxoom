@@ -60,14 +60,14 @@ app.use("/au", authentication)
 app.use((err, req, res, next)=>{
   if(err instanceof MulterError ) {
     console.log(err.message + "_multer_");
-    res.send({msg: err.message, alert: "alert-warning text-warning"})
+    res.send({status: 500, msg: err.message, alert: "alert-warning text-warning"})
     
    }
 
  
   else {  
-    console.log("There was a problem! "+ err);
-    res.send({msg: err.message, alert: "alert-warning text-warning"})
+    console.log("My Next Error! "+ err);
+    res.send({status: 500, msg: err.message, alert: "alert-warning text-warning"})
 }
 
 })
