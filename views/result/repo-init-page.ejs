@@ -1,0 +1,182 @@
+<html lang="en">
+<head>
+    <title>Result init page</title>
+    <%- include("../component/metadata.html") %> 
+
+</head>
+
+
+<body onload="pageLoadingTop()">
+    
+    <%- include("../component/user-header-nav.html") %> 
+    <%- include("../component/teacher-offcanvas-nav.html") %> 
+ 
+
+ <div id="view_class_section" class="row mt-5 p-2">
+
+  <div class="col-md-6 m-auto col-12">
+
+      <code class="open-section">
+
+  <div class="list-group shadowx pb-2 m-1 fw-semibold">
+  
+   <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+   
+     <div class="ps-5 pe-5 fw-semibold fs-5">Open a section</div>
+  
+
+  
+   </div>
+  </div>
+  
+ </code>
+
+      <code class="status-Six">
+
+  <div class="list-group shadowx pb-2 m-1 fw-semibold">
+  
+   <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+   
+     <div class="ps-5 pe-5 fw-semibold text-secondary">Six </div>
+  
+     <div class="d-flex flex-wrap gap-3">
+       <a href="/teacher/result/repo-student-page/Six/A" class="shadow-sm findcard ps-2 pe-2 rounded status-Six-A">A</a>
+       <a href="/teacher/result/repo-student-page/Six/A" class="shadowx findcard ps-2 pe-2 rounded status-Six-B">B</a>
+       <a href="/teacher/result/repo-student-page/Six/A" class="shadowx findcard ps-2 pe-2 rounded status-Six-C">C</a>
+
+     </div>
+  
+   </div>
+  </div>
+  
+ </code>
+
+
+
+      <code class="status-Seven">
+
+  <div class="list-group mt-2 shadowx pb-2 m-1 fw-semibold">
+  
+   <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+   
+     <div class="ps-5 pe-5 fw-semibold text-secondary">Seven</div>
+  
+     <div class="d-flex flex-wrap gap-3 me-3">
+       <a href="/teacher/result/repo-student-page/Seven/A" class="shadowx findcard ps-2 pe-2 rounded status-Seven-A">A</a>
+       <a href="/teacher/result/repo-student-page/Seven/A" class="shadowx findcard ps-2 pe-2 rounded status-Seven-B">B</a>
+       <a href="/teacher/result/repo-student-page/Seven/A" class="shadowx findcard ps-2 pe-2 rounded status-Seven-C">C</a>
+
+     </div>
+  
+   </div>
+  </div>
+  
+ </code>
+
+
+
+
+      <code class="status-Eight">
+
+  <div class="list-group mt-2 shadowx pb-2 m-1 fw-semibold">
+  
+   <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+   
+     <div class="ps-5 pe-5 fw-semibold text-secondary">Eight</div>
+  
+     <div class="d-flex flex-wrap gap-3 me-2">
+       <a href="/teacher/result/repo-student-page/Eight/A" class="shadowx findcard ps-2 pe-2 rounded status-Eight-A">A</a>
+       <a href="/teacher/result/repo-student-page/Eight/A" class="shadowx findcard ps-2 pe-2 rounded status-Eight-B">B</a>
+       <a href="/teacher/result/repo-student-page/Eight/A" class="shadowx findcard ps-2 pe-2 rounded status-Eight-C">C</a>
+
+     </div>
+  
+   </div>
+  </div>
+  
+ </code>
+
+
+      <code class="status-Nine">
+
+  <div class="list-group mt-2 shadowx pb-2 m-1 fw-semibold">
+  
+   <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+   
+     <div class="ps-5 pe-5 fw-semibold text-secondary">Nine</div>
+  
+     <div class="d-flex flex-wrap gap-3 me-2">
+       <a href="/teacher/result/repo-student-page/Nine/A" class="shadowx findcard ps-2 pe-2 rounded status-Nine-A">A</a>
+       <a href="/teacher/result/repo-student-page/Nine/A" class="shadowx findcard ps-2 pe-2 rounded status-Nine-B">B</a>
+       <a href="/teacher/result/repo-student-page/Nine/A" class="shadowx findcard ps-2 pe-2 rounded status-Nine-C">C</a>
+
+     </div>
+  
+   </div>
+  </div>
+  
+ </code>
+
+
+      <code class="status-Ten">
+
+  <div class="list-group mt-2 shadowx pb-2 m-1 fw-semibold">
+  
+   <div class="d-flex p-2 gap-3 flex-wrap justify-content-center align-items-center ps-1 fw-semibold  fs-6  rounded">
+   
+     <div class="ps-5 pe-5 fw-semibold text-secondary">Ten </div>
+  
+     <div class="d-flex flex-wrap gap-3 ms-1">
+       <a href="/teacher/result/repo-student-page/Ten/A" class="shadowx findcard ps-2 pe-2 rounded status-Ten-A">A</a>
+       <a href="/teacher/result/repo-student-page/Ten/A" class="shadowx findcard ps-2 pe-2 rounded status-Ten-B">B</a>
+       <a href="/teacher/result/repo-student-page/Ten/A" class="shadowx findcard ps-2 pe-2 rounded status-Ten-C">C</a>
+
+     </div>
+  
+   </div>
+  </div>
+  
+ </code>
+
+
+  </div>
+
+
+</div>
+
+</body>
+
+
+
+<script>
+
+(function(){
+  $.ajax({
+    type: "get",
+    url: "/pu/class/section/rm",
+    data: {},
+    dataType: "JSON",
+    success: function (res) {
+
+     for (let index = 0; index < res.cls.length; index++) {
+
+      $(".status-"+res.cls[index].class).remove()
+        
+     }
+
+     for (let index = 0; index < res.clss.length; index++) {
+
+        $(".status-"+res.clss[index].class+'-'+res.clss[index].section).remove()
+        
+     }
+    }
+  });
+
+  }())
+
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,152 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result mark page</title>
+
+
+    <%- include("../component/metadata.html") %>
+
+</head>
+
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/user-header-nav.html") %>
+        <%- include("../component/teacher-offcanvas-nav.html") %>
+
+            <div class="p-2 mt-5 row">
+
+                <center class="mt-3">
+                    <h6>Result mark system</h6>
+                </center>
+
+
+                <div class="col-10 col-md-6 mt-2 m-auto">
+                    <input class=" form-dev p-2 ps-3 border-0" style="background-color: rgba(211, 207, 207, 0.26);"
+                        type="search" name="" placeholder="Search in page" id="search">
+
+                </div>
+
+            </div>
+
+
+            <div class="container">
+              <div class="row mt-1 mb-3 p-2 shadow-sm">
+                  <div class="col-12 col-md-8 m-auto p-2" id="syncSystemApp">
+                      <% for(const index in students) { %>
+                          <ul class="list-group findcard mt-2" id="list">
+                              <li class="list-group-item list-group-item-light shadow-sm">
+                                  <img src="/image/student/resized/<%= students[index].avatar %>" height="30px" class="rounded" width="40px" alt="">
+                                  <span class="bg-light text-muted">(<%= students[index].class %> - <%= students[index].section %> - <%= students[index].roll %>)</span>
+                                  <hr> 
+                                  <span class="btn-lg badge bg-light text-dark"><%= students[index].name %></span><br>
+           
+                                  <form class="myForm_<%=index%>">
+                                    <input type="hidden" name="suuid"  value="<%=students[index].suuid%>">
+                                    <input type="hidden" name="subject_code"  value="<%=subject_code%>">
+                                    <input type="hidden" name="subject_name"  value="<%=subject_name%>">
+
+                                  <div class="d-flex p-2 justify-content-between align-items-center">
+                                      <p class="w-25 fw-semibold">CI Mark</p>
+                                      <code class="p-1">-</code>
+
+                                        <input min="1" type="number" value=""  max="30" name="ci_mark" placeholder="Auto / 1-30" class="w-50 ci_mark_<%=students[index].suuid%> shadow-sm form-dev form-control-sm">
+                                          <button onclick="editFormData(`checkout_<%=students[index].suuid%>`)" type="button" class="w-25 eventBtn editBtn shadow-sm btn btn-link btn-sm text-link form-control-sm">Edit</button>
+                             
+                                        </div>
+          
+                                  <div class="d-flex p-2 justify-content-between align-items-center">
+                                      <p class="w-25 fw-semibold">FI Mark</p>
+                                      <code class="p-1">*</code>
+                                        <input required type="number" value="" min="1" max="100" name="fi_mark" placeholder="1-100" class="w-50 fi_mark_<%=students[index].suuid%> shadow-sm form-dev form-control-sm">
+                                      <input type="submit" value="Post now" class="w-25 eventBtn submitBtn checkout_<%=students[index].suuid%> shadow-sm btn btn-link btn-sm text-link form-control-sm">
+                                  </div>
+
+                                </form>
+                              </li>
+                          </ul>
+                      <% } %>
+                  </div>
+                  <div id="syncSystem" class="p-2 mt-5 mb-5"></div>
+              </div>
+          </div>
+          
+
+           <%- include("../component/___node.html") %>
+
+<script>
+
+$(document).ready(function () {
+$("#search").keyup(function () {
+var value = $(this).val().toLowerCase();
+$(".list-group").filter(function () {
+
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+ });
+ });
+
+ 
+  $("form").on("submit", (event)=>{
+  event.preventDefault()
+  const elem= event.currentTarget.className
+  const formData = $("."+elem).serializeArray()
+   
+  $.ajax({
+    method: "post",
+    url: "/teacher/result/mark-push/",
+    data: formData,
+    beforeSend: function(){
+     $("."+elem).find('.eventBtn').addClass("disabled");
+    },
+    success: function(res){
+    if(res){
+    _msg_pull(res.alert, res.msg, null);
+    $("."+elem).find('.editBtn').removeClass("disabled");
+
+     return;
+    }
+    }
+  })
+
+  })
+
+  function editFormData(checkout){
+   $('.'+checkout).removeClass('disabled');
+  }
+
+$(document).ready(()=>{
+ function resultMarkPull(){
+  const subject_code= "<%=subject_code%>";
+  const class_name= "<%=class_name%>";
+  const section_name= "<%=section_name%>";
+ $.ajax({
+  method: "GET",
+  url: "/teacher/result/mark-pull",
+  data: {class_name, section_name, subject_code},
+  beforeSend: function (){
+  _spin_pull()
+  },
+  success: function(res){
+    if (res.status == 200) { 
+    res.data.data.forEach((item) => {
+      $(`.checkout_${item.suuid}`).addClass('disabled')
+      $(`.ci_mark_${item.suuid}`).val(item.real_ci_mark)
+      $(`.fi_mark_${item.suuid}`).val(item.real_fi_mark)
+    });
+}
+
+  _spin_pop()
+  }
+
+ })
+ }
+ resultMarkPull()
+})
+
+</script>
+</body>
+
+</html>

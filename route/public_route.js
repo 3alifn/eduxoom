@@ -21,10 +21,6 @@ const { admin_achievement_page, public_achievement_view, public_eventnews_page, 
 const {pu_attn_checkout_webapi_present, pu_attn_checkout_logs, pu_attn_checkout_webapi_absent_student, pu_attn_checkout_webapi_absent_staff, pu_attn_checkout_webapi_absent_teacher } = require("../app/attn_api_app")
 const public= express.Router()
 // test router system......
-public.post('/test-webapi/', (req, res)=>{
-  res.json({msg: req.body, status: '200'});
-})
-
 
 // biometric attn router.............
 public.post('/attn-checkout-webapi/', pu_attn_checkout_logs)

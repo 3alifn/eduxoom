@@ -145,15 +145,15 @@
       transform: translate(-50%);
       border-radius: 5px;
       z-index: 999999;
-      transition: all 1s;
+      transition: all 500ms;
 
     }
   </style>
 
-  <div class="_msg shadowx" style="display: none;">
-    <strong class="fw-semibold p-1 fs-6">Status</strong> <span onclick="_msg_pop()"
-      class="btn btn-close _msg-pop float-end"></span>
-    <p class="fw-semibold p-1 _msg-line"></p>
+  <div class="_msg shadowx p-0" style="display: none;">
+     <span onclick="_msg_pop()"
+      class=" btn-close _msg-pop float-end"></span>
+    <p class="fw-semibold p-0 _msg-line"></p>
   </div>
 
 
@@ -166,12 +166,12 @@
       $('._msg-line').text(msg);
 
       if (auto == false) {
-
+         null
       } else {
         setTimeout(() => {
-          $('._msg').fadeOut('slow')
+          $('._msg').fadeOut()
 
-        }, 5000);
+        }, 500);
       }
 
     }

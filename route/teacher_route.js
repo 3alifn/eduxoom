@@ -1,5 +1,5 @@
 
-const {app, express, session}=require('../server') 
+const {app, express, session, sqlmap}=require('../server') 
 const { teacher_pic_subject_get,  teacher_pic_page_mark_get, teacher_pic_mark_post, teacher_pic_mark_checkout } = require("../app/pic_app");
 const {  teacher_pis_subject_get,  teacher_pis_page_mark_get, teacher_pis_mark_post, teacher_pis_mark_checkout } = require("../app/pis_app");
 const { teacher_rank_mark_post, teacher_rank_mark_page_class_base, teacher_rank_mark_page, teacher_rank_mark_post_attendance, teacher_rank_mark_init_page, teacher_rank_mark_page_num, teacher_rank_checkout } = require("../app/rank_app");
@@ -8,6 +8,7 @@ const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, t
 const { teacher_student_info } = require("../app/student_app");
 const { Cookie } = require('express-session');
 const { teacher_attn_init_page, teacher_attn_post_page, teacher_attn_post_page_num, teacher_attn_post, teacher_attn_checkout, teacher_attn_checkout_last_five } = require('../app/attendance_app');
+const {result_mark_student_page, result_mark_subject_page, result_mark_push, result_mark_pull, result_repo_subject_page, result_repo_init_page, result_repo_student_page, result_repo_page, result_repo_sheet_page, } = require('../app/result_app');
 const teacher= express.Router()
 
 teacher.all('*', (req, res, next)=>{
@@ -20,6 +21,27 @@ teacher.all('*', (req, res, next)=>{
 
 
 teacher.post("/student/info", teacher_student_info)
+
+
+// make new result system........
+teacher.get('/result/mark-init-page', (req, res)=>{
+
+      res.render('result/mark-init-page')
+})
+// make result system......
+teacher.get('/result/mark-subject-page/:class_name/:section_name', result_mark_subject_page)
+teacher.get('/result/mark-student-page/:class_name/:section_name/:subject_code', result_mark_student_page)
+teacher.post('/result/mark-push', result_mark_push)
+teacher.get('/result/mark-pull', result_mark_pull)
+// get result report system........
+teacher.get('/result/repo-init-page/', (req, res)=>{
+
+   res.render('result/repo-init-page')
+})
+teacher.get('/result/repo-student-page/:class_name/:section_name', result_repo_student_page)
+teacher.get('/result/repo-sheet-page/:class_name/:section_name/:suuid', result_repo_sheet_page)
+
+
 
 
 
