@@ -2,8 +2,11 @@ const output = require('sharp/lib/output');
 const {sqlmap} = require('../server');
 
 exports.result_mark_subject_page= (req, res)=>{
+    const host = req.hostname.startsWith("www.");
+    const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
     const {class_name, section_name}= req.params; 
-    sqlmap.query('SELECT subject, subject_code FROM ini_subject WHERE class=? ORDER BY subject',[class_name], 
+    sqlmap.query('SELECT subject, subject_code FROM ini_subject WHERE class=? ORDER BY subject',
+        [class_name], 
         (err, subject)=>{
        if(err) {
         console.log(err.sqlMessage);
@@ -16,9 +19,10 @@ exports.result_mark_subject_page= (req, res)=>{
  
 exports.result_mark_student_page= (req, res, next)=>{
     const {class_name, section_name, subject_code}= req.params;
-
-    sqlmap.query('SELECT class, section, student_uuid as suuid, roll, name, avatar FROM students WHERE class=? AND section=? ORDER BY roll',
-        [class_name, section_name], (err, students)=>{
+    const host = req.hostname.startsWith("www.");
+    const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
+    sqlmap.query('SELECT class, section, student_uuid as suuid, roll, name, avatar FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll',
+        [hostname, class_name, section_name], (err, students)=>{
        if(err) {
        next(err.sql)
        return
@@ -40,16 +44,17 @@ exports.result_mark_student_page= (req, res, next)=>{
  exports.result_mark_push = (req, res, next) => {
     const { suuid, ci_mark, fi_mark, subject_code, subject_name } = req.body;
     const tuuid = req.session.teacher_uuid;
-    const fi_mark_f = parseFloat(fi_mark / 100 * 70);
-    const ci_mark_f = ci_mark == "" ? parseFloat(fi_mark / 100 * 30) : parseFloat(ci_mark);
-        const output_mark= parseFloat(ci_mark_f+fi_mark_f);
-
+    const fi_mark_f = Math.round(parseFloat(fi_mark / 100 * 70));
+    const ci_mark_f = ci_mark == "" ? parseInt(fi_mark - fi_mark_f) : Math.round(parseFloat(ci_mark));
+        const output_mark= Math.round(parseFloat(ci_mark_f+fi_mark_f));
+        const host = req.hostname.startsWith("www.");
+        const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
 
     const sqlSelect = (suuid, subject_code) => {
         return new Promise((resolve, reject) => {
 
-            sqlmap.query("SELECT id, student_uuid as suuid, roll, name, avatar, class as class_name, section as section_name FROM students WHERE student_uuid=?",
-                [suuid],(err, studentData)=>{
+            sqlmap.query("SELECT id, student_uuid as suuid, roll, name, avatar, class as class_name, section as section_name FROM students WHERE domain=? AND student_uuid=?",
+                [hostname, suuid],(err, studentData)=>{
 
                    if (err) {
                        return reject("sql1: "+err.sqlMessage);
@@ -57,8 +62,8 @@ exports.result_mark_student_page= (req, res, next)=>{
 
                    if(studentData?.length>0){
                    
-                    sqlmap.query('SELECT suuid, output_mark FROM result WHERE suuid=? AND subject_code=?',
-                        [suuid, subject_code], (err, data) => {
+                    sqlmap.query('SELECT suuid, output_mark FROM result WHERE  domain=? AND suuid=? AND subject_code=?',
+                        [hostname, suuid, subject_code], (err, data) => {
                         
                             if (err) {
                                 return reject(err.sqlMessage);
@@ -85,8 +90,10 @@ exports.result_mark_student_page= (req, res, next)=>{
         // const ci_mark_f = ci_mark == "" ? parseFloat(fi_mark / 100 * 30) : parseFloat(ci_mark);
         // const output_mark= parseFloat(ci_mark_f+fi_mark_f);
         return new Promise((resolve, reject) => {
-            sqlmap.query('INSERT INTO result (class, section, suuid, roll, name, avatar, real_ci_mark, real_fi_mark, ci_mark, fi_mark, output_mark, tuuid, subject_name, subject_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                [class_name, section_name, suuid, roll, name, avatar, ci_mark, fi_mark, ci_mark_f, fi_mark_f, output_mark, tuuid, subject_name, subject_code], (err, insert) => {
+            sqlmap.query(`INSERT INTO result (domain, class, section, suuid, roll, name, avatar, real_ci_mark, 
+                real_fi_mark, ci_mark, fi_mark, output_mark, tuuid, subject_name, subject_code)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [hostname, class_name, section_name, suuid, roll, name, avatar, ci_mark, fi_mark, ci_mark_f, fi_mark_f, output_mark, tuuid, subject_name, subject_code], (err, insert) => {
                     if (err) {
                         return reject(err.sqlMessage);
                     }
@@ -102,8 +109,8 @@ exports.result_mark_student_page= (req, res, next)=>{
         // const output_mark= parseFloat(ci_mark_f+fi_mark_f);
 
         return new Promise((resolve, reject) => {
-            sqlmap.query('UPDATE result SET real_ci_mark=?, real_fi_mark=?, ci_mark=?, fi_mark=?, output_mark=?, tuuid=? WHERE suuid=? AND subject_code=?',
-                [ci_mark, fi_mark, ci_mark_f, fi_mark_f, output_mark, tuuid, suuid, subject_code], (err, update) => {
+            sqlmap.query('UPDATE result SET real_ci_mark=?, real_fi_mark=?, ci_mark=?, fi_mark=?, output_mark=?, tuuid=? WHERE  domain=? AND suuid=? AND subject_code=?',
+                [ci_mark, fi_mark, ci_mark_f, fi_mark_f, output_mark, tuuid, hostname, suuid, subject_code], (err, update) => {
                     if (err) {
                         return reject(err.sqlMessage);
                     }
@@ -139,21 +146,20 @@ exports.result_mark_student_page= (req, res, next)=>{
 };
 
 
-
- exports.result_mark_pull= (req, res, next)=>{
+exports.result_mark_pull= (req, res, next)=>{
     const {class_name, section_name, subject_code}= req.query;
+    const host = req.hostname.startsWith("www.");
+    const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
        function fetchData(class_name, section_name, subject_code){
         return new Promise((resolve, reject)=>{
-         sqlmap.query('SELECT id, suuid, if(real_ci_mark=0, null, real_ci_mark) as real_ci_mark, real_fi_mark FROM result WHERE class=? AND section=? AND subject_code=?', 
-            [class_name, section_name, subject_code], (err, data)=>{
+         sqlmap.query('SELECT id, suuid, if(real_ci_mark=0, null, real_ci_mark) as real_ci_mark, real_fi_mark FROM result WHERE domain=? AND class=? AND section=? AND subject_code=?', 
+            [hostname, class_name, section_name, subject_code], (err, data)=>{
              if(err){
                 reject({msg: err.sqlMessage})
                 return ;
                 
              }
-
-                resolve({data: data})
-                
+                resolve({data: data})    
          })
         })
        }
@@ -174,10 +180,11 @@ exports.result_mark_student_page= (req, res, next)=>{
 
 exports.result_repo_student_page=(req, res, next)=>{
     const {class_name, section_name}= req.params;
-
-    sqlmap.query(`SELECT class, section, student_uuid as suuid, roll, name, avatar FROM students WHERE class=? AND section=? 
+    const host = req.hostname.startsWith("www.");
+    const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
+    sqlmap.query(`SELECT class, section, student_uuid as suuid, roll, name, avatar FROM students WHERE domain=? AND class=? AND section=? 
         AND student_uuid IN (SELECT suuid FROM result WHERE class=? AND section=? ORDER BY roll) ORDER BY roll`,
-        [class_name, section_name, class_name, section_name], (err, students)=>{
+        [hostname, class_name, section_name, class_name, section_name], (err, students)=>{
        if(err) {
        next(err.sqlMessage)
        return
@@ -196,20 +203,22 @@ exports.result_repo_student_page=(req, res, next)=>{
 
 exports.result_repo_sheet_page=(req, res, next)=>{
  const {class_name, section_name, suuid}= req.params;
+ const host = req.hostname.startsWith("www.");
+ const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
  function makeRepo(class_name, section_name, suuid){
     return new Promise((resolve, reject)=>{
         sqlmap.query(`SELECT class, section, subject_name, subject_code, name, roll, suuid,
              avatar, ci_mark, fi_mark, output_mark FROM result
-              WHERE class=? AND section=? AND suuid=?`,
-            [class_name, section_name, suuid], (err, result)=>{
+              WHERE domain=? AND class=? AND section=? AND suuid=?`,
+            [hostname, class_name, section_name, suuid], (err, result)=>{
                 if(err){
                     reject(err.sqlMessage)
                     return;
                 }
 
                 sqlmap.query(`SELECT SUM(output_mark) as total_mark FROM result
-                     WHERE class=? AND section=? AND suuid=?`,
-                   [class_name, section_name, suuid], (err, total_mark)=>{
+                     WHERE domain=? AND class=? AND section=? AND suuid=?`,
+                   [hostname, class_name, section_name, suuid], (err, total_mark)=>{
                        if(err){
                            reject(err.sqlMessage)
                            return;
@@ -230,7 +239,7 @@ exports.result_repo_sheet_page=(req, res, next)=>{
         res.redirect('/pages/empty.html')
         return
     }
-    await res.render('result/repo-sheet-page', {result, total_mark: total_mark[0].total_mark.toFixed(2)})
+    await res.render('result/repo-sheet-page', {result, total_mark: total_mark[0].total_mark})
   }
   
   catch(err){
