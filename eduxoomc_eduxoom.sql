@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 03, 2024 at 08:14 PM
+-- Generation Time: Dec 13, 2024 at 10:01 AM
 -- Server version: 10.11.10-MariaDB-cll-lve
 -- PHP Version: 8.3.14
 
@@ -130,7 +130,23 @@ INSERT INTO `attn_record` (`domain`, `id`, `menual`, `session`, `user`, `duplica
 ('eduxoom.com', 125, 1, 2024, 'Student', '601792_Wed Nov 27 2024', 'Six', 'A', 1, '????? ??????? ', '601792', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:29'),
 ('eduxoom.com', 126, 1, 2024, 'Student', '134797_Wed Nov 27 2024', 'Six', 'A', 2, 'Chompa Khatun', '134797', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:31'),
 ('eduxoom.com', 127, 1, 2024, 'Student', '467151_Wed Nov 27 2024', 'Six', 'A', 3, '?????? ', '467151', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:38'),
-('eduxoom.com', 128, 1, 2024, 'Student', '241952_Wed Nov 27 2024', 'Six', 'A', 4, 'Karima', '241952', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:39');
+('eduxoom.com', 128, 1, 2024, 'Student', '241952_Wed Nov 27 2024', 'Six', 'A', 4, 'Karima', '241952', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:39'),
+('eduxoom.com', 129, 1, 2024, 'Student', '601792_Wed Dec 04 2024', 'Six', 'A', 1, '????? ??????? ', '601792', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 4, '2024-12-04 08:27:25'),
+('eduxoom.com', 130, 1, 2024, 'Student', '134797_Wed Dec 04 2024', 'Six', 'A', 2, 'Chompa Khatun', '134797', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 4, '2024-12-04 08:27:26'),
+('eduxoom.com', 131, 1, 2024, 'Student', '467151_Wed Dec 04 2024', 'Six', 'A', 3, '?????? ', '467151', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 4, '2024-12-04 08:27:28'),
+('eduxoom.com', 132, 1, 2024, 'Student', '134797_Fri Dec 06 2024', 'Six', 'A', 2, 'Chompa Khatun', '134797', 'female_avatar.png', '11-2024', 'December-6-12-2024', 'Fri Dec 06 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 6, '2024-12-06 20:41:46'),
+('eduxoom.com', 133, 1, 2024, 'Student', '601792_Fri Dec 06 2024', 'Six', 'A', 1, '????? ??????? ', '601792', 'female_avatar.png', '11-2024', 'December-6-12-2024', 'Fri Dec 06 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 6, '2024-12-06 20:41:47'),
+('eduxoom.com', 134, 1, 2024, 'Student', '467151_Fri Dec 06 2024', 'Six', 'A', 3, '?????? ', '467151', 'female_avatar.png', '11-2024', 'December-6-12-2024', 'Fri Dec 06 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 6, '2024-12-06 20:41:51'),
+('eduxoom.com', 135, 1, 2024, 'Student', '241952_Fri Dec 06 2024', 'Six', 'A', 4, 'Karima', '241952', 'female_avatar.png', '11-2024', 'December-6-12-2024', 'Fri Dec 06 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 6, '2024-12-06 20:41:52'),
+('eduxoom.com', 136, 1, 2024, 'Student', '551763_Fri Dec 06 2024', 'Six', 'A', 5, '???? ???????', '551763', 'male_avatar.png', '11-2024', 'December-6-12-2024', 'Fri Dec 06 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 6, '2024-12-06 20:41:54'),
+('eduxoom.com', 137, 1, 2024, 'Student', '201564_Fri Dec 06 2024', 'Six', 'A', 6, 'Sarmin', '201564', 'female_avatar.png', '11-2024', 'December-6-12-2024', 'Fri Dec 06 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 6, '2024-12-06 20:41:55'),
+('eduxoom.com', 138, 1, 2024, 'Student', '139041_Fri Dec 06 2024', 'Six', 'A', 7, 'Tasmim', '139041', 'female_avatar.png', '11-2024', 'December-6-12-2024', 'Fri Dec 06 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 6, '2024-12-06 20:41:56'),
+('eduxoom.com', 139, 1, 2024, 'Student', '854186_Fri Dec 06 2024', 'Six', 'A', 8, '????? ???? ', '854186', 'female_avatar.png', '11-2024', 'December-6-12-2024', 'Fri Dec 06 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 6, '2024-12-06 20:41:58'),
+('eduxoom.com', 140, 1, 2024, 'Student', '18482_Fri Dec 06 2024', 'Six', 'A', 9, 'Ivamoni', '18482', 'female_avatar.png', '11-2024', 'December-6-12-2024', 'Fri Dec 06 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 6, '2024-12-06 20:41:59'),
+('eduxoom.com', 141, 1, 2024, 'Student', '864119_Wed Dec 11 2024', 'Six', 'B', 1, 'MD Abid Rahman Alif', '864119', 'male_avatar.png', '11-2024', 'December-11-12-2024', 'Wed Dec 11 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 11, '2024-12-11 03:03:30'),
+('eduxoom.com', 142, 1, 2024, 'Student', '812816_Wed Dec 11 2024', 'Six', 'B', 2, 'MD Mehedi Hasan', '812816', 'male_avatar.png', '11-2024', 'December-11-12-2024', 'Wed Dec 11 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 11, '2024-12-11 03:03:32'),
+('eduxoom.com', 143, 1, 2024, 'Student', '56147_Wed Dec 11 2024', 'Six', 'B', 3, 'Sazzad Biswas Shakil', '56147', 'male_avatar.png', '11-2024', 'December-11-12-2024', 'Wed Dec 11 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 11, '2024-12-11 03:03:33'),
+('eduxoom.com', 144, 1, 2024, 'Student', '451831_Wed Dec 11 2024', 'Six', 'B', 4, 'MD Abu Ibrahim Barkati', '451831', 'male_avatar.png', '11-2024', 'December-11-12-2024', 'Wed Dec 11 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 11, '2024-12-11 03:03:35');
 
 -- --------------------------------------------------------
 
@@ -240,7 +256,27 @@ INSERT INTO `bi_mark` (`domain`, `ID`, `at_date`, `class`, `section`, `teacher_u
 ('eduxoom.com', 17, '2024-03-28 10:16:22', 'Six', 'A', '1697209362834', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', '1bbe2059057e84767b272d05c183a0f6', -1, 7, 'gp3', '16985060636821bbe2059057e84767b272d05c183a0f6', 'bg-danger'),
 ('eduxoom.com', 18, '2024-03-28 10:16:23', 'Six', 'A', '1697209362834', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', '61f9aea42c14b6b1371f0a953199c4c1', 0, 8, 'gp3', '169850606368261f9aea42c14b6b1371f0a953199c4c1', 'bg-warning'),
 ('eduxoom.com', 19, '2024-03-28 10:16:25', 'Six', 'A', '1697209362834', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', '57d66a6f160d25f2af6df363469d6a50', 0, 9, 'gp1', '169850606368257d66a6f160d25f2af6df363469d6a50', 'bg-warning'),
-('eduxoom.com', 20, '2024-03-28 10:16:26', 'Six', 'A', '1697209362834', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', '805730166f14b0a03407783dd4e2780f', 1, 10, 'gp1', '1698506063682805730166f14b0a03407783dd4e2780f', 'bg-success');
+('eduxoom.com', 20, '2024-03-28 10:16:26', 'Six', 'A', '1697209362834', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', '805730166f14b0a03407783dd4e2780f', 1, 10, 'gp1', '1698506063682805730166f14b0a03407783dd4e2780f', 'bg-success'),
+('eduxoom.com', 21, '2024-12-05 06:59:33', 'Six', 'A', '1697593897626', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', '38d0e7d0b4b805e6d1c56cab12c82a50', -1, 2, 'gp1', '169850606368238d0e7d0b4b805e6d1c56cab12c82a50', 'bg-danger'),
+('eduxoom.com', 22, '2024-12-05 06:59:35', 'Six', 'A', '1697593897626', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', 'c69f61c1e76abe1ec7fa3e048c143e9b', 0, 1, 'gp1', '1698506063682c69f61c1e76abe1ec7fa3e048c143e9b', 'bg-warning'),
+('eduxoom.com', 23, '2024-12-05 06:59:35', 'Six', 'A', '1697593897626', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', '97922d4ebc627fedae791cb61265875c', -1, 3, 'gp2', '169850606368297922d4ebc627fedae791cb61265875c', 'bg-danger'),
+('eduxoom.com', 24, '2024-12-05 06:59:36', 'Six', 'A', '1697593897626', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', 'e4ac9842d8a3915f9e70de239dfc32ea', 0, 4, 'gp2', '1698506063682e4ac9842d8a3915f9e70de239dfc32ea', 'bg-warning'),
+('eduxoom.com', 25, '2024-12-05 06:59:38', 'Six', 'A', '1697593897626', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', 'a7b3b2f1a7ee64888e2974199018fa4c', 1, 5, 'gp2', '1698506063682a7b3b2f1a7ee64888e2974199018fa4c', 'bg-success'),
+('eduxoom.com', 26, '2024-12-05 06:59:40', 'Six', 'A', '1697593897626', 2024, '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png', 'c69f61c1e76abe1ec7fa3e048c143e9b', 0, 1, 'gp1', '1698299881366c69f61c1e76abe1ec7fa3e048c143e9b', 'bg-warning'),
+('eduxoom.com', 27, '2024-12-05 06:59:41', 'Six', 'A', '1697593897626', 2024, '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png', '38d0e7d0b4b805e6d1c56cab12c82a50', -1, 2, 'gp1', '169829988136638d0e7d0b4b805e6d1c56cab12c82a50', 'bg-danger'),
+('eduxoom.com', 28, '2024-12-05 06:59:42', 'Six', 'A', '1697593897626', 2024, '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png', '97922d4ebc627fedae791cb61265875c', -1, 3, 'gp2', '169829988136697922d4ebc627fedae791cb61265875c', 'bg-danger'),
+('eduxoom.com', 29, '2024-12-05 06:59:43', 'Six', 'A', '1697593897626', 2024, '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png', 'e4ac9842d8a3915f9e70de239dfc32ea', 1, 4, 'gp2', '1698299881366e4ac9842d8a3915f9e70de239dfc32ea', 'bg-success'),
+('eduxoom.com', 30, '2024-12-05 06:59:44', 'Six', 'A', '1697593897626', 2024, '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png', 'a7b3b2f1a7ee64888e2974199018fa4c', 0, 5, 'gp2', '1698299881366a7b3b2f1a7ee64888e2974199018fa4c', 'bg-warning'),
+('eduxoom.com', 31, '2024-12-05 06:59:46', 'Six', 'A', '1697593897626', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', 'ebf798cb22f407cf54f346a52a6ff6c0', -1, 6, 'gp2', '1698506063682ebf798cb22f407cf54f346a52a6ff6c0', 'bg-danger'),
+('eduxoom.com', 32, '2024-12-05 06:59:47', 'Six', 'A', '1697593897626', 2024, '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png', 'ebf798cb22f407cf54f346a52a6ff6c0', 0, 6, 'gp2', '1698299881366ebf798cb22f407cf54f346a52a6ff6c0', 'bg-warning'),
+('eduxoom.com', 33, '2024-12-08 22:30:10', 'Six', 'A', '1697209362835', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', 'c69f61c1e76abe1ec7fa3e048c143e9b', 1, 1, 'gp1', '1698506063682c69f61c1e76abe1ec7fa3e048c143e9b', 'bg-success'),
+('eduxoom.com', 34, '2024-12-08 22:30:11', 'Six', 'A', '1697209362835', 2024, '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png', 'c69f61c1e76abe1ec7fa3e048c143e9b', 0, 1, 'gp1', '1698299881366c69f61c1e76abe1ec7fa3e048c143e9b', 'bg-warning'),
+('eduxoom.com', 35, '2024-12-08 22:30:13', 'Six', 'A', '1697209362835', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', '38d0e7d0b4b805e6d1c56cab12c82a50', 0, 2, 'gp1', '169850606368238d0e7d0b4b805e6d1c56cab12c82a50', 'bg-warning'),
+('eduxoom.com', 36, '2024-12-08 22:30:21', 'Six', 'A', '1697209362835', 2024, '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png', '38d0e7d0b4b805e6d1c56cab12c82a50', 1, 2, 'gp1', '169829988136638d0e7d0b4b805e6d1c56cab12c82a50', 'bg-success'),
+('eduxoom.com', 37, '2024-12-08 22:30:23', 'Six', 'A', '1697209362835', 2024, '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png', '97922d4ebc627fedae791cb61265875c', -1, 3, 'gp2', '169829988136697922d4ebc627fedae791cb61265875c', 'bg-danger'),
+('eduxoom.com', 38, '2024-12-08 22:30:25', 'Six', 'A', '1697209362835', 2024, '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png', 'e4ac9842d8a3915f9e70de239dfc32ea', 0, 4, 'gp2', '1698299881366e4ac9842d8a3915f9e70de239dfc32ea', 'bg-warning'),
+('eduxoom.com', 39, '2024-12-08 22:30:27', 'Six', 'A', '1697209362835', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', '97922d4ebc627fedae791cb61265875c', 0, 3, 'gp2', '169850606368297922d4ebc627fedae791cb61265875c', 'bg-warning'),
+('eduxoom.com', 40, '2024-12-08 22:30:28', 'Six', 'A', '1697209362835', 2024, '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png', 'e4ac9842d8a3915f9e70de239dfc32ea', 1, 4, 'gp2', '1698506063682e4ac9842d8a3915f9e70de239dfc32ea', 'bg-success');
 
 -- --------------------------------------------------------
 
@@ -296,7 +332,27 @@ INSERT INTO `bi_transcript` (`domain`, `ID`, `at_date`, `class`, `section`, `rol
 ('eduxoom.com', 17, '2024-03-28 10:16:22', 'Six', 'A', 1, '1697209362834', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', '1bbe2059057e84767b272d05c183a0f6', -1, 7, 'gp3', '16985060636821bbe2059057e84767b272d05c183a0f6', -1, 'bg-danger'),
 ('eduxoom.com', 18, '2024-03-28 10:16:23', 'Six', 'A', 1, '1697209362834', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', '61f9aea42c14b6b1371f0a953199c4c1', 0, 8, 'gp3', '169850606368261f9aea42c14b6b1371f0a953199c4c1', 0, 'bg-warning'),
 ('eduxoom.com', 19, '2024-03-28 10:16:25', 'Six', 'A', 1, '1697209362834', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', '57d66a6f160d25f2af6df363469d6a50', 0, 9, 'gp1', '169850606368257d66a6f160d25f2af6df363469d6a50', 0, 'bg-warning'),
-('eduxoom.com', 20, '2024-03-28 10:16:26', 'Six', 'A', 1, '1697209362834', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', '805730166f14b0a03407783dd4e2780f', 1, 10, 'gp1', '1698506063682805730166f14b0a03407783dd4e2780f', 1, 'bg-success');
+('eduxoom.com', 20, '2024-03-28 10:16:26', 'Six', 'A', 1, '1697209362834', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', '805730166f14b0a03407783dd4e2780f', 1, 10, 'gp1', '1698506063682805730166f14b0a03407783dd4e2780f', 1, 'bg-success'),
+('eduxoom.com', 21, '2024-12-05 06:59:33', 'Six', 'A', 1, '1697593897626', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', '38d0e7d0b4b805e6d1c56cab12c82a50', -1, 2, 'gp1', '169850606368238d0e7d0b4b805e6d1c56cab12c82a50', 0, 'bg-warning'),
+('eduxoom.com', 22, '2024-12-05 06:59:35', 'Six', 'A', 1, '1697593897626', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', 'c69f61c1e76abe1ec7fa3e048c143e9b', 0, 1, 'gp1', '1698506063682c69f61c1e76abe1ec7fa3e048c143e9b', 1, 'bg-success'),
+('eduxoom.com', 23, '2024-12-05 06:59:35', 'Six', 'A', 1, '1697593897626', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', '97922d4ebc627fedae791cb61265875c', -1, 3, 'gp2', '169850606368297922d4ebc627fedae791cb61265875c', 0, 'bg-warning'),
+('eduxoom.com', 24, '2024-12-05 06:59:36', 'Six', 'A', 1, '1697593897626', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', 'e4ac9842d8a3915f9e70de239dfc32ea', 0, 4, 'gp2', '1698506063682e4ac9842d8a3915f9e70de239dfc32ea', 1, 'bg-success'),
+('eduxoom.com', 25, '2024-12-05 06:59:38', 'Six', 'A', 1, '1697593897626', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', 'a7b3b2f1a7ee64888e2974199018fa4c', 1, 5, 'gp2', '1698506063682a7b3b2f1a7ee64888e2974199018fa4c', 1, 'bg-success'),
+('eduxoom.com', 26, '2024-12-05 06:59:40', 'Six', 'A', 2, '1697593897626', '', '', '', 2024, '1698299881366', 'Chompa Khatun', '', 'c69f61c1e76abe1ec7fa3e048c143e9b', 0, 1, 'gp1', '1698299881366c69f61c1e76abe1ec7fa3e048c143e9b', 0, 'bg-warning'),
+('eduxoom.com', 27, '2024-12-05 06:59:41', 'Six', 'A', 2, '1697593897626', '', '', '', 2024, '1698299881366', 'Chompa Khatun', '', '38d0e7d0b4b805e6d1c56cab12c82a50', -1, 2, 'gp1', '169829988136638d0e7d0b4b805e6d1c56cab12c82a50', 1, 'bg-success'),
+('eduxoom.com', 28, '2024-12-05 06:59:42', 'Six', 'A', 2, '1697593897626', '', '', '', 2024, '1698299881366', 'Chompa Khatun', '', '97922d4ebc627fedae791cb61265875c', -1, 3, 'gp2', '169829988136697922d4ebc627fedae791cb61265875c', -1, 'bg-danger'),
+('eduxoom.com', 29, '2024-12-05 06:59:43', 'Six', 'A', 2, '1697593897626', '', '', '', 2024, '1698299881366', 'Chompa Khatun', '', 'e4ac9842d8a3915f9e70de239dfc32ea', 1, 4, 'gp2', '1698299881366e4ac9842d8a3915f9e70de239dfc32ea', 1, 'bg-success'),
+('eduxoom.com', 30, '2024-12-05 06:59:44', 'Six', 'A', 2, '1697593897626', '', '', '', 2024, '1698299881366', 'Chompa Khatun', '', 'a7b3b2f1a7ee64888e2974199018fa4c', 0, 5, 'gp2', '1698299881366a7b3b2f1a7ee64888e2974199018fa4c', 0, 'bg-warning'),
+('eduxoom.com', 31, '2024-12-05 06:59:46', 'Six', 'A', 1, '1697593897626', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', 'ebf798cb22f407cf54f346a52a6ff6c0', -1, 6, 'gp2', '1698506063682ebf798cb22f407cf54f346a52a6ff6c0', -1, 'bg-danger'),
+('eduxoom.com', 32, '2024-12-05 06:59:47', 'Six', 'A', 2, '1697593897626', '', '', '', 2024, '1698299881366', 'Chompa Khatun', '', 'ebf798cb22f407cf54f346a52a6ff6c0', 0, 6, 'gp2', '1698299881366ebf798cb22f407cf54f346a52a6ff6c0', 0, 'bg-warning'),
+('eduxoom.com', 33, '2024-12-08 22:30:10', 'Six', 'A', 1, '1697209362835', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', 'c69f61c1e76abe1ec7fa3e048c143e9b', 1, 1, 'gp1', '1698506063682c69f61c1e76abe1ec7fa3e048c143e9b', 1, 'bg-success'),
+('eduxoom.com', 34, '2024-12-08 22:30:11', 'Six', 'A', 2, '1697209362835', '', '', '', 2024, '1698299881366', 'Chompa Khatun', '', 'c69f61c1e76abe1ec7fa3e048c143e9b', 0, 1, 'gp1', '1698299881366c69f61c1e76abe1ec7fa3e048c143e9b', 0, 'bg-warning'),
+('eduxoom.com', 35, '2024-12-08 22:30:13', 'Six', 'A', 1, '1697209362835', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', '38d0e7d0b4b805e6d1c56cab12c82a50', 0, 2, 'gp1', '169850606368238d0e7d0b4b805e6d1c56cab12c82a50', 0, 'bg-warning'),
+('eduxoom.com', 36, '2024-12-08 22:30:21', 'Six', 'A', 2, '1697209362835', '', '', '', 2024, '1698299881366', 'Chompa Khatun', '', '38d0e7d0b4b805e6d1c56cab12c82a50', 1, 2, 'gp1', '169829988136638d0e7d0b4b805e6d1c56cab12c82a50', 1, 'bg-success'),
+('eduxoom.com', 37, '2024-12-08 22:30:23', 'Six', 'A', 2, '1697209362835', '', '', '', 2024, '1698299881366', 'Chompa Khatun', '', '97922d4ebc627fedae791cb61265875c', -1, 3, 'gp2', '169829988136697922d4ebc627fedae791cb61265875c', -1, 'bg-danger'),
+('eduxoom.com', 38, '2024-12-08 22:30:25', 'Six', 'A', 2, '1697209362835', '', '', '', 2024, '1698299881366', 'Chompa Khatun', '', 'e4ac9842d8a3915f9e70de239dfc32ea', 0, 4, 'gp2', '1698299881366e4ac9842d8a3915f9e70de239dfc32ea', 1, 'bg-success'),
+('eduxoom.com', 39, '2024-12-08 22:30:27', 'Six', 'A', 1, '1697209362835', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', '97922d4ebc627fedae791cb61265875c', 0, 3, 'gp2', '169850606368297922d4ebc627fedae791cb61265875c', 0, 'bg-warning'),
+('eduxoom.com', 40, '2024-12-08 22:30:28', 'Six', 'A', 1, '1697209362835', '', '', '', 2024, '1698506063682', 'তড়িতা অধিকারী ', '', 'e4ac9842d8a3915f9e70de239dfc32ea', 1, 4, 'gp2', '1698506063682e4ac9842d8a3915f9e70de239dfc32ea', 1, 'bg-success');
 
 -- --------------------------------------------------------
 
@@ -311,6 +367,16 @@ CREATE TABLE `carousel` (
   `order` int(11) NOT NULL,
   `at_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `carousel`
+--
+
+INSERT INTO `carousel` (`domain`, `ID`, `item_name`, `order`, `at_date`) VALUES
+('eduxoom.com', 11, 'b4f680_2023-07-18 (2).jpg', 0, '2024-12-05 12:52:23'),
+('eduxoom.com', 12, 'c4cbdd_IMG_20200628_174858_3-01.jpeg', 0, '2024-12-05 12:52:23'),
+('eduxoom.com', 13, 'bec990_IMG_20200628_174634_0-01.jpeg', 0, '2024-12-05 12:55:04'),
+('eduxoom.com', 15, 'a6bd77_bga.jpg', 0, '2024-12-05 12:55:04');
 
 -- --------------------------------------------------------
 
@@ -380,6 +446,17 @@ CREATE TABLE `gallery` (
   `item_name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`domain`, `ID`, `at_date`, `data_id`, `item_type`, `item_title`, `item_name`) VALUES
+('eduxoom.com', 1, '2024-12-05 04:27:13', '624887428.8932364', 'image', 'Winter village ', '1733401633243_1733380228118.jpg'),
+('eduxoom.com', 2, '2024-12-05 04:27:13', '624887428.8932364', 'image', 'Winter village ', '1733401633249_1732761648339.jpg'),
+('eduxoom.com', 3, '2024-12-05 04:27:13', '624887428.8932364', 'image', 'Winter village ', '1733401633247_1733380222008.jpg'),
+('eduxoom.com', 4, '2024-12-05 04:27:13', '624887428.8932364', 'image', 'Winter village ', '1733401633249_1732761591301.jpg'),
+('eduxoom.com', 6, '2024-12-05 04:30:08', '116908.63786360023', 'video', 'Winter season', 'https://youtube.com/embed/5mh1TuQg2Ks?feature=shared');
+
 -- --------------------------------------------------------
 
 --
@@ -398,6 +475,15 @@ CREATE TABLE `headofschool` (
   `message` text NOT NULL,
   `image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `headofschool`
+--
+
+INSERT INTO `headofschool` (`domain`, `ID`, `at_date`, `at_status`, `position`, `order_value`, `gender`, `name`, `message`, `image`) VALUES
+('eduxoom.com', 1, '2024-12-05 04:46:18', 'active', 'Headmaster', 'C', 'Female', 'Melena', '“My mother taught me what it is to have a sense of humour; my dad, who was a headmaster, everything you need to know about hard work. My dad is the most decent man you could come across.”', '1733402778262_photo-1564564295391-7f24f26f568b.jpeg'),
+('eduxoom.com', 2, '2024-12-05 04:48:51', 'active', 'President', 'C', 'Male', 'Mr. Alex', 'No matter who you are, no matter what you did, no matter where you’ve come from, you can always change, become a better version of yourself.', '1733402931020_photo-1500648767791-00dcc994a43e.jpeg'),
+('eduxoom.com', 3, '2024-12-05 04:50:28', 'active', 'Secretary', 'C', 'Male', 'Maxwell', 'A good leader takes a little more than his share of the blame, a little less than his share of the credit. – Arnold Glasow, humorist and author', '1733403028397_photo-1633332755192-727a05c4013d.jpeg');
 
 -- --------------------------------------------------------
 
@@ -671,6 +757,13 @@ CREATE TABLE `library` (
   `at_date` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `library`
+--
+
+INSERT INTO `library` (`domain`, `ID`, `year`, `book_name`, `class_name`, `section_name`, `book_author`, `book_copy`, `book_image`, `description`, `at_date`) VALUES
+('eduxoom.com', 1, '2022', 'NodeJs-II', '', '', 'Ryan Dahl', 30, 'book_image.png', 'web programming skill development.', '2024-12-05 14:55:15');
+
 -- --------------------------------------------------------
 
 --
@@ -700,7 +793,8 @@ INSERT INTO `notice` (`domain`, `ID`, `title`, `session`, `find_date`, `descript
 ('saanviabc.com', 24, 'hi', 2023, '10/21/2023', 'test', '', '', '1697910727918_387813432_1465556917344855_4047588190430716232_n.jpg', 'image/jpeg', '2023-10-21 17:52:07'),
 ('bejidangakawhs.saanviabc.com', 27, 'Annual exam 2023', 2023, '11/2/2023', 'Annual exam 2023 held on 13 november 2023.Please be prepare for exam.', '', '', 'demo.pdf', 'text', '2023-11-02 08:03:00'),
 ('saanviabc.com', 28, 'Our school exam notice', 2023, '11/4/2023', 'Our school annual exam held on 13 november 2023 . All our student be prepared for exam.\r\n\r\nHeadmaster\r\nRakib hossain\r\n\r\ndemo high school', '', '', 'demo.pdf', 'text', '2023-11-04 07:19:00'),
-('saanviabc.com', 29, 'Exam notice', 2023, '11/5/2023', 'gfashgfdhasfhd', '', '', 'demo.pdf', 'text', '2023-11-05 05:57:00');
+('saanviabc.com', 29, 'Exam notice', 2023, '11/5/2023', 'gfashgfdhasfhd', '', '', 'demo.pdf', 'text', '2023-11-05 05:57:00'),
+('eduxoom.com', 30, 'Winter morning ', 2024, '12/5/2024', 'Dates tree', '', '', '1733401415690_1733380228118.jpg', 'image/jpeg', '2024-12-06 02:22:00');
 
 -- --------------------------------------------------------
 
@@ -854,7 +948,30 @@ INSERT INTO `pic_mark` (`domain`, `ID`, `session`, `at_date`, `class`, `section`
 ('eduxoom.com', 90, 2024, '2024-11-27 07:42:33', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '0', 'gp1', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
 ('eduxoom.com', 91, 2024, '2024-11-27 07:42:35', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '0', 'gp2', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
 ('eduxoom.com', 92, 2024, '2024-11-27 07:42:36', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '1', 'gp2', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-success', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
-('eduxoom.com', 93, 2024, '2024-11-27 07:42:37', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '0', 'gp3', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png');
+('eduxoom.com', 93, 2024, '2024-11-27 07:42:37', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '0', 'gp3', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
+('eduxoom.com', 94, 2024, '2024-12-05 14:59:08', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '0', 'gp3', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-warning', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('eduxoom.com', 95, 2024, '2024-12-05 14:59:09', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-2', '-1', 'gp3', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp3_6-3-2', 'bg-danger', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('eduxoom.com', 96, 2024, '2024-12-09 06:29:43', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-1', '1', 'gp1', 0, '1698506063682cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-1', 'bg-success', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('eduxoom.com', 97, 2024, '2024-12-09 06:29:44', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-2', '-1', 'gp1', 0, '1698506063682cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-2', 'bg-danger', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('eduxoom.com', 98, 2024, '2024-12-09 06:29:47', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-1', '0', 'gp1', 0, '1698299881366cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-1', 'bg-warning', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('eduxoom.com', 99, 2024, '2024-12-11 11:07:38', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '1', 'gp3', 0, '1698361986940cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-success', '', '1698361986940', 8, 'রুদ্র বালা ', 'female_avatar.png'),
+('eduxoom.com', 100, 2024, '2024-12-11 11:07:39', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-2', '-1', 'gp3', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp3_6-3-2', 'bg-danger', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
+('eduxoom.com', 101, 2024, '2024-12-11 11:07:41', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-2', '0', 'gp3', 0, '1698361986940cc3556329d4583319dca2e10ff96baf7gp3_6-3-2', 'bg-warning', '', '1698361986940', 8, 'রুদ্র বালা ', 'female_avatar.png'),
+('eduxoom.com', 102, 2024, '2024-12-11 11:07:42', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp4_6-4-1', '1', 'gp4', 0, '1698361986940cc3556329d4583319dca2e10ff96baf7gp4_6-4-1', 'bg-success', '', '1698361986940', 8, 'রুদ্র বালা ', 'female_avatar.png'),
+('eduxoom.com', 103, 2024, '2024-12-11 11:07:43', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp4_6-4-1', '1', 'gp4', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp4_6-4-1', 'bg-success', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
+('eduxoom.com', 104, 2024, '2024-12-11 11:07:45', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp4_6-4-1', '1', 'gp4', 0, '1698148306745cc3556329d4583319dca2e10ff96baf7gp4_6-4-1', 'bg-success', '', '1698148306745', 6, 'Sarmin', 'female_avatar.png'),
+('eduxoom.com', 105, 2024, '2024-12-11 14:04:18', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-1', '1', 'gp1', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-1', 'bg-success', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 106, 2024, '2024-12-11 14:04:31', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-2', '0', 'gp1', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-2', 'bg-warning', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 107, 2024, '2024-12-11 14:04:32', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-2-1', '-1', 'gp1', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-2-1', 'bg-danger', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 108, 2024, '2024-12-11 14:04:35', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-2-2', '0', 'gp1', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-2-2', 'bg-warning', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 109, 2024, '2024-12-11 14:04:37', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp2_6-3-1', '1', 'gp2', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp2_6-3-1', 'bg-success', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 110, 2024, '2024-12-11 14:04:39', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp2_6-3-2', '-1', 'gp2', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp2_6-3-2', 'bg-danger', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 111, 2024, '2024-12-11 14:04:42', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp2_6-3-3', '-1', 'gp2', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp2_6-3-3', 'bg-danger', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 112, 2024, '2024-12-11 14:04:44', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp2_6-4-1', '0', 'gp2', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp2_6-4-1', 'bg-warning', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 113, 2024, '2024-12-11 14:04:46', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp3_6-5-1', '1', 'gp3', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp3_6-5-1', 'bg-success', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 114, 2024, '2024-12-11 14:04:49', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp3_6-5-2', '1', 'gp3', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp3_6-5-2', 'bg-success', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 115, 2024, '2024-12-11 14:04:51', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp3_6-5-3', '0', 'gp3', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp3_6-5-3', 'bg-warning', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('eduxoom.com', 116, 2024, '2024-12-11 14:04:53', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp4_6-6-1', '-1', 'gp4', 0, '1698659885616cb5d1a2dcd672d11b2cd71c381eeab96gp4_6-6-1', 'bg-danger', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -934,7 +1051,13 @@ INSERT INTO `pis_mark` (`domain`, `ID`, `session`, `at_date`, `class`, `section`
 ('eduxoom.com', 42, 2024, '2024-03-10 08:07:14', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-9-1', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-9-1', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
 ('eduxoom.com', 43, 2024, '2024-03-10 08:07:15', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-9-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-9-2', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
 ('eduxoom.com', 44, 2024, '2024-03-10 08:07:38', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-1', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-1', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
-('eduxoom.com', 45, 2024, '2024-03-10 08:07:38', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-2', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png');
+('eduxoom.com', 45, 2024, '2024-03-10 08:07:38', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-2', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
+('eduxoom.com', 46, 2024, '2024-12-05 14:59:20', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '1', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-success', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('eduxoom.com', 47, 2024, '2024-12-05 14:59:22', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '-1', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-danger', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('eduxoom.com', 48, 2024, '2024-12-05 14:59:23', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '0', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-warning', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('eduxoom.com', 49, 2024, '2024-12-09 06:29:58', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-1', '1', 'gp1', 0, '1698506063682cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-1', 'bg-success', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('eduxoom.com', 50, 2024, '2024-12-09 06:29:59', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-1', '0', 'gp1', 0, '1698299881366cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-1', 'bg-warning', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('eduxoom.com', 51, 2024, '2024-12-09 06:30:03', 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-2', '1', 'gp1', 0, '1698506063682cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-2', 'bg-success', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -968,6 +1091,41 @@ CREATE TABLE `repository` (
   `description` text NOT NULL,
   `image` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `result`
+--
+
+CREATE TABLE `result` (
+  `domain` varchar(100) NOT NULL DEFAULT 'eduxoom.com',
+  `id` int(11) NOT NULL,
+  `class` varchar(10) DEFAULT NULL,
+  `section` varchar(10) DEFAULT NULL,
+  `subject_name` varchar(100) DEFAULT NULL,
+  `subject_code` varchar(100) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `roll` int(11) DEFAULT NULL,
+  `suuid` varchar(100) DEFAULT NULL,
+  `avatar` varchar(200) DEFAULT NULL,
+  `real_ci_mark` int(11) NOT NULL,
+  `real_fi_mark` int(11) NOT NULL,
+  `ci_mark` float DEFAULT NULL,
+  `fi_mark` float DEFAULT NULL,
+  `output_mark` float DEFAULT NULL,
+  `tuuid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `result`
+--
+
+INSERT INTO `result` (`domain`, `id`, `class`, `section`, `subject_name`, `subject_code`, `name`, `roll`, `suuid`, `avatar`, `real_ci_mark`, `real_fi_mark`, `ci_mark`, `fi_mark`, `output_mark`, `tuuid`) VALUES
+('eduxoom.com', 98, 'Six', 'A', 'English', 'cc3556329d4583319dca2e10ff96baf7', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 90, 27, 63, 90, 2147483647),
+('eduxoom.com', 99, 'Six', 'A', 'ইসলাম-শিক্ষা', '735fa2f858db7274dbc69fad832f1165', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 85, 25.5, 59.5, 85, 2147483647),
+('eduxoom.com', 100, 'Six', 'A', 'ইতিহাস-ও-সামাজিক-বিজ্ঞান-অনুশীলন-বই', '418931bdba594528818a22f5cef74236', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 69, 20.7, 48.3, 69, 2147483647),
+('eduxoom.com', 101, 'Six', 'A', 'গণিত', '46d4f7e8cccea38395f9a23882248377', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 75, 22.5, 52.5, 75, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -1579,6 +1737,13 @@ CREATE TABLE `school_settings` (
   `fb_link` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `school_settings`
+--
+
+INSERT INTO `school_settings` (`domain`, `ID`, `at_date`, `eiin`, `logo`, `name`, `email`, `phone`, `address`, `headline`, `about`, `image`, `video`, `fb_link`) VALUES
+('eduxoom.com', 1, '2024-12-05 05:06:18', 108669, 'logo437388483.6987881.png', 'বোয়ালমারী জর্জ একাডেমি', 'boalmarigeorgeacademy@yahoo.com', '01716-97493', 'Bazar Road, Boalmari, Faridpur...', '', 'Boalmari George Academy\r\nবোয়ালমারী জর্জ একাডেমী\r\nEIIN: 108669\r\nFaridpur\r\n\r\nOverview\r\nBoalmari George Academy is the official name of the academic institute, as registered with the education authorities. The native or alternative name of the institute is বোয়ালমারী জর্জ একাডেমী, often used in local Bengali language contexts. The unique Educational Institute Identification Number (EIIN) assigned to this institute is 108669, provided by the Directorate of Secondary and Higher Education. The institute was established on 09 May, 2011, marking the beginning of its educational journey. The institute is officially recognized by the relevant authorities as Recognized. The institute received official recognition on 09 March, 2017. It is recognized at the Secondary, indicating the level or grade of approval. The institute is included in the Monthly Pay Order (MPO) system at the Yes, determining government funding for teachers\' salaries. The official registration number for the institute’s inclusion in the MPO facility is 3203011301.', 'image733988309.4629004.png', '', 'https://m.facebook.com/BoalmariGeorgeAcademyOfficials/');
+
 -- --------------------------------------------------------
 
 --
@@ -1596,8 +1761,49 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('0wzpUbcsk7dW9aUlxH8s-BOwEAcLJ_VO', 1736002192, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-04T14:46:05.482Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('1xvsiuBFp-VSAS0r0iweg38Kmb1umjTY', 1736661447, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-12T05:57:27.491Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('5XnNWXpv5KCXUyQpLuelsOvMno1f8R5Z', 1736466185, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-09T23:43:04.604Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('7OaFd9KV-_niQ-j6KlU6uCD-wz8MhL8B', 1736116137, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T22:28:56.780Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('8mw-9f4DSf7LGShTP7e8fTUzo8ghQ7HI', 1736698733, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-12T16:18:53.024Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('DEYfdssfGqWjoqJz3NiXR1sqt-WaWXfk', 1735883896, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T05:58:15.253Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('E1dBB7fM4nzyXs14tUh3iCUDe2unt5nP', 1736366777, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-08T20:06:17.265Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('EKTVy1p-p08cR__4dz6x8OvZNrBwZEvr', 1736048954, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T03:49:13.663Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('Ee0bpvW7M6erTD0iHdDIulaEbeOa9lS7', 1736227598, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-07T05:26:37.835Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('EjeHY1xCNmr_4onh3hduCoamXCN50O0i', 1736083487, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T13:24:30.780Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"8b2c54dfa381e63d09cfc30e6735b870\",\"userAccess\":\"privet\"}'),
+('Fm7TatofJFHBAGiWJLdLG0dHuu7DNEQe', 1736131644, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-06T02:47:23.665Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('Gjt6hPm8KdpepF8yC56k3-WLW_Z5bdrw', 1736081169, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T12:46:09.150Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('Jhr5P4DSoS_hckew0nqH2HZ_bPnlCKnf', 1735934710, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T20:05:09.945Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('K7CLiL28Hj2qgylUGa117ftMEwaGfajf', 1735955272, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-04T01:47:52.374Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('LhQenGPZgRLTKpf6Dwr6N3mhkptVVX36', 1736157982, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-06T10:06:21.565Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('OsVCvsAGemGRka-ozKsaENy5rWQ55Y4Z', 1736658312, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-12T05:05:11.977Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('P-AlFd3xdHn_O5IQXMnh-3tVid3Po9mY', 1735188976, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-12-26T04:55:56.597Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
-('bFoaPryQFqcXw26bAio5y1fdA6pUMGOi', 1735286721, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-12-27T07:47:28.768Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":18,\"teacher_uuid\":\"1697209362834\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"SOUMITRA SAHA\",\"userEmail\":\"soumitrasahatanin@gmail.com\",\"usermail\":\"soumitrasahatanin@gmail.com\",\"index\":\"N1147428\"}');
+('QVO5aRxHIY-jWUT2gUmLciGhjIvMfwNd', 1736542151, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-10T20:49:10.917Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('QxhV3VQxlOmkfAMsOgFL5tL3nCztY0X2', 1736083116, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T13:18:36.264Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('Sjc6h_P44eXzUDhLmLG9ir95mG9K6Pb6', 1736684932, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T14:46:41.049Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('TClLv9qU95BmBEHYMWmIsi5FKgx0LCqb', 1736080787, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T12:39:47.182Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('TQeki6Oj-u_3J5h6M6JYitZDLLcTE4cG', 1736671683, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-12T08:48:02.783Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('VO5A3D4_yvcI6_8nAE-zNWV7pVArLcqq', 1736465299, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-09T23:28:19.014Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('XV7yf1RUT2XIuQMG5tZ_h8aL9y7EOMSj', 1736144253, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-06T06:17:32.306Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('Y3hkulcgLtqYVCpEdnUQVY9dnj7wtkQz', 1736190682, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-06T19:11:21.691Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('YdRkgz05LjTNzcNmqPPNOb80jkS18XR8', 1735878425, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T04:27:05.209Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
+('YstEeJGq07iuslpQ2Qeu7uHsmzF809Ax', 1736072369, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T10:19:29.495Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('_4MSnycP_JP50mrHi5vszfuNxnaFt_n0', 1735878425, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T04:27:05.204Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
+('_UJpuT-tTSpXYu5_FIW4--FlYDS-5XKK', 1735982338, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-04T09:18:57.947Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('_o8eySFv4VdXvCKZvXZ3dKuhCeaFNZkN', 1735946213, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T23:16:51.442Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{\"alert\":[\"danger\",\"danger\",\"danger\",\"danger\"],\"msg\":[\"Authontication Falied!\",\"Authontication Falied!\",\"Authontication Falied!\",\"Authontication Falied!\"]}}'),
+('aqqbFylIngXaFzUAcrHbfeCzCvMQ5gRD', 1736578065, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-10T14:06:01.151Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
+('bFoaPryQFqcXw26bAio5y1fdA6pUMGOi', 1735286721, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-12-27T07:47:28.768Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":18,\"teacher_uuid\":\"1697209362834\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"SOUMITRA SAHA\",\"userEmail\":\"soumitrasahatanin@gmail.com\",\"usermail\":\"soumitrasahatanin@gmail.com\",\"index\":\"N1147428\"}'),
+('dvY-PwhM4OM2vqf0zZ7uNnr2-nzdQjmi', 1736534305, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-10T18:38:24.515Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('gfbxCRHS9ubtkaw2tXIKRCa26PyqXNEQ', 1736415690, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-09T09:31:35.172Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('gx5g-EkS30C50vV9HIAyY4dhJGsyiiRv', 1736126868, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-06T01:27:48.358Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('ka6bjI8-oAK-PsiWYwwy1-sMlqa4-X9e', 1735970088, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-04T05:49:28.919Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('rqFAKfT1giLMAcq0NB2G9pwzl-NtaqZ2', 1736352064, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-08T16:01:04.350Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{\"alert\":[\"danger\"],\"msg\":[\"Authontication Falied!\"]}}'),
+('s6yEdmhhTg0HHr_PfMfmfJs1Vhg-3hok', 1736417795, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-07T06:23:42.030Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('xMJDLdCyCOc4hi3f1bW97-qc7ESa7eBt', 1736659344, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-12T05:22:24.176Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('xrkZ5dh-iEdeg3bRnYU9B2rmjiWyhrCl', 1736020254, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-04T19:50:52.603Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{\"alert\":[\"danger\",\"danger\",\"danger\",\"danger\"],\"msg\":[\"Authontication Falied!\",\"Authontication Falied!\",\"Authontication Falied!\",\"Authontication Falied!\"]}}'),
+('xubcYxbrIgfEbP-OOrPR8sPo8EZwiBfh', 1736116133, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T22:28:52.727Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('yY4wct8qyxOqPLJEbkKYDqgYu5pJ6_rp', 1736223840, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-07T04:23:59.891Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('yyO2SIOOFLfCNqLjqbZp3ghUNfM-mNFe', 1736218297, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-07T02:51:37.245Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}');
 
 -- --------------------------------------------------------
 
@@ -1621,6 +1827,13 @@ CREATE TABLE `staff` (
   `at_date` varchar(100) NOT NULL DEFAULT current_timestamp(),
   `image` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`domain`, `ID`, `name`, `index_number`, `staff_id`, `email`, `phone`, `age`, `gender`, `position`, `address`, `joining_date`, `at_date`, `image`) VALUES
+('eduxoom.com', 2, 'Babar Azam ', 'D578758', 0, '', '01777777777', 26, 'Male', 'Security', '', '2024-12-08', '2024-12-08 09:57:59', 'male_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -2676,7 +2889,11 @@ INSERT INTO `students` (`domain`, `ID`, `student_uuid`, `session`, `class`, `sec
 ('eduxoom.com', 2345, '1698223799950', 2023, 'Nine', 'A', 'Md. Sifat', 653901, 30, 'XXXXXXXXXX', '', 'Male', 'N/A', '653901@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-12 05:49:31'),
 ('eduxoom.com', 2346, '1698714494584', 2023, 'Nine', 'A', 'Nayim Biswas', 480073, 31, 'XXXXXXXXXX', '', 'Female', 'N/A', '480073@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-12 05:49:59'),
 ('eduxoom.com', 2347, '1698477202366', 2023, 'Nine', 'A', 'Md. Antor Biswas', 316829, 32, 'XXXXXXXXXX', '', 'Male', 'N/A', '316829@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-12 05:50:26'),
-('eduxoom.com', 2348, '1698913227144', 2023, 'Six', 'A', 'Nafiza Islam', 701673, 39, 'XXXXXXXXXX', '', 'Female', 'N/A', '701673@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-11-02 08:20:27');
+('eduxoom.com', 2348, '1698913227144', 2023, 'Six', 'A', 'Nafiza Islam', 701673, 39, 'XXXXXXXXXX', '', 'Female', 'N/A', '701673@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-11-02 08:20:27'),
+('eduxoom.com', 2349, '1733409890981774460904', 2024, 'Six', 'C', 'Sufia', 23222, 110, 'XXXXXXXXXX', '', 'Female', 'N/A', '23222@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-05 14:44:50'),
+('eduxoom.com', 2350, '1733409890981823499342', 2024, 'Six', 'C', 'Rina', 560392, 111, 'XXXXXXXXXX', '2020-02-05', 'Female', 'N/A', '560392@abc.com', '01611068590', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', '', 'N/A', '1733409996899_happy-woman-standing-with-book_23-2148095834.jpg', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-05 14:44:50'),
+('eduxoom.com', 2351, '1733410069455513316644', 2024, 'Six', 'C', 'Maria', 286155, 112, 'XXXXXXXXXX', '', 'Female', 'undefined', '286155@abc.com', '01611068591', 'XXXXXXXXXXX', 'Fname', 'Mname', '', 'undefined', '', 'N/A', '1733410069454_happy-woman-standing-with-book_23-2148095834.jpg', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-05 14:47:49'),
+('eduxoom.com', 2352, '1733680533548624047797', 2024, 'Six', 'B', 'Bhuj', 738907, 5566, 'XXXXXXXXXX', '2024-12-08', 'Female', 'AB+ve', '738907@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '2024-12-08', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-08 17:55:33');
 
 -- --------------------------------------------------------
 
@@ -2713,32 +2930,147 @@ CREATE TABLE `student_rank` (
 --
 
 INSERT INTO `student_rank` (`domain`, `ID`, `session`, `find_date`, `rank_date`, `teacher_uuid`, `student_uuid`, `student_id`, `at_date`, `name`, `roll`, `class`, `section`, `checkout`, `behavior`, `study`, `uniform`, `present`, `absent`, `poient`, `avatar`) VALUES
-('eduxoom.com', 56, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:51', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 1, 0, 2.888, 'female_avatar.png'),
-('eduxoom.com', 57, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:52', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 1, 0, 2.888, 'female_avatar.png'),
-('eduxoom.com', 58, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:53', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 1, 0, 2.888, 'female_avatar.png'),
-('eduxoom.com', 59, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:02:17', 'Chompa Khatun', 2, 'Six', 'A', 'b3_1698299881366', 1, 0, 0, 0, 1, 1.888, 'female_avatar.png'),
-('eduxoom.com', 60, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:06', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 1, 0, 3.998, 'female_avatar.png'),
-('eduxoom.com', 61, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:32', 'Chompa Khatun', 2, 'Six', 'A', 'u1_1698299881366', 0, 0, 1, 0, 1, 1.888, 'female_avatar.png'),
-('eduxoom.com', 62, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:40', 'Chompa Khatun', 2, 'Six', 'A', 's1_1698299881366', 0, 1, 0, 0, 1, 1.888, 'female_avatar.png'),
-('eduxoom.com', 63, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:42', 'তানিয়া ', 3, 'Six', 'A', 'u1_1698659885616', 0, 0, 1, 1, 0, 3.998, 'female_avatar.png'),
-('eduxoom.com', 64, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:45', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 1, 0, 3.998, 'female_avatar.png'),
-('eduxoom.com', 65, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:06:36', 'Karima', 4, 'Six', 'A', 'b1_1698738939274', 1, 0, 0, 0, 1, 2.999, 'female_avatar.png'),
-('eduxoom.com', 66, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698460381556', 551763, '2024-03-31 07:06:58', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 'b1_1698460381556', 1, 0, 0, 0, 0, 1.333, 'male_avatar.png'),
-('eduxoom.com', 67, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:08:11', 'Karima', 4, 'Six', 'A', 's3_1698738939274', 0, 1, 0, 0, 1, 2.999, 'female_avatar.png'),
-('eduxoom.com', 68, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698460381556', 551763, '2024-03-31 07:08:15', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 's3_1698460381556', 0, 1, 0, 0, 0, 1.333, 'male_avatar.png'),
-('eduxoom.com', 69, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:52', 'Sarmin', 6, 'Six', 'A', 'b3_1698148306745', 1, 0, 0, 0, 0, -1.222, 'female_avatar.png'),
-('eduxoom.com', 70, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:57', 'Sarmin', 6, 'Six', 'A', 'u1_1698148306745', 0, 0, 1, 0, 0, -1.222, 'female_avatar.png'),
-('eduxoom.com', 71, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:58', 'Sarmin', 6, 'Six', 'A', 's1_1698148306745', 0, 1, 0, 0, 0, -1.222, 'female_avatar.png'),
-('eduxoom.com', 72, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698721140415', 139041, '2024-03-31 07:13:59', 'Tasmim', 7, 'Six', 'A', 'b1_1698721140415', 1, 0, 0, 0, 0, -1.666, 'female_avatar.png'),
-('eduxoom.com', 73, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:41', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 1, 0, 2.888, 'female_avatar.png'),
-('eduxoom.com', 74, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:42', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 1, 0, 2.888, 'female_avatar.png'),
-('eduxoom.com', 75, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:43', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 1, 0, 2.888, 'female_avatar.png'),
-('eduxoom.com', 76, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698299881366', 134797, '2024-11-27 07:41:47', 'Chompa Khatun', 2, 'Six', 'A', 's3_1698299881366', 0, 1, 0, 0, 1, 1.888, 'female_avatar.png'),
-('eduxoom.com', 77, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698299881366', 134797, '2024-11-27 07:41:48', 'Chompa Khatun', 2, 'Six', 'A', 'u2_1698299881366', 0, 0, 1, 0, 1, 1.888, 'female_avatar.png'),
-('eduxoom.com', 78, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:49', 'তানিয়া ', 3, 'Six', 'A', 'u3_1698659885616', 0, 0, 1, 1, 0, 3.998, 'female_avatar.png'),
-('eduxoom.com', 79, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:50', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 1, 0, 3.998, 'female_avatar.png'),
-('eduxoom.com', 80, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:51', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 1, 0, 3.998, 'female_avatar.png'),
-('eduxoom.com', 81, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698738939274', 241952, '2024-11-27 07:41:52', 'Karima', 4, 'Six', 'A', 'b3_1698738939274', 1, 0, 0, 0, 1, 2.999, 'female_avatar.png');
+('eduxoom.com', 56, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:51', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 2, 1, 9.106, 'female_avatar.png'),
+('eduxoom.com', 57, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:52', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 2, 1, 9.106, 'female_avatar.png'),
+('eduxoom.com', 58, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:53', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 2, 1, 9.106, 'female_avatar.png'),
+('eduxoom.com', 59, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:02:17', 'Chompa Khatun', 2, 'Six', 'A', 'b3_1698299881366', 1, 0, 0, 1, 2, 8.996, 'female_avatar.png'),
+('eduxoom.com', 60, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:06', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 2, 1, 10.106, 'female_avatar.png'),
+('eduxoom.com', 61, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:32', 'Chompa Khatun', 2, 'Six', 'A', 'u1_1698299881366', 0, 0, 1, 1, 2, 8.996, 'female_avatar.png'),
+('eduxoom.com', 62, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:40', 'Chompa Khatun', 2, 'Six', 'A', 's1_1698299881366', 0, 1, 0, 1, 2, 8.996, 'female_avatar.png'),
+('eduxoom.com', 63, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:42', 'তানিয়া ', 3, 'Six', 'A', 'u1_1698659885616', 0, 0, 1, 2, 1, 10.106, 'female_avatar.png'),
+('eduxoom.com', 64, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:45', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 2, 1, 10.106, 'female_avatar.png'),
+('eduxoom.com', 65, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:06:36', 'Karima', 4, 'Six', 'A', 'b1_1698738939274', 1, 0, 0, 0, 2, 10.107, 'female_avatar.png'),
+('eduxoom.com', 66, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698460381556', 551763, '2024-03-31 07:06:58', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 'b1_1698460381556', 1, 0, 0, 1, 0, 2.221, 'male_avatar.png'),
+('eduxoom.com', 67, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:08:11', 'Karima', 4, 'Six', 'A', 's3_1698738939274', 0, 1, 0, 0, 2, 10.107, 'female_avatar.png'),
+('eduxoom.com', 68, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698460381556', 551763, '2024-03-31 07:08:15', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 's3_1698460381556', 0, 1, 0, 1, 0, 2.221, 'male_avatar.png'),
+('eduxoom.com', 69, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:52', 'Sarmin', 6, 'Six', 'A', 'b3_1698148306745', 1, 0, 0, 0, 1, -1.555, 'female_avatar.png'),
+('eduxoom.com', 70, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:57', 'Sarmin', 6, 'Six', 'A', 'u1_1698148306745', 0, 0, 1, 0, 1, -1.555, 'female_avatar.png'),
+('eduxoom.com', 71, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:58', 'Sarmin', 6, 'Six', 'A', 's1_1698148306745', 0, 1, 0, 0, 1, -1.555, 'female_avatar.png'),
+('eduxoom.com', 72, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698721140415', 139041, '2024-03-31 07:13:59', 'Tasmim', 7, 'Six', 'A', 'b1_1698721140415', 1, 0, 0, 1, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 73, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:41', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 2, 1, 9.106, 'female_avatar.png'),
+('eduxoom.com', 74, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:42', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 2, 1, 9.106, 'female_avatar.png'),
+('eduxoom.com', 75, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:43', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 2, 1, 9.106, 'female_avatar.png'),
+('eduxoom.com', 76, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698299881366', 134797, '2024-11-27 07:41:47', 'Chompa Khatun', 2, 'Six', 'A', 's3_1698299881366', 0, 1, 0, 1, 2, 8.996, 'female_avatar.png'),
+('eduxoom.com', 77, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698299881366', 134797, '2024-11-27 07:41:48', 'Chompa Khatun', 2, 'Six', 'A', 'u2_1698299881366', 0, 0, 1, 1, 2, 8.996, 'female_avatar.png'),
+('eduxoom.com', 78, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:49', 'তানিয়া ', 3, 'Six', 'A', 'u3_1698659885616', 0, 0, 1, 2, 1, 10.106, 'female_avatar.png'),
+('eduxoom.com', 79, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:50', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 2, 1, 10.106, 'female_avatar.png'),
+('eduxoom.com', 80, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:51', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 2, 1, 10.106, 'female_avatar.png'),
+('eduxoom.com', 81, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698738939274', 241952, '2024-11-27 07:41:52', 'Karima', 4, 'Six', 'A', 'b3_1698738939274', 1, 0, 0, 0, 2, 10.107, 'female_avatar.png'),
+('eduxoom.com', 82, 2024, '12/5/2024', 'Thu Dec 05 2024', '1697593897626', '1698506063682', 601792, '2024-12-05 14:58:32', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 2, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 83, 2024, '12/5/2024', 'Thu Dec 05 2024', '1697593897626', '1698506063682', 601792, '2024-12-05 14:58:33', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u2_1698506063682', 0, 0, 1, 2, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 84, 2024, '12/5/2024', 'Thu Dec 05 2024', '1697593897626', '1698506063682', 601792, '2024-12-05 14:58:35', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's1_1698506063682', 0, 1, 0, 2, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 85, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698506063682', 601792, '2024-12-07 04:42:57', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 0, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 86, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698506063682', 601792, '2024-12-07 04:42:58', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u2_1698506063682', 0, 0, 1, 0, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 87, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698506063682', 601792, '2024-12-07 04:43:00', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's1_1698506063682', 0, 1, 0, 0, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 88, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698299881366', 134797, '2024-12-07 04:43:01', 'Chompa Khatun', 2, 'Six', 'A', 'b3_1698299881366', 1, 0, 0, 0, 0, 8.996, 'female_avatar.png'),
+('eduxoom.com', 89, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698299881366', 134797, '2024-12-07 04:43:02', 'Chompa Khatun', 2, 'Six', 'A', 'u2_1698299881366', 0, 0, 1, 0, 0, 8.996, 'female_avatar.png'),
+('eduxoom.com', 90, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698299881366', 134797, '2024-12-07 04:43:03', 'Chompa Khatun', 2, 'Six', 'A', 's3_1698299881366', 0, 1, 0, 0, 0, 8.996, 'female_avatar.png'),
+('eduxoom.com', 91, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698659885616', 467151, '2024-12-07 04:43:04', 'তানিয়া ', 3, 'Six', 'A', 'b2_1698659885616', 1, 0, 0, 0, 0, 10.106, 'female_avatar.png'),
+('eduxoom.com', 92, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698659885616', 467151, '2024-12-07 04:43:05', 'তানিয়া ', 3, 'Six', 'A', 'u3_1698659885616', 0, 0, 1, 0, 0, 10.106, 'female_avatar.png'),
+('eduxoom.com', 93, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698659885616', 467151, '2024-12-07 04:43:06', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 0, 0, 10.106, 'female_avatar.png'),
+('eduxoom.com', 94, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698738939274', 241952, '2024-12-07 04:43:08', 'Karima', 4, 'Six', 'A', 'b3_1698738939274', 1, 0, 0, 0, 0, 10.107, 'female_avatar.png'),
+('eduxoom.com', 95, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698738939274', 241952, '2024-12-07 04:43:08', 'Karima', 4, 'Six', 'A', 'u2_1698738939274', 0, 0, 1, 0, 0, 10.107, 'female_avatar.png'),
+('eduxoom.com', 96, 2024, '12/6/2024', 'Fri Dec 06 2024', '1697209362835', '1698738939274', 241952, '2024-12-07 04:43:09', 'Karima', 4, 'Six', 'A', 's3_1698738939274', 0, 1, 0, 0, 0, 10.107, 'female_avatar.png'),
+('eduxoom.com', 97, 2024, '12/8/2024', 'Sun Dec 08 2024', '1697209362835', '1698506063682', 601792, '2024-12-09 06:29:29', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 0, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 98, 2024, '12/8/2024', 'Sun Dec 08 2024', '1697209362835', '1698506063682', 601792, '2024-12-09 06:29:30', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u2_1698506063682', 0, 0, 1, 0, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 99, 2024, '12/8/2024', 'Sun Dec 08 2024', '1697209362835', '1698506063682', 601792, '2024-12-09 06:29:31', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's1_1698506063682', 0, 1, 0, 0, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 100, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698506063682', 601792, '2024-12-11 11:04:30', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 0, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 101, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698506063682', 601792, '2024-12-11 11:04:30', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u3_1698506063682', 0, 0, 1, 0, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 102, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698506063682', 601792, '2024-12-11 11:04:31', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's2_1698506063682', 0, 1, 0, 0, 0, 9.106, 'female_avatar.png'),
+('eduxoom.com', 103, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698299881366', 134797, '2024-12-11 11:04:32', 'Chompa Khatun', 2, 'Six', 'A', 'b3_1698299881366', 1, 0, 0, 0, 0, 8.996, 'female_avatar.png'),
+('eduxoom.com', 104, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698299881366', 134797, '2024-12-11 11:04:33', 'Chompa Khatun', 2, 'Six', 'A', 'u2_1698299881366', 0, 0, 1, 0, 0, 8.996, 'female_avatar.png'),
+('eduxoom.com', 105, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698299881366', 134797, '2024-12-11 11:04:34', 'Chompa Khatun', 2, 'Six', 'A', 's3_1698299881366', 0, 1, 0, 0, 0, 8.996, 'female_avatar.png'),
+('eduxoom.com', 106, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698659885616', 467151, '2024-12-11 11:04:35', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 0, 0, 10.106, 'female_avatar.png'),
+('eduxoom.com', 107, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698659885616', 467151, '2024-12-11 11:04:36', 'তানিয়া ', 3, 'Six', 'A', 'u2_1698659885616', 0, 0, 1, 0, 0, 10.106, 'female_avatar.png'),
+('eduxoom.com', 108, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698659885616', 467151, '2024-12-11 11:04:37', 'তানিয়া ', 3, 'Six', 'A', 's3_1698659885616', 0, 1, 0, 0, 0, 10.106, 'female_avatar.png'),
+('eduxoom.com', 109, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698738939274', 241952, '2024-12-11 11:04:38', 'Karima', 4, 'Six', 'A', 'b3_1698738939274', 1, 0, 0, 0, 0, 10.107, 'female_avatar.png'),
+('eduxoom.com', 110, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698738939274', 241952, '2024-12-11 11:04:38', 'Karima', 4, 'Six', 'A', 'u3_1698738939274', 0, 0, 1, 0, 0, 10.107, 'female_avatar.png'),
+('eduxoom.com', 111, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698738939274', 241952, '2024-12-11 11:04:40', 'Karima', 4, 'Six', 'A', 's2_1698738939274', 0, 1, 0, 0, 0, 10.107, 'female_avatar.png'),
+('eduxoom.com', 112, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698460381556', 551763, '2024-12-11 11:04:41', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 'b3_1698460381556', 1, 0, 0, 0, 0, 2.221, 'male_avatar.png'),
+('eduxoom.com', 113, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698460381556', 551763, '2024-12-11 11:04:41', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 'u2_1698460381556', 0, 0, 1, 0, 0, 2.221, 'male_avatar.png'),
+('eduxoom.com', 114, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698460381556', 551763, '2024-12-11 11:04:42', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 's1_1698460381556', 0, 1, 0, 0, 0, 2.221, 'male_avatar.png'),
+('eduxoom.com', 115, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698148306745', 201564, '2024-12-11 11:04:44', 'Sarmin', 6, 'Six', 'A', 'b1_1698148306745', 1, 0, 0, 0, 0, -1.555, 'female_avatar.png'),
+('eduxoom.com', 116, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698148306745', 201564, '2024-12-11 11:04:45', 'Sarmin', 6, 'Six', 'A', 'u1_1698148306745', 0, 0, 1, 0, 0, -1.555, 'female_avatar.png'),
+('eduxoom.com', 117, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698721140415', 139041, '2024-12-11 11:04:46', 'Tasmim', 7, 'Six', 'A', 'b3_1698721140415', 1, 0, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 118, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698721140415', 139041, '2024-12-11 11:04:47', 'Tasmim', 7, 'Six', 'A', 'u3_1698721140415', 0, 0, 1, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 119, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698721140415', 139041, '2024-12-11 11:04:48', 'Tasmim', 7, 'Six', 'A', 's2_1698721140415', 0, 1, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 120, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698361986940', 854186, '2024-12-11 11:04:50', 'রুদ্র বালা ', 8, 'Six', 'A', 'b3_1698361986940', 1, 0, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 121, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698361986940', 854186, '2024-12-11 11:04:52', 'রুদ্র বালা ', 8, 'Six', 'A', 'u3_1698361986940', 0, 0, 1, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 122, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698361986940', 854186, '2024-12-11 11:04:53', 'রুদ্র বালা ', 8, 'Six', 'A', 's2_1698361986940', 0, 1, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 123, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698497140420', 18482, '2024-12-11 11:04:57', 'Ivamoni', 9, 'Six', 'A', 'b3_1698497140420', 1, 0, 0, 0, 0, 3.221, 'female_avatar.png'),
+('eduxoom.com', 124, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698497140420', 18482, '2024-12-11 11:04:57', 'Ivamoni', 9, 'Six', 'A', 'u3_1698497140420', 0, 0, 1, 0, 0, 3.221, 'female_avatar.png'),
+('eduxoom.com', 125, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698167155238', 568303, '2024-12-11 11:05:52', 'রিয়া মনি', 1, 'Seven', 'A', 'b3_1698167155238', 1, 0, 0, 0, 0, 4.554, 'female_avatar.png'),
+('eduxoom.com', 126, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698167155238', 568303, '2024-12-11 11:05:52', 'রিয়া মনি', 1, 'Seven', 'A', 'u3_1698167155238', 0, 0, 1, 0, 0, 4.554, 'female_avatar.png'),
+('eduxoom.com', 127, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698167155238', 568303, '2024-12-11 11:05:54', 'রিয়া মনি', 1, 'Seven', 'A', 's3_1698167155238', 0, 1, 0, 0, 0, 4.554, 'female_avatar.png'),
+('eduxoom.com', 128, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698415120544', 222373, '2024-12-11 11:05:54', 'মো: হামিদুল মোল্যা', 2, 'Seven', 'A', 'b2_1698415120544', 1, 0, 0, 0, 0, 1.554, 'male_avatar.png'),
+('eduxoom.com', 129, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698415120544', 222373, '2024-12-11 11:05:55', 'মো: হামিদুল মোল্যা', 2, 'Seven', 'A', 'u2_1698415120544', 0, 0, 1, 0, 0, 1.554, 'male_avatar.png'),
+('eduxoom.com', 130, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698415120544', 222373, '2024-12-11 11:05:56', 'মো: হামিদুল মোল্যা', 2, 'Seven', 'A', 's2_1698415120544', 0, 1, 0, 0, 0, 1.554, 'male_avatar.png'),
+('eduxoom.com', 131, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698496761059', 30296, '2024-12-11 11:05:57', 'সিনথিয়া', 3, 'Seven', 'A', 'b1_1698496761059', 1, 0, 0, 0, 0, 0.333, 'female_avatar.png'),
+('eduxoom.com', 132, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698496761059', 30296, '2024-12-11 11:05:58', 'সিনথিয়া', 3, 'Seven', 'A', 'u1_1698496761059', 0, 0, 1, 0, 0, 0.333, 'female_avatar.png'),
+('eduxoom.com', 133, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698496761059', 30296, '2024-12-11 11:05:59', 'সিনথিয়া', 3, 'Seven', 'A', 's2_1698496761059', 0, 1, 0, 0, 0, 0.333, 'female_avatar.png'),
+('eduxoom.com', 134, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698390542626', 56416, '2024-12-11 11:06:00', 'সুষ্মিতা বালা', 4, 'Seven', 'A', 'b3_1698390542626', 1, 0, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 135, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698390542626', 56416, '2024-12-11 11:06:01', 'সুষ্মিতা বালা', 4, 'Seven', 'A', 'u2_1698390542626', 0, 0, 1, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 136, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698390542626', 56416, '2024-12-11 11:06:02', 'সুষ্মিতা বালা', 4, 'Seven', 'A', 's3_1698390542626', 0, 1, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 137, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698483261157', 19558, '2024-12-11 11:06:03', 'শ্রাবন্তী মন্ডল', 5, 'Seven', 'A', 'b2_1698483261157', 1, 0, 0, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 138, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698483261157', 19558, '2024-12-11 11:06:03', 'শ্রাবন্তী মন্ডল', 5, 'Seven', 'A', 'u2_1698483261157', 0, 0, 1, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 139, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698483261157', 19558, '2024-12-11 11:06:04', 'শ্রাবন্তী মন্ডল', 5, 'Seven', 'A', 's3_1698483261157', 0, 1, 0, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 140, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698602134369', 65773, '2024-12-11 11:06:05', 'মুক্তি রানী ঠাকুর', 6, 'Seven', 'A', 'b2_1698602134369', 1, 0, 0, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 141, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698602134369', 65773, '2024-12-11 11:06:06', 'মুক্তি রানী ঠাকুর', 6, 'Seven', 'A', 'u3_1698602134369', 0, 0, 1, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 142, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698602134369', 65773, '2024-12-11 11:06:07', 'মুক্তি রানী ঠাকুর', 6, 'Seven', 'A', 's2_1698602134369', 0, 1, 0, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 143, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698297779431', 457018, '2024-12-11 11:06:08', 'ফাতেমা আক্তার', 7, 'Seven', 'A', 'b3_1698297779431', 1, 0, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 144, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698297779431', 457018, '2024-12-11 11:06:08', 'ফাতেমা আক্তার', 7, 'Seven', 'A', 'u2_1698297779431', 0, 0, 1, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 145, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698297779431', 457018, '2024-12-11 11:06:10', 'ফাতেমা আক্তার', 7, 'Seven', 'A', 's3_1698297779431', 0, 1, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 146, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698183908488', 267327, '2024-12-11 11:06:11', 'মো:মাহিম মিনা', 8, 'Seven', 'A', 'b2_1698183908488', 1, 0, 0, 0, 0, 2.554, 'male_avatar.png'),
+('eduxoom.com', 147, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698183908488', 267327, '2024-12-11 11:06:11', 'মো:মাহিম মিনা', 8, 'Seven', 'A', 'u3_1698183908488', 0, 0, 1, 0, 0, 2.554, 'male_avatar.png'),
+('eduxoom.com', 148, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698183908488', 267327, '2024-12-11 11:06:12', 'মো:মাহিম মিনা', 8, 'Seven', 'A', 's2_1698183908488', 0, 1, 0, 0, 0, 2.554, 'male_avatar.png'),
+('eduxoom.com', 149, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698197603066', 463035, '2024-12-11 11:06:14', 'ইসরাত জাহান', 9, 'Seven', 'A', 'b3_1698197603066', 1, 0, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 150, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698197603066', 463035, '2024-12-11 11:06:15', 'ইসরাত জাহান', 9, 'Seven', 'A', 'u2_1698197603066', 0, 0, 1, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 151, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698197603066', 463035, '2024-12-11 11:06:16', 'ইসরাত জাহান', 9, 'Seven', 'A', 's3_1698197603066', 0, 1, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 152, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1697562063891', 569050, '2024-12-11 11:06:22', 'no name', 1, 'Eight', 'A', 'b3_1697562063891', 1, 0, 0, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 153, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1697562063891', 569050, '2024-12-11 11:06:22', 'no name', 1, 'Eight', 'A', 'u2_1697562063891', 0, 0, 1, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 154, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1697562063891', 569050, '2024-12-11 11:06:22', 'no name', 1, 'Eight', 'A', 's3_1697562063891', 0, 1, 0, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 155, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698246293150', 201183, '2024-12-11 11:06:24', 'Saima  Islam Simi', 2, 'Eight', 'A', 'b2_1698246293150', 1, 0, 0, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 156, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698246293150', 201183, '2024-12-11 11:06:24', 'Saima  Islam Simi', 2, 'Eight', 'A', 'u2_1698246293150', 0, 0, 1, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 157, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698246293150', 201183, '2024-12-11 11:06:25', 'Saima  Islam Simi', 2, 'Eight', 'A', 's3_1698246293150', 0, 1, 0, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 158, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698270406472', 77363, '2024-12-11 11:06:26', 'Jannati Islam  Mohona', 3, 'Eight', 'A', 'b3_1698270406472', 1, 0, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 159, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698270406472', 77363, '2024-12-11 11:06:27', 'Jannati Islam  Mohona', 3, 'Eight', 'A', 'u3_1698270406472', 0, 0, 1, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 160, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698270406472', 77363, '2024-12-11 11:06:28', 'Jannati Islam  Mohona', 3, 'Eight', 'A', 's2_1698270406472', 0, 1, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 161, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698632611128', 497521, '2024-12-11 11:06:29', 'Jannatul  Ummea Saima', 4, 'Eight', 'A', 'b3_1698632611128', 1, 0, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 162, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698632611128', 497521, '2024-12-11 11:06:30', 'Jannatul  Ummea Saima', 4, 'Eight', 'A', 'u2_1698632611128', 0, 0, 1, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 163, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698632611128', 497521, '2024-12-11 11:06:31', 'Jannatul  Ummea Saima', 4, 'Eight', 'A', 's3_1698632611128', 0, 1, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 164, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698402257262', 355216, '2024-12-11 11:06:32', 'Simu Akter', 5, 'Eight', 'A', 'b2_1698402257262', 1, 0, 0, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 165, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698402257262', 355216, '2024-12-11 11:06:32', 'Simu Akter', 5, 'Eight', 'A', 'u2_1698402257262', 0, 0, 1, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 166, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698402257262', 355216, '2024-12-11 11:06:34', 'Simu Akter', 5, 'Eight', 'A', 's3_1698402257262', 0, 1, 0, 0, 0, 2.554, 'female_avatar.png'),
+('eduxoom.com', 167, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698127118498', 604931, '2024-12-11 11:06:35', 'Takia Tammi Jui', 6, 'Eight', 'A', 'b3_1698127118498', 1, 0, 0, 0, 0, 0.888, 'female_avatar.png'),
+('eduxoom.com', 168, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698127118498', 604931, '2024-12-11 11:06:35', 'Takia Tammi Jui', 6, 'Eight', 'A', 'u2_1698127118498', 0, 0, 1, 0, 0, 0.888, 'female_avatar.png'),
+('eduxoom.com', 169, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698127118498', 604931, '2024-12-11 11:06:36', 'Takia Tammi Jui', 6, 'Eight', 'A', 's1_1698127118498', 0, 1, 0, 0, 0, 0.888, 'female_avatar.png'),
+('eduxoom.com', 170, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698521207221', 565365, '2024-12-11 11:06:38', 'Sifa  Sultana', 7, 'Eight', 'A', 'b1_1698521207221', 1, 0, 0, 0, 0, 1.333, 'female_avatar.png'),
+('eduxoom.com', 171, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698521207221', 565365, '2024-12-11 11:06:39', 'Sifa  Sultana', 7, 'Eight', 'A', 'u1_1698521207221', 0, 0, 1, 0, 0, 1.333, 'female_avatar.png'),
+('eduxoom.com', 172, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698521207221', 565365, '2024-12-11 11:06:41', 'Sifa  Sultana', 7, 'Eight', 'A', 's3_1698521207221', 0, 1, 0, 0, 0, 1.333, 'female_avatar.png'),
+('eduxoom.com', 173, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698869473878', 204893, '2024-12-11 11:06:42', 'Masura  Akter', 8, 'Eight', 'A', 'b3_1698869473878', 1, 0, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 174, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698869473878', 204893, '2024-12-11 11:06:43', 'Masura  Akter', 8, 'Eight', 'A', 'u3_1698869473878', 0, 0, 1, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 175, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698869473878', 204893, '2024-12-11 11:06:45', 'Masura  Akter', 8, 'Eight', 'A', 's2_1698869473878', 0, 1, 0, 0, 0, 3.554, 'female_avatar.png'),
+('eduxoom.com', 176, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698784384722', 686802, '2024-12-11 11:06:49', 'Suvo  Biswas', 1, 'Nine', 'A', 'b3_1698784384722', 1, 0, 0, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 177, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698784384722', 686802, '2024-12-11 11:06:49', 'Suvo  Biswas', 1, 'Nine', 'A', 'u3_1698784384722', 0, 0, 1, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 178, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698784384722', 686802, '2024-12-11 11:06:50', 'Suvo  Biswas', 1, 'Nine', 'A', 's2_1698784384722', 0, 1, 0, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 179, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698106096628', 258274, '2024-12-11 11:06:51', 'Suvo  Biswas', 2, 'Nine', 'A', 'b2_1698106096628', 1, 0, 0, 0, 0, 2.554, 'male_avatar.png'),
+('eduxoom.com', 180, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698106096628', 258274, '2024-12-11 11:06:51', 'Suvo  Biswas', 2, 'Nine', 'A', 'u3_1698106096628', 0, 0, 1, 0, 0, 2.554, 'male_avatar.png'),
+('eduxoom.com', 181, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698106096628', 258274, '2024-12-11 11:06:52', 'Suvo  Biswas', 2, 'Nine', 'A', 's2_1698106096628', 0, 1, 0, 0, 0, 2.554, 'male_avatar.png'),
+('eduxoom.com', 182, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698495473658', 450001, '2024-12-11 11:06:53', 'Al-Mamun', 3, 'Nine', 'A', 'b3_1698495473658', 1, 0, 0, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 183, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698495473658', 450001, '2024-12-11 11:06:54', 'Al-Mamun', 3, 'Nine', 'A', 'u3_1698495473658', 0, 0, 1, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 184, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698495473658', 450001, '2024-12-11 11:06:55', 'Al-Mamun', 3, 'Nine', 'A', 's2_1698495473658', 0, 1, 0, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 185, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698455881824', 305367, '2024-12-11 11:06:56', 'Md. Rony Molla', 4, 'Nine', 'A', 'b3_1698455881824', 1, 0, 0, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 186, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698455881824', 305367, '2024-12-11 11:06:57', 'Md. Rony Molla', 4, 'Nine', 'A', 'u2_1698455881824', 0, 0, 1, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 187, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698455881824', 305367, '2024-12-11 11:06:58', 'Md. Rony Molla', 4, 'Nine', 'A', 's3_1698455881824', 0, 1, 0, 0, 0, 3.554, 'male_avatar.png'),
+('eduxoom.com', 188, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698685731295', 375544, '2024-12-11 11:06:59', 'Tausif  Rahman', 5, 'Nine', 'A', 'b2_1698685731295', 1, 0, 0, 0, 0, 2.554, 'male_avatar.png'),
+('eduxoom.com', 189, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698685731295', 375544, '2024-12-11 11:07:00', 'Tausif  Rahman', 5, 'Nine', 'A', 'u3_1698685731295', 0, 0, 1, 0, 0, 2.554, 'male_avatar.png'),
+('eduxoom.com', 190, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698685731295', 375544, '2024-12-11 11:07:01', 'Tausif  Rahman', 5, 'Nine', 'A', 's2_1698685731295', 0, 1, 0, 0, 0, 2.554, 'male_avatar.png'),
+('eduxoom.com', 191, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698369558135', 9232, '2024-12-11 11:07:02', 'Sadhona Datta', 6, 'Nine', 'A', 'b3_1698369558135', 1, 0, 0, 0, 0, 0.888, 'female_avatar.png'),
+('eduxoom.com', 192, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698369558135', 9232, '2024-12-11 11:07:03', 'Sadhona Datta', 6, 'Nine', 'A', 'u2_1698369558135', 0, 0, 1, 0, 0, 0.888, 'female_avatar.png'),
+('eduxoom.com', 193, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698369558135', 9232, '2024-12-11 11:07:04', 'Sadhona Datta', 6, 'Nine', 'A', 's1_1698369558135', 0, 1, 0, 0, 0, 0.888, 'female_avatar.png'),
+('eduxoom.com', 194, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698396192529', 464504, '2024-12-11 11:07:05', 'Nurnahar', 7, 'Nine', 'A', 'b1_1698396192529', 1, 0, 0, 0, 0, 1.333, 'female_avatar.png'),
+('eduxoom.com', 195, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698396192529', 464504, '2024-12-11 11:07:06', 'Nurnahar', 7, 'Nine', 'A', 'u1_1698396192529', 0, 0, 1, 0, 0, 1.333, 'female_avatar.png'),
+('eduxoom.com', 196, 2024, '12/11/2024', 'Wed Dec 11 2024', '1697209362835', '1698396192529', 464504, '2024-12-11 11:07:10', 'Nurnahar', 7, 'Nine', 'A', 's3_1698396192529', 0, 1, 0, 0, 0, 1.333, 'female_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -2797,7 +3129,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`domain`, `ID`, `teacher_uuid`, `name`, `gender`, `education_qualification`, `pds_id`, `index_number`, `teacher_id`, `position`, `order_value`, `group_special`, `quote`, `telephone`, `email`, `phone`, `religion`, `birth_date`, `address`, `blood_group`, `joining_date`, `avatar`, `password`, `fb_link`, `at_date`) VALUES
-('eduxoom.com', 2, '1697690219859', 'Abdul Aziz Molla', 'Male', 'N/A', '100251495', 'D470889', 470889, 'Headmaster', 'A', 'N/A', 'N/A', '01716974937', 'azizshs07@gmail.com', '', 'Islam', 'N/A', 'N/A', 'N/A', '1995-11-01', '1676561167056_abdul-aziz-molla-hm.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 15:26:07'),
+('eduxoom.com', 2, '1697690219859', 'Abdul Aziz Molla', 'Male', 'N/A', '100251495', 'D470889', 470889, 'Headmaster', 'A', 'N/A', 'N/A', '01716974937', 'azizshs07@gmail.com', '0170000000', 'Islam', '', 'N/A', 'N/A', '1995-11-01', '1733726151409_1733380222008.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 15:26:07'),
 ('eduxoom.com', 3, '1697822809488', 'MD. SERAJUL ISLAM', 'Male', 'N/A', '100250478', 'D473975', 473975, 'Assistant Headmaster', 'B', 'N/A', 'N/A', '01719518322', 'mdserajul35@gmail.com', '', 'Islam', 'N/A', 'N/A', 'N/A', '1997-10-01', '1676561790154_serajul-islam-ahm.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 15:36:30'),
 ('eduxoom.com', 6, '1697133611416', 'BIKASH CHANDRA BOSU', 'Male', 'N/A', '100250607', 'D479983', 479983, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01712354277', 'bikash479983@gmail.com', '', 'Hinduism', 'N/A', 'N/A', 'N/A', '2000-02-02', '1676562216077_bikash-sir-at.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 15:43:36'),
 ('eduxoom.com', 7, '1697382804683', 'RUMANA MIZUN', 'Female', 'N/A', '100373148', 'D1020505', 1020505, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01715541534', 'rumanamizun@gmail.com', '', 'Islam', 'N/A', 'N/A', 'N/A', '2000-11-02', '1676562336505_mizun-madam-at.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 15:45:36'),
@@ -2822,7 +3154,7 @@ INSERT INTO `teachers` (`domain`, `ID`, `teacher_uuid`, `name`, `gender`, `educa
 ('eduxoom.com', 28, '1697062922031', 'Anawaruzzam Jhantu', 'Male', 'N/A', '000000001', 'D000000000', 0, 'Assistant Teacher', 'C', 'N/A', 'N/A', 'N/A', 'Not@vailable05.com', '', 'Islam', 'N/A', 'N/A', 'N/A', 'undefined', 'male_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-19 08:58:49'),
 ('eduxoom.com', 29, '1697058269962', 'Sabuz Ghosh', 'Male', 'N/A', '000000002', 'D000000001', 1, 'Assistant Teacher', 'C', 'N/A', 'N/A', 'N/A', 'Not@vailable06.com', '', 'Hinduism', 'N/A', 'N/A', 'N/A', 'undefined', 'male_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-19 08:59:25'),
 ('eduxoom.com', 30, '1697118747788', 'Ali Ahmmad', 'Male', 'N/A', '000000003', 'D000000003', 3, 'Assistant Teacher', 'C', 'N/A', 'N/A', 'N/A', 'no@valueable07', '', 'Islam', 'N/A', 'N/A', 'N/A', 'undefined', 'male_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-19 09:00:31'),
-('eduxoom.com', 31, '1697593897626', 'no name', 'Female', 'N/A', '', 'n123456', 123456, 'Assistent Teacher', 'C', 'N/A', 'N/A', 'XXXXXXXXXXX', 'api.saanvi.abc@gmail.com', '2345678901', 'undefined', '', '', 'undefined', '', '1697385522631_profile3.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 15:58:42'),
+('eduxoom.com', 31, '1697593897626', 'no name', 'Female', 'N/A', '', 'n123456', 123456, 'Assistent Teacher', 'C', 'N/A', 'N/A', 'XXXXXXXXXXX', 'api.saanvi.abc@gmail.com', '2345678901', 'undefined', '', '', 'undefined', '', '1733410652262_happy-woman-standing-with-book_23-2148095834.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 15:58:42'),
 ('eduxoom.com', 57, '1697812990300', 'Md. Shahin sikder', 'Male', 'N/A', '2353465677', '242355', 42355, 'Assistent Teacher', 'C', 'N/A', 'N/A', 'XXXXXXXXXXX', 'Shahinsikder@gmail.com', '01998031221', 'Islam', '1984-02-08', 'Boalmari, Faridpur', 'A+ve', '2020-06-18', '1697627422592_shahin sir.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-18 11:10:22'),
 ('eduxoom.com', 1001, '1698399497162', 'Md Omar Mina', 'Male', 'N/A', '561728', 'D478974', 478974, 'Assistant Teacher', 'C', 'N/A', 'N/A', '0', 'omarmina1969@gmail.com', '01763966494', 'Islam', 'N/A', 'N/A', 'N/A', '24-07-1999', '1697346776309_Md. Omar Mina(AT).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 05:12:56'),
 ('eduxoom.com', 1002, '1698440168423', 'Gonesh Chandra Roy', 'Male', 'N/A', '488143', 'N1069231', 1069231, 'Assistant Teacher', 'C', 'N/A', 'N/A', '0', 'goneshroy1991@gmail.com', '01740894343', 'Hinduism', 'N/A', 'N/A', 'N/A', '12-06-2012', '1695704736851_Ganesh roy.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-09-26 05:05:36'),
@@ -2854,7 +3186,8 @@ INSERT INTO `teachers` (`domain`, `ID`, `teacher_uuid`, `name`, `gender`, `educa
 ('eduxoom.com', 2013, '1698416190663', 'Md. Anwar Hossain', 'Male', 'N/A', '100485967', 'N1109120', 1109120, 'Assistant Teacher', 'C', 'N/A', 'N/A', '', 'mahossain300@gmail.com', '01849790570', 'Islam', 'N/A', 'N/A', 'N/A', '16/03/2011', '1696410767177_13 Md.Anwar Hossain (1).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-04 09:12:47'),
 ('eduxoom.com', 3728, '1698912846931892351521', 'Nazrul Islam', 'Male', 'N/A', '101540889', 'N56862474', 56862474, 'Assistant Teacher ICT', 'C', 'N/A', 'N/A', 'XXXXXXXXXXX', 'nazrulislamkbf77@gmail.com', '01750076164', 'Islam', '1978-10-05', 'Boalmari, Faridpur', 'A+ve', '2004-10-14', '1698912846928_Gallery_1691899059922.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-11-02 08:14:06'),
 ('eduxoom.com', 3729, '169891657325875886318', 'Mohammad Moniruzzaman', 'Male', 'N/A', '101540897', 'N56851763', 56851763, 'Headmaster', 'A', 'N/A', 'N/A', 'XXXXXXXXXXX', 'bejidangaamenahs@gmail.com', '01712191666', 'Islam', '1976-09-06', 'Bejidanga, Alfadanga, Faridpur', 'B+ve', '2003-01-01', '1698916573253_FB_IMG_1698915773594.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-11-02 09:16:13'),
-('eduxoom.com', 3731, '1697209362835', 'Tanvir Islam', 'Male', 'N/A', '100555346', 'N1147429', 1147429, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01700000001', 'user@abc.com', '', 'Islam', 'N/A', ' Boalmari-Faridpur', 'N/A', '2019-02-05', 'male_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:10:32');
+('eduxoom.com', 3731, '1697209362835', 'Tanvir Islam', 'Male', 'N/A', '100555346', 'N1147429', 1147429, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01700000001', 'user@abc.com', '', 'Islam', 'N/A', ' Boalmari-Faridpur', 'N/A', '2019-02-05', 'male_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:10:32'),
+('eduxoom.com', 3732, '173340981366214484236', 'Sufia', 'Female', 'N/A', '101611068103', 'N10121315', 10121315, 'Assistant Teacher', 'C', 'N/A', 'N/A', 'XXXXXXXXXXX', 'nomail@abc.com', '01611068590', 'Islam', '2000-02-05', 'Boalmari', 'B+ve', '2023-03-05', '1733409813662_person-getting-ready-project-meeting_23-2149267841.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-05 14:43:33');
 
 -- --------------------------------------------------------
 
@@ -2971,7 +3304,13 @@ INSERT INTO `transcript_report` (`domain`, `ID`, `at_date`, `session`, `class`, 
 ('eduxoom.com', 42, '2024-03-10 14:07:14', 2024, 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-9-1', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-9-1', 'bg-success', '1697209362834', '1698268761255', '', 'Amir Hamza', 1, 'male_avatar.png', 'incomplete'),
 ('eduxoom.com', 43, '2024-03-10 14:07:15', 2024, 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-9-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-9-2', 'bg-success', '1697209362834', '1698268761255', '', 'Amir Hamza', 1, 'male_avatar.png', 'incomplete'),
 ('eduxoom.com', 44, '2024-03-10 14:07:38', 2024, 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-1', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-1', 'bg-success', '1697209362834', '1698268761255', '', 'Amir Hamza', 1, 'male_avatar.png', 'incomplete'),
-('eduxoom.com', 45, '2024-03-10 14:07:38', 2024, 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-2', 'bg-success', '1697209362834', '1698268761255', '', 'Amir Hamza', 1, 'male_avatar.png', 'incomplete');
+('eduxoom.com', 45, '2024-03-10 14:07:38', 2024, 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-2', 'bg-success', '1697209362834', '1698268761255', '', 'Amir Hamza', 1, 'male_avatar.png', 'incomplete'),
+('eduxoom.com', 46, '2024-12-05 06:59:20', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '1', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-success', '1697593897626', '1698299881366', '', 'Chompa Khatun', 2, 'female_avatar.png', 'incomplete'),
+('eduxoom.com', 47, '2024-12-05 06:59:22', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '0', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-warning', '1697593897626', '1698506063682', '', 'তড়িতা অধিকারী ', 1, 'female_avatar.png', 'incomplete'),
+('eduxoom.com', 48, '2024-12-05 06:59:23', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '1', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-success', '1697593897626', '1698506063682', '', 'তড়িতা অধিকারী ', 1, 'female_avatar.png', 'incomplete'),
+('eduxoom.com', 49, '2024-12-08 22:29:58', 2024, 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-1', '1', 'gp1', 0, '1698506063682cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-1', 'bg-success', '1697209362835', '1698506063682', '', 'তড়িতা অধিকারী ', 1, 'female_avatar.png', 'incomplete'),
+('eduxoom.com', 50, '2024-12-08 22:29:59', 2024, 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-1', '0', 'gp1', 0, '1698299881366cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-1', 'bg-warning', '1697209362835', '1698299881366', '', 'Chompa Khatun', 2, 'female_avatar.png', 'incomplete'),
+('eduxoom.com', 51, '2024-12-08 22:30:03', 2024, 'Six', 'A', 'বাংলা', 'Six_A_বাংলা', 'cb5d1a2dcd672d11b2cd71c381eeab96', 'gp1_6-1-2', '1', 'gp1', 0, '1698506063682cb5d1a2dcd672d11b2cd71c381eeab96gp1_6-1-2', 'bg-success', '1697209362835', '1698506063682', '', 'তড়িতা অধিকারী ', 1, 'female_avatar.png', 'incomplete');
 
 -- --------------------------------------------------------
 
@@ -3006,7 +3345,8 @@ INSERT INTO `user_admin` (`domain`, `ID`, `at_date`, `admin_uuid`, `hash_usernam
 ('umarnagarcdm.edu.bd', 28, '2023-10-23 17:40:50', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png'),
 ('bga.saanviabc.com', 29, '2023-11-01 13:54:44', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png'),
 ('bejidangakawhs', 30, '2023-11-02 13:16:17', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png'),
-('bejidangakawhs.saanviabc.com', 31, '2023-11-02 13:18:29', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png');
+('bejidangakawhs.saanviabc.com', 31, '2023-11-02 13:18:29', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png'),
+('demo.eduxoom.com', 32, '2024-12-07 10:06:52', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -3031,7 +3371,6 @@ CREATE TABLE `___ini` (
 
 INSERT INTO `___ini` (`ID`, `domain`, `lics`, `join_date`, `expire_date`, `at_status`, `checkout`, `at_date`) VALUES
 (10, 'eduxoom.com', 'ABC123XYZL', '10/7/2023', '10/7/2024', 1, 1, '2023-10-07'),
-(16, 'eduxoom.net', 'ABC123XYZS', '10/7/2023', '10/7/2025', 1, 1, '2023-10-07'),
 (17, 'sahasrailpphs.saanviabc.com', 'ABC123XYZSS', '14/10/2023', '14/10/2024', 1, 1, '2023-10-07'),
 (18, 'gohailbarimb.saanviabc.com', 'ABC123XYZG', '14/10/2023', '14/10/2024', 1, 1, '2023-10-07'),
 (19, 'kadirdiblhs.saanviabc.com', 'ABC123XYZK', '14/10/2023', '14/10/2024', 1, 1, '2023-10-07'),
@@ -3040,7 +3379,8 @@ INSERT INTO `___ini` (`ID`, `domain`, `lics`, `join_date`, `expire_date`, `at_st
 (31, 'tamarhazijmhs.edu.bd', '5BE76C0E625E1E3C7041', '10/23/2023', '23/10/2024', 1, 1, '2023-10-23'),
 (33, 'umarnagarcdm.edu.bd', '08F4192CBB12BB06F145', '10/23/2023', '23/10/2024', 1, 1, '2023-10-23'),
 (34, 'bga.saanviabc.com', 'D39416EC1BA991C31C6A', '11/1/2023', '1/11/2024', 0, 1, '2023-11-01'),
-(36, 'bejidangakawhs.saanviabc.com', 'C6E1A447CB3B40D3AA86', '11/2/2023', '2/11/2024', 1, 1, '2023-11-02');
+(36, 'bejidangakawhs.saanviabc.com', 'C6E1A447CB3B40D3AA86', '11/2/2023', '2/11/2024', 1, 1, '2023-11-02'),
+(37, 'demo.eduxoom.com', '10EBF21022F83EF2DF12', '12/7/2024', '7/12/2025', 1, 1, '2024-12-07');
 
 --
 -- Indexes for dumped tables
@@ -3196,6 +3536,12 @@ ALTER TABLE `repository`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `result`
+--
+ALTER TABLE `result`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `routine`
 --
 ALTER TABLE `routine`
@@ -3303,7 +3649,7 @@ ALTER TABLE `application`
 -- AUTO_INCREMENT for table `attn_record`
 --
 ALTER TABLE `attn_record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT for table `attn_student`
@@ -3321,19 +3667,19 @@ ALTER TABLE `bi_catagory`
 -- AUTO_INCREMENT for table `bi_mark`
 --
 ALTER TABLE `bi_mark`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `bi_transcript`
 --
 ALTER TABLE `bi_transcript`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `carousel`
 --
 ALTER TABLE `carousel`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `class_section`
@@ -3351,13 +3697,13 @@ ALTER TABLE `faq`
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `headofschool`
 --
 ALTER TABLE `headofschool`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ini_bi_catagory`
@@ -3387,13 +3733,13 @@ ALTER TABLE `ini_subject`
 -- AUTO_INCREMENT for table `library`
 --
 ALTER TABLE `library`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `parents`
@@ -3405,13 +3751,13 @@ ALTER TABLE `parents`
 -- AUTO_INCREMENT for table `pic_mark`
 --
 ALTER TABLE `pic_mark`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT for table `pis_mark`
 --
 ALTER TABLE `pis_mark`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `privacy_policy`
@@ -3423,37 +3769,43 @@ ALTER TABLE `privacy_policy`
 -- AUTO_INCREMENT for table `repository`
 --
 ALTER TABLE `repository`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `result`
+--
+ALTER TABLE `result`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `routine`
 --
 ALTER TABLE `routine`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=632;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=634;
 
 --
 -- AUTO_INCREMENT for table `school_settings`
 --
 ALTER TABLE `school_settings`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2349;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2359;
 
 --
 -- AUTO_INCREMENT for table `student_rank`
 --
 ALTER TABLE `student_rank`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
 
 --
 -- AUTO_INCREMENT for table `subject`
@@ -3465,7 +3817,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3732;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3733;
 
 --
 -- AUTO_INCREMENT for table `terms_of_use`
@@ -3483,19 +3835,19 @@ ALTER TABLE `transcript_origin`
 -- AUTO_INCREMENT for table `transcript_report`
 --
 ALTER TABLE `transcript_report`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `user_admin`
 --
 ALTER TABLE `user_admin`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `___ini`
 --
 ALTER TABLE `___ini`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

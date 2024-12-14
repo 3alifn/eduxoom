@@ -3,6 +3,11 @@
 <head>
   <title>Result marksheet</title>
   <%- include("../component/metadata.html") %>
+      
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
+
 </head>
 
 <style>
@@ -20,12 +25,16 @@
 <hr>
     <center class="mt-5">
         <h6>Student Marksheet</h6>
+        <button class="btn btn-link" onclick="htmlPrintPDF()">Download Marksheet</button>
+        <!-- <button class="btn btn-link" onclick="jsPrintPDF()">Download Marksheet</button> -->
     </center>
 </div>
 </div>
 
-<div class="row p-2">
-    <div id="syncSystemApp" class="col-md-8 m-auto col-6">
+<div id="app">
+
+  <div class="row p-2">
+    <div id="syncSystemApp" class="col-md-6 m-auto col-11">
 
     <div class="students-card findcard shadowx pt-1 pb-1">
         <div class="d-flex  justify-content-start align-content-center align-items-center">
@@ -47,7 +56,7 @@
 
 <div class="row p-2">
   <div class="table-responsive">
-            <table class="table table-sm">
+            <table class="table table-sm p-2 m-2 fw-semibold">
                 <thead>
                     <tr>
                         <th scope="col">Subject</th>
@@ -59,10 +68,10 @@
         <tbody>
          <% result.forEach((item) => { %>
        <tr>
-        <td scope="row"><%= item.subject_name %></td>
-        <td scope="row"><%= item.ci_mark %></td>
-        <td scope="row"><%= item.fi_mark %></td>
-        <td scope="row"><%= item.output_mark %></td>
+        <td class="p-2" scope="row"><%= item.subject_name %></td>
+        <td class="p-2"scope="row"><%= item.ci_mark %></td>
+        <td class="p-2" scope="row"><%= item.fi_mark %></td>
+        <td class="p-2" scope="row"><%= item.output_mark %></td>
     </tr>
      <% }) %>  
 
@@ -72,8 +81,9 @@
 
        <tr>
         <td></td>
-        <td colspan="2"></td>
-        <td style="font-weight: bold;" scope="row">Total Mark = <%= total_mark[0].total_mark %></td>
+        <td ></td>
+        <td ></td>
+        <td class="p-2" style="font-weight: bold;" scope="row">Total = <%= total_mark %></td>
        </tr>
 
                 </tfoot>
@@ -81,7 +91,64 @@
         </div>
 </div>    
 
+</div>
+
+<script>
+
+function jsPrintPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    html2canvas(document.querySelector("#app")).then(function (canvas) {
+        const imgData = canvas.toDataURL("image/png");
+        const imgWidth = 210;
+        const pageHeight = 295;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+
+        doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        let position = 0;
+        while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            doc.addPage();
+            doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
+        doc.save("download.pdf");
+    }).catch(function (error) {
+        console.error("Error generating PDF: ", error);
+    });
+}
+
+
+function htmlPrintPDF(){
+    // HTML এলিমেন্ট সিলেক্ট করা যার ID 'app'
+    const element = document.getElementById('app');
     
+    // ফাইলের আইডেন্টিফায়ার তৈরি করা, যা পিডিএফের ফাইল নাম হিসেবে ব্যবহৃত হবে
+    const stIdentifier = "<%=result[0].class%>-<%=result[0].section%>-<%=result[0].roll%>-<%=result[0].name%>";
+    
+    // html2pdf এর বিকল্পসমূহ কাস্টোমাইজ করা
+    const options = {
+        image: { type: 'jpeg', quality: 1 }, // ইমেজ টাইপ ও গুণমান নির্ধারণ করা
+        margin: [0, 0, 0, 0], // ডকুমেন্টের মার্জিন সেট করা (শীর্ষ, বাম, নিচ, ডান)
+        filename: `Marksheet@${stIdentifier}.pdf`, // পিডিএফ ফাইলের নাম নির্ধারণ করা
+        image: { type: 'jpeg', quality: 0.90 }, // ইমেজের গুণমান নির্ধারণ করা
+        html2canvas: { dpi: 192, scale: 2, letterRendering: true }, // html2canvas এর বিকল্পসমূহ নির্ধারণ করা
+        pagebreak: { mode: 'avoid-all' }, // পেজব্রেক মোড নির্ধারণ করা (সমস্ত পেজব্রেক এড়ানো)
+        jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }, // jsPDF এর বিকল্পসমূহ নির্ধারণ করা (ইউনিট, ফর্ম্যাট, অরিয়েন্টেশন)
+        compressPDF: true, // পিডিএফ কম্প্রেস করা
+    };
+    
+    // HTML এলিমেন্ট থেকে পিডিএফ তৈরি ও সংরক্ষণ করা
+    html2pdf().set(options).from(element).save();
+}
+
+</script>
+
 
 </body>
 
