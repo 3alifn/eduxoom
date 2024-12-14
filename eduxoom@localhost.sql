@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2024 at 09:05 AM
+-- Generation Time: Dec 13, 2024 at 06:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `eduxoom`
+-- Database: `eduxoomc_eduxoom`
 --
 
 -- --------------------------------------------------------
@@ -60,7 +60,10 @@ CREATE TABLE `admission` (
 
 INSERT INTO `admission` (`domain`, `ID`, `uuid`, `session`, `find_date`, `at_date`, `name`, `dob_number`, `birth_date`, `gender`, `avatar`, `docs`, `father_name`, `mother_name`, `blood_group`, `religion`, `telephone`, `email`, `guardian_name`, `address`, `hobbies`, `last_education`, `admission_class`, `comment`) VALUES
 ('localhost', 25, '123', 2023, '10/26/2023', '2023-10-26 09:08:53', 'Ratul', 2, '2010-09-09', 'male', 'male_avatar.png', '', 'Fhjcx', 'Xhjcf', 'O+ve', 'Islam', 1998031221, 'ratulmia0199@gmail.com', 'Ryffc', 'Xfhjbc', 'Cricket', 'Nine', '', 'Hjj'),
-('localhost', 30, '5ee9fe8d5ce0a261', 2024, 'Sat Mar 23 2024', '2024-03-23 06:32:23', 'sufia', 1234567890, '2010-09-09', 'Female', '1711175385428_female_avatar.png', '1711175543199_application.png', 'fname', 'mname', 'B+ve', 'Islam', 124567890, 'api.saanvi.abc@gmail.com', 'gname', 'boalmari', 'Playing', 'Five', 'Six', 'admission plz');
+('localhost', 30, '5ee9fe8d5ce0a261', 2024, 'Sat Mar 23 2024', '2024-03-23 06:32:23', 'sufia', 1234567890, '2010-09-09', 'Female', '1711175385428_female_avatar.png', '1711175543199_application.png', 'fname', 'mname', 'B+ve', 'Islam', 124567890, 'api.saanvi.abc@gmail.com', 'gname', 'boalmari', 'Playing', 'Five', 'Six', 'admission plz'),
+('localhost', 31, 'd2fe41c8a771c329', 2024, 'Thu Dec 05 2024', '2024-12-05 17:45:06', 'ujk', 645674, '2010-09-09', 'Male', '1733420697167_happy-woman-standing-with-book_23-2148095834.jpg', '1733420706818_Visa platform.pdf', 'rhreh', '346346', 'A+ve', 'Islam', 2147483647, 'api.saanvi.abc@gmail.com', 'thntn', 'trhjnn', 'Swiming', 'Five', 'Six', 'fdgrg'),
+('localhost', 32, '3954349f3083a348', 2024, 'Thu Dec 05 2024', '2024-12-05 17:46:43', 'ujk', 56856467, '2010-09-09', 'Male', '1733420790002_happy-woman-standing-with-book_23-2148095834.jpg', '1733420803316_Visa platform.pdf', 'hth', 'gfhtr', 'B-ve', 'Islam', 2147483647, 'api.saanvi.abc@gmail.com', 'rther', 'rhreh', 'Reading', 'Five', 'Six', 'trhrthtrh'),
+('localhost', 33, 'db61cf23b52b1ad7', 2024, 'Tue Dec 10 2024', '2024-12-09 18:01:30', 'ujk', 3245, '2010-09-09', 'Male', '1733767274903_happy-woman-standing-with-book_23-2148095834.jpg', '1733767290259_Visa platform.pdf', 'rhreh', 'wef', 'A+ve', 'Islam', 2147483647, 'api.saanvi.abc@gmail.com', 'thntn', 'trhjnn', 'Reading', 'Five', 'Six', 'sdfgsdgf');
 
 -- --------------------------------------------------------
 
@@ -130,7 +133,28 @@ INSERT INTO `attn_record` (`domain`, `id`, `menual`, `session`, `user`, `duplica
 ('localhost', 125, 1, 2024, 'Student', '601792_Wed Nov 27 2024', 'Six', 'A', 1, '????? ??????? ', '601792', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:29'),
 ('localhost', 126, 1, 2024, 'Student', '134797_Wed Nov 27 2024', 'Six', 'A', 2, 'Chompa Khatun', '134797', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:31'),
 ('localhost', 127, 1, 2024, 'Student', '467151_Wed Nov 27 2024', 'Six', 'A', 3, '?????? ', '467151', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:38'),
-('localhost', 128, 1, 2024, 'Student', '241952_Wed Nov 27 2024', 'Six', 'A', 4, 'Karima', '241952', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:39');
+('localhost', 128, 1, 2024, 'Student', '241952_Wed Nov 27 2024', 'Six', 'A', 4, 'Karima', '241952', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 14:04:39'),
+('localhost', 129, 1, 2024, 'Student', '551763_Wed Nov 27 2024', 'Six', 'A', 5, '???? ???????', '551763', 'male_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 23:56:41'),
+('localhost', 130, 1, 2024, 'Student', '201564_Wed Nov 27 2024', 'Six', 'A', 6, 'Sarmin', '201564', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 10, 27, '2024-11-27 23:56:42'),
+('localhost', 131, 1, 2024, 'Student', '139041_Wed Nov 27 2024', 'Six', 'A', 7, 'Tasmim', '139041', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 23:56:43'),
+('localhost', 132, 1, 2024, 'Student', '854186_Wed Nov 27 2024', 'Six', 'A', 8, '????? ???? ', '854186', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 10, 27, '2024-11-27 23:56:45'),
+('localhost', 133, 1, 2024, 'Student', '18482_Wed Nov 27 2024', 'Six', 'A', 9, 'Ivamoni', '18482', 'female_avatar.png', '10-2024', 'November-27-11-2024', 'Wed Nov 27 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 10, 27, '2024-11-27 23:56:46'),
+('localhost', 134, 1, 2024, 'Student', '601792_Wed Dec 04 2024', 'Six', 'A', 1, '????? ??????? ', '601792', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 4, '2024-12-04 22:45:27'),
+('localhost', 135, 1, 2024, 'Student', '134797_Wed Dec 04 2024', 'Six', 'A', 2, 'Chompa Khatun', '134797', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 4, '2024-12-04 22:45:27'),
+('localhost', 136, 1, 2024, 'Student', '467151_Wed Dec 04 2024', 'Six', 'A', 3, '?????? ', '467151', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 4, '2024-12-04 22:45:32'),
+('localhost', 137, 1, 2024, 'Student', '241952_Wed Dec 04 2024', 'Six', 'A', 4, 'Karima', '241952', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 4, '2024-12-04 22:45:34'),
+('localhost', 138, 1, 2024, 'Student', '201564_Wed Dec 04 2024', 'Six', 'A', 6, 'Sarmin', '201564', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 4, '2024-12-04 22:51:59'),
+('localhost', 139, 1, 2024, 'Student', '854186_Wed Dec 04 2024', 'Six', 'A', 8, '????? ???? ', '854186', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 4, '2024-12-04 22:52:00'),
+('localhost', 140, 1, 2024, 'Student', '723782_Wed Dec 04 2024', 'Six', 'A', 10, '??? ????? ?????? ', '723782', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 4, '2024-12-04 22:52:19'),
+('localhost', 141, 1, 2024, 'Student', '380984_Wed Dec 04 2024', 'Six', 'A', 11, 'Arifa ', '380984', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 4, '2024-12-04 22:52:20'),
+('localhost', 142, 1, 2024, 'Student', '119795_Wed Dec 04 2024', 'Six', 'A', 12, '??? ??????? ???? ', '119795', 'female_avatar.png', '11-2024', 'December-4-12-2024', 'Wed Dec 04 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 4, '2024-12-04 22:52:53'),
+('localhost', 143, 1, 2024, 'Student', '601792_Sat Dec 07 2024', 'Six', 'A', 1, '????? ??????? ', '601792', 'female_avatar.png', '11-2024', 'December-7-12-2024', 'Sat Dec 07 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 7, '2024-12-07 21:22:56'),
+('localhost', 144, 1, 2024, 'Student', '134797_Sat Dec 07 2024', 'Six', 'A', 2, 'Chompa Khatun', '134797', 'female_avatar.png', '11-2024', 'December-7-12-2024', 'Sat Dec 07 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 7, '2024-12-07 21:22:58'),
+('localhost', 145, 1, 2024, 'Student', '467151_Sat Dec 07 2024', 'Six', 'A', 3, '?????? ', '467151', 'female_avatar.png', '11-2024', 'December-7-12-2024', 'Sat Dec 07 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 7, '2024-12-07 21:23:00'),
+('localhost', 146, 1, 2024, 'Student', '241952_Sat Dec 07 2024', 'Six', 'A', 4, 'Karima', '241952', 'female_avatar.png', '11-2024', 'December-7-12-2024', 'Sat Dec 07 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 7, '2024-12-07 21:23:10'),
+('localhost', 147, 1, 2024, 'Student', '601792_Mon Dec 09 2024', 'Six', 'A', 1, '????? ??????? ', '601792', 'female_avatar.png', '11-2024', 'December-9-12-2024', 'Mon Dec 09 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 9, '2024-12-09 22:06:53'),
+('localhost', 148, 1, 2024, 'Student', '134797_Mon Dec 09 2024', 'Six', 'A', 2, 'Chompa Khatun', '134797', 'female_avatar.png', '11-2024', 'December-9-12-2024', 'Mon Dec 09 2024', '', '', NULL, 0, 'absent', '', '', NULL, 2024, 11, 9, '2024-12-09 22:06:58'),
+('localhost', 149, 1, 2024, 'Student', '467151_Mon Dec 09 2024', 'Six', 'A', 3, '?????? ', '467151', 'female_avatar.png', '11-2024', 'December-9-12-2024', 'Mon Dec 09 2024', '', '', NULL, 1, 'present', '', '', NULL, 2024, 11, 9, '2024-12-09 22:06:59');
 
 -- --------------------------------------------------------
 
@@ -854,7 +878,30 @@ INSERT INTO `pic_mark` (`domain`, `ID`, `session`, `at_date`, `class`, `section`
 ('localhost', 90, 2024, '2024-11-27 07:42:33', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '0', 'gp1', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
 ('localhost', 91, 2024, '2024-11-27 07:42:35', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '0', 'gp2', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
 ('localhost', 92, 2024, '2024-11-27 07:42:36', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '1', 'gp2', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-success', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
-('localhost', 93, 2024, '2024-11-27 07:42:37', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '0', 'gp3', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png');
+('localhost', 93, 2024, '2024-11-27 07:42:37', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '0', 'gp3', 0, '1698721140415cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-warning', '', '1698721140415', 7, 'Tasmim', 'female_avatar.png'),
+('localhost', 94, 2024, '2024-11-27 17:58:12', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '0', 'gp1', 0, '1698497140420cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-warning', '', '1698497140420', 9, 'Ivamoni', 'female_avatar.png'),
+('localhost', 95, 2024, '2024-11-27 17:58:14', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '1', 'gp1', 0, '1698497140420cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-success', '', '1698497140420', 9, 'Ivamoni', 'female_avatar.png'),
+('localhost', 96, 2024, '2024-11-27 17:58:17', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '-1', 'gp2', 0, '1698497140420cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-danger', '', '1698497140420', 9, 'Ivamoni', 'female_avatar.png'),
+('localhost', 97, 2024, '2024-11-27 17:58:18', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '-1', 'gp2', 0, '1698497140420cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-danger', '', '1698497140420', 9, 'Ivamoni', 'female_avatar.png'),
+('localhost', 98, 2024, '2024-11-27 17:58:19', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '0', 'gp3', 0, '1698497140420cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-warning', '', '1698497140420', 9, 'Ivamoni', 'female_avatar.png'),
+('localhost', 99, 2024, '2024-11-27 17:58:21', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '1', 'gp1', 0, '1698851230507cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-success', '', '1698851230507', 10, 'মোঃ মারুফ মোল্যা ', 'female_avatar.png'),
+('localhost', 100, 2024, '2024-11-27 17:58:22', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '0', 'gp1', 0, '1698921111153cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-warning', '', '1698921111153', 11, 'Arifa ', 'female_avatar.png'),
+('localhost', 101, 2024, '2024-11-27 17:58:23', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '0', 'gp2', 0, '1698921111153cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-warning', '', '1698921111153', 11, 'Arifa ', 'female_avatar.png'),
+('localhost', 102, 2024, '2024-11-27 17:58:25', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '0', 'gp2', 0, '1698921111153cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-warning', '', '1698921111153', 11, 'Arifa ', 'female_avatar.png'),
+('localhost', 103, 2024, '2024-11-27 17:58:26', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-2', '0', 'gp2', 0, '1698851230507cc3556329d4583319dca2e10ff96baf7gp2_6-2-2', 'bg-warning', '', '1698851230507', 10, 'মোঃ মারুফ মোল্যা ', 'female_avatar.png'),
+('localhost', 104, 2024, '2024-11-27 17:58:27', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '-1', 'gp2', 0, '1698851230507cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-danger', '', '1698851230507', 10, 'মোঃ মারুফ মোল্যা ', 'female_avatar.png'),
+('localhost', 105, 2024, '2024-11-27 17:58:54', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '-1', 'gp1', 0, '1698851230507cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-danger', '', '1698851230507', 10, 'মোঃ মারুফ মোল্যা ', 'female_avatar.png'),
+('localhost', 106, 2024, '2024-11-27 17:58:56', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '1', 'gp1', 0, '1698921111153cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-success', '', '1698921111153', 11, 'Arifa ', 'female_avatar.png'),
+('localhost', 107, 2024, '2024-11-27 17:58:56', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '0', 'gp1', 0, '1698274196192cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-warning', '', '1698274196192', 12, 'মোঃ রাশেদুল মিনা ', 'female_avatar.png'),
+('localhost', 108, 2024, '2024-11-27 17:58:56', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '1', 'gp1', 0, '1698274196192cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-success', '', '1698274196192', 12, 'মোঃ রাশেদুল মিনা ', 'female_avatar.png'),
+('localhost', 109, 2024, '2024-12-04 15:40:06', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '0', 'gp1', 0, '1698851230507cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-warning', '', '1698851230507', 10, 'মোঃ মারুফ মোল্যা ', 'female_avatar.png'),
+('localhost', 110, 2024, '2024-12-04 15:40:08', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '1', 'gp1', 0, '1698921111153cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-success', '', '1698921111153', 11, 'Arifa ', 'female_avatar.png'),
+('localhost', 111, 2024, '2024-12-04 15:40:28', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-2', '-1', 'gp3', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp3_6-3-2', 'bg-danger', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 112, 2024, '2024-12-04 15:41:24', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '1', 'gp1', 0, '1698274196192cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-success', '', '1698274196192', 12, 'মোঃ রাশেদুল মিনা ', 'female_avatar.png'),
+('localhost', 113, 2024, '2024-12-04 15:41:28', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-1', '1', 'gp3', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp3_6-3-1', 'bg-success', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 114, 2024, '2024-12-04 15:43:27', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp3_6-3-2', '0', 'gp3', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp3_6-3-2', 'bg-warning', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 115, 2024, '2024-12-04 15:43:40', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '1', 'gp1', 0, '1698497140420cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-success', '', '1698497140420', 9, 'Ivamoni', 'female_avatar.png'),
+('localhost', 116, 2024, '2024-12-04 15:58:44', 'Six', 'C', 'English', 'Six_C_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '0', 'gp1', 0, '1697226477358cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-warning', '', '1697226477358', 1, 'MD.Tamim MIa', 'male_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -934,7 +981,23 @@ INSERT INTO `pis_mark` (`domain`, `ID`, `session`, `at_date`, `class`, `section`
 ('localhost', 42, 2024, '2024-03-10 08:07:14', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-9-1', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-9-1', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
 ('localhost', 43, 2024, '2024-03-10 08:07:15', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-9-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-9-2', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
 ('localhost', 44, 2024, '2024-03-10 08:07:38', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-1', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-1', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
-('localhost', 45, 2024, '2024-03-10 08:07:38', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-2', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png');
+('localhost', 45, 2024, '2024-03-10 08:07:38', 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-2', 'bg-success', '', '1698268761255', 1, 'Amir Hamza', 'male_avatar.png'),
+('localhost', 46, 2024, '2024-12-04 15:38:23', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '1', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-success', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 47, 2024, '2024-12-04 15:38:24', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '-1', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-danger', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 48, 2024, '2024-12-04 15:38:25', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '0', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-warning', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 49, 2024, '2024-12-04 16:29:59', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '0', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-warning', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 50, 2024, '2024-12-04 16:30:00', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '1', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-success', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 51, 2024, '2024-12-04 16:30:45', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '0', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-warning', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 52, 2024, '2024-12-04 16:34:20', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '-1', 'gp2', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-danger', '', '1698299881366', 2, 'Chompa Khatun', 'female_avatar.png'),
+('localhost', 53, 2024, '2024-12-04 16:34:21', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '-1', 'gp2', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-danger', '', '1698506063682', 1, 'তড়িতা অধিকারী ', 'female_avatar.png'),
+('localhost', 54, 2024, '2024-12-04 16:34:52', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '1', 'gp1', 0, '1698659885616cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-success', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('localhost', 55, 2024, '2024-12-04 16:35:00', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '0', 'gp1', 0, '1698659885616cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-warning', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('localhost', 56, 2024, '2024-12-04 16:35:05', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '1', 'gp1', 0, '1698659885616cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-success', '', '1698659885616', 3, 'তানিয়া ', 'female_avatar.png'),
+('localhost', 57, 2024, '2024-12-04 16:36:01', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '1', 'gp1', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-success', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 58, 2024, '2024-12-04 16:36:14', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '0', 'gp1', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-warning', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 59, 2024, '2024-12-04 16:37:05', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '1', 'gp1', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-success', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 60, 2024, '2024-12-04 16:40:50', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '-1', 'gp2', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-danger', '', '1698738939274', 4, 'Karima', 'female_avatar.png'),
+('localhost', 61, 2024, '2024-12-04 16:40:52', 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '0', 'gp1', 0, '1698460381556cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-warning', '', '1698460381556', 5, 'উৎসব বিশ্বাস', 'male_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -968,6 +1031,41 @@ CREATE TABLE `repository` (
   `description` text NOT NULL,
   `image` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `result`
+--
+
+CREATE TABLE `result` (
+  `domain` varchar(100) NOT NULL DEFAULT 'eduxoom.com',
+  `id` int(11) NOT NULL,
+  `class` varchar(10) DEFAULT NULL,
+  `section` varchar(10) DEFAULT NULL,
+  `subject_name` varchar(100) DEFAULT NULL,
+  `subject_code` varchar(100) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `roll` int(11) DEFAULT NULL,
+  `suuid` varchar(100) DEFAULT NULL,
+  `avatar` varchar(200) DEFAULT NULL,
+  `real_ci_mark` int(11) NOT NULL,
+  `real_fi_mark` int(11) NOT NULL,
+  `ci_mark` float DEFAULT NULL,
+  `fi_mark` float DEFAULT NULL,
+  `output_mark` float DEFAULT NULL,
+  `tuuid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `result`
+--
+
+INSERT INTO `result` (`domain`, `id`, `class`, `section`, `subject_name`, `subject_code`, `name`, `roll`, `suuid`, `avatar`, `real_ci_mark`, `real_fi_mark`, `ci_mark`, `fi_mark`, `output_mark`, `tuuid`) VALUES
+('eduxoom.com', 98, 'Six', 'A', 'English', 'cc3556329d4583319dca2e10ff96baf7', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 90, 27, 63, 90, 2147483647),
+('eduxoom.com', 99, 'Six', 'A', 'ইসলাম-শিক্ষা', '735fa2f858db7274dbc69fad832f1165', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 85, 25.5, 59.5, 85, 2147483647),
+('eduxoom.com', 100, 'Six', 'A', 'ইতিহাস-ও-সামাজিক-বিজ্ঞান-অনুশীলন-বই', '418931bdba594528818a22f5cef74236', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 69, 20.7, 48.3, 69, 2147483647),
+('eduxoom.com', 101, 'Six', 'A', 'গণিত', '46d4f7e8cccea38395f9a23882248377', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 75, 22.5, 52.5, 75, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -1579,6 +1677,13 @@ CREATE TABLE `school_settings` (
   `fb_link` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `school_settings`
+--
+
+INSERT INTO `school_settings` (`domain`, `ID`, `at_date`, `eiin`, `logo`, `name`, `email`, `phone`, `address`, `headline`, `about`, `image`, `video`, `fb_link`) VALUES
+('localhost', 1, '2024-12-04 23:02:33', 108669, 'logo740463813.0497645.png', 'Boalmari George Academy', 'nomail@abc.com', '01716453013', 'Boalmari, Faridpur, Dhaka, Bangladesh', '', 'Boalmari George Academy \'Officials Page\', Faridpur, Dhaka, Bangladesh. 3054 likes · 386 talking about this. It is the oldest high school in Boalmari...', 'image785574436.7763199.png', '', 'https://www.facebook.com/BoalmariGeorgeAcademyOfficials/');
+
 -- --------------------------------------------------------
 
 --
@@ -1596,8 +1701,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('P-AlFd3xdHn_O5IQXMnh-3tVid3Po9mY', 1735188976, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-12-26T04:55:56.597Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
-('bFoaPryQFqcXw26bAio5y1fdA6pUMGOi', 1735286721, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-12-27T07:47:28.768Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":18,\"teacher_uuid\":\"1697209362834\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"SOUMITRA SAHA\",\"userEmail\":\"soumitrasahatanin@gmail.com\",\"usermail\":\"soumitrasahatanin@gmail.com\",\"index\":\"N1147428\"}');
+('QP5XJKrI8_w6loA-ClxhFSNC6hwQNpAL', 1736704429, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-08T18:06:48.487Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":3733,\"teacher_uuid\":\"1697209362836\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"SAANVI\",\"userEmail\":\"api.saanvi.abc@gmail.com\",\"usermail\":\"api.saanvi.abc@gmail.com\",\"index\":\"N1147426\",\"flash\":{},\"username\":\"api.saanvi.abc@gmail.com\",\"temp_code\":201176}');
 
 -- --------------------------------------------------------
 
@@ -2676,7 +2780,37 @@ INSERT INTO `students` (`domain`, `ID`, `student_uuid`, `session`, `class`, `sec
 ('localhost', 2345, '1698223799950', 2023, 'Nine', 'A', 'Md. Sifat', 653901, 30, 'XXXXXXXXXX', '', 'Male', 'N/A', '653901@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-12 05:49:31'),
 ('localhost', 2346, '1698714494584', 2023, 'Nine', 'A', 'Nayim Biswas', 480073, 31, 'XXXXXXXXXX', '', 'Female', 'N/A', '480073@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-12 05:49:59'),
 ('localhost', 2347, '1698477202366', 2023, 'Nine', 'A', 'Md. Antor Biswas', 316829, 32, 'XXXXXXXXXX', '', 'Male', 'N/A', '316829@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-12 05:50:26'),
-('localhost', 2348, '1698913227144', 2023, 'Six', 'A', 'Nafiza Islam', 701673, 39, 'XXXXXXXXXX', '', 'Female', 'N/A', '701673@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-11-02 08:20:27');
+('localhost', 2348, '1698913227144', 2023, 'Six', 'A', 'Nafiza Islam', 701673, 39, 'XXXXXXXXXX', '', 'Female', 'N/A', '701673@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-11-02 08:20:27'),
+('localhost', 2349, '1733719016579241527859', 2024, 'Ten', 'A', 'Maria', 809684, 324523, 'XXXXXXXXXX', '', 'Male', 'A+ve', '809684@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 04:36:56'),
+('localhost', 2350, '1733719161320767179320', 2024, 'Ten', 'B', 'il8', 131030, 768, 'XXXXXXXXXX', '', 'Male', '', '131030@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 04:39:21'),
+('localhost', 2351, '1733721164330716979417', 2024, 'Ten', 'A', 'Sufia', 668664, 157327, 'XXXXXXXXXX', '', 'Female', 'N/A', '668664@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 05:12:44'),
+('localhost', 2352, '1733721184292509095490', 2024, 'Ten', 'A', 'Sufia', 687000, 324, 'XXXXXXXXXX', '', 'Female', 'N/A', '687000@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 05:13:04'),
+('localhost', 2353, '173372118429333915605', 2024, 'Ten', 'A', 'Sufia', 629504, 45325, 'XXXXXXXXXX', '', 'Female', 'N/A', '629504@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 05:13:04'),
+('localhost', 2354, '1733721196052295215072', 2024, 'Ten', 'A', 'Sufia', 855821, 1, 'XXXXXXXXXX', '', 'Female', 'N/A', '855821@abc.com', '', 'XXXXXXXXXXX', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'female_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 05:13:16'),
+('localhost', 2355, '173376311793938412082', 2024, 'Ten', 'A', 'Maria', 507327, 70, 'XXXXXXXXXX', '', 'Male', 'O-ve', '507327@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:51:57'),
+('localhost', 2357, '1733763158335609849484', 2024, 'Ten', 'A', 'Maria', 491812, 1, 'XXXXXXXXXX', '', 'Male', '', '491812@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:52:38'),
+('localhost', 2358, '1733763169846524908594', 2024, 'Ten', 'A', 'Maria', 505278, 1, 'XXXXXXXXXX', '', 'Male', '', '505278@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:52:49'),
+('localhost', 2359, '173376320419516365350', 2024, 'Ten', 'A', 'Maria', 554715, 1, 'XXXXXXXXXX', '', 'Male', '', '554715@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:24'),
+('localhost', 2360, '1733763221931419037322', 2024, 'Ten', 'A', 'Maria', 521663, 1, 'XXXXXXXXXX', '', 'Male', '', '521663@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:41'),
+('localhost', 2361, '1733763221943279520447', 2024, 'Ten', 'A', 'Maria', 824441, 1, 'XXXXXXXXXX', '', 'Male', '', '824441@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:41'),
+('localhost', 2362, '1733763221937363767893', 2024, 'Ten', 'A', 'Maria', 276543, 1, 'XXXXXXXXXX', '', 'Male', '', '276543@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:41'),
+('localhost', 2363, '1733763221955594948833', 2024, 'Ten', 'A', 'Maria', 268493, 1, 'XXXXXXXXXX', '', 'Male', '', '268493@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:41'),
+('localhost', 2364, '1733763221968192938785', 2024, 'Ten', 'A', 'Maria', 162980, 1, 'XXXXXXXXXX', '', 'Male', '', '162980@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:41'),
+('localhost', 2365, '1733763221997889664901', 2024, 'Ten', 'A', 'Maria', 499150, 1, 'XXXXXXXXXX', '', 'Male', '', '499150@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2366, '1733763222010494848464', 2024, 'Ten', 'A', 'Maria', 793227, 1, 'XXXXXXXXXX', '', 'Male', '', '793227@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2367, '173376322201180175034', 2024, 'Ten', 'A', 'Maria', 598928, 1, 'XXXXXXXXXX', '', 'Male', '', '598928@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2368, '1733763222013241615423', 2024, 'Ten', 'A', 'Maria', 357677, 1, 'XXXXXXXXXX', '', 'Male', '', '357677@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2369, '1733763222033801679312', 2024, 'Ten', 'A', 'Maria', 167621, 1, 'XXXXXXXXXX', '', 'Male', '', '167621@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2370, '1733763222051345566268', 2024, 'Ten', 'A', 'Maria', 556961, 12222, 'XXXXXXXXXX', '', 'Male', '', '556961@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2371, '1733763222047425471917', 2024, 'Ten', 'A', 'Maria', 546606, 122, 'XXXXXXXXXX', '', 'Male', '', '546606@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2372, '1733763222049779658105', 2024, 'Ten', 'A', 'Maria', 606711, 12222, 'XXXXXXXXXX', '', 'Male', '', '606711@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2373, '1733763222071767971603', 2024, 'Ten', 'A', 'Maria', 208941, 12222, 'XXXXXXXXXX', '', 'Male', '', '208941@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2374, '1733763222096892963075', 2024, 'Ten', 'A', 'Maria', 407499, 12222, 'XXXXXXXXXX', '', 'Male', '', '407499@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2375, '1733763222101132220960', 2024, 'Ten', 'A', 'Maria', 343718, 12222, 'XXXXXXXXXX', '', 'Male', '', '343718@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 16:53:42'),
+('localhost', 2376, '1733765333765190389439', 2024, 'Ten', 'A', 'Maria', 678509, 1, 'XXXXXXXXXX', '', 'Male', 'AB-ve', '678509@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 17:28:53'),
+('localhost', 2377, '173376534627334509300', 2024, 'Ten', 'A', 'Maria', 572982, 1, 'XXXXXXXXXX', '', 'Male', '', '572982@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 17:29:06'),
+('localhost', 2378, '1733765363137273210872', 2024, 'Ten', 'A', 'Maria', 328160, 1, 'XXXXXXXXXX', '', 'Male', '', '328160@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 17:29:23'),
+('localhost', 2379, '1733765764181131768772', 2024, 'Ten', 'A', 'Maria', 888207, 134534, 'XXXXXXXXXX', '', 'Male', '', '888207@abc.com', '', 'XXXXXXXXXXX', '', '', '', 'Islam', '', 'N/A', 'male_avatar.png', 'N/A', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 17:36:04');
 
 -- --------------------------------------------------------
 
@@ -2713,32 +2847,39 @@ CREATE TABLE `student_rank` (
 --
 
 INSERT INTO `student_rank` (`domain`, `ID`, `session`, `find_date`, `rank_date`, `teacher_uuid`, `student_uuid`, `student_id`, `at_date`, `name`, `roll`, `class`, `section`, `checkout`, `behavior`, `study`, `uniform`, `present`, `absent`, `poient`, `avatar`) VALUES
-('localhost', 56, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:51', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 1, 0, 2.888, 'female_avatar.png'),
-('localhost', 57, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:52', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 1, 0, 2.888, 'female_avatar.png'),
-('localhost', 58, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:53', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 1, 0, 2.888, 'female_avatar.png'),
-('localhost', 59, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:02:17', 'Chompa Khatun', 2, 'Six', 'A', 'b3_1698299881366', 1, 0, 0, 0, 1, 1.888, 'female_avatar.png'),
-('localhost', 60, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:06', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 1, 0, 3.998, 'female_avatar.png'),
-('localhost', 61, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:32', 'Chompa Khatun', 2, 'Six', 'A', 'u1_1698299881366', 0, 0, 1, 0, 1, 1.888, 'female_avatar.png'),
-('localhost', 62, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:40', 'Chompa Khatun', 2, 'Six', 'A', 's1_1698299881366', 0, 1, 0, 0, 1, 1.888, 'female_avatar.png'),
-('localhost', 63, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:42', 'তানিয়া ', 3, 'Six', 'A', 'u1_1698659885616', 0, 0, 1, 1, 0, 3.998, 'female_avatar.png'),
-('localhost', 64, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:45', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 1, 0, 3.998, 'female_avatar.png'),
-('localhost', 65, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:06:36', 'Karima', 4, 'Six', 'A', 'b1_1698738939274', 1, 0, 0, 0, 1, 2.999, 'female_avatar.png'),
-('localhost', 66, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698460381556', 551763, '2024-03-31 07:06:58', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 'b1_1698460381556', 1, 0, 0, 0, 0, 1.333, 'male_avatar.png'),
-('localhost', 67, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:08:11', 'Karima', 4, 'Six', 'A', 's3_1698738939274', 0, 1, 0, 0, 1, 2.999, 'female_avatar.png'),
-('localhost', 68, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698460381556', 551763, '2024-03-31 07:08:15', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 's3_1698460381556', 0, 1, 0, 0, 0, 1.333, 'male_avatar.png'),
-('localhost', 69, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:52', 'Sarmin', 6, 'Six', 'A', 'b3_1698148306745', 1, 0, 0, 0, 0, -1.222, 'female_avatar.png'),
-('localhost', 70, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:57', 'Sarmin', 6, 'Six', 'A', 'u1_1698148306745', 0, 0, 1, 0, 0, -1.222, 'female_avatar.png'),
-('localhost', 71, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:58', 'Sarmin', 6, 'Six', 'A', 's1_1698148306745', 0, 1, 0, 0, 0, -1.222, 'female_avatar.png'),
-('localhost', 72, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698721140415', 139041, '2024-03-31 07:13:59', 'Tasmim', 7, 'Six', 'A', 'b1_1698721140415', 1, 0, 0, 0, 0, -1.666, 'female_avatar.png'),
-('localhost', 73, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:41', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 1, 0, 2.888, 'female_avatar.png'),
-('localhost', 74, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:42', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 1, 0, 2.888, 'female_avatar.png'),
-('localhost', 75, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:43', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 1, 0, 2.888, 'female_avatar.png'),
-('localhost', 76, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698299881366', 134797, '2024-11-27 07:41:47', 'Chompa Khatun', 2, 'Six', 'A', 's3_1698299881366', 0, 1, 0, 0, 1, 1.888, 'female_avatar.png'),
-('localhost', 77, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698299881366', 134797, '2024-11-27 07:41:48', 'Chompa Khatun', 2, 'Six', 'A', 'u2_1698299881366', 0, 0, 1, 0, 1, 1.888, 'female_avatar.png'),
-('localhost', 78, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:49', 'তানিয়া ', 3, 'Six', 'A', 'u3_1698659885616', 0, 0, 1, 1, 0, 3.998, 'female_avatar.png'),
-('localhost', 79, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:50', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 1, 0, 3.998, 'female_avatar.png'),
-('localhost', 80, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:51', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 1, 0, 3.998, 'female_avatar.png'),
-('localhost', 81, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698738939274', 241952, '2024-11-27 07:41:52', 'Karima', 4, 'Six', 'A', 'b3_1698738939274', 1, 0, 0, 0, 1, 2.999, 'female_avatar.png');
+('localhost', 56, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:51', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 57, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:52', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 58, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698506063682', 601792, '2024-03-31 07:01:53', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 59, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:02:17', 'Chompa Khatun', 2, 'Six', 'A', 'b3_1698299881366', 1, 0, 0, 2, 4, 2.554, 'female_avatar.png'),
+('localhost', 60, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:06', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 4, 2, 3.998, 'female_avatar.png'),
+('localhost', 61, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:32', 'Chompa Khatun', 2, 'Six', 'A', 'u1_1698299881366', 0, 0, 1, 2, 4, 2.554, 'female_avatar.png'),
+('localhost', 62, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698299881366', 134797, '2024-03-31 07:04:40', 'Chompa Khatun', 2, 'Six', 'A', 's1_1698299881366', 0, 1, 0, 2, 4, 2.554, 'female_avatar.png'),
+('localhost', 63, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:42', 'তানিয়া ', 3, 'Six', 'A', 'u1_1698659885616', 0, 0, 1, 4, 2, 3.998, 'female_avatar.png'),
+('localhost', 64, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698659885616', 467151, '2024-03-31 07:04:45', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 4, 2, 3.998, 'female_avatar.png'),
+('localhost', 65, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:06:36', 'Karima', 4, 'Six', 'A', 'b1_1698738939274', 1, 0, 0, 2, 1, 2.999, 'female_avatar.png'),
+('localhost', 66, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698460381556', 551763, '2024-03-31 07:06:58', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 'b1_1698460381556', 1, 0, 0, 0, 1, 1.333, 'male_avatar.png'),
+('localhost', 67, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698738939274', 241952, '2024-03-31 07:08:11', 'Karima', 4, 'Six', 'A', 's3_1698738939274', 0, 1, 0, 2, 1, 2.999, 'female_avatar.png'),
+('localhost', 68, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698460381556', 551763, '2024-03-31 07:08:15', 'উৎসব বিশ্বাস', 5, 'Six', 'A', 's3_1698460381556', 0, 1, 0, 0, 1, 1.333, 'male_avatar.png'),
+('localhost', 69, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:52', 'Sarmin', 6, 'Six', 'A', 'b3_1698148306745', 1, 0, 0, 2, 0, -1.222, 'female_avatar.png'),
+('localhost', 70, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:57', 'Sarmin', 6, 'Six', 'A', 'u1_1698148306745', 0, 0, 1, 2, 0, -1.222, 'female_avatar.png'),
+('localhost', 71, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698148306745', 201564, '2024-03-31 07:13:58', 'Sarmin', 6, 'Six', 'A', 's1_1698148306745', 0, 1, 0, 2, 0, -1.222, 'female_avatar.png'),
+('localhost', 72, 2024, '3/31/2024', 'Sun Mar 31 2024', '1697209362834', '1698721140415', 139041, '2024-03-31 07:13:59', 'Tasmim', 7, 'Six', 'A', 'b1_1698721140415', 1, 0, 0, 0, 1, -1.666, 'female_avatar.png'),
+('localhost', 73, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:41', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 74, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:42', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 75, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698506063682', 601792, '2024-11-27 07:41:43', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 76, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698299881366', 134797, '2024-11-27 07:41:47', 'Chompa Khatun', 2, 'Six', 'A', 's3_1698299881366', 0, 1, 0, 2, 4, 2.554, 'female_avatar.png'),
+('localhost', 77, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698299881366', 134797, '2024-11-27 07:41:48', 'Chompa Khatun', 2, 'Six', 'A', 'u2_1698299881366', 0, 0, 1, 2, 4, 2.554, 'female_avatar.png'),
+('localhost', 78, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:49', 'তানিয়া ', 3, 'Six', 'A', 'u3_1698659885616', 0, 0, 1, 4, 2, 3.998, 'female_avatar.png'),
+('localhost', 79, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:50', 'তানিয়া ', 3, 'Six', 'A', 'b3_1698659885616', 1, 0, 0, 4, 2, 3.998, 'female_avatar.png'),
+('localhost', 80, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698659885616', 467151, '2024-11-27 07:41:51', 'তানিয়া ', 3, 'Six', 'A', 's2_1698659885616', 0, 1, 0, 4, 2, 3.998, 'female_avatar.png'),
+('localhost', 81, 2024, '11/27/2024', 'Wed Nov 27 2024', '1697209362834', '1698738939274', 241952, '2024-11-27 07:41:52', 'Karima', 4, 'Six', 'A', 'b3_1698738939274', 1, 0, 0, 2, 1, 2.999, 'female_avatar.png'),
+('localhost', 82, 2024, '12/4/2024', 'Wed Dec 04 2024', '1697209362834', '1698506063682', 601792, '2024-12-04 15:37:40', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 83, 2024, '12/4/2024', 'Wed Dec 04 2024', '1697209362834', '1698506063682', 601792, '2024-12-04 15:37:42', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u2_1698506063682', 0, 0, 1, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 84, 2024, '12/4/2024', 'Wed Dec 04 2024', '1697209362834', '1698506063682', 601792, '2024-12-04 15:37:44', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 85, 2024, '12/7/2024', 'Sat Dec 07 2024', '1697209362834', '1698506063682', 601792, '2024-12-07 17:07:07', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'b3_1698506063682', 1, 0, 0, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 86, 2024, '12/7/2024', 'Sat Dec 07 2024', '1697209362834', '1698506063682', 601792, '2024-12-07 17:07:08', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 'u1_1698506063682', 0, 0, 1, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 87, 2024, '12/7/2024', 'Sat Dec 07 2024', '1697209362834', '1698506063682', 601792, '2024-12-07 17:07:09', 'তড়িতা অধিকারী ', 1, 'Six', 'A', 's3_1698506063682', 0, 1, 0, 3, 3, 7.886, 'female_avatar.png'),
+('localhost', 88, 2024, '12/7/2024', 'Sat Dec 07 2024', '1697209362834', '1698299881366', 134797, '2024-12-07 17:07:10', 'Chompa Khatun', 2, 'Six', 'A', 'b2_1698299881366', 1, 0, 0, 0, 4, 2.554, 'female_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -2822,7 +2963,6 @@ INSERT INTO `teachers` (`domain`, `ID`, `teacher_uuid`, `name`, `gender`, `educa
 ('localhost', 28, '1697062922031', 'Anawaruzzam Jhantu', 'Male', 'N/A', '000000001', 'D000000000', 0, 'Assistant Teacher', 'C', 'N/A', 'N/A', 'N/A', 'Not@vailable05.com', '', 'Islam', 'N/A', 'N/A', 'N/A', 'undefined', 'male_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-19 08:58:49'),
 ('localhost', 29, '1697058269962', 'Sabuz Ghosh', 'Male', 'N/A', '000000002', 'D000000001', 1, 'Assistant Teacher', 'C', 'N/A', 'N/A', 'N/A', 'Not@vailable06.com', '', 'Hinduism', 'N/A', 'N/A', 'N/A', 'undefined', 'male_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-19 08:59:25'),
 ('localhost', 30, '1697118747788', 'Ali Ahmmad', 'Male', 'N/A', '000000003', 'D000000003', 3, 'Assistant Teacher', 'C', 'N/A', 'N/A', 'N/A', 'no@valueable07', '', 'Islam', 'N/A', 'N/A', 'N/A', 'undefined', 'male_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-19 09:00:31'),
-('localhost', 31, '1697593897626', 'no name', 'Female', 'N/A', '', 'n123456', 123456, 'Assistent Teacher', 'C', 'N/A', 'N/A', 'XXXXXXXXXXX', 'api.saanvi.abc@gmail.com', '2345678901', 'undefined', '', '', 'undefined', '', '1697385522631_profile3.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 15:58:42'),
 ('localhost', 57, '1697812990300', 'Md. Shahin sikder', 'Male', 'N/A', '2353465677', '242355', 42355, 'Assistent Teacher', 'C', 'N/A', 'N/A', 'XXXXXXXXXXX', 'Shahinsikder@gmail.com', '01998031221', 'Islam', '1984-02-08', 'Boalmari, Faridpur', 'A+ve', '2020-06-18', '1697627422592_shahin sir.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-18 11:10:22'),
 ('localhost', 1001, '1698399497162', 'Md Omar Mina', 'Male', 'N/A', '561728', 'D478974', 478974, 'Assistant Teacher', 'C', 'N/A', 'N/A', '0', 'omarmina1969@gmail.com', '01763966494', 'Islam', 'N/A', 'N/A', 'N/A', '24-07-1999', '1697346776309_Md. Omar Mina(AT).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 05:12:56'),
 ('localhost', 1002, '1698440168423', 'Gonesh Chandra Roy', 'Male', 'N/A', '488143', 'N1069231', 1069231, 'Assistant Teacher', 'C', 'N/A', 'N/A', '0', 'goneshroy1991@gmail.com', '01740894343', 'Hinduism', 'N/A', 'N/A', 'N/A', '12-06-2012', '1695704736851_Ganesh roy.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-09-26 05:05:36'),
@@ -2832,7 +2972,6 @@ INSERT INTO `teachers` (`domain`, `ID`, `teacher_uuid`, `name`, `gender`, `educa
 ('localhost', 1006, '1698322655639', 'MD SAIFUDDIN SOHEL', 'Male', 'N/A', '1010101010', 'N1076783', 1076783, 'Assistant Headmaster', 'B', 'Arts', 'N/A', '0', 'saifuddinsohel84@gmail.com', '01912609171', 'Islam', 'N/A', 'N/A', 'N/A', '01/08/2023', '1695616773219_Md. Saifuddin Sohel(AHT).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-09-25 04:39:33'),
 ('localhost', 1007, '1698164833502', 'Md.Hamim Miah', 'Male', 'N/A', '239027', 'N56815436', 56815436, 'Assistant Teacher', 'C', 'N/A', 'N/A', '0', 'hamimmiah77@gmail.com', '01760503512', 'Islam', 'N/A', 'N/A', 'N/A', '29-01-2022', '1697348743513_Md. Hamim Miah(AT).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 05:45:43'),
 ('localhost', 1008, '1698326587047', 'Rupmala Bala', 'Female', 'N/A', '623373', 'N1104624', 1104624, 'Assistant Teacher', 'C', 'N/A', 'N/A', '0', 'rupmalabala1981@gmail.com', '01762080149', 'Hinduism', 'N/A', 'N/A', 'N/A', '18-04-2011', '1697348371621_Rupmala bala(AT).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 05:39:31'),
-('localhost', 1009, '1698328578523', 'undefined', 'Male', 'N/A', '175832', 'N56816376', 56816376, 'Assistant Teacher', 'C', 'N/A', 'N/A', '0', 'swarupkumar2007@gmail.com', '01795502544', 'Hinduism', '1992-10-25', 'N/A   ', 'N/A', '29-01-2022', '1697348565413_Swarup Kumar Shil(AT).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 05:42:45'),
 ('localhost', 1010, '1698790717846', 'Tapon Kumar Mondal', 'Male', 'N/A', '490959', 'D1013839', 1013839, 'Assistant Teacher', 'C', 'N/A', 'N/A', '0', 'toponkumarmondol@gmail.com', '01781330520', 'Hinduism', 'N/A', 'N/A', 'N/A', '10-04-2000', '1697346989456_Topon Kumar Mondol(AT).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 05:16:29'),
 ('localhost', 1011, '1698763842482', 'Gita Rani Biswas', 'Female', 'N/A', '171278', 'D487798', 487798, 'Assistant Teacher', 'C', 'N/A', 'N/A', '0', 'grbiswas79@gmail.com', '01720611979', 'Hinduism', 'N/A', 'N/A', 'N/A', '10-04-2002', '1697347194873_Gita Rani Biswas(AT).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 05:19:54'),
 ('localhost', 1012, '1698619300861', 'Subodh Kumar Biswas', 'Male', 'N/A', '688812', 'D477686', 477686, 'Assistant Teacher', 'C', 'N/A', 'N/A', '0', 'subodhtamar@gmail.com', '01740592230', 'Hinduism', 'N/A', 'N/A', 'N/A', '01-01-1995', '1697344748279_Subodh Kumar Biswas(AT).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-15 04:39:08'),
@@ -2853,7 +2992,10 @@ INSERT INTO `teachers` (`domain`, `ID`, `teacher_uuid`, `name`, `gender`, `educa
 ('localhost', 2012, '1698205030650', 'BIKAS SEN', 'Male', 'N/A', '457901', 'D489338', 489338, 'Assistant Teacher', 'C', 'N/A', 'N/A', '', 'bikashsen866@gmail.com', '01758917633', 'undefined', 'N/A', 'N/A', 'N/A', '', '1695825280622_3 Bikash Sen.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-09-27 14:29:52'),
 ('localhost', 2013, '1698416190663', 'Md. Anwar Hossain', 'Male', 'N/A', '100485967', 'N1109120', 1109120, 'Assistant Teacher', 'C', 'N/A', 'N/A', '', 'mahossain300@gmail.com', '01849790570', 'Islam', 'N/A', 'N/A', 'N/A', '16/03/2011', '1696410767177_13 Md.Anwar Hossain (1).jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-10-04 09:12:47'),
 ('localhost', 3728, '1698912846931892351521', 'Nazrul Islam', 'Male', 'N/A', '101540889', 'N56862474', 56862474, 'Assistant Teacher ICT', 'C', 'N/A', 'N/A', 'XXXXXXXXXXX', 'nazrulislamkbf77@gmail.com', '01750076164', 'Islam', '1978-10-05', 'Boalmari, Faridpur', 'A+ve', '2004-10-14', '1698912846928_Gallery_1691899059922.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-11-02 08:14:06'),
-('localhost', 3729, '169891657325875886318', 'Mohammad Moniruzzaman', 'Male', 'N/A', '101540897', 'N56851763', 56851763, 'Headmaster', 'A', 'N/A', 'N/A', 'XXXXXXXXXXX', 'bejidangaamenahs@gmail.com', '01712191666', 'Islam', '1976-09-06', 'Bejidanga, Alfadanga, Faridpur', 'B+ve', '2003-01-01', '1698916573253_FB_IMG_1698915773594.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-11-02 09:16:13');
+('localhost', 3729, '169891657325875886318', 'Mohammad Moniruzzaman', 'Male', 'N/A', '101540897', 'N56851763', 56851763, 'Headmaster', 'A', 'N/A', 'N/A', 'XXXXXXXXXXX', 'bejidangaamenahs@gmail.com', '01712191666', 'Islam', '1976-09-06', 'Bejidanga, Alfadanga, Faridpur', 'B+ve', '2003-01-01', '1698916573253_FB_IMG_1698915773594.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-11-02 09:16:13'),
+('localhost', 3733, '1697209362836', 'SAANVI', 'Female', 'N/A', '100555346', 'N1147426', 1147426, 'Assistant Teacher', 'C', 'N/A', 'N/A', '01743452911', 'api.saanvi.abc@gmail.com', '', 'Hinduism', 'N/A', ' Boalmari-Faridpur', 'N/A', '2019-02-15', 'female_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2023-02-16 16:10:32'),
+('localhost', 3736, '1733765214180561196859', 'Maria', 'Male', 'N/A', '436', 'N10121316', 10121316, 'ICT Teacher', 'D', 'N/A', 'N/A', 'XXXXXXXXXXX', 'nomail@abc.comdf', '23412424', 'Islam', '', '', 'N/A', '', 'male_avatar.png', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 17:26:54'),
+('localhost', 3737, '173376526403835730434', 'dfa', 'Male', 'N/A', '', 'N101213162345', 2147483647, 'ICT Teacher', 'D', 'N/A', 'N/A', 'XXXXXXXXXXX', 'nomail@abc.comsdfws', '432525', 'Islam', '', '', 'N/A', '', '1733765264034_happy-woman-standing-with-book_23-2148095834.jpg', '93653c62f75a916c3868542b8b6490e3', 'N/A', '2024-12-09 17:27:44');
 
 -- --------------------------------------------------------
 
@@ -2970,7 +3112,15 @@ INSERT INTO `transcript_report` (`domain`, `ID`, `at_date`, `session`, `class`, 
 ('localhost', 42, '2024-03-10 14:07:14', 2024, 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-9-1', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-9-1', 'bg-success', '1697209362834', '1698268761255', '', 'Amir Hamza', 1, 'male_avatar.png', 'incomplete'),
 ('localhost', 43, '2024-03-10 14:07:15', 2024, 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-9-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-9-2', 'bg-success', '1697209362834', '1698268761255', '', 'Amir Hamza', 1, 'male_avatar.png', 'incomplete'),
 ('localhost', 44, '2024-03-10 14:07:38', 2024, 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-1', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-1', 'bg-success', '1697209362834', '1698268761255', '', 'Amir Hamza', 1, 'male_avatar.png', 'incomplete'),
-('localhost', 45, '2024-03-10 14:07:38', 2024, 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-2', 'bg-success', '1697209362834', '1698268761255', '', 'Amir Hamza', 1, 'male_avatar.png', 'incomplete');
+('localhost', 45, '2024-03-10 14:07:38', 2024, 'Six', 'B', 'বিজ্ঞান-অনুশীলন-বই', 'Six_B_বিজ্ঞান', '5804989be6868f0c12d43525b3ed32c6', 'gp5_6-10-2', '1', 'gp5', 0, '16982687612555804989be6868f0c12d43525b3ed32c6gp5_6-10-2', 'bg-success', '1697209362834', '1698268761255', '', 'Amir Hamza', 1, 'male_avatar.png', 'incomplete'),
+('localhost', 46, '2024-12-04 21:38:23', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '1', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-success', '1697209362834', '1698506063682', '', 'তড়িতা অধিকারী ', 1, 'female_avatar.png', 'incomplete'),
+('localhost', 47, '2024-12-04 21:38:24', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '0', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-warning', '1697209362834', '1698506063682', '', 'তড়িতা অধিকারী ', 1, 'female_avatar.png', 'incomplete'),
+('localhost', 48, '2024-12-04 21:38:25', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '0', 'gp1', 0, '1698506063682cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-warning', '1697209362834', '1698506063682', '', 'তড়িতা অধিকারী ', 1, 'female_avatar.png', 'incomplete'),
+('localhost', 49, '2024-12-04 22:29:59', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '0', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-warning', '1697209362834', '1698299881366', '', 'Chompa Khatun', 2, 'female_avatar.png', 'incomplete'),
+('localhost', 50, '2024-12-04 22:30:00', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-2', '1', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-2', 'bg-success', '1697209362834', '1698299881366', '', 'Chompa Khatun', 2, 'female_avatar.png', 'incomplete'),
+('localhost', 51, '2024-12-04 22:30:45', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-3', '0', 'gp1', 0, '1698299881366cc3556329d4583319dca2e10ff96baf7gp1_6-1-3', 'bg-warning', '1697209362834', '1698299881366', '', 'Chompa Khatun', 2, 'female_avatar.png', 'incomplete'),
+('localhost', 52, '2024-12-04 22:40:50', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp2_6-2-1', '0', 'gp2', 0, '1698738939274cc3556329d4583319dca2e10ff96baf7gp2_6-2-1', 'bg-warning', '1697209362834', '1698738939274', '', 'Karima', 4, 'female_avatar.png', 'incomplete'),
+('localhost', 53, '2024-12-04 22:40:52', 2024, 'Six', 'A', 'English', 'Six_A_English', 'cc3556329d4583319dca2e10ff96baf7', 'gp1_6-1-1', '0', 'gp1', 0, '1698460381556cc3556329d4583319dca2e10ff96baf7gp1_6-1-1', 'bg-warning', '1697209362834', '1698460381556', '', 'উৎসব বিশ্বাস', 5, 'male_avatar.png', 'incomplete');
 
 -- --------------------------------------------------------
 
@@ -3005,7 +3155,9 @@ INSERT INTO `user_admin` (`domain`, `ID`, `at_date`, `admin_uuid`, `hash_usernam
 ('umarnagarcdm.edu.bd', 28, '2023-10-23 17:40:50', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png'),
 ('bga.saanviabc.com', 29, '2023-11-01 13:54:44', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png'),
 ('bejidangakawhs', 30, '2023-11-02 13:16:17', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png'),
-('bejidangakawhs.saanviabc.com', 31, '2023-11-02 13:18:29', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png');
+('bejidangakawhs.saanviabc.com', 31, '2023-11-02 13:18:29', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png'),
+('domainname.com', 32, '2024-12-07 23:37:23', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png'),
+('demo.com', 35, '2024-12-08 11:43:26', '', 'user@admin.com', '905e60b34aa5eb27556e23e9a46bd144', 'admin', 'male_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -3030,16 +3182,8 @@ CREATE TABLE `___ini` (
 
 INSERT INTO `___ini` (`ID`, `domain`, `lics`, `join_date`, `expire_date`, `at_status`, `checkout`, `at_date`) VALUES
 (10, 'localhost', 'ABC123XYZL', '10/7/2023', '10/7/2024', 1, 1, '2023-10-07'),
-(16, 'eduxoom.net', 'ABC123XYZS', '10/7/2023', '10/7/2025', 1, 1, '2023-10-07'),
-(17, 'sahasrailpphs.saanviabc.com', 'ABC123XYZSS', '14/10/2023', '14/10/2024', 1, 1, '2023-10-07'),
-(18, 'gohailbarimb.saanviabc.com', 'ABC123XYZG', '14/10/2023', '14/10/2024', 1, 1, '2023-10-07'),
-(19, 'kadirdiblhs.saanviabc.com', 'ABC123XYZK', '14/10/2023', '14/10/2024', 1, 1, '2023-10-07'),
-(20, 'domain.saanviabc.com', 'ABC-123-XYZ', '10/19/2023', '10/5/2024', 1, 0, '2023-10-19'),
-(30, 'rangamularkandihaacademy.edu.bd', 'ABC-123-XYZR', '10/19/2023', '10/5/2024', 1, 1, '2023-10-19'),
-(31, 'tamarhazijmhs.edu.bd', '5BE76C0E625E1E3C7041', '10/23/2023', '23/10/2024', 1, 1, '2023-10-23'),
-(33, 'umarnagarcdm.edu.bd', '08F4192CBB12BB06F145', '10/23/2023', '23/10/2024', 1, 1, '2023-10-23'),
-(34, 'bga.saanviabc.com', 'D39416EC1BA991C31C6A', '11/1/2023', '1/11/2024', 0, 1, '2023-11-01'),
-(36, 'bejidangakawhs.saanviabc.com', 'C6E1A447CB3B40D3AA86', '11/2/2023', '2/11/2024', 1, 1, '2023-11-02');
+(16, 'eduxoom.com', 'ABC123XYZS', '10/7/2023', '10/7/2025', 1, 1, '2023-10-07'),
+(40, 'demo.com', 'EBFC0C0D1575138C2472', '12/8/2024', '8/12/2025', 1, 0, '2024-12-08');
 
 --
 -- Indexes for dumped tables
@@ -3195,6 +3339,12 @@ ALTER TABLE `repository`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `result`
+--
+ALTER TABLE `result`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `routine`
 --
 ALTER TABLE `routine`
@@ -3290,7 +3440,7 @@ ALTER TABLE `___ini`
 -- AUTO_INCREMENT for table `admission`
 --
 ALTER TABLE `admission`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `application`
@@ -3302,7 +3452,7 @@ ALTER TABLE `application`
 -- AUTO_INCREMENT for table `attn_record`
 --
 ALTER TABLE `attn_record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT for table `attn_student`
@@ -3332,7 +3482,7 @@ ALTER TABLE `bi_transcript`
 -- AUTO_INCREMENT for table `carousel`
 --
 ALTER TABLE `carousel`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `class_section`
@@ -3404,13 +3554,13 @@ ALTER TABLE `parents`
 -- AUTO_INCREMENT for table `pic_mark`
 --
 ALTER TABLE `pic_mark`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT for table `pis_mark`
 --
 ALTER TABLE `pis_mark`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `privacy_policy`
@@ -3425,6 +3575,12 @@ ALTER TABLE `repository`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `result`
+--
+ALTER TABLE `result`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+
+--
 -- AUTO_INCREMENT for table `routine`
 --
 ALTER TABLE `routine`
@@ -3434,25 +3590,25 @@ ALTER TABLE `routine`
 -- AUTO_INCREMENT for table `school_settings`
 --
 ALTER TABLE `school_settings`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2349;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2380;
 
 --
 -- AUTO_INCREMENT for table `student_rank`
 --
 ALTER TABLE `student_rank`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `subject`
@@ -3464,7 +3620,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3731;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3738;
 
 --
 -- AUTO_INCREMENT for table `terms_of_use`
@@ -3482,19 +3638,19 @@ ALTER TABLE `transcript_origin`
 -- AUTO_INCREMENT for table `transcript_report`
 --
 ALTER TABLE `transcript_report`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `user_admin`
 --
 ALTER TABLE `user_admin`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `___ini`
 --
 ALTER TABLE `___ini`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

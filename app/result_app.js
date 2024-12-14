@@ -230,7 +230,7 @@ exports.result_repo_sheet_page=(req, res, next)=>{
         res.redirect('/pages/empty.html')
         return
     }
-    await res.render('result/repo-sheet-page', {result, total_mark})
+    await res.render('result/repo-sheet-page', {result, total_mark: total_mark[0].total_mark.toFixed(2)})
   }
   
   catch(err){
