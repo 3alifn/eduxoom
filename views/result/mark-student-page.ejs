@@ -93,6 +93,10 @@ $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   event.preventDefault()
   const elem= event.currentTarget.className
   const formData = $("."+elem).serializeArray()
+  const class_namef= "<%=class_name%>";
+  const section_namef= "<%=section_name%>";
+   formData.push({name: "class_name", value: class_namef})
+   formData.push({name: 'section_name', value: section_namef})
    
   $.ajax({
     method: "post",

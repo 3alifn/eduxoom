@@ -67,7 +67,7 @@ app.use((err, req, res, next)=>{
  
   else {  
     console.log("My Next Error! "+ err);
-    res.send({status: 500, msg: err.message, alert: "alert-warning text-warning"})
+    res.send({status: 500, msg: err, alert: "alert-danger"})
 }
 
 })
