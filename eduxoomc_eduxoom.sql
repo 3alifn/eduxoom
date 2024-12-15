@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 13, 2024 at 10:01 AM
+-- Generation Time: Dec 14, 2024 at 09:44 AM
 -- Server version: 10.11.10-MariaDB-cll-lve
 -- PHP Version: 8.3.14
 
@@ -1111,9 +1111,9 @@ CREATE TABLE `result` (
   `avatar` varchar(200) DEFAULT NULL,
   `real_ci_mark` int(11) NOT NULL,
   `real_fi_mark` int(11) NOT NULL,
-  `ci_mark` float DEFAULT NULL,
-  `fi_mark` float DEFAULT NULL,
-  `output_mark` float DEFAULT NULL,
+  `ci_mark` int(11) DEFAULT NULL,
+  `fi_mark` int(11) DEFAULT NULL,
+  `output_mark` int(11) DEFAULT NULL,
   `tuuid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1122,10 +1122,7 @@ CREATE TABLE `result` (
 --
 
 INSERT INTO `result` (`domain`, `id`, `class`, `section`, `subject_name`, `subject_code`, `name`, `roll`, `suuid`, `avatar`, `real_ci_mark`, `real_fi_mark`, `ci_mark`, `fi_mark`, `output_mark`, `tuuid`) VALUES
-('eduxoom.com', 98, 'Six', 'A', 'English', 'cc3556329d4583319dca2e10ff96baf7', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 90, 27, 63, 90, 2147483647),
-('eduxoom.com', 99, 'Six', 'A', 'ইসলাম-শিক্ষা', '735fa2f858db7274dbc69fad832f1165', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 85, 25.5, 59.5, 85, 2147483647),
-('eduxoom.com', 100, 'Six', 'A', 'ইতিহাস-ও-সামাজিক-বিজ্ঞান-অনুশীলন-বই', '418931bdba594528818a22f5cef74236', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 69, 20.7, 48.3, 69, 2147483647),
-('eduxoom.com', 101, 'Six', 'A', 'গণিত', '46d4f7e8cccea38395f9a23882248377', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 75, 22.5, 52.5, 75, 2147483647);
+('localhost', 117, 'Six', 'A', 'English', 'cc3556329d4583319dca2e10ff96baf7', 'তড়িতা অধিকারী ', 1, '1698506063682', 'female_avatar.png', 0, 55, 16, 39, 55, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -1766,11 +1763,13 @@ INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
 ('5XnNWXpv5KCXUyQpLuelsOvMno1f8R5Z', 1736466185, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-09T23:43:04.604Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('7OaFd9KV-_niQ-j6KlU6uCD-wz8MhL8B', 1736116137, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T22:28:56.780Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('8mw-9f4DSf7LGShTP7e8fTUzo8ghQ7HI', 1736698733, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-12T16:18:53.024Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('BLxEgxxII2uBFsfOiF05qafChafMKIxU', 1736766729, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-13T11:12:08.854Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('DEYfdssfGqWjoqJz3NiXR1sqt-WaWXfk', 1735883896, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T05:58:15.253Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('E1dBB7fM4nzyXs14tUh3iCUDe2unt5nP', 1736366777, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-08T20:06:17.265Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('EKTVy1p-p08cR__4dz6x8OvZNrBwZEvr', 1736048954, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T03:49:13.663Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('Ee0bpvW7M6erTD0iHdDIulaEbeOa9lS7', 1736227598, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-07T05:26:37.835Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('EjeHY1xCNmr_4onh3hduCoamXCN50O0i', 1736083487, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T13:24:30.780Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"8b2c54dfa381e63d09cfc30e6735b870\",\"userAccess\":\"privet\"}'),
+('FNzfqxIyJWnwuOHKoulR1hogemQTS_K5', 1736770696, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-12T18:30:12.634Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":3731,\"teacher_uuid\":\"1697209362835\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"Tanvir Islam\",\"userEmail\":\"user@abc.com\",\"usermail\":\"user@abc.com\",\"index\":\"N1147429\",\"flash\":{}}'),
 ('Fm7TatofJFHBAGiWJLdLG0dHuu7DNEQe', 1736131644, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-06T02:47:23.665Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('Gjt6hPm8KdpepF8yC56k3-WLW_Z5bdrw', 1736081169, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T12:46:09.150Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('Jhr5P4DSoS_hckew0nqH2HZ_bPnlCKnf', 1735934710, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T20:05:09.945Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
@@ -1788,17 +1787,20 @@ INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
 ('Y3hkulcgLtqYVCpEdnUQVY9dnj7wtkQz', 1736190682, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-06T19:11:21.691Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('YdRkgz05LjTNzcNmqPPNOb80jkS18XR8', 1735878425, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T04:27:05.209Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
 ('YstEeJGq07iuslpQ2Qeu7uHsmzF809Ax', 1736072369, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T10:19:29.495Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('ZmduZ_YLb98zyRnuGOfwAcKi3acTaFcW', 1736727271, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-13T00:14:31.090Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('_4MSnycP_JP50mrHi5vszfuNxnaFt_n0', 1735878425, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T04:27:05.204Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
 ('_UJpuT-tTSpXYu5_FIW4--FlYDS-5XKK', 1735982338, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-04T09:18:57.947Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('_o8eySFv4VdXvCKZvXZ3dKuhCeaFNZkN', 1735946213, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-03T23:16:51.442Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{\"alert\":[\"danger\",\"danger\",\"danger\",\"danger\"],\"msg\":[\"Authontication Falied!\",\"Authontication Falied!\",\"Authontication Falied!\",\"Authontication Falied!\"]}}'),
-('aqqbFylIngXaFzUAcrHbfeCzCvMQ5gRD', 1736578065, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-10T14:06:01.151Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hashUser\":\"hashAdmin\",\"admin_uuid\":\"\",\"hashUsername\":\"user@admin.com\",\"hashPassword\":\"905e60b34aa5eb27556e23e9a46bd144\",\"userAccess\":\"privet\"}'),
 ('bFoaPryQFqcXw26bAio5y1fdA6pUMGOi', 1735286721, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2024-12-27T07:47:28.768Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":18,\"teacher_uuid\":\"1697209362834\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"SOUMITRA SAHA\",\"userEmail\":\"soumitrasahatanin@gmail.com\",\"usermail\":\"soumitrasahatanin@gmail.com\",\"index\":\"N1147428\"}'),
 ('dvY-PwhM4OM2vqf0zZ7uNnr2-nzdQjmi', 1736534305, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-10T18:38:24.515Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('gfbxCRHS9ubtkaw2tXIKRCa26PyqXNEQ', 1736415690, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-09T09:31:35.172Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('gx5g-EkS30C50vV9HIAyY4dhJGsyiiRv', 1736126868, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-06T01:27:48.358Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('ka6bjI8-oAK-PsiWYwwy1-sMlqa4-X9e', 1735970088, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-04T05:49:28.919Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('khhrRmYh0IkqIjggH25U4PRH2_SvqLoi', 1736758513, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-13T08:55:13.484Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('mtYVWcq1j2jjmG82COoUTDG8Bn7qE7ak', 1736739074, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-13T03:31:13.907Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('rqFAKfT1giLMAcq0NB2G9pwzl-NtaqZ2', 1736352064, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-08T16:01:04.350Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{\"alert\":[\"danger\"],\"msg\":[\"Authontication Falied!\"]}}'),
-('s6yEdmhhTg0HHr_PfMfmfJs1Vhg-3hok', 1736417795, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-07T06:23:42.030Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('s6yEdmhhTg0HHr_PfMfmfJs1Vhg-3hok', 1736759391, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-07T06:23:42.030Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('sR5tRr7P9fYobDk2EYLNdlMuhtMEBXjd', 1736790173, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-12T18:05:08.287Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":31,\"teacher_uuid\":\"1697593897626\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"no name\",\"userEmail\":\"api.saanvi.abc@gmail.com\",\"usermail\":\"api.saanvi.abc@gmail.com\",\"index\":\"n123456\"}'),
 ('xMJDLdCyCOc4hi3f1bW97-qc7ESa7eBt', 1736659344, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-12T05:22:24.176Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
 ('xrkZ5dh-iEdeg3bRnYU9B2rmjiWyhrCl', 1736020254, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-04T19:50:52.603Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{\"alert\":[\"danger\",\"danger\",\"danger\",\"danger\"],\"msg\":[\"Authontication Falied!\",\"Authontication Falied!\",\"Authontication Falied!\",\"Authontication Falied!\"]}}'),
 ('xubcYxbrIgfEbP-OOrPR8sPo8EZwiBfh', 1736116133, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-05T22:28:52.727Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
@@ -3775,7 +3777,7 @@ ALTER TABLE `repository`
 -- AUTO_INCREMENT for table `result`
 --
 ALTER TABLE `result`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT for table `routine`
