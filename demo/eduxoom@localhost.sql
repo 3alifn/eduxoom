@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2024 at 06:58 PM
+-- Generation Time: Dec 15, 2024 at 05:17 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1051,21 +1051,13 @@ CREATE TABLE `result` (
   `avatar` varchar(200) DEFAULT NULL,
   `real_ci_mark` int(11) NOT NULL,
   `real_fi_mark` int(11) NOT NULL,
-  `ci_mark` float DEFAULT NULL,
-  `fi_mark` float DEFAULT NULL,
-  `output_mark` float DEFAULT NULL,
+  `ci_mark` int(11) DEFAULT NULL,
+  `fi_mark` int(11) DEFAULT NULL,
+  `book_mark` int(11) DEFAULT NULL,
+  `output_mark` int(11) DEFAULT NULL,
+  `book_status` int(11) NOT NULL DEFAULT 1,
   `tuuid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `result`
---
-
-INSERT INTO `result` (`domain`, `id`, `class`, `section`, `subject_name`, `subject_code`, `name`, `roll`, `suuid`, `avatar`, `real_ci_mark`, `real_fi_mark`, `ci_mark`, `fi_mark`, `output_mark`, `tuuid`) VALUES
-('eduxoom.com', 98, 'Six', 'A', 'English', 'cc3556329d4583319dca2e10ff96baf7', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 90, 27, 63, 90, 2147483647),
-('eduxoom.com', 99, 'Six', 'A', 'ইসলাম-শিক্ষা', '735fa2f858db7274dbc69fad832f1165', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 85, 25.5, 59.5, 85, 2147483647),
-('eduxoom.com', 100, 'Six', 'A', 'ইতিহাস-ও-সামাজিক-বিজ্ঞান-অনুশীলন-বই', '418931bdba594528818a22f5cef74236', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 69, 20.7, 48.3, 69, 2147483647),
-('eduxoom.com', 101, 'Six', 'A', 'গণিত', '46d4f7e8cccea38395f9a23882248377', 'Chompa Khatun', 2, '1698299881366', 'female_avatar.png', 0, 75, 22.5, 52.5, 75, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -1701,7 +1693,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('QP5XJKrI8_w6loA-ClxhFSNC6hwQNpAL', 1736704429, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-08T18:06:48.487Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":3733,\"teacher_uuid\":\"1697209362836\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"SAANVI\",\"userEmail\":\"api.saanvi.abc@gmail.com\",\"usermail\":\"api.saanvi.abc@gmail.com\",\"index\":\"N1147426\",\"flash\":{},\"username\":\"api.saanvi.abc@gmail.com\",\"temp_code\":201176}');
+('QP5XJKrI8_w6loA-ClxhFSNC6hwQNpAL', 1736871335, '{\"cookie\":{\"originalMaxAge\":2592000000,\"expires\":\"2025-01-08T18:06:48.487Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userid\":3733,\"teacher_uuid\":\"1697209362836\",\"user\":\"teacher\",\"userAccess\":\"privet\",\"userName\":\"SAANVI\",\"userEmail\":\"api.saanvi.abc@gmail.com\",\"usermail\":\"api.saanvi.abc@gmail.com\",\"index\":\"N1147426\",\"flash\":{},\"username\":\"api.saanvi.abc@gmail.com\",\"temp_code\":201176}');
 
 -- --------------------------------------------------------
 
@@ -3578,7 +3570,7 @@ ALTER TABLE `repository`
 -- AUTO_INCREMENT for table `result`
 --
 ALTER TABLE `result`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `routine`
