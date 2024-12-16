@@ -8,7 +8,7 @@ const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, t
 const { teacher_student_info } = require("../app/student_app");
 const { Cookie } = require('express-session');
 const { teacher_attn_init_page, teacher_attn_post_page, teacher_attn_post_page_num, teacher_attn_post, teacher_attn_checkout, teacher_attn_checkout_last_five } = require('../app/attendance_app');
-const {result_mark_student_page, result_mark_subject_page, result_mark_push, result_mark_pull, result_repo_subject_page, result_repo_init_page, result_repo_student_page, result_repo_page, result_repo_sheet_page, } = require('../app/result_app');
+const {result_mark_student_page, result_mark_subject_page, result_mark_push, result_mark_pull, result_repo_subject_page, result_repo_init_page, result_repo_student_page, result_repo_page, result_repo_sheet_page, result_rank_pull, } = require('../app/result_app');
 const teacher= express.Router()
 
 teacher.all('*', (req, res, next)=>{
@@ -40,6 +40,7 @@ teacher.get('/result/repo-init-page/', (req, res)=>{
 })
 teacher.get('/result/repo-student-page/:class_name/:section_name', result_repo_student_page)
 teacher.get('/result/repo-sheet-page/:class_name/:section_name/:suuid', result_repo_sheet_page)
+teacher.post('/result/rank-pull/', result_rank_pull)
 
 
 
