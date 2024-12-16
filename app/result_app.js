@@ -199,9 +199,9 @@ exports.result_repo_student_page=(req, res, next)=>{
     const {class_name, section_name}= req.params;
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
-    sqlmap.query(`SELECT class, section, student_uuid as suuid, roll, name, avatar FROM students WHERE domain=? AND class=? AND section=? 
-        AND student_uuid IN (SELECT suuid FROM result WHERE class=? AND section=? ORDER BY roll) ORDER BY roll`,
-        [hostname, class_name, section_name, class_name, section_name], (err, students)=>{
+    sqlmap.query(`SELECT class, section, suuid, roll, name, output_mark, avatar FROM result 
+        WHERE domain=? AND class=? AND section=? GROUP BY suuid ORDER BY output_mark DESC`,
+        [hostname, class_name, section_name], (err, students)=>{
        if(err) {
        next(err.sqlMessage)
        return
@@ -225,24 +225,14 @@ exports.result_repo_sheet_page=(req, res, next)=>{
  function makeRepo(class_name, section_name, suuid){
     return new Promise((resolve, reject)=>{
         sqlmap.query(`SELECT class, section, subject_name, subject_code, name, roll, suuid,
-             avatar, ci_mark, fi_mark, book_mark FROM result
+             avatar, ci_mark, fi_mark, book_mark, output_mark FROM result
               WHERE domain=? AND class=? AND section=? AND suuid=?`,
             [hostname, class_name, section_name, suuid], (err, result)=>{
                 if(err){
                     reject(err.sqlMessage)
                     return;
                 }
-
-                sqlmap.query(`SELECT SUM(book_mark) as output_mark FROM result
-                     WHERE domain=? AND class=? AND section=? AND suuid=?`,
-                   [hostname, class_name, section_name, suuid], (err, output_mark)=>{
-                       if(err){
-                           reject(err.sqlMessage)
-                           return;
-                       }
-                       resolve({result, output_mark})
-       
-                   })
+                resolve(result)
 
             })
     })
@@ -250,13 +240,13 @@ exports.result_repo_sheet_page=(req, res, next)=>{
 
   (async function(){
   try{
-    const {result, output_mark}= await makeRepo(class_name, section_name, suuid);
+    const result= await makeRepo(class_name, section_name, suuid);
     
     if(result?.length==0 || result==undefined){
         res.redirect('/pages/empty.html')
         return
     }
-    await res.render('result/repo-sheet-page', {result, output_mark: output_mark[0].output_mark})
+    await res.render('result/repo-sheet-page', {result})
   }
   
   catch(err){
@@ -268,3 +258,47 @@ exports.result_repo_sheet_page=(req, res, next)=>{
 }
 
 
+
+exports.result_rank_pull= (req, res)=>{
+    const {class_name, section_name, suuid}= req.body;
+    const host = req.hostname.startsWith("www.");
+    const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
+
+    const  initRank= (class_name, section_name)=>{
+        return new Promise((resolve, reject)=>{
+        sqlmap.query(`select suuid, output_mark from result where domain=? and class=? and section=? group by suuid order by output_mark desc`,
+            [hostname, class_name, section_name],(err, rank)=>{
+            if(err) return reject(err)
+                resolve(rank)
+        })
+        })
+    
+      }
+    
+    const viewRank= (suuid, rank)=>{
+        return new Promise((resolve, reject)=>{
+            const rankNumber= new Map();
+         rank.forEach((item, index)=>{
+            if(item.suuid==suuid){
+                rankNumber.set('rank', index+1)
+                return resolve(rankNumber.get('rank'))
+            } 
+            
+         })
+    
+        })
+    }
+    
+(async function(){
+try{
+const rankNumber= await initRank(class_name, section_name);
+const rank= await viewRank(suuid, rankNumber);
+res.send({status: 200, msg: rank})
+}
+catch(err){
+next(err)
+}
+
+})()
+
+}
