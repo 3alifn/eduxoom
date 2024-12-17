@@ -23,25 +23,16 @@ teacher.all('*', (req, res, next)=>{
 teacher.post("/student/info", teacher_student_info)
 
 
-// make new result system........
+// make new result system router........
 teacher.get('/result/mark-init-page', (req, res)=>{
 
       res.render('result/mark-init-page')
 })
-// make result system......
+
 teacher.get('/result/mark-subject-page/:class_name/:section_name', result_mark_subject_page)
 teacher.get('/result/mark-student-page/:class_name/:section_name/:subject_code', result_mark_student_page)
 teacher.post('/result/mark-push', result_mark_push)
 teacher.get('/result/mark-pull', result_mark_pull)
-// get result report system........
-teacher.get('/result/repo-init-page/', (req, res)=>{
-
-   res.render('result/repo-init-page')
-})
-teacher.get('/result/repo-student-page/:class_name/:section_name', result_repo_student_page)
-teacher.get('/result/repo-sheet-page/:class_name/:section_name/:suuid', result_repo_sheet_page)
-teacher.post('/result/rank-pull/', result_rank_pull)
-
 
 
 

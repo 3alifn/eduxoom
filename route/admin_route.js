@@ -20,6 +20,7 @@ const { admin_repo_post, multer_upload_repo, admin_repo_get, multer_upload_repos
 const { admin_dashboard_tsa_lookup } = require("../app/dashboard_app")
 const { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, admin_staff_penbox_pull, admin_staff_penbox_push, admin_staff_img_post } = require("../app/staff_app")
 const { admin_pi_transcript_report_checkout, admin_result_report_student_get, admin_result_report_get } = require('../app/pi_app')
+const { result_marksheet_pull_page, result_marksheet_pull_print } = require('../app/result_app')
 const admin= express.Router()
 
 admin.get("/panel", (req, res)=>{
@@ -61,6 +62,21 @@ admin.get('/setup/school-settings', school_app.admin_school_page)
 
 admin.post('/setup/school-settings/post', school_app.admin_school_post)
 admin.post('/setup/school-settings/img/post', multer_upload_school_settings.single('image'), school_app.admin_school_img_post)
+
+
+
+// new result system............
+admin.get('/result/marksheet-init-page/', (req, res)=>{
+  res.render('result/marksheet-init-page')
+})
+
+admin.get('/result/marksheet-pull-page/:class_name/:section_name', result_marksheet_pull_page)
+admin.post('/result/marksheet-pull-print/', result_marksheet_pull_print)
+
+
+
+
+
 
 
 // repository settings..

@@ -21,7 +21,7 @@
 <body onload="pageLoadingTop()">
 
   <%- include("../component/user-header-nav.html") %>
-    <%- include("../component/teacher-offcanvas-nav.html") %>
+    <%- include("../component/offcanvas-nav.html") %>
 <hr>
     <center class="mt-5">
         <h6>Student Marksheet</h6>
@@ -96,6 +96,8 @@
 
 </div>
 
+<%- include("../component/___node.html") %>
+
 <script>
 
 function rankPull(){
@@ -104,7 +106,7 @@ function rankPull(){
   const suuid= "<%=result[0].suuid%>";
   $.ajax({
     method: 'post',
-    url: '/teacher/result/rank-pull',
+    url: '/privet/result/rank-pull',
     data: {class_name, section_name, suuid},
     beforeSend: ()=>{
    $('.rankNumber').addClass('spinner-border spinner-border-sm');

@@ -16,7 +16,7 @@
 <body onload="pageLoadingTop()">
 
   <%- include("../component/user-header-nav.html") %>
-    <%- include("../component/teacher-offcanvas-nav.html") %>
+    <%- include("../component/offcanvas-nav.html") %>
 
       <div class="p-2 mt-5 row">
 
@@ -38,7 +38,7 @@
         <div id="syncSystemApp" class="col-md-8 m-auto col-11">
 
           <% for( let index=0; index < students.length; index++ ) { %>
-            <a href="/teacher/result/repo-sheet-page/<%=class_name%>/<%=section_name%>/<%=students[index].suuid%>">
+            <a href="/privet/result/repo-sheet-page/<%=class_name%>/<%=section_name%>/<%=students[index].suuid%>">
             <div class="students-card findcard shadowx pt-1 pb-1">
               <div class="d-flex  justify-content-start align-content-center align-items-center">
                 <img class="rounded-circle border border-1 p-1" height="60px" width="60px"
