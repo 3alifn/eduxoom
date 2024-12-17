@@ -1,7 +1,7 @@
 const output = require('sharp/lib/output');
 const {sqlmap} = require('../server');
 
-exports.result_mark_subject_page= (req, res)=>{
+exports.result_mark_subject_page= (req, res, next)=>{
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
     const {class_name, section_name}= req.params; 
@@ -259,7 +259,7 @@ exports.result_repo_sheet_page=(req, res, next)=>{
 
 
 
-exports.result_rank_pull= (req, res)=>{
+exports.result_rank_pull= (req, res, next)=>{
     const {class_name, section_name, suuid}= req.body;
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -302,3 +302,76 @@ next(err)
 })()
 
 }
+
+
+
+
+exports.result_marksheet_pull_page= (req, res, next)=>{
+    const {class_name, section_name}= req.params;
+    const host = req.hostname.startsWith("www.");
+    const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
+
+    const studentsFunc= (class_name, section_name)=>{
+        return new Promise((resolve, reject)=>{
+        sqlmap.query(`select suuid from result where domain=? and class=? and section=? group by suuid order by output_mark desc`,
+            [hostname, class_name, section_name],(err, studentsData)=>{
+            if(err) return reject(err)
+                resolve(studentsData)
+        })
+        })
+    
+      }
+
+      (async function(){
+       try {
+        const students= await studentsFunc(class_name, section_name)
+        await res.render("result/marksheet-print-page", {class_name, section_name, students})
+
+       } catch (err) {
+        next(err)
+
+       }
+      })()
+    
+}
+
+
+exports.result_marksheet_pull_print=(req, res, next)=>{
+    const {class_name, section_name, suuid}= req.body;
+    const host = req.hostname.startsWith("www.");
+    const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
+    function markSheetPull(class_name, section_name, suuid){
+       return new Promise((resolve, reject)=>{
+           sqlmap.query(`SELECT class, section, subject_name, subject_code, name, roll, suuid,
+                avatar, ci_mark, fi_mark, book_mark, output_mark FROM result
+                 WHERE domain=? AND class=? AND section=? AND suuid=?`,
+               [hostname, class_name, section_name, suuid], (err, result)=>{
+                   if(err){
+                       reject(err.sqlMessage)
+                       return;
+                   }
+                   resolve(result)
+   
+               })
+       })
+    }
+   
+     (async function(){
+     try{
+       const result= await markSheetPull(class_name, section_name, suuid);
+       
+       if(result?.length==0 || result==undefined){
+        await res.send({status: 404, msg: result})
+        return
+       }
+       await res.send({status: 200, msg: result})
+     }
+     
+     catch(err){
+      next(err)
+     }
+     
+    })()
+   
+   }
+   
