@@ -4,8 +4,8 @@
   <title>Result marksheet</title>
   <%- include("../component/metadata.html") %>
       
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
 
 </head>
@@ -15,8 +15,10 @@
     text-decoration: none;
 
   }
+
   .breakBefore { page-break-before: always; } 
   .breakAfter { page-break-after: always; }
+
 </style>
 
 <body onload="pageLoadingTop()">
@@ -25,9 +27,7 @@
     <%- include("../component/offcanvas-nav.html") %>
 <hr>
     <center class="mt-5">
-        <h6>Student Marksheet</h6>
-        <button id="downloadbtn" class="btn btn-link" onclick="htmlPrintPDF('<%=class_name%>', '<%=section_name%>')">Download Marksheet</button>
-        <!-- <button class="btn btn-link" onclick="jsPrintPDF()">Download Marksheet</button> -->
+        <button id="downloadbtn" class="btn view-link ps-3 pe-3 mb-3 fw-semibold text-primary" onclick="htmlPrintPDF('<%=class_name%>', '<%=section_name%>')">Download Marksheet</button>
     </center>
 </div>
 </div>
@@ -35,9 +35,6 @@
 
 <div id="rootApp">
 
-<div id="markSheetHtml" class="row p-2">
-
-</div>    
 
 </div>
 
@@ -53,13 +50,12 @@
 
 <script>
 
-function marksheetHtml(result) {
+function marksheetHtml(result, index) {
   let markSheetHtml = `
-<div class="app">
-   <div class="breakBefore"></div>
+<div class="markSheetHtml breakAfter row">
 
     <div class="col-md-6 m-auto col-11">
-        <div class="students-card findcard shadowx pt-1 pb-1">
+        <div class="students-card findcard shadowx ">
             <div class="d-flex justify-content-start align-content-center align-items-center">
                 <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/image/student/resized/${result[0].avatar}" alt="">
                 <p class="fw-semibold text-muted ps-1">
@@ -72,7 +68,7 @@ function marksheetHtml(result) {
         </div>
     </div>
     <div class="table-responsive mb-5">
-        <code class="fw-semibold fs-5 ms-5">Rank <code class="rankNumber"></code></code>
+        <code class="fw-semibold fs-5 ms-5">Rank <code class="rankNumber">${index}</code></code>
         <table class="table table-striped table-bordered p-2 m-2 fw-semibold">
             <thead>
                 <tr>
@@ -103,38 +99,12 @@ function marksheetHtml(result) {
         </table>
     </div>
 
-    <div class="breakAfter"></div>
 </div>
 
    `;
 
-  $("#markSheetHtml").append(markSheetHtml);
+  $("#rootApp").append(markSheetHtml);
 }
-
-function htmlPrintPDF(class_name, section_name){
-    const element = document.getElementById('rootApp');
-    const stIdentifier = `Marksheet@${class_name}-${section_name}`;
-    
-    const options = {
-        image: { type: 'jpeg', quality: 1 },
-        margin: [0, 0, 0, 0],
-        filename: `Marksheet@${stIdentifier}.pdf`,
-        image: { type: 'jpeg', quality: 0.90 },
-        html2canvas: { dpi: 192, scale: 2, letterRendering: true },
-        // pagebreak: { 
-        //     mode: ['css', 'legacy'], 
-        //     before: ['.breakBefore'], 
-        //     after: ['.breakAfter'],
-        // },
-        pagebreak: { mode: 'auto' },
-        jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' },
-        compressPDF: true,
-    };
-    
-    html2pdf().set(options).from(element).save();
-}
-
-
 
 
 function markSheetPull() {
@@ -143,6 +113,7 @@ function markSheetPull() {
     const students = $('input[name="suuid"]').serializeArray();
     const studentLength= students.length;
     _spin_pull();
+    _spin_bar_pull()
  $("#downloadbtn").addClass('disabled');
 
      students.forEach((item, index) => {
@@ -153,12 +124,13 @@ function markSheetPull() {
       data: { class_name, section_name, suuid },
       success: (res) => {
         if (res.status == 200) {
-          marksheetHtml(res.msg)
+          marksheetHtml(res.msg, index+1)
         
         }
 
         if(studentLength==index+1){
-          _spin_pop()
+      _spin_pop()
+      _spin_bar_pop()
           $("#downloadbtn").removeClass('disabled');
         return
           
@@ -176,32 +148,31 @@ function markSheetPull() {
 markSheetPull();
 
 
-function jsPrintPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
 
-    html2canvas(document.querySelector("#app")).then(function (canvas) {
-        const imgData = canvas.toDataURL("image/png");
-        const imgWidth = 210;
-        const pageHeight = 295;
-        const imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
-
-        doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-
-        let position = 0;
-        while (heightLeft >= 0) {
-            position = heightLeft - imgHeight;
-            doc.addPage();
-            doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-        }
-
-        doc.save("download.pdf");
-    }).catch(function (error) {
-        console.error("Error generating PDF: ", error);
-    });
+function htmlPrintPDF(class_name, section_name){
+    const element = document.getElementById('rootApp');
+    const stIdentifier = `Marksheet@${class_name}-${section_name}`;
+    _spin_pull();
+    _spin_bar_pull()
+    const options = {
+        image: { type: 'jpeg', quality: 1 },
+        margin: [0, 0, 0, 0],
+        filename: `Marksheet@${stIdentifier}.pdf`,
+        image: { type: 'jpeg', quality: 0.90 },
+        html2canvas: { scale: 2, useCORS: true },
+         jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }, 
+        pagebreak: { 
+            mode: ['css', 'legacy'], 
+            // before: ['.breakBefore'], 
+            after: ['.breakAfter'],
+        },
+        compressPDF: true,
+    };
+    
+    html2pdf().set(options).from(element).save();
+     _spin_pop()
+      _spin_bar_pop()
+      _msg_pull('alert-success', 'Download Successfully...', false)
 }
 
 </script>

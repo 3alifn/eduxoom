@@ -313,9 +313,9 @@ exports.result_marksheet_pull_page= (req, res, next)=>{
 
     const studentsFunc= (class_name, section_name)=>{
         return new Promise((resolve, reject)=>{
-        sqlmap.query(`select suuid from result where domain=? and class=? and section=? group by suuid order by output_mark desc`,
+        sqlmap.query(`SELECT suuid FROM result WHERE domain=? AND class=? AND section=? GROUP BY suuid ORDER BY output_mark DESC`,
             [hostname, class_name, section_name],(err, studentsData)=>{
-            if(err) return reject(err)
+            if(err) return reject("err")
                 resolve(studentsData)
         })
         })
