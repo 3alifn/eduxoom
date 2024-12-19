@@ -222,11 +222,11 @@ exports.result_repo_sheet_page=(req, res, next)=>{
  const {class_name, section_name, suuid}= req.params;
  const host = req.hostname.startsWith("www.");
  const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
- function makeRepo(class_name, section_name, suuid){
+ function getMarkSheet(class_name, section_name, suuid){
     return new Promise((resolve, reject)=>{
         sqlmap.query(`SELECT class, section, subject_name, subject_code, name, roll, suuid,
              avatar, ci_mark, fi_mark, book_mark, output_mark FROM result
-              WHERE domain=? AND class=? AND section=? AND suuid=?`,
+              WHERE domain=? AND class=? AND section=? AND suuid=? GROUP BY subject_code ORDER BY subject_name`,
             [hostname, class_name, section_name, suuid], (err, result)=>{
                 if(err){
                     reject(err.sqlMessage)
@@ -237,16 +237,32 @@ exports.result_repo_sheet_page=(req, res, next)=>{
             })
     })
  }
+ 
+ function getSubjectName(class_name){
+    return new Promise((resolve, reject)=>{
+        sqlmap.query(`SELECT subject_code, subject as subject_name FROM ini_subject 
+            WHERE class=? GROUP BY subject_code ORDER BY subject`,
+            [class_name], (err, subject)=>{
+                if(err){
+                    reject(err.sqlMessage)
+                    return;
+                }
+                resolve(subject)
+
+            })
+    })
+ }
 
   (async function(){
   try{
-    const result= await makeRepo(class_name, section_name, suuid);
-    
+    const result= await getMarkSheet(class_name, section_name, suuid);
+    const subject= await getSubjectName(class_name);
+
     if(result?.length==0 || result==undefined){
         res.redirect('/pages/empty.html')
         return
     }
-    await res.render('result/repo-sheet-page', {result})
+    await res.render('result/repo-sheet-page', {subject, result})
   }
   
   catch(err){
@@ -340,11 +356,28 @@ exports.result_marksheet_pull_print=(req, res, next)=>{
     const {class_name, section_name, suuid}= req.body;
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
+
+    function getSubjectName(class_name){
+        return new Promise((resolve, reject)=>{
+            sqlmap.query(`SELECT subject_code, subject as subject_name FROM ini_subject 
+                WHERE class=? GROUP BY subject_code ORDER BY subject`,
+                [class_name], (err, subject)=>{
+                    if(err){
+                        reject(err.sqlMessage)
+                        return;
+                    }
+                    resolve(subject)
+    
+                })
+        })
+     }
+
+
     function markSheetPull(class_name, section_name, suuid){
        return new Promise((resolve, reject)=>{
            sqlmap.query(`SELECT class, section, subject_name, subject_code, name, roll, suuid,
                 avatar, ci_mark, fi_mark, book_mark, output_mark FROM result
-                 WHERE domain=? AND class=? AND section=? AND suuid=?`,
+                 WHERE domain=? AND class=? AND section=? AND suuid=? GROUP BY subject_code`,
                [hostname, class_name, section_name, suuid], (err, result)=>{
                    if(err){
                        reject(err.sqlMessage)
@@ -355,16 +388,20 @@ exports.result_marksheet_pull_print=(req, res, next)=>{
                })
        })
     }
+
+    
    
      (async function(){
      try{
+       const subject= await getSubjectName(class_name);
        const result= await markSheetPull(class_name, section_name, suuid);
+       console.log(result[0].suuid);
        
        if(result?.length==0 || result==undefined){
         await res.send({status: 404, msg: result})
         return
        }
-       await res.send({status: 200, msg: result})
+       await res.send({status: 200, result: result, subject: subject})
      }
      
      catch(err){
