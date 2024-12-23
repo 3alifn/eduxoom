@@ -1,8 +1,8 @@
-const {app, express, dotenv, nodemailer, mysql, sqlmap, session, createHmac} = require("../server")
+import { app, express, dotenv, nodemailer, mysql, sqlmap, session, createHmac } from '../server.js';
 
 
 
-exports.authentication_check = (req, res) => {
+export const authentication_check = (req, res) => {
   const { userRole, username, password } = req.body;
   const hashPassword = createHmac('md5', 'pipilikapipra').update(password).digest('hex');
   let findBashQuery;
@@ -63,11 +63,11 @@ exports.authentication_check = (req, res) => {
 
 
 
-exports.authentication_404=  (req, res)=>{
+export const authentication_404=  (req, res)=>{
     res.render("authentication/signin_page", {msg: req.flash("msg"), alert: req.flash("alert")})
     }
 
-exports.signout =  (req, res)=>{
+export const signout =  (req, res)=>{
     req.session.destroy((err)=>{
       req.session= null;
       // res.clearCookie('nocookie', {path: '/'})
@@ -81,7 +81,7 @@ exports.signout =  (req, res)=>{
 
 
 
-exports.forgot_password = (req, res) => {
+export const forgot_password = (req, res) => {
       const { userRole, username } = req.body;
       const sql = `SELECT email FROM ${userRole} WHERE domain=? AND email=?`;
   
@@ -143,7 +143,7 @@ exports.forgot_password = (req, res) => {
   
 
   
-exports.forgot_verify_code= (req, res)=>{
+export const forgot_verify_code= (req, res)=>{
   let {verifyCode}= req.body;
   
     if(verifyCode==req.session.userVerifyCode)
@@ -166,7 +166,7 @@ exports.forgot_verify_code= (req, res)=>{
 
 
 
-exports.reset_password = (req, res) => {
+export const reset_password = (req, res) => {
     let username = req.session.username;
     let userRole = req.session.user;
     let password = req.body.password;
@@ -189,7 +189,7 @@ exports.reset_password = (req, res) => {
 
 
 
-exports.au_user_header_nav = (req, res) => {
+export const au_user_header_nav = (req, res) => {
   const userType = req.session.user + 's';
 
   sqlmap.query(

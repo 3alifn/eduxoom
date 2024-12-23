@@ -1,14 +1,13 @@
-const {app, express, dotenv, nodemailer, mysql, sqlmap, multer, session, createHmac, randomBytes} = require("../server")
+import { app, express, dotenv, nodemailer, mysql, sqlmap, multer, session, createHmac, randomBytes } from '../server.js';
 var regexTelephone= /^01[0-9]*$/
 var regexNumber= /^[0-9]*$/
 var regexString= /^[A-Za-z .-_]*$/
 var regexBi= /^[A-Za-z0-9-_]*$/
 var regexPassword= /^[a-zA-Z0-9!@#$%&*]*$/
 var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/ 
-const chapter_six= require('../chapter_api')
+import {chapter_Six, chapter_Seven} from '../chapter_api.js';
 
-
-exports.teacher_bi_info= (req, res)=>{
+export const teacher_bi_info= (req, res)=>{
     const {ID}= req.body;
 sqlmap.query(`SELECT * FROM ini_bi_catagory WHERE domain='${req.cookies["hostname"]}' AND  ID=${ID}`, (err, info)=>{
     if(err) console.log(err.sqlMessage);
@@ -19,7 +18,7 @@ sqlmap.query(`SELECT * FROM ini_bi_catagory WHERE domain='${req.cookies["hostnam
 
 
 
-exports.admin_bi_catagory_post = (req, res) => {
+export const admin_bi_catagory_post = (req, res) => {
     const { catagory_name } = req.body;
     const session = new Date().getUTCFullYear();
 
@@ -40,7 +39,7 @@ exports.admin_bi_catagory_post = (req, res) => {
     
 
 
-exports.admin_bi_catagory_get = (req, res) => {
+export const admin_bi_catagory_get = (req, res) => {
     const sql = `SELECT * FROM ini_bi_catagory GROUP BY catagory_code ORDER BY ID`;
 
     sqlmap.query(sql, (err, info) => {
@@ -74,7 +73,7 @@ exports.admin_bi_catagory_get = (req, res) => {
 
 
 
-exports.admin_bi_catagory_update_post = (req, res) => {
+export const admin_bi_catagory_update_post = (req, res) => {
     const { catagory_id, catagory_name } = req.body;
     const sql = `UPDATE bi_catagory SET catagory_name=? WHERE domain=? AND ID=?`;
 
@@ -90,7 +89,7 @@ exports.admin_bi_catagory_update_post = (req, res) => {
 
 
 
-exports.admin_bi_catagory_delete = (req, res) => {
+export const admin_bi_catagory_delete = (req, res) => {
     const { catagory_id } = req.body;
     const sql = `DELETE FROM bi_catagory WHERE domain=? AND ID=?`;
 
@@ -109,7 +108,7 @@ exports.admin_bi_catagory_delete = (req, res) => {
 
 
 
-// exports.teacher_bi_page_mark_get= (req, res)=>{
+// export const teacher_bi_page_mark_get= (req, res)=>{
 //     const teacher_uuid= req.session.teacher_uuid; 
 //     const {className, sectionName, page}= req.params; if(page==1) var offset=0; else var offset=page-1; const limit=20; 
 
@@ -143,7 +142,7 @@ exports.admin_bi_catagory_delete = (req, res) => {
 // }
 
 
-exports.teacher_bi_page_mark_get = (req, res) => {
+export const teacher_bi_page_mark_get = (req, res) => {
     const teacher_uuid = req.session.teacher_uuid;
     const { className, sectionName, page } = req.params;
     const limit = 20;
@@ -188,7 +187,7 @@ exports.teacher_bi_page_mark_get = (req, res) => {
 
 
 
-exports.teacher_bi_report_get = (req, res) => {
+export const teacher_bi_report_get = (req, res) => {
     const teacher_uuid = req.session.teacher_uuid;
     const { className, sectionName, page } = req.params;
     const limit = 20;
@@ -328,7 +327,7 @@ const teacher_bi_transcript_post_update = (domain, className, sectionName, stude
 
 
 
-exports.teacher_bi_mark_post = (req, res) => {
+export const teacher_bi_mark_post = (req, res) => {
     const teacher_uuid = req.session.teacher_uuid;
     const session = new Date().getUTCFullYear();
     const domain = req.cookies["hostname"];
@@ -375,7 +374,7 @@ exports.teacher_bi_mark_post = (req, res) => {
 
 
 
-// exports.admin_bi_transcript_report_checkout=(req, res)=>{
+// export const admin_bi_transcript_report_checkout=(req, res)=>{
 //     const {className,sectionName, student_uuid}= req.body;
 //     const domain= req.cookies["hostname"];
 //     teacher_bi_transcript_post_update(domain, className, sectionName, student_uuid)
@@ -540,7 +539,7 @@ exports.teacher_bi_mark_post = (req, res) => {
 
 
 
-exports.admin_bi_transcript_report_checkout = (req, res) => {
+export const admin_bi_transcript_report_checkout = (req, res) => {
     const { className, sectionName, student_uuid } = req.body;
     const domain = req.cookies["hostname"];
     teacher_bi_transcript_post_update(domain, className, sectionName, student_uuid);
@@ -614,7 +613,7 @@ exports.admin_bi_transcript_report_checkout = (req, res) => {
 
 
 
-exports.teacher_bi_checkout = (req, res) => {
+export const teacher_bi_checkout = (req, res) => {
     const teacher_uuid = req.session.teacher_uuid;
     const { className, sectionName, checkout } = req.body;
 
@@ -635,7 +634,7 @@ exports.teacher_bi_checkout = (req, res) => {
 
 
 
-exports.teacher_bi_report_self_checkout = (req, res) => {
+export const teacher_bi_report_self_checkout = (req, res) => {
     const teacher_uuid = req.session.teacher_uuid;
     const { className, sectionName } = req.body;
 

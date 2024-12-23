@@ -1,8 +1,6 @@
-const { render } = require("ejs")
-const {app, express, dotenv, nodemailer, mysql, sqlmap, multer, session, createHmac, randomBytes} = require("../server")
-const { log } = require("sharp/lib/libvips")
+import { app, express, dotenv, nodemailer, mysql, sqlmap, multer, session, createHmac, randomBytes } from '../server.js';
 
-exports.teacher_attn_init_page= (req, res)=>{
+export const teacher_attn_init_page= (req, res)=>{
 
     res.render('attn/attn_init_page_teacher')
 
@@ -10,7 +8,7 @@ exports.teacher_attn_init_page= (req, res)=>{
 
 
 
-exports.teacher_attn_post_page = (req, res) => {
+export const teacher_attn_post_page = (req, res) => {
     const { class_name, section_name } = req.params;
 
     sqlmap.query(
@@ -41,7 +39,7 @@ exports.teacher_attn_post_page = (req, res) => {
 
 
 
-exports.teacher_attn_post_page_num = (req, res) => {
+export const teacher_attn_post_page_num = (req, res) => {
     const { class_name, section_name, offset } = req.body;
 
     sqlmap.query(
@@ -97,7 +95,7 @@ exports.teacher_attn_post_page_num = (req, res) => {
 
 
 
-exports.teacher_attn_post = (req, res) => {
+export const teacher_attn_post = (req, res) => {
     const { class_name, section_name, student_id, name, roll, avatar, checkout } = req.body;
     const today = new Date(); 
     const currentDate = today.getDate();
@@ -154,7 +152,7 @@ exports.teacher_attn_post = (req, res) => {
 
 
 
-   exports.teacher_attn_checkout = (req, res) => {
+   export const teacher_attn_checkout = (req, res) => {
     const { class_name, section_name } = req.body;
     const attn_date = new Date().toDateString();
 
@@ -173,7 +171,7 @@ exports.teacher_attn_post = (req, res) => {
 
 
 
-   exports.teacher_attn_checkout_last_five = (req, res) => {
+   export const teacher_attn_checkout_last_five = (req, res) => {
     const { class_name, section_name, student_id } = req.body;
 
     sqlmap.query(
@@ -192,14 +190,14 @@ exports.teacher_attn_post = (req, res) => {
 
 
 
-exports.privet_attn_init_page= (req, res)=>{
+export const privet_attn_init_page= (req, res)=>{
 
     res.render('attn/attn_init_page_privet')
 
 }
 
 
-exports.privet_attn_repo_page = (req, res) => {
+export const privet_attn_repo_page = (req, res) => {
     const { class_name, section_name } = req.params;
     const attn_date = new Date().toDateString();
 
@@ -235,7 +233,7 @@ exports.privet_attn_repo_page = (req, res) => {
 
 
 
-exports.privet_attn_repo_page_num = (req, res) => {
+export const privet_attn_repo_page_num = (req, res) => {
     const { class_name, section_name, offset, find_date } = req.body; 
     const attn_date = find_date;
     
@@ -279,7 +277,7 @@ exports.privet_attn_repo_page_num = (req, res) => {
     );
 }
 
-exports.privet_attn_repo_find = (req, res) => {
+export const privet_attn_repo_find = (req, res) => {
     const { class_name, section_name, find_date } = req.body; 
     const attn_date = find_date;
     
@@ -326,7 +324,7 @@ exports.privet_attn_repo_find = (req, res) => {
 
 
 
-   exports.privet_attn_student_calendar = (req, res) => {
+   export const privet_attn_student_calendar = (req, res) => {
     const { class_name, section_name, student_id } = req.params;
 
     sqlmap.query(
@@ -350,7 +348,7 @@ exports.privet_attn_repo_find = (req, res) => {
    
 
 
-   exports.privet_attn_calendar_checkout = (req, res) => {
+   export const privet_attn_calendar_checkout = (req, res) => {
     const { class_name, section_name, student_id, get_cal } = req.body;
 
     sqlmap.query(

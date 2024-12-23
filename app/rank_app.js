@@ -1,13 +1,13 @@
-const {app, express, sqlmap, session } = require("../server")
+import { app, express, sqlmap, session } from '../server.js';
 
-exports.teacher_rank_mark_init_page= (req, res)=>{
+export const teacher_rank_mark_init_page= (req, res)=>{
   res.render("rank/daily_mark_init_page_teacher")   
    }
 
 
 
 
-   exports.teacher_rank_mark_page = (req, res) => {
+   export const teacher_rank_mark_page = (req, res) => {
     const { class_name, section_name } = req.params;
     const today = new Date().toDateString();
 
@@ -32,7 +32,7 @@ exports.teacher_rank_mark_init_page= (req, res)=>{
 
 
 
-exports.teacher_rank_mark_page_num= (req, res)=>{
+export const teacher_rank_mark_page_num= (req, res)=>{
 const {class_name, section_name, offset}= req.body;
 const sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? GROUP BY student_uuid ORDER BY roll LIMIT 20 OFFSET ?`;
 
@@ -117,7 +117,7 @@ const sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? GRO
 
 
 
-// exports.teacher_rank_mark_post= (req, res)=>{
+// export const teacher_rank_mark_post= (req, res)=>{
 //  const {class_name, section_name, column, cls, mark, sid, student_id, roll, name, avatar}= req.body;
 //   const defaultNumber= 1;
 //   const checkout= cls+'_'+sid;
@@ -185,7 +185,7 @@ const sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? GRO
 //   }
 
 
-  exports.teacher_rank_mark_post = (req, res) => {
+  export const teacher_rank_mark_post = (req, res) => {
     const { class_name, section_name, column, cls, mark, sid, student_id, roll, name, avatar } = req.body;
     const defaultNumber = 1;
     const checkout = cls + '_' + sid;
@@ -238,7 +238,7 @@ const sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? GRO
 
 
 
-exports.teacher_rank_checkout = (req, res) => {
+export const teacher_rank_checkout = (req, res) => {
   const teacher_uuid = req.session.teacher_uuid;
   const { class_name, section_name } = req.body;
   const rank_date = new Date().toDateString();
@@ -259,7 +259,7 @@ exports.teacher_rank_checkout = (req, res) => {
 
 
 
-// exports.public_rank_class_page= (req, res)=>{
+// export const public_rank_class_page= (req, res)=>{
 
 //     sqlmap.query(`SELECT * FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class='Ten' GROUP BY poient DESC`, (errTen, infoTen)=>{
   
@@ -313,7 +313,7 @@ exports.teacher_rank_checkout = (req, res) => {
   
 
 
-exports.public_rank_class_page = (req, res) => {
+export const public_rank_class_page = (req, res) => {
   const getClassRank = (className, callback) => {
       const sql = `SELECT * FROM student_rank WHERE domain=? AND class=? GROUP BY poient DESC`;
       sqlmap.query(sql, [req.cookies["hostname"], className], callback);
@@ -363,7 +363,7 @@ exports.public_rank_class_page = (req, res) => {
 
   
   
-// exports.public_rank_student_page= (req, res)=>{
+// export const public_rank_student_page= (req, res)=>{
 //     const {class_name}=  req.params;
   
 //    sqlmap.query(`SELECT *, SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(study) as study, present FROM student_rank WHERE domain='${req.cookies["hostname"]}' AND  class="${class_name}" AND section="A" GROUP BY student_uuid ORDER BY poient DESC `, (errA, infoA)=>{
@@ -415,7 +415,7 @@ exports.public_rank_class_page = (req, res) => {
   
 
 
-exports.public_rank_student_page = (req, res) => {
+export const public_rank_student_page = (req, res) => {
   const { class_name } = req.params;
 
   const getRankData = (section, callback) => {
@@ -466,7 +466,7 @@ exports.public_rank_student_page = (req, res) => {
 
 
 
-exports.public_rank_student_page_num = (req, res) => {
+export const public_rank_student_page_num = (req, res) => {
   const { class_name, offset } = req.body;
 
   const sqlRank = `SELECT * FROM student_rank WHERE domain=? AND class=? GROUP BY student_uuid ORDER BY poient DESC LIMIT 20 OFFSET ?`;

@@ -1,8 +1,5 @@
-const express = require('express');
-const app = express();
-const { sqlmap, multer, randomBytes, createHmac, path, fs } = require('../server');
-const { json } = require('body-parser');
-const sharp = require("sharp")
+import { app, express, sqlmap, multer, randomBytes, createHmac, path, fs } from '../server.js';
+import sharp from 'sharp';
 
 
 const multer_location = multer.diskStorage({
@@ -18,8 +15,7 @@ const multer_location = multer.diskStorage({
 })
 
 
-module.exports = {
-    multer_upload_headofschool: multer({
+ export  const multer_upload_headofschool= multer({
         storage: multer_location,
 
         limits: { fileSize: 1024 * 1024 * 2 },
@@ -33,14 +29,14 @@ module.exports = {
 
         }
 
-    }),
+    })
 
       
 
-    pu_headofschool_view_page: (req, res) => {
+    const pu_headofschool_view_page= (req, res) => {
 
       sqlmap.query(
-        `SELECT * FROM headofschool WHERE domain=? GROUP BY position ORDER BY ID DESC`,
+        `SELECT * FROM headofschool WHERE domain=? GROUP BY position ORDER BY order_value`,
         [req.cookies["hostname"]],
         (err, info) => {
             if (err) {
@@ -52,12 +48,12 @@ module.exports = {
     );
     
 
-    },
+    }
 
-    admin_headofschool_get: (req, res) => {
+    const admin_headofschool_get= (req, res) => {
       
       sqlmap.query(
-        `SELECT * FROM headofschool WHERE domain=? ORDER BY ID DESC`,
+        `SELECT * FROM headofschool WHERE domain=? ORDER BY order_value`,
         [req.cookies["hostname"]],
         (err, info) => {
             if (err) {
@@ -154,13 +150,13 @@ module.exports = {
 
 
 
-    },
+    }
 
 
-    admin_headofschool_post: async(req, res) => {
+    const admin_headofschool_post= async(req, res) => {
         var { position, name, message, gender} = req.body;
+        const order_value = position=="Chairman"?101:position=="President"?102:position=="Principal"?103:position=="Secretary"?104:position=="Headmaster"?105:110;
         const randomString= Math.random()*90000;
-
         if(req.file){
             var { filename: image } = req.file;
 
@@ -202,9 +198,9 @@ module.exports = {
            }
           
            sqlmap.query(
-            `INSERT INTO headofschool (domain, position, name, gender, message, image)
-             VALUES (?, ?, ?, ?, ?, ?)`,
-            [req.cookies["hostname"], position, name, gender, message, avatar_png],
+            `INSERT INTO headofschool (domain, position, order_value, name, gender, message, image)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [req.cookies["hostname"], position, order_value, name, gender, message, avatar_png],
             (err, next) => {
                 if (err) {
                     console.log(err.sqlMessage);
@@ -217,10 +213,10 @@ module.exports = {
 
              
 
-    },
+    }
 
 
-    admin_headofschool_update: async(req, res) => {
+    const admin_headofschool_update= async(req, res) => {
         var { position, name, gender, message, dataid, haveimage } = req.body;
          if(req.file){
             var { filename: image } = req.file;
@@ -272,9 +268,9 @@ module.exports = {
             );
             
 
-    },
+    }
 
-    admin_headofschool_rm: (req, res)=>{
+    const admin_headofschool_rm= (req, res)=>{
         const {dataid}=req.body;
       
         sqlmap.query(
@@ -292,4 +288,10 @@ module.exports = {
     }
 
 
-} 
+export{
+    pu_headofschool_view_page,
+    admin_headofschool_get,
+    admin_headofschool_post,
+    admin_headofschool_rm, 
+    admin_headofschool_update
+}

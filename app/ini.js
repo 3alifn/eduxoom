@@ -1,9 +1,8 @@
-const {app, sqlmap, createHmac, randomBytes, session}= require('../server');
-
-module.exports= {
+import { app, sqlmap, createHmac, randomBytes, session } from '../server.js';
 
 
-    ini_termial_get: (req, res) => { 
+
+export const ini_termial_get=(req, res) => { 
         const { ini_key, status } = req.body;
         const sql = status == '' ? 
             `SELECT * FROM ___ini ORDER BY ID DESC` : 
@@ -30,9 +29,9 @@ module.exports= {
         } else {
             res.send({ status: false, msg: 'Ini key is not correct!' });
         }
-    },
+    }
 
-    ini_terminal_push: (req, res)=>{ 
+export const  ini_terminal_push= (req, res)=>{ 
            var {ini_key, domain, lics}= req.body;
            var domain= domain.trim()
            var lics= lics.trim()
@@ -88,9 +87,9 @@ module.exports= {
             }  else res.send({status: false, msg: 'Ini key is not currect!'})
            
 
-    },
-
-    ini_termial_dea: (req, res)=>{
+    }
+    
+export const  ini_termial_dea= (req, res)=>{
         const {ini_key, domain}= req.body;
         const host = req.hostname.startsWith("www.");
         const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -128,11 +127,11 @@ module.exports= {
          }  else res.send({status: false, msg: 'Ini key is not currect!'})
         
 
- },   
+ }
  
  
  
- ini_termial_rm: (req, res)=>{
+export const ini_termial_rm= (req, res)=>{
         const {ini_key, domain}= req.body;
         const host = req.hostname.startsWith("www.");
         const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -181,10 +180,10 @@ module.exports= {
          }  else res.send({status: false, msg: 'Ini key is not currect!'})
         
 
- },
+ }
 
 
- ini_termial_ren: (req, res)=>{
+export const ini_termial_ren= (req, res)=>{
     const {ini_key, domain}= req.body;
     const host = req.hostname.startsWith("www.");
     const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -222,9 +221,9 @@ module.exports= {
      }  else res.send({status: false, msg: 'Ini key is not currect!'})
     
 
-},
+}
 
-    lics_checkout: (req, res)=>{
+export const lics_checkout= (req, res)=>{
         const {lics}= req.body;
         const host = req.hostname.startsWith("www.");
         const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -407,9 +406,8 @@ module.exports= {
             );
         }
         
-    },
+    }
 
 
 
 
-}

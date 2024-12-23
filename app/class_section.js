@@ -1,6 +1,7 @@
-const {sqlmap, express, app}= require('../server');
+import { sqlmap, express, app } from '../server.js';
 
-exports.admin_class_section_main_post = (req, res) => {
+
+export const admin_class_section_main_post = (req, res) => {
     const { className, at_status } = req.body;
     sqlmap.query(
         `UPDATE class_section SET class_status=? WHERE domain=? AND class=?`,
@@ -17,7 +18,7 @@ exports.admin_class_section_main_post = (req, res) => {
 
 
 
-exports.admin_class_section_post = (req, res) => {
+export const admin_class_section_post = (req, res) => {
     const { elementid, at_status } = req.body;
     sqlmap.query(
         `UPDATE class_section SET at_status=? WHERE domain=? AND ID=?`,
@@ -34,7 +35,7 @@ exports.admin_class_section_post = (req, res) => {
 
 
 
-exports.admin_class_section_get = (req, res) => {
+export const admin_class_section_get = (req, res) => {
     sqlmap.query(
         `SELECT * FROM class_section WHERE domain=? GROUP BY class ORDER BY ID`,
         [req.cookies["hostname"]],
@@ -104,7 +105,7 @@ exports.admin_class_section_get = (req, res) => {
 
 
 
-exports.pu_class_secton_rm = (req, res) => {
+export const pu_class_secton_rm = (req, res) => {
     sqlmap.query(
         `SELECT * FROM class_section WHERE domain=? AND class_status='off' GROUP BY class ORDER BY ID`,
         [req.cookies["hostname"]],

@@ -1,7 +1,6 @@
-const output = require('sharp/lib/output');
-const {sqlmap} = require('../server');
+import {sqlmap} from '../server.js'
 
-exports.result_mark_subject_page= (req, res, next)=>{
+export const result_mark_subject_page= (req, res, next)=>{
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
     const {class_name, section_name}= req.params; 
@@ -17,7 +16,7 @@ exports.result_mark_subject_page= (req, res, next)=>{
  }
 
  
-exports.result_mark_student_page= (req, res, next)=>{
+export const result_mark_student_page= (req, res, next)=>{
     const {class_name, section_name, subject_code}= req.params;
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -41,7 +40,7 @@ exports.result_mark_student_page= (req, res, next)=>{
     })
  }
 
- exports.result_mark_push = (req, res, next) => {
+ export const result_mark_push = (req, res, next) => {
     const {class_name, section_name, suuid, ci_mark, fi_mark, subject_code, subject_name } = req.body;
     const tuuid = req.session.teacher_uuid;
     const fi_mark_f = Math.round(parseFloat(fi_mark / 100 * 70));
@@ -163,7 +162,7 @@ exports.result_mark_student_page= (req, res, next)=>{
 };
 
 
-exports.result_mark_pull= (req, res, next)=>{
+export const result_mark_pull= (req, res, next)=>{
     const {class_name, section_name, subject_code}= req.query;
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -195,7 +194,7 @@ exports.result_mark_pull= (req, res, next)=>{
  }
 
 
-exports.result_repo_student_page=(req, res, next)=>{
+export const result_repo_student_page=(req, res, next)=>{
     const {class_name, section_name}= req.params;
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -218,7 +217,7 @@ exports.result_repo_student_page=(req, res, next)=>{
 }
 
 
-exports.result_repo_sheet_page=(req, res, next)=>{
+export const result_repo_sheet_page=(req, res, next)=>{
  const {class_name, section_name, suuid}= req.params;
  const host = req.hostname.startsWith("www.");
  const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -275,7 +274,7 @@ exports.result_repo_sheet_page=(req, res, next)=>{
 
 
 
-exports.result_rank_pull= (req, res, next)=>{
+export const result_rank_pull= (req, res, next)=>{
     const {class_name, section_name, suuid}= req.body;
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -322,7 +321,7 @@ next(err)
 
 
 
-exports.result_marksheet_pull_page= (req, res, next)=>{
+export const result_marksheet_pull_page= (req, res, next)=>{
     const {class_name, section_name}= req.params;
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -352,7 +351,7 @@ exports.result_marksheet_pull_page= (req, res, next)=>{
 }
 
 
-exports.result_marksheet_pull_print=(req, res, next)=>{
+export const result_marksheet_pull_print=(req, res, next)=>{
     const {class_name, section_name, suuid}= req.body;
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -409,6 +408,5 @@ exports.result_marksheet_pull_print=(req, res, next)=>{
      }
      
     })()
-   
    }
    

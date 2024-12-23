@@ -1,9 +1,4 @@
-const express = require("express")
-const app = express()
-const { sqlmap, multer } = require("../server")
-
-const fs= require('fs')
-const path= require('path')
+import { app, fs, path, sqlmap, multer } from '../server.js';
 
 const locationNotice= multer.diskStorage({
     destination: (req, file, cb)=>{
@@ -17,7 +12,7 @@ const locationNotice= multer.diskStorage({
     
   })
 
-exports.uploadNotice= multer({
+export const uploadNotice= multer({
     storage: locationNotice,
   
     limits: {fileSize: 10000000},
@@ -37,7 +32,7 @@ exports.uploadNotice= multer({
   })
   
   
-exports.admin_notice_get = (req, res) => {
+export const admin_notice_get = (req, res) => {
     let sql = `SELECT * FROM notice WHERE domain=? ORDER BY ID DESC`;
     sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
         if (err) {
@@ -68,7 +63,7 @@ exports.admin_notice_get = (req, res) => {
 
 
 
-exports.admin_notice_post = (req, res) => {
+export const admin_notice_post = (req, res) => {
     const { title, notice_date, description } = req.body;
     const session = new Date().getUTCFullYear();
     const find_date = new Date().toLocaleDateString();
@@ -98,7 +93,7 @@ exports.admin_notice_post = (req, res) => {
 
 
 
-exports.admin_notice_rm = (req, res) => {
+export const admin_notice_rm = (req, res) => {
     const { dataid } = req.body;
 
     sqlmap.query(
@@ -138,7 +133,7 @@ exports.admin_notice_rm = (req, res) => {
 
 
 
-exports.public_notice_get = (req, res) => {
+export const public_notice_get = (req, res) => {
     let sql = `SELECT * FROM notice WHERE domain=? ORDER BY ID DESC`;
     sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
         if (err) {
@@ -173,7 +168,7 @@ exports.public_notice_get = (req, res) => {
 
 
 
-exports.public_notice_view = (req, res) => {
+export const public_notice_view = (req, res) => {
     const { dataid } = req.params;
     const sql = `SELECT * FROM notice WHERE domain=? AND ID=?`;
 

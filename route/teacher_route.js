@@ -1,15 +1,15 @@
+import { app, express, session, sqlmap } from '../server.js'; 
+import { teacher_pic_subject_get, teacher_pic_page_mark_get, teacher_pic_mark_post, teacher_pic_mark_checkout } from '../app/pic_app.js';
+import { teacher_pis_subject_get, teacher_pis_page_mark_get, teacher_pis_mark_post, teacher_pis_mark_checkout } from '../app/pis_app.js';
+import { teacher_rank_mark_post, teacher_rank_mark_page, teacher_rank_mark_init_page, teacher_rank_mark_page_num, teacher_rank_checkout } from '../app/rank_app.js';
+import { self_dashboard, self_account, multer_upload_teacher, self_img_post, self_penbox_push, self_email_update_pull, self_email_update_push, self_password_update_push } from '../app/teacher_app.js';
+import { teacher_bi_mark_post, teacher_bi_page_mark_get, teacher_bi_report_get, teacher_bi_checkout, teacher_bi_report_self_checkout, teacher_bi_info } from '../app/bi_app.js';
+import { teacher_student_info } from '../app/student_app.js';
+import { teacher_attn_init_page, teacher_attn_post_page, teacher_attn_post_page_num, teacher_attn_post, teacher_attn_checkout, teacher_attn_checkout_last_five } from '../app/attendance_app.js';
+import { result_mark_student_page, result_mark_subject_page, result_mark_push, result_mark_pull } from '../app/result_app.js';
 
-const {app, express, session, sqlmap}=require('../server') 
-const { teacher_pic_subject_get,  teacher_pic_page_mark_get, teacher_pic_mark_post, teacher_pic_mark_checkout } = require("../app/pic_app");
-const {  teacher_pis_subject_get,  teacher_pis_page_mark_get, teacher_pis_mark_post, teacher_pis_mark_checkout } = require("../app/pis_app");
-const { teacher_rank_mark_post, teacher_rank_mark_page_class_base, teacher_rank_mark_page, teacher_rank_mark_post_attendance, teacher_rank_mark_init_page, teacher_rank_mark_page_num, teacher_rank_checkout } = require("../app/rank_app");
-const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update, self_email_update_page, self_social_update, self_close_account, self_avatar_upload, multer_upload, multer_upload_teacher, self_img_post, self_penbox_push, self_email_update_pull, self_email_update_push, self_password_update_push } = require("../app/teacher_app");
-const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, teacher_bi_report_get,  teacher_bi_checkout, teacher_bi_report_self_checkout, teacher_bi_info } = require("../app/bi_app");
-const { teacher_student_info } = require("../app/student_app");
-const { Cookie } = require('express-session');
-const { teacher_attn_init_page, teacher_attn_post_page, teacher_attn_post_page_num, teacher_attn_post, teacher_attn_checkout, teacher_attn_checkout_last_five } = require('../app/attendance_app');
-const {result_mark_student_page, result_mark_subject_page, result_mark_push, result_mark_pull, result_repo_subject_page, result_repo_init_page, result_repo_student_page, result_repo_page, result_repo_sheet_page, result_rank_pull, } = require('../app/result_app');
-const teacher= express.Router()
+const teacher = express.Router();
+
 
 teacher.all('*', (req, res, next)=>{
     if(req.session.user=='teacher')  next()
@@ -119,4 +119,4 @@ teacher.post("/rank/mark/checkout", teacher_rank_checkout)
 
 
 
-module.exports= teacher;
+export default teacher;

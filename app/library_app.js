@@ -1,9 +1,4 @@
-const express = require("express")
-const { sqlmap, multer } = require("../server")
-const app = express()
-const fs= require("fs")
-const path = require("path")
-const { log } = require("console")
+import { app, fs, path, sqlmap, multer } from '../server.js';
 
 const location_library= multer.diskStorage({
   destination: (req, file, cb)=>{
@@ -19,7 +14,7 @@ const location_library= multer.diskStorage({
 
 
 
-exports.upload_library_image= multer({
+export const upload_library_image= multer({
   storage: location_library,
 
   limits: {fileSize: 1000000 * 2},
@@ -40,7 +35,7 @@ exports.upload_library_image= multer({
 
 
 
-exports.admin_library_post = (req, res) => {
+export const admin_library_post = (req, res) => {
   let { bookName, authorName, bookCopy, description } = req.body;
   let filenameBook = req.file ? req.file.filename : "book_image.png";
 
@@ -60,7 +55,7 @@ exports.admin_library_post = (req, res) => {
 
 
 
-exports.admin_library_get = (req, res) => {
+export const admin_library_get = (req, res) => {
   let sql = `SELECT * FROM library WHERE domain=? ORDER BY ID DESC`;
   sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
       if (err) {
@@ -95,7 +90,7 @@ exports.admin_library_get = (req, res) => {
 
 
 
-exports.admin_library_delete = (req, res) => {
+export const admin_library_delete = (req, res) => {
   let filepathBook = path.dirname(__dirname);
   const { ID } = req.body;
 
@@ -135,7 +130,7 @@ exports.admin_library_delete = (req, res) => {
 
 
 
-exports.admin_library_update_page = (req, res) => {
+export const admin_library_update_page = (req, res) => {
   let { ID } = req.query;
 
   sqlmap.query(
@@ -152,7 +147,7 @@ exports.admin_library_update_page = (req, res) => {
 };
 
 
-exports.admin_library_update = (req, res) => {
+export const admin_library_update = (req, res) => {
   let { ID, bookName, bookAuthor, bookCopy, description } = req.body;
 
   sqlmap.query(
@@ -170,7 +165,7 @@ exports.admin_library_update = (req, res) => {
 
 
 
-exports.public_library_get = (req, res) => {
+export const public_library_get = (req, res) => {
   let sql = `SELECT * FROM library WHERE domain=? ORDER BY ID DESC`;
   sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
       if (err) {

@@ -1,7 +1,7 @@
-const {express, app, sqlmap, multer } = require("../server")
+import { express, app, sqlmap, multer } from '../server.js';
 
 
-exports.admin_routine_post = (req, res) => {
+export const admin_routine_post = (req, res) => {
   const { class_name, section_name, subject_name, day_name, periodTable, teacher_name } = req.body;
   let teacherTemp = teacher_name.split("$%&");
   let teacher_uuid = teacherTemp[1];
@@ -56,7 +56,7 @@ exports.admin_routine_post = (req, res) => {
 
 
 
-exports.admin_routine_get = (req, res) => {
+export const admin_routine_get = (req, res) => {
   const { class_name, section_name, day_name } = req.body;
   console.log(req.body);
   sqlmap.query(
@@ -109,7 +109,7 @@ exports.admin_routine_get = (req, res) => {
 
 
 
-exports.admin_routine_rm = (req, res) => {
+export const admin_routine_rm = (req, res) => {
   const { dataid } = req.body;
   if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
@@ -132,7 +132,7 @@ exports.admin_routine_rm = (req, res) => {
 
 
 
-exports.public_routine_get = (req, res) => {
+export const public_routine_get = (req, res) => {
   const { class_name, day_name } = req.query;
   const sql = `SELECT * FROM routine WHERE domain=? AND class=? AND day=? GROUP BY period_table ORDER BY period_table`;
   sqlmap.query(sql, [req.cookies["hostname"], class_name, day_name], (err, info) => {
@@ -194,7 +194,7 @@ exports.public_routine_get = (req, res) => {
 
 
 
-exports.admin_subject_dynamic_get = (req, res) => {
+export const admin_subject_dynamic_get = (req, res) => {
   const { class_name } = req.body;
 
   sqlmap.query(
@@ -220,7 +220,7 @@ exports.admin_subject_dynamic_get = (req, res) => {
 
 
 
-exports.admin_teacher_dynamic_get = (req, res) => {
+export const admin_teacher_dynamic_get = (req, res) => {
   sqlmap.query(
       `SELECT * FROM teachers WHERE domain=? ORDER BY name`,
       [req.cookies["hostname"]],

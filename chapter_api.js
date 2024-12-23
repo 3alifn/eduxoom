@@ -1,6 +1,6 @@
 // need for input subject_code, pi no, pi group => dynamic
 
-const chapter_Six = {
+export const chapter_Six = {
     bi:
         [
             'gp1_1-2-9-10',
@@ -138,7 +138,7 @@ const chapter_Six = {
 }
 
 
-const chapter_Seven = {
+export const chapter_Seven = {
     bi:
         [
             'gp1_1-2-9-10',
@@ -274,6 +274,3 @@ const chapter_Seven = {
 
 
 }
-
-module.exports= chapter_Six;
-module.exports= chapter_Seven;

@@ -1,10 +1,6 @@
-const express = require("express")
+import {app, sqlmap, multer, randomBytes, createHmac, fs, path } from "../server.js";
 
-const { sqlmap , multer, randomBytes, createHmac} = require("../server")
-const app = express()
-const fs= require('fs')
-const path= require('path')
-const sharp= require("sharp");
+import sharp from "sharp";
 
 
 const multer_location= multer.diskStorage({
@@ -21,7 +17,7 @@ const multer_location= multer.diskStorage({
 
 
 
-exports.multer_upload= multer({
+const multer_upload= multer({
   storage: multer_location,
 
   limits: {fileSize: 1024*1024*2},
@@ -40,7 +36,7 @@ exports.multer_upload= multer({
 })
 
 
-const multer_location_images= multer.diskStorage({
+export const multer_location_images= multer.diskStorage({
   destination: (req, file, cb)=>{
    cb(null, "./public/image/repository/")
   } ,
@@ -54,7 +50,7 @@ const multer_location_images= multer.diskStorage({
 
 
 
-exports.multer_upload_repository= multer({
+export const multer_upload_repository= multer({
   storage: multer_location_images,
   limits: {fileSize: 1024*1024*2},
   fileFilter: (req, file, cb)=>{
@@ -75,7 +71,7 @@ exports.multer_upload_repository= multer({
 
 // admin repository settings
 
-exports.admin_repository_post= async(req, res)=>{
+const admin_repository_post= async(req, res)=>{
 
   const {datatype, title, e_date, description, images}= req.body;
   const dataid= Math.random()*900000000;
@@ -130,7 +126,7 @@ res.send({msg: 'Post successfully!', alert: 'success'})
 }
 
 
-exports.admin_repository_get= (req, res)=>{
+const admin_repository_get= (req, res)=>{
   const {datatype}= req.body;
   sqlmap.query(`SELECT * FROM repository WHERE domain=? AND datatype=? GROUP BY dataid ORDER BY e_date DESC`, [req.cookies["hostname"], datatype], (err, info)=>{
         if(info.length>0){
@@ -179,7 +175,7 @@ exports.admin_repository_get= (req, res)=>{
 
 }
 
-exports.admin_repository_update_page = (req, res) => {
+const admin_repository_update_page = (req, res) => {
   const { datatype, dataid } = req.params;
 
   sqlmap.query(
@@ -197,7 +193,7 @@ exports.admin_repository_update_page = (req, res) => {
 
 
 
-exports.admin_repository_rm = (req, res) => {
+const admin_repository_rm = (req, res) => {
   const { dataid } = req.body;
 
   if (dataid == undefined) {
@@ -239,7 +235,7 @@ exports.admin_repository_rm = (req, res) => {
 };
 
 
-exports.admin_repository_img_rm = (req, res) => {
+const admin_repository_img_rm = (req, res) => {
   const { dataid } = req.body;
 
   if (dataid == undefined) {
@@ -281,7 +277,7 @@ exports.admin_repository_img_rm = (req, res) => {
 };
 
 
-exports.admin_repository_update_post = (req, res) => {
+const admin_repository_update_post = (req, res) => {
   const { datatype, dataid, title, e_date, description } = req.body;
 
   sqlmap.query(
@@ -300,7 +296,7 @@ exports.admin_repository_update_post = (req, res) => {
 
 
 
-exports.admin_repository_img_update_post= async(req, res)=>{
+const admin_repository_img_update_post= async(req, res)=>{
   const {datatype, dataid, title, e_date, description, images}= req.body;
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
@@ -352,7 +348,7 @@ res.send({msg: 'Update successfully!', alert: 'success'})
 }
 
 
-exports.public_facilities_page = (req, res) => {
+const public_facilities_page = (req, res) => {
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND datatype=? GROUP BY dataid ORDER BY ID DESC`,
       [req.cookies["hostname"], 'facilities'],
@@ -367,7 +363,7 @@ exports.public_facilities_page = (req, res) => {
 };
 
 
-exports.public_facilities_view = (req, res) => {
+const public_facilities_view = (req, res) => {
   const { dataid } = req.params;
 
   sqlmap.query(
@@ -385,7 +381,7 @@ exports.public_facilities_view = (req, res) => {
 
 
 
-exports.public_achievement_page = (req, res) => {
+const public_achievement_page = (req, res) => {
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND datatype=? GROUP BY dataid ORDER BY ID DESC`,
       [req.cookies["hostname"], 'achievement'],
@@ -400,7 +396,7 @@ exports.public_achievement_page = (req, res) => {
 };
 
 
-exports.public_achievement_view = (req, res) => {
+const public_achievement_view = (req, res) => {
   const { dataid } = req.params;
 
   sqlmap.query(
@@ -418,7 +414,7 @@ exports.public_achievement_view = (req, res) => {
 
 
 
-exports.public_eventnews_page = (req, res) => {
+const public_eventnews_page = (req, res) => {
   const { dataid } = req.params;
 
   sqlmap.query(
@@ -435,7 +431,7 @@ exports.public_eventnews_page = (req, res) => {
 };
 
 
-exports.public_eventnews_view = (req, res) => {
+const public_eventnews_view = (req, res) => {
   const { dataid } = req.params;
 
   sqlmap.query(
@@ -451,3 +447,11 @@ exports.public_eventnews_view = (req, res) => {
   );
 };
 
+export {
+  admin_repository_post, admin_repository_get, admin_repository_img_rm,
+  admin_repository_img_update_post, admin_repository_rm,
+   admin_repository_update_page, public_achievement_page,
+  admin_repository_update_post, public_achievement_view,
+  public_eventnews_page, public_eventnews_view, public_facilities_page,
+  public_facilities_view
+}

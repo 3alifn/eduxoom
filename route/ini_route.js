@@ -1,6 +1,7 @@
-const { lics_checkout, ini_dll_push, ini_dll_rm, ini_terminal_push, ini_termial_rm, ini_termial_status, ini_termial_ren, ini_termial_get, ini_termial_dea } = require('../app/ini');
-const {app, express}= require('../server')
-const ini= express.Router();
+import { lics_checkout, ini_terminal_push, ini_termial_rm, ini_termial_ren, ini_termial_get, ini_termial_dea } from '../app/ini.js';
+import { app, express } from '../server.js';
+const ini = express.Router();
+
 
 ini.post('/lics/checkout/', lics_checkout)
 ini.post('/terminal/get/', ini_termial_get)
@@ -16,4 +17,4 @@ ini.all('/terminal/', (req, res)=>{
 
 
 
-module.exports= ini;
+export default ini;

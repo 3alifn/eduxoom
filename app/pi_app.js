@@ -1,4 +1,4 @@
-const {app, express, dotenv, nodemailer, mysql, sqlmap, multer, session, createHmac, randomBytes} = require("../server")
+import { app, express, dotenv, nodemailer, mysql, sqlmap, multer, session, createHmac, randomBytes } from '../server.js';
 var regexTelephone= /^01[0-9]*$/
 var regexNumber= /^[0-9]*$/
 var regexString= /^[A-Za-z .-_]*$/
@@ -6,7 +6,7 @@ var regexpi= /^[A-Za-z0-9-_]*$/
 var regexPassword= /^[a-zA-Z0-9!@#$%&*]*$/
 var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/ 
 
-exports.privet_transcript_report_student_get = (req, res) => {
+export const privet_transcript_report_student_get = (req, res) => {
   const { className, sectionName } = req.params;
   const sql = `SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain=? AND class=? AND section=? GROUP BY student_uuid ORDER BY roll`;
 
@@ -21,7 +21,7 @@ exports.privet_transcript_report_student_get = (req, res) => {
 };
 
 
-exports.privet_finding_subject_sid = (req, res) => {
+export const privet_finding_subject_sid = (req, res) => {
   const { class_name, section_name, sid } = req.params;
 
   const sql = `SELECT subject, subject_code, class FROM ini_subject WHERE class=? GROUP BY subject ORDER BY subject`;
@@ -37,7 +37,7 @@ exports.privet_finding_subject_sid = (req, res) => {
 
 
 
-exports.privet_transcript_report_get = (req, res) => {
+export const privet_transcript_report_get = (req, res) => {
   const { className, sectionName, subject_code, student_uuid } = req.params;
   const sql = `SELECT class, section, name, chapter, subject_code, student_uuid FROM transcript_report WHERE domain=? AND class=? AND section=? AND student_uuid=? AND subject_code=?`;
 
@@ -67,7 +67,7 @@ exports.privet_transcript_report_get = (req, res) => {
 
 
 
-exports.privet_pi_report_checkout = (req, res) => {
+export const privet_pi_report_checkout = (req, res) => {
   const session = new Date().getUTCFullYear();
   const { className, sectionName, student_uuid, subject_code } = req.body;
 
@@ -84,7 +84,7 @@ exports.privet_pi_report_checkout = (req, res) => {
 };
 
 
-exports.admin_result_report_student_get = (req, res) => {
+export const admin_result_report_student_get = (req, res) => {
   const { className, sectionName } = req.params;
   const sql = `SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain=? AND class=? AND section=? GROUP BY student_uuid ORDER BY roll`;
 
@@ -99,7 +99,7 @@ exports.admin_result_report_student_get = (req, res) => {
 };
 
 
-exports.admin_result_report_get = (req, res) => {
+export const admin_result_report_get = (req, res) => {
   var { className, sectionName, student_uuid } = req.params;
   const { student_offset } = req.query;
   const init_student = student_uuid;
@@ -139,7 +139,7 @@ exports.admin_result_report_get = (req, res) => {
 
 
 
-// exports.admin_pi_transcript_report_checkout=(req, res)=>{
+// export const admin_pi_transcript_report_checkout=(req, res)=>{
 //   const {className,sectionName, student_uuid, subject_code}= req.body;
 //   const domain= req.cookies["hostname"];
 
@@ -347,7 +347,7 @@ exports.admin_result_report_get = (req, res) => {
 
 
 
-exports.admin_pi_transcript_report_checkout = (req, res) => {
+export const admin_pi_transcript_report_checkout = (req, res) => {
   const { className, sectionName, student_uuid, subject_code } = req.body;
 
   sqlmap.query(

@@ -1,5 +1,5 @@
-const {app, express, sqlmap, nodemailer, multer, createHmac, fs, path, session} = require("../server")
-const sharp= require('sharp');
+import {app, express, sqlmap, nodemailer, multer, createHmac, fs, path, session} from "../server.js"
+import sharp from "sharp"
 
 var regexTelephone= /^01[0-9]*$/
 var regexNumber= /^[0-9]*$/
@@ -8,7 +8,7 @@ var regexPassword= /^[a-zA-Z0-9!@#$%&*]*$/
 var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/ 
 
 
-exports.join= (req, res)=>{
+const join= (req, res)=>{
 
     
   let {name, email, student_id, telephone,  password, gender}=  req.body;
@@ -124,7 +124,7 @@ const multer_location= multer.diskStorage({
   
 })
 
-exports.multer_upload_parent= multer({
+export const multer_upload_parent= multer({
   storage: multer_location,
 
   limits: {fileSize: 1024*1024*2},
@@ -150,7 +150,7 @@ exports.multer_upload_parent= multer({
 
 
 
-exports.self_verify_code= (req, res)=>{
+const self_verify_code= (req, res)=>{
     let {verifyCode}= req.body;
     
       if(verifyCode==req.session.userVerifyCode)
@@ -233,7 +233,7 @@ exports.self_verify_code= (req, res)=>{
 
 
 
-    exports.self_dashboard = (req, res) => {
+    const self_dashboard = (req, res) => {
       let parent_uuid = req.session.parent_uuid;
       let sql = `SELECT * FROM parents WHERE domain=? AND parent_uuid=?`;
   
@@ -249,7 +249,7 @@ exports.self_verify_code= (req, res)=>{
   
 
 
-  exports.self_account = (req, res) => {
+  const self_account = (req, res) => {
     let parent_uuid = req.session.parent_uuid;
     let sql = `SELECT * FROM parents WHERE domain=? AND parent_uuid=?`;
 
@@ -263,7 +263,7 @@ exports.self_verify_code= (req, res)=>{
     });
 };
 
-exports.self_penbox_push = (req, res) => {
+const self_penbox_push = (req, res) => {
     console.log(req.body);
     const { name, phone, gender } = req.body;
     const userid = req.session.userid;
@@ -284,7 +284,7 @@ exports.self_penbox_push = (req, res) => {
     
   
   
-  exports.self_img_post= async(req, res)=>{
+  const self_img_post= async(req, res)=>{
     const userid= req.session.userid;
   
       const {dataid}= req.body;
@@ -335,7 +335,7 @@ exports.self_penbox_push = (req, res) => {
   
   
           
-    exports.self_password_update_push = (req, res) => {
+    const self_password_update_push = (req, res) => {
       const { cpassword, npassword } = req.body;
       const email = req.session.usermmail;
       const currentPassword = createHmac('md5', 'pipilikapipra').update(cpassword).digest('hex');
@@ -368,7 +368,7 @@ exports.self_penbox_push = (req, res) => {
   
   
   
-  exports.self_email_update_pull = (req, res) => {
+  const self_email_update_pull = (req, res) => {
     const { username } = req.body;
     var randHashCode = Math.ceil(Math.random() * 900000);
     req.session.username = username;
@@ -441,7 +441,7 @@ exports.self_penbox_push = (req, res) => {
   
   
       
-exports.self_email_update_push = (req, res) => {
+const self_email_update_push = (req, res) => {
   const userid = req.session.userid;
   const { verifyCode } = req.body;
   const username = req.session.username;
@@ -473,7 +473,7 @@ exports.self_email_update_push = (req, res) => {
 
 
 
-exports.admin_parent_get = (req, res) => {
+const admin_parent_get = (req, res) => {
   let { className, sectionName } = req.body;
 
   const sql = `SELECT * FROM parents WHERE domain=? AND permission='allow' AND class=? AND section=?`;
@@ -505,7 +505,7 @@ exports.admin_parent_get = (req, res) => {
 };
 
 
-exports.admin_parent_profile = (req, res) => {
+const admin_parent_profile = (req, res) => {
   let parent_uuid = req.session.parent_uuid;
   
   const sql = `SELECT * FROM parents WHERE domain=? AND permission='allow' AND parent_uuid=?`;
@@ -535,7 +535,7 @@ exports.admin_parent_profile = (req, res) => {
 
 
 
-exports.admin_parent_delete = (req, res) => {
+const admin_parent_delete = (req, res) => {
   const { dataid } = req.body;
 
   if (dataid == undefined) {
@@ -570,3 +570,22 @@ exports.admin_parent_delete = (req, res) => {
       });
   }
 };
+
+
+export{
+    admin_parent_delete, 
+    admin_parent_get, 
+    admin_parent_profile,
+    join, 
+    self_account, 
+    self_dashboard,
+     self_email_update_pull,
+      self_email_update_push, 
+    self_img_post, 
+    self_password_update_push, 
+    self_penbox_push,
+    self_verify_code,
+ 
+
+
+}

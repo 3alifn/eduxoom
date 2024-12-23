@@ -1,7 +1,9 @@
+import { app, express }  from '../server.js'
 
-const express= require("express")
-const { authentication_404, authentication_check, forgot_verify_code, singout, forgot_password, reset_password , au_user_header_nav, signout } = require("../app/authentication_app")
-const authentication= express.Router()
+import { authentication_404, authentication_check, forgot_verify_code, forgot_password, reset_password, au_user_header_nav, signout } from "../app/authentication_app.js";
+
+const authentication = express.Router();
+
 
 
 authentication.get("/signin/page", (req, res)=>{
@@ -25,5 +27,4 @@ authentication.post("/forgot/password/reset", reset_password)
 
 authentication.get('/user/header-nav', au_user_header_nav)
 
-
-module.exports= authentication;
+export default authentication

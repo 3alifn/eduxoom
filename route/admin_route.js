@@ -1,33 +1,77 @@
-const {app, express, session}=require('../server') 
-const admin_app = require("../app/admin_app")
-const { admin_admission_page, admin_admission_accept, admin_admission_reject, admin_admission_info, admin_admission_student_page } = require("../app/admission_app")
-const { admin_application_get, admin_application_replay, admin_application_download } = require("../app/appllication_app")
-const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_gallery_list_data, admin_gallery_list_data_delete, admin_gallery_image, admin_gallery_video, admin_gallery_data_delete, admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete, admin_gallery_image_get, admin_gallery_image_delete, admin_gallery_image_data_get, admin_gallery_image_data_delete, admin_gallery_image_data_post, admin_gallery_video_get, admin_gallery_video_data_get, admin_gallery_video_data_delete, admin_gallery_video_delete, admin_gallery_video_data_post, admin_carousel_rm } = require("../app/gallery_app")
-const { admin_library_update, admin_library_update_page, admin_library_delete, admin_library_get, admin_library_post, upload_library_image } = require("../app/library_app")
-const { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_delete, admin_notice_download, admin_notice_rm } = require("../app/notice_app")
-const { admin_parent_get, admin_parent_delete, admin_parent_profile } = require("../app/parent_app")
-const { admin_routine_post, admin_routine_delete, admin_subject_dynamic_get, admin_teacher_dynamic_get, admin_ptlist_dynamic_get, admin_routine_page, admin_routine_get, admin_routine_rm } = require("../app/routine_app")
-const { admin_student_import, admin_student_get, admin_student_get_class_base, admin_student_delete, multer_upload_student, admin_student_join, admin_student_copy_get, admin_student_copy_post, admin_student_copy_delete, admin_student_copy_profile, admin_student_update_post, admin_student_update_form, admin_student_join_quick, admin_student_import_quick, admin_student_post, admin_student_penbox_pull, admin_student_penbox_push, admin_student_rm, admin_student_img_post } = require("../app/student_app")
-const { admin_subject_list, admin_subject_select_teacher, admin_subject_set_time, admin_subject_delete, admin_subject_post, admin_subject_get, admin_subject_rm } = require("../app/subject_app")
-const { admin_teacher_get, admin_teacher_delete, admin_teacher_update, admin_teacher_update_page, admin_teacher_config, join, admin_config_subject, admin_teacher_join, multer_upload_teacher, admin_teacher_penbox_pull, admin_teacher_penbox_push, admin_teacher_rm, admin_teacher_post, admin_teacher_img_post } = require("../app/teacher_app")
-const { render } = require("ejs")
-const { admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_post, admin_bi_catagory_delete, teacher_bi_mark_post, admin_bi_transcript_report_checkout } = require("../app/bi_app")
-const { multer_upload_school_settings, admin_school_post, admin_school_get, admin_school_headmaster_post, admin_school_headmaster_get, admin_school_president_post, admin_school_president_get, admin_school_secretary_post, admin_school_secretary_get } = require("../app/school_app")
-const school_app = require("../app/school_app")
-const { admin_class_section_get, admin_class_section_post, admin_class_section_main_post } = require("../app/class_section")
-const headofschool_app = require("../app/headofschool_app")
-const { admin_repo_post, multer_upload_repo, admin_repo_get, multer_upload_repository, admin_repository_post, admin_repository_get, admin_repository_rm, admin_repository_update_page, admin_repository_img_rm, admin_repository_update, admin_repository_update_post, admin_repository_img_update_post } = require("../app/repository")
-const { admin_dashboard_tsa_lookup } = require("../app/dashboard_app")
-const { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, admin_staff_penbox_pull, admin_staff_penbox_push, admin_staff_img_post } = require("../app/staff_app")
-const { admin_pi_transcript_report_checkout, admin_result_report_student_get, admin_result_report_get } = require('../app/pi_app')
-const { result_marksheet_pull_page, result_marksheet_pull_print } = require('../app/result_app')
-const admin= express.Router()
+import { app, express, session } from '../server.js';
+import {admin_logger, dashboard, admin_multer_upload, self_account, self_email_update, 
+  self_info_update, self_password_update} from '../app/admin_app.js';
+import { admin_admission_page, admin_admission_accept, admin_admission_reject, 
+  admin_admission_info, admin_admission_student_page } from '../app/admission_app.js';
+import { admin_application_get, admin_application_replay, admin_application_download } from '../app/appllication_app.js';
+
+import {
+  admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, 
+  multer_upload_carousel, admin_carousel_get, admin_gallery_image_get, admin_gallery_image_delete, 
+  admin_gallery_image_data_get, admin_gallery_image_data_delete, admin_gallery_image_data_post, 
+  admin_gallery_video_get, admin_gallery_video_data_get, admin_gallery_video_data_delete, admin_gallery_video_delete, 
+   admin_gallery_video_data_post, admin_carousel_rm 
+  } from '../app/gallery_app.js';
+
+import {
+   admin_library_update, admin_library_update_page, admin_library_delete,
+   admin_library_get, admin_library_post, upload_library_image
+   } from '../app/library_app.js';
+
+import { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_rm } from '../app/notice_app.js';
+import { admin_parent_get, admin_parent_delete, admin_parent_profile } from '../app/parent_app.js';
+
+import { 
+ admin_routine_post, admin_subject_dynamic_get, admin_teacher_dynamic_get,
+   admin_routine_get, admin_routine_rm 
+  } from '../app/routine_app.js';
+
+import {
+   admin_student_get, multer_upload_student, admin_student_join_quick, 
+  admin_student_post, admin_student_penbox_pull, admin_student_penbox_push, 
+  admin_student_rm, admin_student_img_post 
+} from '../app/student_app.js';
+
+import {  admin_subject_post, admin_subject_get, admin_subject_rm } from '../app/subject_app.js';
+
+import {
+   admin_teacher_get, multer_upload_teacher, admin_teacher_penbox_pull,
+     admin_teacher_penbox_push, admin_teacher_rm, admin_teacher_post, admin_teacher_img_post 
+    } from '../app/teacher_app.js';
+
+import {
+   admin_bi_catagory_post, admin_bi_catagory_get, admin_bi_catagory_update_post,
+   admin_bi_catagory_delete, admin_bi_transcript_report_checkout
+   } from '../app/bi_app.js';
+
+import { multer_upload_school_settings, admin_school_post, admin_school_img_post, admin_school_page } from '../app/school_app.js';
+
+import { admin_class_section_get, admin_class_section_post, admin_class_section_main_post } from '../app/class_section.js';
+
+import {
+  admin_headofschool_get, multer_upload_headofschool, admin_headofschool_post, 
+  admin_headofschool_update, admin_headofschool_rm
+  
+} from '../app/headofschool_app.js';
+
+import { 
+  multer_upload_repository, admin_repository_post, admin_repository_get, admin_repository_rm,
+   admin_repository_update_page, admin_repository_img_rm, admin_repository_update_post, admin_repository_img_update_post
+   } from '../app/repository.js';
+
+import { admin_dashboard_tsa_lookup } from '../app/dashboard_app.js';
+import { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, admin_staff_penbox_pull, admin_staff_penbox_push, admin_staff_img_post } from '../app/staff_app.js';
+import { admin_pi_transcript_report_checkout, admin_result_report_student_get, admin_result_report_get } from '../app/pi_app.js';
+import { result_marksheet_pull_page, result_marksheet_pull_print } from '../app/result_app.js';
+
+const admin = express.Router();
+
 
 admin.get("/panel", (req, res)=>{
   res.render("admin/admin_login_page")
 })
 
-admin.post("/logger", admin_app.admin_logger)
+admin.post("/logger", admin_logger)
 
 
 admin.all('*', (req, res, next)=>{
@@ -58,10 +102,10 @@ admin.get('/setup/class-section/get', admin_class_section_get)
 admin.post('/setup/class-section/post', admin_class_section_post)
 admin.post('/setup/class-section/main/post', admin_class_section_main_post)
 
-admin.get('/setup/school-settings', school_app.admin_school_page)
+admin.get('/setup/school-settings', admin_school_page)
 
-admin.post('/setup/school-settings/post', school_app.admin_school_post)
-admin.post('/setup/school-settings/img/post', multer_upload_school_settings.single('image'), school_app.admin_school_img_post)
+admin.post('/setup/school-settings/post', admin_school_post)
+admin.post('/setup/school-settings/img/post', multer_upload_school_settings.single('image'), admin_school_img_post)
 
 
 
@@ -106,10 +150,10 @@ admin.post('/repository/img/update/post/', multer_upload_repository.any('images'
 admin.get('/setup/headofschool/', (req, res)=>{
   res.render('admin/headofschool')
 })
-admin.post('/headofschool/get', headofschool_app.admin_headofschool_get)
-admin.post('/setup/headofschool/post', headofschool_app.multer_upload_headofschool.single('image'),headofschool_app.admin_headofschool_post)
-admin.post('/headofschool/rm', headofschool_app.admin_headofschool_rm)
-admin.post('/headofschool/update/', headofschool_app.multer_upload_headofschool.single('image'),headofschool_app.admin_headofschool_update)
+admin.post('/headofschool/get', admin_headofschool_get)
+admin.post('/setup/headofschool/post', multer_upload_headofschool.single('image'), admin_headofschool_post)
+admin.post('/headofschool/rm', admin_headofschool_rm)
+admin.post('/headofschool/update/', multer_upload_headofschool.single('image'), admin_headofschool_update)
 
 
 // setup staff settings
@@ -158,7 +202,7 @@ admin.get('/transcript/pdf-init-page', (req, res)=>{
 
 
 // self router......
-admin.get("/dashboard", admin_app.dashboard)
+admin.get("/dashboard", dashboard)
 
 // teacher router
 
@@ -169,14 +213,14 @@ admin.get("/teacher/page", (req, res)=>{
 
 })
 
-admin.get("/account", admin_app.self_account)
+admin.get("/account", self_account)
 
-admin.post("/info/update", admin_app.self_info_update)
-admin.post("/password/update", admin_app.self_password_update)
+admin.post("/info/update", self_info_update)
+admin.post("/password/update", self_password_update)
 
-admin.post("/email/update", admin_app.self_email_update)
+admin.post("/email/update", self_email_update)
 
-// admin.post("/avatar/upload", admin_app.multer_upload.single("avatar"), admin_app.self_avatar_upload)
+// admin.post("/avatar/upload", admin_multer_upload.single("avatar"), self_avatar_upload)
 
 
 
@@ -379,4 +423,4 @@ admin.post('/bi/catagory-get', admin_bi_catagory_get)
 // admin.post('/bi/catagory-update-post', admin_bi_catagory_update_post)
 // admin.post('/bi/catagory-delete', admin_bi_catagory_delete )
 
-module.exports= admin;  
+export default admin

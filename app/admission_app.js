@@ -1,11 +1,11 @@
-const { app, express, sqlmap, nodemailer, createHmac, randomBytes, multer, fs, path } = require("../server")
-const sharp= require('sharp');
+import { app, express, sqlmap, nodemailer, createHmac, randomBytes, multer, fs, path } from '../server.js';
+import sharp from 'sharp';
 
-exports.public_admission_step1 = (req, res) => {
+const public_admission_step1 = (req, res) => {
   // console.log(mysession);
-  res.render("public/admission_form_public", { pastAdmission: true, nextAdmission: false, data: false, msg: req.flash("msg"), alert: req.flash("alert") })
+  res.render("public/admission_form_public", { pastAdmission: true, nextAdmission: false, data: false, msg: req.flash("msg"), alert: req.flash("alert") });
+};
 
-}
 
 
 const multer_location_image= multer.diskStorage({
@@ -33,7 +33,7 @@ const multer_location_image_or_pdf= multer.diskStorage({
   
 })
 
-exports.multer_upload_admission_image= multer({
+const multer_upload_admission_image= multer({
   storage: multer_location_image,
 
   limits: { fileSize: 524288 },
@@ -51,7 +51,7 @@ exports.multer_upload_admission_image= multer({
 
 
 
-exports.multer_upload_admission_image_or_pdf= multer({
+const multer_upload_admission_image_or_pdf= multer({
   storage: multer_location_image_or_pdf,
 
   limits: { fileSize: 524288 },
@@ -68,7 +68,7 @@ exports.multer_upload_admission_image_or_pdf= multer({
 })
 
 
-exports.public_admission_step2 = async(req, res) => {
+const public_admission_step2 = async(req, res) => {
 
   const {studentName, gender, dobNumber, birthDate, fatherName, motherName, bloodGroup, Religion, Email, telephone, guardianName, Address, Hobbies} = req.body;
   req.session.studentName= studentName;
@@ -107,7 +107,7 @@ exports.public_admission_step2 = async(req, res) => {
 
 
 
-exports.public_admission_post = async (req, res) => {
+const public_admission_post = async (req, res) => {
 
   const {studentName, gender, avatar, dobNumber, birthDate, fatherName, motherName, bloodGroup, Religion, Email, telephone, guardianName, Address, Hobbies} = req.session;
   const { lastEducation, admissionClass, comment } = req.body;
@@ -143,7 +143,7 @@ bloodGroup, Religion, telephone, Email, guardianName, Address, Hobbies, lastEduc
 
 
 
-exports.admin_admission_page = (req, res) => {
+const admin_admission_page = (req, res) => {
 
 
 
@@ -159,7 +159,7 @@ exports.admin_admission_page = (req, res) => {
 
 }
 
-exports.admin_admission_student_page = (req, res) => {
+const admin_admission_student_page = (req, res) => {
 const {uuid}= req.params;
   sqlmap.query(`SELECT * FROM admission WHERE domain=? AND uuid=?`,[req.cookies["hostname"], uuid], (err, info) => {
 
@@ -177,7 +177,7 @@ const {uuid}= req.params;
 
 
 
-exports.admin_admission_info = (req, res) => {
+const admin_admission_info = (req, res) => {
 
   const { ID } = req.body;
 
@@ -227,7 +227,7 @@ exports.admin_admission_info = (req, res) => {
 
 
 
-exports.admin_admission_accept = (req, res) => {
+const admin_admission_accept = (req, res) => {
 
   const { email, ID } = req.body;
 
@@ -276,7 +276,7 @@ exports.admin_admission_accept = (req, res) => {
 }
 
 
-exports.admin_admission_reject = (req, res) => {
+const admin_admission_reject = (req, res) => {
 
   const { ID, email } = req.body;
 
@@ -334,4 +334,20 @@ exports.admin_admission_reject = (req, res) => {
 
 
 
+}
+
+export{
+  multer_location_image, 
+  multer_location_image_or_pdf, 
+  multer_upload_admission_image, 
+  multer_upload_admission_image_or_pdf,
+  public_admission_post, 
+  public_admission_step2, 
+  public_admission_step1,
+  admin_admission_accept, 
+  admin_admission_info, 
+  admin_admission_page,
+  admin_admission_reject, 
+  admin_admission_student_page,
+  
 }
