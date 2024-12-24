@@ -1,9 +1,9 @@
-const {app, express, session}=require('../server') 
-const { dashboard } = require("../app/admin_app");
-const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update_page, self_email_update, self_close_account, self_avatar_upload, multer_upload_parent, self_penbox_push, self_password_update_push, self_email_update_pull, self_email_update_push, self_img_post } = require("../app/parent_app");
-const parent= express.Router()
-parent.all('*', (req, res, next)=>{
+import { app, express, session } from '../server.js'; 
+import { self_dashboard, self_account, multer_upload_parent, self_penbox_push, self_password_update_push, self_email_update_pull, self_email_update_push, self_img_post } from "../app/parent_app.js";
+const parent = express.Router();
 
+
+parent.all('*', (req, res, next)=>{
 
     if(req.session.user=='parent')  next()
       
@@ -31,4 +31,4 @@ parent.post("/self/email/update/push", self_email_update_push)
 
 
 
-module.exports= parent;
+export default parent;

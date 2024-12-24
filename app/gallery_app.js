@@ -1,7 +1,8 @@
-const { sqlmap , multer, randomBytes, createHmac, path,  fs, app, express} = require("../server")
-const sharp= require('sharp');
+import { sqlmap, multer, randomBytes, createHmac, path, fs, app, express } from '../server.js';
+import sharp from 'sharp';
 
-const multer_location= multer.diskStorage({
+
+export const multer_location= multer.diskStorage({
   destination: (req, file, cb)=>{
    cb(null, "./public/image/gallery/")
   } ,
@@ -15,7 +16,7 @@ const multer_location= multer.diskStorage({
 
 
 
-exports.multer_upload= multer({
+export const multer_upload= multer({
   storage: multer_location,
 
   limits: {fileSize: 1024*1024*2},
@@ -34,7 +35,7 @@ exports.multer_upload= multer({
 })
 
 
-const multer_location_carousel= multer.diskStorage({
+export const multer_location_carousel= multer.diskStorage({
   destination: (req, file, cb)=>{
    cb(null, "./public/image/carousel/")
   } ,
@@ -48,7 +49,7 @@ const multer_location_carousel= multer.diskStorage({
 
 
 
-exports.multer_upload_carousel= multer({
+export const multer_upload_carousel= multer({
   storage: multer_location_carousel,
 
   limits: {fileSize: 1024*1024*2},
@@ -72,7 +73,7 @@ exports.multer_upload_carousel= multer({
 
 // public gallery..........
 
-exports.public_gallery_image_get = (req, res) => {
+export const public_gallery_image_get = (req, res) => {
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? GROUP BY data_id ORDER BY ID DESC`;
 
   sqlmap.query(sql, [req.cookies["hostname"], 'image'], (err, info) => {
@@ -91,7 +92,7 @@ exports.public_gallery_image_get = (req, res) => {
 
 
 
-exports.public_gallery_image_data_get = (req, res) => {
+export const public_gallery_image_data_get = (req, res) => {
   const { dataid } = req.params;
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? AND data_id=? ORDER BY ID DESC`;
 
@@ -112,7 +113,7 @@ exports.public_gallery_image_data_get = (req, res) => {
 
 
 
-exports.public_gallery_video_get = (req, res) => {
+export const public_gallery_video_get = (req, res) => {
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? GROUP BY data_id ORDER BY ID DESC`;
 
   sqlmap.query(sql, [req.cookies["hostname"], 'video'], (err, info) => {
@@ -132,7 +133,7 @@ exports.public_gallery_video_get = (req, res) => {
 
 
 
-exports.public_gallery_video_data_get = (req, res) => {
+export const public_gallery_video_data_get = (req, res) => {
   const { dataid } = req.params;
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? AND data_id=? ORDER BY ID DESC`;
 
@@ -156,7 +157,7 @@ exports.public_gallery_video_data_get = (req, res) => {
 
 // admin carousel part
 
-exports.admin_carousel_post= async(req, res)=>{
+export const admin_carousel_post= async(req, res)=>{
 
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
@@ -215,7 +216,7 @@ res.send({msg: 'Image Added!', alert: 'alert-success'})
 
 
 
-exports.admin_carousel_get = (req, res) => {
+export const admin_carousel_get = (req, res) => {
   const sql = `SELECT * FROM carousel WHERE domain=? ORDER BY ID DESC`;
 
   sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
@@ -240,7 +241,7 @@ exports.admin_carousel_get = (req, res) => {
 
 
 
-exports.admin_carousel_rm = (req, res) => {
+export const admin_carousel_rm = (req, res) => {
   const { dataid } = req.body;
 
   sqlmap.query(
@@ -279,7 +280,7 @@ exports.admin_carousel_rm = (req, res) => {
 
 
 
-exports.admin_gallery_image_get = (req, res) => {
+export const admin_gallery_image_get = (req, res) => {
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? GROUP BY data_id ORDER BY ID DESC`;
 
   sqlmap.query(sql, [req.cookies["hostname"], 'image'], (err, info) => {
@@ -310,7 +311,7 @@ exports.admin_gallery_image_get = (req, res) => {
 
 
 
-exports.admin_gallery_image_post= async(req, res)=>{
+export const admin_gallery_image_post= async(req, res)=>{
   let {item_title}= req.body;
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
@@ -367,7 +368,7 @@ res.send({msg: "Gallery Added Successfully!", alert: "alert-success"})
 
 
 
-exports.admin_gallery_image_data_post= async (req, res)=>{
+ export const admin_gallery_image_data_post= async (req, res)=>{
   const {item_title, dataid}= req.body;
 
   for (let x = 0; x < req.files.length; x++) {
@@ -417,7 +418,7 @@ res.send({msg: "Gallery Added successfully!", alert: "alert-success"})
 
 
 
-exports.admin_gallery_image_delete = (req, res) => {
+ export const admin_gallery_image_delete = (req, res) => {
   let { dataid } = req.body;
 
   sqlmap.query(
@@ -456,7 +457,7 @@ exports.admin_gallery_image_delete = (req, res) => {
 
 
 
-exports.admin_gallery_image_data_get = (req, res) => {
+export const admin_gallery_image_data_get = (req, res) => {
   const { dataid } = req.body;
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? AND data_id=? ORDER BY ID DESC`;
 
@@ -484,7 +485,7 @@ exports.admin_gallery_image_data_get = (req, res) => {
 
 
 
-exports.admin_gallery_image_data_delete = (req, res) => {
+export const admin_gallery_image_data_delete = (req, res) => {
   let { dataid } = req.body;
 
   sqlmap.query(
@@ -524,7 +525,7 @@ exports.admin_gallery_image_data_delete = (req, res) => {
 
 // admin gallery video part 
 
-exports.admin_gallery_video_post = (req, res) => {
+export const admin_gallery_video_post = (req, res) => {
   let { item_link, item_title } = req.body;
   let dataid = Math.random() * 900000;
 
@@ -546,7 +547,7 @@ exports.admin_gallery_video_post = (req, res) => {
 
 
 
-exports.admin_gallery_video_data_post = (req, res) => {
+export const admin_gallery_video_data_post = (req, res) => {
   let { item_link, item_title, dataid } = req.body;
 
   for (let index = 0; index < item_link.length; index++) {
@@ -566,7 +567,7 @@ exports.admin_gallery_video_data_post = (req, res) => {
 };
 
 
-exports.admin_gallery_video_get = (req, res) => {
+export const admin_gallery_video_get = (req, res) => {
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? GROUP BY data_id ORDER BY ID DESC`;
 
   sqlmap.query(sql, [req.cookies["hostname"], 'video'], (err, info) => {
@@ -593,7 +594,7 @@ exports.admin_gallery_video_get = (req, res) => {
 
 
 
-exports.admin_gallery_video_data_get = (req, res) => {
+export const admin_gallery_video_data_get = (req, res) => {
   const { dataid } = req.body;
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? AND data_id=? ORDER BY ID DESC`;
 
@@ -620,7 +621,7 @@ exports.admin_gallery_video_data_get = (req, res) => {
 };
 
 
- exports.admin_gallery_video_delete = (req, res) => {
+export const admin_gallery_video_delete = (req, res) => {
   let { dataid } = req.body;
 
   sqlmap.query(
@@ -639,7 +640,7 @@ exports.admin_gallery_video_data_get = (req, res) => {
 
 
 
-exports.admin_gallery_video_data_delete = (req, res) => {
+export const admin_gallery_video_data_delete = (req, res) => {
   let { dataid } = req.body;
 
   sqlmap.query(
@@ -665,6 +666,4 @@ exports.admin_gallery_video_data_delete = (req, res) => {
       }
   );
 };
-
-
 

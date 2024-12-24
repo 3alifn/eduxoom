@@ -1,5 +1,6 @@
-const {app, express, sqlmap, session, nodemailer, multer, createHmac, fs, path}= require("../server")
-const sharp= require("sharp")
+import { app, express, sqlmap, session, nodemailer, multer, createHmac, fs, path } from "../server.js";
+import sharp from "sharp";
+
 
 var regexTelephone= /^01[0-9]*$/
 var regexNumber= /^[0-9]*$/
@@ -20,7 +21,7 @@ const multer_location = multer.diskStorage({
 
 })
 
-exports.multer_upload_student= multer({
+export const multer_upload_student= multer({
   storage: multer_location,
 
   limits: { fileSize: 1024 * 1024 * 2 },
@@ -37,7 +38,7 @@ exports.multer_upload_student= multer({
 })
 
 
-exports.teacher_student_info = (req, res) => {
+export const teacher_student_info = (req, res) => {
   const { student_uuid } = req.body;
   const sql = `SELECT * FROM students WHERE domain=? AND student_uuid=?`;
 
@@ -61,7 +62,7 @@ exports.teacher_student_info = (req, res) => {
 
 
 
-exports.admin_student_join_quick = (req, res) => {
+export const admin_student_join_quick = (req, res) => {
     const { classNameX, roll, name, gender } = req.body;
     const tempData = classNameX.split(' $%& ');
     const className = tempData[0];
@@ -118,7 +119,7 @@ exports.admin_student_join_quick = (req, res) => {
 
 
 
-exports.admin_student_post= async(req, res)=>{
+export const admin_student_post= async(req, res)=>{
   var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
   var {classNameX, name, roll, gender, fname, mname, emailx,  birth_date, blood_group, religion, phone, address, admission_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
@@ -199,7 +200,7 @@ exports.admin_student_post= async(req, res)=>{
 }
 
 
-exports.admin_student_get = (req, res) => {
+export const admin_student_get = (req, res) => {
   const { class_name, section_name, limit } = req.body;
   let sql;
 
@@ -250,7 +251,7 @@ exports.admin_student_get = (req, res) => {
 
 
 
-exports.admin_student_img_post= async(req, res)=>{
+export const admin_student_img_post= async(req, res)=>{
 
   const {dataid}= req.body;
 
@@ -295,7 +296,7 @@ exports.admin_student_img_post= async(req, res)=>{
 }
 
 
-exports.admin_student_penbox_pull=(req, res)=>{
+export const admin_student_penbox_pull=(req, res)=>{
   const {dataid}= req.body; 
   sqlmap.query(`SELECT * FROM students WHERE domain=? AND  ID=?`,[req.cookies["hostname"], dataid], (err, info)=>{
       if(err) console.log(err.sqlMessage);
@@ -546,7 +547,7 @@ res.send({penboxdata})
 
 
 
-exports.admin_student_penbox_push = (req, res) => {
+export const admin_student_penbox_push = (req, res) => {
   const { dataid, classNameX, name, roll, gender, fname, mname, birth_date, blood_group, religion, phone, email, address, admission_date } = req.body;
   const domain = req.cookies["hostname"];
   const tempData = classNameX.split(' $%& ');
@@ -582,7 +583,7 @@ exports.admin_student_penbox_push = (req, res) => {
 
 
 
-exports.admin_student_rm = (req, res) => {
+export const admin_student_rm = (req, res) => {
   const { dataid } = req.body;
 
   if (dataid == undefined) {
@@ -619,7 +620,7 @@ exports.admin_student_rm = (req, res) => {
 
 
 
-exports.self_dashboard = (req, res) => {
+export const self_dashboard = (req, res) => {
   const student_uuid = req.session.student_uuid;
   const sql = `SELECT * FROM students WHERE domain=? AND student_uuid=?`;
 
@@ -641,7 +642,7 @@ exports.self_dashboard = (req, res) => {
 
 
 
-exports.self_account = (req, res) => {
+export const self_account = (req, res) => {
   const student_uuid = req.session.student_uuid;
   const sql = `SELECT * FROM students WHERE domain=? AND student_uuid=?`;
 
@@ -661,7 +662,7 @@ exports.self_account = (req, res) => {
 
 
     
-exports.self_penbox_push = (req, res) => {
+export const self_penbox_push = (req, res) => {
   const { name, phone, fb_link, fname, mname, gender, birth_date, blood_group, religion, address } = req.body;
   const domain = req.cookies["hostname"];
   const userid = req.session.userid;
@@ -680,7 +681,7 @@ exports.self_penbox_push = (req, res) => {
       
     
     
-exports.self_img_post= async(req, res)=>{
+export const self_img_post= async(req, res)=>{
       const userid= req.session.userid;
     
         const {dataid}= req.body;
@@ -728,7 +729,7 @@ exports.self_img_post= async(req, res)=>{
     
     
             
-exports.self_password_update_push = (req, res) => {
+export const self_password_update_push = (req, res) => {
   const { cpassword, npassword } = req.body;
   const email = req.session.usermmail;
   const currentPassword = createHmac('md5', 'pipilikapipra').update(cpassword).digest('hex');
@@ -762,7 +763,7 @@ exports.self_password_update_push = (req, res) => {
     
     
     
-exports.self_email_update_pull = (req, res) => {
+export const self_email_update_pull = (req, res) => {
   const { username } = req.body;
   const randHashCode = Math.ceil(Math.random() * 900000);
   req.session.username = username;
@@ -835,7 +836,7 @@ exports.self_email_update_pull = (req, res) => {
     
     
         
-exports.self_email_update_push = (req, res) => {
+export const self_email_update_push = (req, res) => {
   const userid = req.session.userid;
   const { verifyCode } = req.body;
   const username = req.session.username;
@@ -867,7 +868,7 @@ exports.self_email_update_push = (req, res) => {
       
 
 
-exports.public_student_page = (req, res) => {
+export const public_student_page = (req, res) => {
   const domain = req.cookies["hostname"];
   
   const sqlClass = `SELECT COUNT(ID) FROM students WHERE domain=?`;
@@ -955,7 +956,7 @@ exports.public_student_page = (req, res) => {
 
 
 
-exports.public_student_list = (req, res) => {
+export const public_student_list = (req, res) => {
   let { className, sectionName } = req.query;
   const limit = 12;
   const sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ? OFFSET 0`;
@@ -976,7 +977,7 @@ exports.public_student_list = (req, res) => {
 
 
 
-exports.public_student_pagination = (req, res) => {
+export const public_student_pagination = (req, res) => {
   const { className, sectionName, requestPageOffset } = req.body;
   const limit = 12;
 
@@ -1027,7 +1028,7 @@ exports.public_student_pagination = (req, res) => {
 
 
 
-exports.public_student_profile_get = (req, res) => {
+export const public_student_profile_get = (req, res) => {
   const { dataid } = req.body;
   const sql = `SELECT * FROM students WHERE domain=? AND ID=?`;
 
@@ -1109,7 +1110,7 @@ exports.public_student_profile_get = (req, res) => {
 
 
 
-exports.self_social = (req, res) => {
+export const self_social = (req, res) => {
   const { facebookLink } = req.body;
   const student_uuid = req.session.student_id;
 
@@ -1127,7 +1128,7 @@ exports.self_social = (req, res) => {
 };
 
 
-exports.student_rank_get_class_base = (req, res) => {
+export const student_rank_get_class_base = (req, res) => {
   const className = req.session.className;
   const sectionName = req.session.sectionName;
   const sql = `SELECT * FROM rank WHERE domain=? AND class=? GROUP BY student_id ORDER BY poient DESC`;
@@ -1176,7 +1177,7 @@ exports.student_rank_get_class_base = (req, res) => {
     
 
 
-exports.student_parent_list = (req, res) => {
+export const student_parent_list = (req, res) => {
   const sql = `SELECT ID, email, name FROM parents WHERE domain=? AND student_id=?`;
 
   sqlmap.query(sql, [req.cookies["hostname"], req.session.student_id], (err, info) => {
@@ -1197,7 +1198,7 @@ exports.student_parent_list = (req, res) => {
 
 
 
-exports.student_parent_set = (req, res) => {
+export const student_parent_set = (req, res) => {
   const { parentEmail } = req.body;
   const sql = `UPDATE parents SET permission='allow' WHERE domain=? AND student_id=? AND email=?`;
 
@@ -1212,7 +1213,7 @@ exports.student_parent_set = (req, res) => {
 
 
 
-exports.student_parent_get = (req, res) => {
+export const student_parent_get = (req, res) => {
   const sql = `SELECT * FROM parents WHERE domain=? AND permission='allow' AND student_id=?`;
 
   sqlmap.query(sql, [req.cookies["hostname"], req.session.student_id], (err, info) => {

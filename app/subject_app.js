@@ -1,6 +1,6 @@
-const {express, app, sqlmap, randomBytes } = require("../server");
+import { express, app, sqlmap, randomBytes } from '../server.js';
 
-exports.admin_subject_post = (req, res) => {
+export const admin_subject_post = (req, res) => {
   const { class_name, subject_name } = req.body;
   for (let i = 0; i < subject_name.length; i++) {
       const randomString = randomBytes(10).toString('hex');
@@ -20,7 +20,7 @@ exports.admin_subject_post = (req, res) => {
 
 
 
-exports.admin_subject_get = (req, res) => {
+export const admin_subject_get = (req, res) => {
   const { class_name } = req.body;
   sqlmap.query(
       `SELECT * FROM ini_subject WHERE domain=? AND class=? GROUP BY subject ORDER BY subject`,
@@ -48,7 +48,7 @@ exports.admin_subject_get = (req, res) => {
 
 
 
-exports.admin_subject_rm = (req, res) => {
+export const admin_subject_rm = (req, res) => {
   const { dataid } = req.body;
   if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });

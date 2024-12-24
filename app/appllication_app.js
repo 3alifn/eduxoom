@@ -1,4 +1,4 @@
-const {app, express, sqlmap, nodemailer, multer, session}= require("../server")
+import { app, express, sqlmap, nodemailer, multer, session } from '../server.js';
 
 const locationApplication= multer.diskStorage({
     destination: (req, file, cb)=>{
@@ -15,7 +15,7 @@ const locationApplication= multer.diskStorage({
 
 
   
-exports.multer_upload_docs= multer({
+export const multer_upload_docs= multer({
   storage: locationApplication,
 
   limits: {fileSize: 10000000},
@@ -40,7 +40,7 @@ exports.multer_upload_docs= multer({
 
   
 
-exports.student_application_post =  (req, res)=>{
+export const student_application_post =  (req, res)=>{
 let  {subject, comment}= req.body;
 let student_uuid= req.session.student_uuid;
 
@@ -74,7 +74,7 @@ if(errMain) console.log(errMain.sqlMessage+"+++");
 
 
 
-exports.student_application_get = (req,res)=>{
+export const student_application_get = (req,res)=>{
   let student_uuid= req.session.student_uuid
   const session= new Date().getUTCFullYear();
 
@@ -116,7 +116,7 @@ sqlmap.query(`SELECT * FROM  application WHERE domain=? AND  student_uuid=? ORDE
 
 
 
-exports.admin_application_download= (req, res)=>{
+export const admin_application_download= (req, res)=>{
 
 
 let ID=  req.query.id
@@ -137,7 +137,7 @@ res.download(`./public/docs/application/${info[0].attachment}`)
 
 
 
-exports.student_application_download= (req, res)=>{
+export const student_application_download= (req, res)=>{
 
 let ID=  req.query.id
 
@@ -158,7 +158,7 @@ res.download(`./public/docs/application/${info[0].attachment}`)
 
 
 
-exports.admin_application_get= (req,res)=>{
+export const admin_application_get= (req,res)=>{
 
 sqlmap.query(`SELECT * FROM  application WHERE domain=? ORDER BY ID DESC`,[req.cookies["hostname"]],(err,info)=>{
   if(err) console.log(err.sqlMessage);
@@ -211,7 +211,7 @@ sqlmap.query(`SELECT * FROM  application WHERE domain=? ORDER BY ID DESC`,[req.c
 
 
 
-exports.admin_application_replay= (req, res)=>{
+export const admin_application_replay= (req, res)=>{
 
 let {ID, replay}= req.body;
 sqlmap.query(`UPDATE  application SET replay=? WHERE domain=? AND  ID=?`,[replay, req.cookies["hostname"], ID], (err, next)=>{

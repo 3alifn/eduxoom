@@ -1,6 +1,7 @@
-const {app, sqlmap}= require("../server");
+import { app, sqlmap } from '../server.js';
 
-exports.admin_dashboard_tsa_lookup = (req, res) => {
+
+export const admin_dashboard_tsa_lookup = (req, res) => {
   sqlmap.query(
       `SELECT COUNT(ID) AS tAll, 
       COUNT(CASE WHEN gender="Female" THEN 1 END) AS tFemale,

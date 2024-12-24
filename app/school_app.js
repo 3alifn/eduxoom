@@ -1,8 +1,5 @@
-const express = require('express');
-const app = express();
-const { sqlmap, multer, randomBytes, createHmac, path, fs, nodemailer, dotenv} = require('../server');
-const { json } = require('body-parser');
-const sharp = require("sharp")
+import { app, sqlmap, multer, randomBytes, createHmac, path, fs, nodemailer, dotenv } from '../server.js';
+import sharp from 'sharp';
 
 const multer_location = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -17,8 +14,8 @@ const multer_location = multer.diskStorage({
 })
 
 
-module.exports = {
-    multer_upload_school_settings: multer({
+
+    export const multer_upload_school_settings = multer({
         storage: multer_location,
 
         limits: { fileSize: 1024 * 1024 * 2 },
@@ -32,9 +29,9 @@ module.exports = {
 
         }
 
-    }),
+    })
 
-    pu_aboutus_render: (req, res)=>{
+    export const pu_aboutus_render = (req, res)=>{
         
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=?`,
@@ -49,9 +46,9 @@ module.exports = {
         );
         
 
-      },
+      }
 
-    pu_contactus_render: (req, res)=>{
+      export const pu_contactus_render= (req, res)=>{
         
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=?`,
@@ -66,9 +63,9 @@ module.exports = {
         );
         
 
-      },
+      }
 
-    admin_school_page: (req, res) => {
+      export const admin_school_page= (req, res) => {
 
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=? ORDER BY ID DESC LIMIT 1`,
@@ -85,9 +82,9 @@ module.exports = {
 
 
 
-    },
+    }
 
-    admin_school_post : (req, res) => {
+    export const admin_school_post = (req, res) => {
         const { eiin, name, email, phone, address, headline, about, fb_link } = req.body;
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=? ORDER BY ID DESC LIMIT 1`,
@@ -127,9 +124,9 @@ module.exports = {
                 }
             }
         );
-    },
+    }
     
-    admin_school_img_post : async (req, res) => {
+    export const admin_school_img_post = async (req, res) => {
         const jsondata = JSON.stringify(req.body);
         const imgrole = JSON.parse(jsondata).imgrole;
         const randomString = Math.random() * 900000000;
@@ -178,12 +175,12 @@ module.exports = {
         );
     
         res.send({ msg: "Added Successfully!", alert: "success" });
-    },
+    }
     
 
 
 
-    public_sent_message: (req, res)=>{
+  export const public_sent_message = (req, res)=>{
         const {fullname, email, message, school_email}= req.body;
           
     
@@ -233,7 +230,6 @@ module.exports = {
       
       
       })
-    },
+    }
 
 
-}

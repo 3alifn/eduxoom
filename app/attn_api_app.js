@@ -1,13 +1,11 @@
-const { json } = require("body-parser");
-const {app, express, mysql, sqlmap, createHmac, randomBytes, fs, path} = require("../server")
-
+import { app, express, mysql, sqlmap, createHmac, randomBytes, fs, path } from '../server.js';
 
 const get_time= new Date().getTime();
 const five_min= 300000;
 const session= new Date().getUTCFullYear();
 
 
-exports.pu_attn_checkout_logs = (req, res) => {
+export const pu_attn_checkout_logs = (req, res) => {
   const { domain, user } = req.body;
 
   sqlmap.query(
@@ -28,7 +26,7 @@ exports.pu_attn_checkout_logs = (req, res) => {
 
 
 
-exports.pu_attn_checkout_webapi_present = (req, res) => {
+export const pu_attn_checkout_webapi_present = (req, res) => {
   const { domain, user_id, user, name, today, record_date, record_time } = req.body;
 
   const todaym = new Date(today);
@@ -99,7 +97,7 @@ exports.pu_attn_checkout_webapi_present = (req, res) => {
 
 
 
-exports.pu_attn_checkout_webapi_absent_teacher = (req, res) => {
+export const pu_attn_checkout_webapi_absent_teacher = (req, res) => {
   const { domain, user, name } = req.body;
   const today = new Date();
   const currentDate = new Date().getDate();
@@ -148,7 +146,7 @@ exports.pu_attn_checkout_webapi_absent_teacher = (req, res) => {
 };
 
 
-exports.pu_attn_checkout_webapi_absent_staff = (req, res) => {
+export const pu_attn_checkout_webapi_absent_staff = (req, res) => {
   const { domain, user, name } = req.body;
   const today = new Date();
   const currentDate = new Date().getDate();
@@ -198,7 +196,7 @@ exports.pu_attn_checkout_webapi_absent_staff = (req, res) => {
 
 
 
-exports.pu_attn_checkout_webapi_absent_student = (req, res) => {
+export const pu_attn_checkout_webapi_absent_student = (req, res) => {
   const { domain, user, name } = req.body;
   const today = new Date();
   const currentDate = new Date().getDate();

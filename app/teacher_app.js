@@ -1,5 +1,5 @@
-const {app, express, sqlmap, session, nodemailer, multer, createHmac, path, fs}= require("../server")
-const sharp= require("sharp")
+import { app, express, sqlmap, session, nodemailer, multer, createHmac, path, fs } from "../server.js";
+import sharp from "sharp";
 
 const multer_location = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -13,7 +13,7 @@ const multer_location = multer.diskStorage({
 
 })
 
-exports.multer_upload_teacher= multer({
+export const multer_upload_teacher= multer({
   storage: multer_location,
 
   limits: { fileSize: 1024 * 1024 * 2 },
@@ -32,7 +32,7 @@ exports.multer_upload_teacher= multer({
 
 
 
-exports.self_dashboard = (req, res) => {
+export const self_dashboard = (req, res) => {
   const teacher_uuid = req.session.teacher_uuid;
 
   sqlmap.query(
@@ -56,7 +56,7 @@ exports.self_dashboard = (req, res) => {
 
 
 
-exports.self_account = (req, res) => {
+export const self_account = (req, res) => {
   const teacher_uuid = req.session.teacher_uuid;
   
   sqlmap.query(
@@ -78,7 +78,7 @@ exports.self_account = (req, res) => {
 };
 
 
-exports.self_penbox_push = (req, res) => {
+export const self_penbox_push = (req, res) => {
   const { dataid, name, position, phone, fb_link, index_number, gender, birth_date, pds_id, blood_group, religion, address, joining_date } = req.body;
   const domain = req.cookies["hostname"];
   const userid = req.session.userid;
@@ -98,7 +98,7 @@ exports.self_penbox_push = (req, res) => {
 
 
 
-exports.self_img_post= async(req, res)=>{
+export const self_img_post= async(req, res)=>{
   const userid= req.session.userid;
 
     const {dataid}= req.body;
@@ -149,7 +149,7 @@ exports.self_img_post= async(req, res)=>{
 
 
         
-exports.self_password_update_push = (req, res) => {
+export const self_password_update_push = (req, res) => {
     const { cpassword, npassword } = req.body;
     const email = req.session.usermmail;
     const currentPassword = createHmac('md5', 'pipilikapipra').update(cpassword).digest('hex');
@@ -186,7 +186,7 @@ exports.self_password_update_push = (req, res) => {
 
 
 
-exports.self_email_update_pull= (req, res)=>{
+export const self_email_update_pull= (req, res)=>{
 const {username}= req.body;
 var randHashCode= Math.ceil(Math.random()*900000);
 req.session.username=username; 
@@ -284,7 +284,7 @@ sqlmap.query(`SELECT email FROM teachers WHERE domain=? AND  email=?`, [req.cook
 
 
     
-exports.self_email_update_push = (req, res) => {
+export const self_email_update_push = (req, res) => {
   const { verifyCode } = req.body;
   const userid = req.session.userid;
   const username = req.session.username; 
@@ -325,7 +325,7 @@ exports.self_email_update_push = (req, res) => {
 
 
 
-exports.admin_teacher_img_post= async(req, res)=>{
+export const admin_teacher_img_post= async(req, res)=>{
 
   const {dataid}= req.body;
 
@@ -376,7 +376,7 @@ exports.admin_teacher_img_post= async(req, res)=>{
 
 
 
-exports.admin_teacher_post= async(req, res)=>{
+export const admin_teacher_post= async(req, res)=>{
   var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
   const {name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
@@ -466,7 +466,7 @@ exports.admin_teacher_post= async(req, res)=>{
 }
 
 
-exports.admin_teacher_get = (req, res) => {
+export const admin_teacher_get = (req, res) => {
   sqlmap.query(
       `SELECT * FROM teachers WHERE domain=? ORDER BY order_value`,
       [req.cookies["hostname"]],
@@ -517,7 +517,7 @@ exports.admin_teacher_get = (req, res) => {
 
 
 
-exports.admin_teacher_penbox_pull=(req, res)=>{
+export const admin_teacher_penbox_pull=(req, res)=>{
   const {dataid}= req.body; 
   sqlmap.query(`SELECT * FROM teachers WHERE domain=? AND  ID=?`, [req.cookies["hostname"], dataid], (err, info)=>{
       if(err) console.log(err.sqlMessage);
@@ -714,7 +714,7 @@ res.send({penboxdata})
 
 
 
-exports.admin_teacher_penbox_push = (req, res) => {
+export const admin_teacher_penbox_push = (req, res) => {
     const { dataid, name, position, index_number, gender, birth_date, pds_id, blood_group, religion, email, phone, address, joining_date } = req.body;
     const domain = req.cookies["hostname"];
 
@@ -752,7 +752,7 @@ exports.admin_teacher_penbox_push = (req, res) => {
 
 
 
-exports.admin_teacher_rm = (req, res) => {
+export const admin_teacher_rm = (req, res) => {
   const { dataid } = req.body;
 
   if (dataid == undefined) {
@@ -798,7 +798,7 @@ exports.admin_teacher_rm = (req, res) => {
 
 
 
-exports.admin_config_subject = (req, res) => {
+export const admin_config_subject = (req, res) => {
   sqlmap.query(
       `SELECT subject, section FROM ini_subject WHERE class=? ORDER BY section`,
       ["Ten"],
@@ -869,7 +869,7 @@ exports.admin_config_subject = (req, res) => {
 
 
 
-exports.public_teacher_list = (req, res) => {
+export const public_teacher_list = (req, res) => {
   sqlmap.query(
       `SELECT * FROM teachers WHERE domain=? ORDER BY ORDER_VALUE`,
       [req.cookies["hostname"]],
@@ -890,7 +890,7 @@ exports.public_teacher_list = (req, res) => {
 
 
 
-exports.public_teacher_profile_get = (req, res) => {
+export const public_teacher_profile_get = (req, res) => {
     const { dataid } = req.body;
     const sql = `SELECT * FROM teachers WHERE domain=? AND ID=?`;
 

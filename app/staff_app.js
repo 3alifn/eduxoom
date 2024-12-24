@@ -1,6 +1,5 @@
-const { random } = require('sjcl');
-const {app, sqlmap, multer, fs, path}= require('../server')
-const sharp= require('sharp');
+import { app, sqlmap, multer, fs, path } from '../server.js';
+import sharp from 'sharp';
 
 
 const multer_location = multer.diskStorage({
@@ -15,7 +14,7 @@ const multer_location = multer.diskStorage({
 
 })
 
-exports.multer_upload_staff= multer({
+export const multer_upload_staff= multer({
     storage: multer_location,
 
     limits: { fileSize: 1024 * 1024 * 2 },
@@ -32,7 +31,7 @@ exports.multer_upload_staff= multer({
 })
 
 
-exports.public_staff_page = (req, res) => {
+export const public_staff_page = (req, res) => {
   sqlmap.query(
       `SELECT * FROM staff WHERE domain=? ORDER BY ID DESC`,
       [req.cookies["hostname"]],
@@ -49,7 +48,7 @@ exports.public_staff_page = (req, res) => {
 
 
 
-exports.public_staff_profile_get = (req, res) => {
+export const public_staff_profile_get = (req, res) => {
   const { dataid } = req.body;
 
   sqlmap.query(
@@ -133,7 +132,7 @@ exports.public_staff_profile_get = (req, res) => {
 
 
 
-exports.admin_staff_get = (req, res) => {
+export const admin_staff_get = (req, res) => {
           sqlmap.query(
               `SELECT * FROM staff WHERE domain=? ORDER BY ID DESC`,
               [req.cookies["hostname"]],
@@ -182,7 +181,7 @@ exports.admin_staff_get = (req, res) => {
       
 
 
-exports.admin_staff_img_post = async (req, res) => {
+export const admin_staff_img_post = async (req, res) => {
   const { dataid } = req.body;
 
   if (req.file) {
@@ -211,7 +210,7 @@ exports.admin_staff_img_post = async (req, res) => {
 
 
 
-exports.admin_staff_post = async (req, res) => {
+export const admin_staff_post = async (req, res) => {
   const { name, position, index_number, gender, age, email, phone, address, joining_date } = req.body;
 
   const avatar_png = req.file ? req.file.filename : (gender == "Female" ? "female_avatar.png" : "male_avatar.png");
@@ -242,7 +241,7 @@ exports.admin_staff_post = async (req, res) => {
 };
 
 
-exports.admin_staff_penbox_pull = (req, res) => {
+export const admin_staff_penbox_pull = (req, res) => {
     const { dataid } = req.body;
 
     sqlmap.query(
@@ -369,7 +368,7 @@ exports.admin_staff_penbox_pull = (req, res) => {
 
 
 
-exports.admin_staff_penbox_push = (req, res) => {
+export const admin_staff_penbox_push = (req, res) => {
   const { dataid, name, position, index_number, gender, age, email, phone, address, joining_date } = req.body;
 
   sqlmap.query(
@@ -389,7 +388,7 @@ exports.admin_staff_penbox_push = (req, res) => {
 
 
 
-exports.admin_staff_rm = (req, res) => {
+export const admin_staff_rm = (req, res) => {
   const { dataid } = req.body;
 
   if (dataid == undefined) {

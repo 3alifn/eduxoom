@@ -1,10 +1,8 @@
-const {app, express, dotenv, nodemailer, mysql, sqlmap, multer, createHmac, session } = require("../server")
+import {app, express, dotenv, nodemailer, mysql, sqlmap, multer, createHmac, session } from "../server.js"
 
 
 
-module.exports = {
-
-    multer_upload: multer({
+export const admin_multer_upload= multer({
         storage: multer.diskStorage({
             destination: (req, file, cb)=>{
              cb(null, "./public/image/admin")
@@ -32,11 +30,10 @@ module.exports = {
         }
       
       })
-,
 
 
     
-admin_logger: (req, res)=>{
+export const admin_logger= (req, res)=>{
 
     const {hashUsername, hashPassword}= req.body;
     const hashPassword__= createHmac('md5', 'pipilikapipra').update(hashPassword).digest('hex');
@@ -67,16 +64,14 @@ admin_logger: (req, res)=>{
 
 
     })
-},
+}
 
-
-dashboard: (req, res)=>{
+export const dashboard= (req, res)=>{
   res.render("admin/dashboard")
 }
 
-,
 
-self_account: (req, res)=>{
+export const self_account= (req, res)=>{
 
   
       sqlmap.query('SELECT * FROM user_admin WHERE domain=?', [req.cookies["hostname"]], (err, info)=>{
@@ -93,12 +88,11 @@ self_account: (req, res)=>{
 
 
 }
-,
 
 
 
 
-self_info_update: (req, res) =>{
+export const self_info_update= (req, res) =>{
   
   let {hash_name}= req.body;
   sqlmap.query('UPDATE user_admin SET hash_name=? WHERE domain=?',[hash_name, req.cookies["hostname"]], (err, info)=>{
@@ -114,16 +108,12 @@ self_info_update: (req, res) =>{
   
   })
   
-  },
-  
-  
-  
+  }
   
   
 
   
-  
-self_password_update: (req, res)=>{
+export const self_password_update= (req, res)=>{
   
     let {hash_password, pastPassword}= req.body;
 
@@ -175,15 +165,11 @@ self_password_update: (req, res)=>{
   
 
   
-    },
+    }
   
   
-  
-  
-  
-  
-  
-self_email_update: (req, res)=>{
+
+export const self_email_update= (req, res)=>{
   
   sqlmap.query(`UPDATE user_admin SET hash_username=? WHERE domain=?`, [req.body.hash_username, req.cookies["hostname"]], (err, info) =>{
   
@@ -210,7 +196,6 @@ self_email_update: (req, res)=>{
 
 
 
-}
 
 
 

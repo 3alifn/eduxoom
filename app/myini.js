@@ -1,7 +1,7 @@
-const { app, express, mysql , sessionStore,  session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs, ZKHLIB } = require("../server")
+import { app, mysql, session, cookieParser, flash, bodyParser, sqlmap, multer, randomBytes, createHmac, fs } from '../server.js';
 //  subject_code_example: six_a_math
 
-function ___ini(domain, lics) {
+export default function ___ini(domain, lics) {
   const join_date = new Date().toLocaleDateString();
   const expire_date = (new Date().getMonth() + 1) + '/' + (new Date().getDate() + 1) + '/' + (new Date().getFullYear() + 1);
 
@@ -35,7 +35,7 @@ function ___ini(domain, lics) {
 
 
 
-run_cmd_terminal=()=>{
+function run_cmd_terminal(){
   const cpm = require('child_process');
   // user for open any file form cmd........
   cpm.exec('start "" "index.html"', {cwd: 'C:/Users/3alifn/Desktop/web'});

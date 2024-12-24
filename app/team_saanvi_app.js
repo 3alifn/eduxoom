@@ -1,12 +1,6 @@
-const express = require("express")
-const app = express()
-const dotenv= require("dotenv").config()
-const nodemailer= require("nodemailer")
-const mysql = require("mysql")
-const { sqlmap, multer, session} = require("../server")
+import {app, dotenv, mysql, nodemailer, sqlmap, multer, session } from "../server.js";
 
-
-exports.public_team_saanvi_sent_message= (req, res)=>{
+const public_team_saanvi_sent_message= (req, res)=>{
     const {fullname, email, message}= req.body;
       
 
@@ -56,4 +50,8 @@ exports.public_team_saanvi_sent_message= (req, res)=>{
   
   
   })
+}
+
+export {
+  public_team_saanvi_sent_message
 }

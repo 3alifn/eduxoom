@@ -1,6 +1,6 @@
-const {app, express, sqlmap , session} = require("../server")
+import { app, express, sqlmap, session } from '../server.js';
 
-exports.home_page = (req, res) => {
+const home_page = (req, res) => {
     const host = req.hostname.startsWith("www.");
     const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
 
@@ -129,7 +129,7 @@ exports.home_page = (req, res) => {
 };
 
 
-exports.pu_school_get = (req, res) => {
+const pu_school_get = (req, res) => {
     const host = req.hostname.startsWith("www.");
     const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
 
@@ -150,12 +150,12 @@ exports.pu_school_get = (req, res) => {
 
 
 
-exports.pu_headofschool_get = (req, res) => {
+const pu_headofschool_get = (req, res) => {
     const host = req.hostname.startsWith("www.");
     const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
 
     sqlmap.query(
-        `SELECT * FROM headofschool WHERE domain=?`,
+        `SELECT * FROM headofschool WHERE domain=? ORDER BY order_value`,
         [hostnameInt],
         (err_headofschool, info_headofschool) => {
             if (err_headofschool) {
@@ -170,7 +170,7 @@ exports.pu_headofschool_get = (req, res) => {
 
 
 
-exports.au_user_profile_header_nav= (req, res)=>{
+const au_user_profile_header_nav= (req, res)=>{
   
     if(req.session.userAccess=='privet'){
      
@@ -206,3 +206,10 @@ exports.au_user_profile_header_nav= (req, res)=>{
   
 
 
+export{
+    home_page, 
+    pu_headofschool_get,
+    pu_school_get,
+    au_user_profile_header_nav,
+    
+}

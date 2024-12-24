@@ -1,8 +1,9 @@
-const {app, express, sqlmap, session } = require("../server")
-const chapter_Six = require("../chapter_api");
-const chapter_Seven = require("../chapter_api");
+import { app, express, sqlmap, session } from '../server.js';
+import {chapter_Six, chapter_Seven} from '../chapter_api.js';
 
-exports.teacher_pis_page_mark_get = (req, res) => {
+
+
+export const teacher_pis_page_mark_get = (req, res) => {
   var { class_section, subject, page } = req.query;
   var className, sectionName;
 
@@ -89,7 +90,7 @@ exports.teacher_pis_page_mark_get = (req, res) => {
 };
 
 
-exports.teacher_pis_mark_post = (req, res) => {
+export const teacher_pis_mark_post = (req, res) => {
   const teacher_uuid = req.session.teacher_uuid; 
   const session = new Date().getUTCFullYear();
   const domain = req.cookies["hostname"];
@@ -148,7 +149,7 @@ exports.teacher_pis_mark_post = (req, res) => {
 
 
 
-exports.teacher_pis_mark_checkout = (req, res) => {
+export const teacher_pis_mark_checkout = (req, res) => {
   const teacher_uuid = req.session.teacher_uuid;
   const { className, sectionName, subject, subject_code } = req.body;
 
@@ -171,7 +172,7 @@ exports.teacher_pis_mark_checkout = (req, res) => {
 
 
 
-exports.teacher_pis_subject_get=(req, res)=>{
+export const teacher_pis_subject_get=(req, res)=>{
 
 
    const {className}= req.body;
