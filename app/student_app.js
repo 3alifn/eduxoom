@@ -1003,7 +1003,9 @@ export const public_student_pagination = (req, res) => {
                   orderData += `<div class="flex-fill m-auto p-2 shadowx ">
                   <div class="bg-card-color pt-3 pb-3 rounded-4">
                       <div class="card-image m-auto">
+                      
                           <img class="avatar-circle" src="/image/student/resized/${info[index].avatar}" alt="">
+
                       </div>
                   </div>
                   <div class="pb-3">

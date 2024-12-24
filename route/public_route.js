@@ -128,9 +128,11 @@ pub.get("/join/parent", (req, res)=>{
 
     
 //   admission router......
+
 pub.get("/admission/step1", public_admission_step1)
 pub.post("/admission/step2", multer_upload_admission_image.single('avatar'),public_admission_step2)
 pub.post("/admission/post", multer_upload_admission_image_or_pdf.single('docs'),public_admission_post)
+
 
 
 
