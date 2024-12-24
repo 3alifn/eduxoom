@@ -1,3 +1,7 @@
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename= fileURLToPath(import.meta.url)
+const __dirname= dirname(__filename)
 import express from 'express';
 import mysql from 'mysql';
 import path from 'path';
@@ -20,6 +24,7 @@ import axios from 'axios';
 import ZKLib from 'zklib-32ble';
 import sjcl from 'sjcl';
 import jwt from 'jsonwebtoken';
+
 dotenv.config();
 const app = express();
 
@@ -28,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('trust proxy', 1); // trust first proxy
 app.enable('trust proxy', true);
 app.set('view engine', 'ejs');
-app.set('views', path.join(path.resolve(), 'views'));
+app.set('views', path.join(__dirname, "views"));
 
 app.use(express.static('./public/'));
 app.use(flash());
@@ -48,7 +53,7 @@ const sqlmap = mysql.createPool({
     connectionLimit: 50
 });
 
-const cookiename = createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex');
+const cookiename = createHmac('md5', 'pipilikapira').update('eduxoom').digest('hex');
 const MySQLStoreSession= MySQLStore(session);
 const MySQLStoreSave = new MySQLStoreSession({ expiration: 86400000 * 30 }, sqlmap);
 
@@ -66,15 +71,15 @@ app.use(session({
 }));
 
 // const io = require('socket.io')(app.listen(process.env.listen_port || 30));
-
-app.listen(process.env.listen_port || 30, () => {
-    console.log('code by alifn => server running on http://localhost:30');
+const port= process.env.listen_port || 30;
+app.listen(port, () => {
+    console.log('code by alifn => server running on http://localhost:'+port);
 });
 
 const mysession = new Date().getUTCFullYear();
 
 export {
-    app, express, mysession, mysql, session, cookieParser, flash, bodyParser,
+    __dirname, __filename, app, express, mysession, mysql, session, cookieParser, flash, bodyParser,
     sqlmap, multer, nodemailer, dotenv, cors, randomBytes,
-    createHmac, fs, path, ejs, MySQLStore, Timer, axios, ZKLib, sjcl, jwt
+    createHmac, fs, path, ejs, MySQLStore, Timer, axios, ZKLib, sjcl, jwt, port
 };

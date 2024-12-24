@@ -1,4 +1,4 @@
-import { app, fs, path, sqlmap, multer } from '../server.js';
+import { app, fs, path, sqlmap, multer, __dirname } from '../server.js';
 
 const location_library= multer.diskStorage({
   destination: (req, file, cb)=>{
