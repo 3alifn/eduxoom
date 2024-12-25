@@ -25,7 +25,10 @@
           <h2 class="notice-heading">New Notices</h2>
           <ul>
             <% info_notice.forEach((item) => { %>
-              <li class="view-link"><a class="page-link fw-semibold p-1 border-bottom" href="/pu/notice/view/<%=item.ID%>"><%=item.title%> </a></li>
+              <li class="view-link">
+                <code class="fw-semibold"><%=item.at_date.toString().substring(0, 25)%></code>
+                <a class="page-link fw-semibold p-1 border-bottom border-3" href="/pu/notice/view/<%=item.ID%>"><%=item.title%> </a>
+              </li>
              
             <% }) %>
           </ul>
