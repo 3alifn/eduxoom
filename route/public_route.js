@@ -2,7 +2,7 @@
 const express= require("express")
 const { public_admission_step1, public_admission_step2, public_admission_post, multer_upload_admission, multer_upload_admission_image, multer_upload_admission_any, multer_upload_admission_image_or_pdf } = require("../app/admission_app")
 const { public_gallery_video, public_gallery_image, public_gallery_video_list, public_gallery_image_list, public_carousel_get, public_gallery_image_get, admin_gallery_image_data_get, public_gallery_image_data_get, public_gallery_video_get, public_gallery_video_data_get } = require("../app/gallery_app")
-const { public_notice_get, public_notice_download, public_notice_view } = require("../app/notice_app")
+const { public_notice_get, public_notice_download, public_notice_view, public_notice_page } = require("../app/notice_app")
 const { join, self_verify_code } = require("../app/parent_app")
 const { public_rank_class_page, public_rank_page, public_rank_get, public_rank_get_class_base, public_rank_student_get, public_rank_student_get_num, public_rank_student_page, public_rank_student_page_num } = require("../app/rank_app")
 const { public_routine_page, public_routine_page_class_base, public_routine_download, public_routine_get } = require("../app/routine_app")
@@ -147,11 +147,8 @@ public.post("/rank/student/page/num/", public_rank_student_page_num)
 // notice router.......
 
 
-  public.get("/notice/page/", (req, res)=>{
-    res.render("public/notice_page_public")
-  })
-  
-  public.post("/notice/get/", public_notice_get)
+public.get("/notice/page/", public_notice_page)
+
 public.get("/notice/view/:dataid", public_notice_view)
 
 

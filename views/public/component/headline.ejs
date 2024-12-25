@@ -3,15 +3,14 @@
       <script src="/app/marquee.min.js"></script>
     
       <div class="headlineMarquee row">
-          <div class="text-capitalize font-monospace col-12 m-auto alert bg-gradient-secondary text-light p-1 p-md-3 fs-5 "
-              id="headlineMarquee"></div>
+          <div  class="text-capitalize font-monospace col-12 m-auto mt-1 bg-gradient-secondary text-light p-1 p-md-3 fs-6 " id="headlineMarquee"></div>
       </div>
 
       <script>
         var myScroller1 = new SuperMarquee(
             document.getElementById("headlineMarquee"),
             {
-                "content": `  <%=info_school[0].headline%>   |`
+                "content": `  <%=info_school[0].headline%>   `
             }
         );
   
@@ -22,7 +21,7 @@
   
   
         function loop() {
-            window.requestAnimationFrame(loop);
+            window.requestAnimationFrame();
             currentTime = (new Date()).getTime();
             delta = (currentTime - lastTime) / 2000;
         }

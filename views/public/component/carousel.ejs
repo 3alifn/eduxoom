@@ -1,60 +1,90 @@
+<style>
+    /* Ensure slider and images are responsive */
+#slider {
+  width: 100%;
+}
 
+#imageSlider {
+  width: 100%;
+}
 
+.slide {
+  position: relative;
+  width: 100%;
+}
 
-<div id="slider" class="row" >
-  <div id="imageSlider" class="col-12" style="overflow: hidden !important;">
+.slide img {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+}
+
+.slide-desc {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .slide-desc h1 {
+    font-size: 1.5em;
+  }
+}
+
+@media (min-width: 769px) {
+  .slide-desc h1 {
+    font-size: 2em;
+  }
+}
+
+</style>
+
+<div id="slider" class="row">
+    <div id="imageSlider" class="col-12" style="overflow: hidden !important;">
       <script type="text/javascript">
-          jQuery(document).ready(function () {
-              jQuery('#imageSlider').skdslider({
-                  slideSelector: '.slide',
-                  delay: 5000,
-                  animationSpeed: 2000,
-                  showNextPrev: true,
-                  showPlayButton: true,
-                  autoSlide: true,
-                  animationType: 'fading'
-              });
+        jQuery(document).ready(function () {
+          jQuery('#imageSlider').skdslider({
+            slideSelector: '.slide',
+            delay: 5000,
+            animationSpeed: 2000,
+            showNextPrev: true,
+            showPlayButton: true,
+            autoSlide: true,
+            animationType: 'fading'
           });
+        });
       </script>
-
- <%if(info_carousel.length>0) {%>
-
-      <% for( let index = 0; index < info_carousel.length; index++ ) { %>
-
-        <div class="slide">
-            <img loading="lazy" class="bg-demo-img-color" src="/image/carousel/resized/<%=info_carousel[index].item_name%>"/>
-            <div class="slide-desc">
-                <h1 class="text-light p-2"><%=info_school[0]==undefined?'My school name':info_school[0].name%></h1>
-            </div>
-        </div>
   
-      <% } %>
-
-      <% } else {%>
-        <div class="slide">
-            <img loading="lazy" style="object-fit: cover;" class="bg-demo-img-color" src="/image/demo/i1.png"/>
+      <% if(info_carousel.length > 0) { %>
+        <% for(let index = 0; index < info_carousel.length; index++) { %>
+          <div class="slide">
+            <img loading="lazy" style="object-fit: cover;" class="bg-card-color-light img-fluid" src="/image/carousel/resized/<%=info_carousel[index].item_name %>" />
             <div class="slide-desc">
-                <h1 class="text-light p-2"><%=info_school[0]==undefined?'My school name':info_school[0].name%></h1>
+              <h1 class="text-light p-2"><%= info_school[0] === undefined ? 'My school name' : info_school[0].name %></h1>
             </div>
-        </div>
-
-        <div class="slide">
-            <img loading="lazy" style="object-fit:cover;" class="bg-demo-img-color" src="/image/demo/i2.png"/>
-            <div class="slide-desc">
-                <h1 class="text-light p-2"><%=info_school[0]==undefined?'My school name':info_school[0].name%></h1>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img loading="lazy" style="object-fit: fill;" class="bg-demo-img-color" src="/image/demo/i3.png"/>
-            <div class="slide-desc">
-                <h1 class="text-light p-2"><%=info_school[0]==undefined?'My school name':info_school[0].name%></h1>
-            </div>
-        </div>
-
+          </div>
         <% } %>
-
-
+      <% } else { %>
+        <div class="slide">
+          <img loading="lazy" style="object-fit: cover;" class="bg-card-color-light img-fluid" src="/image/demo/i1.png" />
+          <div class="slide-desc">
+            <h1 class="text-light p-2"><%= info_school[0] === undefined ? 'My school name' : info_school[0].name %></h1>
+          </div>
+        </div>
+        <div class="slide">
+          <img loading="lazy" style="object-fit: cover;" class="bg-card-color-light img-fluid" src="/image/demo/i2.png" />
+          <div class="slide-desc">
+            <h1 class="text-light p-2"><%= info_school[0] === undefined ? 'My school name' : info_school[0].name %></h1>
+          </div>
+        </div>
+        <div class="slide">
+          <img loading="lazy" style="object-fit: cover;" class="bg-card-color-light img-fluid" src="/image/demo/i3.png" />
+          <div class="slide-desc">
+            <h1 class="text-light p-2"><%= info_school[0] === undefined ? 'My school name' : info_school[0].name %></h1>
+          </div>
+        </div>
+      <% } %>
+    </div>
   </div>
- 
-</div> 
