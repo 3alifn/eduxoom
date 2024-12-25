@@ -48,18 +48,6 @@ const sqlmap= mysql.createPool({
     connectionLimit: 50
 })
 
-
-// sqlmap.on('connection', function (connection) {
-//   console.log('MySQL connection established');
-// });
-
-// sqlmap.on('error', function (err) {
-//   console.error('MySQL error: ', err);
-//   if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-     
-//   }
-// });
-
  
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
 
@@ -79,10 +67,9 @@ const sessionStore= new mysqlStore({expiration: 86400000*30}, sqlmap)
 }))
 
 
-// const io = require('socket.io')(app.listen(process.env.listen_port || 30));
-
-app.listen(process.env.listen_port || 30, ()=>{
-  console.log('code by alifn => server runnig on http://localhost:30');
+const port= process.env.listen_port || 3000;
+app.listen(port, ()=>{
+  console.log(`code by alifn => server is runnig on port ${port}`);
   
 })
 var mysession=new Date().getUTCFullYear();
