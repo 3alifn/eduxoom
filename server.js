@@ -17,15 +17,15 @@ import { randomBytes, createHmac } from 'crypto';
 import ejs from 'ejs';
 import multer from 'multer';
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
 import cors from 'cors';
 import Timer from 'setinterval';
 import axios from 'axios';
 import ZKLib from 'zklib-32ble';
 import sjcl from 'sjcl';
 import jwt from 'jsonwebtoken';
-
+import dotenv from 'dotenv';
 dotenv.config();
+
 const app = express();
 
 app.use(express.json());
@@ -71,10 +71,11 @@ app.use(session({
 }));
 
 // const io = require('socket.io')(app.listen(process.env.listen_port || 30));
-const port= process.env.listen_port || 30;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log('code by alifn => server running on http://localhost:'+port);
+  console.log(`code by alifn => server is running on port ${port}`);
 });
+
 
 const mysession = new Date().getUTCFullYear();
 
