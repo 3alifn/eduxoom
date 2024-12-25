@@ -138,35 +138,15 @@ exports.admin_notice_rm = (req, res) => {
 
 
 
-exports.public_notice_get = (req, res) => {
+exports.public_notice_page = (req, res) => {
     let sql = `SELECT * FROM notice WHERE domain=? ORDER BY ID DESC`;
     sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
         if (err) {
             console.log(err.sqlMessage);
             return;
         }
-
-        if (info.length > 0) {
-            let html = "";
-            for (const key in info) {
-                html += `
-                <div class="row">
-                    <div class="col-11 col-md-8 shadowx m-auto">
-                        <a class="text-truncate btn-hover p-3 mt-2 fs-6 fw-semibold page-link" href="/pu/notice/view/${info[key].ID}">
-                            <span class="text-truncate text-danger p-2">${info[key].at_date.toString().substring(0, 25)}</span>
-                            <br>
-                            <span class="text-truncate text-primary p-2">${info[key].title}</span>
-                            <br>
-                            <small class="text-truncate p-2">${info[key].description}</small>
-                        </a>
-                        <span class="d-none">${info[key].find_date}</span>
-                    </div>
-                </div>`;
-            }
-            res.send({ html: html });
-        } else {
-            res.send({ html: "<center><strong><h5>No record</h5></strong></center>" });
-        }
+        
+        res.render("public/notice_page_public", {info})
     });
 };
 

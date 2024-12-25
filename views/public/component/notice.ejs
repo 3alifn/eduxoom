@@ -1,0 +1,39 @@
+<% if (info_notice.length > 0) { %>
+  <div id="noticeArea">
+    <style>
+      .notice-container {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+        max-height: 200px; /* Set a max height for scroll box */
+        overflow-y: auto; /* Enable vertical scroll */
+      }
+      .notice-heading {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+      }
+      @media (max-width: 768px) {
+        .notice-container {
+          margin-top: 20px;
+          max-height: 200px; /* Adjust max height for smaller devices */
+        }
+      }
+    </style>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 notice-container text-truncate">
+          <h2 class="notice-heading">New Notices</h2>
+          <ul>
+            <% info_notice.forEach((item) => { %>
+              <li class="view-link"><a class="page-link fw-semibold p-1 border-bottom" href="/pu/notice/view/<%=item.ID%>"><%=item.title%> </a></li>
+             
+            <% }) %>
+          </ul>
+          <a class="view-link link-me" href="/pu/notice/page/">Explore notice page</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<% } else { %>
+  <% null %>
+<% } %>

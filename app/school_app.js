@@ -6,7 +6,7 @@ const sharp = require("sharp")
 
 const multer_location = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "./public/image/default/")
+        cb(null, "./public/image/school/")
     },
 
     filename: (req, file, cb) => {

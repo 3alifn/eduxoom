@@ -39,9 +39,10 @@
 
 <%- include("./carousel") %> 
 <%- include("./headline") %>
+<%- include("./notice") %>
 <%- include("./stats") %>
-<%- include("./headofschool")%> 
 
+<%- include("./headofschool")%> 
 
 <div id="nacs" class="row mt-5 p-md-5 mb-5">
 
@@ -395,22 +396,6 @@ Here you can find our dynamic class routine with teachers and their subject.    
    $('.page-loading-top').remove()
   }
 
-
-  (function(){
-  $.ajax({
-    method: "get",
-    url: "/pu/school/get/",
-    data: {},
-    dataType: "JSON",
-    success: function (res) {
-
-      $(".append-name").text(res.info_school[0]==undefined?null:res.info_school[0].name)
-      // $(".append-logo").attr( 'href', `/image/default/resized/${res.info_school[0]==undefined?null:res.info_school[0].logo}`)
-
-  
-    }
-  });
-  }())
     
 
 

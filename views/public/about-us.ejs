@@ -6,62 +6,63 @@
     <%- include("../component/metadata.html") %>
     
     </head>
-<body onload="pageLoaded()">
+<body onload="pageLoadingTop()">
 
   <%- include("../component/header-nav.html") %>
   <%- include("../component/menu-nav.html") %>
 
-
-
+    <% if (info.length>0) { %>
+     
     <div id="aboutusschool" class="row  mt-3 mb-3 p-2">
-        <h1 class="fw-semibold text-center p-2 ">Welcome to our school</h1>
-        <p class="text-center mb-3">Read about our school history and know more about this school</p>
-        
+      <h1 class="fw-semibold text-center p-2 ">Welcome to our school</h1>
+      <p class="text-center mb-3">Read about our school history and know more about this school</p>
       
-        <div class="col-md-5 p-1 col-12 p-2">
-          <img width="100%" height="300px" class=" p-2 img-thumbnail bg-card-color-light append-image"  src="/image/demo/home" alt="main image">
-          <p class="append-name shadowx p-2 fw-semibold fs-5"></p>
-        </div>
-      
-        <div class="col-md-7 col-12  mt-md-0 mt-2">
-          <p class="p-2 shadowx append-about" style="line-height: 1.9;">
-          
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit esse quo ex impedit magni ullam, eligendi voluptates, natus rem aperiam, voluptatem culpa voluptas ab quis hic officiis aliquid nobis commodi!
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni quibusdam vel nisi ea ratione, consectetur fugit reiciendis dicta esse aperiam ad dolor optio vitae corrupti qui itaque inventore? Molestias, veniam?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam repellat sunt voluptas ducimus. Adipisci quam facilis quis quidem fugit hic laboriosam odit corporis fugiat quasi, unde asperiores sit delectus! Quos!
-          
-          
-          </p>
-        </div>
-      
+    
+      <div class="col-md-8 m-auto p-1 col-12 p-2">
+        <img width="100%" height="300px" class=" p-2 img-thumbnail bg-card-color-light append-image"  src="/image/school/resized/<%=info[0].image%>" alt="school image">
+        <p class= "shadowx p-2 fw-semibold fs-5"><%=info[0].name %></p>
       </div>
+    
+      <div class="col-md-8 col-12 m-auto mt-md-0 mt-2">
+        <p class="p-2 shadowx " style="line-height: 1.9;">
+        
+          <%=info[0].about %>
+        
+        </p>
+      </div>
+    
+    </div>
+    <% } else {%>
 
-      <%- include("../component/footer-nav.html") %>
+      
+    <div id="aboutusschool" class="row  mt-3 mb-3 p-2">
+      <h1 class="fw-semibold text-center p-2 ">Welcome to our school</h1>
+      <p class="text-center mb-3">Read about our school history and know more about this school</p>
+      
+    
+      <div class="col-md-8 m-auto p-1 col-12 p-2">
+        <img width="100%" height="300px" class=" p-2 img-thumbnail bg-card-color-light append-image"  src="/image/demo/i1.png" alt="school image">
+        <p class="append-name shadowx p-2 fw-semibold fs-5"></p>
+      </div>
+    
+      <div class="col-md-8 m-auto col-12  mt-md-0 mt-2">
+        <p class="p-2 shadowx append-about" style="line-height: 1.9;">
+        
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit esse quo ex impedit magni ullam, eligendi voluptates, natus rem aperiam, voluptatem culpa voluptas ab quis hic officiis aliquid nobis commodi!
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni quibusdam vel nisi ea ratione, consectetur fugit reiciendis dicta esse aperiam ad dolor optio vitae corrupti qui itaque inventore? Molestias, veniam?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam repellat sunt voluptas ducimus. Adipisci quam facilis quis quidem fugit hic laboriosam odit corporis fugiat quasi, unde asperiores sit delectus! Quos!
+        
+        
+        </p>
+      </div>
+    
+    </div>
 
-</body>
-
-
-
-<script>
-    function pageLoaded(){
-   $('.page-loading-top').remove()
-  }
+      <% } %>
   
-    (function(){
-  $.ajax({
-    method: "get",
-    url: "/pu/school/get/",
-    data: {},
-    dataType: "JSON",
-    success: function (res) {
 
-      $(".append-name").text(res.info_school[0].name)
-      $(".append-about").text(res.info_school[0].about)
-      $(".append-image").attr('src', '/image/default/resized/'+res.info_school[0].image)
-    }
-  });
-  }())
+ <%- include("../component/footer-nav.html") %>
 
-</script>
+  </body>
 
 </html>
