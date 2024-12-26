@@ -69,7 +69,7 @@
 <!-- end demo card -->
        <div id="observerElement" class="row mbx">
         <div class="col-10 m-auto">
-          <button onclick="pullPaginationOrder()" class="btn btn-link fw-semibold pullPaginationOrder w-100 mb-2">view more student</button>
+          <button onclick="pullPaginationOrder()" class="btn btn-link fw-semibold pullPaginationOrder w-100 mb-2">view more student <code></code></button>
           </div>
        </div>
     
@@ -114,7 +114,6 @@ const observer= new IntersectionObserver((events)=>{
             if(requestPageOffset!=null){
               events.forEach((element)=>{
                if(element.isIntersecting){
-                requestPageOffset++;
                 pullPaginationOrder()
                }
                })
@@ -125,18 +124,23 @@ const observer= new IntersectionObserver((events)=>{
 
 
 function pullPaginationOrder(){
-
-        $.ajax({
+  if(requestPageOffset!=null){
+  
+  $.ajax({
             method: 'post',
             url: `/pu/student/pagination/`,
             data: {className, sectionName,  requestPageOffset},
             dataType: "JSON",
+            beforeSend:function(){
+              $('.pullPaginationOrder code').addClass('spinner-border spinner-border-sm')
+            },
             success: function (response) {
-              console.log(response.permit_count, requestPageOffset, response.permit_count>=requestPageOffset);
               
-              if(response.orderData && response.permit_count>=requestPageOffset){
+              if(response.orderData && response.permit_count>requestPageOffset){
+                requestPageOffset++;
              $('.studentData').append(response.orderData)
              $('.pullPaginationOrder').removeClass('disabled')
+             $('.pullPaginationOrder code').removeClass('spinner-border spinner-border-sm')
              }
          
            else {
@@ -147,6 +151,8 @@ function pullPaginationOrder(){
 
             }
         });
+
+}
 
 }
 
