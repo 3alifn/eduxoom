@@ -28,7 +28,7 @@
 
 
 
-<div class="d-flex p-2 mt-5 mbx row-gap-5 element justify-content-center column-gap-2 flex-wrap ">
+<div class="d-flex p-2 mt-5 mbx row-gap-5 studentData justify-content-center column-gap-2 flex-wrap ">
 
   <% if (info.length>0) { %>
    
@@ -66,12 +66,8 @@
 
 </div>
 
-<!-- end main card -->
-       <div class="row demoCard">
-     
-       </div>
 <!-- end demo card -->
-       <div class="row mbx">
+       <div id="observerElement" class="row mbx">
         <div class="col-10 m-auto">
           <button onclick="pullPaginationOrder()" class="btn btn-link fw-semibold pullPaginationOrder w-100 mb-2">view more student</button>
           </div>
@@ -111,37 +107,46 @@ function get_profile_def(dataid){
 var requestPageOffset= 0;
 var className= '<%=className%>';
 var sectionName= '<%=sectionName%>';
+const observerElement= document.getElementById('observerElement');
+const observer= new IntersectionObserver((events)=>{
+  
+  
+            if(requestPageOffset!=null){
+              events.forEach((element)=>{
+               if(element.isIntersecting){
+                requestPageOffset++;
+                pullPaginationOrder()
+               }
+               })
+            }
+                
+}, {threshold: 0.9}).observe(observerElement)
 
 
-window.onscroll = function(ev) {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-       pullPaginationOrder()
-    }
-    
-};
 
 function pullPaginationOrder(){
-  requestPageOffset++;
-  callingAjax()
-    function callingAjax(){
+
         $.ajax({
             method: 'post',
             url: `/pu/student/pagination/`,
             data: {className, sectionName,  requestPageOffset},
             dataType: "JSON",
             success: function (response) {
-           if(response.orderData){
-             $('.element').append(response.orderData)
-          $('.pullPaginationOrder').removeClass('disabled')
-           }
+              console.log(response.permit_count, requestPageOffset, response.permit_count>=requestPageOffset);
+              
+              if(response.orderData && response.permit_count>=requestPageOffset){
+             $('.studentData').append(response.orderData)
+             $('.pullPaginationOrder').removeClass('disabled')
+             }
+         
            else {
-
-          $('.pullPaginationOrder').text('No more student here').addClass('disabled')
+            requestPageOffset=null;
+            $('.pullPaginationOrder').text('No more student here').addClass('disabled')
            }
+
 
             }
         });
-    }
 
 }
 

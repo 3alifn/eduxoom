@@ -978,18 +978,22 @@ exports.public_student_list = (req, res) => {
 
 exports.public_student_pagination = (req, res) => {
   const { className, sectionName, requestPageOffset } = req.body;
-  const limit = 12;
+  const limit = 15;
 
-  sqlmap.query(`SELECT COUNT(ID) AS count_row FROM students WHERE domain=? AND class=? AND section=?`, [req.cookies["hostname"], className, sectionName], (err_count, info_count) => {
+  sqlmap.query(`SELECT COUNT(ID) AS count_row FROM students WHERE domain=? AND class=? AND section=?`, 
+    [req.cookies["hostname"], className, sectionName], (err_count, info_count) => {
       if (err_count) {
           console.log(err_count.sqlMessage);
           return;
       }
 
       const permit_count = Math.ceil(info_count[0].count_row / limit);
-      const offset = requestPageOffset >= permit_count ? permit_count - 1 : requestPageOffset;
+      const offsetInit = requestPageOffset >= permit_count ? permit_count - 1 : requestPageOffset;
+      const offset= offsetInit * limit; 
+    //   console.log(info_count[0].count_row, limit, offset);
 
-      sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ? OFFSET ?`, [req.cookies["hostname"], className, sectionName, limit, offset * limit], (err, info) => {
+      sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ? OFFSET ?`,
+         [req.cookies["hostname"], className, sectionName, limit, offset], (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
               return;
@@ -1015,7 +1019,7 @@ exports.public_student_pagination = (req, res) => {
               </div>`;
               }
 
-              res.send({ orderData });
+              res.send({ orderData, permit_count });
           } else {
               res.send({ nomore: 'No more students here' });
           }
