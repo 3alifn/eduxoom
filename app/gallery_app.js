@@ -18,7 +18,7 @@ const multer_location= multer.diskStorage({
 exports.multer_upload= multer({
   storage: multer_location,
 
-  limits: {fileSize: 1024*1024*2},
+  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
   fileFilter: (req, file, cb)=>{
     if(file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg")
     {
@@ -26,7 +26,7 @@ exports.multer_upload= multer({
     } 
     else 
     {
-        cb(new Error("file extension allow only png, jpg or jpeg"))
+        cb(new Error("maximum file size 500kb & file extension allow only png, jpg or jpeg"))
     }
     
   }
@@ -51,7 +51,7 @@ const multer_location_carousel= multer.diskStorage({
 exports.multer_upload_carousel= multer({
   storage: multer_location_carousel,
 
-  limits: {fileSize: 1024*1024*2},
+  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
   fileFilter: (req, file, cb)=>{
   
     if(file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg")
@@ -60,7 +60,7 @@ exports.multer_upload_carousel= multer({
     } 
     else 
     {
-        cb(new Error("file extension allow only png, jpg or jpeg"))
+        cb(new Error("maximum file size 500kb & file extension allow only png, jpg or jpeg"))
     }
     
   }
@@ -160,8 +160,7 @@ exports.admin_carousel_post= async(req, res)=>{
 
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
-   
-  if(req.files[x].size<1048576){
+
 
     await sharp(req.files[x].path)
     .jpeg({ quality: 50 })
@@ -172,22 +171,6 @@ exports.admin_carousel_post= async(req, res)=>{
     fs.unlinkSync(req.files[x].path)
 
   
-    }
-
-    else {
-
-      
-      await sharp(req.files[x].path)
-      .jpeg({ quality: 50 })
-      .toFile(
-          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
-      )
-      // console.log(req.files[x].path);
-
-  fs.unlinkSync(req.files[x].path)
-    
-      }
-
 
     }
   
@@ -314,8 +297,6 @@ exports.admin_gallery_image_post= async(req, res)=>{
   let {item_title}= req.body;
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
-
-  if(req.files[x].size<1048576){
   
     await sharp(req.files[x].path)
     .jpeg({ quality: 50 })
@@ -325,21 +306,6 @@ exports.admin_gallery_image_post= async(req, res)=>{
   
     fs.unlinkSync(req.files[x].path)
   
-    
-      }
-  
-    
-    else {
-      await sharp(req.files[x].path)
-      .jpeg({ quality: 30 })
-      .toFile(
-          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
-      )
-    
-      fs.unlinkSync(req.files[x].path)
-    
-      
-        }
     
       }
 
@@ -373,8 +339,6 @@ exports.admin_gallery_image_data_post= async (req, res)=>{
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
 
-  if(req.files[x].size<1048576){
-    
     await sharp(req.files[x].path)
     .jpeg({ quality: 50 })
     .toFile(
@@ -384,19 +348,6 @@ exports.admin_gallery_image_data_post= async (req, res)=>{
     fs.unlinkSync(req.files[x].path)
   
 
-    }
-
-    else {
-      await sharp(req.files[x].path)
-      .jpeg({ quality: 30 })
-      .toFile(
-          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
-      )
-    
-      fs.unlinkSync(req.files[x].path)
-    
-      
-        }
     
       }
     

@@ -16,13 +16,13 @@ const multer_location = multer.diskStorage({
 exports.multer_upload_teacher= multer({
   storage: multer_location,
 
-  limits: { fileSize: 1024 * 1024 * 2 },
+  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
   fileFilter: (req, file, cb) => {
       if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
           cb(null, true)
       }
       else {
-          cb(new Error("file extension allow only png or jpeg"))
+          cb(new Error("upto 500kb file extension allow only png or jpeg"))
       }
 
   }
@@ -104,7 +104,7 @@ exports.self_img_post= async(req, res)=>{
     const {dataid}= req.body;
   
      if(req.file){
-        if(req.file.size<1048576){
+      
             const { filename: image } = req.file;
       
           await sharp(req.file.path)
@@ -114,20 +114,7 @@ exports.self_img_post= async(req, res)=>{
           )
           fs.unlinkSync(req.file.path)
       
-          }
-      
-          else {
-      
-            
-            await sharp(req.file.path)
-            .jpeg({ quality: 50 })
-            .toFile(
-                path.resolve(path.resolve(req.file.destination, 'resized', image))
-            )
-      
-        fs.unlinkSync(req.file.path)
-          
-            }
+
      }
   
      sqlmap.query(
@@ -330,7 +317,7 @@ exports.admin_teacher_img_post= async(req, res)=>{
   const {dataid}= req.body;
 
    if(req.file){
-      if(req.file.size<1048576){
+     
           const { filename: image } = req.file;
     
         await sharp(req.file.path)
@@ -340,20 +327,6 @@ exports.admin_teacher_img_post= async(req, res)=>{
         )
         fs.unlinkSync(req.file.path)
     
-        }
-    
-        else {
-    
-          
-          await sharp(req.file.path)
-          .jpeg({ quality: 50 })
-          .toFile(
-              path.resolve(path.resolve(req.file.destination, 'resized', image))
-          )
-    
-      fs.unlinkSync(req.file.path)
-        
-          }
    }
 
    sqlmap.query(
@@ -422,7 +395,7 @@ exports.admin_teacher_post= async(req, res)=>{
 
   async function join_teacher_def(){
     if(req.file){
-      if(req.file.size<1048576){
+    
           const { filename: image } = req.file;
     
         await sharp(req.file.path)
@@ -432,20 +405,6 @@ exports.admin_teacher_post= async(req, res)=>{
         )
         fs.unlinkSync(req.file.path)
     
-        }
-    
-        else {
-    
-          
-          await sharp(req.file.path)
-          .jpeg({ quality: 50 })
-          .toFile(
-              path.resolve(path.resolve(req.file.destination, 'resized', image))
-          )
-    
-      fs.unlinkSync(req.file.path)
-        
-          }
    }
 
    sqlmap.query(

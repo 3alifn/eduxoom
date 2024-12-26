@@ -22,13 +22,13 @@ module.exports = {
     multer_upload_headofschool: multer({
         storage: multer_location,
 
-        limits: { fileSize: 1024 * 1024 * 2 },
+        limits: { fileSize: 500 * 1024 }, // maximum size 500kb
         fileFilter: (req, file, cb) => {
             if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
                 cb(null, true)
             }
             else {
-                cb(new Error("file extension allow only png or jpeg"))
+                cb(new Error("up 500kb & file extension allow only png or jpeg"))
             }
 
         }
@@ -164,7 +164,6 @@ module.exports = {
         if(req.file){
             var { filename: image } = req.file;
 
-            if (req.file.size < 524288) {
     
                 await sharp(req.file.path)
                     .jpeg({ quality: 50 })
@@ -174,21 +173,6 @@ module.exports = {
     
                 fs.unlinkSync(req.file.path)
     
-    
-            }
-    
-    
-            else {
-                await sharp(req.file.path)
-                    .jpeg({ quality: 20 })
-                    .toFile(
-                        path.resolve(path.resolve(req.file.destination, 'resized', image))
-                    )
-    
-                fs.unlinkSync(req.file.path)
-    
-    
-            }
           }
 
           if(req.file){
@@ -225,8 +209,7 @@ module.exports = {
          if(req.file){
             var { filename: image } = req.file;
 
-                if (req.file.size < 524288) {
-        
+      
                     await sharp(req.file.path)
                         .jpeg({ quality: 50 })
                         .toFile(
@@ -235,21 +218,6 @@ module.exports = {
         
                     fs.unlinkSync(req.file.path)
         
-        
-                }
-        
-        
-                else {
-                    await sharp(req.file.path)
-                        .jpeg({ quality: 20 })
-                        .toFile(
-                            path.resolve(path.resolve(req.file.destination, 'resized', image))
-                        )
-        
-                    fs.unlinkSync(req.file.path)
-        
-        
-                }
               }
   
               if(req.file){

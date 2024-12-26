@@ -39,9 +39,9 @@
         <input type="hidden" name="e_date" value="<%=info[0].e_date%>">
         <input type="hidden" name="description" value="<%=info[0].description%>">
         <div class="d-flex p-2 justify-content-between align-items-center">
-            <p class="w-25 fw-semibold">Upload photos</p>
-            <code class="p-1">*</code>
-            <input multiple required name="images" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
+          <code class="w-25 fw-semibold">Choose png or jpeg <br> (upto 500kb) </code>
+          <code class="p-1">*</code>
+            <input multiple required accept=".jpeg, .jpg, .png" name="images" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
           </div>
 
 

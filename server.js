@@ -21,6 +21,7 @@ const axios= require('axios')
 const ZKLib = require('zklib-32ble')
 const sjcl= require("sjcl");
 const jwt= require("jsonwebtoken");
+const sharp= require("sharp");
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
@@ -78,7 +79,7 @@ var mysession=new Date().getUTCFullYear();
 module.exports= {
 app, express, mysession, mysql, session, cookieParser, flash, bodyParser,
  sqlmap, multer, nodemailer, dotenv, cors, randomBytes,
-  createHmac, fs, path, ejs, sessionStore, Timer, axios, ZKLib, sjcl, jwt
+  createHmac, fs, path, ejs, sessionStore, Timer, axios, ZKLib, sjcl, jwt, sharp
 }
 
 
