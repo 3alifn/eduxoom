@@ -36,7 +36,7 @@ const multer_location_image_or_pdf= multer.diskStorage({
 exports.multer_upload_admission_image= multer({
   storage: multer_location_image,
 
-  limits: { fileSize: 524288 },
+  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
   fileFilter: (req, file, cb) => {
     if(file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg"){
     cb(null, true)
@@ -54,7 +54,7 @@ exports.multer_upload_admission_image= multer({
 exports.multer_upload_admission_image_or_pdf= multer({
   storage: multer_location_image_or_pdf,
 
-  limits: { fileSize: 524288 },
+  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
   fileFilter: (req, file, cb) => {
     if(file.mimetype=="application/pdf" || file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg"){
     cb(null, true)

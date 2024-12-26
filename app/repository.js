@@ -32,7 +32,7 @@ exports.multer_upload= multer({
     } 
     else 
     {
-        cb(new Error("file extension allow only png or jpeg"))
+        cb(new Error("upto 500kb & file extension allow only png or jpeg"))
     }
     
   }
@@ -56,7 +56,7 @@ const multer_location_images= multer.diskStorage({
 
 exports.multer_upload_repository= multer({
   storage: multer_location_images,
-  limits: {fileSize: 1024*1024*2},
+  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
   fileFilter: (req, file, cb)=>{
   
     if(file.mimetype=="image/png" || file.mimetype=="image/jpeg")
@@ -65,7 +65,7 @@ exports.multer_upload_repository= multer({
     } 
     else 
     {
-        cb(new Error("file extension allow only png or jpeg"))
+        cb(new Error("upto 500kb & file extension allow only png or jpeg"))
     }
     
   }
@@ -83,7 +83,6 @@ exports.admin_repository_post= async(req, res)=>{
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
    
-  if(req.files[x].size<1048576){
 
     await sharp(req.files[x].path)
     .jpeg({ quality: 50 })
@@ -92,20 +91,7 @@ exports.admin_repository_post= async(req, res)=>{
     )
     fs.unlinkSync(req.files[x].path)
 
-    }
-
-    else {
-
-      
-      await sharp(req.file.path)
-      .jpeg({ quality: 50 })
-      .toFile(
-          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
-      )
-
-  fs.unlinkSync(req.files[x].path)
-    
-      }
+ 
     }
   
   
@@ -304,8 +290,6 @@ exports.admin_repository_img_update_post= async(req, res)=>{
   const {datatype, dataid, title, e_date, description, images}= req.body;
   for (let x = 0; x < req.files.length; x++) {
     const { filename: image } = req.files[x];
-   
-  if(req.files[x].size<1048576){
 
     await sharp(req.files[x].path)
     .jpeg({ quality: 50 })
@@ -314,20 +298,8 @@ exports.admin_repository_img_update_post= async(req, res)=>{
     )
     fs.unlinkSync(req.files[x].path)
 
-    }
 
-    else {
 
-      
-      await sharp(req.file.path)
-      .jpeg({ quality: 50 })
-      .toFile(
-          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
-      )
-
-  fs.unlinkSync(req.files[x].path)
-    
-      }
     }
   
   

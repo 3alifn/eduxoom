@@ -21,13 +21,14 @@ module.exports = {
     multer_upload_school_settings: multer({
         storage: multer_location,
 
-        limits: { fileSize: 1024 * 1024 * 2 },
+        limits: { fileSize: 500 * 1024 }, // maximum size 500kb
+
         fileFilter: (req, file, cb) => {
             if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
                 cb(null, true)
             }
             else {
-                cb(new Error("file extension allow only png or jpeg"))
+                cb(new Error("upto 500kb file extension allow only png or jpeg"))
             }
 
         }
@@ -135,22 +136,14 @@ module.exports = {
         const randomString = Math.random() * 900000000;
         const imgname = imgrole == 'logo' ? 'logo' : 'image';
     
-        if (req.file.size < 524288) {
             await sharp(req.file.path)
                 .jpeg({ quality: 80 })
                 .toFile(
                     path.resolve(req.file.destination, 'resized', imgname + randomString + '.png')
                 );
             fs.unlinkSync(req.file.path);
-        } else {
-            await sharp(req.file.path)
-                .jpeg({ quality: 50 })
-                .toFile(
-                    path.resolve(req.file.destination, 'resized', imgname + randomString + '.png')
-                );
-            fs.unlinkSync(req.file.path);
-        }
-    
+      
+       
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=?`,
             [req.cookies["hostname"]],

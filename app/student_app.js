@@ -23,13 +23,14 @@ const multer_location = multer.diskStorage({
 exports.multer_upload_student= multer({
   storage: multer_location,
 
-  limits: { fileSize: 1024 * 1024 * 2 },
+  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
+
   fileFilter: (req, file, cb) => {
       if (file.mimetype == "image/png" || file.mimetype == "image/jpeg" || file.mimetype == "image/jpg") {
           cb(null, true)
       }
       else {
-          cb(new Error("file extension allow only png / jpg / jpeg"))
+          cb(new Error("up 500kb & file extension allow only png / jpg / jpeg"))
       }
 
   }
@@ -152,7 +153,7 @@ exports.admin_student_post= async(req, res)=>{
 
   async function join_student_def(){
     if(req.file){
-      if(req.file.size<1048576){
+     
           const { filename: image } = req.file;
     
         await sharp(req.file.path)
@@ -164,19 +165,7 @@ exports.admin_student_post= async(req, res)=>{
     
         }
     
-        else {
-    
-          
-          await sharp(req.file.path)
-          .jpeg({ quality: 50 })
-          .toFile(
-              path.resolve(path.resolve(req.file.destination, 'resized', image))
-          )
-    
-      fs.unlinkSync(req.file.path)
-        
-          }
-   }
+ 
 
    sqlmap.query(`INSERT INTO students (domain, student_uuid, session, class, section, name, student_id, roll, gender, father_name, mother_name, birth_date, blood_group, religion, email, phone, address, admission_date, password, avatar)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -255,7 +244,7 @@ exports.admin_student_img_post= async(req, res)=>{
   const {dataid}= req.body;
 
    if(req.file){
-      if(req.file.size<1048576){
+
           const { filename: image } = req.file;
     
         await sharp(req.file.path)
@@ -265,20 +254,7 @@ exports.admin_student_img_post= async(req, res)=>{
         )
         fs.unlinkSync(req.file.path)
     
-        }
-    
-        else {
-    
-          
-          await sharp(req.file.path)
-          .jpeg({ quality: 50 })
-          .toFile(
-              path.resolve(path.resolve(req.file.destination, 'resized', image))
-          )
-    
-      fs.unlinkSync(req.file.path)
-        
-          }
+      
    }
 
    sqlmap.query(`UPDATE students SET avatar=? WHERE domain=? AND ID=?`, [req.file.filename, req.cookies["hostname"], dataid], (err, next) => {
@@ -686,7 +662,7 @@ exports.self_img_post= async(req, res)=>{
         const {dataid}= req.body;
       
          if(req.file){
-            if(req.file.size<1048576){
+       
                 const { filename: image } = req.file;
           
               await sharp(req.file.path)
@@ -696,20 +672,8 @@ exports.self_img_post= async(req, res)=>{
               )
               fs.unlinkSync(req.file.path)
           
-              }
+            
           
-              else {
-          
-                
-                await sharp(req.file.path)
-                .jpeg({ quality: 50 })
-                .toFile(
-                    path.resolve(path.resolve(req.file.destination, 'resized', image))
-                )
-          
-            fs.unlinkSync(req.file.path)
-              
-                }
          }
       
          sqlmap.query(`UPDATE students SET avatar=? WHERE domain=? AND ID=?`, [req.file.filename, req.cookies["hostname"], userid], (err, next) => {
