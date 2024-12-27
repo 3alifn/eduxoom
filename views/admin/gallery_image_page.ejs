@@ -72,7 +72,7 @@
                   <div class="d-flex p-2 justify-content-between align-items-center">
                     <code class="w-25 fw-semibold">Choose png or jpeg <br> (upto 500kb) </code>
                     <code class="p-1">*</code>
-                    <input multiple required name="images" accept="jpeg, png, jpg" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
+                    <input multiple required name="images" accept="image/*" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
                   </div>
                 
       
@@ -122,7 +122,7 @@ noview.port({
 input_class: 'images',
  append_class: 'images_append', 
  file_type: 'image', 
- max_kb_size: 1024,
+ max_kb_size: 500,
  multiple: true,
   })
     
@@ -142,58 +142,51 @@ function listdata(){
                 $("#title").html(info.title)
             
             }
-        });
-
-        
-    
+        });   
     }
 
  listdata()
 
 
-$("#formdata").on('submit', (event)=>{
-      event.preventDefault()
-      let formdata = new FormData($("#formdata")[0])
-    $('.progressbar').css({'width': 1+'%'}).text();
-  
-        $.ajax({
-            xhr: function() {
-        var xhr = new window.XMLHttpRequest();
-        xhr.upload.addEventListener("progress", function(evt) {
+ $("#formdata").on('submit', (event) => {
+  event.preventDefault();
+  let formdata = new FormData($("#formdata")[0]);
+  $('.progressbar').css({ 'width': '1%' }).text('');
 
-            if (evt.lengthComputable) {
-                var percentComplete = (evt.loaded / evt.total) * 100;
-                
-                    $('.progressbar').addClass('d-block').css({'width': percentComplete+'%'}).text(percentComplete+'%')
-                    
-            }
-        }, false);
-        return xhr;
+  $.ajax({
+    xhr: function() {
+      let xhr = new window.XMLHttpRequest();
+      xhr.upload.addEventListener("progress", function(evt) {
+        if (evt.lengthComputable) {
+          let percentComplete = (evt.loaded / evt.total) * 100;
+          $('.progressbar').addClass('d-block').css({ 'width': `${parseInt(percentComplete)}%` }).text(`${parseInt(percentComplete)}%`);
+        }
+      }, false);
+      return xhr;
     },
-        method: "post",
-            url: "/admin/gallery/image/post",
-            data: formdata,
-             mimeType: "multipart/form-data",
-              cache: false,
-              processData: false,
-              contentType: false,
-               dataType: "JSON",
-        beforeSend: function(){
-      $(".submitbtn").addClass("disabled")
-      _spin_pull()
-            },
-            success: function (res) {
-                _spin_pop()
-                _reset_form()
-                _msg_pull(res.alert, res.msg)
-                $(".submitbtn").removeClass("disabled")
-                listdata()
-                
-    
-            }
-        });
-    
-    })
+    method: "POST",
+    url: "/admin/gallery/image/post",
+    data: formdata,
+    mimeType: "multipart/form-data",
+    cache: false,
+    processData: false,
+    contentType: false,
+    dataType: "JSON",
+    beforeSend: function() {
+      $(".submitbtn").addClass("disabled");
+      _spin_pull();
+    },
+    success: function(res) {
+      _spin_pop();
+      _reset_form(); // ফর্ম রিসেট করার ফাংশন কল
+      _msg_pull(res.alert, res.msg);
+      $(".submitbtn").removeClass("disabled");
+      listdata();
+
+    }
+  });
+});
+
 
   
     

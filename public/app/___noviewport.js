@@ -1,115 +1,54 @@
-const noview= {
+const noview = {
+  port: function({input_class, append_class, file_type, max_kb_size, multiple = true}) {
+    if (!input_class || !append_class || !file_type || !max_kb_size) {
+      window.alert('Warning! Required object ({ input_class , append_class, file_type, max_kb_size })');
+      return;
+    }
+    
+    $('.' + input_class).on('change', (event) => {
+      for (let file of event.target.files) {
+        const { type: filetype, name: filename, size } = file;
+        const filesize = size / 1000;
+        const tmppath = URL.createObjectURL(file);
 
-  port: function({input_class, append_class, file_type, max_kb_size, multiple}){
-  if(input_class==undefined || append_class==undefined || file_type==undefined || max_kb_size==undefined){
-    window.alert('Warning! Required object ({ input_class , append_class, file_type, max_kb_size })')
-  } 
-   
-  
-  else{
-        if(multiple==undefined) var multiple= true;
-        else multiple= multiple;
-      $('.'+input_class).on('change', (event)=>{
-  
-      for (let index = 0; index < event.target.files.length; index++) {
-      
-        const filetype= event.target.files[index].type;
-        const filename= event.target.files[index].name;
-        const filesize= event.target.files[index].size/1000;
-      const tmppath = URL.createObjectURL(event.target.files[index]);
-      
-  
-  if(filesize <= max_kb_size){
-    
-  
-        
-  
-    if( file_type=='image' && filetype=='image/jpeg' || filetype=='image/jpg' || filetype=='image/png' || filetype=='image/gif'){
-      if(multiple==true){
-        $('.'+append_class).append(`<img class="rounded" src="${tmppath}" width="100px" height="80x" alt="">`)
-      } else{
-        $('.'+append_class).html(`<img class="rounded" src="${tmppath}" width="100px" height="80px" alt="">`)
-  
+        if (filesize <= max_kb_size) {
+          let fileHTML;
+          if (file_type === 'image' && filetype.startsWith('image/')) {
+            fileHTML = `<img class="rounded" src="${tmppath}" width="100px" height="80px" alt="">`;
+          } else if (file_type === 'audio' && filetype.startsWith('audio/')) {
+            fileHTML = `<audio controls src="${tmppath}"></audio>`;
+          } else if (file_type === 'video' && filetype.startsWith('video/')) {
+            fileHTML = `<video width="300px" height="80px" controls src="${tmppath}"></video>`;
+          } else if (file_type === 'pdf' && filetype === 'application/pdf') {
+            fileHTML = `<p>goto visit for preview => <a target="_blank" href='${tmppath}'>${filename}</a></p>`;
+          } else {
+            $('.' + append_class).html(`
+              <div class="alert alert-primary m-auto" style="width: max-content;" role="alert">
+                <code class"fw-semibold fs-6">Warning! file extension allow only ${file_type}</code>
+              </div>`);
+            return;
+          }
+
+          if (multiple) {
+            $('.' + append_class).append(fileHTML);
+          } else {
+            $('.' + append_class).html(fileHTML);
+          }
+        } else {
+          $('.submitbtn').addClass("disabled");
+          $('.' + append_class).html(`
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-md-8 col-sm-12">
+                  <div class="alert alert-primary m-auto" role="alert">
+                    <code class"fw-semibold fs-6">Warning! maximum file size should be ${max_kb_size}kb ${file_type === filetype ? '' : 'and allow only ' + file_type}</code>
+                  </div>
+                </div>
+              </div>
+            </div>`);
+          return;
+        }
       }
-    
-     } 
-  
-  
-  
-    
-    else if( file_type=='audio' && filetype=='audio/mpeg'){
-  
-   if(multiple==true){
-    $('.'+append_class).append(`<audio  controls src="${tmppath}"></audio>`)
-  
-   } else {
-    $('.'+append_class).html(`<audio  controls src="${tmppath}"></audio>`)
-  
-   }
-  
+    });
   }
-  
-  
-  
-   else if( file_type=='video' && filetype=='video/mp4'){
-    if(multiple==true){
-      $('.'+append_class).append(`<video width="300px" height="80x" controls src="${tmppath}"></video>
-  `)
-    } else {
-      $('.'+append_class).html(`<video width="300px" height="80x" controls src="${tmppath}"></video>
-  `)
-    }
-    
-     }
-  
-  
-  
-    else if(file_type=='pdf' && filetype=='application/pdf') {
-  
-   if(multiple==true){
-    $('.'+append_class).append(`<p>goto visit for preview => <a target="_blank" href='${tmppath}'>${filename} </a></p>`)
-  
-   } else {
-    $('.'+append_class).html(`<p>goto visit for preview => <a target="_blank" href='${tmppath}'>${filename} </a></p>`)
-  
-   }
-  
-  }
-  
-  
-  else {
-    $('.'+append_class).html(`
-  <div class="alert alert-primary m-auto" style="width: max-content;" role="alert">
-  <strong>Warning! file extention allow only ${file_type}</strong>
-  </div>`)
-  
-  }
-  
-  
-      }
-  
-  else {
-    $('.submitbtn').addClass("disabled")
-    $('.'+append_class).html(`
-  <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-sm-12">
-            <div class="alert alert-primary m-auto" role="alert">
-                <strong>Warning! maximum file size should ${max_kb_size}kb ${file_type === filetype ? '' : 'and allow only ' + file_type}</strong>
-            </div>
-        </div>
-    </div>
-</div>
-`)
-      }
-        
-    }
-  
-    })
-  
-    }
-  
-  
-  }
-  }
-  
+};

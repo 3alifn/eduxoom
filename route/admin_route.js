@@ -2,7 +2,7 @@ const {app, express, session}=require('../server')
 const admin_app = require("../app/admin_app")
 const { admin_admission_page, admin_admission_accept, admin_admission_reject, admin_admission_info, admin_admission_student_page } = require("../app/admission_app")
 const { admin_application_get, admin_application_replay, admin_application_download } = require("../app/appllication_app")
-const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_gallery_list_data, admin_gallery_list_data_delete, admin_gallery_image, admin_gallery_video, admin_gallery_data_delete, admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete, admin_gallery_image_get, admin_gallery_image_delete, admin_gallery_image_data_get, admin_gallery_image_data_delete, admin_gallery_image_data_post, admin_gallery_video_get, admin_gallery_video_data_get, admin_gallery_video_data_delete, admin_gallery_video_delete, admin_gallery_video_data_post, admin_carousel_rm } = require("../app/gallery_app")
+const { admin_gallery_post, admin_gallery_get, admin_gallery_delete, admin_gallery_list_data, admin_gallery_list_data_delete, admin_gallery_image, admin_gallery_video, admin_gallery_data_delete, admin_gallery_image_post, admin_gallery_video_post, multer_upload, admin_carousel_post, multer_upload_carousel, admin_carousel_get, admin_carousel_delete, admin_gallery_image_get, admin_gallery_image_delete, admin_gallery_image_data_get, admin_gallery_image_data_delete, admin_gallery_image_data_post, admin_gallery_video_get, admin_gallery_video_data_get, admin_gallery_video_data_delete, admin_gallery_video_delete, admin_gallery_video_data_post, admin_carousel_rm, multer_upload_gallery_image } = require("../app/gallery_app")
 const { admin_library_update, admin_library_update_page, admin_library_delete, admin_library_get, admin_library_post, upload_library_image } = require("../app/library_app")
 const { admin_notice_get, uploadNotice, admin_notice_post, admin_notice_delete, admin_notice_download, admin_notice_rm } = require("../app/notice_app")
 const { admin_parent_get, admin_parent_delete, admin_parent_profile } = require("../app/parent_app")
@@ -21,6 +21,7 @@ const { admin_dashboard_tsa_lookup } = require("../app/dashboard_app")
 const { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, admin_staff_penbox_pull, admin_staff_penbox_push, admin_staff_img_post } = require("../app/staff_app")
 const { admin_pi_transcript_report_checkout, admin_result_report_student_get, admin_result_report_get } = require('../app/pi_app')
 const { result_marksheet_pull_page, result_marksheet_pull_print } = require('../app/result_app')
+const {globalMulterUploader, globalSharpReducer}= require("./uploader_middleware")
 const admin= express.Router()
 
 admin.get("/panel", (req, res)=>{
@@ -182,13 +183,16 @@ admin.post("/email/update", admin_app.self_email_update)
 
 // gallery image router..........
 
+const multerUploaderGallery = globalMulterUploader({ path: "./public/image/gallery/", size: 500 * 1024, filter: 'image/' });
+const sharpReducerGallery = globalSharpReducer({ quality: 50})
+
 admin.get("/gallery/image/page", (req, res)=>{
   res.render("admin/gallery_image_page")
 })
 
 admin.post('/gallery/image/get', admin_gallery_image_get)
-admin.post('/gallery/image/post', multer_upload.any('itemName'), admin_gallery_image_post)
-admin.post('/gallery/image/data/post',  multer_upload.any('itemName'), admin_gallery_image_data_post)
+admin.post('/gallery/image/post', multerUploaderGallery, sharpReducerGallery, admin_gallery_image_post)
+admin.post('/gallery/image/data/post',  multer_upload_gallery_image.any('itemName'), admin_gallery_image_data_post)
 admin.post('/gallery/image/delete', admin_gallery_image_delete)
 admin.post('/gallery/image/data/delete', admin_gallery_image_data_delete)
 admin.get('/gallery/image/data/:dataid/:item_title', (req, res)=>{

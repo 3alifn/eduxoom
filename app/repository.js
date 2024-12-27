@@ -159,7 +159,7 @@ exports.admin_repository_get= (req, res)=>{
       res.send({tabledata})
 
 
-    }
+    } else  res.send({tabledata: null})
 
   })
 
