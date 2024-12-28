@@ -1,4 +1,4 @@
-const {express, app, sqlmap, multer } = require("../server")
+const {express, app, sqlmap } = require("../server")
 
 
 exports.admin_routine_post = (req, res) => {

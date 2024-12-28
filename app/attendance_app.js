@@ -1,5 +1,5 @@
 const { render } = require("ejs")
-const {app, express, dotenv, nodemailer, mysql, sqlmap, multer, session, createHmac, randomBytes} = require("../server")
+const {app, express, dotenv, nodemailer, mysql, sqlmap, session, createHmac, randomBytes} = require("../server")
 const { log } = require("sharp/lib/libvips")
 
 exports.teacher_attn_init_page= (req, res)=>{

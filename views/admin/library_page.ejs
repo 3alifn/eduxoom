@@ -78,7 +78,7 @@
 
                             <div class="book_append">
                                 <label class="btn btn-light text-danger" for="bookimage">Select Image:
-                                    <input style="display: none;" accept=".jpeg, .jpg, .png" type="file" name="bookimage" class="bookimage"
+                                    <input style="display: none;" accept="image/png, image/jpeg" type="file" name="image" class="bookimage"
                                         id="bookimage">
                                 </label>
                                 <p></p>
@@ -147,7 +147,7 @@
         input_class: 'bookimage',
         append_class: 'book_append',
         file_type: 'image',
-        max_kb_size: 1024,
+        max_kb_size: 500,
         multiple: true,
     })
 

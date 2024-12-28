@@ -242,7 +242,7 @@
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <code class="w-25 fw-semibold">Choose png or jpeg <br> (upto 500kb) </code>
                 <code class="pe-1">-</code>  
-                  <input accept=".jpg, .jpeg, .png"  name="images" class="w-75 shadowx images form-dev form-control-sm" type="file"
+                  <input accept="image/png, image/jpeg"  name="image" class="w-75 shadowx images form-dev form-control-sm" type="file"
                   id="">
               </div>
   
@@ -303,7 +303,7 @@ $(document).ready(function(){
       input_class: 'images',
       append_class: 'images_append',
       file_type: 'image',
-      max_kb_size: 1024,
+      max_kb_size: 500,
       multiple: false,
   
   

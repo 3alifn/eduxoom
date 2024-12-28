@@ -1,41 +1,9 @@
 const express = require('express');
 const app = express();
-const { sqlmap, multer, randomBytes, createHmac, path, fs } = require('../server');
+const { sqlmap, randomBytes, createHmac, path, fs } = require('../server');
 const { json } = require('body-parser');
-const sharp = require("sharp")
-
-
-const multer_location = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "./public/image/headofschool/")
-    },
-
-    filename: (req, file, cb) => {
-
-        cb(null, new Date().getTime() + "_" + file.originalname)
-    },
-
-})
-
 
 module.exports = {
-    multer_upload_headofschool: multer({
-        storage: multer_location,
-
-        limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-        fileFilter: (req, file, cb) => {
-            if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
-                cb(null, true)
-            }
-            else {
-                cb(new Error("up 500kb & file extension allow only png or jpeg"))
-            }
-
-        }
-
-    }),
-
-      
 
     pu_headofschool_view_page: (req, res) => {
 
@@ -158,28 +126,11 @@ module.exports = {
 
 
     admin_headofschool_post: async(req, res) => {
-        var { position, name, message, gender} = req.body;
+        const { position, name, message, gender} = req.body;
         const randomString= Math.random()*90000;
 
-        if(req.file){
-            var { filename: image } = req.file;
-
-    
-                await sharp(req.file.path)
-                    .jpeg({ quality: 50 })
-                    .toFile(
-                        path.resolve(path.resolve(req.file.destination, 'resized', image))
-                    )
-    
-                fs.unlinkSync(req.file.path)
-    
-          }
-
-          if(req.file){
-            var avatar_png= req.file.filename;
-        
-           }
-        
+          if(req.file) var avatar_png= req.file.filename;
+              
            else {
             if(gender=="Female") var avatar_png= "female_avatar.png"
             else var avatar_png= "male_avatar.png"
@@ -198,34 +149,16 @@ module.exports = {
             }
         );
         
-
-             
-
     },
 
 
     admin_headofschool_update: async(req, res) => {
-        var { position, name, gender, message, dataid, haveimage } = req.body;
-         if(req.file){
-            var { filename: image } = req.file;
-
-      
-                    await sharp(req.file.path)
-                        .jpeg({ quality: 50 })
-                        .toFile(
-                            path.resolve(path.resolve(req.file.destination, 'resized', image))
-                        )
-        
-                    fs.unlinkSync(req.file.path)
-        
-              }
+        const { position, name, gender, message, dataid, haveimage } = req.body;
   
-              if(req.file){
-                var avatar_png= req.file.filename;
+              if(req.file) var avatar_png= req.file.filename;
             
-               } else{
-                var avatar_png= haveimage;
-               }
+                else var avatar_png= haveimage;
+    
 
                sqlmap.query(
                 `UPDATE headofschool SET position=?, name=?, gender=?, message=?, image=? WHERE domain=? AND ID=?`,
@@ -258,6 +191,5 @@ module.exports = {
       );
       
     }
-
 
 } 

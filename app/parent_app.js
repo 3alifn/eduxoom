@@ -1,5 +1,4 @@
-const {app, express, sqlmap, nodemailer, multer, createHmac, fs, path, session} = require("../server")
-const sharp= require('sharp');
+const {app, express, sqlmap, nodemailer, createHmac, fs, path, session} = require("../server")
 
 var regexTelephone= /^01[0-9]*$/
 var regexNumber= /^[0-9]*$/
@@ -108,47 +107,6 @@ exports.join= (req, res)=>{
 
 
 }
-
-
-
-
-const multer_location= multer.diskStorage({
-  destination: (req, file, cb)=>{
-   cb(null, "./public/image/parent/")
-  } ,
-
-  filename: (req, file, cb)=>{
-
-    cb(null, new Date().getTime()+"_"+file.originalname)
-  },
-  
-})
-
-exports.multer_upload_parent= multer({
-  storage: multer_location,
-
-  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-  fileFilter: (req, file, cb)=>{
-
-    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg")
-    {
-      cb(null, true)
-    } 
-    else 
-    {
-        cb(new Error("upto 500kb & file extension allow only png or jpeg"))
-    }
-    
-  }
-
-})
-
-
-
-
-
-
-
 
 exports.self_verify_code= (req, res)=>{
     let {verifyCode}= req.body;
@@ -286,21 +244,8 @@ exports.self_penbox_push = (req, res) => {
   
   exports.self_img_post= async(req, res)=>{
     const userid= req.session.userid;
-  
       const {dataid}= req.body;
-    
-       if(req.file){
-        
-              const { filename: image } = req.file;
-        
-            await sharp(req.file.path)
-            .jpeg({ quality: 50 })
-            .toFile(
-                path.resolve(path.resolve(req.file.destination, 'resized',image))
-            )
-            fs.unlinkSync(req.file.path)
-        
-       }
+
        sqlmap.query(
         `UPDATE parents SET avatar=? WHERE domain=? AND ID=?`,
         [req.file.filename, req.cookies["hostname"], userid],

@@ -28,7 +28,7 @@
 
                   </span>
                   <label title="Change profile" class="btn btn-link"> <i class="bi bi-pen fs-5"></i>
-                    <input required type="file" name='image' class="avatar-file" style="display: none;">
+                    <input required type="file" accept="image/png, image/jpeg" name='image' class="avatar-file" style="display: none;">
                     <input type="hidden" name='dataid' value="<%=info[0].ID%>">
                   </label>
                 </div>
@@ -261,7 +261,7 @@
       input_class: 'avatar-file',
       append_class: 'avatar-append',
       file_type: 'image',
-      max_kb_size: 1024,
+      max_kb_size: 500,
       multiple: false,
 
 

@@ -1,71 +1,10 @@
-const { app, express, sqlmap, nodemailer, createHmac, randomBytes, multer, fs, path } = require("../server")
-const sharp= require('sharp');
+const { app, express, sqlmap, nodemailer, createHmac, randomBytes, fs, path } = require("../server")
 
 exports.public_admission_step1 = (req, res) => {
   // console.log(mysession);
   res.render("public/admission_form_public", { pastAdmission: true, nextAdmission: false, data: false, msg: req.flash("msg"), alert: req.flash("alert") })
 
 }
-
-
-const multer_location_image= multer.diskStorage({
-  destination: (req, file, cb)=>{
-   cb(null, "./public/docs/admission/")
-  } ,
-
-  filename: (req, file, cb)=>{
-
-    cb(null, new Date().getTime()+"_"+file.originalname)
-  },
-  
-})
-
-
-const multer_location_image_or_pdf= multer.diskStorage({
-  destination: (req, file, cb)=>{
-   cb(null, "./public/docs/admission/resized/")
-  } ,
-
-  filename: (req, file, cb)=>{
-
-    cb(null, new Date().getTime()+"_"+file.originalname)
-  },
-  
-})
-
-exports.multer_upload_admission_image= multer({
-  storage: multer_location_image,
-
-  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-  fileFilter: (req, file, cb) => {
-    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg"){
-    cb(null, true)
-      }
-      else {
-        cb(new Error("upload size upto 500kb file extension allow only png / jpeg/ jpg"))
-      }
-
-  }
-
-})
-
-
-
-exports.multer_upload_admission_image_or_pdf= multer({
-  storage: multer_location_image_or_pdf,
-
-  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-  fileFilter: (req, file, cb) => {
-    if(file.mimetype=="application/pdf" || file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg"){
-    cb(null, true)
-      }
-      else {
-        cb(new Error("upload size upto 500kb file extension allow only pdf / png / jpeg/ jpg"))
-      }
-
-  }
-
-})
 
 
 exports.public_admission_step2 = async(req, res) => {
@@ -84,27 +23,10 @@ exports.public_admission_step2 = async(req, res) => {
   req.session.Hobbies= Hobbies;
   req.session.gender= gender;
   req.session.telephone= telephone;
-
-  if(req.file){
-
-    const filename = req.file.filename;
-
-        await sharp(req.file.path)
-        .jpeg({ quality: 50 })
-        .toFile(
-            path.resolve(path.resolve(req.file.destination, 'resized', filename))
-        )
-  
-    fs.unlinkSync(req.file.path)
-      
     req.session.avatar= req.file.filename;
-
-
     res.render("public/admission_form_public", { nextAdmission: true, pastAdmission: false })
 
-}}
-
-
+}
 
 
 exports.public_admission_post = async (req, res) => {

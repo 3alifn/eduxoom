@@ -1,36 +1,4 @@
-const {app, express, sqlmap, session, nodemailer, multer, createHmac, path, fs}= require("../server")
-const sharp= require("sharp")
-
-const multer_location = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, "./public/image/teacher/")
-  },
-
-  filename: (req, file, cb) => {
-
-      cb(null, new Date().getTime() + "_" + file.originalname)
-  },
-
-})
-
-exports.multer_upload_teacher= multer({
-  storage: multer_location,
-
-  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-  fileFilter: (req, file, cb) => {
-      if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
-          cb(null, true)
-      }
-      else {
-          cb(new Error("upto 500kb file extension allow only png or jpeg"))
-      }
-
-  }
-
-})
-
-
-
+const {app, express, sqlmap, session, nodemailer, createHmac, path, fs}= require("../server")
 
 exports.self_dashboard = (req, res) => {
   const teacher_uuid = req.session.teacher_uuid;
@@ -100,22 +68,7 @@ exports.self_penbox_push = (req, res) => {
 
 exports.self_img_post= async(req, res)=>{
   const userid= req.session.userid;
-
     const {dataid}= req.body;
-  
-     if(req.file){
-      
-            const { filename: image } = req.file;
-      
-          await sharp(req.file.path)
-          .jpeg({ quality: 50 })
-          .toFile(
-              path.resolve(path.resolve(req.file.destination, 'resized',image))
-          )
-          fs.unlinkSync(req.file.path)
-      
-
-     }
   
      sqlmap.query(
       `UPDATE teachers SET avatar=? WHERE domain=? AND ID=?`,
@@ -312,38 +265,20 @@ exports.self_email_update_push = (req, res) => {
 
 
 
-exports.admin_teacher_img_post= async(req, res)=>{
-
+exports.admin_teacher_img_post= async(req, res, next)=>{
   const {dataid}= req.body;
-
-   if(req.file){
-     
-          const { filename: image } = req.file;
-    
-        await sharp(req.file.path)
-        .jpeg({ quality: 50 })
-        .toFile(
-            path.resolve(path.resolve(req.file.destination, 'resized',image))
-        )
-        fs.unlinkSync(req.file.path)
-    
-   }
-
-   sqlmap.query(
-    `UPDATE teachers SET avatar=? WHERE domain=? AND ID=?`,
-    [req.file.filename, req.cookies["hostname"], dataid],
+  const {filename}=req.file;
+  
+   sqlmap.query(`UPDATE teachers SET avatar=? WHERE domain=? AND ID=?`,
+    [filename, req.cookies["hostname"], dataid],
     (err, next) => {
         if (err) {
             console.log(err.sqlMessage);
+            next(err.sqlMessage)
             return;
         }
         res.send({ msg: 'Update successfully!', alert: 'alert-success' });
-    }
-);
-
-
-
-
+    })
 
 }
 
@@ -363,10 +298,7 @@ exports.admin_teacher_post= async(req, res)=>{
   else var order_value= 'D';
   // console.log(get_position ,order_value);
 
-  if(req.file){
-    var avatar_png= req.file.filename;
-
-   }
+  if(req.file) var avatar_png= req.file.filename;
 
    else {
     if(gender=="Female") var avatar_png= "female_avatar.png"
@@ -394,21 +326,10 @@ exports.admin_teacher_post= async(req, res)=>{
 
 
   async function join_teacher_def(){
-    if(req.file){
-    
-          const { filename: image } = req.file;
-    
-        await sharp(req.file.path)
-        .jpeg({ quality: 50 })
-        .toFile(
-            path.resolve(path.resolve(req.file.destination, 'resized',image))
-        )
-        fs.unlinkSync(req.file.path)
-    
-   }
 
    sqlmap.query(
-    `INSERT INTO teachers (domain, teacher_uuid, teacher_id, name, position, order_value, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO teachers (domain, teacher_uuid, teacher_id, name, position, order_value, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, password, avatar) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [req.cookies["hostname"], uuid, teacher_id, name, position, order_value, gender, index_number, pds_id, birth_date, blood_group, religion, email, phone, address, joining_date, hashPassword, avatar_png],
     (err, next) => {
         if (err) {

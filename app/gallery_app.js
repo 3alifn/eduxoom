@@ -1,74 +1,78 @@
-const { sqlmap , multer, randomBytes, createHmac, path,  fs, app, express} = require("../server")
-const sharp= require('sharp');
-
-const multer_location= multer.diskStorage({
-  destination: (req, file, cb)=>{
-   cb(null, "./public/image/gallery/")
-  } ,
-
-  filename: (req, file, cb)=>{
-
-    cb(null, new Date().getTime()+"_"+file.originalname)
-  },
-  
-})
+const { sqlmap , randomBytes, createHmac, path,  fs, app, express} = require("../server")
 
 
+exports.admin_carousel_post= async(req, res)=>{
 
-exports.multer_upload= multer({
-  storage: multer_location,
-
-  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-  fileFilter: (req, file, cb)=>{
-    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg")
-    {
-      cb(null, true)
-    } 
-    else 
-    {
-        cb(new Error("maximum file size 500kb & file extension allow only png, jpg or jpeg"))
+    
+    
+      for (let index = 0; index < req.files.length; index++) {
+        sqlmap.query(
+            `INSERT INTO carousel (domain, item_name) VALUES (?, ?)`,
+            [req.cookies["hostname"], req.files[index].filename],
+            (err, next) => {
+                if (err) {
+                    console.log(err.sqlMessage);
+                }
+            }
+        );
     }
     
+  
+  res.send({msg: 'Image Added!', alert: 'alert-success'})
+  
+  
   }
-
-})
-
-
-const multer_location_carousel= multer.diskStorage({
-  destination: (req, file, cb)=>{
-   cb(null, "./public/image/carousel/")
-  } ,
-
-  filename: (req, file, cb)=>{
-    const randomString= randomBytes(3).toString('hex');
-    cb(null, randomString+'_'+file.originalname)
-  },
   
-})
 
+exports.admin_gallery_image_post= async(req, res, next)=>{
+    const {item_title}= req.body;
+    const files = req.files;
 
+    async function globalSqlUpoader(sql, params){
+        return new Promise((resolve, reject)=>{
+         sqlmap.query(sql, params, (err, next) => {
+             if (err) {
+                return reject(err.sqlMessage)
+             } else resolve('File Uploaded Successfully...')
+        });
+        })
+     }
 
-exports.multer_upload_carousel= multer({
-  storage: multer_location_carousel,
+  try{
+   for (const file of files){
+    await globalSqlUpoader(
+        `INSERT INTO gallery (domain, item_type, item_title, item_name, data_id) VALUES (?, ?, ?, ?, ?)` 
+        ,[req.cookies["hostname"], 'image', req.body.item_title, file.filename, Math.random() * 900000000]
+    )
+   }
 
-  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-  fileFilter: (req, file, cb)=>{
-  
-    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg")
-    {
-      cb(null, true)
-    } 
-    else 
-    {
-        cb(new Error("maximum file size 500kb & file extension allow only png, jpg or jpeg"))
-    }
+  await res.send({msg: "Gallery Added Successfully!", alert: "alert-success"})
+  }
     
+  catch(err){
+  next(err)
+   }
+}
+  
+  
+  
+exports.admin_gallery_image_data_post= async (req, res)=>{
+    const {item_title, dataid}= req.body;
+      
+    for (let index = 0; index < req.files.length; index++) {
+      sqlmap.query(
+          `INSERT INTO gallery (domain, item_type, item_title, item_name, data_id) VALUES (?, ?, ?, ?, ?)`,
+          [req.cookies["hostname"], 'image', item_title, req.files[index].filename, dataid],
+          (err, next) => {
+              if (err) {
+                  console.log(err.sqlMessage);
+              }
+          }
+      );
   }
-
-})
-
-
-
+  res.send({msg: "Gallery Added successfully!", alert: "alert-success"})
+  
+   }
 
 // public gallery..........
 
@@ -156,44 +160,6 @@ exports.public_gallery_video_data_get = (req, res) => {
 
 // admin carousel part
 
-exports.admin_carousel_post= async(req, res)=>{
-
-  for (let x = 0; x < req.files.length; x++) {
-    const { filename: image } = req.files[x];
-
-
-    await sharp(req.files[x].path)
-    .jpeg({ quality: 50 })
-    .toFile(
-        path.resolve(path.resolve(req.files[x].destination, 'resized',image))
-    )
-    // console.log(req.files[x].path);
-    fs.unlinkSync(req.files[x].path)
-
-  
-
-    }
-  
-  
-  
-    for (let index = 0; index < req.files.length; index++) {
-      sqlmap.query(
-          `INSERT INTO carousel (domain, item_name) VALUES (?, ?)`,
-          [req.cookies["hostname"], req.files[index].filename],
-          (err, next) => {
-              if (err) {
-                  console.log(err.sqlMessage);
-              }
-          }
-      );
-  }
-  
-
-res.send({msg: 'Image Added!', alert: 'alert-success'})
-
-
-}
-
 
 
 
@@ -271,7 +237,7 @@ exports.admin_gallery_image_get = (req, res) => {
           return;
       }
 
-      if (info) {
+      if (info.length>0) {
           let listData = '';
 
           for (let index = 0; index < info.length; index++) {
@@ -286,85 +252,15 @@ exports.admin_gallery_image_get = (req, res) => {
 
           res.send({ listData });
       } else {
-          res.sendStatus(404);
+        res.send({ listData: null });
+
       }
   });
 };
 
 
 
-exports.admin_gallery_image_post= async(req, res)=>{
-  let {item_title}= req.body;
-  for (let x = 0; x < req.files.length; x++) {
-    const { filename: image } = req.files[x];
-  
-    await sharp(req.files[x].path)
-    .jpeg({ quality: 50 })
-    .toFile(
-        path.resolve(path.resolve(req.files[x].destination, 'resized',image))
-    )
-  
-    fs.unlinkSync(req.files[x].path)
-  
-    
-      }
 
-
-   const randomString= Math.random()*900000000;
-  
-
-  for (let index = 0; index < req.files.length; index++) {
-    sqlmap.query(
-        `INSERT INTO gallery (domain, item_type, item_title, item_name, data_id) VALUES (?, ?, ?, ?, ?)`,
-        [req.cookies["hostname"], 'image', item_title, req.files[index].filename, randomString],
-        (err, next) => {
-            if (err) {
-                console.log(err.sqlMessage);
-            }
-        }
-    );
-}
-
-res.send({msg: "Gallery Added Successfully!", alert: "alert-success"})
-
-  
- }
-
-
-
-
-exports.admin_gallery_image_data_post= async (req, res)=>{
-  const {item_title, dataid}= req.body;
-
-  for (let x = 0; x < req.files.length; x++) {
-    const { filename: image } = req.files[x];
-
-    await sharp(req.files[x].path)
-    .jpeg({ quality: 50 })
-    .toFile(
-        path.resolve(path.resolve(req.files[x].destination, 'resized',image))
-    )
-  
-    fs.unlinkSync(req.files[x].path)
-  
-
-    
-      }
-    
-  for (let index = 0; index < req.files.length; index++) {
-    sqlmap.query(
-        `INSERT INTO gallery (domain, item_type, item_title, item_name, data_id) VALUES (?, ?, ?, ?, ?)`,
-        [req.cookies["hostname"], 'image', item_title, req.files[index].filename, dataid],
-        (err, next) => {
-            if (err) {
-                console.log(err.sqlMessage);
-            }
-        }
-    );
-}
-res.send({msg: "Gallery Added successfully!", alert: "alert-success"})
-
- }
 
 
 
@@ -417,7 +313,7 @@ exports.admin_gallery_image_data_get = (req, res) => {
           return;
       }
 
-      if (info) {
+      if (info.length>0) {
           let listData = '';
 
           for (let index = 0; index < info.length; index++) {
@@ -429,7 +325,7 @@ exports.admin_gallery_image_data_get = (req, res) => {
           }
 
           res.send({ listData, title: info[0].item_title });
-      }
+        } else res.send({ listData: null, title: "undefined!" });
   });
 };
 
@@ -554,7 +450,7 @@ exports.admin_gallery_video_data_get = (req, res) => {
           return;
       }
 
-      if (info) {
+      if (info.length>0) {
           let listData = '';
 
           for (let index = 0; index < info.length; index++) {
@@ -566,7 +462,8 @@ exports.admin_gallery_video_data_get = (req, res) => {
           }
 
           res.send({ listData, title: info[0].item_title });
-      }
+        } else res.send({ listData: null, title: "undefined!" });
+    
   });
 };
 

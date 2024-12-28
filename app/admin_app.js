@@ -3,39 +3,7 @@ const {app, express, dotenv, nodemailer, mysql, sqlmap, multer, createHmac, sess
 
 
 module.exports = {
-
-    multer_upload: multer({
-        storage: multer.diskStorage({
-            destination: (req, file, cb)=>{
-             cb(null, "./public/image/admin")
-            } ,
-          
-            filename: (req, file, cb)=>{
-          
-              cb(null, new Date().getTime()+"_"+file.originalname)
-            },
-            
-          }),
-      
-        limits: {fileSize: 3000000 * 2},
-        fileFilter: (req, file, cb)=>{
-      
-          if(file.mimetype=="image/png" || file.mimetype=="image/jpeg")
-          {
-            cb(null, true)
-          } 
-          else 
-          {
-              cb(new Error("file extension allow only png or jpeg"))
-          }
-          
-        }
-      
-      })
-,
-
-
-    
+ 
 admin_logger: (req, res)=>{
 
     const {hashUsername, hashPassword}= req.body;

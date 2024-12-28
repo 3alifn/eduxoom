@@ -1,39 +1,11 @@
 const express = require('express');
 const app = express();
-const { sqlmap, multer, randomBytes, createHmac, path, fs, nodemailer, dotenv} = require('../server');
+const { sqlmap, randomBytes, createHmac, path, fs, nodemailer, dotenv} = require('../server');
 const { json } = require('body-parser');
-const sharp = require("sharp")
 
-const multer_location = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "./public/image/school/")
-    },
-
-    filename: (req, file, cb) => {
-
-        cb(null, new Date().getTime() + "_" + file.originalname)
-    },
-
-})
 
 
 module.exports = {
-    multer_upload_school_settings: multer({
-        storage: multer_location,
-
-        limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-
-        fileFilter: (req, file, cb) => {
-            if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
-                cb(null, true)
-            }
-            else {
-                cb(new Error("upto 500kb file extension allow only png or jpeg"))
-            }
-
-        }
-
-    }),
 
     pu_aboutus_render: (req, res)=>{
         
@@ -136,14 +108,6 @@ module.exports = {
         const randomString = Math.random() * 900000000;
         const imgname = imgrole == 'logo' ? 'logo' : 'image';
     
-            await sharp(req.file.path)
-                .jpeg({ quality: 80 })
-                .toFile(
-                    path.resolve(req.file.destination, 'resized', imgname + randomString + '.png')
-                );
-            fs.unlinkSync(req.file.path);
-      
-       
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=?`,
             [req.cookies["hostname"]],
@@ -154,7 +118,7 @@ module.exports = {
                         [imgname + randomString + '.png', req.cookies["hostname"]],
                         (err, next) => {
                             if (err) console.log(err.sqlMessage);
-                            else console.log('updated');
+                            res.send({ msg: "Update Successfully!", alert: "success" });
                         }
                     );
                 } else {
@@ -163,14 +127,14 @@ module.exports = {
                         [req.cookies["hostname"], imgname + randomString + '.png'],
                         (err, next) => {
                             if (err) console.log(err.sqlMessage);
-                            else console.log('inserted');
+                            else res.send({ msg: "Added Successfully!", alert: "success" });
                         }
                     );
                 }
             }
         );
     
-        res.send({ msg: "Added Successfully!", alert: "success" });
+        
     },
     
 

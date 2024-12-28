@@ -60,14 +60,14 @@ app.use("/au", authentication)
 app.use((err, req, res, next)=>{
   if(err instanceof MulterError ) {
     console.log(err.message);
-    res.send({status: 500, msg: err.message+" size upto 500kb", alert: "alert-warning text-dark"})
+    res.send({status: 500, msg: "Error! "+ err.message+" & size upto 500kb", alert: "alert-warning text-dark"})
     
    }
 
  
   else {  
     console.log("My Next Error! "+ err);
-    res.send({status: 500, msg: err, alert: "alert-danger text-dark"})
+    res.send({status: 500, msg: "Error! "+ err, alert: "alert-danger text-dark"})
 }
 
 })

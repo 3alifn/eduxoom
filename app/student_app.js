@@ -1,42 +1,10 @@
-const {app, express, sqlmap, session, nodemailer, multer, createHmac, fs, path}= require("../server")
-const sharp= require("sharp")
+const {app, express, sqlmap, session, nodemailer, createHmac, fs, path}= require("../server")
 
 var regexTelephone= /^01[0-9]*$/
 var regexNumber= /^[0-9]*$/
 var regexString= /^[A-Za-z .-_]*$/
 var regexPassword= /^[a-zA-Z0-9!@#$%&*]*$/
 var regexEmail= /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/ 
-
-
-const multer_location = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, "./public/image/student/")
-  },
-
-  filename: (req, file, cb) => {
-
-      cb(null, new Date().getTime() + "_" + file.originalname)
-  },
-
-})
-
-exports.multer_upload_student= multer({
-  storage: multer_location,
-
-  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-
-  fileFilter: (req, file, cb) => {
-      if (file.mimetype == "image/png" || file.mimetype == "image/jpeg" || file.mimetype == "image/jpg") {
-          cb(null, true)
-      }
-      else {
-          cb(new Error("up 500kb & file extension allow only png / jpg / jpeg"))
-      }
-
-  }
-
-})
-
 
 exports.teacher_student_info = (req, res) => {
   const { student_uuid } = req.body;
@@ -58,7 +26,6 @@ exports.teacher_student_info = (req, res) => {
       res.send({ avatar, data });
   });
 };
-
 
 
 
@@ -117,9 +84,7 @@ exports.admin_student_join_quick = (req, res) => {
 };
 
 
-
-
-exports.admin_student_post= async(req, res)=>{
+exports.admin_student_post= async(req, res, next)=>{
   var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
   var {classNameX, name, roll, gender, fname, mname, emailx,  birth_date, blood_group, religion, phone, address, admission_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
@@ -130,42 +95,24 @@ exports.admin_student_post= async(req, res)=>{
   var sectionName= tempData[1];
   if(emailx==undefined || emailx=='') var email= student_id+'@abc.com'; else var email= emailx;
   var session= new Date().getUTCFullYear();
-  if(req.file){
-    var avatar_png= req.file.filename;
 
-   }
-
+  if(req.file) var avatar_png= req.file.filename;
    else {
     if(gender=="Female") var avatar_png= "female_avatar.png"
     else var avatar_png= "male_avatar.png"
    }
 
-
-   sqlmap.query(`SELECT ID FROM students WHERE domain=? AND (student_id=? OR email=? OR roll=?)`, [domain, student_id, email, roll], (err_check, info_check) => {
+   sqlmap.query(`SELECT ID FROM students WHERE domain=? AND class=? AND section=? AND (student_id=? OR email=? OR roll=?)`,
+     [domain, className, sectionName, student_id, email, roll], (err_check, info_check) => {
     if (info_check.length > 0) {
-        res.send({ status: 503, msg: 'Invalid information! roll already exists', alert: 'alert-danger' });
+        next("Invalid information! Roll / SID already exists")
     } else {
         join_student_def();
     }
 });
 
 
-
   async function join_student_def(){
-    if(req.file){
-     
-          const { filename: image } = req.file;
-    
-        await sharp(req.file.path)
-        .jpeg({ quality: 50 })
-        .toFile(
-            path.resolve(path.resolve(req.file.destination, 'resized',image))
-        )
-        fs.unlinkSync(req.file.path)
-    
-        }
-    
- 
 
    sqlmap.query(`INSERT INTO students (domain, student_uuid, session, class, section, name, student_id, roll, gender, father_name, mother_name, birth_date, blood_group, religion, email, phone, address, admission_date, password, avatar)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -178,13 +125,7 @@ exports.admin_student_post= async(req, res)=>{
     }
 });
 
-
-
-   }
-
-
-
-
+}
 }
 
 
@@ -240,22 +181,7 @@ exports.admin_student_get = (req, res) => {
 
 
 exports.admin_student_img_post= async(req, res)=>{
-
   const {dataid}= req.body;
-
-   if(req.file){
-
-          const { filename: image } = req.file;
-    
-        await sharp(req.file.path)
-        .jpeg({ quality: 50 })
-        .toFile(
-            path.resolve(path.resolve(req.file.destination, 'resized',image))
-        )
-        fs.unlinkSync(req.file.path)
-    
-      
-   }
 
    sqlmap.query(`UPDATE students SET avatar=? WHERE domain=? AND ID=?`, [req.file.filename, req.cookies["hostname"], dataid], (err, next) => {
     if (err) {
@@ -660,21 +586,6 @@ exports.self_img_post= async(req, res)=>{
       const userid= req.session.userid;
     
         const {dataid}= req.body;
-      
-         if(req.file){
-       
-                const { filename: image } = req.file;
-          
-              await sharp(req.file.path)
-              .jpeg({ quality: 50 })
-              .toFile(
-                  path.resolve(path.resolve(req.file.destination, 'resized',image))
-              )
-              fs.unlinkSync(req.file.path)
-          
-            
-          
-         }
       
          sqlmap.query(`UPDATE students SET avatar=? WHERE domain=? AND ID=?`, [req.file.filename, req.cookies["hostname"], userid], (err, next) => {
           if (err) {
