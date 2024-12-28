@@ -1,44 +1,6 @@
-const {app, express, sqlmap, nodemailer, multer, session}= require("../server")
-
-const locationApplication= multer.diskStorage({
-    destination: (req, file, cb)=>{
-     cb(null, "./public/docs/application/")
-    } ,
-  
-    filename: (req, file, cb)=>{
-  
-      cb(null, new Date().getTime()+"_"+file.originalname)
-    },
-    
-  })
+const {app, express, sqlmap, nodemailer, session}= require("../server")
 
 
-
-  
-exports.multer_upload_docs= multer({
-  storage: locationApplication,
-
-  limits: {fileSize: 10000000},
-  fileFilter: (req, file, cb)=>{
-
-    if(file.mimetype=="application/pdf")
-    {
-      cb(null, true)
-    } 
-    else 
-    {
-        cb(new Error("file extension allow only pdf"))
-    }
-    
-  }
-
-})
-
-
-  
-
-
-  
 
 exports.student_application_post =  (req, res)=>{
 let  {subject, comment}= req.body;

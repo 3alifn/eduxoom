@@ -50,7 +50,8 @@ admin.all('*', (req, res, next)=>{
 admin.post('/dashboard/tsa/lookup/', admin_dashboard_tsa_lookup)
 
 // setup school-settings.........
-
+const multerUploaderSchool = globalMulterUploader({name: ['single', 'image'], path: "./public/image/school/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const sharpReducerSchool = globalSharpReducer({ quality: 50})
 admin.get('/setup/class-section', (req, res)=>{
   res.render('admin/class_section_page')
 })
@@ -62,7 +63,7 @@ admin.post('/setup/class-section/main/post', admin_class_section_main_post)
 admin.get('/setup/school-settings', school_app.admin_school_page)
 
 admin.post('/setup/school-settings/post', school_app.admin_school_post)
-admin.post('/setup/school-settings/img/post', multer_upload_school_settings.single('image'), school_app.admin_school_img_post)
+admin.post('/setup/school-settings/img/post', multerUploaderSchool, sharpReducerSchool, school_app.admin_school_img_post)
 
 
 
@@ -81,6 +82,8 @@ admin.post('/result/marksheet-pull-print/', result_marksheet_pull_print)
 
 
 // repository settings..
+const multerUploaderRepo = globalMulterUploader({ path: "./public/image/repository/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const sharpReducerRepo = globalSharpReducer({ quality: 50})
 
 admin.get('/setup/eventnews/', (req, res)=>{
   res.render('admin/eventnews_page')
@@ -92,34 +95,38 @@ admin.get('/setup/facilities/', (req, res)=>{
   res.render('admin/facilities_page')
 })
 
-admin.post('/setup/repository/post', multer_upload_repository.any('images'), admin_repository_post)
+admin.post('/setup/repository/post', multerUploaderRepo, sharpReducerRepo, admin_repository_post)
 admin.post('/repository/get', admin_repository_get)
 admin.post('/repository/rm', admin_repository_rm)
 admin.post('/repository/img/rm', admin_repository_img_rm)
 admin.get('/repository/update/page/:datatype/:dataid/', admin_repository_update_page)
 admin.post('/repository/update/post/', admin_repository_update_post)
-admin.post('/repository/img/update/post/', multer_upload_repository.any('images'),admin_repository_img_update_post)
+admin.post('/repository/img/update/post/',multerUploaderRepo, sharpReducerRepo, admin_repository_img_update_post)
 
 
 
 
 // setup headofschool
+const multerUploaderH = globalMulterUploader({name: ['single', 'image'], path: "./public/image/headofschool/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const sharpReducerH = globalSharpReducer({ quality: 50})
 admin.get('/setup/headofschool/', (req, res)=>{
   res.render('admin/headofschool')
 })
 admin.post('/headofschool/get', headofschool_app.admin_headofschool_get)
-admin.post('/setup/headofschool/post', headofschool_app.multer_upload_headofschool.single('image'),headofschool_app.admin_headofschool_post)
+admin.post('/setup/headofschool/post', multerUploaderH, sharpReducerH, headofschool_app.admin_headofschool_post)
 admin.post('/headofschool/rm', headofschool_app.admin_headofschool_rm)
-admin.post('/headofschool/update/', headofschool_app.multer_upload_headofschool.single('image'),headofschool_app.admin_headofschool_update)
+admin.post('/headofschool/update/', multerUploaderH, sharpReducerH, headofschool_app.admin_headofschool_update)
 
 
 // setup staff settings
+const multerUploaderStaff = globalMulterUploader({name: ['single', 'image'], path: "./public/image/staff/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const sharpReducerStaff = globalSharpReducer({ quality: 50})
 admin.get('/setup/staff/page', (req, res)=>{
   res.render('admin/staff_page')
 })
 admin.post('/staff/get', admin_staff_get)
-admin.post('/setup/staff/post', multer_upload_staff.single('image'),admin_staff_post)
-admin.post('/staff/img/post', multer_upload_staff.single('image'),admin_staff_img_post)
+admin.post('/setup/staff/post', multerUploaderStaff, sharpReducerStaff, admin_staff_post)
+admin.post('/staff/img/post', multerUploaderStaff, sharpReducerStaff, admin_staff_img_post)
 admin.post('/staff/rm', admin_staff_rm)
 admin.post('/staff/penbox/pull', admin_staff_penbox_pull)
 admin.post('/staff/penbox/push', admin_staff_penbox_push)
@@ -177,13 +184,11 @@ admin.post("/password/update", admin_app.self_password_update)
 
 admin.post("/email/update", admin_app.self_email_update)
 
-// admin.post("/avatar/upload", admin_app.multer_upload.single("avatar"), admin_app.self_avatar_upload)
-
 
 
 // gallery image router..........
 
-const multerUploaderGallery = globalMulterUploader({ path: "./public/image/gallery/", size: 500 * 1024, filter: 'image/' });
+const multerUploaderGallery = globalMulterUploader({ path: "./public/image/gallery/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerGallery = globalSharpReducer({ quality: 50})
 
 admin.get("/gallery/image/page", (req, res)=>{
@@ -192,7 +197,7 @@ admin.get("/gallery/image/page", (req, res)=>{
 
 admin.post('/gallery/image/get', admin_gallery_image_get)
 admin.post('/gallery/image/post', multerUploaderGallery, sharpReducerGallery, admin_gallery_image_post)
-admin.post('/gallery/image/data/post',  multer_upload_gallery_image.any('itemName'), admin_gallery_image_data_post)
+admin.post('/gallery/image/data/post',  multerUploaderGallery, sharpReducerGallery, admin_gallery_image_data_post)
 admin.post('/gallery/image/delete', admin_gallery_image_delete)
 admin.post('/gallery/image/data/delete', admin_gallery_image_data_delete)
 admin.get('/gallery/image/data/:dataid/:item_title', (req, res)=>{
@@ -230,11 +235,13 @@ admin.post('/gallery/video/data/get', admin_gallery_video_data_get)
 
 
 // carousel router.........
+const multerUploaderCarousel = globalMulterUploader({ path: "./public/image/carousel/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const sharpReducerCarousel = globalSharpReducer({ quality: 50})
 admin.get("/carousel/page", (req, res)=>{
   res.render("admin/carousel_page")
 })
 admin.post('/carousel/get', admin_carousel_get)
-admin.post('/carousel/post', multer_upload_carousel.any('itemName'), admin_carousel_post)
+admin.post('/carousel/post', multerUploaderCarousel, sharpReducerCarousel, admin_carousel_post)
 admin.post('/carousel/rm', admin_carousel_rm)
 
 
@@ -244,12 +251,14 @@ admin.post('/carousel/rm', admin_carousel_rm)
 
 
 // teacher router.........
+const multerUploaderTeacher = globalMulterUploader({name: ['single', 'image'], path: "./public/image/teacher/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const sharpReducerTeacher = globalSharpReducer({ quality: 50})
 admin.post("/teacher/get/pull", admin_teacher_get)
-admin.post("/setup/teacher/post/", multer_upload_teacher.single("images"), admin_teacher_post)
+admin.post("/setup/teacher/post/", multerUploaderTeacher, sharpReducerTeacher, admin_teacher_post)
 admin.post("/teacher/penbox/pull", admin_teacher_penbox_pull)
 admin.post("/teacher/penbox/push", admin_teacher_penbox_push)
 admin.post("/teacher/rm/pop", admin_teacher_rm)
-admin.post('/teacher/img/post', multer_upload_teacher.single('image'),admin_teacher_img_post)
+admin.post('/teacher/img/post', multerUploaderTeacher, sharpReducerTeacher, admin_teacher_img_post)
 
 
 
@@ -257,15 +266,16 @@ admin.post('/teacher/img/post', multer_upload_teacher.single('image'),admin_teac
 
 
 // student router..........
-
+const multerUploaderStudent = globalMulterUploader({name: ['single', 'image'], path: "./public/image/student/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const sharpReducerStudent = globalSharpReducer({ quality: 50})
 admin.get("/student/page", (req, res)=>{
   res.render("admin/student_page", {msg: req.flash('msg'), alert: req.flash('alert')})
   // res.render("admin/student_page", {msg: 'getto', alert: 'primary'})
 })
 admin.post("/student/join/quick", admin_student_join_quick)
 admin.post("/student/get/pull", admin_student_get)
-admin.post("/setup/student/post/", multer_upload_student.single("images"), admin_student_post)
-admin.post("/student/img/post/", multer_upload_student.single("image"), admin_student_img_post)
+admin.post("/setup/student/post/", multerUploaderStudent, sharpReducerStudent, admin_student_post)
+admin.post("/student/img/post/",  multerUploaderStudent, sharpReducerStudent, admin_student_img_post)
 admin.post("/student/penbox/pull", admin_student_penbox_pull)
 admin.post("/student/penbox/push", admin_student_penbox_push)
 admin.post("/student/rm/pop", admin_student_rm)
@@ -309,13 +319,16 @@ admin.get('/application/download', admin_application_download)
 
 
 // // library router...........
+const multerUploaderLib = globalMulterUploader({name: ['single', 'image'], path: "./public/image/library/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const sharpReducerLib = globalSharpReducer({ quality: 50})
+
 admin.get("/library/page", (req, res)=>{
   
 res.render("admin/library_page")
 
 })
 
-admin.post("/library/post", upload_library_image.single("bookimage"), admin_library_post)
+admin.post("/library/post", multerUploaderLib, sharpReducerLib, admin_library_post)
 admin.post("/library/get", admin_library_get)
 admin.post("/library/delete", admin_library_delete)
 admin.get("/library/update/page", admin_library_update_page)
@@ -359,15 +372,16 @@ admin.post("/admission/reject", admin_admission_reject)
 
 
 
-
-
 // // notice board router.....
+const multerUploaderNotice = globalMulterUploader({name: ['single', 'attachment'], path: "./public/docs/notice/resized/", size: 500 * 1024, filter: ["image/png", "image/jpeg", 'application/pdf'] });
+const sharpReducerNotice = globalSharpReducer({ quality: 50})
+
 admin.get("/notice/page", (req, res)=>{
 res.render("admin/notice_page")
 })
 
 admin.post("/notice/get",  admin_notice_get)
-admin.post("/notice/post/", uploadNotice.single("attachment"), admin_notice_post)
+admin.post("/notice/post/", multerUploaderNotice, admin_notice_post)
 admin.post("/notice/rm/", admin_notice_rm)
 
 

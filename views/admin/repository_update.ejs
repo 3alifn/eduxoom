@@ -41,7 +41,7 @@
         <div class="d-flex p-2 justify-content-between align-items-center">
           <code class="w-25 fw-semibold">Choose png or jpeg <br> (upto 500kb) </code>
           <code class="p-1">*</code>
-            <input multiple required accept=".jpeg, .jpg, .png" name="images" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
+            <input multiple required accept="image/png, image/jpeg" name="files" type="file" class="w-75 shadowx images form-dev form-control-sm"  id="">
           </div>
 
 
@@ -131,7 +131,7 @@ noview.port({
     input_class: 'images',
     append_class: 'images_append',
     file_type: 'image',
-    max_kb_size: 1024,
+    max_kb_size: 500,
     multiple: true,
 
 

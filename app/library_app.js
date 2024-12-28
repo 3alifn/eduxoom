@@ -1,44 +1,4 @@
-const express = require("express")
-const { sqlmap, multer } = require("../server")
-const app = express()
-const fs= require("fs")
-const path = require("path")
-const { log } = require("console")
-
-const location_library= multer.diskStorage({
-  destination: (req, file, cb)=>{
-   cb(null, "./public/image/library/")
-  } ,
-
-  filename: (req, file, cb)=>{
-
-    cb(null, new Date().getTime()+"_"+file.originalname)
-  },
-  
-})
-
-
-
-exports.upload_library_image= multer({
-  storage: location_library,
-
-  limits: {fileSize: 1000000 * 2},
-  fileFilter: (req, file, cb)=>{
-
-    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg")
-    {
-      cb(null, true)
-    } 
-    else 
-    {
-        cb(new Error("file extension allow only png or jpeg"))
-    }
-    
-  }
-
-})
-
-
+const {app, fs, path, sqlmap } = require("../server")
 
 exports.admin_library_post = (req, res) => {
   let { bookName, authorName, bookCopy, description } = req.body;

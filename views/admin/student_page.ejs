@@ -95,8 +95,8 @@
   
     
     <th>
-      <select name="gender[]" class="form-dev p-1" id="" required>
-        <option value="Female">Female</option>
+      <select  name="gender[]" class="form-dev p-1 genderIndex" id="" required>
+        <option  value="Female">Female</option>
         <option value="Male">Male</option>
       </select>
       </th>
@@ -104,6 +104,7 @@
     
       <th>
         <button type="button" class="btn btn-light addItemQuick" title="ADD" ><i class="bi bi-plus-circle-fill text-primary"></i></button>
+         <input id="counterIndex" style="width: 100px;" type="number" placeholder="15" name="counter" id="">
         <button type="button" disabled class="btn btn-light removeItemQuick" title="Remove" ><i class="bi bi-x-circle-fill text-danger"></i></button>
     
       </th>
@@ -127,10 +128,16 @@
   
  
   <script>
- 
+   $('.submitbtn').click(()=>{
+    $('.submitbtn').addClass('disabled')
+   })
   $(document).on("click", ".addItemQuick", (e) => {
-   
-   $(".studentAppend").append(` 
+  var nextGender= $('.genderIndex').last().val();
+  var counterIndex= $('#counterIndex').val();
+  var counterInput= parseInt(counterIndex==''?0:counterIndex);
+ console.log(counterInput);
+  for (let i=0; counterInput>=i; i++){
+    $(".studentAppend").append(` 
    
    <thead class="border border-dark p-2 m-2">
        
@@ -144,9 +151,9 @@
       
         
         <th>
-          <select name="gender[]" class="form-select" id="" required>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
+          <select class="gender" name="gender[]" class="form-select" id="" required>
+            <option ${nextGender=='Female'? "selected":null} value="Female">Female</option>
+            <option ${nextGender=='Male'? "selected":null} value="Male">Male</option>
           </select>
           </th>
       
@@ -163,9 +170,11 @@
         </thead>
    
    `)
-   
-   })
+
+  }
   
+});
+
        $(document).on("click", ".removeItemQuick", (e)=>{
             let thisItem= e.currentTarget.parentElement.parentElement.parentElement;
             $(thisItem).remove()
@@ -507,7 +516,7 @@
           <div class="d-flex  p-2 justify-content-between align-items-center">
             <code class="w-25 fw-semibold">Choose png or jpeg <br> (upto 500kb) </code>
             <code class="pe-1">-</code>  
-              <input accept=".jpg, .jpeg, .png" size="1000" name="images" class="w-75 shadowx images form-dev form-control-sm" type="file"
+              <input accept="image/png, image/jpeg" size="1000" name="image" class="w-75 shadowx images form-dev form-control-sm" type="file"
               id="">
           </div>
 
@@ -601,7 +610,7 @@ noview.port({
         input_class: 'images',
         append_class: 'images_append',
         file_type: 'image',
-        max_kb_size: 1024,
+        max_kb_size: 500,
         multiple: true,
     
     

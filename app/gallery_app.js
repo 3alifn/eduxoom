@@ -1,86 +1,8 @@
-const { sqlmap , multer, randomBytes, createHmac, path,  fs, app, express} = require("../server")
-const sharp= require('sharp');
+const { sqlmap , randomBytes, createHmac, path,  fs, app, express} = require("../server")
 
-
-exports.multer_upload_carousel= multer({
-  storage:  multer.diskStorage({
-    destination: (req, file, cb)=>{
-     cb(null, "./public/image/carousel/")
-    } ,
-  
-    filename: (req, file, cb)=>{
-      const randomString= randomBytes(3).toString('hex');
-      cb(null, randomString+'_'+file.originalname)
-    }
-}),
-
-  limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-  fileFilter: (req, file, cb)=>{
-  
-    if(file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg")
-    {
-      cb(null, true)
-    } 
-    else 
-    {
-        cb(new Error("File type only image and upto 500kb"))
-    }
-    
-  }
-
-})
-
-
-exports.multer_upload_gallery_image= multer({
-
-    storage: multer.diskStorage({
-     destination: (req, file, cb)=>{
-     // console.log('destination: ' +Object.entries(file));
- 
-      cb(null, "./public/image/gallery/")
-     } ,
-   
-     filename: (req, file, cb)=>{
-       
-       cb(null, new Date().getTime()+"_"+file.originalname)
-     },
-     
-   }),
-   
-   limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-   fileFilter: (req, file, cb)=>{
-     
-     if(file.mimetype.startsWith('image/'))
-     {
-       cb(null, true)
-     } 
-     else 
-     {
-         cb(new Error("File type only image and upto 500kb"))
-     }
-     
-   }
- 
- })
 
 exports.admin_carousel_post= async(req, res)=>{
 
-    for (let x = 0; x < req.files.length; x++) {
-      const { filename: image } = req.files[x];
-  
-  
-      await sharp(req.files[x].path)
-      .jpeg({ quality: 50 })
-      .toFile(
-          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
-      )
-      // console.log(req.files[x].path);
-      fs.unlinkSync(req.files[x].path)
-  
-    
-  
-      }
-    
     
     
       for (let index = 0; index < req.files.length; index++) {
@@ -136,21 +58,6 @@ exports.admin_gallery_image_post= async(req, res, next)=>{
   
 exports.admin_gallery_image_data_post= async (req, res)=>{
     const {item_title, dataid}= req.body;
-  
-    for (let x = 0; x < req.files.length; x++) {
-      const { filename: image } = req.files[x];
-  
-      await sharp(req.files[x].path)
-      .jpeg({ quality: 50 })
-      .toFile(
-          path.resolve(path.resolve(req.files[x].destination, 'resized',image))
-      )
-    
-      fs.unlinkSync(req.files[x].path)
-    
-  
-      
-        }
       
     for (let index = 0; index < req.files.length; index++) {
       sqlmap.query(

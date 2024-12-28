@@ -1,37 +1,6 @@
-const {app, sqlmap, multer, fs, path, sharp } = require("../server")
+const {app, sqlmap, fs, path } = require("../server")
 
-const locationNotice= multer.diskStorage({
-    destination: (req, file, cb)=>{
-     cb(null, "./public/docs/notice/")
-    } ,
-  
-    filename: (req, file, cb)=>{
-  
-      cb(null, new Date().getTime()+"_"+file.originalname)
-    },
-    
-  })
 
-exports.uploadNotice= multer({
-    storage: locationNotice,
-  
-    limits: { fileSize: 500 * 1024 }, // maximum size 500kb
-    fileFilter: (req, file, cb)=>{
-  
-      if(file.mimetype=="application/pdf" || file.mimetype=="image/png" || file.mimetype=="image/jpeg" || file.mimetype=="image/jpg")
-      {
-        cb(null, true)
-      } 
-      else 
-      {
-          cb(new Error("maximum file size 500kb & extension allow only pdf / png / jpeg/ jpg"))
-      }
-      
-    }
-  
-  })
-  
-  
 exports.admin_notice_get = (req, res) => {
     let sql = `SELECT * FROM notice WHERE domain=? ORDER BY ID DESC`;
     sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
@@ -63,22 +32,12 @@ exports.admin_notice_get = (req, res) => {
 
 
 
-exports.admin_notice_post = async (req, res) => {
+exports.admin_notice_post = async (req, res, next) => {
     const { title, notice_date, description } = req.body;
     const session = new Date().getUTCFullYear();
     const find_date = new Date().toLocaleDateString();
     const attachmentx = req.file ? req.file.filename : "demo.pdf";
     const attachment_type = req.file ? req.file.mimetype : 'text';
-
-        const { filename: attachment } = req.file
-    
-        await sharp(req.file.path)
-        .jpeg({ quality: 50 })
-        .toFile(
-            path.resolve(path.resolve(req.file.destination, 'resized',attachment))
-        )
-        // console.log(req.files[x].path);
-        fs.unlinkSync(req.file.path) 
     
     const sql = notice_date == undefined || notice_date == '' 
         ? `INSERT INTO notice (domain, session, find_date, title, attachment_type, description, attachment)
@@ -92,8 +51,7 @@ exports.admin_notice_post = async (req, res) => {
 
     sqlmap.query(sql, values, (err, next) => {
         if (err) {
-            console.log(err.sqlMessage);
-            return;
+            return next(err.sqlMessage);
         }
         res.send({ msg: "Notice Added Successfully!", alert: 'alert-success' });
     });

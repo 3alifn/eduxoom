@@ -1,35 +1,5 @@
 const { random } = require('sjcl');
-const {app, sqlmap, multer, fs, path}= require('../server')
-const sharp= require('sharp');
-
-
-const multer_location = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "./public/image/staff/")
-    },
-
-    filename: (req, file, cb) => {
-
-        cb(null, new Date().getTime() + "_" + file.originalname)
-    },
-
-})
-
-exports.multer_upload_staff= multer({
-    storage: multer_location,
-
-    limits: { fileSize: 1024 * 1024 * 2 },
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype == "image/png" || file.mimetype == "image/jpeg") {
-            cb(null, true)
-        }
-        else {
-            cb(new Error("file extension allow only png or jpeg"))
-        }
-
-    }
-
-})
+const {app, sqlmap, fs, path}= require('../server')
 
 
 exports.public_staff_page = (req, res) => {
@@ -185,16 +155,6 @@ exports.admin_staff_get = (req, res) => {
 exports.admin_staff_img_post = async (req, res) => {
   const { dataid } = req.body;
 
-  if (req.file) {
-      const { filename: image } = req.file;
-      await sharp(req.file.path)
-          .jpeg({ quality: 50 })
-          .toFile(
-              path.resolve(req.file.destination, 'resized', image)
-          );
-      fs.unlinkSync(req.file.path);
-  }
-
   sqlmap.query(
       `UPDATE staff SET image=? WHERE domain=? AND ID=?`,
       [req.file.filename, req.cookies["hostname"], dataid],
@@ -216,15 +176,6 @@ exports.admin_staff_post = async (req, res) => {
 
   const avatar_png = req.file ? req.file.filename : (gender == "Female" ? "female_avatar.png" : "male_avatar.png");
   const staff_id = Math.floor(Math.random() * 900000000);
-  if (req.file) {
-      const { filename: image } = req.file;
-      await sharp(req.file.path)
-          .jpeg({ quality: 50 })
-          .toFile(
-              path.resolve(req.file.destination, 'resized', image)
-          );
-      fs.unlinkSync(req.file.path);
-  }
 
   sqlmap.query(
       `INSERT INTO staff (domain, name, position, gender, index_number, staff_id, age, email, phone, address, joining_date, image)
