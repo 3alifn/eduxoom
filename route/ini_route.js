@@ -13,7 +13,4 @@ ini.all('/terminal/', (req, res)=>{
     res.render('ini/terminal');
 })
 
-
-
-
 module.exports= ini;

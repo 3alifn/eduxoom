@@ -5,7 +5,7 @@ const {app, sqlmap, fs, path}= require('../server')
 exports.public_staff_page = (req, res) => {
   sqlmap.query(
       `SELECT * FROM staff WHERE domain=? ORDER BY ID DESC`,
-      [req.cookies["hostname"]],
+      [res.locals.hostname],
       (err, info) => {
           if (err) {
               console.log(sqlmap);
@@ -24,7 +24,7 @@ exports.public_staff_profile_get = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM staff WHERE domain=? AND ID=?`,
-      [req.cookies["hostname"], dataid],
+      [res.locals.hostname, dataid],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -36,7 +36,7 @@ exports.public_staff_profile_get = (req, res) => {
    <center>
   <div class="bg-card-color-light pt-3  pb-3 rounded-top-5 rounded-start-5">
       <div class="card-image">
-          <img class="avatar-circle" src="/image/staff/resized/${info[0].image}" alt="">
+          <img class="avatar-circle" src="/assets/images/staff/resized/${info[0].image}" alt="">
       </div>
   </div>
 </center>
@@ -106,7 +106,7 @@ exports.public_staff_profile_get = (req, res) => {
 exports.admin_staff_get = (req, res) => {
           sqlmap.query(
               `SELECT * FROM staff WHERE domain=? ORDER BY ID DESC`,
-              [req.cookies["hostname"]],
+              [res.locals.hostname],
               (err, info) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -121,7 +121,7 @@ exports.admin_staff_get = (req, res) => {
                               <input class="shadowx checkout form-check-input" type="checkbox" value="${info[index].ID}" name="dataid[]" id="">
                           </td>
                           <td class="fw-semibold text-muted">
-                              <img class="shadowx avatar-circle bg-card-color-light" style="width: 40px; height: 40px;" src="/image/staff/resized/${info[index].image}" alt="">
+                              <img class="shadowx avatar-circle bg-card-color-light" style="width: 40px; height: 40px;" src="/assets/images/staff/resized/${info[index].image}" alt="">
                               <span class="badge text-dark bg-light">${info[index].name}</span>
                           </td>
                           <td class="fw-semibold text-muted">
@@ -157,7 +157,7 @@ exports.admin_staff_img_post = async (req, res) => {
 
   sqlmap.query(
       `UPDATE staff SET image=? WHERE domain=? AND ID=?`,
-      [req.file.filename, req.cookies["hostname"], dataid],
+      [req.file.filename, res.locals.hostname, dataid],
       (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -180,7 +180,7 @@ exports.admin_staff_post = async (req, res) => {
   sqlmap.query(
       `INSERT INTO staff (domain, name, position, gender, index_number, staff_id, age, email, phone, address, joining_date, image)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [req.cookies["hostname"], name, position, gender, index_number, staff_id, age, email, phone, address, joining_date, avatar_png],
+      [res.locals.hostname, name, position, gender, index_number, staff_id, age, email, phone, address, joining_date, avatar_png],
       (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -198,7 +198,7 @@ exports.admin_staff_penbox_pull = (req, res) => {
 
     sqlmap.query(
         `SELECT * FROM staff WHERE domain=? AND ID=?`,
-        [req.cookies["hostname"], dataid],
+        [res.locals.hostname, dataid],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -212,7 +212,7 @@ exports.admin_staff_penbox_pull = (req, res) => {
             <div class='pt-2 pb-2 bg-card-color-light d-flex justify-content-center'>
                 <div>
                     <span class="avatar-append">
-                        <img style="width: 100px; height: 100px" class="avatar-circle bg-card-color shadowx" src="/image/staff/resized/${info[0].image}" alt="">
+                        <img style="width: 100px; height: 100px" class="avatar-circle bg-card-color shadowx" src="/assets/images/staff/resized/${info[0].image}" alt="">
                     </span>
                     <label title="Change profile" class="btn btn-link">
                         <i class="bi bi-pen fs-5"></i>
@@ -325,7 +325,7 @@ exports.admin_staff_penbox_push = (req, res) => {
 
   sqlmap.query(
       `UPDATE staff SET name=?, position=?, index_number=?, gender=?, age=?, email=?, phone=?, address=?, joining_date=? WHERE domain=? AND ID=?`,
-      [name, position, index_number, gender, age, email, phone, address, joining_date, req.cookies["hostname"], dataid],
+      [name, position, index_number, gender, age, email, phone, address, joining_date, res.locals.hostname, dataid],
       (err, update) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -350,7 +350,7 @@ exports.admin_staff_rm = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM staff WHERE domain=? AND ID IN (?)`,
-      [req.cookies["hostname"], dataid],
+      [res.locals.hostname, dataid],
       (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
@@ -359,7 +359,7 @@ exports.admin_staff_rm = (req, res) => {
 
           sqlmap.query(
               `DELETE FROM staff WHERE domain=? AND ID IN (?)`,
-              [req.cookies["hostname"], dataid],
+              [res.locals.hostname, dataid],
               (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -368,7 +368,7 @@ exports.admin_staff_rm = (req, res) => {
 
                   for (const index in findInfo) {
                       if (findInfo[index].image !== 'male_avatar.png' && findInfo[index].image !== 'female_avatar.png') {
-                          fs.unlink(`./public/image/staff/resized/${findInfo[index].image}`, function (errDelete) {
+                          fs.unlink(`./assets/${res.locals.hostname}/images/staff/resized/${findInfo[index].image}`, function (errDelete) {
                               if (errDelete) {
                                   console.log(errDelete + "_" + "Data Deleted! Not found file!");
                               }

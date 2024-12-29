@@ -10,7 +10,7 @@ exports.admin_repository_post= async(req, res)=>{
     for (let index = 0; index < req.files.length; index++) {
       sqlmap.query(
           `INSERT INTO repository (domain, dataid, datatype, title, e_date, description, image) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-          [req.cookies["hostname"], dataid, datatype, title, e_date, description, req.files[index].filename],
+          [res.locals.hostname, dataid, datatype, title, e_date, description, req.files[index].filename],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);
@@ -29,7 +29,7 @@ res.send({msg: 'Post successfully!', alert: 'success'})
 
 exports.admin_repository_get= (req, res)=>{
   const {datatype}= req.body;
-  sqlmap.query(`SELECT * FROM repository WHERE domain=? AND datatype=? GROUP BY dataid ORDER BY e_date DESC`, [req.cookies["hostname"], datatype], (err, info)=>{
+  sqlmap.query(`SELECT * FROM repository WHERE domain=? AND datatype=? GROUP BY dataid ORDER BY e_date DESC`, [res.locals.hostname, datatype], (err, info)=>{
         if(info.length>0){
 
       let tabledata= '';
@@ -42,7 +42,7 @@ exports.admin_repository_get= (req, res)=>{
                 <td class="p-3"> <input class="shadowx checkout form-check-input" type="checkbox" value="${info[index].dataid}" name="dataid[]" id=""></td>
                 <td class="fw-semibold text-muted">
 
-                  <img class="shadowx" style="width: 60px; height: 40px;" src="/image/repository/resized/${info[index].image}" alt="">
+                  <img class="shadowx" style="width: 60px; height: 40px;" src="/assets/images/repository/resized/${info[index].image}" alt="">
                 
                 </td>
 
@@ -81,7 +81,7 @@ exports.admin_repository_update_page = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND datatype=? AND dataid=?`,
-      [req.cookies["hostname"], datatype, dataid],
+      [res.locals.hostname, datatype, dataid],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -104,7 +104,7 @@ exports.admin_repository_rm = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND dataid IN (?)`,
-      [req.cookies["hostname"], dataid],
+      [res.locals.hostname, dataid],
       (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
@@ -113,7 +113,7 @@ exports.admin_repository_rm = (req, res) => {
 
           sqlmap.query(
               `DELETE FROM repository WHERE domain=? AND dataid IN (?)`,
-              [req.cookies["hostname"], dataid],
+              [res.locals.hostname, dataid],
               (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -121,7 +121,7 @@ exports.admin_repository_rm = (req, res) => {
                   }
 
                   for (const index in findInfo) {
-                      fs.unlink(`./public/image/repository/resized/${findInfo[index].image}`, function (errDelete) {
+                      fs.unlink(`./assets/${res.locals.hostname}/images/repository/resized/${findInfo[index].image}`, function (errDelete) {
                           if (errDelete) {
                               console.log(errDelete + "_" + "Data Deleted! Not found file!");
                           }
@@ -146,7 +146,7 @@ exports.admin_repository_img_rm = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND ID IN (?)`,
-      [req.cookies["hostname"], dataid],
+      [res.locals.hostname, dataid],
       (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
@@ -155,7 +155,7 @@ exports.admin_repository_img_rm = (req, res) => {
 
           sqlmap.query(
               `DELETE FROM repository WHERE domain=? AND ID IN (?)`,
-              [req.cookies["hostname"], dataid],
+              [res.locals.hostname, dataid],
               (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -163,7 +163,7 @@ exports.admin_repository_img_rm = (req, res) => {
                   }
 
                   for (const index in findInfo) {
-                      fs.unlink(`./public/image/repository/resized/${findInfo[index].image}`, function (errDelete) {
+                      fs.unlink(`./assets/${res.locals.hostname}/images//repository/resized/${findInfo[index].image}`, function (errDelete) {
                           if (errDelete) {
                               console.log(errDelete + "_" + "Data Deleted! Not found file!");
                           }
@@ -183,7 +183,7 @@ exports.admin_repository_update_post = (req, res) => {
 
   sqlmap.query(
       `UPDATE repository SET title=?, e_date=?, description=? WHERE domain=? AND dataid=?`,
-      [title, e_date, description, req.cookies["hostname"], dataid],
+      [title, e_date, description, res.locals.hostname, dataid],
       (err, update) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -204,7 +204,7 @@ exports.admin_repository_img_update_post= async(req, res)=>{
     for (let index = 0; index < req.files.length; index++) {
       sqlmap.query(
           `INSERT INTO repository (domain, dataid, datatype, title, e_date, description, image) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-          [req.cookies["hostname"], dataid, datatype, title, e_date, description, req.files[index].filename],
+          [res.locals.hostname, dataid, datatype, title, e_date, description, req.files[index].filename],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);
@@ -224,7 +224,7 @@ res.send({msg: 'Update successfully!', alert: 'success'})
 exports.public_facilities_page = (req, res) => {
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND datatype=? GROUP BY dataid ORDER BY ID DESC`,
-      [req.cookies["hostname"], 'facilities'],
+      [res.locals.hostname, 'facilities'],
       (err, info_f) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -241,7 +241,7 @@ exports.public_facilities_view = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND datatype=? AND ID=?`,
-      [req.cookies["hostname"], 'facilities', dataid],
+      [res.locals.hostname, 'facilities', dataid],
       (err, info_f) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -257,7 +257,7 @@ exports.public_facilities_view = (req, res) => {
 exports.public_achievement_page = (req, res) => {
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND datatype=? GROUP BY dataid ORDER BY ID DESC`,
-      [req.cookies["hostname"], 'achievement'],
+      [res.locals.hostname, 'achievement'],
       (err, info_a) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -274,7 +274,7 @@ exports.public_achievement_view = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND datatype=? AND ID=?`,
-      [req.cookies["hostname"], 'achievement', dataid],
+      [res.locals.hostname, 'achievement', dataid],
       (err, info_a) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -292,7 +292,7 @@ exports.public_eventnews_page = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND datatype=? GROUP BY dataid ORDER BY ID DESC`,
-      [req.cookies["hostname"], 'eventnews'],
+      [res.locals.hostname, 'eventnews'],
       (err, info_e) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -309,7 +309,7 @@ exports.public_eventnews_view = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM repository WHERE domain=? AND datatype=? AND ID=?`,
-      [req.cookies["hostname"], 'eventnews', dataid],
+      [res.locals.hostname, 'eventnews', dataid],
       (err, info_e) => {
           if (err) {
               console.log(err.sqlMessage);

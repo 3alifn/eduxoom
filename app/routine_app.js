@@ -13,7 +13,7 @@ exports.admin_routine_post = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM routine WHERE domain=? AND class=? AND day=? AND subject=? AND period_table=?`,
-      [req.cookies["hostname"], class_name, day_name, subject_name, periodTableX],
+      [res.locals.hostname, class_name, day_name, subject_name, periodTableX],
       (checkErr, checkInfo) => {
           if (checkErr) {
               console.log(checkErr.sqlMessage);
@@ -23,7 +23,7 @@ exports.admin_routine_post = (req, res) => {
           if (checkInfo.length == 0) {
               sqlmap.query(
                   `SELECT * FROM teachers WHERE domain=? AND teacher_uuid=?`,
-                  [req.cookies["hostname"], teacher_uuid],
+                  [res.locals.hostname, teacher_uuid],
                   (errT, infoT) => {
                       if (errT) {
                           console.log(errT.sqlMessage);
@@ -33,7 +33,7 @@ exports.admin_routine_post = (req, res) => {
                       sqlmap.query(
                           `INSERT INTO routine (domain, session, class, section, day, period_table, subject, period_time, teacher_name, teacher_uuid, teacher_avatar) 
                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                          [req.cookies["hostname"], session, class_name, section_name, day_name, periodTableX, subject_name, periodTime, infoT[0].name, infoT[0].teacher_uuid, infoT[0].avatar],
+                          [res.locals.hostname, session, class_name, section_name, day_name, periodTableX, subject_name, periodTime, infoT[0].name, infoT[0].teacher_uuid, infoT[0].avatar],
                           (err, next) => {
                               if (err) {
                                   console.log(err.sqlMessage);
@@ -61,7 +61,7 @@ exports.admin_routine_get = (req, res) => {
   console.log(req.body);
   sqlmap.query(
       `SELECT * FROM routine WHERE domain=? AND class=? AND section=? AND day=? ORDER BY period_table`,
-      [req.cookies["hostname"], class_name, section_name, day_name],
+      [res.locals.hostname, class_name, section_name, day_name],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -79,7 +79,7 @@ exports.admin_routine_get = (req, res) => {
                         <div class="d-flex flex-column ps-2 pe-2 justify-content-center align-items-center fw-semibold">
                         <span class="badge mt-1 bg-card-color float-start" style="width: max-content;">${info[index].class} - ${info[index].section}</span>
                         <span class="bg-light rounded m-1 ps-2 pe-2 fw-semibold "> ${info[index].day} - ${info[index].period_table} - ${info[index].period_time}</span>
-                         <img class="avatar-circle ms-2 mb-2 bg-card-color-light" style="width: 60px; height: 60px;" src="/image/teacher/resized/${info[index].teacher_avatar}" alt="">
+                         <img class="avatar-circle ms-2 mb-2 bg-card-color-light" style="width: 60px; height: 60px;" src="/assets/images/teacher/resized/${info[index].teacher_avatar}" alt="">
                          <p class="flex-fill pe-2 ps-2 rounded shadowx text-dark fs-6 m-1 bg-light"> ${info[index].teacher_name}</p>
                         </div>
                   
@@ -116,7 +116,7 @@ exports.admin_routine_rm = (req, res) => {
   } else {
       sqlmap.query(
           `DELETE FROM routine WHERE domain=? AND ID IN (?)`,
-          [req.cookies["hostname"], dataid],
+          [res.locals.hostname, dataid],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);
@@ -135,7 +135,7 @@ exports.admin_routine_rm = (req, res) => {
 exports.public_routine_get = (req, res) => {
   const { class_name, day_name } = req.query;
   const sql = `SELECT * FROM routine WHERE domain=? AND class=? AND day=? GROUP BY period_table ORDER BY period_table`;
-  sqlmap.query(sql, [req.cookies["hostname"], class_name, day_name], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, class_name, day_name], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -146,7 +146,7 @@ exports.public_routine_get = (req, res) => {
           for (let index = 0; index < info.length; index++) {
               sqlmap.query(
                   `SELECT * FROM routine WHERE domain=? AND class=? AND day=? AND period_table=? GROUP BY section ORDER BY section`,
-                  [req.cookies["hostname"], class_name, day_name, info[index].period_table],
+                  [res.locals.hostname, class_name, day_name, info[index].period_table],
                   (err_s, info_s) => {
                       if (err_s) {
                           console.log(err_s.sqlMessage);
@@ -166,7 +166,7 @@ exports.public_routine_get = (req, res) => {
                               <div class="card bg-card-color-light p-2 ">
                                   <span class="badge ms-2 mt-1 bg-card-color float-start" style="width: max-content;">${info_s[i].class} - ${info_s[i].section}</span>
                                   <div class="d-flex flex-column ps-2 pt-2 pe-2 justify-content-center align-items-center fw-semibold">
-                                      <img class="avatar-circle bg-card-color-light" style="width: 90px; height: 90px;" src="/image/teacher/resized/${info_s[i].teacher_avatar}" alt="">
+                                      <img class="avatar-circle bg-card-color-light" style="width: 90px; height: 90px;" src="/assets/images/teacher/resized/${info_s[i].teacher_avatar}" alt="">
                                       <p class="flex-fill pe-2 ps-2 rounded-0 bg-light text-primary fs-6 m-1 ">${info_s[i].teacher_name}</p>
                                   </div>
                                   <div class="d-flex ps-2 pe-2 flex-wrap fw-semibold justify-content-center">
@@ -223,7 +223,7 @@ exports.admin_subject_dynamic_get = (req, res) => {
 exports.admin_teacher_dynamic_get = (req, res) => {
   sqlmap.query(
       `SELECT * FROM teachers WHERE domain=? ORDER BY name`,
-      [req.cookies["hostname"]],
+      [res.locals.hostname],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);

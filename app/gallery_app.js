@@ -8,7 +8,7 @@ exports.admin_carousel_post= async(req, res)=>{
       for (let index = 0; index < req.files.length; index++) {
         sqlmap.query(
             `INSERT INTO carousel (domain, item_name) VALUES (?, ?)`,
-            [req.cookies["hostname"], req.files[index].filename],
+            [res.locals.hostname, req.files[index].filename],
             (err, next) => {
                 if (err) {
                     console.log(err.sqlMessage);
@@ -42,7 +42,7 @@ exports.admin_gallery_image_post= async(req, res, next)=>{
    for (const file of files){
     await globalSqlUpoader(
         `INSERT INTO gallery (domain, item_type, item_title, item_name, data_id) VALUES (?, ?, ?, ?, ?)` 
-        ,[req.cookies["hostname"], 'image', req.body.item_title, file.filename, Math.random() * 900000000]
+        ,[res.locals.hostname, 'image', req.body.item_title, file.filename, Math.random() * 900000000]
     )
    }
 
@@ -62,7 +62,7 @@ exports.admin_gallery_image_data_post= async (req, res)=>{
     for (let index = 0; index < req.files.length; index++) {
       sqlmap.query(
           `INSERT INTO gallery (domain, item_type, item_title, item_name, data_id) VALUES (?, ?, ?, ?, ?)`,
-          [req.cookies["hostname"], 'image', item_title, req.files[index].filename, dataid],
+          [res.locals.hostname, 'image', item_title, req.files[index].filename, dataid],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);
@@ -79,7 +79,7 @@ exports.admin_gallery_image_data_post= async (req, res)=>{
 exports.public_gallery_image_get = (req, res) => {
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? GROUP BY data_id ORDER BY ID DESC`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], 'image'], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, 'image'], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -99,7 +99,7 @@ exports.public_gallery_image_data_get = (req, res) => {
   const { dataid } = req.params;
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? AND data_id=? ORDER BY ID DESC`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], 'image', dataid], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, 'image', dataid], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -119,7 +119,7 @@ exports.public_gallery_image_data_get = (req, res) => {
 exports.public_gallery_video_get = (req, res) => {
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? GROUP BY data_id ORDER BY ID DESC`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], 'video'], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, 'video'], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -140,7 +140,7 @@ exports.public_gallery_video_data_get = (req, res) => {
   const { dataid } = req.params;
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? AND data_id=? ORDER BY ID DESC`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], 'video', dataid], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, 'video', dataid], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -167,14 +167,14 @@ exports.public_gallery_video_data_get = (req, res) => {
 exports.admin_carousel_get = (req, res) => {
   const sql = `SELECT * FROM carousel WHERE domain=? ORDER BY ID DESC`;
 
-  sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname], (err, info) => {
       if (info.length > 0) {
           let listData = '';
 
           for (const index in info) {
               listData += `
               <div class="flex-fill flex-md-grow-0" style="width: 220px; height: 200px; position: relative;">
-                  <img class="h-100 w-100 bg-card-color-light" src="/image/carousel/resized/${info[index].item_name}" alt="">
+                  <img class="h-100 w-100 bg-card-color-light" src="/assets/images/carousel/resized/${info[index].item_name}" alt="">
                   <span style="position: absolute; top: 1px; left:1px" onclick='_delbox_pull(${info[index].ID})' class='btn bi bi-trash-fill bg-light shadowx text-primary fw-semibold'></span>
               </div>`;
           }
@@ -194,7 +194,7 @@ exports.admin_carousel_rm = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM carousel WHERE domain=? AND ID=?`,
-      [req.cookies["hostname"], dataid],
+      [res.locals.hostname, dataid],
       (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
@@ -203,7 +203,7 @@ exports.admin_carousel_rm = (req, res) => {
 
           sqlmap.query(
               `DELETE FROM carousel WHERE domain=? AND ID=?`,
-              [req.cookies["hostname"], dataid],
+              [res.locals.hostname, dataid],
               (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -211,7 +211,7 @@ exports.admin_carousel_rm = (req, res) => {
                   }
 
                   for (const index in findInfo) {
-                      fs.unlink(`./public/image/carousel/resized/${findInfo[index].item_name}`, function (errDelete) {
+                      fs.unlink(`./assets/${res.locals.hostname}/images/carousel/resized/${findInfo[index].item_name}`, function (errDelete) {
                           if (errDelete) {
                               console.log(errDelete + "_Data Deleted! Not found file!");
                           }
@@ -231,7 +231,7 @@ exports.admin_carousel_rm = (req, res) => {
 exports.admin_gallery_image_get = (req, res) => {
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? GROUP BY data_id ORDER BY ID DESC`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], 'image'], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, 'image'], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -269,7 +269,7 @@ exports.admin_gallery_image_delete = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM gallery WHERE domain=? AND data_id IN (?)`,
-      [req.cookies["hostname"], dataid],
+      [res.locals.hostname, dataid],
       (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
@@ -278,7 +278,7 @@ exports.admin_gallery_image_delete = (req, res) => {
 
           sqlmap.query(
               `DELETE FROM gallery WHERE domain=? AND data_id IN (?)`,
-              [req.cookies["hostname"], dataid],
+              [res.locals.hostname, dataid],
               (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -286,7 +286,7 @@ exports.admin_gallery_image_delete = (req, res) => {
                   }
 
                   for (const index in findInfo) {
-                      fs.unlink(`./public/image/gallery/resized/${findInfo[index].item_name}`, function (errDelete) {
+                      fs.unlink(`./assets/${res.locals.hostname}/images/gallery/resized/${findInfo[index].item_name}`, function (errDelete) {
                           if (errDelete) {
                               console.log(errDelete + "_Data Deleted! Not found file!");
                           }
@@ -307,7 +307,7 @@ exports.admin_gallery_image_data_get = (req, res) => {
   const { dataid } = req.body;
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? AND data_id=? ORDER BY ID DESC`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], 'image', dataid], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, 'image', dataid], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -319,7 +319,7 @@ exports.admin_gallery_image_data_get = (req, res) => {
           for (let index = 0; index < info.length; index++) {
               listData += `
               <div class="flex-fill flex-md-grow-0" style="width: 220px; height: 200px; position: relative;">
-                  <img class="h-100 w-100 bg-card-color-light jbox-img" src="/image/gallery/resized/${info[index].item_name}" alt="">
+                  <img class="h-100 w-100 bg-card-color-light jbox-img" src="/assets/images/gallery/resized/${info[index].item_name}" alt="">
                   <input class='shadowx p-2 m-1 form-check-input' style="position: absolute; top: 1px; left:1px" value='${info[index].ID}' type="checkbox" name="dataid[]">
               </div>`;
           }
@@ -336,7 +336,7 @@ exports.admin_gallery_image_data_delete = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM gallery WHERE domain=? AND ID IN (?)`,
-      [req.cookies["hostname"], dataid],
+      [res.locals.hostname, dataid],
       (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
@@ -345,7 +345,7 @@ exports.admin_gallery_image_data_delete = (req, res) => {
 
           sqlmap.query(
               `DELETE FROM gallery WHERE domain=? AND ID IN (?)`,
-              [req.cookies["hostname"], dataid],
+              [res.locals.hostname, dataid],
               (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -353,7 +353,7 @@ exports.admin_gallery_image_data_delete = (req, res) => {
                   }
 
                   for (const index in findInfo) {
-                      fs.unlink(`./public/image/gallery/resized/${findInfo[index].item_name}`, function (errDelete) {
+                      fs.unlink(`./assets/${res.locals.hostname}/images/gallery/resized/${findInfo[index].item_name}`, function (errDelete) {
                           if (errDelete) {
                               console.log(errDelete + "_Data Deleted! Not found file!");
                           }
@@ -378,7 +378,7 @@ exports.admin_gallery_video_post = (req, res) => {
   for (let index = 0; index < item_link.length; index++) {
       sqlmap.query(
           `INSERT INTO gallery (domain, item_type, item_title, item_name, data_id) VALUES (?, ?, ?, ?, ?)`,
-          [req.cookies["hostname"], 'video', item_title, item_link[index].replaceAll("/watch?v=", "/embed/").replaceAll("//youtu.be/", "//youtube.com/embed/"), dataid],
+          [res.locals.hostname, 'video', item_title, item_link[index].replaceAll("/watch?v=", "/embed/").replaceAll("//youtu.be/", "//youtube.com/embed/"), dataid],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);
@@ -399,7 +399,7 @@ exports.admin_gallery_video_data_post = (req, res) => {
   for (let index = 0; index < item_link.length; index++) {
       sqlmap.query(
           `INSERT INTO gallery (domain, item_type, item_title, item_name, data_id) VALUES (?, ?, ?, ?, ?)`,
-          [req.cookies["hostname"], 'video', item_title, item_link[index].replaceAll("/watch?v=", "/embed/").replaceAll("//youtu.be/", "//youtube.com/embed/"), dataid],
+          [res.locals.hostname, 'video', item_title, item_link[index].replaceAll("/watch?v=", "/embed/").replaceAll("//youtu.be/", "//youtube.com/embed/"), dataid],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);
@@ -416,7 +416,7 @@ exports.admin_gallery_video_data_post = (req, res) => {
 exports.admin_gallery_video_get = (req, res) => {
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? GROUP BY data_id ORDER BY ID DESC`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], 'video'], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, 'video'], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -444,7 +444,7 @@ exports.admin_gallery_video_data_get = (req, res) => {
   const { dataid } = req.body;
   const sql = `SELECT * FROM gallery WHERE domain=? AND item_type=? AND data_id=? ORDER BY ID DESC`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], 'video', dataid], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, 'video', dataid], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -473,7 +473,7 @@ exports.admin_gallery_video_data_get = (req, res) => {
 
   sqlmap.query(
       `DELETE FROM gallery WHERE domain=? AND data_id IN (?)`,
-      [req.cookies["hostname"], dataid],
+      [res.locals.hostname, dataid],
       (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -492,7 +492,7 @@ exports.admin_gallery_video_data_delete = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM gallery WHERE domain=? AND ID IN (?)`,
-      [req.cookies["hostname"], dataid],
+      [res.locals.hostname, dataid],
       (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
@@ -501,7 +501,7 @@ exports.admin_gallery_video_data_delete = (req, res) => {
 
           sqlmap.query(
               `DELETE FROM gallery WHERE domain=? AND ID IN (?)`,
-              [req.cookies["hostname"], dataid],
+              [res.locals.hostname, dataid],
               (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);

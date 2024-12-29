@@ -20,7 +20,7 @@ const { public_staff_page, public_staff_profile_get } = require("../app/staff_ap
 const { admin_achievement_page, public_achievement_view, public_eventnews_page, public_eventnews_view, admin_facilities_view, public_facilities_view, public_achievement_page, public_facilities_page } = require("../app/repository")
 const {pu_attn_checkout_webapi_present, pu_attn_checkout_logs, pu_attn_checkout_webapi_absent_student, pu_attn_checkout_webapi_absent_staff, pu_attn_checkout_webapi_absent_teacher } = require("../app/attn_api_app")
 const public= express.Router()
-const {globalMulterUploader, globalSharpReducer}= require("./uploader_middleware")
+const {globalMulterUploader, globalSharpReducer}= require("../middlewares/uploaderMiddleware")
 
 // test router system......
 
@@ -128,8 +128,8 @@ public.get("/join/parent", (req, res)=>{
 
     
 //   admission router......
-const multerUploaderAdmissionImg = globalMulterUploader({name: ['single', 'image'], path: "./public/docs/admission/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
-const multerUploaderAdmissionPdf = globalMulterUploader({name: ['single', 'attachment'], path: "./public/docs/admission/resized/", size: 500 * 1024, filter: ["image/png", "image/jpeg", "application/pdf"] });
+const multerUploaderAdmissionImg = globalMulterUploader({name: ['single', 'image'], path: "/docs/admission/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderAdmissionPdf = globalMulterUploader({name: ['single', 'attachment'], path: "/docs/admission/resized/", size: 500 * 1024, filter: ["image/png", "image/jpeg", "application/pdf"] });
 const sharpReducerAdmission = globalSharpReducer({ quality: 50})
 
 public.get("/admission/step1", public_admission_step1)

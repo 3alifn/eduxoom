@@ -21,7 +21,7 @@ const { admin_dashboard_tsa_lookup } = require("../app/dashboard_app")
 const { admin_staff_get, admin_staff_post, multer_upload_staff, admin_staff_rm, admin_staff_penbox_pull, admin_staff_penbox_push, admin_staff_img_post } = require("../app/staff_app")
 const { admin_pi_transcript_report_checkout, admin_result_report_student_get, admin_result_report_get } = require('../app/pi_app')
 const { result_marksheet_pull_page, result_marksheet_pull_print } = require('../app/result_app')
-const {globalMulterUploader, globalSharpReducer}= require("./uploader_middleware")
+const {globalMulterUploader, globalSharpReducer}= require("../middlewares/uploaderMiddleware")
 const admin= express.Router()
 
 admin.get("/panel", (req, res)=>{
@@ -50,7 +50,7 @@ admin.all('*', (req, res, next)=>{
 admin.post('/dashboard/tsa/lookup/', admin_dashboard_tsa_lookup)
 
 // setup school-settings.........
-const multerUploaderSchool = globalMulterUploader({name: ['single', 'image'], path: "./public/image/school/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderSchool = globalMulterUploader({name: ['single', 'image'], path: "/images/school/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerSchool = globalSharpReducer({ quality: 50})
 admin.get('/setup/class-section', (req, res)=>{
   res.render('admin/class_section_page')
@@ -82,7 +82,7 @@ admin.post('/result/marksheet-pull-print/', result_marksheet_pull_print)
 
 
 // repository settings..
-const multerUploaderRepo = globalMulterUploader({ path: "./public/image/repository/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderRepo = globalMulterUploader({ path: "/images/repository/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerRepo = globalSharpReducer({ quality: 50})
 
 admin.get('/setup/eventnews/', (req, res)=>{
@@ -107,7 +107,7 @@ admin.post('/repository/img/update/post/',multerUploaderRepo, sharpReducerRepo, 
 
 
 // setup headofschool
-const multerUploaderH = globalMulterUploader({name: ['single', 'image'], path: "./public/image/headofschool/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderH = globalMulterUploader({name: ['single', 'image'], path: "/images/headofschool/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerH = globalSharpReducer({ quality: 50})
 admin.get('/setup/headofschool/', (req, res)=>{
   res.render('admin/headofschool')
@@ -119,7 +119,7 @@ admin.post('/headofschool/update/', multerUploaderH, sharpReducerH, headofschool
 
 
 // setup staff settings
-const multerUploaderStaff = globalMulterUploader({name: ['single', 'image'], path: "./public/image/staff/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderStaff = globalMulterUploader({name: ['single', 'image'], path: "/images/staff/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerStaff = globalSharpReducer({ quality: 50})
 admin.get('/setup/staff/page', (req, res)=>{
   res.render('admin/staff_page')
@@ -188,7 +188,7 @@ admin.post("/email/update", admin_app.self_email_update)
 
 // gallery image router..........
 
-const multerUploaderGallery = globalMulterUploader({ path: "./public/image/gallery/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderGallery = globalMulterUploader({ path: "/images/gallery/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerGallery = globalSharpReducer({ quality: 50})
 
 admin.get("/gallery/image/page", (req, res)=>{
@@ -235,7 +235,7 @@ admin.post('/gallery/video/data/get', admin_gallery_video_data_get)
 
 
 // carousel router.........
-const multerUploaderCarousel = globalMulterUploader({ path: "./public/image/carousel/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderCarousel = globalMulterUploader({ path: "/images/carousel/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerCarousel = globalSharpReducer({ quality: 50})
 admin.get("/carousel/page", (req, res)=>{
   res.render("admin/carousel_page")
@@ -251,7 +251,7 @@ admin.post('/carousel/rm', admin_carousel_rm)
 
 
 // teacher router.........
-const multerUploaderTeacher = globalMulterUploader({name: ['single', 'image'], path: "./public/image/teacher/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderTeacher = globalMulterUploader({name: ['single', 'image'], path: "/images/teacher/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerTeacher = globalSharpReducer({ quality: 50})
 admin.post("/teacher/get/pull", admin_teacher_get)
 admin.post("/setup/teacher/post/", multerUploaderTeacher, sharpReducerTeacher, admin_teacher_post)
@@ -266,7 +266,7 @@ admin.post('/teacher/img/post', multerUploaderTeacher, sharpReducerTeacher, admi
 
 
 // student router..........
-const multerUploaderStudent = globalMulterUploader({name: ['single', 'image'], path: "./public/image/student/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderStudent = globalMulterUploader({name: ['single', 'image'], path: "/images/student/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerStudent = globalSharpReducer({ quality: 50})
 admin.get("/student/page", (req, res)=>{
   res.render("admin/student_page", {msg: req.flash('msg'), alert: req.flash('alert')})
@@ -319,7 +319,7 @@ admin.get('/application/download', admin_application_download)
 
 
 // // library router...........
-const multerUploaderLib = globalMulterUploader({name: ['single', 'image'], path: "./public/image/library/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderLib = globalMulterUploader({name: ['single', 'image'], path: "/images/library/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerLib = globalSharpReducer({ quality: 50})
 
 admin.get("/library/page", (req, res)=>{
@@ -373,7 +373,7 @@ admin.post("/admission/reject", admin_admission_reject)
 
 
 // // notice board router.....
-const multerUploaderNotice = globalMulterUploader({name: ['single', 'attachment'], path: "./public/docs/notice/resized/", size: 500 * 1024, filter: ["image/png", "image/jpeg", 'application/pdf'] });
+const multerUploaderNotice = globalMulterUploader({name: ['single', 'attachment'], path: "/docs/notice/resized/", size: 500 * 1024, filter: ["image/png", "image/jpeg", 'application/pdf'] });
 const sharpReducerNotice = globalSharpReducer({ quality: 50})
 
 admin.get("/notice/page", (req, res)=>{

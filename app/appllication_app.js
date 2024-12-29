@@ -10,12 +10,12 @@ if(req.file) var attachmentApplication= req.file.filename;
 else var attachmentApplication= "demo.pdf"
 
 
-sqlmap.query(`SELECT * FROM students WHERE domain=? AND  student_uuid=?`,[req.cookies["hostname"], student_uuid ], (errMain, infoMain)=>{
+sqlmap.query(`SELECT * FROM students WHERE domain=? AND  student_uuid=?`,[res.locals.hostname, student_uuid ], (errMain, infoMain)=>{
 if(errMain) console.log(errMain.sqlMessage+"+++");
 
   sqlmap.query( `INSERT INTO application ( session, domain, subject, comment, attachment, name, student_uuid, roll, class, section, avatar ) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
-    [ session, req.cookies["hostname"], subject, comment, attachmentApplication, infoMain[0].name, infoMain[0].student_uuid, infoMain[0].roll, infoMain[0].class, infoMain[0].section, infoMain[0].avatar ],
+    [ session, res.locals.hostname, subject, comment, attachmentApplication, infoMain[0].name, infoMain[0].student_uuid, infoMain[0].roll, infoMain[0].class, infoMain[0].section, infoMain[0].avatar ],
 
     (err, data)=> {
 
@@ -40,7 +40,7 @@ exports.student_application_get = (req,res)=>{
   let student_uuid= req.session.student_uuid
   const session= new Date().getUTCFullYear();
 
-sqlmap.query(`SELECT * FROM  application WHERE domain=? AND  student_uuid=? ORDER BY ID DESC`,[req.cookies["hostname"], student_uuid],(err,info)=>{
+sqlmap.query(`SELECT * FROM  application WHERE domain=? AND  student_uuid=? ORDER BY ID DESC`,[res.locals.hostname, student_uuid],(err,info)=>{
   if(err) console.log(err.sqlMessage);
 
 
@@ -84,13 +84,13 @@ exports.admin_application_download= (req, res)=>{
 let ID=  req.query.id
 
 
-sqlmap.query(`SELECT attachment FROM  application WHERE domain=? AND  ID=?`,[req.cookies["hostname"], ID], (err, info)=>{
+sqlmap.query(`SELECT attachment FROM  application WHERE domain=? AND  ID=?`,[res.locals.hostname, ID], (err, info)=>{
 
 if(err) res.send({msg: "Attachment Not Found!"})
 
 else
 {
-res.download(`./public/docs/application/${info[0].attachment}`)
+res.download(`./assets/${res.locals.hostname}/docs/application/${info[0].attachment}`)
 }
 })
 
@@ -104,13 +104,13 @@ exports.student_application_download= (req, res)=>{
 let ID=  req.query.id
 
 
-sqlmap.query(`SELECT attachment FROM  application WHERE domain=? AND  ID=?`,[req.cookies["hostname"], ID], (err, info)=>{
+sqlmap.query(`SELECT attachment FROM  application WHERE domain=? AND  ID=?`,[res.locals.hostname, ID], (err, info)=>{
 
 if(err) res.send({msg: "Attachment Not Found!"})
 
 else
 {
-res.download(`./public/docs/application/${info[0].attachment}`)
+res.download(`./assets/${res.locals.hostname}/docs/application/${info[0].attachment}`)
 }
 })
 
@@ -122,7 +122,7 @@ res.download(`./public/docs/application/${info[0].attachment}`)
 
 exports.admin_application_get= (req,res)=>{
 
-sqlmap.query(`SELECT * FROM  application WHERE domain=? ORDER BY ID DESC`,[req.cookies["hostname"]],(err,info)=>{
+sqlmap.query(`SELECT * FROM  application WHERE domain=? ORDER BY ID DESC`,[res.locals.hostname],(err,info)=>{
   if(err) console.log(err.sqlMessage);
 
 
@@ -135,7 +135,7 @@ sqlmap.query(`SELECT * FROM  application WHERE domain=? ORDER BY ID DESC`,[req.c
 
            <li class="list-group-item mt-1 list-group-item-secondary"><a class=" btn-link text-dark page-link" href="/admin/application/download?id=${info[i].ID}">${info[i].subject} <span class="badge bg-light text-danger">${info[i].at_date.toString().substring(0, 25)}</span></a> 
            <br>
-           <img src="/image/student/resized/${info[0].avatar}" height="40px" class=" rounded"  width="40px" alt="404"> <br>
+           <img src="/assets/images/student/resized/${info[0].avatar}" height="40px" class=" rounded"  width="40px" alt="404"> <br>
     
    
            <span class=" badge bg-light text-dark">${info[0].class} - ${info[0].section}</span>
@@ -176,7 +176,7 @@ sqlmap.query(`SELECT * FROM  application WHERE domain=? ORDER BY ID DESC`,[req.c
 exports.admin_application_replay= (req, res)=>{
 
 let {ID, replay}= req.body;
-sqlmap.query(`UPDATE  application SET replay=? WHERE domain=? AND  ID=?`,[replay, req.cookies["hostname"], ID], (err, next)=>{
+sqlmap.query(`UPDATE  application SET replay=? WHERE domain=? AND  ID=?`,[replay, res.locals.hostname, ID], (err, next)=>{
 req.flash("alert", "success")
 req.flash("msg", "Replay Sent!")
 if(err) console.log(err.sqlMessage);

@@ -43,7 +43,7 @@
 
       <% if (info[0].attachment_type == 'application/pdf') { %>
         <object 
-          data="/docs/notice/resized/<%= info[0].attachment %>"
+          data="/assets/docs/notice/resized/<%= info[0].attachment %>"
           type="application/pdf"
           width="100%"
           height="600px"
@@ -51,8 +51,8 @@
         </object>
       <% } else { %>
         <div class="col-12 col-md-5 p-1 p-2">
-          <a download="<%= info[0].attachment %>" href="/docs/notice/resized/<%= info[0].attachment %>">
-            <img width="100%" height="300px" class="p-2 img-thumbnail bg-card-color-light append-image" src="/docs/notice/resized/<%= info[0].attachment %>" alt="">
+          <a download="<%= info[0].attachment %>" href="/assets/docs/notice/resized/<%= info[0].attachment %>">
+            <img width="100%" height="300px" class="p-2 img-thumbnail bg-card-color-light append-image" src="/assets/docs/notice/resized/<%= info[0].attachment %>" alt="">
           </a>
         </div>
       <% } %>

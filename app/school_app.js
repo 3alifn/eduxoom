@@ -11,7 +11,7 @@ module.exports = {
         
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=?`,
-            [req.cookies["hostname"]],
+            [res.locals.hostname],
             (err, info) => {
                 if (err) {
                     console.log(err.sqlMessage);
@@ -28,7 +28,7 @@ module.exports = {
         
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=?`,
-            [req.cookies["hostname"]],
+            [res.locals.hostname],
             (err, info) => {
                 if (err) {
                     console.log(err.sqlMessage);
@@ -45,7 +45,7 @@ module.exports = {
 
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=? ORDER BY ID DESC LIMIT 1`,
-            [req.cookies["hostname"]],
+            [res.locals.hostname],
             (err, info) => {
                 if (err) {
                     console.log(err.sqlMessage);
@@ -64,7 +64,7 @@ module.exports = {
         const { eiin, name, email, phone, address, headline, about, fb_link } = req.body;
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=? ORDER BY ID DESC LIMIT 1`,
-            [req.cookies["hostname"]],
+            [res.locals.hostname],
             (errHave, infoHave) => {
                 if (errHave) {
                     console.log(errHave.sqlMessage);
@@ -75,7 +75,7 @@ module.exports = {
                     sqlmap.query(
                         `INSERT INTO school_settings (domain, eiin, name, email, phone, address, headline, about, fb_link)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                        [req.cookies["hostname"], eiin, name, email, phone, address, headline, about, fb_link],
+                        [res.locals.hostname, eiin, name, email, phone, address, headline, about, fb_link],
                         (err, next) => {
                             if (err) {
                                 console.log(err.sqlMessage);
@@ -88,7 +88,7 @@ module.exports = {
                     sqlmap.query(
                         `UPDATE school_settings SET eiin=?, name=?, about=?, fb_link=?, 
                         headline=?, address=?, email=?, phone=? WHERE domain=?`,
-                        [eiin, name, about, fb_link, headline, address, email, phone, req.cookies["hostname"]],
+                        [eiin, name, about, fb_link, headline, address, email, phone, res.locals.hostname],
                         (err, next) => {
                             if (err) {
                                 console.log(err.sqlMessage);
@@ -110,12 +110,12 @@ module.exports = {
     
         sqlmap.query(
             `SELECT * FROM school_settings WHERE domain=?`,
-            [req.cookies["hostname"]],
+            [res.locals.hostname],
             (err, info) => {
                 if (info.length > 0) {
                     sqlmap.query(
                         `UPDATE school_settings SET ${imgname}=? WHERE domain=?`,
-                        [imgname + randomString + '.png', req.cookies["hostname"]],
+                        [imgname + randomString + '.png', res.locals.hostname],
                         (err, next) => {
                             if (err) console.log(err.sqlMessage);
                             res.send({ msg: "Update Successfully!", alert: "success" });
@@ -124,7 +124,7 @@ module.exports = {
                 } else {
                     sqlmap.query(
                         `INSERT INTO school_settings (domain, ${imgname}) VALUES(?, ?)`,
-                        [req.cookies["hostname"], imgname + randomString + '.png'],
+                        [res.locals.hostname, imgname + randomString + '.png'],
                         (err, next) => {
                             if (err) console.log(err.sqlMessage);
                             else res.send({ msg: "Added Successfully!", alert: "success" });

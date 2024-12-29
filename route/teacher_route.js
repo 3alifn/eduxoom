@@ -10,14 +10,13 @@ const { Cookie } = require('express-session');
 const { teacher_attn_init_page, teacher_attn_post_page, teacher_attn_post_page_num, teacher_attn_post, teacher_attn_checkout, teacher_attn_checkout_last_five } = require('../app/attendance_app');
 const {result_mark_student_page, result_mark_subject_page, result_mark_push, result_mark_pull, result_repo_subject_page, result_repo_init_page, result_repo_student_page, result_repo_page, result_repo_sheet_page, result_rank_pull, } = require('../app/result_app');
 const teacher= express.Router()
-const {globalMulterUploader, globalSharpReducer}= require("./uploader_middleware")
+const {globalMulterUploader, globalSharpReducer}= require("../middlewares/uploaderMiddleware")
 
 teacher.all('*', (req, res, next)=>{
     if(req.session.user=='teacher')  next()
     else {
       res.redirect('/au/signout/')
    }
-
 })
 
 
@@ -39,7 +38,7 @@ teacher.get('/result/mark-pull', result_mark_pull)
 
 
 // self account........
-const multerUploaderTeacher = globalMulterUploader({name: ['single', 'image'], path: "./public/image/teacher/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderTeacher = globalMulterUploader({name: ['single', 'image'], path: "/images/teacher/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerTeacher = globalSharpReducer({ quality: 50})
 teacher.get("/dashboard", self_dashboard)
 teacher.get("/account", self_account)

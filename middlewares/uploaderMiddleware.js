@@ -1,13 +1,14 @@
 const multer = require('multer');
 const sharp = require('sharp');
-const path = require('path');
+const pathNode = require('path');
 const fs = require('fs');
 
 const globalMulterUploader = ({ name, path, size, filter }) => {
   return (req, res, next) => {
+    const fpath= pathNode.join(__dirname, '../assets', res.locals.hostname, path)
     const upload = multer({
       storage: multer.diskStorage({
-        destination: (req, file, cb) => cb(null, path),
+        destination: (req, file, cb) => cb(null, fpath),
         filename: (req, file, cb) => cb(null, `${Date.now()}_${file.originalname}`)
       }),
       limits: { fileSize: size },
@@ -40,6 +41,7 @@ const globalMulterUploader = ({ name, path, size, filter }) => {
 
 
 const globalSharpReducer = ({ quality = 50}) => {
+ 
   return async (req, res, next) => {
     
     const files = req.files || (req.file ? [req.file] : []);
@@ -50,7 +52,7 @@ const globalSharpReducer = ({ quality = 50}) => {
 
     try {
       const resizePromises = files.map(async (file) => {
-        const outputPath = path.resolve(file.destination, 'resized', file.filename);
+        const outputPath = pathNode.resolve(file.destination, 'resized', file.filename);
         await sharp(file.path)
           // .resize({ width, height, fit: sharp.fit.cover, withoutEnlargement: true })
           .jpeg({ quality })

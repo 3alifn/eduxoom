@@ -6,7 +6,7 @@ exports.admin_dashboard_tsa_lookup = (req, res) => {
       COUNT(CASE WHEN gender="Female" THEN 1 END) AS tFemale,
       COUNT(CASE WHEN gender="Male" THEN 1 END) AS tMale 
       FROM teachers WHERE domain=?`,
-      [req.cookies["hostname"]],
+      [res.locals.hostname],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -23,7 +23,7 @@ exports.admin_dashboard_tsa_lookup = (req, res) => {
               COUNT(CASE WHEN gender="Female" THEN 1 END) AS staffFemale,
               COUNT(CASE WHEN gender="Male" THEN 1 END) AS staffMale 
               FROM staff WHERE domain=?`,
-              [req.cookies["hostname"]],
+              [res.locals.hostname],
               (err, info) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -38,7 +38,7 @@ exports.admin_dashboard_tsa_lookup = (req, res) => {
                       COUNT(CASE WHEN gender="Female" THEN 1 END) AS sFemale,
                       COUNT(CASE WHEN gender="Male" THEN 1 END) AS sMale 
                       FROM students WHERE domain=?`,
-                      [req.cookies["hostname"]],
+                      [res.locals.hostname],
                       (err, info) => {
                           if (err) {
                               console.log(err.sqlMessage);

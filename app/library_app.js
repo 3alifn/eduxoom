@@ -7,7 +7,7 @@ exports.admin_library_post = (req, res) => {
   sqlmap.query(
       `INSERT INTO library (domain, book_name, book_author, book_copy, description, book_image) 
       VALUES (?, ?, ?, ?, ?, ?)`,
-      [req.cookies["hostname"], bookName, authorName, bookCopy, description, filenameBook],
+      [res.locals.hostname, bookName, authorName, bookCopy, description, filenameBook],
       (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -22,7 +22,7 @@ exports.admin_library_post = (req, res) => {
 
 exports.admin_library_get = (req, res) => {
   let sql = `SELECT * FROM library WHERE domain=? ORDER BY ID DESC`;
-  sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -38,7 +38,7 @@ exports.admin_library_get = (req, res) => {
                       <input type="checkbox" name="ID[]" id="" value="${info[i].ID}">
                   </td>
                   <td><span class="badge bg-light text-primary">${info[i].book_author}</span></td>
-                  <td><img width='100px' height='60px' class="bg-demo-img-color" src="/image/library/${info[i].book_image}"></td>
+                  <td><img width='100px' height='60px' class="bg-demo-img-color" src="/assets/images/library/${info[i].book_image}"></td>
                   <td><span class="badge bg-light text-dark">${info[i].book_copy}</span></td>
                   <td><span class="badge bg-light text-dark">${info[i].description}</span></td>
                   <td><span class="badge bg-light text-primary">${info[i].at_date.toString().substring(0, 15)}</span></td>
@@ -61,7 +61,7 @@ exports.admin_library_delete = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM library WHERE domain=? AND ID IN (?)`,
-      [req.cookies["hostname"], ID.toString()],
+      [res.locals.hostname, ID.toString()],
       (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
@@ -70,7 +70,7 @@ exports.admin_library_delete = (req, res) => {
 
           sqlmap.query(
               `DELETE FROM library WHERE domain=? AND ID IN (?)`,
-              [req.cookies["hostname"], ID.toString()],
+              [res.locals.hostname, ID.toString()],
               (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);
@@ -78,7 +78,7 @@ exports.admin_library_delete = (req, res) => {
                   }
 
                   for (const i in findInfo) {
-                      fs.unlink(`./public/image/library/${findInfo[i].book_photos}`, function (errDelete) {
+                      fs.unlink(`./assets/${res.locals.hostname}/images/library/${findInfo[i].book_photos}`, function (errDelete) {
                           if (errDelete) {
                               console.log(errDelete + "_" + "Data Deleted! Not found file!");
                           }
@@ -100,7 +100,7 @@ exports.admin_library_update_page = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM library WHERE domain=?`,
-      [req.cookies["hostname"]],
+      [res.locals.hostname],
       (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -117,7 +117,7 @@ exports.admin_library_update = (req, res) => {
 
   sqlmap.query(
       `UPDATE library SET book_name=?, book_author=?, book_copy=?, description=? WHERE domain=? AND ID=?`,
-      [bookName, bookAuthor, bookCopy, description, req.cookies["hostname"], ID],
+      [bookName, bookAuthor, bookCopy, description, res.locals.hostname, ID],
       (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
@@ -132,7 +132,7 @@ exports.admin_library_update = (req, res) => {
 
 exports.public_library_get = (req, res) => {
   let sql = `SELECT * FROM library WHERE domain=? ORDER BY ID DESC`;
-  sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -144,7 +144,7 @@ exports.public_library_get = (req, res) => {
               html += `
               <tr>
                   <td>
-                      <span class="badge bg-light text-danger"><img width="50px" height="50px" src='/image/library/${info[i].book_photos}' alt="404"></span>
+                      <span class="badge bg-light text-danger"><img width="50px" height="50px" src="/assets/images/library/${info[i].book_photos}" alt="book"></span>
                   </td>
                   <td><span class="badge bg-light text-danger">${info[i].book_name}</span></td>
                   <td><span class="badge bg-light text-primary">${info[i].book_author}</span></td>

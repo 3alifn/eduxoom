@@ -10,7 +10,7 @@ exports.privet_transcript_report_student_get = (req, res) => {
   const { className, sectionName } = req.params;
   const sql = `SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain=? AND class=? AND section=? GROUP BY student_uuid ORDER BY roll`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], className, sectionName], (errStudent, infoStudentData) => {
+  sqlmap.query(sql, [res.locals.hostname, className, sectionName], (errStudent, infoStudentData) => {
       if (infoStudentData.length > 0) {
           const infoStudent = infoStudentData;
           res.render('transcript/transcript-page-report-student-privet', { infoStudent, className, sectionName });
@@ -41,9 +41,9 @@ exports.privet_transcript_report_get = (req, res) => {
   const { className, sectionName, subject_code, student_uuid } = req.params;
   const sql = `SELECT class, section, name, chapter, subject_code, student_uuid FROM transcript_report WHERE domain=? AND class=? AND section=? AND student_uuid=? AND subject_code=?`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], className, sectionName, student_uuid, subject_code], (errStudent, info) => {
+  sqlmap.query(sql, [res.locals.hostname, className, sectionName, student_uuid, subject_code], (errStudent, info) => {
       if (info.length > 0) {
-          sqlmap.query(`SELECT * FROM school_settings WHERE domain=?`, [req.cookies["hostname"]], (errs, school) => {
+          sqlmap.query(`SELECT * FROM school_settings WHERE domain=?`, [res.locals.hostname], (errs, school) => {
               if (errs) {
                   console.log(errs.sqlMessage);
                   return;
@@ -73,7 +73,7 @@ exports.privet_pi_report_checkout = (req, res) => {
 
   const sql = `SELECT subject_code, subject, pi, chapter, bg_color FROM transcript_report WHERE domain=? AND student_uuid=? AND class=? AND section=? AND subject_code=? ORDER BY chapter`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], student_uuid, className, sectionName, subject_code], (errFind, checkout) => {
+  sqlmap.query(sql, [res.locals.hostname, student_uuid, className, sectionName, subject_code], (errFind, checkout) => {
       if (errFind) {
           console.log(errFind.sqlMessage);
           return;
@@ -88,7 +88,7 @@ exports.admin_result_report_student_get = (req, res) => {
   const { className, sectionName } = req.params;
   const sql = `SELECT student_uuid, name, roll, avatar FROM transcript_report WHERE domain=? AND class=? AND section=? GROUP BY student_uuid ORDER BY roll`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], className, sectionName], (errStudent, infoStudentData) => {
+  sqlmap.query(sql, [res.locals.hostname, className, sectionName], (errStudent, infoStudentData) => {
       if (infoStudentData.length > 0) {
           const infoStudent = infoStudentData;
           res.render('admin/result-page-report-student', { infoStudent, className, sectionName });
@@ -108,14 +108,14 @@ exports.admin_result_report_get = (req, res) => {
 
   const sql = `SELECT name, avatar, student_uuid, class, section, subject, subject_code, subject_flag FROM transcript_report WHERE domain=? AND class=? AND section=? AND student_uuid=? GROUP BY subject_code`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], className, sectionName, student_uuid], (errSubject, info) => {
+  sqlmap.query(sql, [res.locals.hostname, className, sectionName, student_uuid], (errSubject, info) => {
       if (errSubject) {
           console.log(errSubject.sqlMessage);
           return;
       }
 
       if (info.length > 0) {
-          sqlmap.query(`SELECT * FROM school_settings WHERE domain=?`, [req.cookies["hostname"]], (errs, school) => {
+          sqlmap.query(`SELECT * FROM school_settings WHERE domain=?`, [res.locals.hostname], (errs, school) => {
               if (errs) {
                   console.log(errs.sqlMessage);
                   return;
@@ -141,29 +141,29 @@ exports.admin_result_report_get = (req, res) => {
 
 // exports.admin_pi_transcript_report_checkout=(req, res)=>{
 //   const {className,sectionName, student_uuid, subject_code}= req.body;
-//   const domain= req.cookies["hostname"];
+//   const domain= res.locals.hostname;
 
-//   sqlmap.query(`SELECT subject_flag, subject_code, subject FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'`,
+//   sqlmap.query(`SELECT subject_flag, subject_code, subject FROM transcript_report WHERE domain='${res.locals.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'`,
 //   (errinfo, info)=>{
 //     const subject_flag= info[0].subject_flag;
-//     sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+//     sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${res.locals.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
 //   AND pi_group='gp1'`,
 //   (errg01, infog01)=>{
       
-//       sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+//       sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${res.locals.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
 //       AND pi_group='gp2'`,
 //       (errg02, infog02)=>{
           
-//       sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+//       sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${res.locals.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
 //       AND pi_group='gp3'`,
 //       (errg03, infog03)=>{
           
           
-//           sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+//           sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${res.locals.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
 //           AND pi_group='gp4'`,
 //           (errg04, infog04)=>{ 
             
-//             sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${req.cookies["hostname"]}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
+//             sqlmap.query(`SELECT *,  SUM(pi) as pi_sum, COUNT(ID) as pi_count FROM transcript_report WHERE domain='${res.locals.hostname}' AND  class='${className}' AND section='${sectionName}' AND subject_code='${subject_code}' AND student_uuid='${student_uuid}'
 //           AND pi_group='gp5'`,
 
 //           (errg05, infog05)=>{
@@ -352,29 +352,29 @@ exports.admin_pi_transcript_report_checkout = (req, res) => {
 
   sqlmap.query(
       `SELECT subject_flag, subject_code, subject FROM transcript_report WHERE domain=? AND class=? AND section=? AND subject_code=? AND student_uuid=?`,
-      [req.cookies["hostname"], className, sectionName, subject_code, student_uuid],
+      [res.locals.hostname, className, sectionName, subject_code, student_uuid],
       (errinfo, info) => {
           const subject_flag = info[0].subject_flag;
 
           sqlmap.query(
               `SELECT *, SUM(pi) AS pi_sum, COUNT(ID) AS pi_count FROM transcript_report WHERE domain=? AND class=? AND section=? AND subject_code=? AND student_uuid=? AND pi_group='gp1'`,
-              [req.cookies["hostname"], className, sectionName, subject_code, student_uuid],
+              [res.locals.hostname, className, sectionName, subject_code, student_uuid],
               (errg01, infog01) => {
                   sqlmap.query(
                       `SELECT *, SUM(pi) AS pi_sum, COUNT(ID) AS pi_count FROM transcript_report WHERE domain=? AND class=? AND section=? AND subject_code=? AND student_uuid=? AND pi_group='gp2'`,
-                      [req.cookies["hostname"], className, sectionName, subject_code, student_uuid],
+                      [res.locals.hostname, className, sectionName, subject_code, student_uuid],
                       (errg02, infog02) => {
                           sqlmap.query(
                               `SELECT *, SUM(pi) AS pi_sum, COUNT(ID) AS pi_count FROM transcript_report WHERE domain=? AND class=? AND section=? AND subject_code=? AND student_uuid=? AND pi_group='gp3'`,
-                              [req.cookies["hostname"], className, sectionName, subject_code, student_uuid],
+                              [res.locals.hostname, className, sectionName, subject_code, student_uuid],
                               (errg03, infog03) => {
                                   sqlmap.query(
                                       `SELECT *, SUM(pi) AS pi_sum, COUNT(ID) AS pi_count FROM transcript_report WHERE domain=? AND class=? AND section=? AND subject_code=? AND student_uuid=? AND pi_group='gp4'`,
-                                      [req.cookies["hostname"], className, sectionName, subject_code, student_uuid],
+                                      [res.locals.hostname, className, sectionName, subject_code, student_uuid],
                                       (errg04, infog04) => {
                                           sqlmap.query(
                                               `SELECT *, SUM(pi) AS pi_sum, COUNT(ID) AS pi_count FROM transcript_report WHERE domain=? AND class=? AND section=? AND subject_code=? AND student_uuid=? AND pi_group='gp5'`,
-                                              [req.cookies["hostname"], className, sectionName, subject_code, student_uuid],
+                                              [res.locals.hostname, className, sectionName, subject_code, student_uuid],
                                               (errg05, infog05) => {
                                                   const calculateGrade = (pi_sum, pi_count) => {
                                                       if (pi_sum == null || pi_count == 0) return 0;
