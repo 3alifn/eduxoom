@@ -5,5 +5,5 @@ node_modules/
 *.zip
 
 # Docs and image assets
-assets/docs/
-assets/image/
+assets/
+assets/
