@@ -2,7 +2,7 @@ const {app, express, session}=require('../server')
 const { dashboard } = require("../app/admin_app");
 const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update_page, self_email_update, self_close_account, self_avatar_upload, multer_upload_parent, self_penbox_push, self_password_update_push, self_email_update_pull, self_email_update_push, self_img_post } = require("../app/parent_app");
 const parent= express.Router()
-const {globalMulterUploader, globalSharpReducer}= require("./uploader_middleware")
+const {globalMulterUploader, globalSharpReducer}= require("../middlewares/uploaderMiddleware")
 
 parent.all('*', (req, res, next)=>{
 
@@ -19,7 +19,7 @@ parent.all('*', (req, res, next)=>{
 
     
     
-const multerUploaderParent = globalMulterUploader({name: ['single', 'image'], path: "./public/image/parent/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderParent = globalMulterUploader({name: ['single', 'image'], path: "/images/parent/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
 const sharpReducerParent = globalSharpReducer({ quality: 50})
 parent.get("/dashboard", self_dashboard)
 parent.get("/account", self_account)

@@ -32,14 +32,14 @@ exports.join= (req, res)=>{
   }
 
   function todoJoinParent(req, res) {
-    sqlmap.query(`SELECT student_id FROM students WHERE domain=? AND student_id=?`, [req.cookies["hostname"], student_id], (errStudent, infoStudent) => {
+    sqlmap.query(`SELECT student_id FROM students WHERE domain=? AND student_id=?`, [res.locals.hostname, student_id], (errStudent, infoStudent) => {
         if (errStudent) {
             console.log(errStudent.sqlMessage);
             return;
         }
         
         if (infoStudent.length > 0) {
-            sqlmap.query(`SELECT email FROM parents WHERE domain=? AND email=?`, [req.cookies["hostname"], email], (errMain, infoMain) => {
+            sqlmap.query(`SELECT email FROM parents WHERE domain=? AND email=?`, [res.locals.hostname, email], (errMain, infoMain) => {
                 if (errMain) {
                     console.log(errMain.sqlMessage);
                     return;
@@ -141,7 +141,7 @@ exports.self_verify_code= (req, res)=>{
       `INSERT INTO parents (domain, session, class, section, name, telephone, student_id, email, password, gender) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-          req.cookies["hostname"],
+          res.locals.hostname,
           session,
           className,
           sectionName,
@@ -195,7 +195,7 @@ exports.self_verify_code= (req, res)=>{
       let parent_uuid = req.session.parent_uuid;
       let sql = `SELECT * FROM parents WHERE domain=? AND parent_uuid=?`;
   
-      sqlmap.query(sql, [req.cookies["hostname"], parent_uuid], (err, info) => {
+      sqlmap.query(sql, [res.locals.hostname, parent_uuid], (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
               return;
@@ -211,7 +211,7 @@ exports.self_verify_code= (req, res)=>{
     let parent_uuid = req.session.parent_uuid;
     let sql = `SELECT * FROM parents WHERE domain=? AND parent_uuid=?`;
 
-    sqlmap.query(sql, [req.cookies["hostname"], parent_uuid], (err, info) => {
+    sqlmap.query(sql, [res.locals.hostname, parent_uuid], (err, info) => {
         if (err) {
             console.log(err.sqlMessage);
             return;
@@ -227,7 +227,7 @@ exports.self_penbox_push = (req, res) => {
     const userid = req.session.userid;
     sqlmap.query(
         `UPDATE parents SET name=?, phone=?, gender=? WHERE domain=? AND ID=?`,
-        [name, phone, gender, req.cookies["hostname"], userid],
+        [name, phone, gender, res.locals.hostname, userid],
         (err, update) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -248,7 +248,7 @@ exports.self_penbox_push = (req, res) => {
 
        sqlmap.query(
         `UPDATE parents SET avatar=? WHERE domain=? AND ID=?`,
-        [req.file.filename, req.cookies["hostname"], userid],
+        [req.file.filename, res.locals.hostname, userid],
         (err, next) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -275,14 +275,14 @@ exports.self_penbox_push = (req, res) => {
   
       const sql = `UPDATE parents SET password=? WHERE domain=? AND ID=?`;
   
-      sqlmap.query(`SELECT password FROM parents WHERE domain=? AND ID=?`, [req.cookies["hostname"], userid], (errPass, infoPass) => {
+      sqlmap.query(`SELECT password FROM parents WHERE domain=? AND ID=?`, [res.locals.hostname, userid], (errPass, infoPass) => {
           if (errPass) {
               console.log(errPass.sqlMessage);
               return;
           }
   
           if (currentPassword == infoPass[0].password) {
-              sqlmap.query(sql, [newPassword, req.cookies["hostname"], userid], (err, info) => {
+              sqlmap.query(sql, [newPassword, res.locals.hostname, userid], (err, info) => {
                   if (err) {
                       console.log(err.sqlMessage);
                       return;
@@ -305,7 +305,7 @@ exports.self_penbox_push = (req, res) => {
     req.session.username = username;
     req.session.temp_code = randHashCode;
 
-    sqlmap.query(`SELECT email FROM parents WHERE domain=? AND email=?`, [req.cookies["hostname"], username], (errMain, infoMain) => {
+    sqlmap.query(`SELECT email FROM parents WHERE domain=? AND email=?`, [res.locals.hostname, username], (errMain, infoMain) => {
         if (errMain) {
             console.log(errMain.sqlMessage);
             return;
@@ -379,7 +379,7 @@ exports.self_email_update_push = (req, res) => {
   const temp_code = req.session.temp_code;
 
   if (verifyCode == temp_code) {
-      sqlmap.query(`SELECT email FROM parents WHERE domain=? AND email=?`, [req.cookies["hostname"], username], (errMain, infoMain) => {
+      sqlmap.query(`SELECT email FROM parents WHERE domain=? AND email=?`, [res.locals.hostname, username], (errMain, infoMain) => {
           if (errMain) {
               console.log(errMain.sqlMessage);
               return;
@@ -388,7 +388,7 @@ exports.self_email_update_push = (req, res) => {
           if (infoMain.length > 0) {
               res.send({ feedback: true, alert: 'alert-info', msg: 'Username already exists!' });
           } else {
-              sqlmap.query(`UPDATE parents SET email=? WHERE domain=? AND ID=?`, [username, req.cookies["hostname"], userid], (err, info) => {
+              sqlmap.query(`UPDATE parents SET email=? WHERE domain=? AND ID=?`, [username, res.locals.hostname, userid], (err, info) => {
                   if (err) {
                       res.send({ alert: 'alert-info', msg: 'Something Wrong! Please try again!' });
                   } else {
@@ -409,7 +409,7 @@ exports.admin_parent_get = (req, res) => {
 
   const sql = `SELECT * FROM parents WHERE domain=? AND permission='allow' AND class=? AND section=?`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], className, sectionName], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, className, sectionName], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -423,7 +423,7 @@ exports.admin_parent_get = (req, res) => {
               <td><span class='badge text-dark bg-light'>${info[i].name}</span></td>
               <td><span class='badge text-dark bg-light'>${info[i].student_id}</span></td>
               <td><span class='badge text-dark bg-light'> 
-                  <img data-id="${info[i].ID}" title='Info' class="modal-person-trigger" style='cursor: pointer'  src="/image/parent/resized/${info[i].avatar}" alt="404" width="30px" >
+                  <img data-id="${info[i].ID}" title='Info' class="modal-person-trigger" style='cursor: pointer'  src="/assets/images/parent/resized/${info[i].avatar}" alt="404" width="30px" >
               </span></td>
               <td>      
                   <span data-id='${info[i].ID}' title='Delete' class='btn defDelete btn-close'></span>
@@ -441,7 +441,7 @@ exports.admin_parent_profile = (req, res) => {
   
   const sql = `SELECT * FROM parents WHERE domain=? AND permission='allow' AND parent_uuid=?`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], parent_uuid], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, parent_uuid], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -472,13 +472,13 @@ exports.admin_parent_delete = (req, res) => {
   if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
   } else {
-      sqlmap.query(`SELECT * FROM parents WHERE domain=? AND ID IN (?)`, [req.cookies["hostname"], dataid], (errInfo, findInfo) => {
+      sqlmap.query(`SELECT * FROM parents WHERE domain=? AND ID IN (?)`, [res.locals.hostname, dataid], (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
               return;
           }
 
-          sqlmap.query(`DELETE FROM parents WHERE domain=? AND ID IN (?)`, [req.cookies["hostname"], dataid], (err, next) => {
+          sqlmap.query(`DELETE FROM parents WHERE domain=? AND ID IN (?)`, [res.locals.hostname, dataid], (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);
                   return;
@@ -488,7 +488,7 @@ exports.admin_parent_delete = (req, res) => {
                   if (findInfo[index].image == 'male_avatar.png' || findInfo[index].image == 'female_avatar.png') {
                       console.log('no delete default png');
                   } else {
-                      fs.unlink(`./public/image/parent/resized/${findInfo[index].avatar}`, function (errDelete) {
+                      fs.unlink(`./assets/${res.locals.hostname}/images//parent/resized/${findInfo[index].avatar}`, function (errDelete) {
                           if (errDelete) {
                               console.log(errDelete + "_" + "Data Deleted! Not found file!");
                           }

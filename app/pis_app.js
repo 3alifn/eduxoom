@@ -35,7 +35,7 @@ exports.teacher_pis_page_mark_get = (req, res) => {
 
                       sqlmap.query(
                           `SELECT COUNT(student_uuid) AS student_row FROM students WHERE domain=? AND class=? AND section=?`,
-                          [req.cookies["hostname"], className, sectionName],
+                          [res.locals.hostname, className, sectionName],
                           (err_row, count_row) => {
                               if (err_row) {
                                   console.log(err_row.sqlMessage);
@@ -49,7 +49,7 @@ exports.teacher_pis_page_mark_get = (req, res) => {
 
                               sqlmap.query(
                                   `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ? OFFSET ?`,
-                                  [req.cookies["hostname"], className, sectionName, limit, offset * limit],
+                                  [res.locals.hostname, className, sectionName, limit, offset * limit],
                                   (errStudent, infoStudentData) => {
                                       sqlmap.query(
                                           `SELECT subject, subject_code FROM ini_subject WHERE class=? AND subject=?`,
@@ -92,7 +92,7 @@ exports.teacher_pis_page_mark_get = (req, res) => {
 exports.teacher_pis_mark_post = (req, res) => {
   const teacher_uuid = req.session.teacher_uuid; 
   const session = new Date().getUTCFullYear();
-  const domain = req.cookies["hostname"];
+  const domain = res.locals.hostname;
   const { className, sectionName, pi, student_uuid, roll, name, avatar, chapter, subject, subject_code, checkout, bg_color } = req.body;
   const subjectx = subject.replaceAll(' ', '-').split('-');
   const subjecty = subjectx[0];
@@ -101,7 +101,7 @@ exports.teacher_pis_mark_post = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM pic_mark WHERE domain=? AND class=? AND section=? AND student_uuid=? AND subject_code=? AND chapter=?`,
-      [req.cookies["hostname"], className, sectionName, student_uuid, subject_code, chapter],
+      [res.locals.hostname, className, sectionName, student_uuid, subject_code, chapter],
       (err_pic, info_pic) => {
           if (err_pic) {
               console.log(err_pic.sqlMessage);
@@ -112,7 +112,7 @@ exports.teacher_pis_mark_post = (req, res) => {
               const pic_pi = info_pic[0].pi;
               sqlmap.query(
                   `SELECT * FROM pis_mark WHERE domain=? AND class=? AND section=? AND student_uuid=? AND subject_code=? AND chapter=?`,
-                  [req.cookies["hostname"], className, sectionName, student_uuid, subject_code, chapter],
+                  [res.locals.hostname, className, sectionName, student_uuid, subject_code, chapter],
                   (errCheck, infoCheck) => {
                       if (errCheck) {
                           console.log(errCheck.sqlMessage);
@@ -123,7 +123,7 @@ exports.teacher_pis_mark_post = (req, res) => {
                           sqlmap.query(
                               `INSERT INTO pis_mark (domain, session, class, section, subject_flag, subject_code, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color)
                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                              [req.cookies["hostname"], session, className, sectionName, subject_flag, subject_code, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color],
+                              [res.locals.hostname, session, className, sectionName, subject_flag, subject_code, pi_group, student_uuid, subject, roll, name, avatar, chapter, pi, checkout, bg_color],
                               (errPost, nextPost) => {
                                   if (errPost) {
                                       console.log(errPost.sqlMessage);
@@ -154,7 +154,7 @@ exports.teacher_pis_mark_checkout = (req, res) => {
 
   sqlmap.query(
       `SELECT * FROM pis_mark WHERE domain=? AND class=? AND section=? AND subject_code=?`,
-      [req.cookies["hostname"], className, sectionName, subject_code],
+      [res.locals.hostname, className, sectionName, subject_code],
       (errFind, info_checkout) => {
           if (errFind) {
               console.log(errFind.sqlMessage);

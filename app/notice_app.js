@@ -3,7 +3,7 @@ const {app, sqlmap, fs, path } = require("../server")
 
 exports.admin_notice_get = (req, res) => {
     let sql = `SELECT * FROM notice WHERE domain=? ORDER BY ID DESC`;
-    sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
+    sqlmap.query(sql, [res.locals.hostname], (err, info) => {
         if (err) {
             console.log(err.sqlMessage);
             return;
@@ -46,8 +46,8 @@ exports.admin_notice_post = async (req, res, next) => {
            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
     const values = notice_date == undefined || notice_date == '' 
-        ? [req.cookies["hostname"], session, find_date, title, attachment_type, description, attachmentx]
-        : [req.cookies["hostname"], session, find_date, notice_date, title, attachment_type, description, attachmentx];
+        ? [res.locals.hostname, session, find_date, title, attachment_type, description, attachmentx]
+        : [res.locals.hostname, session, find_date, notice_date, title, attachment_type, description, attachmentx];
 
     sqlmap.query(sql, values, (err, next) => {
         if (err) {
@@ -66,7 +66,7 @@ exports.admin_notice_rm = (req, res) => {
 
     sqlmap.query(
         `SELECT * FROM notice WHERE domain=? AND ID IN (?)`,
-        [req.cookies["hostname"], dataid],
+        [res.locals.hostname, dataid],
         (errInfo, findInfo) => {
             if (errInfo) {
                 console.log("data not found!");
@@ -75,7 +75,7 @@ exports.admin_notice_rm = (req, res) => {
 
             sqlmap.query(
                 `DELETE FROM notice WHERE domain=? AND ID IN (?)`,
-                [req.cookies["hostname"], dataid],
+                [res.locals.hostname, dataid],
                 (err, next) => {
                     if (err) {
                         console.log(err.sqlMessage);
@@ -103,7 +103,7 @@ exports.admin_notice_rm = (req, res) => {
 
 exports.public_notice_page = (req, res) => {
     let sql = `SELECT * FROM notice WHERE domain=? ORDER BY ID DESC`;
-    sqlmap.query(sql, [req.cookies["hostname"]], (err, info) => {
+    sqlmap.query(sql, [res.locals.hostname], (err, info) => {
         if (err) {
             console.log(err.sqlMessage);
             return;
@@ -120,7 +120,7 @@ exports.public_notice_view = (req, res) => {
     const { dataid } = req.params;
     const sql = `SELECT * FROM notice WHERE domain=? AND ID=?`;
 
-    sqlmap.query(sql, [req.cookies["hostname"], dataid], (err, info) => {
+    sqlmap.query(sql, [res.locals.hostname, dataid], (err, info) => {
         if (err) {
             console.log(err.sqlMessage);
             return;

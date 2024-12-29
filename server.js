@@ -29,8 +29,9 @@ app.set('trust proxy', 1) // trust first proxy
 app.enable("trust proxy", true)
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(express.static("./public/"))
+
 app.use(flash());
 app.use(cors({
   origin: true,
@@ -40,7 +41,6 @@ app.use(cors({
 }));
 
 const sqlmap= mysql.createPool({
-
     host: process.env.host_name,
     user: process.env.user_name,
     password: process.env.user_password,
@@ -51,7 +51,6 @@ const sqlmap= mysql.createPool({
 
  
 const cookiename= createHmac('md5', 'pipilikapira').update('saanviabc').digest('hex')
-
 const sessionStore= new mysqlStore({expiration: 86400000*30}, sqlmap)
 
   app.use(cookieParser('pipilikiapipra'));
@@ -67,15 +66,12 @@ const sessionStore= new mysqlStore({expiration: 86400000*30}, sqlmap)
     }
 }))
 
-
 const port= process.env.listen_port || 3000;
 app.listen(port, ()=>{
   console.log(`code by alifn => server is runnig on port ${port}`);
-  
 })
+
 var mysession=new Date().getUTCFullYear();
-
-
 module.exports= {
 app, express, mysession, mysql, session, cookieParser, flash, bodyParser,
  sqlmap, multer, nodemailer, dotenv, cors, randomBytes,

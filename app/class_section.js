@@ -4,7 +4,7 @@ exports.admin_class_section_main_post = (req, res) => {
     const { className, at_status } = req.body;
     sqlmap.query(
         `UPDATE class_section SET class_status=? WHERE domain=? AND class=?`,
-        [at_status, req.cookies["hostname"], className],
+        [at_status, res.locals.hostname, className],
         (err, next) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -21,7 +21,7 @@ exports.admin_class_section_post = (req, res) => {
     const { elementid, at_status } = req.body;
     sqlmap.query(
         `UPDATE class_section SET at_status=? WHERE domain=? AND ID=?`,
-        [at_status, req.cookies["hostname"], elementid],
+        [at_status, res.locals.hostname, elementid],
         (err, next) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -37,7 +37,7 @@ exports.admin_class_section_post = (req, res) => {
 exports.admin_class_section_get = (req, res) => {
     sqlmap.query(
         `SELECT * FROM class_section WHERE domain=? GROUP BY class ORDER BY ID`,
-        [req.cookies["hostname"]],
+        [res.locals.hostname],
         (err, infomain) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -46,7 +46,7 @@ exports.admin_class_section_get = (req, res) => {
 
             sqlmap.query(
                 `SELECT * FROM class_section WHERE domain=? ORDER BY ID LIMIT 15`,
-                [req.cookies["hostname"]],
+                [res.locals.hostname],
                 (err, info) => {
                     if (err) {
                         console.log(err.sqlMessage);
@@ -107,7 +107,7 @@ exports.admin_class_section_get = (req, res) => {
 exports.pu_class_secton_rm = (req, res) => {
     sqlmap.query(
         `SELECT * FROM class_section WHERE domain=? AND class_status='off' GROUP BY class ORDER BY ID`,
-        [req.cookies["hostname"]],
+        [res.locals.hostname],
         (err, cls) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -116,7 +116,7 @@ exports.pu_class_secton_rm = (req, res) => {
 
             sqlmap.query(
                 `SELECT * FROM class_section WHERE domain=? AND at_status='off'`,
-                [req.cookies["hostname"]],
+                [res.locals.hostname],
                 (err, clss) => {
                     if (err) {
                         console.log(err.sqlMessage);

@@ -1,14 +1,5 @@
-node_modules
-public/image/default/resized
-public/image/student/resized
-public/image/parent/resized
-public/image/staff/resized
-public/image/gallery/resized
-public/image/carousel/resized
-public/image/headofschool/resized
-public/image/library/resized
-public/image/repository/resized
-public/image/school/resized
-public/image/default/resized
-public/docs/*.pdf
+# Node modules
+node_modules/
+
+# ZIP files
 *.zip

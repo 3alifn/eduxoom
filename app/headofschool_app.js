@@ -9,7 +9,7 @@ module.exports = {
 
       sqlmap.query(
         `SELECT * FROM headofschool WHERE domain=? GROUP BY position ORDER BY ID DESC`,
-        [req.cookies["hostname"]],
+        [res.locals.hostname],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -26,7 +26,7 @@ module.exports = {
       
       sqlmap.query(
         `SELECT * FROM headofschool WHERE domain=? ORDER BY ID DESC`,
-        [req.cookies["hostname"]],
+        [res.locals.hostname],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -78,7 +78,7 @@ module.exports = {
                         </div>
                         <div class="d-flex p-2 justify-content-between align-items-center">
                             <p class="w-25 fw-semibold m-auto">Photo</p>
-                            <code class="pe-1">-</code> <img class="rounded-circle p-2 shadowx" src="/image/headofschool/resized/${info[index].image}" height="100px" width="100px"
+                            <code class="pe-1">-</code> <img class="rounded-circle p-2 shadowx" src="/assets/images/headofschool/resized/${info[index].image}" height="100px" width="100px"
                                 alt="">
                             <input name="image" value="${info[index].image}" class="w-75 ps-3 shadowx form-dev form-control-sm" type="file"
                                 id="">
@@ -139,7 +139,7 @@ module.exports = {
            sqlmap.query(
             `INSERT INTO headofschool (domain, position, name, gender, message, image)
              VALUES (?, ?, ?, ?, ?, ?)`,
-            [req.cookies["hostname"], position, name, gender, message, avatar_png],
+            [res.locals.hostname, position, name, gender, message, avatar_png],
             (err, next) => {
                 if (err) {
                     console.log(err.sqlMessage);
@@ -162,7 +162,7 @@ module.exports = {
 
                sqlmap.query(
                 `UPDATE headofschool SET position=?, name=?, gender=?, message=?, image=? WHERE domain=? AND ID=?`,
-                [position, name, gender, message, avatar_png, req.cookies["hostname"], dataid],
+                [position, name, gender, message, avatar_png, res.locals.hostname, dataid],
                 (errN, nextN) => {
                     if (errN) {
                         console.log(errN.sqlMessage + "- update issued");
@@ -180,7 +180,7 @@ module.exports = {
       
         sqlmap.query(
           `DELETE FROM headofschool WHERE domain=? AND ID=?`,
-          [req.cookies["hostname"], dataid],
+          [res.locals.hostname, dataid],
           (err, next) => {
               if (err) {
                   console.log(err.sqlMessage);

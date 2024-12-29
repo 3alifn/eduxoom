@@ -10,7 +10,7 @@ exports.teacher_student_info = (req, res) => {
   const { student_uuid } = req.body;
   const sql = `SELECT * FROM students WHERE domain=? AND student_uuid=?`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], student_uuid], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, student_uuid], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -42,7 +42,7 @@ exports.admin_student_join_quick = (req, res) => {
     for (let index = 0; index < name.length; index++) {
         const avatarName = (gender[index] == "Male") ? "male_avatar.png" : "female_avatar.png";
 
-        sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? AND roll=?`, [req.cookies["hostname"], className, sectionName, roll[index]], (err_, info_) => {
+        sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? AND roll=?`, [res.locals.hostname, className, sectionName, roll[index]], (err_, info_) => {
             if (err_) {
                 console.log(err_.sqlMessage);
                 return;
@@ -62,7 +62,7 @@ exports.admin_student_join_quick = (req, res) => {
                 const sql = `INSERT INTO students (domain, student_uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-                sqlmap.query(sql, [req.cookies["hostname"], uuid, session, name[index], student_id+'@abc.com', student_id, roll[index], className, sectionName, gender[index], hashPassword, avatarName], (err_sub, info_sub) => {
+                sqlmap.query(sql, [res.locals.hostname, uuid, session, name[index], student_id+'@abc.com', student_id, roll[index], className, sectionName, gender[index], hashPassword, avatarName], (err_sub, info_sub) => {
                     if (err_sub) {
                         console.log(err_sub.sqlMessage);
                         return;
@@ -88,7 +88,7 @@ exports.admin_student_post= async(req, res, next)=>{
   var uuid= new Date().getTime()+''+Math.floor(Math.random()*900000000);
   var {classNameX, name, roll, gender, fname, mname, emailx,  birth_date, blood_group, religion, phone, address, admission_date}= req.body;
   const hashPassword= createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
-  const domain= req.cookies["hostname"];
+  const domain= res.locals.hostname;
   var student_id= Math.floor(Math.random()*900000);
   let tempData= classNameX.split(' $%& ');
   var className= tempData[0];
@@ -116,7 +116,7 @@ exports.admin_student_post= async(req, res, next)=>{
 
    sqlmap.query(`INSERT INTO students (domain, student_uuid, session, class, section, name, student_id, roll, gender, father_name, mother_name, birth_date, blood_group, religion, email, phone, address, admission_date, password, avatar)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-     [req.cookies["hostname"], uuid, session, className, sectionName, name, student_id, roll, gender, fname, mname, birth_date, blood_group??'', religion, email, phone, address, admission_date, hashPassword, avatar_png], (err, next) => {
+     [res.locals.hostname, uuid, session, className, sectionName, name, student_id, roll, gender, fname, mname, birth_date, blood_group??'', religion, email, phone, address, admission_date, hashPassword, avatar_png], (err, next) => {
     if (err) {
         console.log(err.sqlMessage + '__join_bug');
 
@@ -139,7 +139,7 @@ exports.admin_student_get = (req, res) => {
       sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ?`;
   }
 
-  sqlmap.query(sql, [req.cookies["hostname"], class_name, section_name, parseInt(limit)], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, class_name, section_name, parseInt(limit)], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -154,7 +154,7 @@ exports.admin_student_get = (req, res) => {
                   </td>
                   <td class="">
                       <span class="badge text-dark bg-light">
-                          <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/image/student/resized/${info[index].avatar}" alt="">
+                          <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/assets/images/student/resized/${info[index].avatar}" alt="">
                       </span>
                       <span class="badge text-dark bg-light">${info[index].name}</span>
                   </td>
@@ -183,7 +183,7 @@ exports.admin_student_get = (req, res) => {
 exports.admin_student_img_post= async(req, res)=>{
   const {dataid}= req.body;
 
-   sqlmap.query(`UPDATE students SET avatar=? WHERE domain=? AND ID=?`, [req.file.filename, req.cookies["hostname"], dataid], (err, next) => {
+   sqlmap.query(`UPDATE students SET avatar=? WHERE domain=? AND ID=?`, [req.file.filename, res.locals.hostname, dataid], (err, next) => {
     if (err) {
         console.log(err.sqlMessage);
     } else {
@@ -199,7 +199,7 @@ exports.admin_student_img_post= async(req, res)=>{
 
 exports.admin_student_penbox_pull=(req, res)=>{
   const {dataid}= req.body; 
-  sqlmap.query(`SELECT * FROM students WHERE domain=? AND  ID=?`,[req.cookies["hostname"], dataid], (err, info)=>{
+  sqlmap.query(`SELECT * FROM students WHERE domain=? AND  ID=?`,[res.locals.hostname, dataid], (err, info)=>{
       if(err) console.log(err.sqlMessage);
       else {
 
@@ -213,7 +213,7 @@ var penboxdata=
   <div class='pt-2 pb-2 bg-card-color-light d-flex justify-content-center'>
     <div>
     <span  class="avatar-append">
-    <img style="width: 100px; height: 100px" class="avatar-circle bg-card-color shadowx" src="/image/student/resized/${info[0].avatar}" alt="">
+    <img style="width: 100px; height: 100px" class="avatar-circle bg-card-color shadowx" src="/assets/images/student/resized/${info[0].avatar}" alt="">
 
     </span>
       <label  title="Change profile" class="btn btn-link"> <i class="bi bi-pen fs-5"></i>
@@ -450,7 +450,7 @@ res.send({penboxdata})
 
 exports.admin_student_penbox_push = (req, res) => {
   const { dataid, classNameX, name, roll, gender, fname, mname, birth_date, blood_group, religion, phone, email, address, admission_date } = req.body;
-  const domain = req.cookies["hostname"];
+  const domain = res.locals.hostname;
   const tempData = classNameX.split(' $%& ');
   const className = tempData[0];
   const sectionName = tempData[1];
@@ -471,7 +471,7 @@ exports.admin_student_penbox_push = (req, res) => {
   function update_student_def() {
       const updateQuery = `UPDATE students SET class=?, section=?, name=?, roll=?, gender=?, father_name=?, mother_name=?, birth_date=?, blood_group=?, religion=?, email=?, phone=?, address=?, admission_date=? WHERE domain=? AND ID=?`;
 
-      sqlmap.query(updateQuery, [className, sectionName, name, roll, gender, fname, mname, birth_date, blood_group, religion, email, phone, address, admission_date, req.cookies["hostname"], dataid], (err, update) => {
+      sqlmap.query(updateQuery, [className, sectionName, name, roll, gender, fname, mname, birth_date, blood_group, religion, email, phone, address, admission_date, res.locals.hostname, dataid], (err, update) => {
           if (err) {
               console.log(err.sqlMessage);
           } else {
@@ -490,17 +490,17 @@ exports.admin_student_rm = (req, res) => {
   if (dataid == undefined) {
       res.send({ msg: "Data not found!", alert: "alert-info" });
   } else {
-      sqlmap.query(`SELECT * FROM students WHERE domain=? AND ID IN (?)`, [req.cookies["hostname"], dataid], (errInfo, findInfo) => {
+      sqlmap.query(`SELECT * FROM students WHERE domain=? AND ID IN (?)`, [res.locals.hostname, dataid], (errInfo, findInfo) => {
           if (errInfo) {
               console.log("data not found!");
           } else {
-              sqlmap.query(`DELETE FROM students WHERE domain=? AND ID IN (?)`, [req.cookies["hostname"], dataid], (err, next) => {
+              sqlmap.query(`DELETE FROM students WHERE domain=? AND ID IN (?)`, [res.locals.hostname, dataid], (err, next) => {
                   if (err) {
                       console.log(err.sqlMessage);
                   } else {
                       findInfo.forEach(student => {
                           if (student.avatar !== 'male_avatar.png' && student.avatar !== 'female_avatar.png') {
-                              fs.unlink(`./public/image/student/resized/${student.avatar}`, errDelete => {
+                              fs.unlink(`./assets/${res.locals.hostname}/images/student/resized/${student.avatar}`, errDelete => {
                                   if (errDelete) {
                                       console.log(errDelete + "_" + "Data Deleted! Not found file!");
                                   }
@@ -525,7 +525,7 @@ exports.self_dashboard = (req, res) => {
   const student_uuid = req.session.student_uuid;
   const sql = `SELECT * FROM students WHERE domain=? AND student_uuid=?`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], student_uuid], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, student_uuid], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -547,7 +547,7 @@ exports.self_account = (req, res) => {
   const student_uuid = req.session.student_uuid;
   const sql = `SELECT * FROM students WHERE domain=? AND student_uuid=?`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], student_uuid], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, student_uuid], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -565,12 +565,12 @@ exports.self_account = (req, res) => {
     
 exports.self_penbox_push = (req, res) => {
   const { name, phone, fb_link, fname, mname, gender, birth_date, blood_group, religion, address } = req.body;
-  const domain = req.cookies["hostname"];
+  const domain = res.locals.hostname;
   const userid = req.session.userid;
 
   const sql = `UPDATE students SET name=?, phone=?, gender=?, birth_date=?, blood_group=?, religion=?, address=?, father_name=?, mother_name=?, fb_link=? WHERE domain=? AND ID=?`;
 
-  sqlmap.query(sql, [name, phone, gender, birth_date, blood_group, religion, address, fname, mname, fb_link, req.cookies["hostname"], userid], (err, update) => {
+  sqlmap.query(sql, [name, phone, gender, birth_date, blood_group, religion, address, fname, mname, fb_link, res.locals.hostname, userid], (err, update) => {
       if (err) {
           console.log(err.sqlMessage);
       } else {
@@ -587,7 +587,7 @@ exports.self_img_post= async(req, res)=>{
     
         const {dataid}= req.body;
       
-         sqlmap.query(`UPDATE students SET avatar=? WHERE domain=? AND ID=?`, [req.file.filename, req.cookies["hostname"], userid], (err, next) => {
+         sqlmap.query(`UPDATE students SET avatar=? WHERE domain=? AND ID=?`, [req.file.filename, res.locals.hostname, userid], (err, next) => {
           if (err) {
               console.log(err.sqlMessage);
           } else {
@@ -612,14 +612,14 @@ exports.self_password_update_push = (req, res) => {
 
   const updateSql = `UPDATE students SET password=? WHERE domain=? AND ID=?`;
 
-  sqlmap.query(`SELECT password FROM students WHERE domain=? AND ID=?`, [req.cookies["hostname"], userid], (errPass, infoPass) => {
+  sqlmap.query(`SELECT password FROM students WHERE domain=? AND ID=?`, [res.locals.hostname, userid], (errPass, infoPass) => {
       if (errPass) {
           console.log(errPass.sqlMessage);
           return;
       }
 
       if (currentPassword == infoPass[0].password) {
-          sqlmap.query(updateSql, [newPassword, req.cookies["hostname"], userid], (err, info) => {
+          sqlmap.query(updateSql, [newPassword, res.locals.hostname, userid], (err, info) => {
               if (err) {
                   console.log(err.sqlMessage);
                   return;
@@ -643,7 +643,7 @@ exports.self_email_update_pull = (req, res) => {
   req.session.username = username;
   req.session.temp_code = randHashCode;
 
-  sqlmap.query(`SELECT email FROM students WHERE domain=? AND email=?`, [req.cookies["hostname"], username], (errMain, infoMain) => {
+  sqlmap.query(`SELECT email FROM students WHERE domain=? AND email=?`, [res.locals.hostname, username], (errMain, infoMain) => {
       if (errMain) {
           console.log(errMain.sqlMessage);
           return;
@@ -717,7 +717,7 @@ exports.self_email_update_push = (req, res) => {
   const temp_code = req.session.temp_code;
 
   if (verifyCode == temp_code) {
-      sqlmap.query(`SELECT email FROM students WHERE domain=? AND email=?`, [req.cookies["hostname"], username], (errMain, infoMain) => {
+      sqlmap.query(`SELECT email FROM students WHERE domain=? AND email=?`, [res.locals.hostname, username], (errMain, infoMain) => {
           if (errMain) {
               console.log(errMain.sqlMessage);
               return;
@@ -725,7 +725,7 @@ exports.self_email_update_push = (req, res) => {
           if (infoMain.length > 0) {
               res.send({ feedback: true, alert: 'alert-info', msg: 'Username already exists!' });
           } else {
-              sqlmap.query(`UPDATE students SET email=? WHERE domain=? AND ID=?`, [username, req.cookies["hostname"], userid], (err, info) => {
+              sqlmap.query(`UPDATE students SET email=? WHERE domain=? AND ID=?`, [username, res.locals.hostname, userid], (err, info) => {
                   if (err) {
                       res.send({ alert: 'alert-info', msg: 'Something Wrong! please try again!' });
                   } else {
@@ -743,7 +743,7 @@ exports.self_email_update_push = (req, res) => {
 
 
 exports.public_student_page = (req, res) => {
-  const domain = req.cookies["hostname"];
+  const domain = res.locals.hostname;
   
   const sqlClass = `SELECT COUNT(ID) FROM students WHERE domain=?`;
   const sqlClass6 = `SELECT COUNT(ID) FROM students WHERE domain=? AND class="Six"`;
@@ -835,7 +835,7 @@ exports.public_student_list = (req, res) => {
   const limit = 12;
   const sql = `SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ? OFFSET 0`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], className, sectionName, limit], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, className, sectionName, limit], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -856,7 +856,7 @@ exports.public_student_pagination = (req, res) => {
   const limit = 15;
 
   sqlmap.query(`SELECT COUNT(ID) AS count_row FROM students WHERE domain=? AND class=? AND section=?`, 
-    [req.cookies["hostname"], className, sectionName], (err_count, info_count) => {
+    [res.locals.hostname, className, sectionName], (err_count, info_count) => {
       if (err_count) {
           console.log(err_count.sqlMessage);
           return;
@@ -868,7 +868,7 @@ exports.public_student_pagination = (req, res) => {
     //   console.log(info_count[0].count_row, limit, offset);
 
       sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? ORDER BY roll LIMIT ? OFFSET ?`,
-         [req.cookies["hostname"], className, sectionName, limit, offset], (err, info) => {
+         [res.locals.hostname, className, sectionName, limit, offset], (err, info) => {
           if (err) {
               console.log(err.sqlMessage);
               return;
@@ -881,7 +881,7 @@ exports.public_student_pagination = (req, res) => {
                   orderData += `<div class="flex-fill m-auto p-2 shadowx ">
                   <div class="bg-card-color pt-3 pb-3 rounded-4">
                       <div class="card-image m-auto">
-                          <img class="avatar-circle" src="/image/student/resized/${info[index].avatar}" alt="">
+                          <img class="avatar-circle" src="/assets/images/student/resized/${info[index].avatar}" alt="">
                       </div>
                   </div>
                   <div class="pb-3">
@@ -908,7 +908,7 @@ exports.public_student_profile_get = (req, res) => {
   const { dataid } = req.body;
   const sql = `SELECT * FROM students WHERE domain=? AND ID=?`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], dataid], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, dataid], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -919,7 +919,7 @@ exports.public_student_profile_get = (req, res) => {
           <center>
               <div class="bg-card-color pt-3 pb-3 rounded-top-5 rounded-start-5">
                   <div class="card-image">
-                      <img class="avatar-circle" src="/image/student/resized/${info[0].avatar}" alt="">
+                      <img class="avatar-circle" src="/assets/images/student/resized/${info[0].avatar}" alt="">
                   </div>
               </div>
           </center>
@@ -992,7 +992,7 @@ exports.self_social = (req, res) => {
 
   const sql = `UPDATE students SET facebook_link=? WHERE domain=? AND student_uuid=?`;
 
-  sqlmap.query(sql, [facebookLink, req.cookies["hostname"], student_uuid], (err, info) => {
+  sqlmap.query(sql, [facebookLink, res.locals.hostname, student_uuid], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
       } else {
@@ -1009,7 +1009,7 @@ exports.student_rank_get_class_base = (req, res) => {
   const sectionName = req.session.sectionName;
   const sql = `SELECT * FROM rank WHERE domain=? AND class=? GROUP BY student_id ORDER BY poient DESC`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], className], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, className], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -1017,7 +1017,7 @@ exports.student_rank_get_class_base = (req, res) => {
 
       const sqlSummary = `SELECT SUM(behavior) as behavior, SUM(uniform) as uniform, SUM(present) as present, SUM(study) as study FROM rank WHERE domain=? AND class=? GROUP BY student_id ORDER BY poient DESC`;
 
-      sqlmap.query(sqlSummary, [req.cookies["hostname"], className], (errS, infoS) => {
+      sqlmap.query(sqlSummary, [res.locals.hostname, className], (errS, infoS) => {
           if (errS) {
               console.log(errS.sqlMessage);
               return;
@@ -1030,7 +1030,7 @@ exports.student_rank_get_class_base = (req, res) => {
                   <ul class="list-group mt-2 list" id="list">
                       <li class="list-group-item list-group-item-primary">
                           <span class="badge bg-primary">Rank: ${parseInt(i) + 1}</span>
-                          <img src="/image/student/resized/${info[i].avatar}" height="30px" class="rounded" width="40px" alt="">
+                          <img src="/assets/images/student/resized/${info[i].avatar}" height="30px" class="rounded" width="40px" alt="">
                           <span class="badge bg-light text-dark">${info[i].name}</span>
                           <span class="badge bg-light text-muted">${info[i].class} - ${info[i].section}</span>
                           <span class="badge bg-light text-muted">${info[i].student_id}</span>
@@ -1056,7 +1056,7 @@ exports.student_rank_get_class_base = (req, res) => {
 exports.student_parent_list = (req, res) => {
   const sql = `SELECT ID, email, name FROM parents WHERE domain=? AND student_id=?`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], req.session.student_id], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, req.session.student_id], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -1078,7 +1078,7 @@ exports.student_parent_set = (req, res) => {
   const { parentEmail } = req.body;
   const sql = `UPDATE parents SET permission='allow' WHERE domain=? AND student_id=? AND email=?`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], req.session.student_id, parentEmail], (err, update) => {
+  sqlmap.query(sql, [res.locals.hostname, req.session.student_id, parentEmail], (err, update) => {
       if (err) {
           console.log(err.sqlMessage);
       } else {
@@ -1092,7 +1092,7 @@ exports.student_parent_set = (req, res) => {
 exports.student_parent_get = (req, res) => {
   const sql = `SELECT * FROM parents WHERE domain=? AND permission='allow' AND student_id=?`;
 
-  sqlmap.query(sql, [req.cookies["hostname"], req.session.student_id], (err, info) => {
+  sqlmap.query(sql, [res.locals.hostname, req.session.student_id], (err, info) => {
       if (err) {
           console.log(err.sqlMessage);
           return;
@@ -1104,7 +1104,7 @@ exports.student_parent_get = (req, res) => {
           for (const i in info) {
               listData += `
               <div class="input-group">
-                  <span class="input-group-text"><img width="50px" src="/image/parent/resized/${info[i].avatar}" alt="404"></span>
+                  <span class="input-group-text"><img width="50px" src="/assets/images/parent/resized/${info[i].avatar}" alt="404"></span>
                   <input disabled readonly type="text" class="form-control form-self" value="${info[i].email} - ${info[i].name}">
               </div>`;
           }

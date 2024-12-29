@@ -15,7 +15,7 @@ exports.teacher_attn_post_page = (req, res) => {
 
     sqlmap.query(
         `SELECT ID, student_id, student_uuid FROM students WHERE domain=? AND class=? AND section=? GROUP BY student_id ORDER BY roll`,
-        [req.cookies["hostname"], class_name, section_name],
+        [res.locals.hostname, class_name, section_name],
         (errS, infoS) => {
             if (errS) {
                 console.log(errS.sqlMessage);
@@ -26,7 +26,7 @@ exports.teacher_attn_post_page = (req, res) => {
 
             sqlmap.query(
                 `SELECT ID, student_id, student_uuid, avatar, name, roll FROM students WHERE domain=? AND class=? AND section=? GROUP BY student_id ORDER BY roll LIMIT 20 OFFSET 0`,
-                [req.cookies["hostname"], class_name, section_name],
+                [res.locals.hostname, class_name, section_name],
                 (err, info) => {
                     if (err) {
                         console.log(err.sqlMessage);
@@ -46,7 +46,7 @@ exports.teacher_attn_post_page_num = (req, res) => {
 
     sqlmap.query(
         `SELECT ID, student_id, student_uuid, avatar, name, roll FROM students WHERE domain=? AND class=? AND section=? GROUP BY student_id ORDER BY roll LIMIT 20 OFFSET ?`,
-        [req.cookies["hostname"], class_name, section_name, offset * 20],
+        [res.locals.hostname, class_name, section_name, offset * 20],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -59,7 +59,7 @@ exports.teacher_attn_post_page_num = (req, res) => {
                     htmldata += `
                     <div class="student-card findcard pt-3 pb-3 shadowx">
                     <div class="d-flex  justify-content-start align-content-center align-items-center">
-                    <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/image/student/resized/${info[index].avatar}" alt="">
+                    <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/assets/images/student/resized/${info[index].avatar}" alt="">
                     <p class="fw-semibold text-muted ps-1"> ${info[index].roll}</p>
                     <p class="fw-semibold text-muted ps-2  text-truncate">${info[index].name}</p>
                 
@@ -112,7 +112,7 @@ exports.teacher_attn_post = (req, res) => {
 
     sqlmap.query(
         `SELECT user_id, find_date, attn_date FROM attn_record WHERE domain=? AND user=? AND user_id=? AND find_date=? ORDER BY id DESC`,
-        [req.cookies["hostname"], 'Student', student_id, find_date],
+        [res.locals.hostname, 'Student', student_id, find_date],
         (errf, find) => {
             if (errf) {
                 console.log(errf.sqlMessage);
@@ -122,13 +122,13 @@ exports.teacher_attn_post = (req, res) => {
             if (find.length > 0) {
                 sqlmap.query(
                     `UPDATE attn_record SET checkout=?, at_status=? WHERE domain=? AND user=? AND user_id=? AND find_date=?`,
-                    [checkout, at_status, req.cookies["hostname"], 'Student', student_id, find_date],
+                    [checkout, at_status, res.locals.hostname, 'Student', student_id, find_date],
                     (erru, up) => {
                         if (erru) {
                             console.log(erru.sqlMessage);
                             return;
                         }
-                        student_rank_mark_attn(req.cookies["hostname"], class_name, section_name, student_id, at_status);
+                        student_rank_mark_attn(res.locals.hostname, class_name, section_name, student_id, at_status);
                         res.send({ att: true });
                     }
                 );
@@ -137,13 +137,13 @@ exports.teacher_attn_post = (req, res) => {
                 sqlmap.query(
                     `INSERT INTO attn_record (domain, session, duplicate_data, menual, user, get_cal, attn_date, find_date, checkout, at_status, class, section, user_id, name, roll, avatar, year, month, day)
                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                    [req.cookies["hostname"], currentYear, duplicate_data, 1, 'Student', get_cal, attn_date, find_date, checkout, at_status, class_name, section_name, student_id, name, roll, avatar, currentYear, currentMonth, currentDate],
+                    [res.locals.hostname, currentYear, duplicate_data, 1, 'Student', get_cal, attn_date, find_date, checkout, at_status, class_name, section_name, student_id, name, roll, avatar, currentYear, currentMonth, currentDate],
                     (erri, inser) => {
                         if (erri) {
                             console.log(erri.sqlMessage);
                             return;
                         }
-                        student_rank_mark_attn(req.cookies["hostname"], class_name, section_name, student_id, at_status);
+                        student_rank_mark_attn(res.locals.hostname, class_name, section_name, student_id, at_status);
                         res.send({ att: true });
                     }
                 );
@@ -160,7 +160,7 @@ exports.teacher_attn_post = (req, res) => {
 
     sqlmap.query(
         `SELECT user_id, checkout, attn_date FROM attn_record WHERE domain=? AND user='Student' AND class=? AND section=? AND attn_date=?`,
-        [req.cookies["hostname"], class_name, section_name, attn_date],
+        [res.locals.hostname, class_name, section_name, attn_date],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -178,7 +178,7 @@ exports.teacher_attn_post = (req, res) => {
 
     sqlmap.query(
         `SELECT user_id, checkout, attn_date FROM attn_record WHERE domain=? AND class=? AND section=? AND user_id=? ORDER BY at_date LIMIT 5`,
-        [req.cookies["hostname"], class_name, section_name, student_id],
+        [res.locals.hostname, class_name, section_name, student_id],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -205,7 +205,7 @@ exports.privet_attn_repo_page = (req, res) => {
 
     sqlmap.query(
         `SELECT user_id, attn_date FROM attn_record WHERE domain=? AND class=? AND section=? ORDER BY at_date DESC LIMIT 1`,
-        [req.cookies["hostname"], class_name, section_name],
+        [res.locals.hostname, class_name, section_name],
         (errf, infof) => {
             if (errf) {
                 console.log(errf.sqlMessage);
@@ -216,7 +216,7 @@ exports.privet_attn_repo_page = (req, res) => {
                 const get_attn_date = infof[0].attn_date;
                 sqlmap.query(
                     `SELECT id, user_id, avatar, name, roll, checkout, at_status FROM attn_record WHERE domain=? AND class=? AND section=? AND attn_date=? GROUP BY user_id ORDER BY roll LIMIT 20 OFFSET 0`,
-                    [req.cookies["hostname"], class_name, section_name, get_attn_date],
+                    [res.locals.hostname, class_name, section_name, get_attn_date],
                     (err, info) => {
                         if (err) {
                             console.log(err.sqlMessage);
@@ -241,7 +241,7 @@ exports.privet_attn_repo_page_num = (req, res) => {
     
     sqlmap.query(
         `SELECT id, user_id, avatar, name, checkout, at_status, roll FROM attn_record WHERE domain=? AND class=? AND section=? AND attn_date=? GROUP BY user_id ORDER BY roll LIMIT 20 OFFSET ?`,
-        [req.cookies["hostname"], class_name, section_name, attn_date, offset * 20],
+        [res.locals.hostname, class_name, section_name, attn_date, offset * 20],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -256,7 +256,7 @@ exports.privet_attn_repo_page_num = (req, res) => {
                     <div class="student-card findcard pt-1 pb-1 shadowx">
                     <div class="d-flex  justify-content-start align-content-center align-items-center">
                  
-                      <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/image/student/resized/${info[index].avatar}" alt="">
+                      <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/assets/images/student/resized/${info[index].avatar}" alt="">
                       <p class="fw-semibold text-muted ps-1">${info[index].roll}</p>
                       <p class="fw-semibold text-muted ps-2  text-truncate">${info[index].name}</p>
                   
@@ -285,7 +285,7 @@ exports.privet_attn_repo_find = (req, res) => {
     
     sqlmap.query(
         `SELECT id, user_id, avatar, name, checkout, at_status, roll FROM attn_record WHERE domain=? AND class=? AND section=? AND attn_date=? GROUP BY user_id ORDER BY roll LIMIT 20 OFFSET 0`,
-        [req.cookies["hostname"], class_name, section_name, attn_date],
+        [res.locals.hostname, class_name, section_name, attn_date],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -300,7 +300,7 @@ exports.privet_attn_repo_find = (req, res) => {
                     <div class="student-card findcard pt-1 pb-1 shadowx">
                     <div class="d-flex  justify-content-start align-content-center align-items-center">
                  
-                      <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/image/student/resized/${info[index].avatar}" alt="">
+                      <img class="rounded-circle border border-1 p-1" height="60px" width="60px" src="/assets/images/student/resized/${info[index].avatar}" alt="">
                       <p class="fw-semibold text-muted ps-1">${info[index].roll}</p>
                       <p class="fw-semibold text-muted ps-2  text-truncate">${info[index].name}</p>
                   
@@ -331,7 +331,7 @@ exports.privet_attn_repo_find = (req, res) => {
 
     sqlmap.query(
         `SELECT id, user_id, avatar, name, roll, checkout, at_status FROM attn_record WHERE domain=? AND class=? AND section=? AND user_id=?`,
-        [req.cookies["hostname"], class_name, section_name, student_id],
+        [res.locals.hostname, class_name, section_name, student_id],
         (err, info) => {
             if (err) {
                 console.log(err.sqlMessage);
@@ -355,7 +355,7 @@ exports.privet_attn_repo_find = (req, res) => {
 
     sqlmap.query(
         `SELECT COUNT(CASE checkout WHEN 1 THEN 1 ELSE null END) AS present, COUNT(CASE checkout WHEN 0 THEN 1 ELSE null END) AS absent FROM attn_record WHERE domain=? AND class=? AND section=? AND user_id=? AND get_cal=?`,
-        [req.cookies["hostname"], class_name, section_name, student_id, get_cal],
+        [res.locals.hostname, class_name, section_name, student_id, get_cal],
         (errc, cal) => {
             if (errc) {
                 console.log(errc.sqlMessage);
@@ -367,7 +367,7 @@ exports.privet_attn_repo_find = (req, res) => {
 
             sqlmap.query(
                 `SELECT find_date, get_cal, checkout FROM attn_record WHERE domain=? AND class=? AND section=? AND user_id=? AND get_cal=? ORDER BY day`,
-                [req.cookies["hostname"], class_name, section_name, student_id, get_cal],
+                [res.locals.hostname, class_name, section_name, student_id, get_cal],
                 (err, info) => {
                     if (err) {
                         console.log(err.sqlMessage);
