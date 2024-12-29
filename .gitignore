@@ -3,7 +3,3 @@ node_modules/
 
 # ZIP files
 *.zip
-
-# Docs and image assets
-assets
-assets
