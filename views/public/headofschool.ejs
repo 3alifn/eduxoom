@@ -5,171 +5,170 @@
         <title>Head of school</title>  
         <%- include("../component/metadata.html") %>
       
+<style>
+  /* Responsive styles */
+.card-container {
+  flex: 1 1 auto;
+  max-width: 250px;
+  margin-bottom: 20px;
+}
 
+.bg-card-color {
+  background-color: #f8f9fa;
+}
+
+.card-image img.avatar-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (min-width: 576px) {
+  .card-container {
+    flex: 0 1 calc(50% - 1rem); /* 2 columns on small screens */
+    margin: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-container {
+    flex: 0 1 calc(33.333% - 1rem); /* 3 columns on medium screens */
+    margin: 0.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-container {
+    flex: 0 1 calc(25% - 1rem); /* 4 columns on large screens */
+    margin: 0.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-container {
+    flex: 0 1 calc(20% - 1rem); /* 5 columns on extra large screens */
+    margin: 0.5rem;
+  }
+}
+
+</style>
     </head>
 <body onload="pageLoaded()">
 
   <%- include("../component/header-nav.html") %>
   <%- include("../component/menu-nav.html") %>
 
-    <div id="headofschool" class="row mt-5 mb-5">
-        <h1 class="fw-semibold text-center p-2 mt-3">Head of school</h1>
-      <p class="text-center fw-semibold mb-3">Meet our most honorable person's in the school</p>
-
-<% if (info.length>0) { %>
-  <% for( let index = 0; index < info.length; index++ ) { %>
- 
-    <div class="row p-2 ms-0 me-0">
-      <div class="col-12 col-md-8 shadowx m-auto p-2 mt-5 position-relative">
-    
-   
-        <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
-          <div class="d-flex flex-md-row flex-column justify-content-around align-items-center">
-            <div class="card-image">
-            <img class="avatar-circle" src="/assets/images/headofschool/resized/<%=info[index].image%>" alt="">
-            
-        </div>
-       
-        <div class="text-light">
-          <h2 id="<%=info[index].position%>" class="name">Our <%=info[index].position%></h2>
-          <h5  class="name"><%=info[index].name%></h5>
-        </div>
-      
-        </div>
-      </div>
-    
-      <span class=" position-absolute rounded-top-5 bg-light"
-       style="height: 50px; width: 50px;  
-       margin-top: -20px; z-index: 1090; right: 0; transform: scale(1.2);"></span>
-    
-      <div class=" pt-3 p-1 pb-3 rounded-bottom-5 rounded-end-5">
-        <h5  class="fw-semibold">Message here</h5>
+  <div id="headofschool" class="row mt-5 mb-5">
+    <h1 class="fw-semibold text-center p-2 mt-3">Head of school</h1>
+    <p class="text-center fw-semibold mb-3">Meet our most honorable person's in the school</p>
   
-          <div class="card-body text-start p-2">
-            <%=info[index].message%>
+    <% if (info.length > 0) { %>
+      <% for (let index = 0; index < info.length; index++) { %>
+        <div class="row p-2 ms-0 me-0">
+          <div class="col-12 col-md-8 shadowx m-auto p-2 mt-5 position-relative">
+            <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
+              <div class="d-flex flex-md-row flex-column justify-content-around align-items-center">
+                <div class="card-image">
+                  <img class="avatar-circle" src="/assets/images/headofschool/resized/<%=info[index].image%>" alt="">
+                </div>
+                <div class="text-light">
+                  <h2 id="<%=info[index].position%>" class="name">Our <%=info[index].position%></h2>
+                  <h5 class="name"><%=info[index].name%></h5>
+                </div>
+              </div>
+            </div>
+            <span class="position-absolute rounded-top-5 bg-light"
+              style="height: 50px; width: 50px; margin-top: -20px; z-index: 1090; right: 0; transform: scale(1.2);"></span>
+            <div class="pt-3 p-1 pb-3 rounded-bottom-5 rounded-end-5">
+              <h5 class="fw-semibold">Message here</h5>
+              <div class="card-body text-start p-2">
+                <%=info[index].message%>
+              </div>
+            </div>
           </div>
-      </div>
-    
-      </div>
-    </div> 
-  
-   <% } %>
-
-
-<% } else {%>
-
-
-
-  <div class="row p-2 ms-0 me-0">
-    <div class="col-12 col-md-8 shadowx m-auto p-2 mt-5 position-relative">
-  
-    <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
-      <div class="d-flex flex-md-row flex-column justify-content-around align-items-center">
-        <div class="card-image">
-          <img class="avatar-circle" src="/images/demo/female_avatar.png" alt="">
-          
-      </div>
-     
-      <div class="text-light">
-        <h2 id="President" class="name">Our president</h2>
-        <h5  class="name">No name</h5>
-      </div>
-    
-      </div>
-    </div>
-  
-    <span class=" position-absolute rounded-top-5 bg-light"
-     style="height: 50px; width: 50px;  
-     margin-top: -20px; z-index: 1090; right: 0; transform: scale(1.2);"></span>
-  
-    <div class=" pt-3 p-1 pb-3 rounded-bottom-5 rounded-end-5">
-      <h5  class="fw-semibold">Message here</h5>
-
-        <div class="card-body text-start p-2">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
         </div>
-    </div>
-  
-    </div>
-  </div> 
-
-
-  <div class="row p-2 ms-0 me-0">
-    <div class="col-12 col-md-8 shadowx m-auto p-2 mt-5 position-relative">
-  
-    <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
-      <div class="d-flex flex-md-row flex-column justify-content-around align-items-center">
-        <div class="card-image">
-          <img class="avatar-circle" src="/images/demo/male_avatar.png" alt="">
-          
-      </div>
-     
-      <div class="text-light">
-        <h2 id="Secretary" class="name">Our Secretary</h2>
-        <h5  class="name">No name</h5>
-      </div>
-    
-      </div>
-    </div>
-  
-    <span class=" position-absolute rounded-top-5 bg-light"
-     style="height: 50px; width: 50px;  
-     margin-top: -20px; z-index: 1090; right: 0; transform: scale(1.2);"></span>
-  
-    <div class=" pt-3 p-1 pb-3 rounded-bottom-5 rounded-end-5">
-      <h5  class="fw-semibold">Message here</h5>
-
-        <div class="card-body text-start p-2">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
+      <% } %>
+    <% } else { %>
+      <div class="row p-2 ms-0 me-0">
+        <div class="col-12 col-md-8 shadowx m-auto p-2 mt-5 position-relative">
+          <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
+            <div class="d-flex flex-md-row flex-column justify-content-around align-items-center">
+              <div class="card-image">
+                <img class="avatar-circle" src="/images/demo/female_avatar.png" alt="">
+              </div>
+              <div class="text-light">
+                <h2 id="President" class="name">Our president</h2>
+                <h5 class="name">No name</h5>
+              </div>
+            </div>
+          </div>
+          <span class="position-absolute rounded-top-5 bg-light"
+            style="height: 50px; width: 50px; margin-top: -20px; z-index: 1090; right: 0; transform: scale(1.2);"></span>
+          <div class="pt-3 p-1 pb-3 rounded-bottom-5 rounded-end-5">
+            <h5 class="fw-semibold">Message here</h5>
+            <div class="card-body text-start p-2">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
+            </div>
+          </div>
         </div>
-    </div>
-  
-    </div>
-  </div> 
-
-
-
-  <div class="row p-2 ms-0 me-0">
-    <div class="col-12 col-md-8 shadowx m-auto p-2 mt-5 position-relative">
-  
-    <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
-      <div class="d-flex flex-md-row flex-column justify-content-around align-items-center">
-        <div class="card-image">
-          <img class="avatar-circle" src="/images/demo/female_avatar_2.png" alt="">
-          
       </div>
-     
-      <div class="text-light">
-        <h2 id="Headmaster" class="name">Our Headmaster</h2>
-        <h5  class="name">No name</h5>
-      </div>
-    
-      </div>
-    </div>
-  
-    <span class=" position-absolute rounded-top-5 bg-light"
-     style="height: 50px; width: 50px;  
-     margin-top: -20px; z-index: 1090; right: 0; transform: scale(1.2);"></span>
-  
-    <div class=" pt-3 p-1 pb-3 rounded-bottom-5 rounded-end-5">
-      <h5  class="fw-semibold">Message here</h5>
-
-        <div class="card-body text-start p-2">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
+      <div class="row p-2 ms-0 me-0">
+        <div class="col-12 col-md-8 shadowx m-auto p-2 mt-5 position-relative">
+          <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
+            <div class="d-flex flex-md-row flex-column justify-content-around align-items-center">
+              <div class="card-image">
+                <img class="avatar-circle" src="/images/demo/male_avatar.png" alt="">
+              </div>
+              <div class="text-light">
+                <h2 id="Secretary" class="name">Our Secretary</h2>
+                <h5 class="name">No name</h5>
+              </div>
+            </div>
+          </div>
+          <span class="position-absolute rounded-top-5 bg-light"
+            style="height: 50px; width: 50px; margin-top: -20px; z-index: 1090; right: 0; transform: scale(1.2);"></span>
+          <div class="pt-3 p-1 pb-3 rounded-bottom-5 rounded-end-5">
+            <h5 class="fw-semibold">Message here</h5>
+            <div class="card-body text-start p-2">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
+      <div class="row p-2 ms-0 me-0">
+        <div class="col-12 col-md-8 shadowx m-auto p-2 mt-5 position-relative">
+          <div class="bg-card-color p-3 rounded-top-5 rounded-start-5">
+            <div class="d-flex flex-md-row flex-column justify-content-around align-items-center">
+              <div class="card-image">
+                <img class="avatar-circle" src="/images/demo/female_avatar_2.png" alt="">
+              </div>
+              <div class="text-light">
+                <h2 id="Headmaster" class="name">Our Headmaster</h2>
+                <h5 class="name">No name</h5>
+              </div>
+            </div>
+          </div>
+          <span class="position-absolute rounded-top-5 bg-light"
+            style="height: 50px; width: 50px; margin-top: -20px; z-index: 1090; right: 0; transform: scale(1.2);"></span>
+          <div class="pt-3 p-1 pb-3 rounded-bottom-5 rounded-end-5">
+            <h5 class="fw-semibold">Message here</h5>
+            <div class="card-body text-start p-2">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis debitis cumque temporibus quae et! Qui corporis, corrupti delectus nesciunt voluptas excepturi error optio perspiciatis non tenetur eius eveniet, officia veniam.
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
   
-    </div>
-  </div> 
-
-  <% } %>
-</div>
 
     <%- include("../component/footer-nav.html") %>
 

@@ -51,9 +51,8 @@ exports.admin_student_join_quick = (req, res) => {
             if (info_.length > 0) {
                 console.log('Roll Already Joined!');
                 message.unshift('Roll Already Joined!');
-                req.flash('msg', 'invalid roll=>' + roll[index]);
+                req.flash('msg', 'Student Roll Already Joined! =>' + roll[index]);
                 req.flash('alert', 'danger');
-                res.json({ msg: "Student Roll Already Joined!" });
 
             } else {
                 const uuid = new Date().getTime() + '' + Math.floor(Math.random() * 900000000);
@@ -878,20 +877,21 @@ exports.public_student_pagination = (req, res) => {
               let orderData = '';
 
               for (let index = 0; index < info.length; index++) {
-                  orderData += `<div class="flex-fill m-auto p-2 shadowx ">
-                  <div class="bg-card-color pt-3 pb-3 rounded-4">
-                      <div class="card-image m-auto">
-                          <img class="avatar-circle" src="/assets/images/student/resized/${info[index].avatar}" alt="">
-                      </div>
-                  </div>
-                  <div class="pb-3">
-                      <div class="card-body text-center p-2">
-                          <span class="fs-6 fw-semibold">${info[index].name}</span> <br>
-                          <span class="text-muted fw-semibold">${info[index].roll}</span> <br>
-                          <button onclick="get_profile_def('${info[index].ID}')" class="p-2 fw-semibold btn-link btn tap-to-open">Tap to open</button>
-                      </div>
-                  </div>
-              </div>`;
+                  orderData += `<div class="flex-fill card-container p-2 shadowx">
+      <div class="bg-card-color pt-3 pb-3 rounded-4">
+    <div class="card-image m-auto">
+      <img class="avatar-circle" src="/assets/images/student/resized/${info[index].avatar}" alt="">
+    </div>
+  </div>
+  <div class="pb-3">
+    <div class="card-body text-center p-2">
+      <span class="fs-6 fw-semibold">${info[index].name}</span> <br>
+      <span class="text-muted fw-semibold">${info[index].roll}</span> <br>
+      <button onclick="get_profile_def('${info[index].ID}')" class="p-2 fw-semibold btn-link btn tap-to-open">Tap to open</button>
+    </div>
+  </div>
+</div>
+`;
               }
 
               res.send({ orderData, permit_count });
