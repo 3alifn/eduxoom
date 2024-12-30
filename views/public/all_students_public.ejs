@@ -7,7 +7,43 @@
     <title>All Students</title>
     <%- include("../component/metadata.html") %> 
 
+<style>
+  /* Responsive styles */
+.card-container {
+  width: 100%;
+  max-width: 250px;
+  margin-bottom: 20px;
+}
 
+@media (min-width: 576px) {
+  .card-container {
+    flex: 0 1 calc(50% - 1rem); /* 2 columns on small screens */
+    margin: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-container {
+    flex: 0 1 calc(33.333% - 1rem); /* 3 columns on medium screens */
+    margin: 0.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-container {
+    flex: 0 1 calc(25% - 1rem); /* 4 columns on large screens */
+    margin: 0.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-container {
+    flex: 0 1 calc(20% - 1rem); /* 5 columns on extra large screens */
+    margin: 0.5rem;
+  }
+}
+
+</style>
 </head>
 
 <body onload="pageLoadingTop()">
@@ -28,43 +64,33 @@
 
 
 
-<div class="d-flex p-2 mt-5 mbx row-gap-5 studentData justify-content-center column-gap-2 flex-wrap ">
-
-  <% if (info.length>0) { %>
-   
-    <% for( let index = 0; index < info.length; index++ ) { %>
-      <div style="width: 250px;" class="flex-fill  p-2 shadowx ">
-      <div class="bg-card-color pt-3 pb-3 rounded-4">
+<div class="d-flex p-2 mt-5 mbx row-gap-5 studentData justify-content-center column-gap-2 flex-wrap">
+  <% if (info.length > 0) { %>
+    <% for (let index = 0; index < info.length; index++) { %>
+      <div class="flex-fill card-container p-2 shadowx">
+        <div class="bg-card-color pt-3 pb-3 rounded-4">
           <div class="card-image m-auto">
-              <img  class="avatar-circle" src="/assets/images/student/resized/<%=info[index].avatar%>" alt="">
+            <img class="avatar-circle" src="/assets/images/student/resized/<%=info[index].avatar%>" alt="">
           </div>
-      </div>
-    
-        
-      <div class="pb-3">
+        </div>
+        <div class="pb-3">
           <div class="card-body text-center p-2">
-           <span class="fs-6 fw-semibold"><%=info[index].name%></span> <br>
-           <span class="text-muted fw-semibold"><%=info[index].roll%></span> <br>
-           <button onclick="get_profile_def('<%=info[index].ID%>')" class="p-2 fw-semibold btn-link btn tap-to-open">Tap to open</button>
+            <span class="fs-6 fw-semibold"><%=info[index].name%></span> <br>
+            <span class="text-muted fw-semibold"><%=info[index].roll%></span> <br>
+            <button onclick="get_profile_def('<%=info[index].ID%>')" class="p-2 fw-semibold btn-link btn tap-to-open">Tap to open</button>
           </div>
+        </div>
       </div>
-    
+    <% } %>
+  <% } else { %>
+    <div class="row mt-5 p-2 shadowx">
+      <div class="col-11 m-auto">
+        <p class="p-2 shadowx fw-semibold">No record here</p>
       </div>
+    </div>
   <% } %>
-
-<% } else {%>
-
-  <div class="row mt-5 p-2 shadowx">
-
-    <div class="col-11 m-auto">
-      <p class="p-2 shadowx fw-semibold">No record here</p>
-  </div>
-
-  <% } %>
-
 </div>
 
-</div>
 
 <!-- end demo card -->
        <div id="observerElement" class="row mbx">
@@ -104,7 +130,7 @@ function get_profile_def(dataid){
 
 
     
-var requestPageOffset= 0;
+var requestPageOffset= 1;
 var className= '<%=className%>';
 var sectionName= '<%=sectionName%>';
 const observerElement= document.getElementById('observerElement');

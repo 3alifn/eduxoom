@@ -1,4 +1,4 @@
-const {app, express, sharp, path, fs, sqlmap} = require('../server');
+const {app, express, sharp, path, fs, sqlmap} = require('../configs/server');
 const {MulterError}= require('multer')
 const globalHostnameSetter= (req, res, next)=>{
   const host = req.hostname.startsWith("www.");

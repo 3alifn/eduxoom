@@ -1,19 +1,19 @@
 
 const { app, express, mysql , sessionStore,  session, cookieParser, flash, sjcl, jwt,
 Timer, axios, ZKLib, bodyParser, sqlmap, multer, 
-randomBytes, createHmac, fs, path, dotenv } = require("./server")
-app.locals.data = require('./app/admission_app');
-const myini= require('./app/myini');
+randomBytes, createHmac, fs, path, dotenv } = require("./configs/server")
+app.locals.data = require('./apps/admission_app');
+const myini= require('./apps/myini');
 const { MulterError } = require("multer")
-const public = require("./route/public_route")
-const privet = require("./route/privet_route")
-const teacher = require("./route/teacher_route")
-const student = require("./route/student_route")
-const parent = require("./route/parent_route")
-const  authentication= require("./route/auhentication_route");
-const { home_page } = require("./app/home_app");
-const admin = require("./route/admin_route");
-const ini = require("./route/ini_route");
+const public = require("./routes/public_route")
+const privet = require("./routes/privet_route")
+const teacher = require("./routes/teacher_route")
+const student = require("./routes/student_route")
+const parent = require("./routes/parent_route")
+const  authentication= require("./routes/auhentication_route");
+const { home_page } = require("./apps/home_app");
+const admin = require("./routes/admin_route");
+const ini = require("./routes/ini_route");
 const { strict } = require("assert");
 const { globalHostnameSetter, globalAssetsGetter
    ,globalLicsCheckout, globalErrorHandler,
