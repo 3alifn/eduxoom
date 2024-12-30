@@ -104,7 +104,7 @@
     
       <th>
         <button type="button" class="btn btn-light addItemQuick" title="ADD" ><i class="bi bi-plus-circle-fill text-primary"></i></button>
-         <input id="counterIndex" style="width: 100px;" type="number" placeholder="15" name="counter" id="">
+         <input min="1" max="50" maxlength="3" id="counterIndex" style="width: 100px;" type="number" placeholder="50" name="counter" id="">
         <button type="button" disabled class="btn btn-light removeItemQuick" title="Remove" ><i class="bi bi-x-circle-fill text-danger"></i></button>
     
       </th>
@@ -119,7 +119,7 @@
   </div>
   
   <div class="col-6 col-md-3 m-auto ">
-    <input class="btn btn-primary w-100 submitbtn"  type="submit" value="Join">
+    <input class="btn btn-primary w-100 submitbtn submitJoin"  type="submit" value="Join">
   
   </div>
   </form>
@@ -128,15 +128,15 @@
   
  
   <script>
-   $('.submitbtn').click(()=>{
+   $('.submitJoin').submit(()=>{
     $('.submitbtn').addClass('disabled')
    })
   $(document).on("click", ".addItemQuick", (e) => {
   var nextGender= $('.genderIndex').last().val();
   var counterIndex= $('#counterIndex').val();
   var counterInput= parseInt(counterIndex==''?0:counterIndex);
- console.log(counterInput);
-  for (let i=0; counterInput>=i; i++){
+  var counterInputLoop= counterInput>50?50:counterInput;
+  for (let i=0; counterInputLoop>=i; i++){
     $(".studentAppend").append(` 
    
    <thead class="border border-dark p-2 m-2">
