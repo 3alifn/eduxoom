@@ -62,19 +62,33 @@
 <div id="FormApp">
   <div class="row mt-5 mbx p-2 pb-5">
     <div class="col-lg-3 col-md-2 col-sm-1"></div>
-    <div class="col-lg-6 col-md-8 col-sm-10">
+    <div class="col-lg-6 col-md-6 col-sm-10">
       <form id="formau" action="#" class="form container text-center">
         <img src="/images/school/user.png" height="70px" alt="">
         <h3>Sign in</h3>
         <a class="link-me" href="/pu/join/parent">Join Parent</a> or <a class="link-me" href="/admin/panel">admin</a>
-        <div class="input-group mt-3">
+       
+     
+        <div class="input-group mt-3 border border-3">
           <span class="input-group-text"><img width="30px" src="/icons/icons8-test-account-48.png" alt=""></span>
-          <select name="userRole" class="form-self form-select">
-            <option value="students">Student</option>
-            <option selected value="teachers">Teacher</option>
-            <option value="parents">Parent</option>
-          </select>
+          
+          <div class="form-check p-2 ms-3">
+            <input class="form-check-input" type="radio" name="userRole" id="roleTeacher" value="teachers" checked>
+            <label class="form-check-label" for="roleTeacher">Teacher</label>
+          </div>
+
+          <div class="form-check p-2 ms-3">
+            <input class="form-check-input" type="radio" name="userRole" id="roleStudent" value="students">
+            <label class="form-check-label" for="roleStudent">Student</label>
+          </div>
+    
+          <div class="form-check p-2 ms-3">
+            <input class="form-check-input" type="radio" name="userRole" id="roleParent" value="parents">
+            <label class="form-check-label" for="roleParent">Parent</label>
+          </div>
         </div>
+        
+
         <div class="input-group mt-3">
           <span class="input-group-text"><img width="30px" src="/icons/icons8-mail-48.png" alt=""></span>
           <input type="text" placeholder="user@abc.com" name="username" class="form-self form-control" required>

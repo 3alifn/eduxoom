@@ -208,25 +208,25 @@ exports.au_user_header_nav = (req, res) => {
                   res.send({
                       profile: '/admin/account/',
                       dashboard: '/admin/dashboard/',
-                      avatar: '/image/admin/' + avatar
+                      avatar: '/assets/images/admin/' + avatar
                   });
               } else if (req.session.user == 'teacher') {
                   res.send({
                       profile: '/teacher/account/',
                       dashboard: '/teacher/dashboard/',
-                      avatar: '/image/teacher/resized/' + avatar
+                      avatar: '/assets/images/teacher/resized/' + avatar
                   });
               } else if (req.session.user == 'student') {
                   res.send({
-                      profile: '/student/account/',
+                      profile: '/assets/student/account/',
                       dashboard: '/student/dashboard/',
-                      avatar: '/image/student/resized/' + avatar
+                      avatar: '/assets/images/student/resized/' + avatar
                   });
               } else if (req.session.user == 'parent') {
                   res.send({
                       profile: '/parent/account/',
                       dashboard: '/parent/dashboard/',
-                      avatar: '/image/parent/resized/' + avatar
+                      avatar: '/assets/images/parent/resized/' + avatar
                   });
               }
           }
