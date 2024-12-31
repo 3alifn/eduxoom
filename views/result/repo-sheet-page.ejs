@@ -38,7 +38,9 @@
 <div id="markSheetHtml">
   <div  class="row p-2">
     <div class="col-md-6 m-auto col-11">
-
+      <center >
+        <h3 class=" mt-3 schoolName"><%= school[0]?.name %></h3>
+      </center>
     <div class="students-card findcard shadowx pt-1 pb-1">
         <div class="d-flex  justify-content-start align-content-center align-items-center">
           <img class="rounded-circle border border-1 p-1" height="60px" width="60px"
@@ -46,7 +48,7 @@
           <p class="fw-semibold text-muted ps-1">
             <%=result[0].name%>
             <code class="fw-semibold ps-2  text-truncate">
-              [<%=result[0].class%> - <%=result[0].section%> - <%=result[0].roll%>]
+              [<%=result[0].class%> - <%=result[0].section%> - Past Roll: <%=result[0].roll%>]
             </code>
           </p>
       
@@ -60,15 +62,15 @@
 
 <div class="row p-2">
   <div class="table-responsive">
-  <code class="fw-semibold fs-5 ms-5">Rank <code class="rankNumber "></code></code>
+  <code class="fw-semibold fs-5 ms-5">Rank / Current Roll: <code class="rankNumber "></code></code>
 
             <table class="table table-calendar table-bordered p-2 m-2 fw-semibold">
                 <thead>
                     <tr>
                         <th scope="col">Subject</th>
-                        <th scope="col">CI Mark</th>
-                        <th scope="col">Fi Mark</th>
-                        <th scope="col">Book Mark</th>
+                        <th class="text-center" scope="col">CI Mark</th>
+                        <th class="text-center" scope="col">Fi Mark</th>
+                        <th class="text-center" scope="col">Book Mark</th>
                     </tr>
                 </thead>
         <tbody >
@@ -105,7 +107,15 @@
 
                 </tfoot>
             </table>
+
+            <headmaster>
+              <h6  class="mb-5 p-2" > <span style="text-decoration: underline;">Headmaster</span>
+                 <br> <i class="ms-3 mt-2"><%= headofschool[0]?.position%></i></h6>
+            </headmaster>
+
         </div>
+
+     
 </div>  
 </div>  
 
