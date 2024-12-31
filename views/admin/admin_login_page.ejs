@@ -23,45 +23,30 @@
 
 <body onload="pageLoadingTop()">
 
-<div class="row p-2">
-    
-    <div class="col-11 m-auto shadowx p-3 pb-5 mt-5 mb-5 col-md-6 m-auto ">
-        
-        <form id="formau" action="#" method="post">
-
-
-        <span class="pb-3 fw-semibold btn fs-5">Admin Login</span> 
-        <a  href="/au/signout/" class=" pb-3">Return to signin</a>
-
-        <div class="input-group">
-
-            <span class=" input-group-text"> <img width="30px" src="/icons/icons8-mail-48.png" alt=""> </span>
-            <input type="text" placeholder="user@admin.com" value="" name="hashUsername" class="form-self form-control" required><p></p>
-
+    <div id="FormApp" class="container mt-5 mb-5">
+        <div class="row p-2">
+          <div class="col-12 col-md-8 col-lg-6 shadowx m-auto p-3 pb-5">
+            <form id="formau" action="#" method="post" class="text-center">
+              <span class="pb-3 fw-semibold btn fs-5">Admin Login</span>
+              <a href="/au/signout/" class="pb-3 d-block">Return to signin</a>
+              <div class="input-group mt-3">
+                <span class="input-group-text"><img width="30px" src="/icons/icons8-mail-48.png" alt=""></span>
+                <input type="text" placeholder="user@admin.com" name="hashUsername" class="form-dev form-control" required>
+              </div>
+              <div class="input-group mt-3">
+                <span class="input-group-text"><img width="30px" src="/icons/icons8-sign-in-form-password-48.png" alt=""></span>
+                <input id="password" type="password" placeholder="user@admin.com" name="hashPassword" class="form-control form-dev" required>
+                <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text"><i class="bi bi-eye-slash-fill"></i></span>
+                <span style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text"><i class="bi bi-eye-fill"></i></span>
+              </div>
+              <div class="p-2 mt-4">
+                <button id="submitbtn" type="submit" class="btn-self w-50">Login</button>
+              </div>
+            </form>
+          </div>
         </div>
-<p></p>
-       <div class="input-group">
-
-
-            <span class=" input-group-text"> <img width="30px" src="/icons/icons8-sign-in-form-password-48.png" alt=""> </span>
-            <input id="password" type="password"  placeholder="user@admin.com" name="hashPassword"  value="" class="form-control form-self" required>
-            <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text"><i class="bi bi-eye-slash-fill"></i></span>
-            <span  style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text"><i class="bi bi-eye-fill"></i></span>
-          
-
-        </div>
-        <p></p>
-        
-       <center>
-        <button id="submitbtn" type="submit" class=" btn-self w-50">Login</button>
-       </center>
-
-         
-            
-         </form>
-
-    </div>
-</div>
+      </div>
+      
 
 <%- include("../component/___node.html") %> 
 

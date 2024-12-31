@@ -152,10 +152,9 @@ $("#formdata").on('submit', (event)=>{
         xhr.upload.addEventListener("progress", function(evt) {
 
             if (evt.lengthComputable) {
-                var percentComplete = (evt.loaded / evt.total) * 100;
-                
+                var percentComplete = (evt.loaded / evt.total) * 100;  
+                       
                     $('.progressbar').addClass('d-block').css({'width': parseInt(percentComplete)+'%'}).text(parseInt(percentComplete)+'%')
-                    
             }
         }, false);
         return xhr;

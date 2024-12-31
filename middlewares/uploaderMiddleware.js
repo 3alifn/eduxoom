@@ -24,6 +24,7 @@ const globalMulterUploader = ({ name, path, size, filter }) => {
 
     const uploadHandler = Array.isArray(name) && name[0] === 'single' 
       ? upload.single(name[1]) 
+      : Array.isArray(name) && name[0] === 'array' ? upload.fields(name[1].map(field => ({ name: field }))) 
       : upload.any('files');
 
     uploadHandler(req, res, (err) => {

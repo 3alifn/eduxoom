@@ -3,3 +3,6 @@ node_modules/
 
 # ZIP files
 *.zip
+
+# Assets files
+assets/localhost/

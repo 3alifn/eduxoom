@@ -2,82 +2,73 @@ const { app, express, sqlmap, nodemailer, createHmac, randomBytes, fs, path } = 
 
 exports.public_admission_step1 = (req, res) => {
   // console.log(mysession);
-  res.render("public/admission_form_public", { pastAdmission: true, nextAdmission: false, data: false, msg: req.flash("msg"), alert: req.flash("alert") })
+  res.render("public/admission_form_public", {studentFormData: null, pastAdmission: true, nextAdmission: false, data: false, msg: req.flash("msg"), alert: req.flash("alert") })
 
 }
 
 
 exports.public_admission_step2 = async(req, res) => {
 
-  const {studentName, gender, dobNumber, birthDate, fatherName, motherName, bloodGroup, Religion, Email, telephone, guardianName, Address, Hobbies} = req.body;
-  req.session.studentName= studentName;
-  req.session.dobNumber= dobNumber;
-  req.session.birthDate= birthDate;
-  req.session.fatherName= fatherName;
-  req.session.motherName= motherName;
-  req.session.bloodGroup= bloodGroup;
-  req.session.Religion= Religion;
-  req.session.Email= Email;
-  req.session.guardianName= guardianName;
-  req.session.Address= Address;
-  req.session.Hobbies= Hobbies;
-  req.session.gender= gender;
-  req.session.telephone= telephone;
-    req.session.avatar= req.file.filename;
-    res.render("public/admission_form_public", { nextAdmission: true, pastAdmission: false })
-
+const {studentName, gender, dobNumber, birthDate, fatherName, motherName, bloodGroup, Religion, Email, telephone, guardianName, Address, Hobbies} = req.body;
+// Create a session object with the required properties
+const studentFormData = {
+  studentName: studentName,
+  dobNumber: dobNumber,
+  birthDate: birthDate,
+  fatherName: fatherName,
+  motherName: motherName,
+  bloodGroup: bloodGroup,
+  Religion: Religion,
+  Email: Email,
+  guardianName: guardianName,
+  Address: Address,
+  Hobbies: Hobbies,
+  gender: gender,
+  telephone: telephone,
+  avatar: req.file.filename
+};
+// Assign the session object to req.session
+req.session.studentFormData = studentFormData;
+    res.render("public/admission_form_public", {nextAdmission: true, pastAdmission: false })
 }
 
 
-exports.public_admission_post = async (req, res) => {
-
-  const {studentName, gender, avatar, dobNumber, birthDate, fatherName, motherName, bloodGroup, Religion, Email, telephone, guardianName, Address, Hobbies} = req.session;
+exports.public_admission_post = async (req, res, next) => {
   const { lastEducation, admissionClass, comment } = req.body;
   const session = new Date().getUTCFullYear();
   const findDate = new Date().toDateString();
   const uuid= randomBytes(8).toString('hex'); 
+const filename = req.files[0].filename;
 
-  if(req.file){
-
-      const filename = req.file.filename
-
+if(req.session.studentFormData){
+  const {studentName, gender, avatar, dobNumber, birthDate, fatherName,
+    motherName, bloodGroup, Religion, Email, telephone, guardianName, Address, Hobbies}= req.session.studentFormData;
+ 
 sqlmap.query(` INSERT INTO admission (domain, uuid, session, find_date, name, gender, avatar, dob_number, birth_date, father_name, mother_name, blood_group, religion, telephone, email, guardian_name, address, hobbies, last_education, admission_class, docs, comment)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `, 
-[ res.locals.hostname, uuid, session, findDate, studentName, gender, avatar, dobNumber, birthDate, fatherName, motherName,
-bloodGroup, Religion, telephone, Email, guardianName, Address, Hobbies, lastEducation, admissionClass, filename, comment ], (err, result) => {
-
-    if (err) console.log(err.sqlMessage)
-
-    else {
-
-      req.flash("msg", "Admission submited successfully! wait for response! we sent email as soon as.")
-      req.flash("alert", "success")
-
-      res.redirect("/pu/admission/step1")
-
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `, 
+  [ res.locals.hostname, uuid, session, findDate, studentName, gender, avatar, dobNumber, birthDate, fatherName, motherName,
+  bloodGroup, Religion, telephone, Email, guardianName, Address, Hobbies, lastEducation, admissionClass, filename, comment ], (err, result) => {
+  
+      if (err) return next(err)
+      else {
+    req.session.destroy()
+    return res.send({alert: 'alert-success', msg: "Admission submited successfully! wait for response! we sent email as soon as."})
     }
+    })
+} else return res.send({alert: 'alert-success', msg: "Admission submited successfully! wait for response! we sent email as soon as."})
 
-  })
 
-        }
-    
  }
 
 
 
 exports.admin_admission_page = (req, res) => {
 
-
-
   sqlmap.query(`SELECT uuid, ID, name, find_date, avatar FROM admission WHERE domain=? ORDER BY ID DESC`,[res.locals.hostname], (err, info) => {
-
 
     res.render("admin/admission_report", { info })
 
-
   })
-
-
 
 }
 
