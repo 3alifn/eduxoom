@@ -13,7 +13,7 @@
 
       <div style="font-family:'Times New Roman', Times, serif;" 
       class=" ps-2 fw-bold fs-6 text-muted rounded d-flex h-100 justify-content-start align-items-center pe-5" >
-      Eduxoom
+     <a class="nav-link append-dash-link" href="#"> Eduxoom</a>
       </div>
 
       <div class="d-flex pe-2">
@@ -58,9 +58,11 @@ function user_nav(){
         data: {},
         dataType: "JSON",
         success: function (res) {
-            $('.append-user-avatar').attr('src',res.avatar)
+            $('.append-dash-link').attr('href',res.dashboard)
             $('.append-user-profile').attr('href',res.profile)
             $('.append-user-dashboard').attr('href',res.dashboard)
+            $('.append-user-avatar').attr('src',res.avatar)
+
         }
     });
  } user_nav()

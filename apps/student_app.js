@@ -38,48 +38,61 @@ exports.admin_student_join_quick = (req, res) => {
     const hashPassword = createHmac('md5', 'pipilikapipra').update('password@abc').digest('hex');
 
     let message = [];
-
     for (let index = 0; index < name.length; index++) {
         const avatarName = (gender[index] == "Male") ? "male_avatar.png" : "female_avatar.png";
-
+    
         sqlmap.query(`SELECT * FROM students WHERE domain=? AND class=? AND section=? AND roll=?`, [res.locals.hostname, className, sectionName, roll[index]], (err_, info_) => {
             if (err_) {
                 console.log(err_.sqlMessage);
                 return;
             }
-
+    
             if (info_.length > 0) {
-                console.log('Roll Already Joined!');
                 message.unshift('Roll Already Joined!');
-                req.flash('msg', 'Student Roll Already Joined! =>' + roll[index]);
+                req.flash('msg', 'Already Joined! =>' + (roll[index]));
                 req.flash('alert', 'danger');
-
+                // Skip to the next iteration
+                if (index + 1 < name.length) {
+                    processNext(index + 1);
+                }
+                return;
             } else {
                 const uuid = new Date().getTime() + '' + Math.floor(Math.random() * 900000000);
                 const student_id = Math.floor(Math.random() * 900000);
-
+    
                 const sql = `INSERT INTO students (domain, student_uuid, session, name, email, student_id, roll, class, section, gender, password, avatar)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
+    
                 sqlmap.query(sql, [res.locals.hostname, uuid, session, name[index], student_id+'@abc.com', student_id, roll[index], className, sectionName, gender[index], hashPassword, avatarName], (err_sub, info_sub) => {
                     if (err_sub) {
                         console.log(err_sub.sqlMessage);
                         return;
                     }
-
+    
                     message.unshift('Students Joined!');
-                    req.flash('msg', 'adding=>' + roll[index]);
+                    req.flash('msg', 'Added=>' + (roll[index]));
                     req.flash('alert', 'success');
-
-                    if (name.length == index + 1) {
-                        setTimeout(() => {
-                            res.redirect('/admin/student/page');
-                        }, 3000);
-                    }
+    
+                    if (index + 1 < name.length) {
+                        processNext(index + 1);
+                    } 
+                    
                 });
             }
+
         });
+    
+        function processNext(nextIndex) {
+            if (nextIndex < name.length) {
+                // Call the same query function with next index
+            }
+        }
     }
+
+    setTimeout(() => {
+        res.redirect('/admin/student/page');
+    }, 1000);
+    
 };
 
 

@@ -9,82 +9,111 @@
     <%- include("../component/metadata.html") %> 
 </head>
 <style>
+/* Responsive styles for form */
+@media (min-width: 576px) {
+  .col-sm-1 {
+    flex: 0 0 auto;
+    width: 8.333333%;
+  }
+  
+  .col-sm-10 {
+    flex: 0 0 auto;
+    width: 83.333333%;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-md-2 {
+    flex: 0 0 auto;
+    width: 16.666667%;
+  }
+  
+  .col-md-8 {
+    flex: 0 0 auto;
+    width: 66.666667%;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-lg-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+  
+  .col-lg-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+
+/* Additional styles */
+.form {
+  text-align: center;
+}
+
+.input-group-text img {
+  width: 30px;
+}
 
 </style>
 <body onload="pageLoadingTop()">
-   <!-- section 1............ -->
-   <div id="section1">
 
-    <div class="row mt-5 mbx p-2 pb-5">
-        <div class="col-lg-3 col-md-2 col-sm-1"></div>
-     <div class="col-lg-5 col-md-8 col-sm-10">
+
+<div id="FormApp">
+  <div class="row mt-5 mbx p-2 pb-5">
+    <div class="col-lg-3 col-md-2 col-sm-1"></div>
+    <div class="col-lg-6 col-md-6 col-sm-10">
+      <form id="formau" action="#" class="form container text-center">
+        <img src="/images/school/user.png" height="70px" alt="">
+        <h3>Sign in</h3>
+        <a class="link-me" href="/pu/join/parent">Join Parent</a> or <a class="link-me" href="/admin/panel">admin</a>
+       
+     
+        <div class="input-group mt-3 border border-3">
+          <span class="input-group-text"><img width="30px" src="/icons/icons8-test-account-48.png" alt=""></span>
+          
+          <div class="form-check p-2 ms-3">
+            <input class="form-check-input" type="radio" name="userRole" id="roleTeacher" value="teachers" checked>
+            <label class="form-check-label" for="roleTeacher">Teacher</label>
+          </div>
+
+          <div class="form-check p-2 ms-3">
+            <input class="form-check-input" type="radio" name="userRole" id="roleStudent" value="students">
+            <label class="form-check-label" for="roleStudent">Student</label>
+          </div>
+    
+          <div class="form-check p-2 ms-3">
+            <input class="form-check-input" type="radio" name="userRole" id="roleParent" value="parents">
+            <label class="form-check-label" for="roleParent">Parent</label>
+          </div>
+        </div>
         
-         <form id="formau" action="#" class="form container">
- 
-             <img src="/images/school//user.png" height="70px" alt="">
- 
-             <h3>Sign in</h3>
- 
-            <a class="link-me" href="/pu/join/parent">Join Parent</a> or <a class="link-me" href="/admin/panel">admin</a> |
-                 <a  href="/au/signout/" class="link-me">Refresh</a> </p>
- 
 
-             <div class="input-group">
-
-                <span class=" input-group-text"> <img width="30px" src="/icons/icons8-test-account-48.png" alt=""> </span>
-                <select name="userRole" id="" class="form-self  form-select">
-                    <option value="students">Student</option>
-                 <option selected value="teachers">Teacher</option>
-                 <option value="parents">Parent</option>
-                 </select> 
-            </div>
-             
- <p></p>
-
-             <div class="input-group">
-
-                <span class=" input-group-text"> <img width="30px" src="/icons/icons8-mail-48.png" alt=""> </span>
-                <input type="text" placeholder="user@abc.com" value="" name="username" class="form-self form-control" required><p></p>
- 
-            </div>
-
-            <p></p>
-
-            <div class="input-group">
-
-
-                <span class=" input-group-text"> <img width="30px" src="/icons/icons8-sign-in-form-password-48.png" alt=""> </span>
-                <input id="password" type="password" placeholder="password@abc" name="password"  value="" class="form-control form-self" required>
-                <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text"><i class="bi bi-eye-slash-fill"></i></span>
-                <span  style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text"><i class="bi bi-eye-fill"></i></span>
-                      
-
-            </div>
-
- 
-            <div class=" p-2 mt-2 mb-2 ">
-
-                <center><button id="submitbtn" class=" btn-self w-50">Sign in</button></center>
-            
-                <center class="pt-3"> <a href="/au/forgot/password" >Forgot Password <img width="20px" src="/icons/user/icons8-forgot-password-48.png" alt=""></a>  </center>
-            
-               
-            </div>
-            
-         </form>
-         <p></p>
-         
-      
-     </div>
-     <div class="col-lg4 col-md-2 col-sm-1"></div>
- 
+        <div class="input-group mt-3">
+          <span class="input-group-text"><img width="30px" src="/icons/icons8-mail-48.png" alt=""></span>
+          <input type="text" placeholder="user@abc.com" name="username" class="form-self form-control" required>
+        </div>
+        <div class="input-group mt-3">
+          <span class="input-group-text"><img width="30px" src="/icons/icons8-sign-in-form-password-48.png" alt=""></span>
+          <input id="password" type="password" placeholder="password@abc" name="password" class="form-control form-self" required>
+          <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text"><i class="bi bi-eye-slash-fill"></i></span>
+          <span style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text"><i class="bi bi-eye-fill"></i></span>
+        </div>
+        <div class="p-2 mt-2 mb-2">
+          <center><button id="submitbtn" class="btn-self w-50">Sign in</button></center>
+          <center class="pt-3">
+            <a href="/au/forgot/password">Forgot Password <img width="20px" src="/icons/user/icons8-forgot-password-48.png" alt=""></a>
+          </center>
+        </div>
+      </form>
     </div>
-     </div>
+    <div class="col-lg-3 col-md-2 col-sm-1"></div>
+  </div>
+</div>
+
 
 
      <%- include("../component/___node.html") %>
-
-
  
 <script>
 

@@ -128,13 +128,13 @@ public.get("/join/parent", (req, res)=>{
 
     
 //   admission router......
-const multerUploaderAdmissionImg = globalMulterUploader({name: ['single', 'image'], path: "/docs/admission/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
-const multerUploaderAdmissionPdf = globalMulterUploader({name: ['single', 'attachment'], path: "/docs/admission/resized/", size: 500 * 1024, filter: ["image/png", "image/jpeg", "application/pdf"] });
+const multerUploaderAdmissionImgStep2 = globalMulterUploader({name: ['single', 'image'], path: "/docs/admission/", size: 500 * 1024, filter: ["image/png", "image/jpeg"] });
+const multerUploaderAdmissionPost = globalMulterUploader({ path: "/docs/admission/", size: 500 * 1024, filter: ["image/png", "image/jpeg", "application/pdf"] });
 const sharpReducerAdmission = globalSharpReducer({ quality: 50})
 
 public.get("/admission/step1", public_admission_step1)
-public.post("/admission/step2", multerUploaderAdmissionImg, sharpReducerAdmission, public_admission_step2)
-public.post("/admission/post", multerUploaderAdmissionPdf, public_admission_post)
+public.post("/admission/step2", multerUploaderAdmissionImgStep2, sharpReducerAdmission, public_admission_step2)
+public.post("/admission/post", multerUploaderAdmissionPost, sharpReducerAdmission, public_admission_post)
 
 
 

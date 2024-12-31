@@ -218,7 +218,7 @@ exports.result_repo_student_page=(req, res, next)=>{
 }
 
 
-exports.result_repo_sheet_page=(req, res, next)=>{
+exports.result_repo_sheet_page= async (req, res, next)=>{
  const {class_name, section_name, suuid}= req.params;
  const host = req.hostname.startsWith("www.");
  const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -253,23 +253,54 @@ exports.result_repo_sheet_page=(req, res, next)=>{
     })
  }
 
-  (async function(){
+  
+ function getSchoolInfo(domain){
+    return new Promise((resolve, reject)=>{
+        sqlmap.query(`SELECT * FROM school_settings
+            WHERE domain=?`,
+            [domain], (err, school)=>{
+                if(err){
+                    reject(err.sqlMessage)
+                    return;
+                }
+                resolve(school)
+
+            })
+    })
+ } 
+ 
+ function getHead(domain){
+    return new Promise((resolve, reject)=>{
+        sqlmap.query(`SELECT image, position, name FROM headofschool
+            WHERE domain=? AND position='Headmaster' LIMIT 1`,
+            [domain], (err, headofschool)=>{
+                if(err){
+                    reject(err.sqlMessage)
+                    return;
+                }
+                resolve(headofschool)
+
+            })
+    })
+ }
+
   try{
     const result= await getMarkSheet(class_name, section_name, suuid);
     const subject= await getSubjectName(class_name);
+    const school= await getSchoolInfo(hostname);
+    const headofschool= await getHead(hostname);
 
     if(result?.length==0 || result==undefined){
         res.redirect('/pages/empty.html')
         return
     }
-    await res.render('result/repo-sheet-page', {subject, result})
+    await res.render('result/repo-sheet-page', {school, headofschool, subject, result})
   }
   
   catch(err){
    next(err)
   }
   
- })()
 
 }
 
@@ -352,7 +383,7 @@ exports.result_marksheet_pull_page= (req, res, next)=>{
 }
 
 
-exports.result_marksheet_pull_print=(req, res, next)=>{
+exports.result_marksheet_pull_print= async (req, res, next)=>{
     const {class_name, section_name, suuid}= req.body;
     const host = req.hostname.startsWith("www.");
     const hostname = host ? req.hostname.split("www.")[1] : req.hostname;
@@ -389,26 +420,53 @@ exports.result_marksheet_pull_print=(req, res, next)=>{
        })
     }
 
+    function getSchoolInfo(domain){
+        return new Promise((resolve, reject)=>{
+            sqlmap.query(`SELECT * FROM school_settings WHERE domain=?`,
+                [domain], (err, school)=>{
+                    if(err){
+                        reject(err.sqlMessage)
+                        return;
+                    }
+                    resolve(school)
+    
+                })
+        })
+     } 
+     
+     function getHead(domain){
+        return new Promise((resolve, reject)=>{
+            sqlmap.query(`SELECT image, position, name FROM headofschool
+                WHERE domain=? AND position='Headmaster' LIMIT 1`,
+                [domain], (err, headofschool)=>{
+                    if(err){
+                        reject(err.sqlMessage)
+                        return;
+                    }
+                    resolve(headofschool)
+    
+                })
+        })
+     }
     
    
-     (async function(){
      try{
        const subject= await getSubjectName(class_name);
        const result= await markSheetPull(class_name, section_name, suuid);
-       console.log(result[0].suuid);
+       const school= await getSchoolInfo(hostname);
+       const headofschool= await getHead(hostname);
        
        if(result?.length==0 || result==undefined){
         await res.send({status: 404, msg: result})
         return
        }
-       await res.send({status: 200, result: result, subject: subject})
+       await res.send({status: 200, school:school, headofschool: headofschool, result: result, subject: subject})
      }
      
      catch(err){
       next(err)
      }
      
-    })()
    
    }
    

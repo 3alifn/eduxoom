@@ -10,24 +10,10 @@
 
 </head>
 
-
-
 <body onload="pageLoadingTop()">
 
 
-
-    <% if( typeof msg!=typeof alifn && msg.length>0) {%>
-
-        <%-include("../component/toast-ejs") %> 
-   
-           <% } else { %>
-             <%=null %> 
-             <% } %> 
-             
-
-
-             <div class="row mt-5 m-auto mbx container p-2 shadowx">
-
+   <div class="row mt-5 m-auto mbx container p-2 shadowx">
 
     <% if(pastAdmission) {%>
 
@@ -47,14 +33,10 @@
 
                         <div  class="valid-feedback"></div>
                         <div id="" class="invalid-feedback">Enter a valid name</div>
-            
-            
+                       
                 </div>
 
-
-
                 <p></p>
-
 
                 <div class=" input-group">
  
@@ -69,12 +51,8 @@
          </div>
             
            <p></p>
-
-
-
-           
+        
 <div class="col-10 col-md-6 d-md-flex m-auto">
-
 
   <div class=" input-group">
 
@@ -86,12 +64,9 @@
    </div>
 
 
-<p></p> 
-
-          
+<p></p>     
    
            <div class="col-10 col-md-6 d-md-flex m-auto">
-
 
             <div class=" input-group">
 
@@ -102,11 +77,9 @@
             <div  class="valid-feedback"></div>
             <div id="" class="invalid-feedback">Enter valid dob number</div>
 
-
                     </div>
-    
+
     <p></p>
-    
                     <div class=" input-group">
     
                         <span class=" input-group-text">Birth Date</span>
@@ -115,18 +88,10 @@
                         <input type="date" name="birthDate"  value="2010-09-09" class="form-self form-control" required>
                       
                       </div>
-
            </div>
-
-
-
 <p></p>
 
-
-
 <div class="col-10 col-md-6 d-md-flex m-auto">
-
-
 
          <div class=" input-group">
     
@@ -190,7 +155,6 @@
 
 
  <p></p>
-  
 
  <div class=" input-group">
             
@@ -205,19 +169,12 @@
 
             </select>
          </div>
-
-
 </div>
-
-
-
 
   <p></p>
 
-
   <div class="col-10 col-md-6 d-md-flex m-auto">
 
-      
       <div class=" input-group">
 
         <span class=" input-group-text"> <img width="30px" src="/icons/user/icons8-contact-48.png" alt=""></span>
@@ -242,14 +199,8 @@
     
             </div>
     
-
-
-
 </div>
-
-
 <p></p>
-
 
 <div class="col-10 col-md-6 d-md-flex m-auto">
   
@@ -258,16 +209,11 @@
         <span class=" input-group-text"> <img width="30px" src="/icons/user/icons8-guardian-48.png" alt=""></span>
         <input required pattern="^[A-Za-z .-_]*$" type="text"class="form-self form-control"  name="guardianName" id="" placeholder="Your guardian name">
        
-
         <div  class="valid-feedback"></div>
         <div id="" class="invalid-feedback">Enter a valid name</div>
 
-
         </div>
-
            <p></p>
-
-
 
         <div class=" input-group">
 
@@ -280,13 +226,7 @@
 
             </div>
 </div>
-
-
-
-
         <p></p>
-
-
 
         <div class="col-10 col-md-6 d-md-flex m-auto">
 
@@ -307,12 +247,9 @@
             </select>
 
             </div>
-
-
 </div> 
 
 <p></p>
-
     <center>
         <div>
         
@@ -339,9 +276,8 @@
      <% if(nextAdmission) {%>
         <p></p>
 
-     <form id="formNext" novalidate class="formNext shadow" action="/pu/admission/post" method="post" enctype="multipart/form-data">
+     <form id="formPost" novalidate class="formPost shadow">
 
-      
         <center>
             <h5 class=" badge fs-5"  style="background-color: #281e5d;">Education Information</h5>
     
@@ -399,19 +335,13 @@
 
 <p></p>  
 
-
- 
-
-
-
-<div class="col-10 col-md-6 d-md-flex m-auto">
-
-
+   
+   <div class="col-10 col-md-6 d-md-flex m-auto">
   <div class=" input-group">
 
     <span class=" input-group-text"><img width="30px" src="/icons/icons8-certification-48.png" alt=""></span>
 
-      <input title="letter of appreciation" class="form-control" type="file" name="attachment" accept="image/png, image/jpeg, application/pdf" id="">
+      <input required title="letter of appreciation" class="form-control" type="file" name="attachment" accept="image/png, image/jpeg, application/pdf" id="">
       
    </div>
    </div>
@@ -419,64 +349,98 @@
 
 <p></p>  
 
-
  <div class="col-10 col-md-6 d-md-flex m-auto">
   <div>
-    <textarea class="ps-3 pt-2" name="comment" id="" cols="80" style="width: 100%;" rows="5"  placeholder=" what's on your mind?"></textarea>
+    <textarea required class="ps-3 pt-2" name="comment" id="" cols="80" style="width: 100%;" rows="5"  placeholder=" what's on your mind?"></textarea>
   </div>
 
   </div>
-
 
        <center>
-        <input class="w-50 btn-self" type="submit" value="Apply">
+        <input id="applyForm" class="w-50 btn-self" type="submit" value="Apply">
        </center>
     
     <p></p>
     </form>
 
-
         <% } else {%>
             <%=null %> 
             <% } %> 
-
-
-
-
 </div>
 
 <p></p>
 
+<%- include("../component/___node.html") %> 
+
+</body>
+
 <script>
+
+$('#formPost').submit((event) => {
+  event.preventDefault();
+
+
+  const formData = new FormData(document.getElementById('formPost'));
+
+
+  let isValid = true;
+  $('#formPost input[required]').each(function() {
+    if ($(this).val() === '') {
+      isValid = false;
+      $(this).addClass('is-invalid');
+    } else {
+      $(this).removeClass('is-invalid');
+    }
+  });
+
+  if (!isValid) {
+    alert('Please fill out all required fields.');
+    return;
+  }
+
+  // AJAX call
+  $.ajax({
+    type: "post",
+    url: "/pu/admission/post",
+    data: formData,
+    dataType: "JSON",
+    cache: false,
+    contentType: false,
+    processData: false,
+    beforeSend: function() {
+      $("#applyForm").addClass("disabled");
+    },
+    success: function(res) {
+      $("#applyForm").removeClass("disabled");
+      _msg_pull(res.alert, res.msg, 3000);
+    },
+    error: function(xhr, status, error) {
+      $("#applyForm").removeClass("disabled");
+      console.log("Error: ", error);
+    }
+  });
+});
 
 function defform1(){
   const forms = document.querySelectorAll('#form1')
 
-
 Array.from(forms).forEach(form => {
 
   form.addEventListener('submit', event => {
-
     if (!form.checkValidity()) {
       event.preventDefault()
       event.stopPropagation()
-
     }
-
-
     form.classList.add('was-validated')
   })
 })
 }
 
-
 defform1()
 defform2()
 
 function defform2(){
-  const forms = document.querySelectorAll('#formNext')
-
-  
+  const forms = document.querySelectorAll('#formPost')
 Array.from(forms).forEach(form => {
 
   form.addEventListener('submit', event => {
@@ -484,13 +448,7 @@ Array.from(forms).forEach(form => {
     if (!form.checkValidity()) {
       event.preventDefault()
       event.stopPropagation()
-
     }
-
-  
-
-
-
     form.classList.add('was-validated')
   })
 })
@@ -498,8 +456,4 @@ Array.from(forms).forEach(form => {
 
 
 </script>
-     
-<%- include("../component/___node.html") %> 
-
-</body>
 </html>

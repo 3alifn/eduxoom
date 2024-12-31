@@ -16,28 +16,13 @@
 }
 
 .card-body {
-  padding: 1rem;
+  padding: 10px;
 }
 
 .text-center {
   text-align: center;
 }
 
-.btn-self {
-  display: inline-block;
-  font-weight: 600;
-  color: #333;
-  background-color: #f7f7f7;
-  border: 1px solid #ccc;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  border-radius: 0.25rem;
-}
-
-.btn-self:hover {
-  background-color: #e0e0e0;
-  color: #000;
-}
 
 @media (min-width: 576px) {
   .col-sm-6 {
@@ -69,20 +54,10 @@
 <div class="status_Six row p-2">
   <div class="col-md-10 col-11 m-auto">
     <div class="status_Six text-center">
-      <button id="classSixbtn" class="btn-self mt-3 dropdown-toggle w-50">ষষ্ঠ শ্রেণী</button>
+      <button id="classSixbtn" class="btn-self mt-3 dropdown-toggle w-50">ষষ্ঠ শ্রেণী ( <i class="fa fa-people-group"></i> <%=info6[0]['COUNT(ID)'] %>)</button>
     </div>
     
-    <div id="classSix" class="row justify-content-center">
-      <div class="col-md-4 col-sm-6 col-10 mb-3">
-        <div class="card shadow-sm text-center">
-          <div class="card-body text-dark">
-            <h4 class="card-title">ষষ্ঠ শ্রেণী</h4>
-            <h5 class="card-text fw-bold">
-              <%=info6[0]['COUNT(ID)'] %> <i class="fa fa-people-group"></i>
-            </h5>
-          </div>
-        </div>
-      </div>
+    <div id="classSix" class="row  justify-content-center">
 
       <div class="col-md-4 col-sm-6 col-10 mb-3">
         <a href="/pu/all/student?className=Six&sectionName=A" class="text-decoration-none">
@@ -131,21 +106,10 @@
 <div class="status_Seven row p-2">
   <div class="col-md-10 col-11 m-auto">
     <div class="status_Seven text-center">
-      <button id="classSevenbtn" class="btn-self mt-3 dropdown-toggle w-50">সপ্তম শ্রেণী</button>
+      <button id="classSevenbtn" class="btn-self mt-3 dropdown-toggle w-50">সপ্তম শ্রেণী ( <i class="fa fa-people-group"></i> <%=info7[0]['COUNT(ID)'] %>)</button>
     </div>
     
     <div id="classSeven" class="row justify-content-center">
-      <div class="col-md-4 col-sm-6 col-10 mb-3">
-        <div class="card shadow-sm text-center">
-          <div class="card-body text-dark">
-            <h4 class="card-title">সপ্তম শ্রেণী</h4>
-            <h5 class="card-text fw-bold">
-              <%=info7[0]['COUNT(ID)'] %> <i class="fa fa-people-group"></i>
-            </h5>
-          </div>
-        </div>
-      </div>
-
       <div class="col-md-4 col-sm-6 col-10 mb-3">
         <a href="/pu/all/student?className=Seven&sectionName=A" class="text-decoration-none">
           <div class="card shadow-sm text-center">
@@ -192,20 +156,10 @@
 <div class="status_Eight row p-2">
   <div class="col-md-10 col-11 m-auto">
     <div class="status_Eight text-center">
-      <button id="classEightbtn" class="btn-self mt-3 dropdown-toggle w-50">অষ্টম শ্রেণী</button>
+      <button id="classEightbtn" class="btn-self mt-3 dropdown-toggle w-50"> অষ্টম শ্রেণী ( <i class="fa fa-people-group"></i> <%=info8[0]['COUNT(ID)'] %>)</button>
     </div>
     
     <div id="classEight" class="row justify-content-center">
-      <div class="col-md-4 col-sm-6 col-10 mb-3">
-        <div class="card shadow-sm text-center">
-          <div class="card-body text-dark">
-            <h4 class="card-title">অষ্টম শ্রেণী</h4>
-            <h5 class="card-text fw-bold">
-              <%=info8[0]['COUNT(ID)'] %> <i class="fa fa-people-group"></i>
-            </h5>
-          </div>
-        </div>
-      </div>
 
       <div class="col-md-4 col-sm-6 col-10 mb-3">
         <a href="/pu/all/student?className=Eight&sectionName=A" class="text-decoration-none">
@@ -255,20 +209,10 @@
 <div class="status_Nine row p-2">
   <div class="col-md-10 col-11 m-auto">
     <div class=" text-center">
-      <button id="classNinebtn" class="btn-self mt-3 dropdown-toggle w-50">নবম শ্রেণী</button>
+      <button id="classNinebtn" class="btn-self mt-3 dropdown-toggle w-50">নবম শ্রেণী (<i class="fa fa-people-group"></i> <%=info9[0]['COUNT(ID)'] %> </i>)</button>
     </div>
     
     <div id="classNine" class="row justify-content-center">
-      <div class="col-md-4 col-sm-6 col-10 mb-3">
-        <div class="card shadow-sm text-center">
-          <div class="card-body text-dark">
-            <h4 class="card-title">নবম শ্রেণী</h4>
-            <h5 class="card-text fw-bold">
-              <%=info9[0]['COUNT(ID)'] %> <i class="fa fa-people-group"></i>
-            </h5>
-          </div>
-        </div>
-      </div>
 
       <div class="col-md-4 col-sm-6 col-10 mb-3">
         <a href="/pu/all/student?className=Nine&sectionName=A" class="text-decoration-none">
@@ -316,21 +260,10 @@
 <div class="status_Ten row p-2">
   <div class="col-md-10 col-11 m-auto">
     <div class=" text-center">
-      <button id="classTenbtn" class="btn-self mt-3 dropdown-toggle w-50">দশম শ্রেণী</button>
+      <button id="classTenbtn" class="btn-self mt-3 dropdown-toggle w-50">দশম শ্রেণী (<i class="fa fa-people-group"></i> <%=info10[0]['COUNT(ID)'] %>)</button>
     </div>
     
     <div id="classTen" class="row justify-content-center">
-      <div class="col-md-4 col-sm-6 col-10 mb-3">
-        <div class="card shadow-sm text-center">
-          <div class="card-body text-dark">
-            <h4 class="card-title">দশম শ্রেণী</h4>
-            <h5 class="card-text fw-bold">
-              <%=info10[0]['COUNT(ID)'] %> <i class="fa fa-people-group"></i>
-            </h5>
-          </div>
-        </div>
-      </div>
-
       <div class="col-md-4 col-sm-6 col-10 mb-3">
         <a href="/pu/all/student?className=Ten&sectionName=A" class="text-decoration-none">
           <div class="card shadow-sm text-center">
@@ -377,13 +310,9 @@
 </div>
 </div>
 
-
 <%- include("../component/footer-nav.html") %> 
 
-
 </body>
-
-
 
 <script>
 
