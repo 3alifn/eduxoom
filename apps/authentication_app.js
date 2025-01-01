@@ -134,7 +134,7 @@ exports.forgot_password = (req, res) => {
                   }
               });
           } else {
-              req.flash("msg", "Authentication Failed!");
+              req.flash("msg", "Authentication failed! User not exists.");
               req.flash("alert", "danger");
               res.redirect("/au/forgot/password");
           }
