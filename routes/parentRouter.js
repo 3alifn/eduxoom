@@ -1,6 +1,6 @@
 const {app, express, session}=require('../configs/server') 
-const { dashboard } = require("../apps/admin_app");
-const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update_page, self_email_update, self_close_account, self_avatar_upload, multer_upload_parent, self_penbox_push, self_password_update_push, self_email_update_pull, self_email_update_push, self_img_post } = require("../apps/parent_app");
+const { dashboard } = require("../handlers/adminHandler");
+const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update_page, self_email_update, self_close_account, self_avatar_upload, multer_upload_parent, self_penbox_push, self_password_update_push, self_email_update_pull, self_email_update_push, self_img_post } = require("../handlers/parentHandler");
 const parent= express.Router()
 const {globalMulterUploader, globalSharpReducer}= require("../middlewares/uploaderMiddleware")
 

@@ -1,4 +1,4 @@
-const { lics_checkout, ini_dll_push, ini_dll_rm, ini_terminal_push, ini_termial_rm, ini_termial_status, ini_termial_ren, ini_termial_get, ini_termial_dea } = require('../apps/ini');
+const { lics_checkout, ini_dll_push, ini_dll_rm, ini_terminal_push, ini_termial_rm, ini_termial_status, ini_termial_ren, ini_termial_get, ini_termial_dea } = require('../handlers/iniHandler');
 const {app, express}= require('../configs/server')
 const ini= express.Router();
 
