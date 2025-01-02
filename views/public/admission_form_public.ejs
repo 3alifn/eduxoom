@@ -412,7 +412,7 @@ $('#formPost').submit((event) => {
     },
     success: function(res) {
       $("#applyForm").removeClass("disabled");
-      _msg_pull(res.alert, res.msg, 3000);
+      _msg_pull(res.alert, res.msg, false);
     },
     error: function(xhr, status, error) {
       $("#applyForm").removeClass("disabled");
