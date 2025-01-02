@@ -21,34 +21,37 @@
 <%- include("../component/menu-nav.html") %>
 
   
-<div class="d-flex m-1  gap-1 justify-content-center mt-5 mb-5 flex-wrap">
-          
-               
-        <div class="col-11 m-auto">
-            <p class="p-2 shadowx fw-semibold"><span class="text-primary fw-bold">Our gallery of</span> <%=info[0].item_title%></p>
-        </div>
-
-      <% if(info.length==0) {%>
-          <div class="col-11 m-auto">
-              <p class="p-2 fw-semibold shadowx alert">No record</p>
-          </div>
-          <% } else {%>
-  
-              <% for( let index = 0; index < info.length; index++ ) { %>
-              
-                    <div class="flex-fill flex-md-grow-0 " style="width: 220px; height: 200px;"><img class="h-100 w-100 bg-card-color-light jbox-img" src="/assets/images/gallery/resized/<%=info[index].item_name%>" alt=""></div>
-                  
-
-              <% } %>
-              
-              <% } %>
-             
-              
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-11 m-auto">
+        <p class="p-2 shadow-sm fw-semibold">
+          <span class="text-primary fw-bold">Our gallery of</span> <%=info[0].item_title%>
+        </p>
+      </div>
     </div>
+  
+    <% if (info.length == 0) { %>
+      <div class="row">
+        <div class="col-11 m-auto">
+          <p class="p-2 fw-semibold shadow-sm alert">No record</p>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="row justify-content-center g-3">
+        <% for (let index = 0; index < info.length; index++) { %>
+          <div class="col-md-3 col-sm-6 mb-3">
+            <div class="card shadow-sm">
+              <img class="card-img-top img-fluid bg-card-color-light jbox-img" src="/assets/images/gallery/resized/<%=info[index].item_name%>" alt="">
+            </div>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
   
   
       
-          <div class="jbox-container">
+        <div class="jbox-container">
               <div class="img-alt-text"></div>
               
               <img src="" />
@@ -79,7 +82,7 @@
               </svg>
           
           
-          </div>
+        </div>
       
       
       <%- include("../component/footer-nav.html") %>

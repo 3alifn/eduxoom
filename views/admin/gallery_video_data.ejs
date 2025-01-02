@@ -14,89 +14,50 @@
     <%- include("../component/admin-menu-nav.html") %> 
   
 
-<div id="main-content" class="main-content p-2 mt-5">
-
-    <!-- listdata for fetch data -->
-    <div  class="row p-2 mt-5">
-        <div class="col-11 shadowx m-auto">
-          <p class="p-2  fw-semibold fs-5 text-primary">Gallery of <span id="title"></span></p>
+    <div id="main-content" class="main-content p-2 mt-5">
+      <!-- listdata for fetch data -->
+      <div class="row p-2 mt-5">
+        <div class="col-11 shadow-sm m-auto">
+          <p class="p-2 fw-semibold fs-5 text-primary">Gallery of <span id="title"></span></p>
         </div>
-   
-
-        <div class="col-md-10 shadowx col-12 p-1 m-auto">
-                  
-        <div class="d-flex justify-content-end me-2">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
-              class="btn link-success fw-semibold shadowx btn-go fw-500">Upload a new video</button>
+        <div class="col-md-10 col-12 shadow-sm p-1 m-auto">
+          <div class="d-flex justify-content-end me-2">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn" class="btn link-success fw-semibold shadow-sm btn-go">Upload a new video</button>
           </div>
-          
-            <form id="formcheckout" action="#" method="get" onsubmit="return false">
-       
-                <ul class="d-flex flex-column list-unstyled  p-2">
-                    
-                  <li class="d-flex p-2 shadowx justify-content-start gap-2 align-items-center">
-                      <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id="">
-                      <button type="submit" class="bi shadowx p-1 ps-2 pe-2 checkoutpop bi-trash-fill btn btn-outline-warning">Delete forever</button>
-                  </li>
-                </ul>
-
-                <div id="listdata" class="d-flex m-1 check-mark-area  gap-1 justify-content-start mt-5 mb-5 flex-wrap">
-              
-                </div>
-      
-      
-            </form>
-  
+          <form id="formcheckout" action="#" method="get" onsubmit="return false">
+            <ul class="d-flex flex-column list-unstyled p-2">
+              <li class="d-flex p-2 shadow-sm justify-content-start gap-2 align-items-center">
+                <input class="shadow-sm check-mark form-check-input" type="checkbox" name="checkout" id="">
+                <button type="submit" class="bi shadow-sm p-1 ps-2 pe-2 checkoutpop bi-trash-fill btn btn-outline-warning">Delete forever</button>
+              </li>
+            </ul>
+            <div id="listdata" class="d-flex m-1 check-mark-area gap-1 justify-content-start mt-5 mb-5 flex-wrap">
+              <!-- Dynamic content goes here -->
+            </div>
+          </form>
         </div>
       </div>
-      
+    
       <!-- openform for create data -->
-      <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
-      
-          <div style="transform: scale(1);" class="col-md-10 me-auto modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 ">
-      
-            <form  id="formdata" action="#" method="post">
-         <input type="reset" class="resetform" style="display: none;">
-         <input type="hidden" name="item_title" value="<%=item_title%>">
-         <input type="hidden" name="dataid" value="<%=dataid%>">
-                  <div class="col-11">
-                    <p class="p-2 text-muted text-center fw-semibold fs-5">Youtube video embed link</p>
-                  </div>
+      <div id="openform" data-bs-backdrop="static" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content shadow-sm">
+            <form id="formdata" action="#" method="post">
+              <input type="reset" class="resetform" style="display: none;">
+              <input type="hidden" name="item_title" value="<%=item_title%>">
+              <input type="hidden" name="dataid" value="<%=dataid%>">
+              
+              <div class="modal-header">
+                <h5 class="modal-title text-center fw-semibold fs-5">Youtube video embed link</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="item_link" class="form-label fw-semibold">Youtube Link <span class="text-danger">*</span></label>
+                  <div class="input-group">
+                    <input style="width: 90%;" required type="text" name="item_link[]" placeholder="https://www.youtube.com/watch?v=5eeo25TC1IY" class="form-control shadow-sm">
     
-                   
-                  <div class="d-flex  p-2 justify-content-between align-items-center">
-
-                    <div class="append-link w-100 d-flex flex-column">
-                    <code class="p-1">*</code> 
-
-                        <div class="d-flex p-1 mt-2">
-                            <input style="width: 90%;" required type="text" name="item_link[]" placeholder="https://www.youtube.com/watch?v=5eeo25TC1IY" class=" shadowx form-dev form-control-sm" >
-                            <span title="add more" style="width: 10%;" class="btn text-primary  fw-bold bi bi-plus addonbtn"></span> <br>
-    
-                        </div>
- 
-                      </div>
-
-
-
-                  </div>
-                  
-                  <div class="d-flex justify-content-between p-2 mt-2 mb-2">
-                    <button type="button" data-bs-dismiss="modal" class="btn text-primary fw-semibold nav-fill btn-hover shadowx">Close</button>
-                    <button type="submit" class="btn text-primary fw-semibold submitbtn nav-fill btn-hover shadowx">Create and update</button>
-                  </div>
-      
-            </form>
-      
-          </div>
-      
-        
-      </div>
-  
-</div>
-
-
-
 </body>
 
 

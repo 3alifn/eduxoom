@@ -118,7 +118,7 @@ exports.public_notice_page = (req, res) => {
 
 exports.public_notice_view = (req, res) => {
     const { dataid } = req.params;
-    const sql = `SELECT * FROM notice WHERE domain=? AND ID=?`;
+    const sql = `SELECT * FROM notice WHERE domain=? AND ID=? ORDER BY ID`;
 
     sqlmap.query(sql, [res.locals.hostname, dataid], (err, info) => {
         if (err) {

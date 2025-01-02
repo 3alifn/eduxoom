@@ -173,10 +173,13 @@ exports.admin_carousel_get = (req, res) => {
 
           for (const index in info) {
               listData += `
-              <div class="flex-fill flex-md-grow-0" style="width: 220px; height: 200px; position: relative;">
-                  <img class="h-100 w-100 bg-card-color-light" src="/assets/images/carousel/resized/${info[index].item_name}" alt="">
-                  <span style="position: absolute; top: 1px; left:1px" onclick='_delbox_pull(${info[index].ID})' class='btn bi bi-trash-fill bg-light shadowx text-primary fw-semibold'></span>
-              </div>`;
+<div class="col-md-4 col-sm-6 mb-3" style="position: relative;">
+  <img class="img-fluid bg-card-color-light" src="/assets/images/carousel/resized/${info[index].item_name}" alt="">
+  <button type="button" class="btn btn-light shadow-sm text-danger fw-semibold" style="position: absolute; top: 1px; left:1px" onclick='_delbox_pull(${info[index].ID})'>
+    <i class="bi bi-trash-fill"></i>
+  </button>
+</div>
+`;
           }
 
           res.send({ listData });
@@ -318,10 +321,11 @@ exports.admin_gallery_image_data_get = (req, res) => {
 
           for (let index = 0; index < info.length; index++) {
               listData += `
-              <div class="flex-fill flex-md-grow-0" style="width: 220px; height: 200px; position: relative;">
-                  <img class="h-100 w-100 bg-card-color-light jbox-img" src="/assets/images/gallery/resized/${info[index].item_name}" alt="">
-                  <input class='shadowx p-2 m-1 form-check-input' style="position: absolute; top: 1px; left:1px" value='${info[index].ID}' type="checkbox" name="dataid[]">
-              </div>`;
+<div class="col-md-4 col-sm-6 mb-3 position-relative" style="width: 220px; height: 200px;">
+  <img class="img-fluid bg-card-color-light jbox-img" src="/assets/images/gallery/resized/${info[index].item_name}" alt="">
+  <input class='form-check-input shadow-sm p-2 m-1' style="position: absolute; top: 1px; left:1px" value='${info[index].ID}' type="checkbox" name="dataid[]">
+</div>
+`;
           }
 
           res.send({ listData, title: info[0].item_title });
@@ -426,12 +430,13 @@ exports.admin_gallery_video_get = (req, res) => {
           let listData = '';
           for (let index = 0; index < info.length; index++) {
               listData += `
-              <li class="p-1 w-100 fw-semibold view-link rounded m-1">
-                  <input class="shadowx form-check-input" type="checkbox" value="${info[index].data_id}" name="dataid[]" id="">
-                  <a class="text-three-line text-decoration-none" href="/admin/gallery/video/data/${info[index].data_id}/${info[index].item_title}">
-                      ${info[index].item_title}
-                  </a>
-              </li>`;
+<li class="p-1 w-100 fw-semibold view-link rounded m-1 d-flex align-items-center">
+  <input class="form-check-input shadow-sm me-2" type="checkbox" value="${info[index].data_id}" name="dataid[]" id="">
+  <a class="text-three-line text-decoration-none flex-grow-1" href="/admin/gallery/video/data/${info[index].data_id}/${info[index].item_title}">
+      ${info[index].item_title}
+  </a>
+</li>
+`;
           }
           res.send({ listData });
       }
