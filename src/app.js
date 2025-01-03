@@ -3,7 +3,6 @@ const { app, express, mysql , sessionStore,  session, cookieParser, flash, sjcl,
 Timer, axios, ZKLib, bodyParser, sqlmap, multer, 
 randomBytes, createHmac, fs, path, dotenv } = require("./configs/server")
 app.locals.data = require('./handlers/admissionHandler');
-const myini= require('./handlers/myiniHandler');
 const { MulterError } = require("multer")
 const public = require("./routes/publicRouter")
 const privet = require("./routes/privetRouter")
