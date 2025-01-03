@@ -1,0 +1,183 @@
+<html lang="en">
+
+<head>
+  <title>Result marksheet</title>
+  <%- include("../component/metadata.html") %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
+</head>
+
+<style>
+  .row a {
+    text-decoration: none;
+  }
+  thead th,
+  tbody td {
+    border: 1px solid black !important;
+  }
+
+.after{
+  page-break-after: always;
+  & .before{
+    page-break-before: always;
+  }
+  
+}
+</style>
+
+<body onload="pageLoadingTop()">
+
+  <%- include("../component/user-header-nav.html") %>
+    <%- include("../component/offcanvas-nav.html") %>
+<hr>
+    <center class="mt-5">
+        <button download class="btn view-link ps-3 pe-3 mb-3 fw-semibold text-primary" onclick="htmlPrintPDF()">Download Marksheet</button>
+    </center>
+</div>
+</div>
+
+<div id="markSheetHtml">
+  <div  class="row p-2">
+    <div class="col-md-6 m-auto col-11">
+      <center >
+        <h3 class=" mt-3 schoolName"><%= school[0]?.name %></h3>
+      </center>
+    <div class="students-card findcard shadowx pt-1 pb-1">
+        <div class="d-flex  justify-content-start align-content-center align-items-center">
+          <img class="rounded-circle border border-1 p-1" height="60px" width="60px"
+            src="/assets/images/student/resized/<%=result[0].avatar%>" alt="">
+          <p class="fw-semibold text-muted ps-1">
+            <%=result[0].name%>
+            <code class="fw-semibold ps-2  text-truncate">
+              [<%=result[0].class%> - <%=result[0].section%> - Past Roll: <%=result[0].roll%>]
+            </code>
+          </p>
+      
+
+        </div>
+
+      </div>
+    </div>
+</div>    
+
+
+<div class="row p-2">
+  <div class="table-responsive">
+  <code class="fw-semibold fs-5 ms-5">Rank / Current Roll: <code class="rankNumber "></code></code>
+
+            <table class="table table-calendar table-bordered p-2 m-2 fw-semibold">
+                <thead>
+                    <tr>
+                        <th scope="col">Subject</th>
+                        <th class="text-center" scope="col">CI Mark</th>
+                        <th class="text-center" scope="col">Fi Mark</th>
+                        <th class="text-center" scope="col">Book Mark</th>
+                    </tr>
+                </thead>
+        <tbody >
+
+          <% subject.forEach((subItem) => { %>
+            <tr>
+                <td class="p-2" scope="row"><%= subItem.subject_name %></td>
+                
+                <% 
+                const resultItem = result.find((item) => item.subject_code == subItem.subject_code);
+                if (resultItem) { %>
+                    <td class="p-2 text-center" scope="row"><%= resultItem.ci_mark %></td>
+                    <td class="p-2 text-center" scope="row"><%= resultItem.fi_mark %></td>
+                    <td class="p-2 text-center" scope="row"><%= resultItem.book_mark %></td>
+                <% } else { %>
+                    <td class="p-2 text-center" scope="row">-</td>
+                    <td class="p-2 text-center" scope="row">-</td>
+                    <td class="p-2 text-center" scope="row">-</td>
+                <% } %>
+            </tr>
+        <% }) %>
+        
+
+                </tbody>
+
+                <tfoot>
+
+       <tr>
+        <td></td>
+        <td ></td>
+        <td style="text-align: end;">Total = </td>
+        <td class="p-2 text-md-center" style="font-weight: bold;" scope="row"><%= result[0].output_mark %></td>
+       </tr>
+
+                </tfoot>
+            </table>
+
+            <headmaster>
+              <h6  class="mb-5 p-2" > <span style="text-decoration: underline;">Headmaster</span>
+                 <br> <i class="ms-3 mt-3"><%= headofschool[0]?.name%></i></h6>
+            </headmaster>
+
+        </div>
+
+     
+</div>  
+</div>  
+
+<div class="breakAfter"></div>
+
+
+<%- include("../component/___node.html") %>
+
+<script>
+
+function rankPull(){
+  const class_name= "<%=result[0].class%>";
+  const section_name= "<%=result[0].section%>";
+  const suuid= "<%=result[0].suuid%>";
+  $.ajax({
+    method: 'post',
+    url: '/privet/result/rank-pull',
+    data: {class_name, section_name, suuid},
+    beforeSend: ()=>{
+      _spin_pull()
+   $('.rankNumber').addClass('spinner-border spinner-border-sm');
+    },
+    success: (res)=>{
+    if(res.status==200){
+   $('.rankNumber').removeClass('spinner-border spinner-border-sm');
+   $('.rankNumber').text(res.msg);
+     _spin_pop()
+    }
+    }
+  })
+}
+
+rankPull()
+
+
+
+function htmlPrintPDF(){
+    const element = document.getElementById('markSheetHtml');
+    _spin_pull();
+    _spin_bar_pull()
+    const stIdentifier = "<%=result[0].class%>-<%=result[0].section%>-<%=result[0].roll%>-<%=result[0].name%>";
+
+    const options = {
+        image: { type: 'jpeg', quality: 1 }, 
+        margin: [0, 0, 0, 0], 
+        filename: `Marksheet@${stIdentifier}.pdf`, 
+        image: { type: 'jpeg', quality: 0.90 },
+        html2canvas: { scale: 2, useCORS: true},
+        pagebreak: { mode: ["css", "legacy"], pagebreak: ".breakAfter" },
+        jsPDF: { unit: 'pt', format: 'letter', orientation: 'portrait' }, 
+        compressPDF: true, 
+    };
+    
+  
+    html2pdf().set(options).from(element).save();
+    _spin_pop();
+    _spin_bar_pop()
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title> Gallery Image</title>
+  
+    <%- include("../component/metadata.html") %> 
+
+</head>
+
+<style>
+    .findcard:hover{
+    transform: scale(1.05);
+
+  }
+  .findcard{
+    transition: all 500ms;
+  }
+</style>
+
+<body onload="pageLoadingTop()">
+ 
+    <%- include("../component/header-nav.html") %> 
+    <%- include("../component/menu-nav.html") %> 
+
+    <div class="container mt-5 mb-3">
+      <div class="row">
+        <div class="col-11 m-auto">
+          <p class="p-2 shadow-sm fw-semibold">Our photos playlist</p>
+        </div>
+      </div>
+    
+      <% if(info.length > 0) { %>
+        <div class="row justify-content-center g-3">
+          <% for(let index = 0; index < info.length; index++) { %>
+            <div class="col-md-4 col-sm-6 mb-3">
+              <div class="card shadow-sm h-100 findcard">
+                <a href="/pu/gallery/image/data/<%=info[index].data_id%>" class="text-decoration-none">
+                  <div class="d-flex flex-column align-items-center">
+                    <img class="card-img-top img-fluid bg-card-color-light" src="/assets/images/gallery/resized/<%=info[index].item_name%>" alt="">
+                    <code class="mt-2 small">Open</code>
+                    <span class="text-three-line fs-5 fw-semibold pt-2 pb-2">Tap to open <%=info[index].item_title%></span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      <% } else { %>
+        <div class="row">
+          <div class="col-11 m-auto">
+            <p class="p-2 shadow-sm fw-semibold alert">No record</p>
+          </div>
+        </div>
+      <% } %>
+    </div>
+    
+
+<%- include("../component/footer-nav.html") %> 
+<%- include("../component/___node.html") %> 
+
+
+</body>
+</html>

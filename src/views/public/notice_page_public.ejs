@@ -1,0 +1,113 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice view</title>
+    <%- include("../component/metadata.html") %>
+    
+  <style>
+    .notice-container {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    .notice-heading {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+    @media (max-width: 768px) {
+      .notice-container {
+        margin-top: 20px;
+      }
+    }
+  </style>
+
+</head>
+<body onload="pageLoaded()">
+
+  <%- include("../component/header-nav.html") %>
+  <%- include("../component/menu-nav.html") %>
+
+  <div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-md-10 m-auto">
+           
+            <div class="row mt-3  p-2 shadow-sm">
+                <div class="col-12 m-auto col-md-10">
+                    <legend class="alert container bg-light shadow">Notice Board</legend>
+                    <input class="mt-2 mb-2 form-control" type="search" name="" placeholder="search..." id="search">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-10 m-auto">
+                    <% if (info.length > 0) { %>
+
+                    <% for( let key = 0; key < info.length; key++ ) { %>
+                      <ul id="noticedata" class="list-group">
+                        <div class="row">
+                            <div class="col-12 col-md-8 shadow-sm m-auto">
+                                <a class="text-truncate btn-hover p-3 mt-2 fs-6 fw-semibold page-link" href="/pu/notice/view/<%=info[key].ID%>">
+                                    <span class="text-truncate fw-semibold text-danger p-2"><%=info[key].at_date.toString().substring(0, 25)%></span>
+                                    <br>
+                                    <span class="text-truncate text-primary p-2"><%=info[key].title%></span>
+                                    <br>
+                                    <small class="text-truncate p-2"><%=info[key].description%></small>
+                                </a>
+                                <span class="d-none"><%=info[key].find_date%></span>
+                            </div>
+                        </div>
+                    </ul>
+                    <% } %>
+                    <% } else { %>
+
+                    <ul id="noticedata" class="list-group">
+                        <div class="row">
+                            <div class="col-12 col-md-10 m-auto">
+                                
+                              <center>
+                                <code>Empty record!</code>
+                              </center>
+                            </div>
+                        </div>
+                    </ul>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <%- include("../component/___node.html") %>
+</body>
+
+<script>
+  $(document).ready(function() {
+    $("#findDate").change(function(e) {
+      let findDate = $("#findDate").val().replaceAll("-", "/");
+      var value = findDate
+      $("#noticdata li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+
+    $("#search").keyup(function() {
+      var value = $(this).val().toLowerCase();
+      $("#noticedata .row").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+
+
+  });
+</script>
+
+
+<script>
+  function pageLoaded(){
+   $('.page-loading-top').remove()
+  }
+
+  
+
+</script>
+</html>

@@ -2,11 +2,11 @@
   "name": "eduxoom",
   "version": "1.3.0",
   "description": "School management software",
-  "main": "app.js",
+  "main": "./src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app"
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app"
   },
   "author": "alifn",
   "license": "ISC",

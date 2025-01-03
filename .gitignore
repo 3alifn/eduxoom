@@ -2,7 +2,8 @@
 node_modules/
 
 # ZIP files
-*.zip
+src/*.zip
 
 # Assets files
-assets/localhost/
+src/assets/localhost/
+package-lock.json

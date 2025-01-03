@@ -1,0 +1,197 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Gallery Photos</title>
+    <%- include("../component/metadata.html") %> 
+</head>
+
+
+<body onload="pageLoadingTop()">
+
+    <%- include("../component/admin-header-nav.html") %> 
+    <%- include("../component/admin-menu-nav.html") %> 
+  
+
+    <div id="main-content" class="main-content p-2 mt-5">
+
+      <!-- listdata for fetch data -->
+      <div class="row p-2 mt-5">
+          <div class="col-11 shadow-sm m-auto">
+            <p class="p-2 fw-semibold fs-5 text-primary">Gallery of <span id="title"></span></p>
+          </div>
+  
+          <div class="col-md-10 col-12 shadow-sm p-1 m-auto">
+              <div class="d-flex justify-content-end me-2">
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn" class="btn link-success fw-semibold shadow-sm btn-go">Upload a new photo</button>
+              </div>
+  
+              <form id="formcheckout" action="#" method="get" onsubmit="return false">
+                  <ul class="d-flex flex-column list-unstyled p-2">
+                    <li class="d-flex p-2 shadow-sm justify-content-start gap-2 align-items-center">
+                        <input class="shadow-sm check-mark form-check-input" type="checkbox" name="checkout" id="">
+                        <button type="submit" class="bi shadow-sm p-1 ps-2 pe-2 checkoutpop bi-trash-fill btn btn-outline-warning">Delete forever</button>
+                    </li>
+                  </ul>
+  
+                  <div id="listdata" class="d-flex m-1 check-mark-area gap-1 justify-content-start mt-5 mb-5 flex-wrap">
+                      <!-- Dynamic content goes here -->
+                  </div>
+              </form>
+          </div>
+      </div>
+  
+      <!-- openform for create data -->
+      <div id="openform" data-bs-backdrop="static" class="modal fade" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content shadow-sm">
+                  <form id="formdata" action="#" method="post">
+                      <input type="reset" class="resetform" style="display: none;">
+                      <input type="hidden" name="item_title" value="<%=item_title%>">
+                      <input type="hidden" name="dataid" value="<%=dataid%>">
+                      
+                      <div class="modal-header">
+                        <h5 class="modal-title text-center fw-semibold fs-5">My update form</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      
+                      <div class="modal-body">
+                          <div class="mb-3">
+                              <label for="files" class="form-label fw-semibold">Choose png or jpeg (up to 500kb) <span class="text-danger">*</span></label>
+                              <input multiple required name="files" accept="image/png, image/jpeg" type="file" class="form-control shadow-sm" id="files">
+                          </div>
+  
+                          <div class="mb-3">
+                              <div class="images_append">
+                                  <!-- Preview images go here -->
+                              </div>
+                          </div>
+  
+                          <div class="progress bg-success mb-2">
+                            <div class="progress-bar" role="progressbar" style="width: 0%; height: 5px;"></div>
+                          </div>
+                      </div>
+  
+                      <div class="modal-footer d-flex justify-content-between">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Create and update</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+
+
+</body>
+
+
+
+<%-include("../component/___node.html") %> 
+<script src="/app/___noviewport.js"></script>
+
+<script>
+
+noview.port({
+input_class: 'images',
+ append_class: 'images_append', 
+ file_type: 'image', 
+ max_kb_size: 500,
+ multiple: true,
+  })
+    
+function listdata(){
+    const dataid= '<%=dataid%>'
+        $.ajax({
+            method: "post",
+            url: "/admin/gallery/image/data/get",
+            data: {dataid},
+            dataType: "JSON",
+            beforeSend: function(){
+                _spin_pull()
+
+            },
+            success: function (info) {
+            _spin_pop()
+                $("#listdata").html(info.listData)
+                $("#title").html(info.title)
+            
+            }
+        });
+
+        
+    
+    }
+
+ listdata()
+
+
+$("#formdata").on('submit', (event)=>{
+      event.preventDefault()
+      let formdata = new FormData($("#formdata")[0])
+    $('.progressbar').css({'width': 1+'%'}).text();
+  
+        $.ajax({
+            xhr: function() {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function(evt) {
+
+            if (evt.lengthComputable) {
+                var percentComplete = (evt.loaded / evt.total) * 100;
+                
+                    $('.progressbar').addClass('d-block').css({'width': percentComplete+'%'}).text(percentComplete+'%')
+                    
+            }
+        }, false);
+        return xhr;
+    },
+        method: "post",
+            url: "/admin/gallery/image/data/post",
+            data: formdata,
+             mimeType: "multipart/form-data",
+              cache: false,
+              processData: false,
+              contentType: false,
+               dataType: "JSON",
+        beforeSend: function(){
+      $(".submitbtn").addClass("disabled")
+      _spin_pull()
+            },
+            success: function (res) {
+                _spin_pop()
+                _reset_form()
+                _msg_pull(res.alert, res.msg)
+                $(".submitbtn").removeClass("disabled")
+                listdata()
+                
+    
+            }
+        });
+    
+    })
+
+  
+    
+$('#formcheckout').on('submit', (event)=>{
+  event.preventDefault()
+  // const dataid= $('#formcheckout').serialize()
+  $.ajax({
+  method: "post",
+  url: "/admin/gallery/image/data/delete",
+  data: $('#formcheckout').serialize(),
+  dataType: "JSON",
+  success: function (response) {
+    _msg_pull(response.alert, response.msg)
+    listdata()
+  }
+});
+})
+
+
+
+</script>
+
+
+</html>
