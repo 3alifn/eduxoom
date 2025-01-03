@@ -10,4 +10,3 @@ const sqlmap= mysql.createPool({
 
 module.exports= sqlmap;
 
-module.exports = sqlmap;

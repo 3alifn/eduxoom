@@ -11,7 +11,7 @@ const {randomBytes, createHmac}= require("crypto")
 const ejs = require('ejs')
 const multer= require("multer")
 const nodemailer= require("nodemailer")
-const dotenv= require("dotenv").config({path: './configs/.env'})
+const dotenv= require("dotenv").config({path: '../configs/.env'})
 const Timer = require('setinterval');
 const axios= require('axios')
 const ZKLib = require('zklib-32ble')
@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: true}));
 app.set('trust proxy', 1) // trust first proxy
 app.enable("trust proxy", true)
 app.set("view engine", "ejs")
-app.set("pages", path.join(__dirname, "../pages"))
+app.set("view", path.join(__dirname, "../views"))
 app.use(express.static(path.join(__dirname, '../public')))
 app.use(flash());
 app.use(cookieParser('pipilikiapipra'));
