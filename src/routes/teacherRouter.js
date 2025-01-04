@@ -1,14 +1,14 @@
 
 const {app, express, session, sqlmap}=require('../configs/server') 
-const { teacher_pic_subject_get,  teacher_pic_page_mark_get, teacher_pic_mark_post, teacher_pic_mark_checkout } = require("../handlers/picHandler");
-const {  teacher_pis_subject_get,  teacher_pis_page_mark_get, teacher_pis_mark_post, teacher_pis_mark_checkout } = require("../handlers/pisHandler");
-const { teacher_rank_mark_post, teacher_rank_mark_page_class_base, teacher_rank_mark_page, teacher_rank_mark_post_attendance, teacher_rank_mark_init_page, teacher_rank_mark_page_num, teacher_rank_checkout } = require("../handlers/rankHandler");
-const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update, self_email_update_page, self_social_update, self_close_account, self_avatar_upload, multer_upload, multer_upload_teacher, self_img_post, self_penbox_push, self_email_update_pull, self_email_update_push, self_password_update_push } = require("../handlers/teacherHandler");
-const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, teacher_bi_report_get,  teacher_bi_checkout, teacher_bi_report_self_checkout, teacher_bi_info } = require("../handlers/biHandler");
-const { teacher_student_info } = require("../handlers/studentHandler");
+const { teacher_pic_subject_get,  teacher_pic_page_mark_get, teacher_pic_mark_post, teacher_pic_mark_checkout } = require("../controllers/picController");
+const {  teacher_pis_subject_get,  teacher_pis_page_mark_get, teacher_pis_mark_post, teacher_pis_mark_checkout } = require("../controllers/pisController");
+const { teacher_rank_mark_post, teacher_rank_mark_page_class_base, teacher_rank_mark_page, teacher_rank_mark_post_attendance, teacher_rank_mark_init_page, teacher_rank_mark_page_num, teacher_rank_checkout } = require("../controllers/rankController");
+const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update, self_email_update_page, self_social_update, self_close_account, self_avatar_upload, multer_upload, multer_upload_teacher, self_img_post, self_penbox_push, self_email_update_pull, self_email_update_push, self_password_update_push } = require("../controllers/teacherController");
+const { teacher_bi_page_mark, teacher_bi_mark_post,  teacher_bi_page_mark_get, teacher_bi_report_get,  teacher_bi_checkout, teacher_bi_report_self_checkout, teacher_bi_info } = require("../controllers/biController");
+const { teacher_student_info } = require("../controllers/studentController");
 const { Cookie } = require('express-session');
-const { teacher_attn_init_page, teacher_attn_post_page, teacher_attn_post_page_num, teacher_attn_post, teacher_attn_checkout, teacher_attn_checkout_last_five } = require('../handlers/attendanceHandler');
-const {result_mark_student_page, result_mark_subject_page, result_mark_push, result_mark_pull, result_repo_subject_page, result_repo_init_page, result_repo_student_page, result_repo_page, result_repo_sheet_page, result_rank_pull, } = require('../handlers/resultHandler');
+const { teacher_attn_init_page, teacher_attn_post_page, teacher_attn_post_page_num, teacher_attn_post, teacher_attn_checkout, teacher_attn_checkout_last_five } = require('../controllers/attendanceController');
+const {result_mark_student_page, result_mark_subject_page, result_mark_push, result_mark_pull, result_repo_subject_page, result_repo_init_page, result_repo_student_page, result_repo_page, result_repo_sheet_page, result_rank_pull, } = require('../controllers/resultController');
 const teacher= express.Router()
 const {globalMulterUploader, globalSharpReducer}= require("../middlewares/uploaderMiddleware")
 

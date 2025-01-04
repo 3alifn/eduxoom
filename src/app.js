@@ -2,7 +2,7 @@
 const { app, express, mysql , sessionStore,  session, cookieParser, flash, sjcl, jwt,
 Timer, axios, ZKLib, bodyParser, sqlmap, multer, 
 randomBytes, createHmac, fs, path, dotenv } = require("./configs/server")
-app.locals.data = require('./handlers/admissionHandler');
+app.locals.data = require('./controllers/admissionController');
 const { MulterError } = require("multer")
 const public = require("./routes/publicRouter")
 const privet = require("./routes/privetRouter")
@@ -10,7 +10,7 @@ const teacher = require("./routes/teacherRouter")
 const student = require("./routes/studentRouter")
 const parent = require("./routes/parentRouter")
 const  authentication= require("./routes/auhenticationRouter");
-const { home_page } = require("./handlers/homeHandler");
+const { home_page } = require("./controllers/homeController");
 const admin = require("./routes/adminRouter");
 const ini = require("./routes/iniRouter");
 const { strict } = require("assert");
