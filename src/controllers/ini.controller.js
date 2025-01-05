@@ -1,5 +1,51 @@
 const {app, sqlmap, createHmac, randomBytes, session}= require('../configs/server');
 
+function init_class_section(domain) {
+    
+    const defaultDomain= 'localhost';
+    sqlmap.query(
+        `SELECT class, section FROM ini_class_section WHERE domain=?`,
+        [defaultDomain],
+        (err, info) => {
+            if (err) {
+                console.log(err.sqlMessage);
+                return;
+            }
+ 
+            for (let index = 0; index < info.length; index++) {
+                sqlmap.query(
+                    `SELECT class, section FROM class_section WHERE domain=? AND class=? AND section=?`,
+                    [domain, info[index].class, info[index].section],
+                    (errcs, have_cs) => {
+                        if (errcs) {
+                            console.log(errcs.sqlMessage);
+                            return;
+                        }
+
+                        if (have_cs.length == 0) {
+                            sqlmap.query(
+                                `INSERT INTO class_section (domain, class, section) VALUES (?, ?, ?)`,
+                                [domain, info[index].class, info[index].section],
+                                (erri, infoi) => {
+                                    if (erri) {
+                                        console.log(erri.sqlMessage);
+                                        return;
+                                    }
+
+                                    if (info.length == index + 1) {
+                                        console.log('class_section_updated');
+                                    }
+                                }
+                            );
+                        } else {
+                            console.log('class and section already exists');
+                        }
+                    }
+                );
+            }
+        }
+    );
+}
 
 const ini_termial_get= (req, res) => { 
     const { ini_key, status } = req.body;
@@ -42,7 +88,7 @@ const ini_terminal_push= (req, res)=>{
 
 
     if(ini_key=='$dream$billion$') {
-            // function ___ini_dll(domain, new_lics){
+ 
                 sqlmap.query(
                     `SELECT domain FROM ___ini WHERE domain=?`,
                     [domain],
@@ -70,6 +116,7 @@ const ini_terminal_push= (req, res)=>{
                                                 console.log(err2.sqlMessage);
                                                 return;
                                             }
+                                            init_class_section(domain)
                                             res.send({ msg: `Created domain => ${domain}; lics => ${new_lics}; Expires => ${expire_date};` });
                                         }
                                     );
@@ -81,22 +128,17 @@ const ini_terminal_push= (req, res)=>{
                     }
                 );
                 
-                
-            // } ___ini_dll()
+     
         }  else res.send({status: false, msg: 'Ini key is not currect!'})
-        
-
 }
 
 const ini_termial_dea= (req, res)=>{
     const {ini_key, domain}= req.body;
-    const host = req.hostname.startsWith("www.");
-    const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
         if(ini_key=='$dream$billion$') {
         //  function ___ini_dll(){
             sqlmap.query(
                 `SELECT domain FROM ___ini WHERE domain=?`,
-                [hostnameInt],
+                [domain],
                 (err, have) => {
                     if (err) {
                         console.log(err.sqlMessage);
@@ -128,16 +170,13 @@ const ini_termial_dea= (req, res)=>{
 
 }
 
-
 const ini_termial_rm= (req, res)=>{
     const {ini_key, domain}= req.body;
-    const host = req.hostname.startsWith("www.");
-    const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
         if(ini_key=='$dream$billion$') {
         //  function ___ini_dll(){
             sqlmap.query(
                 `SELECT domain FROM ___ini WHERE domain=?`,
-                [hostnameInt],
+                [domain],
                 (err, have) => {
                     if (err) {
                         console.log(err.sqlMessage);
@@ -180,16 +219,13 @@ const ini_termial_rm= (req, res)=>{
 
 }
 
-
 const ini_termial_ren= (req, res)=>{
 const {ini_key, domain}= req.body;
-const host = req.hostname.startsWith("www.");
-const hostnameInt = host ? req.hostname.split("www.")[1] : req.hostname;
     if(ini_key=='$dream$billion$') {
     //  function ___ini_dll(){
         sqlmap.query(
             `SELECT domain FROM ___ini WHERE domain=?`,
-            [hostnameInt],
+            [domain],
             (err, have) => {
                 if (err) {
                     console.log(err.sqlMessage);
@@ -243,10 +279,6 @@ const lics_checkout= (req, res)=>{
                             console.log(errup.sqlMessage);
                             return;
                         }
-                        //  init_class_section(hostnameInt)
-                        //  init_subject(hostnameInt)
-                        // init_bi_catagory(hostnameInt)
-                        
                         
                         res.send({ status: true, msg: 'Welcome to Eduxoom', alert: 'alert-success' });
                     }
@@ -261,148 +293,6 @@ const lics_checkout= (req, res)=>{
             }
         }
     );
-    
-
-    function init_class_section(domain) {
-        sqlmap.query(
-            `SELECT class, section FROM ini_class_section WHERE domain=?`,
-            [domain],
-            (err, info) => {
-                if (err) {
-                    console.log(err.sqlMessage);
-                    return;
-                }
-    
-                for (let index = 0; index < info.length; index++) {
-                    sqlmap.query(
-                        `SELECT class, section FROM class_section WHERE domain=? AND class=? AND section=?`,
-                        [domain, info[index].class, info[index].section],
-                        (errcs, have_cs) => {
-                            if (errcs) {
-                                console.log(errcs.sqlMessage);
-                                return;
-                            }
-    
-                            if (have_cs.length == 0) {
-                                sqlmap.query(
-                                    `INSERT INTO class_section (domain, class, section) VALUES (?, ?, ?)`,
-                                    [domain, info[index].class, info[index].section],
-                                    (erri, infoi) => {
-                                        if (erri) {
-                                            console.log(erri.sqlMessage);
-                                            return;
-                                        }
-    
-                                        if (info.length == index + 1) {
-                                            console.log('class_section_updated');
-                                        }
-                                    }
-                                );
-                            } else {
-                                console.log('class and section already exists');
-                            }
-                        }
-                    );
-                }
-            }
-        );
-    }
-    
-
-    
-    function init_subject(domain) {
-        sqlmap.query(
-            `SELECT class, subject, subject_code FROM ini_subject WHERE domain=?`,
-            [domain],
-            (err, info) => {
-                if (err) {
-                    console.log(err.sqlMessage);
-                    return;
-                }
-    
-                for (let index = 0; index < info.length; index++) {
-                    const randomString = createHmac('md5', 'pipilikapipra').update(`${info[index].subject}`).digest('hex');
-    
-                    sqlmap.query(
-                        `SELECT subject FROM subject WHERE domain=? AND subject=?`,
-                        [domain, info[index].subject],
-                        (errh, have_subject) => {
-                            if (errh) {
-                                console.log(errh.sqlMessage);
-                                return;
-                            }
-    
-                            if (have_subject.length == 0) {
-                                sqlmap.query(
-                                    `INSERT INTO subject (domain, class, subject, subject_code) VALUES (?, ?, ?, ?)`,
-                                    [domain, info[index].class, info[index].subject, randomString],
-                                    (erri, infoi) => {
-                                        if (erri) {
-                                            console.log(erri.sqlMessage);
-                                            return;
-                                        }
-    
-                                        if (info.length == index + 1) {
-                                            console.log('subject_updated');
-                                        }
-                                    }
-                                );
-                            } else {
-                                console.log('subject already exists');
-                            }
-                        }
-                    );
-                }
-            }
-        );
-    }
-    
-    function init_bi_catagory(domain) {
-        sqlmap.query(
-            `SELECT catagory_name, catagory_code FROM ini_bi_catagory WHERE domain=? GROUP BY catagory_code`,
-            [domain],
-            (err, info) => {
-                if (err) {
-                    console.log(err.sqlMessage);
-                    return;
-                }
-    
-                for (let index = 0; index < info.length; index++) {
-                    const randomString = createHmac('md5', 'pipilikapipra').update(`${info[index].catagory_name}`).digest('hex');
-    
-                    sqlmap.query(
-                        `SELECT catagory_name FROM bi_catagory WHERE domain=? AND catagory_name=?`,
-                        [domain, info[index].catagory_name],
-                        (errbi, have_bi) => {
-                            if (errbi) {
-                                console.log(errbi.sqlMessage);
-                                return;
-                            }
-    
-                            if (have_bi.length == 0) {
-                                sqlmap.query(
-                                    `INSERT INTO bi_catagory (domain, catagory_name, catagory_code) VALUES (?, ?, ?)`,
-                                    [domain, info[index].catagory_name, randomString],
-                                    (erri, infoi) => {
-                                        if (erri) {
-                                            console.log(erri.sqlMessage);
-                                            return;
-                                        }
-    
-                                        if (info.length == index + 1) {
-                                            console.log('bi_catagory');
-                                        }
-                                    }
-                                );
-                            } else {
-                                console.log('bi catagory already exists');
-                            }
-                        }
-                    );
-                }
-            }
-        );
-    }
     
 }
 

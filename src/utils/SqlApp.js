@@ -1,6 +1,6 @@
 const sqlmap= require('../configs/mysql')
 
-class MysqlApp{
+class SqlApp{
     constructor(sqlmap){
         this.sqlmap= sqlmap;
                 //     if (typeof sql !== 'string') { throw new Error('First parameter must be a string'); }
@@ -32,7 +32,7 @@ class MysqlApp{
             return new Promise((resolve, reject)=>{
                 sqlmap.query(sql, data, (err, AppData)=>{
                     if(err) return reject({status: 500, msg: err.sqlMessage})
-                        return resolve({status: 200, msg: AppData})
+                        return resolve({status: 200, AppData})
                 })
             })
 
@@ -50,3 +50,5 @@ class MysqlApp{
         };
         
 }
+
+module.exports= SqlApp;

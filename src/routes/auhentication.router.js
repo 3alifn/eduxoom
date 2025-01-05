@@ -1,6 +1,6 @@
 
 const express= require("express")
-const { authentication_404, authentication_check, forgot_verify_code, singout, forgot_password, reset_password , au_user_header_nav, signout } = require("../handlers/authenticationHandler")
+const { authentication_404, authentication_check, forgot_verify_code, singout, forgot_password, reset_password , au_user_header_nav, signout } = require("../controllers/authentication.controller")
 const authentication= express.Router()
 
 
