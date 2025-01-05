@@ -1,9 +1,11 @@
 # Node modules
 node_modules/
+# Env file
+.env
 
 # ZIP files
-src/*.zip
-
+*.zip
 # Assets files
 src/assets/localhost/
+# Others files
 package-lock.json

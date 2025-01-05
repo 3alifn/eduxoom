@@ -1,8 +1,8 @@
 const { app, express, session } = require("../configs/server");
-const { student_application_post, student_application_get, student_application_download, multer_upload_docs,  } = require("../controllers/appllicationController");
-const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update, self_social, self_close_account, self_avatar_upload, student_rank_get_class_base, self_email_update_page, multer_upload_student, student_parent_set, student_parent_list, student_parent_get, self_penbox_push, self_img_post, self_password_update_push, self_email_update_pull, self_email_update_push } = require("../controllers/studentController");
+const { student_application_post, student_application_get, student_application_download, multer_upload_docs,  } = require("../controllers/appllication.controller");
+const { self_dashboard, self_account, self_info_update, self_password_update, self_email_update, self_social, self_close_account, self_avatar_upload, student_rank_get_class_base, self_email_update_page, multer_upload_student, student_parent_set, student_parent_list, student_parent_get, self_penbox_push, self_img_post, self_password_update_push, self_email_update_pull, self_email_update_push } = require("../controllers/student.controller");
 const student= express.Router()
-const {globalMulterUploader, globalSharpReducer}= require("../middlewares/uploaderMiddleware")
+const {globalMulterUploader, globalSharpReducer}= require("../middlewares/uploader.middleware")
 
 student.all('*', (req, res, next)=>{
     if(req.session.user=='student')  next()

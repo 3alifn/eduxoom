@@ -1,7 +1,7 @@
 const {app, express}= require('../configs/server')
 const { lics_checkout, ini_dll_push, ini_dll_rm, ini_terminal_push, 
     ini_termial_rm, ini_termial_status, ini_termial_ren, ini_termial_get, ini_termial_dea 
-} = require('../controllers/iniController');
+} = require('../controllers/ini.controller');
 
 const ini= express.Router();
 

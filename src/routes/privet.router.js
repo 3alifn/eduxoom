@@ -1,12 +1,12 @@
 const {app, express, session}=require('../configs/server') 
-const { privet_routine_get, admin_routine_page, privet_routine_page, privet_routine_page_class_base } = require("../controllers/routineController");
-const { privet_student_profile } = require("../controllers/studentController");
-const { privet_pic_report_student_get, privet_pic_report_get, privet_pic_report_get_checkout } = require("../controllers/picController");
-const {  privet_pis_report_student_get, privet_pis_report_get, privet_pis_report_get_checkout } = require("../controllers/pisController");
-const { privet_bi_transcript_get, privet_bi_transcript_report_checkout } = require("../controllers/biController");
-const { privet_pi_report_checkout, privet_transcript_report_student_get, privet_transcript_report_get, privet_finding_subject, privet_finding_subject_sid } = require("../controllers/piController");
-const { privet_attn_init_page, privet_attn_repo_page, privet_attn_checkout, privet_attn_repo_page_num, privet_attn_repo_find, privet_attn_calendar_page, privet_attn_calendar_checkout, privet_attn_student_calendar } = require('../controllers/attendanceController');
-const { result_repo_student_page, result_repo_sheet_page, result_rank_pull } = require('../controllers/resultController');
+const { privet_routine_get, admin_routine_page, privet_routine_page, privet_routine_page_class_base } = require("../controllers/routine.controller");
+const { privet_student_profile } = require("../controllers/student.controller");
+const { privet_pic_report_student_get, privet_pic_report_get, privet_pic_report_get_checkout } = require("../controllers/pic.controller");
+const {  privet_pis_report_student_get, privet_pis_report_get, privet_pis_report_get_checkout } = require("../controllers/pis.controller");
+const { privet_bi_transcript_get, privet_bi_transcript_report_checkout } = require("../controllers/bi.controller");
+const { privet_pi_report_checkout, privet_transcript_report_student_get, privet_transcript_report_get, privet_finding_subject, privet_finding_subject_sid } = require("../controllers/pi.controller");
+const { privet_attn_init_page, privet_attn_repo_page, privet_attn_checkout, privet_attn_repo_page_num, privet_attn_repo_find, privet_attn_calendar_page, privet_attn_calendar_checkout, privet_attn_student_calendar } = require('../controllers/attendance.controller');
+const { result_repo_student_page, result_repo_sheet_page, result_rank_pull } = require('../controllers/result.controller');
 const privet= express.Router()
 
 privet.all('*', (req, res, next)=>{

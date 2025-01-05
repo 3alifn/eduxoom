@@ -11,7 +11,7 @@ function init_class_section(domain) {
                 console.log(err.sqlMessage);
                 return;
             }
-
+ 
             for (let index = 0; index < info.length; index++) {
                 sqlmap.query(
                     `SELECT class, section FROM class_section WHERE domain=? AND class=? AND section=?`,
