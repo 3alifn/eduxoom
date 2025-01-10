@@ -6,3 +6,5 @@ node_modules/
 src/assets/localhost/
 # Others files
 package-lock.json
+# Temp no push
+src/models/
