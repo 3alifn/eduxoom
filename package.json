@@ -34,7 +34,7 @@
     "sharp": "^0.35.3",
     "sjcl": "^1.0.8",
     "socket.io": "^4.8.0",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.3.3",
     "zklib-32ble": "^2.0.5"
   },
   "repository": {
