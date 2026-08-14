@@ -20,7 +20,7 @@
     "daisyui": "^5.7.9",
     "dotenv": "^16.4.5",
     "ejs": "^6.0.1",
-    "express": "^4.21.0",
+    "express": "^5.2.1",
     "express-mysql-session": "^3.0.3",
     "express-session": "^1.18.0",
     "jquery": "^3.7.1",
