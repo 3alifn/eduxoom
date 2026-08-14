@@ -18,7 +18,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "daisyui": "^5.7.9",
-    "dotenv": "^16.4.5",
+    "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
     "express-mysql-session": "^3.0.3",
