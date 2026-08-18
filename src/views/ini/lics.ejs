@@ -2,106 +2,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>licsense</title>
+  <title>License</title>
   <%- include("../component/metadata.html") %> 
 
 </head>
 
 <style>
-.relative-loader{
-width: 100%;
-height: 4px;
-background-color: white;
-position: fixed;
-top: 0 !important;
-
-
-}.absolute-loader{
-width: 1%;
-height: 100%;
-background-color: blueviolet;
-position: absolute;
-border-radius: 100px;
-top: 0 !important;
-animation-name: page-loader;
-animation-duration: 3s;
-animation-iteration-count: 1;
-animation-fill-mode: forwards;
-animation-timing-function:cubic-bezier(1, 0, 0, 1)
+/* Minimal page styles kept here for quick iteration. Consider moving to a dedicated CSS/SCSS file. */
+.loader-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
 }
-
-@keyframes page-loader {
-  from{
-    width: 10%;
-  } to{
-    width: 90%;
-
-  }
+.loader-bar{
+  width: 60%;
+  max-width: 480px;
+  height: 8px;
+  background: #eee;
+  border-radius: 999px;
+  overflow: hidden;
 }
-
+.loader-bar > .fill{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#7c4dff,#3f51b5);
+  border-radius: 999px;
+  animation: fill 2s ease-in-out forwards;
+}
+@keyframes fill{
+  from{ width: 0%; }
+  to{ width: 100%; }
+}
 </style>
-<body onload="pageLoadingTop()" style="background-color: white; color: lightslategray;">
+<body style="background-color: #ffffff; color: #374151;" aria-live="polite">
 
+  <div class="container pt-5">
+    <div class="row justify-content-center">
+      <div class="col-sm-10 col-md-8 col-lg-6 text-center">
+        <h1 class="h4 fw-bold mb-3">School setup needed</h1>
+        <p id="resmsg" class="fs-6 text-muted font-monospace">School not ready for use yet. Please build first and enter your license key.</p>
 
-  <div class="row container pt-5">
-    <div class="col-10 m-auto text-center mtx mbx">
-     <code id="resmsg" class="fs-5 text-center fw-semibold font-monospace">
-      School not ready for use yet now! Please build first and enter your lics key...
-     </code>
-    
-     <form id="lics" class="lics" action="#" method="post">
-      <div class="input-group mt-5">
-        
-        <input autocomplete="off" id="lisctext" class="p-2 w-75 rounded-start form-dev" required type="text" name="lics" placeholder="Enter licsense key">
-        <input id="submitbtn" class="p-2 w-25 bg-go fw-semibold rounded-end form-dev" type="submit" value="Build">
-  
+        <form id="lics" class="mt-4" action="#" method="post" novalidate>
+          <div class="input-group">
+            <label for="lisctext" class="visually-hidden">License key</label>
+            <input autocomplete="off" id="lisctext" class="form-control" required type="text" name="lics" placeholder="Enter license key" aria-label="License key">
+            <button id="submitbtn" class="btn btn-primary" type="submit">Build</button>
+          </div>
+        </form>
+
+        <div class="mt-3">
+          <small class="text-muted">If you don't have a license, contact the administrator.</small>
+        </div>
+
       </div>
-     </form>
-  
     </div>
   </div>
+
   <%- include("../component/___node.html") %> 
 
 </body>
 
 <script>
-  $('#lics').on('submit', (event)=>{
+(function(){
+  function showLoader(){
+    if(document.getElementById('page-loader')) return;
+    var overlay = document.createElement('div');
+    overlay.id = 'page-loader';
+    overlay.className = 'loader-overlay';
+    overlay.innerHTML = '<div class="loader-bar" role="status" aria-live="polite"><div class="fill"></div></div>';
+    document.body.appendChild(overlay);
+    document.querySelector('.container').classList.add('opacity-50');
+    document.getElementById('submitbtn').setAttribute('disabled', 'disabled');
+  }
+  function hideLoader(){
+    var el = document.getElementById('page-loader');
+    if(el) el.remove();
+    document.querySelector('.container').classList.remove('opacity-50');
+    document.getElementById('submitbtn').removeAttribute('disabled');
+  }
+
+  function setMessage(msg, isError){
+    var res = document.getElementById('resmsg');
+    res.textContent = msg;
+    res.classList.toggle('text-danger', !!isError);
+    res.classList.toggle('text-muted', !isError);
+    // simple fade
+    res.style.opacity = 0.0;
+    setTimeout(function(){ res.style.transition = 'opacity 300ms'; res.style.opacity = 1; }, 10);
+  }
+
+  document.getElementById('lics').addEventListener('submit', function(event){
     event.preventDefault();
-    $.ajax({
-      method: "post",
-      url: "/ini/lics/checkout/",
-      data: $('#lics').serialize(),
-      dataType: "JSON",
-      beforeSend: function(){
-      $('body').prepend(`
-<div id="page-loader" class="relative-loader">
-<div class="absolute-loader"></div>
-</div>`)
-$('.container').addClass('opacity-25')
-       $('#submitbtn').addClass('btn disabled')
-      },
-      success: function (res) {
-       if(res.status==true){
-        $('.container').removeClass('opacity-25')
-        $('#resmsg').text(res.msg)
-        $('#resmsg').fadeOut('slow')
-        $('#resmsg').fadeIn('slow')
-           
-        setTimeout(() => {
-        window.location.replace('/admin/dashboard/')
-       }, 5000);
-       } else {
-         $('.container').removeClass('opacity-25')
-         $('#resmsg').text(res.msg)
-         $('#page-loader').remove()
-         $('#submitbtn').addClass('btn disabled')
+    var form = this;
+    var data = new URLSearchParams(new FormData(form)).toString();
 
-
-
-       }
+    showLoader();
+    fetch('/ini/lics/checkout/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+      body: data
+    }).then(function(r){ return r.json(); })
+    .then(function(res){
+      if(res && res.status === true){
+        setMessage(res.msg || 'Success', false);
+        setTimeout(function(){ window.location.replace('/admin/dashboard/'); }, 1200);
+      } else {
+        setMessage((res && res.msg) ? res.msg : 'Failed to validate license', true);
+        hideLoader();
       }
+    }).catch(function(err){
+      setMessage('Network error. Try again.', true);
+      hideLoader();
+      console.error(err);
     });
-  })
+  });
+})();
 </script>
 
 </html>
