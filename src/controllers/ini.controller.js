@@ -1,4 +1,4 @@
-const {app, sqlmap, createHmac, randomBytes, session}= require('../configs/server');
+sconst {app, sqlmap, createHmac, randomBytes, session}= require('../configs/server');
 
 function init_class_section(domain) {
     
