@@ -2,34 +2,34 @@
 
 A school management system built with Node.js and MySQL.
 
-### Installation
+## Installation
 
 To get a local copy up and running follow these simple steps.
 
-``` bash
+```bash
 git clone https://github.com/3alifn/eduxoom.git
 cd eduxoom
 npm install
-
 ```
-### Usage
+
+## Usage
 
 To start the server, run:
 
-` npm start `
+```bash
+npm start
+```
 
+Navigate to http://localhost:3000 to see the application in action.
 
-Navigate to http://localhost:30 to see the application in action.
-
-
-### Features
+## Features
 
 - Teacher settings
 - Student settings
 - Parent settings
 - Staff settings
 - Library settings
-- Gallery setting
+- Gallery settings
 - Routine systems
 - Subject settings
 - Notice system
@@ -37,28 +37,37 @@ Navigate to http://localhost:30 to see the application in action.
 - Admission system
 - Application system
 - Student rank system
-- New curriculum result system (bi, pic, pis, report)
+- New curriculum result system (BI, PIC, PIS, Report)
 - Repository (achievement, facilities, event news)
-_ Head of school (governing body)
+- Head of school (governing body)
 - School settings
 
-**--Next features plan #2025**
->
->Accounting system, Fees system, Query search, Data sorting, Data filtering, Input regex validation & Installation system
->
+## Planned Features for 2025
 
-### Contributing
+- Accounting system
+- Fees system
+- Query search
+- Data sorting
+- Data filtering
+- Input regex validation
+- Installation system
+
+## Technology Stack
+
+- Environment: Javascript, jQuery, Bootstrap
+- Backend: Node.js, Express.js
+- Database: MySQL
+
+## Contributing
 
 Contribute, inspire, and create. Your contributions are greatly appreciated.
 
 1. Fork the Project
-2. Create your Feature Branch (` git checkout -b featureName `)
-3. Commit your Changes ( `git commit -m 'Add some featureName' `)
-4. Push to the Branch ( `git push origin featureName `)
+2. Create your Feature Branch (`git checkout -b featureName`)
+3. Commit your Changes (`git commit -m 'Add some featureName'`)
+4. Push to the Branch (`git push origin featureName`)
 5. Open a Pull Request
----
->
-> Env ~ Javascript, Jquery, Bootstrap, Node.js, Express.js & Mysql Database
->
-> Author ~ alif nayon
->
+
+## Author
+
+Alif Nayon
