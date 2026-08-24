@@ -55,6 +55,44 @@
   width: 30px;
 }
 
+.role-selection-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  border: 3px solid #ddd;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.role-selection-group .form-check {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0.5rem;
+}
+
+.form-check-input {
+  margin-right: 0.5rem;
+}
+
+.btn-primary-submit {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary-submit:hover {
+  background: #0056b3;
+}
+
+.btn-primary-submit:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
 </style>
 <body onload="pageLoadingTop()">
 
@@ -64,7 +102,7 @@
     <div class="col-lg-3 col-md-2 col-sm-1"></div>
     <div class="col-lg-6 col-md-6 col-sm-10">
       <form id="formau" action="#" class="form container text-center">
-        <img src="/images/school/user.png" height="70px" alt="">
+        <img src="/images/school/user.png" height="70px" alt="User login icon">
         <h3>Sign in</h3>
         <a class="link-me" href="/pu/join/parent">Join Parent</a> or <a class="link-me" href="/admin/panel">admin</a>
       
@@ -72,38 +110,41 @@
           <code>email: api.saanvi.abc@gmail.com / pass: password@abc</code>
         </p>
      
-        <div class="input-group mt-3 border border-3">
-          <span class="input-group-text"><img width="30px" src="/icons/icons8-test-account-48.png" alt=""></span>
-          
-          <div class="form-check p-2 ms-3">
-            <input class="form-check-input" type="radio" name="userRole" id="roleTeacher" value="teachers" checked>
-            <label class="form-check-label" for="roleTeacher">Teacher</label>
-          </div>
+        <fieldset>
+          <legend id="roleGroupLabel" class="sr-only">Select your role</legend>
+          <div class="role-selection-group" role="group" aria-labelledby="roleGroupLabel">
+            <span class="input-group-text"><img width="30px" src="/icons/icons8-test-account-48.png" alt="role selection icon"></span>
+            
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="userRole" id="roleTeacher" value="teachers" checked aria-label="Sign in as Teacher">
+              <label class="form-check-label" for="roleTeacher">Teacher</label>
+            </div>
 
-          <div class="form-check p-2 ms-3">
-            <input class="form-check-input" type="radio" name="userRole" id="roleStudent" value="students">
-            <label class="form-check-label" for="roleStudent">Student</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="userRole" id="roleStudent" value="students" aria-label="Sign in as Student">
+              <label class="form-check-label" for="roleStudent">Student</label>
+            </div>
+      
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="userRole" id="roleParent" value="parents" aria-label="Sign in as Parent">
+              <label class="form-check-label" for="roleParent">Parent</label>
+            </div>
           </div>
-    
-          <div class="form-check p-2 ms-3">
-            <input class="form-check-input" type="radio" name="userRole" id="roleParent" value="parents">
-            <label class="form-check-label" for="roleParent">Parent</label>
-          </div>
-        </div>
+        </fieldset>
         
 
         <div class="input-group mt-3">
           <span class="input-group-text"><img width="30px" src="/icons/icons8-mail-48.png" alt=""></span>
-          <input type="text" placeholder="user@abc.com" name="username" class="form-self form-control" required>
+          <input type="text" placeholder="user@abc.com" name="username" class="form-self form-control" aria-label="Email address" required>
         </div>
         <div class="input-group mt-3">
           <span class="input-group-text"><img width="30px" src="/icons/icons8-sign-in-form-password-48.png" alt=""></span>
-          <input id="password" type="password" placeholder="password@abc" name="password" class="form-control form-self" required>
-          <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text"><i class="bi bi-eye-slash-fill"></i></span>
-          <span style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text"><i class="bi bi-eye-fill"></i></span>
+          <input id="password" type="password" placeholder="password@abc" name="password" class="form-control form-self" aria-label="Password" required>
+          <span style="position: absolute; right: 0;" id="eye-hide" class="btn input-group-text" role="button" tabindex="0" aria-label="Show password"><i class="bi bi-eye-slash-fill"></i></span>
+          <span style="display: none; position: absolute; right: 0;" id="eye-show" class="btn input-group-text" role="button" tabindex="0" aria-label="Hide password"><i class="bi bi-eye-fill"></i></span>
         </div>
         <div class="p-2 mt-2 mb-2">
-          <center><button id="submitbtn" class="btn-self w-50">Sign in</button></center>
+          <center><button id="submitbtn" class="btn-primary-submit w-50">Sign in</button></center>
           <center class="pt-3">
             <a href="/au/forgot/password">Forgot Password <img width="20px" src="/icons/user/icons8-forgot-password-48.png" alt=""></a>
           </center>
@@ -146,18 +187,26 @@ $.ajax({
 
 
     
-$('#eye-hide').click(()=>{
+$('#eye-hide').click(function(){
     $('#password').attr('type', "text")
     $('#eye-hide').css({'display': 'none'})
     $('#eye-show').css({'display': 'block'})
 })
 
 
-$('#eye-show').click(()=>{
+$('#eye-show').click(function(){
     $('#password').attr('type', "password")
     $('#eye-hide').css({'display': 'block'})
     $('#eye-show').css({'display': 'none'})
 })
+
+// Keyboard support for eye toggle buttons
+$('#eye-hide, #eye-show').on('keypress', function(e) {
+    if (e.which === 13 || e.which === 32) { // Enter or Space
+        e.preventDefault();
+        $(this).click();
+    }
+});
 
 </script>
       
