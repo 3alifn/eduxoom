@@ -42,7 +42,7 @@ Navigate to http://localhost:3000 to see the application in action.
 - Head of school (governing body)
 - School settings
 
-## Planned Features for 2025
+## Planned Features Later
 
 - Accounting system
 - Fees system
