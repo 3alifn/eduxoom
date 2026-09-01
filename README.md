@@ -40,7 +40,7 @@ Navigate to http://localhost:3000 to see the application in action.
 - New curriculum result system (BI, PIC, PIS, Report)
 - Repository (achievement, facilities, event news)
 - Head of school (governing body)
-- School settings
+- School manage settings
 
 ## Planned Features Later
 
