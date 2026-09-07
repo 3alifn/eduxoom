@@ -42,7 +42,7 @@ Navigate to http://localhost:3000 to see the application in action.
 - Head of school (governing body)
 - School manage settings
 
-## Planned Features Later
+## Planned Features of Later
 
 - Accounting system
 - Fees system
@@ -51,6 +51,8 @@ Navigate to http://localhost:3000 to see the application in action.
 - Data filtering
 - Input regex validation
 - Installation system
+- Automatic setup system
+- Manual user guidelines system
 
 ## Technology Stack
 
